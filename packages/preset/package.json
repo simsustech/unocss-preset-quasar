@@ -30,6 +30,8 @@
   "homepage": "https://github.com/simsustech/unocss-preset-quasar/tree/main/#readme",
   "scripts": {
     "build": "tsc",
+    "lint": "eslint --ext .ts src",
+    "lint:fix": "eslint--ext .ts src --fix",
     "test": "vitest test/"
   },
   "dependencies": {

@@ -9,11 +9,14 @@ const scrollDuration = 500
 export default function injectScroll (store) {
   let preventTocUpdate = store.$route.hash.length > 1
 
-  watch(() => store.$route.fullPath, (newRoute, oldRoute) => {
-    setTimeout(() => {
-      scrollToCurrentAnchor(newRoute.path !== oldRoute.path)
-    })
-  })
+  watch(
+    () => store.$route.fullPath,
+    (newRoute, oldRoute) => {
+      setTimeout(() => {
+        scrollToCurrentAnchor(newRoute.path !== oldRoute.path)
+      })
+    }
+  )
 
   function changeRouterHash (hash) {
     if (store.$route.hash !== hash) {
@@ -62,14 +65,16 @@ export default function injectScroll (store) {
 
   function scrollToCurrentAnchor (immediate) {
     const hash = window.location.hash
-    const el = hash.length > 1
-      ? document.getElementById(hash.substring(1))
-      : null
+    const el =
+      hash.length > 1 ? document.getElementById(hash.substring(1)) : null
 
     if (el !== null) {
       if (immediate === true) {
         let anchorEl = el
-        while (anchorEl.parentElement !== null && anchorEl.parentElement.classList.contains('q-page') !== true) {
+        while (
+          anchorEl.parentElement !== null &&
+          anchorEl.parentElement.classList.contains('q-page') !== true
+        ) {
           anchorEl = anchorEl.parentElement
         }
 

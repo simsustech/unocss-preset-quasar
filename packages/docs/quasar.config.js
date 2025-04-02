@@ -74,7 +74,7 @@ export default defineConfig(async (ctx) => ({
       {
         name: 'quasar-strip-sass',
         enforce: 'pre',
-        transform(code, id) {
+        transform (code, id) {
           if (code.includes`import 'quasar/dist/quasar.sass'`) {
             code = code.replaceAll(
               "import 'quasar/dist/quasar.sass'",
@@ -86,7 +86,7 @@ export default defineConfig(async (ctx) => ({
       }
     ],
 
-    extendViteConf(viteConf, { isClient }) {
+    extendViteConf (viteConf, { isClient }) {
       if (ctx.prod && isClient) {
         viteConf.build.chunkSizeWarningLimit = 650
         viteConf.build.rollupOptions = {
@@ -114,7 +114,7 @@ export default defineConfig(async (ctx) => ({
     iconSet: 'svg-mdi-v6',
 
     devTreeshaking: true,
-    autoImportVueExtensions: ['vue', 'md'],
+    autoImportVueExtensions: [ 'vue', 'md' ],
 
     config: {
       loadingBar: {
@@ -126,7 +126,7 @@ export default defineConfig(async (ctx) => ({
     plugins
   },
 
-  animations: ['fadeIn', 'fadeOut'],
+  animations: [ 'fadeIn', 'fadeOut' ],
 
   ssr: {
     pwa: ctx.prod,
@@ -139,7 +139,7 @@ export default defineConfig(async (ctx) => ({
     injectPwaMetaTags: false,
     swFilename: 'service-worker.js',
 
-    extendWorkboxGenerateSWOptions(cfg) {
+    extendWorkboxGenerateSWOptions (cfg) {
       Object.assign(cfg, {
         cleanupOutdatedCaches: true,
         skipWaiting: true,

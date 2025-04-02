@@ -10,16 +10,10 @@ module.exports = {
     browser: true
   },
 
-  extends: [
-    'quasar/base',
-    'quasar/vue'
-  ],
+  extends: ['quasar/base', 'quasar/vue'],
 
   // required to lint *.vue files
-  plugins: [
-    'vue',
-    'quasar'
-  ],
+  plugins: ['vue', 'quasar'],
 
   globals: {
     __QUASAR_SSR__: true,
@@ -31,7 +25,7 @@ module.exports = {
 
   rules: {
     // TODO: Unify rules with the root config
-    'array-bracket-spacing': [ 'error', 'always', { singleValue: false } ],
+    'array-bracket-spacing': ['error', 'always', { singleValue: false }],
     'template-curly-spacing': 'off',
     'no-useless-concat': 'off',
     'operator-linebreak': 'off',
@@ -46,6 +40,7 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     'vue/no-v-text-v-html-on-component': 'off',
     'vue/no-setup-props-destructure': 'off',
-    'vue/require-toggle-inside-transition': 'off'
+    'vue/require-toggle-inside-transition': 'off',
+    '@typescript-eslint/no-unused-expressions': 'off'
   }
 }

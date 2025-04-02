@@ -19,11 +19,8 @@ export default function () {
     : createWebHistory
 
   const Router = createRouter({
-    scrollBehavior: (to, _, savedPosition) => (
-      to.hash.length > 1
-        ? false
-        : (savedPosition || { left: 0, top: 0 })
-    ),
+    scrollBehavior: (to, _, savedPosition) =>
+      to.hash.length > 1 ? false : savedPosition || { left: 0, top: 0 },
     routes,
     history: createHistory(process.env.VUE_ROUTER_BASE)
   })
@@ -41,11 +38,12 @@ export default function () {
     }
   })
 
-  process.env.CLIENT === true && Router.afterEach(to => {
-    gtag('config', 'G-WRH1VBGG35', {
-      page_path: to.path
+  process.env.CLIENT === true &&
+    Router.afterEach((to) => {
+      gtag('config', 'G-WRH1VBGG35', {
+        page_path: to.path
+      })
     })
-  })
 
   return Router
 }

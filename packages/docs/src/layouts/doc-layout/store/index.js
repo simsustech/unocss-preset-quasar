@@ -29,12 +29,12 @@ export function provideDocStore () {
     },
 
     toggleDark () {
-      const val = store.state.value.dark = store.state.value.dark === false
-      $q.cookies.set(
-        'theme',
-        val ? 'dark' : 'light',
-        { path: '/', sameSite: 'Strict', expires: 400 }
-      )
+      const val = (store.state.value.dark = store.state.value.dark === false)
+      $q.cookies.set('theme', val ? 'dark' : 'light', {
+        path: '/',
+        sameSite: 'Strict',
+        expires: 400
+      })
     },
 
     toggleMenuDrawer () {
@@ -55,21 +55,31 @@ export function provideDocStore () {
   }
   else {
     store.state = ref(store.state)
-    store.dark = computed(() => (store.state.value.dark || $route.meta.dark))
-    watch(store.dark, val => { $q.dark.set(val) }, { immediate: true })
+    store.dark = computed(() => store.state.value.dark || $route.meta.dark)
+    watch(
+      store.dark,
+      (val) => {
+        $q.dark.set(val)
+      },
+      { immediate: true }
+    )
 
     // let's auto-close the drawer when we're starting to show
     // the left menu on the page...
     watch(
       () => $q.screen.width < 1301,
-      () => { store.state.value.menuDrawer = false }
+      () => {
+        store.state.value.menuDrawer = false
+      }
     )
 
     // let's auto-close the drawer when we're starting to show
     // the toc on the page...
     watch(
       () => $q.screen.lt.md,
-      () => { store.state.value.tocDrawer = false }
+      () => {
+        store.state.value.tocDrawer = false
+      }
     )
   }
 
