@@ -85,7 +85,9 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       theme.quasar?.components?.['q-drawer__content'] ??
       `[&_>_.q-list]:(px-28px)
       [&_>_.q-list_>_.q-item]:(border-rd-16px)
-      [&_>_.q-list_>_.q-router-link--exact-active]:(bg-light-secondary-container dark:bg-dark-secondary-container text-light-on-secondary-container dark:text-dark-on-secondary-container)`
+      [&_>_.q-list_>_.q-router-link--active]:(text-light-primary dark:text-dark-primary)
+      [&_>_.q-list_>_.q-router-link--exact-active]:(bg-light-secondary-container dark:bg-dark-secondary-container
+      )`
   ]
 ]
 

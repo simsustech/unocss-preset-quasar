@@ -63,14 +63,16 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-radio__check$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-radio__check'] ??
-      `origin-[50%_50%] [transform:scale3d(0,_0,_1)] [transition:transform_0.22s_cubic-bezier(0,_0,_0.2,_1)_0ms]`
+      `origin-[50%_50%] [transform:scale3d(0,_0,_1)] [transition:transform_0.22s_cubic-bezier(0,_0,_0.2,_1)_0ms]
+      text-light-primary dark:text-dark-primary`
   ],
 
   [
     /^q-radio__inner$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-radio__inner'] ??
-      `text-[40px] w-[1em] min-w-[1em] h-[1em] outline-[0] rounded-[50%] text-[rgba(0,_0,_0,_0.54)]`
+      `text-[40px] w-[1em] min-w-[1em] h-[1em] outline-[0] rounded-[50%]
+      text-light-on-surface-variant dark:text-dark-on-surface-variant`
   ],
 
   [

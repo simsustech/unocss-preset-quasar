@@ -480,7 +480,14 @@ const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
       'q-item--dark',
       'q-item--active'
     ],
-    QKnob: ['q-knob', 'q-knob--editable'],
+    QKnob: [
+      'q-knob',
+      'q-knob--editable',
+      'q-circular-progress',
+      'q-circular-progress__svg',
+      'q-circular-progress__text',
+      'q-circular-progress--indeterminate'
+    ],
     QLayout: [
       'q-layout',
       'q-layout-container',

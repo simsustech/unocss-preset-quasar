@@ -6,7 +6,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-btn$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn'] ??
-      `bg-light-primary dark:bg-dark-primary text-light-on-primary dark:text-dark-on-primary inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle text-[14px] leading-[1.715em] no-underline [color:inherit] layer-components:bg-transparent font-medium text-center w-auto h-40px cursor-default px-[16px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit] elevation-2)`
+      `layer-components:(bg-light-primary dark:bg-dark-primary text-light-on-primary dark:text-dark-on-primary) inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle text-[14px] leading-[1.715em] no-underline [color:inherit] layer-components:bg-transparent font-medium text-center w-auto min-h-40px cursor-default px-[16px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit] elevation-2)`
   ],
   [
     /^q-btn--actionable$/,
