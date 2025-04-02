@@ -69,15 +69,15 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, size], { theme }) =>
       `ml--${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}
       mt--${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}
-      [&_>_*]:(mr-${
+      [&_>_*]:(ml-${
         colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']
-      } mb-${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']})`
+      } mt-${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']})`
   ],
   [
     /^q-gutter-x-(none|xs|sm|md|lg|xl)$/,
     ([, size], { theme }) =>
       `ml--${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}
-        [&_>_*]:(mr-${
+        [&_>_*]:(ml-${
           colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']
         })`
   ],
@@ -85,7 +85,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-gutter-y-(none|xs|sm|md|lg|xl)$/,
     ([, size], { theme }) =>
       `mt--${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}
-        [&_>_*]:(mb-${
+        [&_>_*]:(mt-${
           colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']
         })`
   ],
