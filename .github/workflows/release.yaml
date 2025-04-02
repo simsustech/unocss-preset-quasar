@@ -11,7 +11,7 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-    if: github.repository == 'simsustech/vitrify'
+    if: github.repository == 'simsustech/unocss-preset-quasar'
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
