@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row q-gutter-md">
-      <q-radio label="Radio" />
+      <q-chip icon="i-mdi-alarm" label="Chip" removable />
     </div>
   </q-page>
 </template>

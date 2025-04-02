@@ -29,6 +29,7 @@ declare module 'vue' {
     QPage: typeof import('quasar')['QPage']
     QPageContainer: typeof import('quasar')['QPageContainer']
     QPageSticky: typeof import('quasar')['QPageSticky']
+    QRadio: typeof import('quasar')['QRadio']
     QSpace: typeof import('quasar')['QSpace']
     QToggle: typeof import('quasar')['QToggle']
     QToolbar: typeof import('quasar')['QToolbar']

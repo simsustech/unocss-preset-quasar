@@ -22,7 +22,7 @@
     </div>
 
     <q-badge>self-*</q-badge>
-    <div class="row">
+    <div class="row q-gutter-md">
       <div class="col self-start">.self-start</div>
       <div class="col self-center">.self-center</div>
       <div class="col self-end">.self-end</div>

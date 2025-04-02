@@ -8,7 +8,7 @@
       <div class="col-12 col-md-2">.col-12 .col-md-2</div>
     </div>
 
-    <div class="row">
+    <div class="row q-gutter-md">
       <div class="col">.col</div>
       <div class="col-12 col-md-auto">
         .col-12 .col-md-auto (Variable width content)

@@ -1,12 +1,13 @@
 <template>
   <q-page padding>
     <div class="row q-gutter-md">
-      <q-knob v-model="value" />
+      <q-checkbox v-model="check" />
     </div>
   </q-page>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-const value = ref(50)
+
+const check = ref(false)
 </script>

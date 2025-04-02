@@ -34,7 +34,7 @@ You can use `q-py-##` on row breaking elements or `q-px-##` on column breaking e
 :::
 
 ```html
-<div class="row">
+<div class="row q-gutter-md">
   <div>Col 1 / Row 1</div>
   <div>Col 2 / Row 1</div>
   <div class="flex-break"></div>

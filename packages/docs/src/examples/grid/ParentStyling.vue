@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md" style="max-width: 500px">
-    <div class="row">
+    <div class="row q-gutter-md">
       <div class="offset-1 col-3 column justify-between">
         <p>Styling on parent</p>
         <div class="text-dark">

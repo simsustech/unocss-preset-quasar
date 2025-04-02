@@ -44,7 +44,7 @@ One of the following CSS classes is mandatory for the parent in order for ones o
 Example:
 
 ```html
-<div class="row">
+<div class="row q-gutter-md">
   <div>First column</div>
   <div>Second column</div>
   <div>Third column</div>
@@ -92,7 +92,7 @@ The next classes **align a flex container's lines** within when there is extra s
 Quasar uses a 12 point column system for distributing the size of row children. Here are some examples of the available CSS helper classes:
 
 ```html
-<div class="row">
+<div class="row q-gutter-md">
   <div class="col-8">two thirds</div>
   <div class="col-2">one sixth</div>
   <div class="col-auto">auto size based on content and available space</div>
@@ -111,7 +111,7 @@ CSS helper class `col-shrink` makes the cell fill at most the space it needs to 
 Another example with a visual representation below it:
 
 ```html
-<div class="row">
+<div class="row q-gutter-md">
   <div class="col">1</div>
   <div class="col">1</div>
   <div class="col">1</div>
@@ -122,7 +122,7 @@ Another example with a visual representation below it:
   -->
 </div>
 
-<div class="row">
+<div class="row q-gutter-md">
   <div class="col-3">1</div>
   <div class="col-6">2</div>
   <div class="col-3">1</div>
@@ -140,7 +140,7 @@ Wrapping is a key feature in understanding Flex CSS classes. You are not bound t
 This allows you, among other things, to dynamically stack rows vertically on smaller screens while displaying them on a single line on bigger screens. Read the "Responsive Design" section.
 
 ```html
-<div class="row">
+<div class="row q-gutter-md">
   <div class="col-2">...</div>
 
   <!-- 2 + 6 < 12, so next element is placed on same line -->
@@ -175,7 +175,7 @@ By default, flex items are laid out in source order. However, the order property
 Example:
 
 ```html
-<div class="row">
+<div class="row q-gutter-md">
   <div style="order: 2">Second column</div>
   <div class="order-last">Third column</div>
   <div class="order-first">First column</div>
@@ -207,7 +207,7 @@ Example: `col-md-7`, `offset-lg-3`, `col-xs-auto`.
 A full example: let's say we have a row with three children. In extra small windows, we need to stack the children vertically, In small windows we need to display them side by side (each having equal width), and starting with medium windows we should display them all on same line:
 
 ```html
-<div class="row">
+<div class="row q-gutter-md">
   <div class="col-xs-12 col-sm-6 col-md-4">col</div>
   <div class="col-xs-12 col-sm-6 col-md-4">col</div>
   <div class="col-xs-12 col-sm-6 col-md-4">col</div>
@@ -219,7 +219,7 @@ Notice in the above example that we used `col-xs-12` (12/12 = 100% of row, so ea
 Like previously mentioned, rows wrap content by default, so when 12 (or more) grid points are used for a row, content is wrapped to the next line. If we have two `<div>`s and we use `col-8` on both, they will also stack, since 8 + 8 = 16 and we can only display 12 points on a single line.
 
 ```html
-<div class="row">
+<div class="row q-gutter-md">
   <!--
     more than 12 grid points together,
     so second <div> will wrap on next line

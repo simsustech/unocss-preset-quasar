@@ -4,25 +4,7 @@ import type { QuasarTheme } from '../../../theme.js'
 const preflights: Preflight<QuasarTheme>[] = [
   {
     getCSS: ({ theme }) => `
-body.desktop .q-checkbox:not(.disabled) .q-checkbox__inner:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  border-radius: 50%;
-  background: currentColor;
-  opacity: 0.12;
-  transform: scale3d(0, 0, 1);
-  transition: transform 0.22s cubic-bezier(0, 0, 0.2, 1);
-}
-body.desktop .q-checkbox:not(.disabled):focus .q-checkbox__inner:before, body.desktop .q-checkbox:not(.disabled):hover .q-checkbox__inner:before {
-  transform: scale3d(1, 1, 1);
-}
-body.desktop .q-checkbox--dense:not(.disabled):focus .q-checkbox__inner:before, body.desktop .q-checkbox--dense:not(.disabled):hover .q-checkbox__inner:before {
-  transform: scale3d(1.4, 1.4, 1);
-}
+
 `
   }
 ]
@@ -33,7 +15,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-checkbox'] ??
       `align-middle [&.disabled]:(!opacity-75)
-      [&:not(.disabled)_.q-checkbox\\_\\_inner:before]:(content-[''] absolute top-0 left-0 bottom-0 right-0 border-rd-50 bg-current op-12 scale-z-10)
+      [&:not(.disabled):hover_.q-checkbox\\_\\_inner:before]:(content-[''] absolute top-[12.5%] left-[12.5%] bottom-0 right-0 border-rd-50 bg-current op-12 scale-x-120 scale-y-120 scale-z-100)
       [&:not(.disabled):focus_.q-checkbox\\_\\_inner:before]:(scale-z-100)`
   ],
 

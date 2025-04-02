@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md example-row-flex-order">
-    <div class="row">
+    <div class="row q-gutter-md">
       <div class="col order-none">First, but unordered<br />(.order-none)</div>
       <div class="col order-last">Second, but last<br />(.order-last)</div>
       <div class="col order-first">Third, but first<br />(.order-first)</div>

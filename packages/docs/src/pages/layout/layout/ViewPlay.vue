@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="q-mt-lg q-mb-sm rounded-borders overflow-hidden shadow-2">
-      <div class="row">
+      <div class="row q-gutter-md">
         <div
           class="col-3 q-pa-md flex flex-center"
           :class="
@@ -53,7 +53,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row q-gutter-md">
         <div
           class="col-3 q-px-md q-py-xl flex flex-center bg-orange text-grey-9"
         >
@@ -87,7 +87,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row q-gutter-md">
         <div
           class="col-3 q-pa-md flex flex-center"
           :class="

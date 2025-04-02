@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md example-row-column-wrapping">
-    <div class="row">
+    <div class="row q-gutter-md">
       <div class="col-9">.col-9</div>
       <div class="col-4">
         .col-4<br />Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets
@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row q-gutter-md">
       <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
       <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
 

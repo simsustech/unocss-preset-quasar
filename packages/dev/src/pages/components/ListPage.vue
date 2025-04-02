@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div class="row">
+    <div class="row q-gutter-md">
       <q-list bordered separator>
         <q-item>
           <q-item-section>
