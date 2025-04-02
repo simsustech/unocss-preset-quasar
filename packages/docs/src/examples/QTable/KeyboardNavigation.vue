@@ -554,8 +554,9 @@ export default {
           navigationActive.value !== true ||
           [33, 34, 35, 36, 38, 40].indexOf(evt.keyCode) === -1 ||
           tableRef.value === null
-        )
+        ) {
           return
+        }
 
         evt.preventDefault()
 

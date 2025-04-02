@@ -10,7 +10,7 @@ module.exports = {
     browser: true
   },
 
-  extends: ['quasar/base', 'quasar/vue'],
+  extends: ['quasar/base', 'quasar/vue', 'plugin:prettier/recommended'],
 
   // required to lint *.vue files
   plugins: ['vue', 'quasar'],

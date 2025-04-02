@@ -11,7 +11,12 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'components',
         children: Object.entries(componentRoutes).map(([name, component]) => {
-          const path = name.split('/').at(-1)!.split('.').at(0)?.toLowerCase()
+          const path = name
+            .split('/')
+            .at(-1)!
+            .split('Page.')
+            .at(0)
+            ?.toLowerCase()
 
           return {
             path,

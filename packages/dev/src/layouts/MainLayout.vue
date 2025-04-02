@@ -51,7 +51,7 @@ import { matMenu } from '@quasar/extras/material-icons'
 const componentRoutes = import.meta.glob('../pages/components/*.vue')
 
 const components = Object.keys(componentRoutes).map((name) => {
-  const path = name.split('/').at(-1)!.split('.').at(0)?.toLowerCase()
+  const path = name.split('/').at(-1)!.split('Page.').at(0)
 
   return path
 })
