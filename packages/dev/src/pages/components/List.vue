@@ -14,7 +14,7 @@
         </q-item>
         <q-item clickable>
           <q-item-section side top>
-            <q-checkbox />
+            <q-checkbox v-model="check" />
           </q-item-section>
           <q-item-section>
             <q-item-label>This is an item.</q-item-label>
@@ -27,5 +27,6 @@
 </template>
 
 <script setup lang="ts">
-const
+import { ref } from 'vue'
+const check = ref(false)
 </script>
