@@ -9,9 +9,9 @@ export default {
     lang: String
   },
 
-  setup (props) {
+  setup(props) {
     const html = computed(() =>
-      Prism.highlight(props.code, Prism.languages[ props.lang ], props.lang)
+      Prism.highlight(props.code, Prism.languages[props.lang], props.lang)
     )
 
     return () =>

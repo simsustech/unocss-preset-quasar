@@ -17,9 +17,7 @@
       >
         <template v-slot:no-option>
           <q-item>
-            <q-item-section class="text-grey">
-              No results
-            </q-item-section>
+            <q-item-section class="text-grey"> No results </q-item-section>
           </q-item>
         </template>
       </q-select>
@@ -40,9 +38,7 @@
       >
         <template v-slot:no-option>
           <q-item>
-            <q-item-section class="text-grey">
-              No results
-            </q-item-section>
+            <q-item-section class="text-grey"> No results </q-item-section>
           </q-item>
         </template>
       </q-select>
@@ -54,7 +50,11 @@
 import { ref } from 'vue'
 
 const stringOptions = [
-  'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
+  'Google',
+  'Facebook',
+  'Twitter',
+  'Apple',
+  'Oracle'
 ].reduce((acc, opt) => {
   for (let i = 1; i <= 5; i++) {
     acc.push(opt + ' ' + i)
@@ -63,14 +63,14 @@ const stringOptions = [
 }, [])
 
 export default {
-  setup () {
+  setup() {
     const options = ref(stringOptions)
 
     return {
       model: ref(null),
       options,
 
-      filterFn (val, update, abort) {
+      filterFn(val, update, abort) {
         // call abort() at any time if you can't retrieve data somehow
 
         setTimeout(() => {
@@ -78,15 +78,16 @@ export default {
             () => {
               if (val === '') {
                 options.value = stringOptions
-              }
-              else {
+              } else {
                 const needle = val.toLowerCase()
-                options.value = stringOptions.filter(v => v.toLowerCase().indexOf(needle) > -1)
+                options.value = stringOptions.filter(
+                  (v) => v.toLowerCase().indexOf(needle) > -1
+                )
               }
             },
 
             // "ref" is the Vue reference to the QSelect
-            ref => {
+            (ref) => {
               if (val !== '' && ref.options.length > 0) {
                 ref.setOptionIndex(-1) // reset optionIndex in case there is something selected
                 ref.moveOptionSelection(1, true) // focus the first selectable option and do not update the input-value
@@ -96,7 +97,7 @@ export default {
         }, 300)
       },
 
-      filterFnAutoselect (val, update, abort) {
+      filterFnAutoselect(val, update, abort) {
         // call abort() at any time if you can't retrieve data somehow
 
         setTimeout(() => {
@@ -104,25 +105,30 @@ export default {
             () => {
               if (val === '') {
                 options.value = stringOptions
-              }
-              else {
+              } else {
                 const needle = val.toLowerCase()
-                options.value = stringOptions.filter(v => v.toLowerCase().indexOf(needle) > -1)
+                options.value = stringOptions.filter(
+                  (v) => v.toLowerCase().indexOf(needle) > -1
+                )
               }
             },
 
             // "ref" is the Vue reference to the QSelect
-            ref => {
-              if (val !== '' && ref.options.length > 0 && ref.getOptionIndex() === -1) {
+            (ref) => {
+              if (
+                val !== '' &&
+                ref.options.length > 0 &&
+                ref.getOptionIndex() === -1
+              ) {
                 ref.moveOptionSelection(1, true) // focus the first selectable option and do not update the input-value
-                ref.toggleOption(ref.options[ ref.optionIndex ], true) // toggle the focused option
+                ref.toggleOption(ref.options[ref.optionIndex], true) // toggle the focused option
               }
             }
           )
         }, 300)
       },
 
-      abortFilterFn () {
+      abortFilterFn() {
         // console.log('delayed filter aborted')
       }
     }

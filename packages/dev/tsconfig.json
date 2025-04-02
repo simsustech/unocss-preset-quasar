@@ -1,19 +1,11 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "esnext",
     "moduleResolution": "nodenext",
     "baseUrl": "./",
-    "types": [
-        "vite/client",
-
-        "vitrify/client"
-    ],
+    "types": ["vite/client", "vitrify/client"],
     "declaration": true,
     "outDir": "./dist",
     "declarationDir": "./dist/types",

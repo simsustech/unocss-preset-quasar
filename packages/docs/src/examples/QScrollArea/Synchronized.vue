@@ -4,15 +4,14 @@
       visible
       :thumb-style="thumbStyle"
       :bar-style="barStyle"
-      style="height: 200px;"
+      style="height: 200px"
       class="col"
       ref="firstRef"
       @scroll="onScrollFirst"
     >
       <div v-for="n in 100" :key="n" class="q-pa-sm">
-        Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
       </div>
     </q-scroll-area>
 
@@ -20,15 +19,14 @@
       visible
       :thumb-style="thumbStyle"
       :bar-style="barStyle"
-      style="height: 200px;"
+      style="height: 200px"
       class="col"
       ref="secondRef"
       @scroll="onScrollSecond"
     >
       <div v-for="n in 100" :key="n" class="q-pa-sm">
-        Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
       </div>
     </q-scroll-area>
   </div>
@@ -38,13 +36,13 @@
 import { ref } from 'vue'
 
 export default {
-  setup () {
+  setup() {
     const firstRef = ref(null)
     const secondRef = ref(null)
 
     let ignoreSource
 
-    function scroll (source, position) {
+    function scroll(source, position) {
       // if we previously just updated
       // the scroll position, then ignore
       // this update as otherwise we'll flicker
@@ -58,13 +56,9 @@ export default {
       // we'll now update the other scroll area,
       // which will also trigger a @scroll event...
       // and we need to ignore that one
-      ignoreSource = source === 'first'
-        ? 'second'
-        : 'first'
+      ignoreSource = source === 'first' ? 'second' : 'first'
 
-      const areaRef = source === 'first'
-        ? secondRef
-        : firstRef
+      const areaRef = source === 'first' ? secondRef : firstRef
 
       areaRef.value.setScrollPosition('vertical', position)
     }
@@ -89,11 +83,11 @@ export default {
         opacity: 0.2
       },
 
-      onScrollFirst ({ verticalPosition }) {
+      onScrollFirst({ verticalPosition }) {
         scroll('first', verticalPosition)
       },
 
-      onScrollSecond ({ verticalPosition }) {
+      onScrollSecond({ verticalPosition }) {
         scroll('second', verticalPosition)
       }
     }

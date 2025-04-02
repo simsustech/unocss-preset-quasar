@@ -13,14 +13,15 @@
 import { useQuasar } from 'quasar'
 
 export default {
-  setup () {
+  setup() {
     const $q = useQuasar()
 
     return {
-      toggle (e) {
+      toggle(e) {
         const target = e.target.parentNode.parentNode.parentNode
 
-        $q.fullscreen.toggle(target)
+        $q.fullscreen
+          .toggle(target)
           .then(() => {
             // success!
           })

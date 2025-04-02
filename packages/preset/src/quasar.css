@@ -12809,8 +12809,8 @@ body.q-ios-padding .fullscreen {
 body {
   min-width: 100px;
   min-height: 100%;
-  font-family: 'Roboto', '-apple-system', 'Helvetica Neue', Helvetica, Arial,
-    sans-serif;
+  font-family:
+    'Roboto', '-apple-system', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;

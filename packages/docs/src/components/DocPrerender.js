@@ -7,14 +7,14 @@ export default {
     tabs: Array
   },
 
-  setup (props, { slots }) {
-    const currentTab = ref(props.tabs !== void 0 ? props.tabs[ 0 ] : null)
+  setup(props, { slots }) {
+    const currentTab = ref(props.tabs !== void 0 ? props.tabs[0] : null)
 
     const hasHeader = computed(
       () => props.title !== void 0 || props.tabs !== void 0
     )
 
-    function getContent () {
+    function getContent() {
       const acc = []
 
       props.title !== void 0 &&
@@ -57,19 +57,19 @@ export default {
       acc.push(
         props.tabs !== void 0
           ? h(
-            QTabPanels,
-            {
-              class: 'copybtn-hover',
-              animated: true,
-              modelValue: currentTab.value
-            },
-            slots.default
-          )
+              QTabPanels,
+              {
+                class: 'copybtn-hover',
+                animated: true,
+                modelValue: currentTab.value
+              },
+              slots.default
+            )
           : h(
-            'div',
-            { class: 'copybtn-hover relative-position' },
-            slots.default()
-          )
+              'div',
+              { class: 'copybtn-hover relative-position' },
+              slots.default()
+            )
       )
 
       return acc

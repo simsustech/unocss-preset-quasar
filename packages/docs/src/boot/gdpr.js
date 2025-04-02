@@ -16,7 +16,7 @@ if (Cookies.has('gdpr') !== true) {
       {
         label: 'Accept',
         color: 'yellow',
-        handler () {
+        handler() {
           Cookies.set('gdpr', true, { expires: 5 * 365 })
         }
       },
@@ -24,7 +24,7 @@ if (Cookies.has('gdpr') !== true) {
         label: 'Learn more',
         color: 'grey',
         noDismiss: true,
-        handler () {
+        handler() {
           openURL(policyUrl)
         }
       }

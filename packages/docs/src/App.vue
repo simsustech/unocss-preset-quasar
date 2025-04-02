@@ -9,7 +9,7 @@ import getMeta from 'assets/get-meta.js'
 
 useMeta({
   title: 'Quasar Framework',
-  titleTemplate: title => `${title} | Quasar Framework`,
+  titleTemplate: (title) => `${title} | Quasar Framework`,
 
   meta: getMeta(
     'Quasar Framework - Build high-performance VueJS user interfaces in record time',

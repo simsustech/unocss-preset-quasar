@@ -3,7 +3,8 @@
     <q-table
       grid
       grid-header
-      flat bordered
+      flat
+      bordered
       title="Treats"
       :rows="rows"
       :columns="columns"
@@ -12,7 +13,13 @@
       hide-header
     >
       <template v-slot:top-right>
-        <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
+        <q-input
+          borderless
+          dense
+          debounce="300"
+          v-model="filter"
+          placeholder="Search"
+        >
           <template v-slot:append>
             <q-icon name="search" />
           </template>
@@ -31,10 +38,16 @@ const columns = [
     required: true,
     label: 'Dessert (100g serving)',
     align: 'left',
-    field: row => row.name,
+    field: (row) => row.name,
     sortable: true
   },
-  { name: 'calories', align: 'center', label: 'Calories', field: 'calories', sortable: true },
+  {
+    name: 'calories',
+    align: 'center',
+    label: 'Calories',
+    field: 'calories',
+    sortable: true
+  },
   { name: 'fat', label: 'Fat (g)', field: 'fat', sortable: true },
   { name: 'carbs', label: 'Carbs (g)', field: 'carbs' }
 ]
@@ -103,7 +116,7 @@ const rows = [
 ]
 
 export default {
-  setup () {
+  setup() {
     return {
       filter: ref(''),
       columns,

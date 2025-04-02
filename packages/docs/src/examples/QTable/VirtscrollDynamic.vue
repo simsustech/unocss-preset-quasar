@@ -2,7 +2,8 @@
   <div class="q-pa-md">
     <q-table
       class="my-sticky-dynamic"
-      flat bordered
+      flat
+      bordered
       title="Treats"
       :rows="rows"
       :columns="columns"
@@ -32,17 +33,35 @@ const columns = [
     required: true,
     label: 'Dessert (100g serving)',
     align: 'left',
-    field: row => row.name,
-    format: val => val,
+    field: (row) => row.name,
+    format: (val) => val,
     sortable: true
   },
-  { name: 'calories', align: 'center', label: 'Calories', field: 'calories', sortable: true },
+  {
+    name: 'calories',
+    align: 'center',
+    label: 'Calories',
+    field: 'calories',
+    sortable: true
+  },
   { name: 'fat', label: 'Fat (g)', field: 'fat', sortable: true },
   { name: 'carbs', label: 'Carbs (g)', field: 'carbs' },
   { name: 'protein', label: 'Protein (g)', field: 'protein' },
   { name: 'sodium', label: 'Sodium (mg)', field: 'sodium' },
-  { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: 'iron', label: 'Iron (%)', field: 'iron', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) }
+  {
+    name: 'calcium',
+    label: 'Calcium (%)',
+    field: 'calcium',
+    sortable: true,
+    sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)
+  },
+  {
+    name: 'iron',
+    label: 'Iron (%)',
+    field: 'iron',
+    sortable: true,
+    sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)
+  }
 ]
 
 const seed = [
@@ -151,7 +170,7 @@ const seed = [
 // we generate lots of rows here
 let allRows = []
 for (let i = 0; i < 1000; i++) {
-  allRows = allRows.concat(seed.slice(0).map(r => ({ ...r })))
+  allRows = allRows.concat(seed.slice(0).map((r) => ({ ...r })))
 }
 allRows.forEach((row, index) => {
   row.index = index
@@ -161,11 +180,13 @@ const pageSize = 50
 const lastPage = Math.ceil(allRows.length / pageSize)
 
 export default {
-  setup () {
+  setup() {
     const nextPage = ref(2)
     const loading = ref(false)
 
-    const rows = computed(() => allRows.slice(0, pageSize * (nextPage.value - 1)))
+    const rows = computed(() =>
+      allRows.slice(0, pageSize * (nextPage.value - 1))
+    )
 
     return {
       columns,
@@ -176,10 +197,14 @@ export default {
 
       pagination: { rowsPerPage: 0 },
 
-      onScroll ({ to, ref }) {
+      onScroll({ to, ref }) {
         const lastIndex = rows.value.length - 1
 
-        if (loading.value !== true && nextPage.value < lastPage && to === lastIndex) {
+        if (
+          loading.value !== true &&
+          nextPage.value < lastPage &&
+          to === lastIndex
+        ) {
           loading.value = true
 
           setTimeout(() => {

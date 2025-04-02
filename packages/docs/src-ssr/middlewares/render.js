@@ -9,30 +9,27 @@ export default ({ app, resolve, render, serve }) => {
     res.setHeader('Content-Type', 'text/html')
 
     render(/* the ssrContext: */ { req, res })
-      .then(html => {
+      .then((html) => {
         // now let's send the rendered html to the client
         res.send(html)
       })
-      .catch(err => {
+      .catch((err) => {
         // oops, we had an error while rendering the page
 
         // we were told to redirect to another URL
         if (err.url) {
           if (err.code) {
             res.redirect(err.code, err.url)
-          }
-          else {
+          } else {
             res.redirect(err.url)
           }
-        }
-        else if (err.code === 404) {
+        } else if (err.code === 404) {
           // hmm, Vue Router could not find the requested route
 
           // Should reach here only if no "catch-all" route
           // is defined in /src/routes
           res.status(404).send('404 | Page Not Found')
-        }
-        else if (process.env.DEV) {
+        } else if (process.env.DEV) {
           // well, we treat any other code as error;
           // if we're in dev mode, then we can use Quasar CLI
           // to display a nice error page that contains the stack
@@ -40,8 +37,7 @@ export default ({ app, resolve, render, serve }) => {
 
           // serve.error is available on dev only
           serve.error({ err, req, res })
-        }
-        else {
+        } else {
           // we're in production, so we should have another method
           // to display something to the client when we encounter an error
           // (for security reasons, it's not ok to display the same wealth

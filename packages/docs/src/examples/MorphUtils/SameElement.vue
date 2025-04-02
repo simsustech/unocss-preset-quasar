@@ -1,7 +1,12 @@
 <template>
   <div class="q-pa-md q-gutter-y-md">
     <div class="row no-wrap q-gutter-x-lg items-center relative-position">
-      <q-btn color="primary" no-wrap label="Morph element" @click="morphContent1" />
+      <q-btn
+        color="primary"
+        no-wrap
+        label="Morph element"
+        @click="morphContent1"
+      />
 
       <div ref="firstMorphRef" v-bind="props1">
         {{ toggle1 ? 'Small' : 'Large' }}
@@ -12,9 +17,19 @@
       class="row no-wrap q-gutter-x-lg items-center relative-position"
       :class="{ 'justify-between': toggle2 }"
     >
-      <q-btn color="primary" no-wrap label="Morph element" @click="morphContent2" />
+      <q-btn
+        color="primary"
+        no-wrap
+        label="Morph element"
+        @click="morphContent2"
+      />
 
-      <q-avatar ref="secondMorphRef" text-color="white" size="100px" v-bind="props2" />
+      <q-avatar
+        ref="secondMorphRef"
+        text-color="white"
+        size="100px"
+        v-bind="props2"
+      />
     </div>
   </div>
 </template>
@@ -24,7 +39,7 @@ import { morph } from 'quasar'
 import { ref, computed } from 'vue'
 
 export default {
-  setup () {
+  setup() {
     const toggle1 = ref(false)
     const toggle2 = ref(false)
 
@@ -67,7 +82,7 @@ export default {
             }
       }),
 
-      morphContent1 () {
+      morphContent1() {
         const onToggle = () => {
           toggle1.value = toggle1.value !== true
         }
@@ -78,14 +93,14 @@ export default {
             onToggle,
             duration: 500,
             tween: true,
-            onEnd: end => {
+            onEnd: (end) => {
               end === 'from' && onToggle()
             }
           })
         }
       },
 
-      morphContent2 () {
+      morphContent2() {
         const onToggle = () => {
           toggle2.value = toggle2.value !== true
         }
@@ -98,7 +113,7 @@ export default {
             tween: true,
             tweenFromOpacity: 0.8,
             tweenToOpacity: 0.4,
-            onEnd: end => {
+            onEnd: (end) => {
               end === 'from' && onToggle()
             }
           })

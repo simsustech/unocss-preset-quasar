@@ -6,6 +6,7 @@ desc: Out of the box CSS transitions for Quasar components.
 There are a few Quasar components that implement transitions through `transition-show` / `transition-hide` or `transition-prev` / `transition-next` or simply `transition` props:
 
 - `transition-show` / `transition-hide`
+
   - [QBtnDropdown](/vue-components/button-dropdown)
   - [QInnerLoading](/vue-components/inner-loading)
   - [QTooltip](/vue-components/tooltip)
@@ -15,6 +16,7 @@ There are a few Quasar components that implement transitions through `transition
   - [QPopupProxy](/vue-components/popup-proxy) (through QMenu and QDialog)
 
 - `transition-prev` / `transition-next`
+
   - [QCarousel](/vue-components/carousel)
   - [QTabPanels](/vue-components/tab-panels)
   - [QStepper](/vue-components/stepper)
@@ -33,8 +35,5 @@ import TransitionList from './TransitionList.vue'
 Use the names indicated in the captions above for the transition props. Example:
 
 ```html
-<q-menu
-  transition-show="jump-down"
-  transition-hide="jump-up"
-/>
+<q-menu transition-show="jump-down" transition-hide="jump-up" />
 ```

@@ -6,7 +6,7 @@ const { setVerticalScrollPosition, getVerticalScrollPosition } = scroll
 let scrollTimer
 const scrollDuration = 500
 
-export default function injectScroll (store) {
+export default function injectScroll(store) {
   let preventTocUpdate = store.$route.hash.length > 1
 
   watch(
@@ -18,16 +18,15 @@ export default function injectScroll (store) {
     }
   )
 
-  function changeRouterHash (hash) {
+  function changeRouterHash(hash) {
     if (store.$route.hash !== hash) {
       store.$router.replace({ hash }).catch(() => {})
-    }
-    else {
+    } else {
       scrollToCurrentAnchor()
     }
   }
 
-  function scrollPage (el, delay) {
+  function scrollPage(el, delay) {
     const { top } = el.getBoundingClientRect()
     const offset = Math.max(0, top + getVerticalScrollPosition(window) - 166) // TODO dynamic header
 
@@ -41,7 +40,7 @@ export default function injectScroll (store) {
     }, delay + 10)
   }
 
-  function scrollTo (id) {
+  function scrollTo(id) {
     clearTimeout(scrollTimer)
     changeRouterHash('#' + id)
 
@@ -50,7 +49,7 @@ export default function injectScroll (store) {
     }, scrollDuration + 50)
   }
 
-  function onPageScroll ({ position }) {
+  function onPageScroll({ position }) {
     // TODO
     // store.state.value.page.scrollTop = position
 
@@ -63,7 +62,7 @@ export default function injectScroll (store) {
     }
   }
 
-  function scrollToCurrentAnchor (immediate) {
+  function scrollToCurrentAnchor(immediate) {
     const hash = window.location.hash
     const el =
       hash.length > 1 ? document.getElementById(hash.substring(1)) : null
@@ -88,8 +87,7 @@ export default function injectScroll (store) {
       }
 
       scrollPage(el, immediate === true ? 0 : scrollDuration)
-    }
-    else {
+    } else {
       preventTocUpdate = false
       store.setActiveToc()
     }

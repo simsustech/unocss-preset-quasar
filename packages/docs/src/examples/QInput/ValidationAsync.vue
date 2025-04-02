@@ -5,10 +5,15 @@
       filled
       v-model="model"
       label="Required Field *"
-      :rules="[ myRule ]"
+      :rules="[myRule]"
     />
 
-    <q-btn class="q-mt-sm" label="Reset Validation" @click="reset" color="primary"/>
+    <q-btn
+      class="q-mt-sm"
+      label="Reset Validation"
+      @click="reset"
+      color="primary"
+    />
   </div>
 </template>
 
@@ -16,14 +21,14 @@
 import { ref } from 'vue'
 
 export default {
-  setup () {
+  setup() {
     const inputRef = ref(null)
 
     return {
       model: ref(''),
       inputRef,
 
-      myRule (val) {
+      myRule(val) {
         // simulating a delay
 
         return new Promise((resolve, reject) => {
@@ -45,7 +50,7 @@ export default {
         })
       },
 
-      reset () {
+      reset() {
         inputRef.value.resetValidation()
       }
     }

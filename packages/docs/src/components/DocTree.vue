@@ -22,10 +22,22 @@
       />
 
       <template v-if="prop.node.e">
-        <q-icon :name="mdiInformationOutline" class="q-ml-sm lt-sm" v-if="prop.node.e" color="grey" @click.stop @touchstart.stop>
+        <q-icon
+          :name="mdiInformationOutline"
+          class="q-ml-sm lt-sm"
+          v-if="prop.node.e"
+          color="grey"
+          @click.stop
+          @touchstart.stop
+        >
           <q-tooltip>{{ prop.node.e }}</q-tooltip>
         </q-icon>
-        <div class="doc-tree__explanation text-grey q-ml-sm gt-xs" v-if="prop.node.e"># {{ prop.node.e }}</div>
+        <div
+          class="doc-tree__explanation text-grey q-ml-sm gt-xs"
+          v-if="prop.node.e"
+        >
+          # {{ prop.node.e }}
+        </div>
       </template>
     </template>
   </q-tree>
@@ -39,7 +51,7 @@ const props = defineProps({
 })
 
 let id = 0
-const addId = node => {
+const addId = (node) => {
   node.id = id++
   if (node.c !== void 0) {
     node.l += '/'

@@ -3,7 +3,9 @@
     class="doc-card-title q-my-xs q-mr-sm cursor-pointer"
     :id="id"
     @click="onClick"
-  >{{ props.title }}</div>
+  >
+    {{ props.title }}
+  </div>
 </template>
 
 <script setup>
@@ -17,7 +19,7 @@ const props = defineProps({
 
 const id = computed(() => (props.prefix || '') + slugify(props.title))
 
-function onClick () {
+function onClick() {
   copyHeading(id.value)
 }
 </script>

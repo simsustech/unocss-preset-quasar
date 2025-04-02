@@ -27,7 +27,7 @@
 import { ref } from 'vue'
 
 export default {
-  setup () {
+  setup() {
     return {
       modelOne: ref('op1'),
       modelTwo: ref('op1'),
@@ -50,9 +50,9 @@ export default {
         }
       ],
 
-      optValueFn: item => item.key,
-      optLabelFn: item => item.title,
-      optDisableFn: item => item.inactive
+      optValueFn: (item) => item.key,
+      optLabelFn: (item) => item.title,
+      optDisableFn: (item) => item.inactive
     }
   }
 }

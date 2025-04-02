@@ -15,7 +15,7 @@ import { useRoute } from 'vue-router'
 import Menu from 'assets/menu.js'
 import './DocPageMenu.sass'
 
-function getParentProxy (proxy) {
+function getParentProxy(proxy) {
   if (Object(proxy.$parent) === proxy.$parent) {
     return proxy.$parent
   }
@@ -32,7 +32,7 @@ function getParentProxy (proxy) {
 }
 
 export default {
-  setup () {
+  setup() {
     const $route = useRoute()
     const routePath = $route.path
 
@@ -41,7 +41,7 @@ export default {
     watch(
       () => $route.path,
       (val) => {
-        showMenu(childRefs[ val ])
+        showMenu(childRefs[val])
       }
     )
 
@@ -51,7 +51,7 @@ export default {
       childRefs = []
     })
 
-    function showMenu (proxy) {
+    function showMenu(proxy) {
       if (proxy !== void 0 && proxy !== rootRef.value) {
         proxy.show !== void 0 && proxy.show()
         const parent = getParentProxy(proxy)
@@ -61,7 +61,7 @@ export default {
       }
     }
 
-    function getDrawerMenu (menu, path, level) {
+    function getDrawerMenu(menu, path, level) {
       if (menu.children !== void 0) {
         return h(
           QExpansionItem,
@@ -71,7 +71,7 @@ export default {
               (level !== 0 ? ' doc-page-menu__deep-expansion' : ''),
             ref: (vm) => {
               if (vm) {
-                childRefs[ path ] = vm
+                childRefs[path] = vm
               }
             },
             key: `${menu.name}-${path}`,
@@ -97,7 +97,7 @@ export default {
       const props = {
         ref: (vm) => {
           if (vm) {
-            childRefs[ path ] = vm
+            childRefs[path] = vm
           }
         },
         key: path,

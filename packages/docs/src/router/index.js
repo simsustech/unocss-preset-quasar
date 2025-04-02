@@ -32,8 +32,7 @@ export default function () {
         query: to.query,
         hash: to.hash
       })
-    }
-    else {
+    } else {
       next()
     }
   })

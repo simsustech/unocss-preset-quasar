@@ -70,11 +70,12 @@ bridge.on('highlight.content', ({ payload }) => {
   }
 })
 
-bridge.connectToBackground()
+bridge
+  .connectToBackground()
   .then(() => {
     console.log('Connected to background')
   })
-  .catch(err => {
+  .catch((err) => {
     console.error('Failed to connect to background:', err)
   })
 ```

@@ -10,6 +10,7 @@ If you are a more advanced Vue developer, we invite you to start off by [decidin
 :::
 
 ## Prerequisites
+
 Make sure that you have Node >=14 (or any newer **LTS Node.js version**) and NPM v6+ or Yarn v1 (classic) or PNPM v8+ installed on your machine. Please do not use any odd versions of Node, as these are [considered experimental](https://nodejs.org/en/about/previous-releases).
 
 ## Step 1: Create a Project
@@ -31,6 +32,7 @@ $ bun create quasar@latest
 As the `create` or `init` command runs, you'll be prompted with some options. Depending on your needs, you can select the CLI type (Vite or Webpack) and you can add things like TypeScript support or a different CSS preprocessor. If you are unsure about any of the options, just take the defaults (hit enter) and you'll be good to go. You can change the options, except for the CLI type, later if you wish.
 
 ### Optional - Install the Global CLI
+
 For doing more with Quasar, you should also install the global CLI. With it you can directly run Quasar commands in the terminal, run a local http server for testing or do upgrades on your project.
 
 ```tabs

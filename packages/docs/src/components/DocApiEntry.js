@@ -3,7 +3,7 @@ import { QBadge, QBtn, Notify, QBtnToggle } from 'quasar'
 import { copyToClipboard } from 'assets/page-utils.js'
 import { mdiMinusBox, mdiPlusBox } from '@quasar/extras/mdi-v7'
 
-function copyPropName (propName) {
+function copyPropName(propName) {
   copyToClipboard(propName)
 
   Notify.create({
@@ -14,7 +14,7 @@ function copyPropName (propName) {
   })
 }
 
-function getEventParams (event) {
+function getEventParams(event) {
   const params =
     event.params === void 0 ||
     event.params === null ||
@@ -25,7 +25,7 @@ function getEventParams (event) {
   return `(${params}) => void`
 }
 
-function getMethodParams (method, noRequired) {
+function getMethodParams(method, noRequired) {
   if (
     method.params === void 0 ||
     method.params === null ||
@@ -40,7 +40,7 @@ function getMethodParams (method, noRequired) {
 
   const params = Object.keys(method.params)
   const optionalIndex = params.findIndex(
-    (param) => method.params[ param ].required !== true
+    (param) => method.params[param].required !== true
   )
 
   const str =
@@ -56,7 +56,7 @@ function getMethodParams (method, noRequired) {
   return ' (' + str + ')'
 }
 
-function getMethodReturnValue (method) {
+function getMethodReturnValue(method) {
   return (
     ' => ' +
     (method.returns === void 0 || method.returns === null
@@ -65,14 +65,14 @@ function getMethodReturnValue (method) {
   )
 }
 
-function getStringType (type) {
+function getStringType(type) {
   return Array.isArray(type) ? type.join(' | ') : type
 }
 
-const NAME_PROP_COLOR = [ 'orange-8', 'brand-primary', 'green-5', 'purple-5' ]
+const NAME_PROP_COLOR = ['orange-8', 'brand-primary', 'green-5', 'purple-5']
 const NAME_PROP_COLOR_LEN = NAME_PROP_COLOR.length
 
-function getDiv (col, propName, propValue, slot) {
+function getDiv(col, propName, propValue, slot) {
   return h('div', { class: `doc-api-entry__item col-xs-12 col-sm-${col}` }, [
     h('div', { class: 'doc-api-entry__type' }, propName),
     propValue !== void 0
@@ -81,7 +81,7 @@ function getDiv (col, propName, propValue, slot) {
   ])
 }
 
-function getNameDiv (prop, label, level, suffix, prefix) {
+function getNameDiv(prop, label, level, suffix, prefix) {
   const child = []
 
   prefix !== void 0 &&
@@ -91,7 +91,7 @@ function getNameDiv (prop, label, level, suffix, prefix) {
     h(QBadge, {
       class: 'doc-api-entry__pill cursor-pointer',
       label,
-      color: NAME_PROP_COLOR[ level % NAME_PROP_COLOR_LEN ],
+      color: NAME_PROP_COLOR[level % NAME_PROP_COLOR_LEN],
       onClick: () => {
         copyPropName(label)
       }
@@ -118,9 +118,9 @@ function getNameDiv (prop, label, level, suffix, prefix) {
   )
 }
 
-function getExpandable (openState, desc, isExpandable, key, getDetails) {
+function getExpandable(openState, desc, isExpandable, key, getDetails) {
   if (isExpandable === true) {
-    const expanded = openState.value[ key ] === true
+    const expanded = openState.value[key] === true
     const child = [
       h('div', { class: 'doc-api-entry__item col-xs-12 col-sm-12' }, [
         h('div', { class: 'doc-api-entry__type row items-center no-wrap' }, [
@@ -132,7 +132,7 @@ function getExpandable (openState, desc, isExpandable, key, getDetails) {
             padding: '1px',
             icon: expanded === true ? mdiMinusBox : mdiPlusBox,
             onClick: () => {
-              openState.value[ key ] = expanded === false
+              openState.value[key] = expanded === false
             }
           })
         ]),
@@ -141,13 +141,12 @@ function getExpandable (openState, desc, isExpandable, key, getDetails) {
     ]
 
     return expanded === true ? child.concat(getDetails()) : child
-  }
-  else {
+  } else {
     return [getDiv(12, 'Description', desc)]
   }
 }
 
-function getPropDetails (openState, masterKey, prop, level) {
+function getPropDetails(openState, masterKey, prop, level) {
   const details = []
 
   if (prop.sync === true) {
@@ -195,7 +194,7 @@ function getPropDetails (openState, masterKey, prop, level) {
         getProp(
           openState,
           masterKey,
-          prop.definition[ propName ],
+          prop.definition[propName],
           propName,
           level
         )
@@ -217,7 +216,7 @@ function getPropDetails (openState, masterKey, prop, level) {
 
     for (const propName in prop.params) {
       nodes.push(
-        getProp(openState, masterKey, prop.params[ propName ], propName, level)
+        getProp(openState, masterKey, prop.params[propName], propName, level)
       )
     }
 
@@ -248,7 +247,7 @@ function getPropDetails (openState, masterKey, prop, level) {
     const nodes = []
     for (const propName in prop.scope) {
       nodes.push(
-        getProp(openState, masterKey, prop.scope[ propName ], propName, level)
+        getProp(openState, masterKey, prop.scope[propName], propName, level)
       )
     }
 
@@ -282,13 +281,15 @@ function getPropDetails (openState, masterKey, prop, level) {
   return details
 }
 
-function getProp (openState, masterKey, prop, propName, level, onlyChildren) {
+function getProp(openState, masterKey, prop, propName, level, onlyChildren) {
   const configToggle = useConfigToggle(openState)
   if (
     configToggle.enabled &&
     configToggle.type === 'configFile' &&
     prop.configFileType === null
-  ) { return }
+  ) {
+    return
+  }
 
   const rawType = configToggle.enabled
     ? configToggle.type === 'configFile'
@@ -341,7 +342,7 @@ const describePropsLike = (masterKey) => (openState, props) => {
   const child = []
 
   for (const propName in props) {
-    child.push(getProp(openState, masterKey, props[ propName ], propName, 0))
+    child.push(getProp(openState, masterKey, props[propName], propName, 0))
   }
 
   return child
@@ -358,7 +359,7 @@ describe.events = (openState, events) => {
   }
 
   for (const eventName in events) {
-    const event = events[ eventName ]
+    const event = events[eventName]
     const masterKey = `event|${eventName}`
 
     child.push(
@@ -378,7 +379,7 @@ describe.events = (openState, events) => {
                 getProp(
                   openState,
                   masterKey,
-                  event.params[ paramName ],
+                  event.params[paramName],
                   paramName,
                   1
                 )
@@ -404,7 +405,7 @@ describe.methods = (openState, methods) => {
   const child = []
 
   for (const methodName in methods) {
-    const method = methods[ methodName ]
+    const method = methods[methodName]
     const masterKey = `method|${methodName}`
 
     const alias = method.alias ? `Alias: "${method.alias}"; ` : ''
@@ -433,7 +434,7 @@ describe.methods = (openState, methods) => {
                 getProp(
                   openState,
                   masterKey,
-                  method.params[ paramName ],
+                  method.params[paramName],
                   paramName,
                   1
                 )
@@ -501,7 +502,7 @@ describe.modifiers = (openState, modifiers) => {
   const child = []
 
   for (const modifierName in modifiers) {
-    const modifier = modifiers[ modifierName ]
+    const modifier = modifiers[modifierName]
 
     child.push(
       h(
@@ -523,7 +524,7 @@ describe.injection = (_, injection) => {
   ]
 }
 
-function useConfigToggle (openState) {
+function useConfigToggle(openState) {
   return {
     enabled: openState.value.quasarConfOptions !== undefined,
     type: openState.value.quasarConfOptions ? 'uiConfig' : 'configFile',
@@ -622,16 +623,16 @@ export default {
 
   props: {
     type: String,
-    definition: [ Object, String ]
+    definition: [Object, String]
   },
 
-  setup (props) {
+  setup(props) {
     const openState = ref({})
 
     return () => {
       const content =
         Object.keys(props.definition).length !== 0
-          ? describe[ props.type ](openState, props.definition)
+          ? describe[props.type](openState, props.definition)
           : [
               h('div', { class: 'q-pa-md doc-api__nothing-to-show' }, [
                 h('div', 'No matching entries found on this tab.'),

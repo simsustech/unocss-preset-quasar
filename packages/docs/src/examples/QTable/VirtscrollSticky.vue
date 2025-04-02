@@ -3,7 +3,8 @@
     <q-table
       class="my-sticky-virtscroll-table"
       virtual-scroll
-      flat bordered
+      flat
+      bordered
       v-model:pagination="pagination"
       :rows-per-page-options="[0]"
       :virtual-scroll-sticky-size-start="48"
@@ -29,17 +30,35 @@ const columns = [
     required: true,
     label: 'Dessert (100g serving)',
     align: 'left',
-    field: row => row.name,
-    format: val => `${val}`,
+    field: (row) => row.name,
+    format: (val) => `${val}`,
     sortable: true
   },
-  { name: 'calories', align: 'center', label: 'Calories', field: 'calories', sortable: true },
+  {
+    name: 'calories',
+    align: 'center',
+    label: 'Calories',
+    field: 'calories',
+    sortable: true
+  },
   { name: 'fat', label: 'Fat (g)', field: 'fat', sortable: true },
   { name: 'carbs', label: 'Carbs (g)', field: 'carbs' },
   { name: 'protein', label: 'Protein (g)', field: 'protein' },
   { name: 'sodium', label: 'Sodium (mg)', field: 'sodium' },
-  { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: 'iron', label: 'Iron (%)', field: 'iron', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) }
+  {
+    name: 'calcium',
+    label: 'Calcium (%)',
+    field: 'calcium',
+    sortable: true,
+    sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)
+  },
+  {
+    name: 'iron',
+    label: 'Iron (%)',
+    field: 'iron',
+    sortable: true,
+    sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)
+  }
 ]
 
 const seed = [
@@ -148,14 +167,14 @@ const seed = [
 // we generate lots of rows here
 let rows = []
 for (let i = 0; i < 1000; i++) {
-  rows = rows.concat(seed.slice(0).map(r => ({ ...r })))
+  rows = rows.concat(seed.slice(0).map((r) => ({ ...r })))
 }
 rows.forEach((row, index) => {
   row.index = index
 })
 
 export default {
-  setup () {
+  setup() {
     return {
       columns,
       rows,

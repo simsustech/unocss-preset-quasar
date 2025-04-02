@@ -64,16 +64,16 @@ const routes = [
         meta: { fullscreen: true, dark: true }
       },
       ...Object.keys(mdPageList).map((key) => {
-        const acc = { component: mdPageList[ key ] }
+        const acc = { component: mdPageList[key] }
 
-        const route = routeMap[ key ]
+        const route = routeMap[key]
         route !== void 0 && Object.assign(acc, route)
 
         if (acc.path === void 0) {
           const parts = key.substring(1, key.length - 3).split('/')
           const len = parts.length
           const path =
-            parts[ len - 2 ] === parts[ len - 1 ] ? parts.slice(0, len - 1) : parts
+            parts[len - 2] === parts[len - 1] ? parts.slice(0, len - 1) : parts
 
           acc.path = path.join('/')
         }
@@ -92,7 +92,7 @@ const routes = [
   // gallery
   ...layoutGallery.map((layout) => ({
     path: layout.demoLink,
-    component: vueGalleryPageList[ `./${layout.path}.vue` ],
+    component: vueGalleryPageList[`./${layout.path}.vue`],
     children: [
       {
         path: '',

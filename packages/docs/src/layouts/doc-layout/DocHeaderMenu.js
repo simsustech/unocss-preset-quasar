@@ -11,7 +11,7 @@ import {
 import { h } from 'vue'
 import { mdiMenuRight } from '@quasar/extras/mdi-v7'
 
-const offset = [ 0, 4 ]
+const offset = [0, 4]
 
 export default {
   props: {
@@ -19,8 +19,8 @@ export default {
     mqPrefix: String
   },
 
-  setup (props) {
-    function getChildren (list) {
+  setup(props) {
+    function getChildren(list) {
       return h(QList, { dense: true, padding: true }, () =>
         list.map((entry) => {
           if (entry.header !== void 0) {
@@ -79,7 +79,7 @@ export default {
       )
     }
 
-    function getMenu () {
+    function getMenu() {
       return getChildren(props.elements)
     }
 

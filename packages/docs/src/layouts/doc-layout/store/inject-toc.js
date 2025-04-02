@@ -1,4 +1,4 @@
-function updateActiveToc (position, state) {
+function updateActiveToc(position, state) {
   if (position === void 0) {
     position = document.documentElement.scrollTop || document.body.scrollTop
   }
@@ -22,8 +22,7 @@ function updateActiveToc (position, state) {
         last = section.id
       }
       break
-    }
-    else {
+    } else {
       last = section.id
     }
   }
@@ -33,7 +32,7 @@ function updateActiveToc (position, state) {
   }
 }
 
-export default function injectToc (store) {
+export default function injectToc(store) {
   Object.assign(store.state, {
     toc: [],
     activeToc:
