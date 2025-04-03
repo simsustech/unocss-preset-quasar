@@ -27,7 +27,8 @@ const plugins = [
 ]
 
 const unocssPresetQuasar = await QuasarPreset({
-  style: 'md3'
+  style: 'md3',
+  plugins
 })
 
 export default defineConfig(async (ctx) => ({
