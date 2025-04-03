@@ -12,12 +12,12 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       rounded-[3px] 
       [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] 
       align-middle 
-      [&_>_.q-btn-item]:([border-radius:inherit] self-stretch) 
+      [&_>_.q-btn-item]:(bg-transparent text-light-on-surface dark:text-dark-on-surface self-stretch) 
+      [&_>_.q-btn-item.bg-primary]:(!bg-light-primary !text-light-on-primary dark:!bg-dark-primary dark:!text-dark-on-primary)
       [&_>_.q-btn-item:before]:([box-shadow:none]) 
       [&_>_.q-btn-item_.q-badge--floating]:(right-0) 
       [&_>_.q-btn-group]:([box-shadow:none]) 
-      [&_>_.q-btn-group:first-child_>_.q-btn]:(border-rd-0 bg-light-outline dark:bg-dark-outline) 
-      [&_>_.q-btn-group:first-child_>_.q-btn--active]:(bg-light-seondary-container dark:bg-dark-secondary-container) 
+      [&_>_.q-btn-group:first-child_>_.q-btn--active]:(!bg-light-secondary-container dark:!bg-dark-secondary-container) 
       [&_>_.q-btn-group:first-child_>_.q-btn:first-child]:([border-top-left-radius:inherit] [border-bottom-left-radius:inherit]) 
       [&_>_.q-btn-group:last-child_>_.q-btn:last-child]:([border-top-right-radius:inherit] [border-bottom-right-radius:inherit]) 
       [&_>_.q-btn-group:not(:first-child)_>_.q-btn:first-child:before]:([border-left:0]) 
