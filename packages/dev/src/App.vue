@@ -18,7 +18,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { setDefaultPropsMd3 } from 'vitrify/unocss/quasar/styles'
+import { setDefaultPropsMd3 } from 'unocss-preset-quasar/styles'
 import { QBtn, QInput, QBtnDropdown } from 'quasar'
 
 setDefaultPropsMd3({
