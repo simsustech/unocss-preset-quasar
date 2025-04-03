@@ -14,7 +14,6 @@ import {
   shortcuts as QBreadcrumbsShortcuts
 } from './components/QBreadcrumbs.unocss.js'
 import { shortcuts as QBtnDropdownShortcuts } from './components/QBtnDropdown.unocss.js'
-import { shortcuts as QBtnGroupShortcuts } from './components/QBtnGroup.unocss.js'
 import { shortcuts as QBtnToggleShortcuts } from './components/QBtnToggle.unocss.js'
 import { shortcuts as QCardShortcuts } from './components/QCard.unocss.js'
 import { shortcuts as QCarouselShortcuts } from './components/QCarousel.unocss.js'
@@ -159,7 +158,6 @@ const style: QuasarStyle = {
     QBarShortcuts,
     QBtnShortcuts,
     QBtnDropdownShortcuts,
-    QBtnGroupShortcuts,
     QBtnToggleShortcuts,
     QCardShortcuts,
     QCarouselShortcuts,
