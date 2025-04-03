@@ -1,5 +1,5 @@
 /node_modules
 /packages/**/node_modules
 /packages/**/dist
-/packages/vitrify/**/components.d.ts
+/packages/**/components.d.ts
 ISSUES.md

@@ -88,7 +88,20 @@ const QPageStickySafelist = [
 ]
 
 const QMenuSafelist = ['q-menu', 'q-menu--square', 'q-menu--dark']
-
+const QTabSafelist = [
+  'q-tab',
+  'q-tab--full',
+  'q-tab--no-caps',
+  'q-tab__content',
+  'q-tab__content--inline',
+  'q-tab__icon',
+  'q-tab__label',
+  'q-tab__alert',
+  'q-tab__alert-icon',
+  'q-tab__indicator',
+  'q-tab--active',
+  'q-tab--inactive'
+]
 const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
   {
     QIcon: ['q-icon'],
@@ -144,7 +157,8 @@ const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
       'q-btn-dropdown__arrow',
       'q-btn-dropdown--current'
     ],
-    QBtnGroup: [
+    QBtnToggle: [
+      'q-btn-toggle',
       'q-btn-group',
       'q-btn-group--push',
       'q-btn-group--push',
@@ -158,7 +172,6 @@ const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
       'q-btn-group--spread',
       'q-btn-group--spread'
     ],
-    QBtnToggle: ['q-btn-toggle'],
     QCard: [
       'q-card',
       'q-card--bordered',
@@ -763,20 +776,8 @@ const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
       'q-table--vertical-separator',
       'q-table--dense'
     ],
-    QTab: [
-      'q-tab',
-      'q-tab--full',
-      'q-tab--no-caps',
-      'q-tab__content',
-      'q-tab__content--inline',
-      'q-tab__icon',
-      'q-tab__label',
-      'q-tab__alert',
-      'q-tab__alert-icon',
-      'q-tab__indicator',
-      'q-tab--active',
-      'q-tab--inactive'
-    ],
+    QTab: QTabSafelist,
+    QRouteTab: QTabSafelist,
     QTabs: [
       'q-tabs',
       'q-tabs--scrollable',
