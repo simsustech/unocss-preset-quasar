@@ -32,6 +32,7 @@
     "@commitlint/config-conventional": "^19.7.1",
     "@typescript-eslint/eslint-plugin": "^8.23.0",
     "@typescript-eslint/parser": "^8.23.0",
+    "@unocss/preset-wind3": "66.1.0-beta.8",
     "changesets": "^1.0.2",
     "eslint": "^9.19.0",
     "eslint-config-prettier": "^10.0.1",

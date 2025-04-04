@@ -1,5 +1,54 @@
-import { type IMaterialDynamicColorsThemeColor } from 'material-dynamic-colors/src/cdn/interfaces'
-import materialDynamicColors from 'material-dynamic-colors'
+import {
+  argbFromHex,
+  hexFromArgb,
+  themeFromSourceColor
+} from '@material/material-color-utilities'
+
+interface MaterialColorScheme {
+  primary: string
+  onPrimary: string
+  primaryContainer: string
+  onPrimaryContainer: string
+  secondary: string
+  onSecondary: string
+  secondaryContainer: string
+  onSecondaryContainer: string
+  tertiary: string
+  onTertiary: string
+  tertiaryContainer: string
+  onTertiaryContainer: string
+  error: string
+  onError: string
+  errorContainer: string
+  onErrorContainer: string
+
+  background: string
+  onBackground: string
+  surface: string
+  onSurface: string
+  surfaceVariant: string
+  onSurfaceVariant: string
+
+  outline: string
+  outlineVariant: string
+  shadow: string
+  scrim: string
+  inverseSurface: string
+  inverseOnSurface: string
+
+  inversePrimary: string
+
+  surfaceDim: string
+  surfaceBright: string
+  surfaceContainerLowest: string
+
+  surfaceContainerLow: string
+
+  surfaceContainer: string
+  surfaceContainerHigh: string
+
+  surfaceContainerHighest: string
+}
 
 export interface QuasarTheme {
   typography: {
@@ -13,8 +62,8 @@ export interface QuasarTheme {
     xl: string
   }
   colors: {
-    light: IMaterialDynamicColorsThemeColor
-    dark: IMaterialDynamicColorsThemeColor
+    light: MaterialColorScheme
+    dark: MaterialColorScheme
     primary: string
     secondary: string
     accent: string
@@ -1170,84 +1219,85 @@ const defaultTheme: QuasarTheme = {
   },
   colors: {
     light: {
-      primary: '#6d4ea1',
+      primary: '#684fa4',
       onPrimary: '#ffffff',
-      primaryContainer: '#ebdcff',
-      onPrimaryContainer: '#270058',
-      secondary: '#635b70',
+      primaryContainer: '#e9ddff',
+      onPrimaryContainer: '#23005c',
+      secondary: '#625b70',
       onSecondary: '#ffffff',
-      secondaryContainer: '#eadef7',
-      onSecondaryContainer: '#1f182a',
-      tertiary: '#7f525d',
+      secondaryContainer: '#e8def8',
+      onSecondaryContainer: '#1e192b',
+      tertiary: '#7e525f',
       onTertiary: '#ffffff',
-      tertiaryContainer: '#ffd9e0',
-      onTertiaryContainer: '#32101a',
+      tertiaryContainer: '#ffd9e2',
+      onTertiaryContainer: '#31101d',
       error: '#ba1a1a',
       onError: '#ffffff',
       errorContainer: '#ffdad6',
       onErrorContainer: '#410002',
       background: '#fffbff',
-      onBackground: '#1d1b1e',
-      surface: '#fef8fc',
-      onSurface: '#1d1b1e',
-      surfaceVariant: '#e8e0eb',
+      onBackground: '#1c1b1e',
+      surface: '#fffbff',
+      onSurface: '#1c1b1e',
+      surfaceVariant: '#e7e0eb',
       onSurfaceVariant: '#49454e',
       outline: '#7a757f',
-      outlineVariant: '#cbc4cf',
+      outlineVariant: '#cac4cf',
       shadow: '#000000',
       scrim: '#000000',
       inverseSurface: '#323033',
       inverseOnSurface: '#f5eff4',
-      inversePrimary: '#d5bbff',
-      surfaceDim: '#ded8dd',
-      surfaceBright: '#fef8fc',
-      surfaceContainerLowest: '#ffffff',
-      surfaceContainerLow: '#f8f2f7',
-      surfaceContainer: '#f2ecf1',
-      surfaceContainerHigh: '#ece6eb',
-      surfaceContainerHighest: '#e6e1e6'
+      inversePrimary: '#d0bcff',
+      surfaceDim: '#141316',
+      surfaceBright: '#3a383c',
+      surfaceContainerLowest: '#0f0e11',
+      surfaceContainerLow: '#1c1b1e',
+      surfaceContainer: '#211f22',
+      surfaceContainerHigh: '#2b292d',
+      surfaceContainerHighest: '#363438'
     },
     dark: {
-      primary: '#d5bbff',
-      onPrimary: '#3d1c70',
-      primaryContainer: '#543588',
-      onPrimaryContainer: '#ebdcff',
-      secondary: '#cdc2db',
-      onSecondary: '#342d40',
-      secondaryContainer: '#4b4357',
-      onSecondaryContainer: '#eadef7',
-      tertiary: '#f1b7c4',
-      onTertiary: '#4a252f',
-      tertiaryContainer: '#643b45',
-      onTertiaryContainer: '#ffd9e0',
+      primary: '#d0bcff',
+      onPrimary: '#391e72',
+      primaryContainer: '#50378a',
+      onPrimaryContainer: '#e9ddff',
+      secondary: '#ccc2db',
+      onSecondary: '#332d41',
+      secondaryContainer: '#4a4458',
+      onSecondaryContainer: '#e8def8',
+      tertiary: '#efb8c7',
+      onTertiary: '#4a2531',
+      tertiaryContainer: '#633b48',
+      onTertiaryContainer: '#ffd9e2',
       error: '#ffb4ab',
       onError: '#690005',
       errorContainer: '#93000a',
       onErrorContainer: '#ffb4ab',
-      background: '#1d1b1e',
+      background: '#1c1b1e',
       onBackground: '#e6e1e6',
-      surface: '#141316',
+      surface: '#1c1b1e',
       onSurface: '#e6e1e6',
       surfaceVariant: '#49454e',
-      onSurfaceVariant: '#cbc4cf',
-      outline: '#948e99',
+      onSurfaceVariant: '#cac4cf',
+      outline: '#948f99',
       outlineVariant: '#49454e',
       shadow: '#000000',
       scrim: '#000000',
       inverseSurface: '#e6e1e6',
       inverseOnSurface: '#323033',
-      inversePrimary: '#6d4ea1',
-      surfaceDim: '#141316',
-      surfaceBright: '#3b383c',
-      surfaceContainerLowest: '#0f0e11',
-      surfaceContainerLow: '#1d1b1e',
-      surfaceContainer: '#211f22',
-      surfaceContainerHigh: '#2b292d',
-      surfaceContainerHighest: '#363438'
+      inversePrimary: '#684fa4',
+      surfaceDim: '#ddd8dd',
+      surfaceBright: '#fdf8fd',
+      surfaceContainerLowest: '#ffffff',
+      surfaceContainerLow: '#f7f2f7',
+      surfaceContainer: '#f2ecf1',
+      surfaceContainerHigh: '#ece7eb',
+      surfaceContainerHighest: '#e6e1e6'
     },
-    primary: '#1976d2',
-    secondary: '#26A69A',
-    accent: '#9C27B0',
+
+    primary: '#684fa4',
+    secondary: '#625b70',
+    accent: '#7e525f',
 
     positive: '#21BA45',
     negative: '#C10015',
@@ -1574,20 +1624,148 @@ const defaultTheme: QuasarTheme = {
 export const generateTheme = async (
   primaryColor?: string
 ): Promise<QuasarTheme> => {
-  if (!primaryColor) primaryColor = '#CEB8F1'
-  const colors = await materialDynamicColors(primaryColor)
+  if (!primaryColor) primaryColor = '#675496'
+  const materialTheme = themeFromSourceColor(argbFromHex(primaryColor))
 
   return {
     ...defaultTheme,
     colors: {
       ...defaultTheme.colors,
-      light: colors.light,
-      dark: colors.dark,
-      primary: colors.light.primary,
-      secondary: colors.light.secondary,
-      accent: colors.light.tertiary,
+      light: {
+        primary: hexFromArgb(materialTheme.schemes.light.primary),
+        onPrimary: hexFromArgb(materialTheme.schemes.light.onPrimary),
+        primaryContainer: hexFromArgb(
+          materialTheme.schemes.light.primaryContainer
+        ),
+        onPrimaryContainer: hexFromArgb(
+          materialTheme.schemes.light.onPrimaryContainer
+        ),
+        secondary: hexFromArgb(materialTheme.schemes.light.secondary),
+        onSecondary: hexFromArgb(materialTheme.schemes.light.onSecondary),
+        secondaryContainer: hexFromArgb(
+          materialTheme.schemes.light.secondaryContainer
+        ),
+        onSecondaryContainer: hexFromArgb(
+          materialTheme.schemes.light.onSecondaryContainer
+        ),
+        tertiary: hexFromArgb(materialTheme.schemes.light.tertiary),
+        onTertiary: hexFromArgb(materialTheme.schemes.light.onTertiary),
+        tertiaryContainer: hexFromArgb(
+          materialTheme.schemes.light.tertiaryContainer
+        ),
+        onTertiaryContainer: hexFromArgb(
+          materialTheme.schemes.light.onTertiaryContainer
+        ),
+        error: hexFromArgb(materialTheme.schemes.light.error),
+        onError: hexFromArgb(materialTheme.schemes.light.onError),
+        errorContainer: hexFromArgb(materialTheme.schemes.light.errorContainer),
+        onErrorContainer: hexFromArgb(
+          materialTheme.schemes.light.onErrorContainer
+        ),
+        background: hexFromArgb(materialTheme.schemes.light.background),
+        onBackground: hexFromArgb(materialTheme.schemes.light.onBackground),
+        surface: hexFromArgb(materialTheme.schemes.light.surface),
+        onSurface: hexFromArgb(materialTheme.schemes.light.onSurface),
+        surfaceVariant: hexFromArgb(materialTheme.schemes.light.surfaceVariant),
+        onSurfaceVariant: hexFromArgb(
+          materialTheme.schemes.light.onSurfaceVariant
+        ),
+        outline: hexFromArgb(materialTheme.schemes.light.outline),
+        outlineVariant: hexFromArgb(materialTheme.schemes.light.outlineVariant),
+        shadow: hexFromArgb(materialTheme.schemes.light.shadow),
+        scrim: hexFromArgb(materialTheme.schemes.light.scrim),
+        inverseSurface: hexFromArgb(materialTheme.schemes.light.inverseSurface),
+        inverseOnSurface: hexFromArgb(
+          materialTheme.schemes.light.inverseOnSurface
+        ),
+        inversePrimary: hexFromArgb(materialTheme.schemes.light.inversePrimary),
 
-      'dark-page': colors.dark.surfaceContainer
+        surfaceDim: hexFromArgb(materialTheme.palettes.neutral.tone(87)),
+        surfaceBright: hexFromArgb(materialTheme.palettes.neutral.tone(98)),
+        surfaceContainerLowest: hexFromArgb(
+          materialTheme.palettes.neutral.tone(100)
+        ),
+        surfaceContainerLow: hexFromArgb(
+          materialTheme.palettes.neutral.tone(96)
+        ),
+        surfaceContainer: hexFromArgb(materialTheme.palettes.neutral.tone(94)),
+        surfaceContainerHigh: hexFromArgb(
+          materialTheme.palettes.neutral.tone(92)
+        ),
+        surfaceContainerHighest: hexFromArgb(
+          materialTheme.palettes.neutral.tone(90)
+        )
+      },
+      dark: {
+        primary: hexFromArgb(materialTheme.schemes.dark.primary),
+        onPrimary: hexFromArgb(materialTheme.schemes.dark.onPrimary),
+        primaryContainer: hexFromArgb(
+          materialTheme.schemes.dark.primaryContainer
+        ),
+        onPrimaryContainer: hexFromArgb(
+          materialTheme.schemes.dark.onPrimaryContainer
+        ),
+        secondary: hexFromArgb(materialTheme.schemes.dark.secondary),
+        onSecondary: hexFromArgb(materialTheme.schemes.dark.onSecondary),
+        secondaryContainer: hexFromArgb(
+          materialTheme.schemes.dark.secondaryContainer
+        ),
+        onSecondaryContainer: hexFromArgb(
+          materialTheme.schemes.dark.onSecondaryContainer
+        ),
+        tertiary: hexFromArgb(materialTheme.schemes.dark.tertiary),
+        onTertiary: hexFromArgb(materialTheme.schemes.dark.onTertiary),
+        tertiaryContainer: hexFromArgb(
+          materialTheme.schemes.dark.tertiaryContainer
+        ),
+        onTertiaryContainer: hexFromArgb(
+          materialTheme.schemes.dark.onTertiaryContainer
+        ),
+        error: hexFromArgb(materialTheme.schemes.dark.error),
+        onError: hexFromArgb(materialTheme.schemes.dark.onError),
+        errorContainer: hexFromArgb(materialTheme.schemes.dark.errorContainer),
+        onErrorContainer: hexFromArgb(
+          materialTheme.schemes.dark.onErrorContainer
+        ),
+        background: hexFromArgb(materialTheme.schemes.dark.background),
+        onBackground: hexFromArgb(materialTheme.schemes.dark.onBackground),
+        surface: hexFromArgb(materialTheme.schemes.dark.surface),
+        onSurface: hexFromArgb(materialTheme.schemes.dark.onSurface),
+        surfaceVariant: hexFromArgb(materialTheme.schemes.dark.surfaceVariant),
+        onSurfaceVariant: hexFromArgb(
+          materialTheme.schemes.dark.onSurfaceVariant
+        ),
+        outline: hexFromArgb(materialTheme.schemes.dark.outline),
+        outlineVariant: hexFromArgb(materialTheme.schemes.dark.outlineVariant),
+        shadow: hexFromArgb(materialTheme.schemes.dark.shadow),
+        scrim: hexFromArgb(materialTheme.schemes.dark.scrim),
+        inverseSurface: hexFromArgb(materialTheme.schemes.dark.inverseSurface),
+        inverseOnSurface: hexFromArgb(
+          materialTheme.schemes.dark.inverseOnSurface
+        ),
+        inversePrimary: hexFromArgb(materialTheme.schemes.dark.inversePrimary),
+
+        surfaceDim: hexFromArgb(materialTheme.palettes.neutral.tone(6)),
+        surfaceBright: hexFromArgb(materialTheme.palettes.neutral.tone(24)),
+        surfaceContainerLowest: hexFromArgb(
+          materialTheme.palettes.neutral.tone(4)
+        ),
+        surfaceContainerLow: hexFromArgb(
+          materialTheme.palettes.neutral.tone(10)
+        ),
+        surfaceContainer: hexFromArgb(materialTheme.palettes.neutral.tone(12)),
+        surfaceContainerHigh: hexFromArgb(
+          materialTheme.palettes.neutral.tone(17)
+        ),
+        surfaceContainerHighest: hexFromArgb(
+          materialTheme.palettes.neutral.tone(22)
+        )
+      },
+      primary: hexFromArgb(materialTheme.schemes.light.primary),
+      secondary: hexFromArgb(materialTheme.schemes.light.secondary),
+      accent: hexFromArgb(materialTheme.schemes.light.tertiary),
+
+      'dark-page': hexFromArgb(materialTheme.palettes.neutral.tone(6))
     }
   }
 }

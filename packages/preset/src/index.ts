@@ -5,8 +5,8 @@ import {
   presetWebFonts,
   transformerVariantGroup
 } from 'unocss'
-import presetUno from '@unocss/preset-uno'
-import { defaultTheme, generateTheme } from './theme.js'
+import presetWind3 from '@unocss/preset-wind3'
+import { generateTheme } from './theme.js'
 import { animatedUno } from 'animated-unocss'
 
 import {
@@ -1525,16 +1525,17 @@ export const QuasarPreset = definePreset(
     if (!options)
       options = {
         style: 'md2',
-        primaryColor: '#CEB8F1'
+        primaryColor: '#675496'
       }
     if (!Object.keys(QuasarStyles).includes(options.style))
       throw new Error('Unsupported Quasar style')
 
     const style: QuasarStyle = (await QuasarStyles[options.style]).default
+
     const theme = await generateTheme(options.primaryColor)
 
     return [
-      presetUno({
+      presetWind3({
         dark: {
           light: '.body--light',
           dark: '.body--dark'
