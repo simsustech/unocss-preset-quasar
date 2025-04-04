@@ -35,14 +35,14 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-slider__track$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-slider__track'] ??
-      `bg-[rgba(0,_0,_0,_0.1)] rounded-[4px] [width:inherit] [height:inherit] text-primary`
+      `bg-light-secondary-container/10 dark:bg-dark-secondary-container/10 rounded-[4px] [width:inherit] [height:inherit] text-light-primary dark:text-dark-primary`
   ],
 
   [
     /^q-slider__inner$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-slider__inner'] ??
-      `bg-[rgba(0,_0,_0,_0.1)] [border-radius:inherit] w-full h-full`
+      `bg-light-secondary-container/10 dark:bg-dark-secondary-container/10 [border-radius:inherit] w-full h-full`
   ],
 
   [
