@@ -24,8 +24,21 @@
           </q-item>
         </q-list>
       </q-btn-dropdown>
+
+      <q-btn-toggle
+        v-model="model"
+        :options="[
+          { label: 'One', value: 'one' },
+          { label: 'Two', value: 'two' },
+          { label: 'Three', value: 'three' }
+        ]"
+      />
     </div>
   </q-page>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const model = ref('one')
+</script>

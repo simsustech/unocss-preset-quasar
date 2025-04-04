@@ -45,7 +45,6 @@
     "tinyglobby": "^0.2.10",
     "toml": "^3.0.0",
     "unocss": "66.1.0-beta.8",
-    "unocss-preset-quasar": "workspace:*",
     "vite-plugin-checker": "^0.9.0",
     "workbox-build": "^7.1.1"
   }

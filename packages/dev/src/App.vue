@@ -19,11 +19,12 @@ export default {
 
 <script setup lang="ts">
 import { setDefaultPropsMd3 } from 'unocss-preset-quasar/styles'
-import { QBtn, QInput, QBtnDropdown } from 'quasar'
+import { QBtn, QInput, QBtnDropdown, QBtnToggle } from 'quasar'
 
 setDefaultPropsMd3({
   QBtn,
   QBtnDropdown,
-  QInput
+  QInput,
+  QBtnToggle
 })
 </script>
