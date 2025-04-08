@@ -1622,10 +1622,9 @@ const defaultTheme: QuasarTheme = {
 }
 
 export const generateTheme = async (
-  primaryColor?: string
+  sourceColor: string
 ): Promise<QuasarTheme> => {
-  if (!primaryColor) primaryColor = '#675496'
-  const materialTheme = themeFromSourceColor(argbFromHex(primaryColor))
+  const materialTheme = themeFromSourceColor(argbFromHex(sourceColor))
 
   return {
     ...defaultTheme,

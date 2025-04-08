@@ -175,7 +175,7 @@ export default async function ({ mode, command }): VitrifyConfigAsync {
         presets: [
           await QuasarPreset({
             style: 'md3',
-            // primaryColor: '#123456',
+            // sourceColor: '#123456',
             plugins: quasarConf['framework']['plugins'],
             iconSet: quasarConf['framework']['iconSet']
           })

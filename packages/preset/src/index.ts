@@ -25,7 +25,7 @@ import { WebFontsOptions } from '@unocss/preset-web-fonts/index.js'
 
 export interface QuasarPresetOptions {
   style: keyof typeof QuasarStyles
-  primaryColor?: string
+  sourceColor?: string
   plugins?: (keyof QuasarPlugins)[]
   iconSet?: QuasarIconSet
   presetWebFonts?: WebFontsOptions
@@ -1525,14 +1525,18 @@ export const QuasarPreset = definePreset(
     if (!options)
       options = {
         style: 'md2',
-        primaryColor: '#675496'
+        sourceColor: '#806cb0'
       }
     if (!Object.keys(QuasarStyles).includes(options.style))
       throw new Error('Unsupported Quasar style')
 
+    if (!options.sourceColor) {
+      options.sourceColor = '#806cb0'
+    }
+
     const style: QuasarStyle = (await QuasarStyles[options.style]).default
 
-    const theme = await generateTheme(options.primaryColor)
+    const theme = await generateTheme(options.sourceColor)
 
     return [
       presetWind3({
