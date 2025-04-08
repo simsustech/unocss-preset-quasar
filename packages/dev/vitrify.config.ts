@@ -1,5 +1,6 @@
 import { type VitrifyConfig, type VitrifyConfigAsync } from 'vitrify'
 import { QuasarPreset } from 'unocss-preset-quasar'
+import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
 
 import { certificateFor } from 'devcert'
 
@@ -173,8 +174,8 @@ export default async function ({ mode, command }): VitrifyConfigAsync {
       },
       unocss: {
         presets: [
-          await QuasarPreset({
-            style: 'md3',
+          QuasarPreset({
+            style: MaterialDesign3,
             // sourceColor: '#123456',
             plugins: quasarConf['framework']['plugins'],
             iconSet: quasarConf['framework']['iconSet']

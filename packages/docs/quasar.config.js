@@ -7,6 +7,7 @@ import manualChunks from './build/chunks.js'
 
 import UnoCSS from 'unocss/vite'
 import { QuasarPreset } from 'unocss-preset-quasar'
+import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
 
 const plugins = [
   'AddressbarColor',
@@ -25,11 +26,6 @@ const plugins = [
   'Screen',
   'SessionStorage'
 ]
-
-const unocssPresetQuasar = await QuasarPreset({
-  style: 'md3',
-  plugins
-})
 
 export default defineConfig(async (ctx) => ({
   boot: [{ path: 'gdpr', server: false }],
@@ -98,7 +94,12 @@ export default defineConfig(async (ctx) => ({
       viteConf.plugins.push(
         UnoCSS({
           enforce: 'pre',
-          presets: [unocssPresetQuasar]
+          presets: [
+            QuasarPreset({
+              style: MaterialDesign3,
+              plugins
+            })
+          ]
         })
       )
     }

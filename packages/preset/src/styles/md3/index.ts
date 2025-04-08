@@ -127,7 +127,6 @@ import { shortcuts as QFooterShortcuts } from './components/QFooter.unocss.js'
 import { shortcuts as QDrawerShortcuts } from './components/QDrawer.unocss.js'
 import { QuasarStyle } from '../index.js'
 
-import { QBtn as QuasarButton } from 'quasar'
 const style: QuasarStyle = {
   variants: [],
   preflights: ([] as Preflight<QuasarTheme>[]).concat(

@@ -24,16 +24,11 @@ import {
 import { WebFontsOptions } from '@unocss/preset-web-fonts/index.js'
 
 export interface QuasarPresetOptions {
-  style: keyof typeof QuasarStyles
+  style: QuasarStyle
   sourceColor?: string
   plugins?: (keyof QuasarPlugins)[]
   iconSet?: QuasarIconSet
   presetWebFonts?: WebFontsOptions
-}
-
-const QuasarStyles = {
-  md2: import('./styles/md2/index.js'),
-  md3: import('./styles/md3/index.js')
 }
 
 const extractKeys = (obj: Record<string, any>) =>
@@ -1520,153 +1515,142 @@ const generateSafelist = ({
   return safelist
 }
 
-export const QuasarPreset = definePreset(
-  async (options?: QuasarPresetOptions) => {
-    if (!options)
-      options = {
-        style: 'md2',
-        sourceColor: '#806cb0'
-      }
-    if (!Object.keys(QuasarStyles).includes(options.style))
-      throw new Error('Unsupported Quasar style')
-
-    if (!options.sourceColor) {
-      options.sourceColor = '#806cb0'
-    }
-
-    const style: QuasarStyle = (await QuasarStyles[options.style]).default
-
-    const theme = await generateTheme(options.sourceColor)
-
-    return [
-      presetWind3({
-        dark: {
-          light: '.body--light',
-          dark: '.body--dark'
-        }
-      }),
-      animatedUno(),
-      presetIcons({}),
-      presetWebFonts(
-        options.presetWebFonts || {
-          provider: 'bunny',
-          fonts: {
-            roboto: 'Roboto'
-          }
-        }
-      ),
-      {
-        name: 'quasar',
-        safelist: generateSafelist(options),
-        preflights: corePreflights.concat(style.preflights),
-        rules: coreRules.concat(style.rules),
-        variants: style.variants,
-        shortcuts: coreShortcuts.concat(style.shortcuts),
-        theme,
-        outputToCssLayers: true,
-        layers: {
-          components: -1,
-          default: 1,
-          utilities: 2
-        },
-        extractors: [
-          {
-            name: 'quasar-extractor',
-            order: 0,
-            extract({ code }) {
-              const kebabMatch = code.matchAll(/q-(\w)([\w-]*)/g)
-              const pascalMatch = code.matchAll(/Q([A-Z][a-z0-9]+)+/g)
-              const transitionMatch = code.matchAll(
-                /(transition|transition-show|transition-hide|transition-prev|transition-next)="(\S*)"/g
-              )
-              const colorMatch = code.matchAll(/color[=|:]"(.*?)"/g)
-
-              const pascalComponentsMatch: string[] = []
-              const matches: string[] = []
-
-              for (const match of kebabMatch) {
-                matches.push(match[0])
-                pascalComponentsMatch.push(toPascalCase(match[0]))
-              }
-              for (const match of pascalMatch) {
-                pascalComponentsMatch.push(match[0])
-                matches.push(toKebabCase(match[0]))
-              }
-              const transitionClasses = []
-              for (const match of transitionMatch) {
-                transitionClasses.push(
-                  ...[
-                    'enter-from',
-                    'enter-active',
-                    'enter-to',
-                    'leave-from',
-                    'leave-active',
-                    'leave-to'
-                  ].map((v) => `q-transition--${match[2]}-${v}`)
-                )
-              }
-              const colorClasses = []
-              for (const match of colorMatch) {
-                colorClasses.push(`text-${match[1]}`, `bg-${match[1]}`)
-              }
-
-              // const classes = qClasses.filter((c) =>
-              //   matches.some((component) => {
-              //     component = component.replaceAll(
-              //       'q-chat-message',
-              //       'q-message'
-              //     )
-              //     component = component.replaceAll(
-              //       'q-scroll-area',
-              //       'q-scrollarea'
-              //     )
-              //     return c.includes(component)
-              //   })
-              // )
-              const classes = []
-              const componentClasses = [
-                ...matches,
-                ...pascalComponentsMatch.reduce((acc, component) => {
-                  if (component in componentsSafelistMap) {
-                    acc.push(
-                      ...(componentsSafelistMap as Record<string, string>)[
-                        component
-                      ]
-                    )
-                  }
-                  return acc
-                }, [] as string[])
-              ]
-              classes.push(
-                ...transitionClasses,
-                ...colorClasses,
-                ...componentClasses
-              )
-              return classes
-            }
-          }
-        ],
-        transformers: [
-          transformerVariantGroup()
-          // {
-          //   name: 'find-classes-in-quasar-src',
-          //   enforce: 'pre', // enforce before other transformers
-          //   idFilter(id) {
-          //     return id.match(/quasar\/src\/.*\.js/)
-          //   },
-          //   async transform(code, id, { uno }) {
-          //     for (const c of baseSafelist) {
-          //       if (code.toString().includes(c)) console.log(c)
-          //     }
-          //     return code
-          //     // code is a MagicString instance
-          //   }
-          // }
-        ]
-      } as Preset
-    ]
+export const QuasarPreset = definePreset((options: QuasarPresetOptions) => {
+  if (!options.sourceColor) {
+    options.sourceColor = '#806cb0'
   }
-)
+
+  const style = options.style
+  const theme = generateTheme(options.sourceColor)
+
+  return [
+    presetWind3({
+      dark: {
+        light: '.body--light',
+        dark: '.body--dark'
+      }
+    }),
+    animatedUno(),
+    presetIcons({}),
+    presetWebFonts(
+      options.presetWebFonts || {
+        provider: 'bunny',
+        fonts: {
+          roboto: 'Roboto'
+        }
+      }
+    ),
+    {
+      name: 'quasar',
+      safelist: generateSafelist(options),
+      preflights: corePreflights.concat(style.preflights),
+      rules: coreRules.concat(style.rules),
+      variants: style.variants,
+      shortcuts: coreShortcuts.concat(style.shortcuts),
+      theme,
+      outputToCssLayers: true,
+      layers: {
+        components: -1,
+        default: 1,
+        utilities: 2
+      },
+      extractors: [
+        {
+          name: 'quasar-extractor',
+          order: 0,
+          extract({ code }) {
+            const kebabMatch = code.matchAll(/q-(\w)([\w-]*)/g)
+            const pascalMatch = code.matchAll(/Q([A-Z][a-z0-9]+)+/g)
+            const transitionMatch = code.matchAll(
+              /(transition|transition-show|transition-hide|transition-prev|transition-next)="(\S*)"/g
+            )
+            const colorMatch = code.matchAll(/color[=|:]"(.*?)"/g)
+
+            const pascalComponentsMatch: string[] = []
+            const matches: string[] = []
+
+            for (const match of kebabMatch) {
+              matches.push(match[0])
+              pascalComponentsMatch.push(toPascalCase(match[0]))
+            }
+            for (const match of pascalMatch) {
+              pascalComponentsMatch.push(match[0])
+              matches.push(toKebabCase(match[0]))
+            }
+            const transitionClasses = []
+            for (const match of transitionMatch) {
+              transitionClasses.push(
+                ...[
+                  'enter-from',
+                  'enter-active',
+                  'enter-to',
+                  'leave-from',
+                  'leave-active',
+                  'leave-to'
+                ].map((v) => `q-transition--${match[2]}-${v}`)
+              )
+            }
+            const colorClasses = []
+            for (const match of colorMatch) {
+              colorClasses.push(`text-${match[1]}`, `bg-${match[1]}`)
+            }
+
+            // const classes = qClasses.filter((c) =>
+            //   matches.some((component) => {
+            //     component = component.replaceAll(
+            //       'q-chat-message',
+            //       'q-message'
+            //     )
+            //     component = component.replaceAll(
+            //       'q-scroll-area',
+            //       'q-scrollarea'
+            //     )
+            //     return c.includes(component)
+            //   })
+            // )
+            const classes = []
+            const componentClasses = [
+              ...matches,
+              ...pascalComponentsMatch.reduce((acc, component) => {
+                if (component in componentsSafelistMap) {
+                  acc.push(
+                    ...(componentsSafelistMap as Record<string, string>)[
+                      component
+                    ]
+                  )
+                }
+                return acc
+              }, [] as string[])
+            ]
+            classes.push(
+              ...transitionClasses,
+              ...colorClasses,
+              ...componentClasses
+            )
+            return classes
+          }
+        }
+      ],
+      transformers: [
+        transformerVariantGroup()
+        // {
+        //   name: 'find-classes-in-quasar-src',
+        //   enforce: 'pre', // enforce before other transformers
+        //   idFilter(id) {
+        //     return id.match(/quasar\/src\/.*\.js/)
+        //   },
+        //   async transform(code, id, { uno }) {
+        //     for (const c of baseSafelist) {
+        //       if (code.toString().includes(c)) console.log(c)
+        //     }
+        //     return code
+        //     // code is a MagicString instance
+        //   }
+        // }
+      ]
+    } as Preset
+  ]
+})
 
 export const defaultSplitRE = /[\\:]?[\s'"`;{}]+/g
 export const splitWithVariantGroupRE = /([\\:]?[\s"'`;<>]|:\(|\)"|\)\s)/g
