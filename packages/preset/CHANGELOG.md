@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.1.2
+
+### Patch Changes
+
+- 5d2c3ca: fix(preset): fix QSkeleton and QTree
+
 ## 0.1.1
 
 ### Patch Changes
