@@ -61,171 +61,147 @@ const preflights: Preflight<QuasarTheme>[] = [
 
 const shortcuts: UserShortcuts<QuasarTheme> = [
   [
-    /^q-skeleton$/,
+    /^q-skeleton\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton'] ??
-      `bg-[rgba(0,_0,_0,_0.12)] rounded-[4px] box-border [&:before]:(content-['_'])`
+      `bg-gray-200 rounded box-border`
   ],
-
   [
-    /^q-skeleton--anim$/,
+    /^q-skeleton--anim\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton--anim'] ?? `cursor-wait`
   ],
-
   [
-    /^q-skeleton--type-text$/,
+    /^q-skeleton--type-text\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton--type-text'] ??
-      `scale-x-100 scale-y-[0.5]`
+      `transform scale-y-50`
   ],
-
   [
-    /^q-skeleton--type-circle$/,
+    /^q-skeleton--type-circle\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton--type-circle'] ??
-      `h-[48px] w-[48px] rounded-[50%]`
+      `h-12 w-12 rounded-full`
   ],
-
   [
-    /^q-skeleton--type-QAvatar$/,
+    /^q-skeleton--type-QAvatar\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton--type-QAvatar'] ??
-      `h-[48px] w-[48px] rounded-[50%]`
+      `h-12 w-12 rounded-full`
   ],
-
   [
-    /^q-skeleton--type-QBtn$/,
+    /^q-skeleton--type-QBtn\$/,
     ([, c], { theme }) =>
-      theme.quasar?.components?.['q-skeleton--type-QBtn'] ?? `w-[90px] h-[36px]`
+      theme.quasar?.components?.['q-skeleton--type-QBtn'] ?? `w-24 h-9`
   ],
-
   [
-    /^q-skeleton--type-QBadge$/,
+    /^q-skeleton--type-QBadge\$/,
     ([, c], { theme }) =>
-      theme.quasar?.components?.['q-skeleton--type-QBadge'] ??
-      `w-[70px] h-[16px]`
+      theme.quasar?.components?.['q-skeleton--type-QBadge'] ?? `w-18 h-4`
   ],
-
   [
-    /^q-skeleton--type-QChip$/,
+    /^q-skeleton--type-QChip\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton--type-QChip'] ??
-      `w-[90px] h-[28px] rounded-[16px]`
+      `w-24 h-7 rounded-full`
   ],
-
   [
-    /^q-skeleton--type-QToolbar$/,
+    /^q-skeleton--type-QToolbar\$/,
     ([, c], { theme }) =>
-      theme.quasar?.components?.['q-skeleton--type-QToolbar'] ?? `h-[50px]`
+      theme.quasar?.components?.['q-skeleton--type-QToolbar'] ?? `h-12`
   ],
-
   [
-    /^q-skeleton--type-QCheckbox$/,
+    /^q-skeleton--type-QCheckbox\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton--type-QCheckbox'] ??
-      `w-[40px] h-[40px] rounded-[50%]`
+      `h-10 w-10 rounded-full`
   ],
-
   [
-    /^q-skeleton--type-QRadio$/,
+    /^q-skeleton--type-QRadio\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton--type-QRadio'] ??
-      `w-[40px] h-[40px] rounded-[50%]`
+      `h-10 w-10 rounded-full`
   ],
-
   [
-    /^q-skeleton--type-QToggle$/,
+    /^q-skeleton--type-QToggle\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton--type-QToggle'] ??
-      `w-[56px] h-[40px] rounded-[7px]`
+      `w-14 h-10 rounded-md`
   ],
-
   [
-    /^q-skeleton--type-QSlider$/,
+    /^q-skeleton--type-QSlider\$/,
     ([, c], { theme }) =>
-      theme.quasar?.components?.['q-skeleton--type-QSlider'] ?? `h-[40px]`
+      theme.quasar?.components?.['q-skeleton--type-QSlider'] ?? `h-10`
   ],
-
   [
-    /^q-skeleton--type-QRange$/,
+    /^q-skeleton--type-QRange\$/,
     ([, c], { theme }) =>
-      theme.quasar?.components?.['q-skeleton--type-QRange'] ?? `h-[40px]`
+      theme.quasar?.components?.['q-skeleton--type-QRange'] ?? `h-10`
   ],
-
   [
-    /^q-skeleton--type-QInput$/,
+    /^q-skeleton--type-QInput\$/,
     ([, c], { theme }) =>
-      theme.quasar?.components?.['q-skeleton--type-QInput'] ?? `h-[56px]`
+      theme.quasar?.components?.['q-skeleton--type-QInput'] ?? `h-14`
   ],
-
   [
-    /^q-skeleton--bordered$/,
+    /^q-skeleton--bordered\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton--bordered'] ??
-      `border-[1px] border-solid border-[rgba(0,0,0,0.05)]`
+      `border border-gray-200`
   ],
-
   [
-    /^q-skeleton--square$/,
+    /^q-skeleton--square\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton--square'] ?? `rounded-none`
   ],
-
   [
-    /^q-skeleton--anim-fade$/,
+    /^q-skeleton--anim-fade\$/,
     ([, c], { theme }) =>
-      theme.quasar?.components?.['q-skeleton--anim-fade'] ??
-      `animate-[q-skeleton--fade_var(--q-skeleton-speed)_linear_0.5s_infinite]`
+      theme.quasar?.components?.['q-skeleton--anim-fade'] ?? `animate-fade`
   ],
-
   [
-    /^q-skeleton--anim-pulse$/,
+    /^q-skeleton--anim-pulse\$/,
     ([, c], { theme }) =>
-      theme.quasar?.components?.['q-skeleton--anim-pulse'] ??
-      `animate-[q-skeleton--pulse_var(--q-skeleton-speed)_ease-in-out_0.5s_infinite]`
+      theme.quasar?.components?.['q-skeleton--anim-pulse'] ?? `animate-pulse`
   ],
-
   [
-    /^q-skeleton--anim-pulse-x$/,
+    /^q-skeleton--anim-pulse-x\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton--anim-pulse-x'] ??
-      `animate-[q-skeleton--pulse-x_var(--q-skeleton-speed)_ease-in-out_0.5s_infinite]`
+      `animate-pulse-x`
   ],
-
   [
-    /^q-skeleton--anim-pulse-y$/,
+    /^q-skeleton--anim-pulse-y\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton--anim-pulse-y'] ??
-      `animate-[q-skeleton--pulse-y_var(--q-skeleton-speed)_ease-in-out_0.5s_infinite]`
+      `animate-pulse-y`
   ],
-
   [
-    /^q-skeleton--anim-wave$/,
+    /^q-skeleton--anim-wave\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton--anim-wave'] ??
-      `relative overflow-hidden [&:after]:(content-[''] absolute top-[0] right-[0] bottom-[0] left-[0] z-0) [&:after]:(bg-[linear-gradient(_90deg,_rgba(255,_255,_255,_0),_rgba(255,_255,_255,_0.5),_rgba(255,_255,_255,_0)_)] animate-[q-skeleton--wave_var(--q-skeleton-speed)_linear_0.5s_infinite])`
+      `relative overflow-hidden z-10 before:content-['\\00a0'] before:absolute before:top-0 before:right-0 before:bottom-0 before:left-0 before:z-0 after:content-[''] after:absolute after:top-0 after:right-0 after:bottom-0 after:left-0 after:z-0 after:bg-gradient-to-r after:from-transparent after:via-white/50 after:to-transparent after:animate-wave`
   ],
-
   [
-    /^q-skeleton--anim-blink$/,
+    /^q-skeleton--anim-blink\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton--anim-blink'] ??
-      `relative overflow-hidden [&:after]:(content-[''] absolute top-[0] right-[0] bottom-[0] left-[0] z-0) [&:after]:(bg-[rgba(255,_255,_255,_0.7)] animate-[q-skeleton--fade_var(--q-skeleton-speed)_linear_0.5s_infinite])`
+      `relative overflow-hidden z-10 before:content-['\\00a0'] before:absolute before:top-0 before:right-0 before:bottom-0 before:left-0 before:z-0 after:content-[''] after:absolute after:top-0 after:right-0 after:bottom-0 after:left-0 after:z-0 after:bg-white/70 after:animate-fade`
   ],
-
   [
-    /^q-skeleton--anim-pop$/,
+    /^q-skeleton--anim-pop\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton--anim-pop'] ??
-      `relative overflow-hidden [&:after]:(content-[''] absolute top-[0] right-[0] bottom-[0] left-[0] z-0)`
+      `relative overflow-hidden z-10 before:content-['\\00a0'] before:absolute before:top-0 before:right-0 before:bottom-0 before:left-0 before:z-0 after:content-[''] after:absolute after:top-0 after:right-0 after:bottom-0 after:left-0 after:z-0`
   ],
-
   [
-    /^q-skeleton--dark$/,
+    /^q-skeleton--dark\$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-skeleton--dark'] ??
-      `bg-[rgba(255,_255,_255,_0.05)] [&.q-skeleton--bordered]:(border-[1px] border-solid border-[rgba(255,255,255,0.25)]) [&.q-skeleton--anim-wave:after]:(bg-[linear-gradient(_90deg,_rgba(255,_255,_255,_0),_rgba(255,_255,_255,_0.1),_rgba(255,_255,_255,_0)_)]) [&.q-skeleton--anim-blink:after]:(bg-[rgba(255,_255,_255,_0.2)])`
+      `bg-white/5
+[&.q-skeleton--bordered]:(border border-white/25)
+[&.q-skeleton--anim-wave]:(after:bg-gradient-to-r after:from-transparent after:via-white/10 after:to-transparent)
+[&.q-skeleton--anim-blink]:(after:bg-white/20)`
   ]
 ]
 
