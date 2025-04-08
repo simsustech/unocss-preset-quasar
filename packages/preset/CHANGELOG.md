@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.1.3
+
+### Patch Changes
+
+- cad1e75: feat(preset): make style an required argument, imported from unocss-preset-quasar/styles
+
 ## 0.1.2
 
 ### Patch Changes
