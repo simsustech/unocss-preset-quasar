@@ -15,7 +15,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-banner__avatar$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-banner__avatar'] ??
-      `!min-w-[1px] [&_>_.q-avatar]:(text-[46px]) [&_>_.q-icon]:(text-[40px]) [&:not(:empty)_+_.q-banner\\_\\_content]:(pl-[16px])`
+      `!flex-initial !min-w-[1px] [&_>_.q-avatar]:(text-[46px]) [&_>_.q-icon]:(text-[40px]) [&:not(:empty)_+_.q-banner\\_\\_content]:(pl-[16px])`
   ],
 
   [
