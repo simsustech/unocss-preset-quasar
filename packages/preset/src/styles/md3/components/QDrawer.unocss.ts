@@ -86,7 +86,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       `[&_>_.q-list]:(px-28px)
       [&_>_.q-list_>_.q-item]:(border-rd-16px)
       [&_.q-list_>_.q-router-link--active]:(text-light-primary dark:text-dark-primary)
-      [&_.q-list_>_.q-router-link--exact-active]:(bg-light-secondary-container dark:bg-dark-secondary-container
+      [&_.q-list_.q-router-link--exact-active]:(bg-light-secondary-container dark:bg-dark-secondary-container
       )`
   ]
 ]
