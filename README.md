@@ -1,6 +1,7 @@
 # unocss-preset-quasar
 
 ## Playground
+
 https://stackblitz.com/edit/unocss-preset-quasar
 
 ## Installation
