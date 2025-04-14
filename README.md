@@ -1,5 +1,8 @@
 # unocss-preset-quasar
 
+## Playground
+https://stackblitz.com/edit/unocss-preset-quasar
+
 ## Installation
 
 In your Quasar project:
@@ -14,6 +17,7 @@ Modify `quasar.config.js` to include the following (check ./packages/docs/quasar
 ...
 import UnoCSS from 'unocss/vite'
 import { QuasarPreset } from 'unocss-preset-quasar'
+import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
 
 const plugins = [
   'AddressbarColor',
@@ -32,11 +36,6 @@ const plugins = [
   'Screen',
   'SessionStorage'
 ]
-
-const unocssPresetQuasar = await QuasarPreset({
-  style: 'md3',
-  plugins
-})
 
 export default defineConfig(async (ctx) => ({
     ...
@@ -63,7 +62,12 @@ export default defineConfig(async (ctx) => ({
       viteConf.plugins.push(
         UnoCSS({
           enforce: 'pre',
-          presets: [unocssPresetQuasar]
+          presets: [
+            QuasarPreset({
+              style: MaterialDesign3,
+              plugins
+            })
+          ]
         })
       )
     }
