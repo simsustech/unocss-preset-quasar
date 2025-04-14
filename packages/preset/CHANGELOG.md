@@ -1,5 +1,12 @@
 # unocss-preset-quasar
 
+## 0.1.4
+
+### Patch Changes
+
+- fbaf4b4: fix(preset): fix QBanner and QIcon
+- dfa060b: fix(preset): fix QToggle
+
 ## 0.1.3
 
 ### Patch Changes
