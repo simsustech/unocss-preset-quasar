@@ -29,24 +29,24 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-toggle__track$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-toggle__track'] ??
-      `outline-solid outline-2px outline-light-outline dark:outline-dark-outline !rounded-full h-[2em] w-[3.25em] bg-light-surface-container dark:bg-dark-surface-container`
+      `outline-solid outline-2px outline-light-outline dark:outline-dark-outline !rounded-full h-[1em] w-[1.6125em] bg-light-surface-container dark:bg-dark-surface-container`
   ],
 
   [
     /^q-toggle__thumb$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-toggle__thumb'] ??
-      `top-[0.5625em] left-[0.5625em] w-[1.5em] h-[1.5em] [transition:left_0.22s_cubic-bezier(0.4,_0,_0.2,_1)] select-none z-0 
+      `layer-components:text-light-surface-container-highest layer-components:dark:text-dark-surface-container-highest
+      top-[0.125em] left-[0.5125em] w-[0.75em] h-[0.75em] [transition:left_0.22s_cubic-bezier(0.4,_0,_0.2,_1)] select-none z-0 
     [&:before]:()
-    [&:after]:(content-[''] bg-light-outline dark:bg-dark-outline absolute top-[0] right-[0] bottom-[0] left-[0] rounded-[50%] [box-shadow:0_3px_1px_-2px_rgba(0,_0,_0,_0.2),_0_2px_2px_0_rgba(0,_0,_0,_0.14),_0_1px_5px_0_rgba(0,_0,_0,_0.12)]) 
-    [&_.q-icon]:(layer-components:text-[0.3em] min-w-[1em] layer-components:text-[#000] opacity-[0.54])`
+    [&:after]:(content-[''] layer-components:bg-light-outline layer-components:dark:bg-dark-outline absolute top-[0] right-[0] bottom-[0] left-[0] rounded-[50%] [box-shadow:0_3px_1px_-2px_rgba(0,_0,_0,_0.2),_0_2px_2px_0_rgba(0,_0,_0,_0.14),_0_1px_5px_0_rgba(0,_0,_0,_0.12)]) 
+    [&_.q-icon]:(z-2 layer-components:text-[0.5em] layer-components:text-[#000] opacity-[0.54])`
   ],
 
   [
     /^q-toggle__inner$/,
     ([, c], { theme }) =>
-      theme.quasar?.components?.['q-toggle__inner'] ??
-      `text-[1.25em] w-[1.4em] min-w-[1.4em] max-h-[1em] px-[0.3em] py-[0.325em]`
+      theme.quasar?.components?.['q-toggle__inner'] ?? `px-0.325em`
   ],
 
   [
@@ -61,8 +61,8 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-toggle__inner--truthy'] ??
       `[&_.q-toggle\\_\\_track]:(bg-light-primary dark:bg-dark-primary) 
-      [&_.q-toggle\\_\\_thumb]:(left-[1.625em] top-[0.45em] w-[1.75em] h-[1.75em])
-      [&_.q-toggle\\_\\_thumb:after]:(!bg-light-on-primary dark:!bg-dark-on-primary)
+      [&_.q-toggle\\_\\_thumb]:(text-light-on-primary-container dark:text-light-on-primary-container left-[0.95em] top-[0.0625em] w-[0.875em] h-[0.875em])
+      [&_.q-toggle\\_\\_thumb:after]:(layer-components:!bg-light-on-primary dark:!bg-dark-on-primary)
       [&_.q-toggle\\_\\_thumb_.q-icon]:(layer-components:text-[#fff] opacity-100)
       [&:not(.disabled):focus_.q-toggle\\_\\_thumb:before]:(scale-200)
       [&:not(.disabled):hover_.q-toggle\\_\\_thumb:before]:(scale-200)`
