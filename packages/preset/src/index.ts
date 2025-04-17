@@ -1566,6 +1566,12 @@ export const QuasarPreset = definePreset((options: QuasarPresetOptions) => {
             )
             const colorMatch = code.matchAll(/color[=|:]"(.*?)"/g)
 
+            const themeColorMatch = code.matchAll(
+              new RegExp(`(${Object.keys(theme.colors).join('|')})`, 'g')
+            )
+
+            const iconMatch = code.matchAll(/(?:icon|name)[=|:]"(.*?)"/g)
+
             const pascalComponentsMatch: string[] = []
             const matches: string[] = []
 
@@ -1593,6 +1599,15 @@ export const QuasarPreset = definePreset((options: QuasarPresetOptions) => {
             const colorClasses = []
             for (const match of colorMatch) {
               colorClasses.push(`text-${match[1]}`, `bg-${match[1]}`)
+            }
+            for (const match of themeColorMatch) {
+              colorClasses.push(`text-${match[0]}`, `bg-${match[0]}`)
+            }
+
+            const iconClasses = []
+            for (const match of iconMatch) {
+              console.log(match[1])
+              iconClasses.push(`i-mdi-${match[1]}`)
             }
 
             // const classes = qClasses.filter((c) =>
@@ -1625,7 +1640,8 @@ export const QuasarPreset = definePreset((options: QuasarPresetOptions) => {
             classes.push(
               ...transitionClasses,
               ...colorClasses,
-              ...componentClasses
+              ...componentClasses,
+              ...iconClasses
             )
             return classes
           }
