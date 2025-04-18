@@ -1606,7 +1606,6 @@ export const QuasarPreset = definePreset((options: QuasarPresetOptions) => {
 
             const iconClasses = []
             for (const match of iconMatch) {
-              console.log(match[1])
               iconClasses.push(`i-mdi-${match[1]}`)
             }
 

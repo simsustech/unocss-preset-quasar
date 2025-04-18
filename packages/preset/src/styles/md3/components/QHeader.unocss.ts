@@ -15,7 +15,8 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-header$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-header'] ??
-      `z-2000 [&_.q-layout\\_\\_shadow]:(-bottom-10px) [&_.q-layout\\_\\_shadow:after]:(bottom-10px)`
+      `z-2000 [&_.q-layout\\_\\_shadow]:(-bottom-10px) [&_.q-layout\\_\\_shadow:after]:(bottom-10px)
+      [&_.q-toolbar\\_\\_title]:(flex-grow-1000)`
     // relative
   ]
 ]

@@ -730,6 +730,7 @@ export interface QuasarTheme {
       'q-drawer__backdrop'?: string
       'q-drawer__opener'?: string
       'q-page'?: string
+      'q-page-sticky'?: string
       'q-page-sticky--shrink'?: string
       'q-body--layout-animate'?: string
       'q-body--drawer-toggle'?: string

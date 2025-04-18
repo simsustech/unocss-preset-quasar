@@ -6,7 +6,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-card$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-card'] ??
-      `rounded-[12px] align-top bg-[#fff] relative bg-light-surface-container dark:bg-dark-surface-container
+      `p-16px rounded-[12px] align-top bg-[#fff] relative bg-light-surface-container dark:bg-dark-surface-container
       [&_>_div:not(.q--avoid-card-border)]:(rounded-tl-none rounded-tr-none rounded-bl-none rounded-br-none)
       [&_>_img:not(.q--avoid-card-border)]:(rounded-tl-none rounded-tr-none rounded-bl-none rounded-br-none)
       [&_>_div:nth-child(1_of_:not(.q--avoid-card-border))]:([border-top:0] [border-top-left-radius:inherit] [border-top-right-radius:inherit])
@@ -49,7 +49,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-card__actions$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-card__actions'] ??
-      `p-[8px] items-center [&_.q-btn--rectangle]:(px-[8px] py-[0])`
+      `p-[8px] items-center [&_.q-btn--rectangle:not(.q-btn--rounded)]:(px-[8px] py-[0])`
   ],
 
   [

@@ -3,6 +3,10 @@ import type { QuasarTheme } from '../../../theme.js'
 
 const shortcuts: UserShortcuts<QuasarTheme> = [
   [
+    /^q-page-sticky$/,
+    ([, c], { theme }) => theme.quasar?.components?.['q-page-sticky'] ?? ``
+  ],
+  [
     /^q-page-sticky--shrink$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-page-sticky--shrink'] ??

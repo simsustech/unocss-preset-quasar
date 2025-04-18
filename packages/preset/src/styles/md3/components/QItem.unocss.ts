@@ -6,7 +6,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-item$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-item'] ??
-      `min-h-[40px] px-[16px] py-[8px] [color:inherit] [transition:color_0.3s,_background-color_0.3s] [&_>_.q-item\\_\\_section--thumbnail:first-child]:(-ml-[16px]) [&_>_.q-focus-helper_+_.q-item\\_\\_section--thumbnail]:(-ml-[16px]) [&_>_.q-item\\_\\_section--thumbnail:last-of-type]:(-mr-[16px]) relative
+      `min-h-[28px] px-[16px] py-[8px] [color:inherit] [transition:color_0.3s,_background-color_0.3s] [&_>_.q-item\\_\\_section--thumbnail:first-child]:(-ml-[16px]) [&_>_.q-focus-helper_+_.q-item\\_\\_section--thumbnail]:(-ml-[16px]) [&_>_.q-item\\_\\_section--thumbnail:last-of-type]:(-mr-[16px]) relative
     [&.q-router-link--active]:(text-primary)`
   ],
 
@@ -80,8 +80,8 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-item__section--main'] ??
       `w-auto min-w-[0] max-w-full flex-[10000_1_0%]
-      [&:has(>:last-child:nth-child(2))]:(min-h-72px)
-      [&:has(>:last-child:nth-child(3))]:(min-h-88px)
+      [&:has(>:last-child:nth-child(2))]:(min-h-36px)
+      [&:has(>:last-child:nth-child(3))]:(min-h-44px)
       [&_+_.q-item\\_\\_section--main]:(ml-[8px]) 
       [&_~_.q-item\\_\\_section--side]:(items-end pr-0 pl-[16px])`
   ],
@@ -104,10 +104,10 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-list--dense$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-list--dense'] ??
-      `[&_>_.q-item]:(min-h-[32px] px-[16px] py-[2px])`
+      `[&_>_.q-item]:(min-h-[28px] px-[16px] py-[2px])`
   ],
 
-  [/^q-item--dense$/, ([, c], { theme }) => `min-h-[32px] px-[16px] py-[2px]`],
+  [/^q-item--dense$/, ([, c], { theme }) => `min-h-[28px] px-[16px] py-[2px]`],
 
   [
     /^q-list--dark$/,

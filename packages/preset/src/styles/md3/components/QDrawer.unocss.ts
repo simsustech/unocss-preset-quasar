@@ -6,7 +6,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-drawer$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-drawer'] ??
-      `absolute top-[0] bottom-[0] bg-[#fff] z-${theme.quasar.z['side']}`
+      `absolute top-[0] bottom-[0] bg-light-surface-container-low dark:bg-dark-surface-container-low z-${theme.quasar.z['side']}`
   ],
 
   [
@@ -34,14 +34,23 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-drawer-container$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-drawer-container'] ??
-      `[&:not(.q-drawer--mini-animate)_.q-drawer--mini]:(!p-0) [&:not(.q-drawer--mini-animate)_.q-drawer--mini_.q-item]:(text-center justify-center pl-0 pr-0 min-w-[0]) [&:not(.q-drawer--mini-animate)__.q-drawer--mini__.q-item\\_\\_section]:(text-center justify-center pl-0 pr-0 min-w-[0]) [&:not(.q-drawer--mini-animate)_.q-drawer--mini_.q-item\\_\\_label]:(hidden) [&:not(.q-drawer--mini-animate)__.q-drawer--mini__.q-item\\_\\_section--main]:(hidden) [&:not(.q-drawer--mini-animate)__.q-drawer--mini__.q-item\\_\\_section--side__~_.q-item\\_\\_section--side]:(hidden)`
+      `[&:not(.q-drawer--mini-animate)_.q-drawer--mini]:(!p-0)
+      [&:not(.q-drawer--mini-animate)_.q-drawer--mini_.q-item]:(text-center justify-center pl-0 pr-0 min-w-[0])
+      [&:not(.q-drawer--mini-animate)_.q-drawer--mini_.q-item\\_\\_section]:(text-center justify-center pl-0 pr-0 min-w-[0])
+      [&:not(.q-drawer--mini-animate)_.q-drawer--mini_.q-item\\_\\_label]:(hidden)
+      [&:not(.q-drawer--mini-animate)__.q-drawer--mini__.q-item\\_\\_section--main]:(hidden)
+      [&:not(.q-drawer--mini-animate)__.q-drawer--mini__.q-item\\_\\_section--side__~_.q-item\\_\\_section--side]:(hidden)`
   ],
 
   [
     /^q-drawer--mini$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-drawer--mini'] ??
-      `[&_.q-mini-drawer-hide]:(hidden) [&_.q-expansion-item\\_\\_content]:(hidden)`
+      `[&_>_.q-drawer\\_\\_content]:(!py-9px)
+      [&_>_.q-drawer\\_\\_content_>_*]:(!px-4px)
+      [&_.q-mini-drawer-hide]:(hidden) [&_.q-expansion-item\\_\\_content]:(hidden)
+      [&_.q-tab\\_\\_label]:(text-12px)
+      [&_.q-tabs--vertical_.q-tab]:(px-0px)`
   ],
 
   [
@@ -83,8 +92,11 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-drawer__content$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-drawer__content'] ??
-      `[&_>_.q-list]:(px-28px)
-      [&_>_.q-list_>_.q-item]:(border-rd-16px)
+      `py-14px 
+      [&_>_*]:(px-28px)
+      [&_>_.q-scrollarea]:(px-0)
+      [&_>_.q-list]:(px-12px)
+      [&_.q-list_.q-item]:(border-rd-32px)
       [&_.q-list_>_.q-router-link--active]:(text-light-primary dark:text-dark-primary)
       [&_.q-list_.q-router-link--exact-active]:(bg-light-secondary-container dark:bg-dark-secondary-container
       )`
