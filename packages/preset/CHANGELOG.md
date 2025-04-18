@@ -1,5 +1,12 @@
 # unocss-preset-quasar
 
+## 0.1.5
+
+### Patch Changes
+
+- 3895f00: fix(preset): add theme color matcher
+- a7a4f10: fix(preset): various fixes
+
 ## 0.1.4
 
 ### Patch Changes
