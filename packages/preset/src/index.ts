@@ -1119,6 +1119,23 @@ const pluginSafelistMap: Partial<Record<keyof QuasarPlugins, string[]>> = {
   ]
 }
 
+const colorSafelist = [
+  'bg-primary',
+  'text-primary',
+  'bg-secondary',
+  'text-secondary',
+  'bg-accent',
+  'text-accent',
+  'bg-positive',
+  'text-positive',
+  'bg-negative',
+  'text-negative',
+  'bg-info',
+  'text-info',
+  'bg-warning',
+  'text-warning'
+]
+
 const baseSafelist = [
   'relative-position',
   'q-panel-parent',
@@ -1501,7 +1518,7 @@ const generateSafelist = ({
   plugins?: (keyof QuasarPlugins)[]
   iconSet?: QuasarIconSet
 }) => {
-  let safelist = baseSafelist
+  let safelist = [...baseSafelist, ...colorSafelist]
   if (plugins) {
     for (const plugin of plugins) {
       const pluginSafelist = pluginSafelistMap[plugin]
@@ -1569,7 +1586,6 @@ export const QuasarPreset = definePreset((options: QuasarPresetOptions) => {
             const themeColorMatch = code.matchAll(
               new RegExp(`(${Object.keys(theme.colors).join('|')})`, 'g')
             )
-
             const iconMatch = code.matchAll(/(?:icon|name)[=|:]"(.*?)"/g)
 
             const pascalComponentsMatch: string[] = []
@@ -1601,7 +1617,7 @@ export const QuasarPreset = definePreset((options: QuasarPresetOptions) => {
               colorClasses.push(`text-${match[1]}`, `bg-${match[1]}`)
             }
             for (const match of themeColorMatch) {
-              colorClasses.push(`text-${match[0]}`, `bg-${match[0]}`)
+              colorClasses.push(`text-${match[1]}`, `bg-${match[1]}`)
             }
 
             const iconClasses = []
