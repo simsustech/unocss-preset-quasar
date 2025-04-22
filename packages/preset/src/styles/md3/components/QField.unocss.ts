@@ -35,7 +35,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
 	[&_::-ms-reveal]:(hidden)`
   ],
 
-  [/^q-field--with-bottom$/, ([, c], { theme }) => `pb-[20px]`],
+  [/^q-field--with-bottom$/, ([, c], { theme }) => ``],
 
   [
     /^q-field__marginal$/,
@@ -71,14 +71,14 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-field__bottom$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-field__bottom'] ??
-      `text-[12px] min-h-[20px] leading-none text-black/54 mt--12px px-[12px] pb-[0] [backface-visibility:hidden]`
+      `text-[12px] min-h-[20px] leading-none bg-transparent text-black/54 mt-4px px-[12px] pb-[0] [backface-visibility:hidden]`
   ],
 
   [
     /^q-field__bottom--animated$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-field__bottom--animated'] ??
-      `translate-y-full left-[0] right-[0] bottom-[0]`
+      `left-[0] right-[0] bottom-[0]`
   ],
 
   [
@@ -222,19 +222,19 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-field--filled$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-field--filled'] ??
-      `bg-light-surface-container text-light-on-surface-variant
-       dark:bg-dark-surface-container dark:text-dark-on-surface-variant
+      `[&_.q-field\\_\\_control]:(bg-light-surface-container text-light-on-surface-variant
+       dark:bg-dark-surface-container dark:text-dark-on-surface-variant)
       [&_.q-field\\_\\_control]:(px-[16px] py-[0] layer-components:bg-black/5 rounded-tl-[4px] rounded-br-[0] rounded-tr-[4px] rounded-bl-[0]) 
-	[&_.q-field\\_\\_control:before]:(layer-components:bg-black/5 [border-bottom:1px_solid_rgba(0,_0,_0,_0.42)] opacity-0 [transition:opacity_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_background_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
-	[&_.q-field\\_\\_control:hover:before]:(opacity-100) 
-	[&_.q-field\\_\\_control:after]:(h-[2px] top-auto origin-[center_bottom] [transform:scale3d(0,_1,_1)] bg-current [transition:transform_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
-	[&.q-field--rounded_.q-field\\_\\_control]:(rounded-tl-[28px] rounded-br-[0] rounded-tr-[28px] rounded-bl-[0]) 
-	[&.q-field--highlighted_.q-field\\_\\_control:before]:(opacity-100 layer-components:bg-black/12) 
-	[&.q-field--highlighted_.q-field\\_\\_control:after]:([transform:scale3d(1,_1,_1)]) 
-	[&.q-field--dark_.q-field\\_\\_control]:(layer-components:bg-white/7) 
-	[&.q-field--dark_.q-field\\_\\_control:before]:(layer-components:bg-white/7) 
-	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_control:before]:(layer-components:bg-white/1) 
-	[&.q-field--readonly_.q-field\\_\\_control:before]:(opacity-100 bg-transparent [border-bottom-style:dashed])`
+      [&_.q-field\\_\\_control:before]:(layer-components:bg-black/5 [border-bottom:1px_solid_rgba(0,_0,_0,_0.42)] opacity-0 [transition:opacity_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_background_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
+      [&_.q-field\\_\\_control:hover:before]:(opacity-100) 
+      [&_.q-field\\_\\_control:after]:(h-[2px] top-auto origin-[center_bottom] [transform:scale3d(0,_1,_1)] bg-current [transition:transform_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
+      [&.q-field--rounded_.q-field\\_\\_control]:(rounded-tl-[28px] rounded-br-[0] rounded-tr-[28px] rounded-bl-[0]) 
+      [&.q-field--highlighted_.q-field\\_\\_control:before]:(opacity-100 layer-components:bg-black/12) 
+      [&.q-field--highlighted_.q-field\\_\\_control:after]:([transform:scale3d(1,_1,_1)]) 
+      [&.q-field--dark_.q-field\\_\\_control]:(layer-components:bg-white/7) 
+      [&.q-field--dark_.q-field\\_\\_control:before]:(layer-components:bg-white/7) 
+      [&.q-field--dark.q-field--highlighted_.q-field\\_\\_control:before]:(layer-components:bg-white/1) 
+      [&.q-field--readonly_.q-field\\_\\_control:before]:(opacity-100 bg-transparent [border-bottom-style:dashed])`
   ],
 
   [
@@ -333,7 +333,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       `[&_.q-field--with-bottom]:(pb-[19px]) 
 	[&_.q-field\\_\\_shadow]:(top-[0]) 
 	[&_.q-field\\_\\_control]:(h-[40px]) 
-	[&_.q-field\\_\\_marginal]:(h-[40px]) 
+	[&_.q-field\\_\\_marginal]:() 
 	[&_.q-field\\_\\_bottom]:(text-[11px]) 
 	[&_.q-field\\_\\_label]:(text-[14px] top-[10px]) 
 	[&_.q-field\\_\\_before]:() 
