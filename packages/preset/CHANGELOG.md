@@ -1,5 +1,14 @@
 # unocss-preset-quasar
 
+## 0.1.5
+
+### Patch Changes
+
+- 3aeca1a: fix(preset): set body width in preflight
+- 3895f00: fix(preset): add theme color matcher
+- 7c074d7: fix(preset): add color safelist
+- a7a4f10: fix(preset): various fixes
+
 ## 0.1.4
 
 ### Patch Changes
