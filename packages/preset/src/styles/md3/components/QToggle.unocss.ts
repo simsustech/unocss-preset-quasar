@@ -63,9 +63,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       `[&_.q-toggle\\_\\_track]:(bg-light-primary dark:bg-dark-primary) 
       [&_.q-toggle\\_\\_thumb]:(text-light-on-primary-container dark:text-light-on-primary-container left-[0.95em] top-[0.0625em] w-[0.875em] h-[0.875em])
       [&_.q-toggle\\_\\_thumb:after]:(layer-components:!bg-light-on-primary dark:!bg-dark-on-primary)
-      [&_.q-toggle\\_\\_thumb_.q-icon]:(layer-components:text-[#fff] opacity-100)
-      [&:not(.disabled):focus_.q-toggle\\_\\_thumb:before]:(scale-200)
-      [&:not(.disabled):hover_.q-toggle\\_\\_thumb:before]:(scale-200)`
+      [&_.q-toggle\\_\\_thumb_.q-icon]:(layer-components:text-[#fff] opacity-100)`
   ],
 
   [

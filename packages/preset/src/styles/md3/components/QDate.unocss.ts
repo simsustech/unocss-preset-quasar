@@ -127,28 +127,32 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-date__edit-range$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-date__edit-range'] ??
-      `[&:after]:(border-[currentColor_transparent]) [&:nth-child(7n-6):after]:(rounded-tl-none rounded-bl-none) [&:nth-child(7n):after]:(rounded-tr-none rounded-br-none)`
+      `[&:after]:(border-light-primary dark:border-dark-primary border-l-transparent border-r-transparent) 
+      [&:nth-child(7n-6):after]:(rounded-tl-none rounded-bl-none) 
+      [&:nth-child(7n):after]:(rounded-tr-none rounded-br-none)`
   ],
 
   [
     /^q-date__edit-range-from$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-date__edit-range-from'] ??
-      `[&:after]:(left-[4px] [border-left-color:currentColor] [border-top-color:currentColor] [border-bottom-color:currentColor] rounded-tl-[28px] rounded-bl-[28px])`
+      `[&:after]:(left-[4px] 
+      border-r-0 border-light-primary dark:border-dark-primary rounded-tl-[28px] rounded-bl-[28px])`
   ],
 
   [
     /^q-date__edit-range-from-to$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-date__edit-range-from-to'] ??
-      `[&:after]:(left-[4px] [border-left-color:currentColor] [border-top-color:currentColor] [border-bottom-color:currentColor] rounded-tl-[28px] rounded-bl-[28px]) [&:after]:(right-[4px] [border-right-color:currentColor] [border-top-color:currentColor] [border-bottom-color:currentColor] rounded-tr-[28px] rounded-br-[28px])`
+      `[&:after]:(left-[4px] border-light-primary dark:border-dark-primary border-r-transparent rounded-tl-[28px] rounded-bl-[28px]) 
+      [&:after]:(right-[4px] [border-light-primary dark:border-dark-primary border-l-transparent rounded-tr-[28px] rounded-br-[28px])`
   ],
 
   [
     /^q-date__edit-range-to$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-date__edit-range-to'] ??
-      `[&:after]:(right-[4px] [border-right-color:currentColor] [border-top-color:currentColor] [border-bottom-color:currentColor] rounded-tr-[28px] rounded-br-[28px])`
+      `[&:after]:(right-[4px] border-l-transparent border-light-primary dark:border-dark-primary rounded-tr-[28px] rounded-br-[28px])`
   ],
 
   [

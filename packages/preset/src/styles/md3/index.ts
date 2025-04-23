@@ -232,12 +232,16 @@ export const setDefaultProps = ({
   QBtn,
   QBtnDropdown,
   QInput,
-  QBtnToggle
+  QBtnToggle,
+  QSelect,
+  QField
 }: {
   QBtn: any
   QBtnDropdown: any
   QInput: any
   QBtnToggle: any
+  QSelect: any
+  QField: any
 }) => {
   QBtn.props.rounded = {
     type: QBtn.props.rounded,
@@ -253,6 +257,14 @@ export const setDefaultProps = ({
   }
   QBtnToggle.props.rounded = {
     type: QBtnToggle.props.rounded,
+    default: true
+  }
+  QSelect.props.filled = {
+    type: QSelect.props.filled,
+    default: true
+  }
+  QField.props.filled = {
+    type: QField.props.filled,
     default: true
   }
 }
