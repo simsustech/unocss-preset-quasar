@@ -315,6 +315,16 @@ font-family: inherit;
 margin: 0;
 }
 
+html, body, #q-app {
+  width: 100%;
+  direction: ltr;
+}
+
+body {
+  min-width: 100px;
+  min-height: 100%;
+}
+
 /* beasties:include end */`
     }
   ] as Preflight<QuasarTheme>[]
