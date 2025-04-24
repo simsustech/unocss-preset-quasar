@@ -2,7 +2,7 @@ import type { Rule, UserShortcuts } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
 
 const shortcuts: UserShortcuts<QuasarTheme> = [
-  [/^q-scrollarea$/, ([, c], { theme }) => `relative`],
+  [/^q-scrollarea$/, ([, c], { theme }) => `relative [contain:strict]`],
 
   [
     /^q-scrollarea__bar$/,
@@ -44,7 +44,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
 
   [/^q-scrollarea__thumb:active$/, ([, c], { theme }) => `active:opacity-50`],
 
-  [/^q-scrollarea__content$/, ([, c], { theme }) => `min-h-full min-w-full`],
+  [/^q-scrollarea__content$/, ([, c], { theme }) => `h-full w-full`],
 
   [
     /^q-scrollarea--dark$/,
