@@ -15,17 +15,23 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-checkbox'] ??
       `align-middle [&.disabled]:(!opacity-75)
-      [&:not(.disabled):hover_.q-checkbox\\_\\_inner:before]:(content-[''] absolute top-[12.5%] left-[12.5%] bottom-0 right-0 border-rd-50 bg-current op-12 scale-x-120 scale-y-120 scale-z-100)
+      [&:not(.disabled):hover_.q-checkbox\\_\\_inner:before]:(content-[''] absolute top-0 left-0 bottom-0 right-0 border-rd-50 bg-current op-12 scale-x-120 scale-y-120 scale-z-100)
       [&:not(.disabled):focus_.q-checkbox\\_\\_inner:before]:(scale-z-100)`
   ],
 
   [/^q-checkbox__native$/, ([, c], { theme }) => `w-px h-px`],
 
   [
+    /^q-checkbox__label$/,
+    ([, c], { theme }) =>
+      theme.quasar?.components?.['q-checkbox__label'] ?? `pl-0.25em`
+  ],
+
+  [
     /^q-checkbox__bg$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-checkbox__bg'] ??
-      `select-none top-1/4 left-1/4 w-1/2 h-1/2 border-[2px] border-solid border-[currentColor] rounded-[2px] [transition:background_0.22s_cubic-bezier(0,_0,_0.2,_1)_0ms]`
+      `ml--2px mt--2px select-none top-1/4 left-1/4 w-1/2 h-1/2 border-[2px] border-solid border-[currentColor] rounded-[2px] [transition:background_0.22s_cubic-bezier(0,_0,_0.2,_1)_0ms]`
   ],
 
   [/^q-checkbox__icon-container$/, ([, c], { theme }) => `select-none`],
@@ -52,7 +58,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-checkbox__inner$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-checkbox__inner'] ??
-      `text-[40px] w-[1em] min-w-[1em] h-[1em] outline-[0] rounded-[50%] layer-components:text-[rgba(0,_0,_0,_0.54)]`
+      `mr-2px text-[40px] w-[1em] min-w-[1em] h-[1em] outline-[0] rounded-[50%] layer-components:text-[rgba(0,_0,_0,_0.54)]`
   ],
 
   [

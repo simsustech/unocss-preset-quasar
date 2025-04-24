@@ -155,6 +155,20 @@ const QSliderSafelist = [
   'q-slider--dense'
 ]
 
+const QChipSafelist = [
+  'q-chip',
+  'q-chip--colored',
+  'q-chip--dark',
+  'q-chip--outline',
+  'q-chip--selected',
+  'q-chip__icon',
+  'q-chip__icon--left',
+  'q-chip__icon--right',
+  'q-chip__icon--remove',
+  'q-chip__content',
+  'q-chip--dense',
+  'q-chip--square'
+]
 const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
   {
     QIcon: ['q-icon'],
@@ -171,6 +185,7 @@ const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
     ],
     QBanner: [
       'q-banner',
+      'q-banner__content',
       'q-banner--top-padding',
       'q-banner__avatar',
       'q-banner__actions',
@@ -291,20 +306,7 @@ const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
       'q-checkbox--dark',
       'q-checkbox--dense'
     ],
-    QChip: [
-      'q-chip',
-      'q-chip--colored',
-      'q-chip--dark',
-      'q-chip--outline',
-      'q-chip--selected',
-      'q-chip__icon',
-      'q-chip__icon--left',
-      'q-chip__icon--right',
-      'q-chip__icon--remove',
-      'q-chip__content',
-      'q-chip--dense',
-      'q-chip--square'
-    ],
+    QChip: QChipSafelist,
     QCircularProgress: [
       'q-circular-progress',
       'q-circular-progress__svg',
@@ -650,6 +652,7 @@ const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
       'q-scrollarea--dark'
     ],
     QSelect: [
+      ...QChipSafelist,
       'q-list',
       'q-item',
       'q-virtual-scroll',

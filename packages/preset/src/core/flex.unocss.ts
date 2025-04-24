@@ -37,6 +37,21 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       return `grow`
     }
   ],
+
+  [
+    /^col-all$/,
+    ([, c], { theme }) => {
+      return 'basis-12/12'
+    }
+  ],
+
+  [
+    /^col-auto$/,
+    ([, c], { theme }) => {
+      return 'basis-auto'
+    }
+  ],
+
   [
     /^q-col-gutter-(none|xs|sm|md|lg|xl)$/,
     ([, size], { theme }) =>

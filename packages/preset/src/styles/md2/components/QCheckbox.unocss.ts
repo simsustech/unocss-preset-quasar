@@ -68,7 +68,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-checkbox__inner$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-checkbox__inner'] ??
-      `text-[40px] w-[1em] min-w-[1em] h-[1em] outline-[0] rounded-[50%] layer-components:text-[rgba(0,_0,_0,_0.54)]`
+      `mr-2px text-[40px] w-[1em] min-w-[1em] h-[1em] outline-[0] rounded-[50%] layer-components:text-[rgba(0,_0,_0,_0.54)]`
   ],
 
   [

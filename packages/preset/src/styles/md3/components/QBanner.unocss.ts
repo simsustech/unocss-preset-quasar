@@ -19,6 +19,13 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
   ],
 
   [
+    /^q-banner__content$/,
+    ([, c], { theme }) =>
+      theme.quasar?.components?.['q-banner__content'] ??
+      `max-w-[calc(100%-56px)]`
+  ],
+
+  [
     /^q-banner__actions$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-banner__actions'] ??

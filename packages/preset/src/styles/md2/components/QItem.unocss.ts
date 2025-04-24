@@ -14,14 +14,14 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-item__section--side$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-item__section--side'] ??
-      `!flex-initial text-[#757575] items-start pr-[16px] w-auto min-w-[0] max-w-full [&_>_.q-icon]:(text-[24px]) [&_>_.q-avatar]:(text-[40px])`
+      `!flex-initial text-[#757575] items-start pr-[16px] w-auto max-w-full [&_>_.q-icon]:(text-[24px]) [&_>_.q-avatar]:(text-[40px])`
   ],
 
   [
     /^q-item__section--avatar$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-item__section--avatar'] ??
-      `!flex-initial [color:inherit] min-w-[56px]`
+      `!flex-initial [color:inherit] min-w-[40px]`
   ],
 
   [

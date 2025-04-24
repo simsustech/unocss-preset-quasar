@@ -44,10 +44,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
 
   [/^q-scrollarea__thumb:active$/, ([, c], { theme }) => `active:opacity-50`],
 
-  [
-    /^q-scrollarea__content$/,
-    ([, c], { theme }) => `!relative min-h-full min-w-full`
-  ],
+  [/^q-scrollarea__content$/, ([, c], { theme }) => `min-h-full min-w-full`],
 
   [
     /^q-scrollarea--dark$/,

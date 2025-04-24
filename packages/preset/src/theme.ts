@@ -383,6 +383,7 @@ export interface QuasarTheme {
       'q-badge--outline'?: string
       'q-badge--rounded'?: string
       'q-banner'?: string
+      'q-banner__content'?: string
       'q-banner--top-padding'?: string
       'q-banner__avatar'?: string
       'q-banner__actions'?: string
@@ -429,6 +430,7 @@ export interface QuasarTheme {
       'q-btn-group--spread'?: string
       'q-btn-toggle'?: string
       'q-card'?: string
+      'q-card--filled'?: string
       'q-card--bordered'?: string
       'q-card--dark'?: string
       'q-card__section'?: string
@@ -474,6 +476,7 @@ export interface QuasarTheme {
       'q-message-text-content--sent'?: string
       'q-message-text'?: string
       'q-checkbox'?: string
+      'q-checkbox__label'?: string
       'q-checkbox__native'?: string
       'q-checkbox__bg'?: string
       'q-checkbox__icon-container'?: string
