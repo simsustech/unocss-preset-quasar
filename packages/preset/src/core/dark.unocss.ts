@@ -12,7 +12,10 @@ body.body--dark {
 ]
 
 const shortcuts: UserShortcuts<QuasarTheme> = [
-  [/^q-dark$/, ([, c], { theme }) => `text-white bg-dark`]
+  [
+    /^q-dark$/,
+    ([, c], { theme }) => `dark:text-dark-on-surface bg-dark-surface`
+  ]
 ]
 
 export { preflights, shortcuts }

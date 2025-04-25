@@ -909,6 +909,7 @@ export interface QuasarTheme {
       'q-splitter__before'?: string
       'q-splitter__after'?: string
       'q-stepper'?: string
+      'q-stepper__label'?: string
       'q-stepper__title'?: string
       'q-stepper__caption'?: string
       'q-stepper__dot'?: string
@@ -1766,7 +1767,7 @@ export const generateTheme = (sourceColor: string): QuasarTheme => {
       secondary: hexFromArgb(materialTheme.schemes.light.secondary),
       accent: hexFromArgb(materialTheme.schemes.light.tertiary),
 
-      'dark-page': hexFromArgb(materialTheme.palettes.neutral.tone(6))
+      'dark-page': hexFromArgb(materialTheme.schemes.dark.surface)
     }
   }
 }

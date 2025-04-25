@@ -7,7 +7,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-item'] ??
       `min-h-[28px] px-[16px] py-[8px] [color:inherit] [transition:color_0.3s,_background-color_0.3s] [&_>_.q-item\\_\\_section--thumbnail:first-child]:(-ml-[16px]) [&_>_.q-focus-helper_+_.q-item\\_\\_section--thumbnail]:(-ml-[16px]) [&_>_.q-item\\_\\_section--thumbnail:last-of-type]:(-mr-[16px]) relative
-    [&.q-router-link--active]:(text-primary)`
+    [&.q-router-link--active]:(text-light-primary dark:text-dark-primary)`
   ],
 
   [
@@ -113,7 +113,9 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-list--dark$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-list--dark'] ??
-      `text-[#fff] border-[rgba(255,_255,_255,_0.28)] [&_.q-item\\_\\_section--side:not(.q-item\\_\\_section--avatar)]:(text-[rgba(255,_255,_255,_0.7)]) [&_.q-item\\_\\_label--header]:(text-[rgba(255,_255,_255,_0.64)]) [&_.q-item\\_\\_label--overline]:(text-[rgba(255,_255,_255,_0.8)]) [&_.q-item\\_\\_label--caption]:(text-[rgba(255,_255,_255,_0.8)])`
+      `text-[#fff] border-[rgba(255,_255,_255,_0.28)] 
+      [&_.q-item\\_\\_section--side:not(.q-item\\_\\_section--avatar)]:(text-[rgba(255,_255,_255,_0.7)]) 
+      [&_.q-item\\_\\_label--header]:(text-[rgba(255,_255,_255,_0.64)]) [&_.q-item\\_\\_label--overline]:(text-[rgba(255,_255,_255,_0.8)]) [&_.q-item\\_\\_label--caption]:(text-[rgba(255,_255,_255,_0.8)])`
   ],
 
   [
@@ -123,7 +125,10 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       `text-[#fff] border-[rgba(255,_255,_255,_0.28)] [&_.q-item\\_\\_section--side:not(.q-item\\_\\_section--avatar)]:(text-[rgba(255,_255,_255,_0.7)]) [&_.q-item\\_\\_label--header]:(text-[rgba(255,_255,_255,_0.64)]) [&_.q-item\\_\\_label--overline]:(text-[rgba(255,_255,_255,_0.8)]) [&_.q-item\\_\\_label--caption]:(text-[rgba(255,_255,_255,_0.8)])`
   ],
 
-  [/^q-item--active$/, ([, c], { theme }) => `text-primary`]
+  [
+    /^q-item--active$/,
+    ([, c], { theme }) => `text-light-primary dark:text-dark-primary`
+  ]
 ]
 
 export { shortcuts }

@@ -649,7 +649,8 @@ const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
       'q-scrollarea__bar--invisible',
       'q-scrollarea__thumb--invisible',
       'q-scrollarea__content',
-      'q-scrollarea--dark'
+      'q-scrollarea--dark',
+      'relative-position'
     ],
     QSelect: [
       ...QChipSafelist,
@@ -715,6 +716,7 @@ const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
     ],
     QStepper: [
       'q-stepper',
+      'q-stepper__label',
       'q-stepper__title',
       'q-stepper__caption',
       'q-stepper__dot',
@@ -736,7 +738,8 @@ const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
       'q-stepper--flat',
       'q-stepper--bordered',
       'q-stepper--horizontal',
-      'q-stepper--vertical'
+      'q-stepper--vertical',
+      'col-grow'
     ],
     QTabPanels: ['q-tab-panels', 'q-tab-panel'],
     QMarkupTable: ['q-markup-table'],
@@ -1043,7 +1046,12 @@ const pluginSafelistMap: Partial<Record<keyof QuasarPlugins, string[]>> = {
     'q-loading-bar--right',
     'q-loading-bar--left'
   ],
-
+  Loading: [
+    'q-loading',
+    'q-loading__backdrop',
+    'q-loading__box',
+    'q-loading__message'
+  ],
   Notify: [
     'q-avatar',
     'q-avatar__content',

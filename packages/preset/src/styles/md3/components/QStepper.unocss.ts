@@ -6,7 +6,16 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-stepper$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-stepper'] ??
-      `[box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px] bg-[#fff]`
+      `[box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px]
+      bg-light-surface dark:bg-dark-surface
+      `
+  ],
+
+  [
+    /^q-stepper__label$/,
+    ([, c], { theme }) =>
+      theme.quasar?.components?.['q-stepper__label'] ??
+      `bg-light-surface dark:bg-dark-surface`
   ],
 
   [
@@ -41,7 +50,16 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-stepper--dark$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-stepper--dark'] ??
-      `[box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] [&_.q-stepper\\_\\_dot_span]:(text-[#000]) [&.q-stepper--bordered]:(border-[rgba(255,_255,_255,_0.28)]) [&_.q-stepper\\_\\_header--border]:(border-[rgba(255,_255,_255,_0.28)]) [&.q-stepper--horizontal_.q-stepper\\_\\_line:before]:(bg-[rgba(255,_255,_255,_0.28)]) [&.q-stepper--horizontal_.q-stepper\\_\\_line:after]:(bg-[rgba(255,_255,_255,_0.28)]) [&.q-stepper--vertical_.q-stepper\\_\\_dot:before]:(bg-[rgba(255,_255,_255,_0.28)]) [&.q-stepper--vertical_.q-stepper\\_\\_dot:after]:(bg-[rgba(255,_255,_255,_0.28)]) [&_.q-stepper\\_\\_tab--disabled]:(text-[rgba(255,_255,_255,_0.28)]) [&_.q-stepper\\_\\_tab--disabled_.q-stepper\\_\\_dot]:(bg-[rgba(255,_255,_255,_0.28)]) [&_.q-stepper\\_\\_tab--disabled_.q-stepper\\_\\_label]:(text-[rgba(255,_255,_255,_0.54)])`
+      `[box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] 
+      [&_.q-stepper\\_\\_dot_span]:(text-[#000]) [&.q-stepper--bordered]:(border-[rgba(255,_255,_255,_0.28)]) 
+      [&_.q-stepper\\_\\_header--border]:(border-[rgba(255,_255,_255,_0.28)]) 
+      [&.q-stepper--horizontal_.q-stepper\\_\\_line:before]:(bg-[rgba(255,_255,_255,_0.28)])
+      [&.q-stepper--horizontal_.q-stepper\\_\\_line:after]:(bg-[rgba(255,_255,_255,_0.28)]) 
+      [&.q-stepper--vertical_.q-stepper\\_\\_dot:before]:(bg-[rgba(255,_255,_255,_0.28)]) 
+      [&.q-stepper--vertical_.q-stepper\\_\\_dot:after]:(bg-[rgba(255,_255,_255,_0.28)]) 
+      [&_.q-stepper\\_\\_tab--disabled]:(text-[rgba(255,_255,_255,_0.28)]) 
+      [&_.q-stepper\\_\\_tab--disabled_.q-stepper\\_\\_dot]:(bg-[rgba(255,_255,_255,_0.28)]) 
+      [&_.q-stepper\\_\\_tab--disabled_.q-stepper\\_\\_label]:(text-[rgba(255,_255,_255,_0.54)])`
   ],
 
   [
@@ -55,7 +73,8 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-stepper__tab--active$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-stepper__tab--active'] ??
-      ` [&_.q-stepper\\_\\_dot]:([text-shadow:0_0_0_currentColor]) [&_.q-stepper\\_\\_label]:([text-shadow:0_0_0_currentColor])`
+      `text-light-primary dark:text-dark-primary [&_.q-stepper\\_\\_dot]:([text-shadow:0_0_0_currentColor]) 
+      [&_.q-stepper\\_\\_label]:([text-shadow:0_0_0_currentColor])`
   ],
 
   [
@@ -153,7 +172,16 @@ __.q-stepper\\_\\_tab:last-child]:(items-end) [&_.q-stepper\\_\\_tab]:(px-[0] py
     /^q-stepper--horizontal$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-stepper--horizontal'] ??
-      `[&_.q-stepper\\_\\_step-inner]:(p-[24px]) [&_.q-stepper\\_\\_tab:first-child]:([border-top-left-radius:inherit]) [&_.q-stepper\\_\\_tab:last-child]:([border-top-right-radius:inherit]) [&_.q-stepper\\_\\_tab:first-child_.q-stepper\\_\\_dot:before]:(hidden) [&_.q-stepper\\_\\_tab:last-child_.q-stepper\\_\\_label:after]:(hidden) [&_.q-stepper\\_\\_tab:last-child_.q-stepper\\_\\_dot:after]:(hidden) [&_.q-stepper\\_\\_tab]:(overflow-hidden) [&_.q-stepper\\_\\_line]:(contain-layout) [&_.q-stepper\\_\\_line:before]:(absolute top-2/4 h-px w-screen bg-[rgba(0,_0,_0,_0.12)]) [&_.q-stepper\\_\\_line:after]:(absolute top-2/4 h-px w-screen bg-[rgba(0,_0,_0,_0.12)]) [&_.q-stepper\\_\\_label:after]:(content-[''] left-full ml-[8px]) [&_.q-stepper\\_\\_dot:after]:(content-[''] left-full ml-[8px]) [&_.q-stepper\\_\\_dot:before]:(content-[''] right-full mr-[8px]) [&_>_.q-stepper\\_\\_nav]:(pt-[0] px-[24px] pb-[24px])`
+      `[&_.q-stepper\\_\\_step-inner]:(p-[24px]) 
+      [&_.q-stepper\\_\\_tab:first-child]:([border-top-left-radius:inherit]) 
+      [&_.q-stepper\\_\\_tab:last-child]:([border-top-right-radius:inherit]) 
+      [&_.q-stepper\\_\\_tab:first-child_.q-stepper\\_\\_dot:before]:(hidden) 
+      [&_.q-stepper\\_\\_tab:last-child_.q-stepper\\_\\_label:after]:(hidden) 
+      [&_.q-stepper\\_\\_tab:last-child_.q-stepper\\_\\_dot:after]:(hidden) 
+      [&_.q-stepper\\_\\_tab]:(overflow-hidden) 
+      [&_.q-stepper\\_\\_line]:(contain-layout) 
+      [&_.q-stepper\\_\\_line:before]:(absolute top-2/4 h-px w-screen bg-[rgba(0,_0,_0,_0.12)]) 
+      [&_.q-stepper\\_\\_line:after]:(absolute top-2/4 h-px w-screen bg-[rgba(0,_0,_0,_0.12)]) [&_.q-stepper\\_\\_label:after]:(content-[''] left-full ml-[8px]) [&_.q-stepper\\_\\_dot:after]:(content-[''] left-full ml-[8px]) [&_.q-stepper\\_\\_dot:before]:(content-[''] right-full mr-[8px]) [&_>_.q-stepper\\_\\_nav]:(pt-[0] px-[24px] pb-[24px])`
   ],
 
   [

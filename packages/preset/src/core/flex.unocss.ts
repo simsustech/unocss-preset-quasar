@@ -53,6 +53,13 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
   ],
 
   [
+    /^col-grow$/,
+    ([, c], { theme }) => {
+      return 'grow'
+    }
+  ],
+
+  [
     /^q-col-gutter-(none|xs|sm|md|lg|xl)$/,
     ([, size], { theme }) =>
       `gap-${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}
