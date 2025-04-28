@@ -3,6 +3,7 @@ import {
   type Preset,
   presetIcons,
   presetWebFonts,
+  transformerDirectives,
   transformerVariantGroup
 } from 'unocss'
 import presetWind3 from '@unocss/preset-wind3'
@@ -1674,7 +1675,8 @@ export const QuasarPreset = definePreset((options: QuasarPresetOptions) => {
         }
       ],
       transformers: [
-        transformerVariantGroup()
+        transformerVariantGroup(),
+        transformerDirectives()
         // {
         //   name: 'find-classes-in-quasar-src',
         //   enforce: 'pre', // enforce before other transformers
