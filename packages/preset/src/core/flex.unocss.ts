@@ -25,37 +25,23 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       `flex flex-col flex-wrap flex-auto [&.reverse]:(flex-col-reverse)`
   ],
   [
-    /^col(?:-)?(none|xs|sm|md|lg|xl)?(?:-)?([2-9]|1[0-2]?)?$/,
+    /^col(?:-)?(none|xs|sm|md|lg|xl|all|auto|grow)?(?:-)?([2-9]|1[0-2]?)?$/,
     ([, size, nr], { theme }) => {
+      const classes = ['w-auto max-w-full']
       if (size && nr) {
-        return `${size}:basis-${nr}/12)`
+        classes.push(`${size}:basis-${nr}/12)`)
       } else if (nr) {
-        return `basis-${nr}/12`
+        classes.push(`basis-${nr}/12`)
+      } else if (size === 'all') {
+        classes.push('basis-12/12')
+      } else if (size === 'auto') {
+        classes.push('basis-auto')
       } else if (size) {
-        return `${size}:basis-auto ${size}:grow`
+        classes.push(`${size}:basis-auto ${size}:grow`)
+      } else if (size === 'grow' || size === void 0) {
+        classes.push('grow')
       }
-      return `grow`
-    }
-  ],
-
-  [
-    /^col-all$/,
-    ([, c], { theme }) => {
-      return 'basis-12/12'
-    }
-  ],
-
-  [
-    /^col-auto$/,
-    ([, c], { theme }) => {
-      return 'basis-auto'
-    }
-  ],
-
-  [
-    /^col-grow$/,
-    ([, c], { theme }) => {
-      return 'grow'
+      return classes.join(' ')
     }
   ],
 
