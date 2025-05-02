@@ -13,6 +13,8 @@ const colGutter = {
   xl: 12
 } as const
 
+const sizes = ['none', 'xs', 'sm', 'md', 'lg', 'xl']
+
 const shortcuts: UserShortcuts<QuasarTheme> = [
   [
     /^row$/,
@@ -36,7 +38,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
         classes.push('basis-12/12')
       } else if (size === 'auto') {
         classes.push('basis-auto')
-      } else if (size) {
+      } else if (sizes.includes(size)) {
         classes.push(`${size}:basis-auto ${size}:grow`)
       } else if (size === 'grow' || size === void 0) {
         classes.push('grow')

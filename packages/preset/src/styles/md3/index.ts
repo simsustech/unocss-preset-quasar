@@ -231,6 +231,7 @@ const style: QuasarStyle = {
 export const setDefaultProps = ({
   QBtn,
   QBtnDropdown,
+  QBtnGroup,
   QInput,
   QBtnToggle,
   QSelect,
@@ -239,6 +240,7 @@ export const setDefaultProps = ({
 }: {
   QBtn: any
   QBtnDropdown: any
+  QBtnGroup: any
   QInput: any
   QBtnToggle: any
   QSelect: any
@@ -251,6 +253,10 @@ export const setDefaultProps = ({
   }
   QBtnDropdown.props.rounded = {
     type: QBtnDropdown.props.rounded,
+    default: true
+  }
+  QBtnGroup.props.rounded = {
+    type: QBtnGroup.props.rounded,
     default: true
   }
   QInput.props.filled = {

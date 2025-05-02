@@ -19,12 +19,29 @@ export default {
 
 <script setup lang="ts">
 import { setDefaultPropsMd3 } from 'unocss-preset-quasar/styles'
-import { QBtn, QInput, QBtnDropdown, QBtnToggle } from 'quasar'
+import {
+  useQuasar,
+  QBtn,
+  QInput,
+  QChip,
+  QBtnDropdown,
+  QBtnToggle,
+  QBtnGroup,
+  QSelect,
+  QField
+} from 'quasar'
+
+const $q = useQuasar()
+// $q.dark.set(true)
 
 setDefaultPropsMd3({
   QBtn,
-  QBtnDropdown,
   QInput,
-  QBtnToggle
+  QChip,
+  QBtnDropdown,
+  QBtnToggle,
+  QBtnGroup,
+  QSelect,
+  QField
 })
 </script>

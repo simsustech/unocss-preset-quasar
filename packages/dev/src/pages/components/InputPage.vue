@@ -1,7 +1,36 @@
 <template>
   <q-page padding>
-    <div class="row q-gutter-md">
-      <q-input label="Text field" v-model="text" />
+    <div class="row">
+      <q-input label="Text field" v-model="text">
+        <template #after> after </template>
+      </q-input>
+      <q-input label="Text field" v-model="text">
+        <template #after> after </template>
+      </q-input>
+      <q-input label="Text field" v-model="text">
+        <template #after> after </template>
+      </q-input>
+      <q-input hint="Bottom slots" label="Text field" v-model="text">
+        <template #after> after </template>
+      </q-input>
+      <q-input hint="Bottom slots" label="Text field" v-model="text">
+        <template #after> after </template>
+      </q-input>
+      <q-input dense hint="Bottom slots" label="Text field" v-model="text">
+        <template #after> after </template>
+      </q-input>
+      <q-input dense hint="Bottom slots" label="Text field" v-model="text">
+        <template #after> after </template>
+      </q-input>
+      <q-input dense hint="Bottom slots" label="Text field" v-model="text">
+        <template #after> after </template>
+      </q-input>
+      <q-input dense hint="Bottom slots" label="Text field" v-model="text">
+        <template #after> after </template>
+      </q-input>
+      <q-input dense hint="Bottom slots" label="Text field" v-model="text">
+        <template #after> after </template>
+      </q-input>
     </div>
   </q-page>
 </template>

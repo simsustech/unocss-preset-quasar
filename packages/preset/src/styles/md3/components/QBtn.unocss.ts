@@ -24,7 +24,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--outline'] ??
       `!bg-transparent layer-components:text-light-primary layer-components:dark:text-dark-primary
-       [&:before]:(border-[1px] border-solid border-[currentColor] [box-shadow:none]]) 
+       [&:before]:(shadow-none border-[1px] border-solid border-[currentColor]) 
        [&_.q-btn\\_\\_progress-indicator]:(opacity-20 bg-current)`
   ],
 
