@@ -6,13 +6,16 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-tab$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-tab'] ??
-      `px-[16px] py-[0] min-h-[48px] [transition:color_0.3s,_background-color_0.3s] whitespace-nowrap [color:inherit] no-underline [&_.q-badge]:(top-[3px] -right-[12px])`
+      `px-[16px] py-[0] min-h-[48px] [transition:color_0.3s,_background-color_0.3s] whitespace-nowrap [color:inherit] no-underline
+      [&_.q-badge]:(top-[3px] -right-[12px])
+      [&_>_.q-focus-helper]:(!absolute !h-32px !w-52px !top-[calc(50%-23px)] !left-[calc(50%-26px)] !border-rd-16px)
+      `
   ],
 
   [
     /^q-tab--full$/,
     ([, c], { theme }) =>
-      theme.quasar?.components?.['q-tab--full'] ?? `min-h-[72px]`
+      theme.quasar?.components?.['q-tab--full'] ?? `min-h-72px h-72px`
   ],
 
   [
@@ -67,14 +70,14 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-tab__indicator$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-tab__indicator'] ??
-      `absolute h-32px w-52px top-0 left-10px border-rd-16px bg-light-secondary-container dark:bg-dark-secondary-container opacity-0`
+      `opacity-0 h-[2px] bg-current`
   ],
 
   [
     /^q-tab--active$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-tab--active'] ??
-      `[&_.q-tab\\_\\_indicator]:(opacity-100 origin-left)`
+      `text-light-primary dark:text-dark-primary [&_.q-tab\\_\\_indicator]:(opacity-100 origin-left)`
   ],
 
   [
@@ -156,8 +159,14 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-tabs--vertical$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-tabs--vertical'] ??
-      `!block h-full [&_.q-tabs\\_\\_content]:(!block h-full) [&_.q-tabs\\_\\_arrow]:(w-full h-[36px] text-center) [&_.q-tabs\\_\\_arrow--left]:(top-[0] left-[0] right-[0]) [&_.q-tabs\\_\\_arrow--right]:(left-[0] right-[0] bottom-[0]) [&_.q-tab]:(px-[8px] py-[0]) 
-      [&.q-tabs--not-scrollable_.q-tabs\\_\\_content]:(h-full) [&.q-tabs--dense_.q-tab\\_\\_content]:(min-w-[24px])`
+      `!block h-full [&_.q-tabs\\_\\_content]:(!block h-full) 
+      [&_.q-tabs\\_\\_arrow]:(w-full h-[36px] text-center) 
+      [&_.q-tabs\\_\\_arrow--left]:(top-[0] left-[0] right-[0]) 
+      [&_.q-tabs\\_\\_arrow--right]:(left-[0] right-[0] bottom-[0]) 
+      [&_.q-tab]:(px-[8px] py-[0]) 
+      [&_.q-tab\\_\\_indicator]:(h-[unset] w-2px min-h-100%)
+      [&_.q-tabs--not-scrollable_.q-tabs\\_\\_content]:(h-full) 
+      [&_.q-tabs--dense_.q-tab\\_\\_content]:(min-w-[24px])`
   ],
 
   [

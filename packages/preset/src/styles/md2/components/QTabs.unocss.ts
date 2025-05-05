@@ -6,13 +6,15 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-tab$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-tab'] ??
-      `px-[16px] py-[0] min-h-[48px] [transition:color_0.3s,_background-color_0.3s] uppercase whitespace-nowrap [color:inherit] no-underline [&_.q-badge]:(top-[3px] -right-[12px])`
+      `px-[16px] py-[0] min-h-[48px] [transition:color_0.3s,_background-color_0.3s] whitespace-nowrap [color:inherit] no-underline
+      [&_.q-badge]:(top-[3px] -right-[12px])
+      `
   ],
 
   [
     /^q-tab--full$/,
     ([, c], { theme }) =>
-      theme.quasar?.components?.['q-tab--full'] ?? `min-h-[72px]`
+      theme.quasar?.components?.['q-tab--full'] ?? `min-h-72px h-72px`
   ],
 
   [
@@ -25,7 +27,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-tab__content$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-tab__content'] ??
-      `[height:inherit] px-[0] py-[4px] min-w-[40px] [&_.q-chip--floating]:(top-[0] -right-[16px])`
+      `[height:inherit] z-2 px-[0] py-[4px] min-w-[40px] [&_.q-chip--floating]:(top-[0] -right-[16px])`
   ],
 
   [
@@ -67,7 +69,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-tab__indicator$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-tab__indicator'] ??
-      `!relative opacity-0 h-[2px] bg-current`
+      `opacity-0 h-[2px] bg-current`
   ],
 
   [
@@ -156,7 +158,14 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-tabs--vertical$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-tabs--vertical'] ??
-      `!block h-full [&_.q-tabs\\_\\_content]:(!block h-full) [&_.q-tabs\\_\\_arrow]:(w-full h-[36px] text-center) [&_.q-tabs\\_\\_arrow--left]:(top-[0] left-[0] right-[0]) [&_.q-tabs\\_\\_arrow--right]:(left-[0] right-[0] bottom-[0]) [&_.q-tab]:(px-[8px] py-[0]) [&_.q-tab\\_\\_indicator]:(h-[unset] w-[2px]) [&.q-tabs--not-scrollable_.q-tabs\\_\\_content]:(h-full) [&.q-tabs--dense_.q-tab\\_\\_content]:(min-w-[24px])`
+      `!block h-full [&_.q-tabs\\_\\_content]:(!block h-full) 
+      [&_.q-tabs\\_\\_arrow]:(w-full h-[36px] text-center) 
+      [&_.q-tabs\\_\\_arrow--left]:(top-[0] left-[0] right-[0]) 
+      [&_.q-tabs\\_\\_arrow--right]:(left-[0] right-[0] bottom-[0]) 
+      [&_.q-tab]:(px-[8px] py-[0]) 
+      [&_.q-tab\\_\\_indicator]:(h-[unset] w-2px min-h-100%)
+      [&_.q-tabs--not-scrollable_.q-tabs\\_\\_content]:(h-full) 
+      [&_.q-tabs--dense_.q-tab\\_\\_content]:(min-w-[24px])`
   ],
 
   [
