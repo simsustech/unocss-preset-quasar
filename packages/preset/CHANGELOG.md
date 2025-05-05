@@ -1,5 +1,14 @@
 # unocss-preset-quasar
 
+## 0.1.6
+
+### Patch Changes
+
+- 4ea419f: feat(preset): add transformerDirectives
+- 50f92fb: fix(preset): fix QTabs
+- 5977622: fix(preset): fix QScrollarea
+- 3e3ec4a: fix(preset): various fixes
+
 ## 0.1.5
 
 ### Patch Changes
