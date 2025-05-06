@@ -6,13 +6,13 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-btn$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn'] ??
-      `layer-components:bg-$light-primary dark:bg-$dark-primary layer-components:text-$light-on-primary layer-components:dark:text-$dark-on-primary inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle text-[14px] leading-[1.715em] no-underline font-medium text-center w-auto min-h-40px cursor-default px-[16px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit] elevation-2)`
+      `layer-components:bg-$light-primary dark:bg-$dark-primary layer-components:text-$light-on-primary layer-components:dark:text-$dark-on-primary inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle text-[14px] leading-[1.715em] no-underline font-medium text-center w-auto min-h-40px cursor-default px-[16px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit] shadow-md shadow-gray/14)`
   ],
   [
     /^q-btn--actionable$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--actionable'] ??
-      `cursor-pointer [&.q-btn--standard:before]:([transition:box-shadow_0.3s_cubic-bezier(0.25,_0.8,_0.5,_1)]) [&.q-btn--standard:active:before]:([box-shadow:0_3px_5px_-1px_rgba(0,_0,_0,_0.2),_0_5px_8px_rgba(0,_0,_0,_0.14),_0_1px_14px_rgba(0,_0,_0,_0.12)]) [&.q-btn--standard.q-btn--active:before]:(elevation-5)`
+      `cursor-pointer [&.q-btn--standard:before]:([transition:box-shadow_0.3s_cubic-bezier(0.25,_0.8,_0.5,_1)]) [&.q-btn--standard:active:before]:([box-shadow:0_3px_5px_-1px_rgba(0,_0,_0,_0.2),_0_5px_8px_rgba(0,_0,_0,_0.14),_0_1px_14px_rgba(0,_0,_0,_0.12)]) [&.q-btn--standard.q-btn--active:before]:(shadow-lg shadow-gray/14)`
   ],
 
   [/^q-btn--no-uppercase$/, ([, c], { theme }) => `normal-case`],
