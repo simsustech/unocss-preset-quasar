@@ -1640,7 +1640,7 @@ const defaultTheme: QuasarTheme = {
   }
 }
 
-const generateTheme = (sourceColor: string): QuasarTheme => {
+const generateTheme = (sourceColor: string = '#806cb0'): QuasarTheme => {
   const materialTheme = themeFromSourceColor(argbFromHex(sourceColor))
 
   return {

@@ -1545,10 +1545,6 @@ const generateSafelist = ({
 }
 
 export const QuasarPreset = definePreset((options: QuasarPresetOptions) => {
-  if (!options.sourceColor) {
-    options.sourceColor = '#806cb0'
-  }
-
   const style = options.style
   const theme = generateTheme(options.sourceColor)
 
