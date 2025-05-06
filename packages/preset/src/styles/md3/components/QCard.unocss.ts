@@ -6,7 +6,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-card$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-card'] ??
-      `p-16px rounded-[12px] align-top relative bg-$light-surface-container-low dark:bg-$dark-surface-container-low
+      `p-16px rounded-$shape-corner-medium align-top relative bg-$light-surface-container-low dark:bg-$dark-surface-container-low
       [&_>_div:not(.q--avoid-card-border)]:(rounded-tl-none rounded-tr-none rounded-bl-none rounded-br-none)
       [&_>_img:not(.q--avoid-card-border)]:(rounded-tl-none rounded-tr-none rounded-bl-none rounded-br-none)
       [&_>_div:nth-child(1_of_:not(.q--avoid-card-border))]:([border-top:0] [border-top-left-radius:inherit] [border-top-right-radius:inherit])

@@ -75,7 +75,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--fab'] ??
       `layer-components:bg-$light-primary-container layer-components:dark:bg-$dark-primary-container layer-components:text-$light-on-surface layer-components:dark:text-$dark-on-surface
-       w-56px h-56px !rounded-16px
+       w-56px h-56px !rounded-$shape-corner-large
        z-${theme.quasar.z.fab}
        [&_.q-icon]:(text-[24px]) [&_.q-icon]:(m-auto)`
     // min-h-[56px] min-w-[56px] p-[16px] pb-0
@@ -86,7 +86,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--fab-mini'] ??
       `layer-components:bg-$light-primary-container layer-components:dark:bg-$dark-primary-container layer-components:text-$light-on-surface layer-components:dark:text-$dark-on-surface
-      w-40px h-40px !rounded-16px
+      w-40px h-40px !rounded-$shape-corner-large
       [&_.q-icon]:(text-[24px])`
     // min-h-[40px] min-w-[40px]
   ],

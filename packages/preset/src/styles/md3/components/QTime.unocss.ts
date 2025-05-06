@@ -35,7 +35,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-time__header-label$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-time__header-label'] ??
-      `text-[48px] border-rd-8px
+      `text-[48px] rounded-$shape-corner-small
       leading-none tracking-[-0.00833em] [&_>_div_+_div]:(ml-[4px]) !flex-initial`
   ],
 

@@ -43,6 +43,7 @@ import {
   preflights as VisibilityPreflights,
   shortcuts as VisibilityShortcuts
 } from './visibility.unocss.js'
+import { preflights as ShapePreflights } from './shape.unocss.js'
 
 export const preflights: Preflight<QuasarTheme>[] = (
   [
@@ -339,7 +340,8 @@ body {
   TypographyPreflights,
   VisibilityPreflights,
   TransitionPreflights,
-  SizePreflights
+  SizePreflights,
+  ShapePreflights
 )
 
 export const rules = ([] as Rule<QuasarTheme>[]).concat(

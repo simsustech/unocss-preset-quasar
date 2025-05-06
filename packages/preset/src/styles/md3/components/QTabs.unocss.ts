@@ -8,7 +8,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       theme.quasar?.components?.['q-tab'] ??
       `px-[16px] py-[0] min-h-[48px] [transition:color_0.3s,_background-color_0.3s] whitespace-nowrap [color:inherit] no-underline
       [&_.q-badge]:(top-[3px] -right-[12px])
-      [&_>_.q-focus-helper]:(!absolute !h-32px !w-52px !top-[calc(50%-23px)] !left-[calc(50%-26px)] !border-rd-16px)
+      [&_>_.q-focus-helper]:(!absolute !h-32px !w-52px !top-[calc(50%-23px)] !left-[calc(50%-26px)] !rounded-$shape-corner-large)
       `
   ],
 

@@ -24,7 +24,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       bg-$light-surface-container-low dark:bg-$dark-secondary-container
       text-$light-on-surface-variant dark:text-$dark-on-secondary-container
       text-[14px] px-[1em] py-[0.375em] 
-      [&_.q-avatar]:(text-[2em] -ml-[0.45em] mr-[0.2em] rounded-[16px])`
+      [&_.q-avatar]:(text-[2em] -ml-[0.45em] mr-[0.2em] rounded-$shape-corner-large)`
   ],
 
   [
@@ -91,14 +91,14 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-chip--dense$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-chip--dense'] ??
-      `rounded-[12px] px-[0.4em] py-[0] h-[1.5em] [&_.q-avatar]:(text-[1.5em] -ml-[0.27em] mr-[0.1em] rounded-[12px]) [&_.q-chip\\_\\_icon]:(text-[1.25em]) [&_.q-chip\\_\\_icon--left]:(mr-[0.195em]) [&_.q-chip\\_\\_icon--remove]:(-mr-[0.25em])`
+      `rounded-$shape-corner-medium px-[0.4em] py-[0] h-[1.5em] [&_.q-avatar]:(text-[1.5em] -ml-[0.27em] mr-[0.1em] rounded-$shape-corner-medium) [&_.q-chip\\_\\_icon]:(text-[1.25em]) [&_.q-chip\\_\\_icon--left]:(mr-[0.195em]) [&_.q-chip\\_\\_icon--remove]:(-mr-[0.25em])`
   ],
 
   [
     /^q-chip--square$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-chip--square'] ??
-      `rounded-[8px] [&_.q-avatar]:(rounded-tl-[3px] rounded-br-[0] rounded-tr-[0] rounded-bl-[3px])`
+      `rounded-$shape-corner-small [&_.q-avatar]:(rounded-tl-[3px] rounded-br-[0] rounded-tr-[0] rounded-bl-[3px])`
   ]
 ]
 

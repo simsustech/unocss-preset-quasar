@@ -61,6 +61,13 @@ export interface QuasarTheme {
     lg: string
     xl: string
   }
+  shape: {
+    corner: {
+      small: string
+      medium: string
+      large: string
+    }
+  }
   colors: {
     light: MaterialColorScheme
     dark: MaterialColorScheme
@@ -1221,6 +1228,13 @@ const defaultTheme: QuasarTheme = {
     md: '1024px',
     lg: '1440px',
     xl: '1920px'
+  },
+  shape: {
+    corner: {
+      small: '8px',
+      medium: '12px',
+      large: '16px'
+    }
   },
   colors: {
     light: {
