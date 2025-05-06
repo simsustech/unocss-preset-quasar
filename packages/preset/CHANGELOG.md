@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.2.0
+
+### Minor Changes
+
+- 53b57fe: feat(preset): make theme colors CSS variables
+
 ## 0.1.6
 
 ### Patch Changes
