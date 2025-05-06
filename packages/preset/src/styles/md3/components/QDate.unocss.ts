@@ -6,7 +6,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-date$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-date'] ??
-      `bg-light-surface-container-high dark:bg-dark-surface-container-high inline-flex [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px] bg-[#fff] w-[290px] min-w-[290px] max-w-full`
+      `bg-$light-surface-container-high dark:bg-$dark-surface-container-high inline-flex [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px] bg-[#fff] w-[290px] min-w-[290px] max-w-full`
   ],
 
   [
@@ -73,7 +73,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       theme.quasar?.components?.['q-date__navigation'] ??
       `h-[12.5%]
       [&_>_div:first-child]:(w-[8%] min-w-[24px] justify-end) [&_>_div:last-child]:(w-[8%] min-w-[24px] justify-start)
-      [&_.q-btn]:(text-light-on-surface dark:text-dark-on-surface)`
+      [&_.q-btn]:(text-$light-on-surface dark:text-$dark-on-surface)`
   ],
 
   [
@@ -98,8 +98,8 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-date__calendar-item--in$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-date__calendar-item--in'] ??
-      `[&_.q-btn]:(text-light-on-primary dark:text-dark-on-primary bg-light-primary dark:bg-dark-primary)
-       [&_.q-btn--flat]:(text-light-on-surface dark:text-dark-on-surface)`
+      `[&_.q-btn]:(text-$light-on-primary dark:text-$dark-on-primary bg-$light-primary dark:bg-$dark-primary)
+       [&_.q-btn--flat]:(text-$light-on-surface dark:text-$dark-on-surface)`
   ],
 
   [
@@ -127,7 +127,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-date__edit-range$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-date__edit-range'] ??
-      `[&:after]:(border-light-primary dark:border-dark-primary border-l-transparent border-r-transparent) 
+      `[&:after]:(border-$light-primary dark:border-$dark-primary border-l-transparent border-r-transparent) 
       [&:nth-child(7n-6):after]:(rounded-tl-none rounded-bl-none) 
       [&:nth-child(7n):after]:(rounded-tr-none rounded-br-none)`
   ],
@@ -137,22 +137,22 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-date__edit-range-from'] ??
       `[&:after]:(left-[4px] 
-      border-r-0 border-light-primary dark:border-dark-primary rounded-tl-[28px] rounded-bl-[28px])`
+      border-r-0 border-$light-primary dark:border-$dark-primary rounded-tl-[28px] rounded-bl-[28px])`
   ],
 
   [
     /^q-date__edit-range-from-to$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-date__edit-range-from-to'] ??
-      `[&:after]:(left-[4px] border-light-primary dark:border-dark-primary border-r-transparent rounded-tl-[28px] rounded-bl-[28px]) 
-      [&:after]:(right-[4px] [border-light-primary dark:border-dark-primary border-l-transparent rounded-tr-[28px] rounded-br-[28px])`
+      `[&:after]:(left-[4px] border-$light-primary dark:border-$dark-primary border-r-transparent rounded-tl-[28px] rounded-bl-[28px]) 
+      [&:after]:(right-[4px] [border-$light-primary dark:border-$dark-primary border-l-transparent rounded-tr-[28px] rounded-br-[28px])`
   ],
 
   [
     /^q-date__edit-range-to$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-date__edit-range-to'] ??
-      `[&:after]:(right-[4px] border-l-transparent border-light-primary dark:border-dark-primary rounded-tr-[28px] rounded-br-[28px])`
+      `[&:after]:(right-[4px] border-l-transparent border-$light-primary dark:border-$dark-primary rounded-tr-[28px] rounded-br-[28px])`
   ],
 
   [
@@ -168,7 +168,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-date__event$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-date__event'] ??
-      `absolute bottom-[2px] left-2/4 h-[5px] w-[8px] rounded-[5px] [transform:translate3d(-50%,_0,_0)] bg-light-primary dark:bg-dark-primary`
+      `absolute bottom-[2px] left-2/4 h-[5px] w-[8px] rounded-[5px] [transform:translate3d(-50%,_0,_0)] bg-$light-primary dark:bg-$dark-primary`
   ],
 
   [
@@ -190,8 +190,8 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-date__years-item'] ??
       `flex-[0_0_33.3333%]
-        [&_.q-btn]:(h-30px w-60px text-light-on-primary dark:text-dark-on-primary bg-light-primary dark:bg-dark-primary)
-       [&_.q-btn--flat]:(h-30px w-60px text-light-on-surface dark:text-dark-on-surface)`
+        [&_.q-btn]:(h-30px w-60px text-$light-on-primary dark:text-$dark-on-primary bg-$light-primary dark:bg-$dark-primary)
+       [&_.q-btn--flat]:(h-30px w-60px text-$light-on-surface dark:text-$dark-on-surface)`
   ],
 
   [
@@ -213,8 +213,8 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-date__months-item'] ??
       `flex-[0_0_33.3333%]
-          [&_.q-btn]:(text-light-on-primary dark:text-dark-on-primary bg-light-primary dark:bg-dark-primary)
-       [&_.q-btn--flat]:(text-light-on-surface dark:text-dark-on-surface)`
+          [&_.q-btn]:(text-$light-on-primary dark:text-$dark-on-primary bg-$light-primary dark:bg-$dark-primary)
+       [&_.q-btn--flat]:(text-$light-on-surface dark:text-$dark-on-surface)`
   ],
 
   [

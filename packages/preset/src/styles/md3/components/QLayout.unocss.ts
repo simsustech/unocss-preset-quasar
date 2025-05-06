@@ -88,7 +88,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-layout__section--marginal$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-layout__section--marginal'] ??
-      `text-[#fff] bg-light-surface-container-low dark:bg-dark-surface-container-low text-light-on-surface dark:text-dark-on-surface`
+      `text-[#fff] bg-$light-surface-container-low dark:bg-$dark-surface-container-low text-$light-on-surface dark:text-$dark-on-surface`
   ]
 ]
 

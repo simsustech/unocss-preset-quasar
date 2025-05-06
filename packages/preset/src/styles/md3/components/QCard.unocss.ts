@@ -6,7 +6,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-card$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-card'] ??
-      `p-16px rounded-[12px] align-top relative bg-light-surface-container-low dark:bg-dark-surface-container-low
+      `p-16px rounded-[12px] align-top relative bg-$light-surface-container-low dark:bg-$dark-surface-container-low
       [&_>_div:not(.q--avoid-card-border)]:(rounded-tl-none rounded-tr-none rounded-bl-none rounded-br-none)
       [&_>_img:not(.q--avoid-card-border)]:(rounded-tl-none rounded-tr-none rounded-bl-none rounded-br-none)
       [&_>_div:nth-child(1_of_:not(.q--avoid-card-border))]:([border-top:0] [border-top-left-radius:inherit] [border-top-right-radius:inherit])
@@ -15,7 +15,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       [&_>_img:nth-last-child(1_of_:not(.q--avoid-card-border))]:([border-bottom:0] [border-bottom-left-radius:inherit] [border-bottom-right-radius:inherit])
       [&_>_div:not(.q--avoid-card-border)]:([border-left:0] [border-right:0] shadow-none)
       [&_>_img]:(block w-full max-w-full border-[0])
-      [&:not(.disabled):focus]:(bg-light-secondary dark:bg-dark-secondary)
+      [&:not(.disabled):focus]:(bg-$light-secondary dark:bg-$dark-secondary)
       [&:not(.disabled):hover]:(shadow-md)
       [&.disabled]:(op-38)`
   ],
@@ -24,7 +24,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-card--filled$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-card--filled'] ??
-      `bg-light-surface-container-highest dark:bg-dark-surface-container-highest`
+      `bg-$light-surface-container-highest dark:bg-$dark-surface-container-highest`
   ],
 
   [

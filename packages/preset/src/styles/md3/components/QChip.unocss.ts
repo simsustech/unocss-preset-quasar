@@ -20,9 +20,9 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-chip'] ??
       `!flex-initial align-middle rounded-[0.5em] outline-[0] relative h-[2em] max-w-full m-[4px] 
-      outline-solid outline-1px outline-light-outline-variant dark:outline-dark-outline-variant
-      bg-light-surface-container-low dark:bg-dark-secondary-container
-      text-light-on-surface-variant dark:text-dark-on-secondary-container
+      outline-solid outline-1px outline-$light-outline-variant dark:outline-$dark-outline-variant
+      bg-$light-surface-container-low dark:bg-$dark-secondary-container
+      text-$light-on-surface-variant dark:text-$dark-on-secondary-container
       text-[14px] px-[1em] py-[0.375em] 
       [&_.q-avatar]:(text-[2em] -ml-[0.45em] mr-[0.2em] rounded-[16px])`
   ],
@@ -58,7 +58,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-chip__icon$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-chip__icon'] ??
-      `text-light-primary dark:text-dark-primary text-[1.40625em] -m-[0.2em]`
+      `text-$light-primary dark:text-$dark-primary text-[1.40625em] -m-[0.2em]`
   ],
 
   [

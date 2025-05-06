@@ -109,7 +109,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-field__control$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-field__control'] ??
-      `h-[56px] max-w-full outline-none text-light-primary dark:text-dark-primary
+      `h-[56px] max-w-full outline-none text-$light-primary dark:text-$dark-primary
 	[&:before]:(content-empty top-[0] right-[0] bottom-[0] left-[0] pointer-events-none absolute border-rd-inherit) 
 	[&:after]:(content-empty top-[0] right-[0] bottom-[0] left-[0] pointer-events-none absolute)`
   ],
@@ -222,8 +222,8 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-field--filled$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-field--filled'] ??
-      `[&_.q-field\\_\\_control]:(bg-light-surface-container text-light-on-surface-variant
-       dark:bg-dark-surface-container dark:text-dark-on-surface-variant)
+      `[&_.q-field\\_\\_control]:(bg-$light-surface-container-highest text-$light-on-surface-variant
+       dark:bg-$dark-surface-container-highest dark:text-$dark-on-surface-variant)
       [&_.q-field\\_\\_control]:(px-[16px] py-[0] layer-components:bg-black/5 rounded-tl-[4px] rounded-br-[0] rounded-tr-[4px] rounded-bl-[0]) 
       [&_.q-field\\_\\_control:before]:(layer-components:bg-black/5 [border-bottom:1px_solid_rgba(0,_0,_0,_0.42)] opacity-0 [transition:opacity_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_background_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
       [&_.q-field\\_\\_control:hover:before]:(opacity-100) 
@@ -285,28 +285,29 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-field--standout$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-field--standout'] ??
-      `[&_.q-field\\_\\_control]:(px-[12px] py-[0] layer-components:bg-light-surface-container-high
+      `[&_.q-field\\_\\_control]:(px-[12px] py-[0] layer-components:bg-$light-surface-container-highest
        rounded-[4px] [transition:box-shadow_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_background-color_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
 	[&_.q-field\\_\\_control:before]:(layer-components:bg-black/7 opacity-0 [transition:opacity_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_background_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
 	[&_.q-field\\_\\_control:hover:before]:(opacity-100) 
 	[&.q-field--rounded_.q-field\\_\\_control]:(rounded-[28px]) 
 	[&.q-field--highlighted_.q-field\\_\\_control]:([box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)]) 
-	[&.q-field--highlighted_.q-field\\_\\_native]:(text-light-primary) 
-	[&.q-field--highlighted_.q-field\\_\\_prefix]:(text-light-primary) 
-	[&.q-field--highlighted_.q-field\\_\\_suffix]:(text-light-primary) 
-	[&.q-field--highlighted_.q-field\\_\\_prepend]:(text-light-primary) 
-	[&.q-field--highlighted_.q-field\\_\\_append]:(text-light-primary) 
-	[&.q-field--highlighted_.q-field\\_\\_input]:(text-light-on-surface) 
+	[&.q-field--highlighted_.q-field\\_\\_native]:(text-$light-primary) 
+	[&.q-field--highlighted_.q-field\\_\\_prefix]:(text-$light-primary) 
+	[&.q-field--highlighted_.q-field\\_\\_suffix]:(text-$light-primary) 
+	[&.q-field--highlighted_.q-field\\_\\_prepend]:(text-$light-primary) 
+	[&.q-field--highlighted_.q-field\\_\\_append]:(text-$light-primary) 
+	[&.q-field--highlighted_.q-field\\_\\_input]:(text-$light-on-surface) 
 	[&.q-field--readonly_.q-field\\_\\_control:before]:(opacity-100 bg-transparent border-[1px] border-dashed border-black/24) 
-	[&.q-field--dark_.q-field\\_\\_control]:(bg-dark-surface-container-high) 
+	[&.q-field--dark_.q-field\\_\\_control]:(bg-$dark-surface-container-highest) 
 	[&.q-field--dark_.q-field\\_\\_control:before]:(layer-components:bg-white/7) 
-	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_control]:(layer-components:bg-dark-surface-container-highest) 
-	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_native]:(text-dark-primary) 
-	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_prefix]:(text-dark-primary) 
-	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_suffix]:(text-dark-primary) 
-	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_prepend]:(text-dark-primary) 
-	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_append]:(text-dark-primary) 
-	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_input]:(!text-dark-on-surface) 
+	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_control]:(layer-components:bg-$dark-surface-container-highest) 
+	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_native]:(text-$dark-primary) 
+	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_prefix]:(text-$dark-primary) 
+	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_suffix]:(text-$dark-primary) 
+	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_prepend]:(text-$dark-primary) 
+	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_append]:(text-$dark-primary) 
+	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_input]:(!      [&_>_.q-btn-item]:(text-$light-on-surface dark:text-$dark-on-surface self-stretch) 
+text-$dark-on-surface) 
 	[&.q-field--dark.q-field--readonly_.q-field\\_\\_control:before]:(border-white/24)`
   ],
 

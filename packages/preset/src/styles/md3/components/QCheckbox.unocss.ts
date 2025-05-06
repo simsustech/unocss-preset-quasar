@@ -65,7 +65,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-checkbox__inner--truthy$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-checkbox__inner--truthy'] ??
-      `text-light-primary dark:text-dark-primary
+      `text-$light-primary dark:text-$dark-primary
       [&_.q-checkbox\\_\\_bg]:(bg-current)
       [&_path]:(stroke-offset-none [transition:stroke-dashoffset_0.18s_cubic-bezier(0.4,_0,_0.6,_1)_0ms])`
   ],
@@ -74,7 +74,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-checkbox__inner--indet$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-checkbox__inner--indet'] ??
-      `text-light-primary dark:text-dark-primary [&_.q-checkbox\\_\\_bg]:(bg-current) [&_.q-checkbox\\_\\_indet]:(rotate-[0] scale-100 [transition:transform_0.22s_cubic-bezier(0,_0,_0.2,_1)_0ms])`
+      `text-$light-primary dark:text-$dark-primary [&_.q-checkbox\\_\\_bg]:(bg-current) [&_.q-checkbox\\_\\_indet]:(rotate-[0] scale-100 [transition:transform_0.22s_cubic-bezier(0,_0,_0.2,_1)_0ms])`
   ],
 
   [
@@ -83,8 +83,8 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       theme.quasar?.components?.['q-checkbox--dark'] ??
       `[&_.q-checkbox\\_\\_inner]:(layer-components:text-[rgba(255,_255,_255,_0.7)])
        [&_.q-checkbox\\_\\_inner:before]:(!opacity-[0.32])
-       [&_.q-checkbox\\_\\_inner--truthy]:(layer-components:(text-light-primary dark:text-dark-primary))
-       [&_.q-checkbox\\_\\_inner--indet]:(layer-components:(text-light-primary dark:text-dark-primary))`
+       [&_.q-checkbox\\_\\_inner--truthy]:(layer-components:(text-$light-primary dark:text-$dark-primary))
+       [&_.q-checkbox\\_\\_inner--indet]:(layer-components:(text-$light-primary dark:text-$dark-primary))`
   ],
 
   [

@@ -77,7 +77,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-tab--active$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-tab--active'] ??
-      `text-light-primary dark:text-dark-primary [&_.q-tab\\_\\_indicator]:(opacity-100 origin-left)`
+      `text-$light-primary dark:text-$dark-primary [&_.q-tab\\_\\_indicator]:(opacity-100 origin-left)`
   ],
 
   [

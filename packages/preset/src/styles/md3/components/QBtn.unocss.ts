@@ -6,7 +6,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-btn$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn'] ??
-      `layer-components:bg-light-primary dark:bg-dark-primary layer-components:text-light-on-primary layer-components:dark:text-dark-on-primary inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle text-[14px] leading-[1.715em] no-underline font-medium text-center w-auto min-h-40px cursor-default px-[16px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit] elevation-2)`
+      `layer-components:bg-$light-primary dark:bg-$dark-primary layer-components:text-$light-on-primary layer-components:dark:text-$dark-on-primary inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle text-[14px] leading-[1.715em] no-underline font-medium text-center w-auto min-h-40px cursor-default px-[16px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit] elevation-2)`
   ],
   [
     /^q-btn--actionable$/,
@@ -23,7 +23,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-btn--outline$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--outline'] ??
-      `!bg-transparent layer-components:text-light-primary layer-components:dark:text-dark-primary
+      `!bg-transparent layer-components:text-$light-primary layer-components:dark:text-$dark-primary
        [&:before]:(shadow-none border-[1px] border-solid border-[currentColor]) 
        [&_.q-btn\\_\\_progress-indicator]:(opacity-20 bg-current)`
   ],
@@ -50,7 +50,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-btn--flat$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--flat'] ??
-      `!bg-transparent layer-components:text-light-primary layer-components:dark:text-dark-primary
+      `!bg-transparent layer-components:text-$light-primary layer-components:dark:text-$dark-primary
       [&:before]:([box-shadow:none]) 
       [&_.q-btn\\_\\_progress-indicator]:(opacity-20 bg-current)`
   ],
@@ -74,7 +74,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-btn--fab$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--fab'] ??
-      `layer-components:bg-light-primary-container layer-components:dark:bg-dark-primary-container layer-components:text-light-on-surface layer-components:dark:text-dark-on-surface
+      `layer-components:bg-$light-primary-container layer-components:dark:bg-$dark-primary-container layer-components:text-$light-on-surface layer-components:dark:text-$dark-on-surface
        w-56px h-56px !rounded-16px
        z-${theme.quasar.z.fab}
        [&_.q-icon]:(text-[24px]) [&_.q-icon]:(m-auto)`
@@ -85,7 +85,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-btn--fab-mini$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--fab-mini'] ??
-      `layer-components:bg-light-primary-container layer-components:dark:bg-dark-primary-container layer-components:text-light-on-surface layer-components:dark:text-dark-on-surface
+      `layer-components:bg-$light-primary-container layer-components:dark:bg-$dark-primary-container layer-components:text-$light-on-surface layer-components:dark:text-$dark-on-surface
       w-40px h-40px !rounded-16px
       [&_.q-icon]:(text-[24px])`
     // min-h-[40px] min-w-[40px]

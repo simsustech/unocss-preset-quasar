@@ -7,7 +7,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-stepper'] ??
       `[box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px]
-      bg-light-surface dark:bg-dark-surface
+      bg-$light-surface dark:bg-$dark-surface
       `
   ],
 
@@ -15,7 +15,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-stepper__label$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-stepper__label'] ??
-      `bg-light-surface dark:bg-dark-surface`
+      `bg-$light-surface dark:bg-$dark-surface`
   ],
 
   [
@@ -73,7 +73,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-stepper__tab--active$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-stepper__tab--active'] ??
-      `text-light-primary dark:text-dark-primary [&_.q-stepper\\_\\_dot]:([text-shadow:0_0_0_currentColor]) 
+      `text-$light-primary dark:text-$dark-primary [&_.q-stepper\\_\\_dot]:([text-shadow:0_0_0_currentColor]) 
       [&_.q-stepper\\_\\_label]:([text-shadow:0_0_0_currentColor])`
   ],
 

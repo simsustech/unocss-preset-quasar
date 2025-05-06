@@ -7,7 +7,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-item'] ??
       `min-h-[28px] px-[16px] py-[8px] [color:inherit] [transition:color_0.3s,_background-color_0.3s] [&_>_.q-item\\_\\_section--thumbnail:first-child]:(-ml-[16px]) [&_>_.q-focus-helper_+_.q-item\\_\\_section--thumbnail]:(-ml-[16px]) [&_>_.q-item\\_\\_section--thumbnail:last-of-type]:(-mr-[16px]) relative
-    [&.q-router-link--active]:(text-light-primary dark:text-dark-primary)`
+    [&.q-router-link--active]:(text-$light-primary dark:text-$dark-primary)`
   ],
 
   [
@@ -127,7 +127,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
 
   [
     /^q-item--active$/,
-    ([, c], { theme }) => `text-light-primary dark:text-dark-primary`
+    ([, c], { theme }) => `text-$light-primary dark:text-$dark-primary`
   ]
 ]
 

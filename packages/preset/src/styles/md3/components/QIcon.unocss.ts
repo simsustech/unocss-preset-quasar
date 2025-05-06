@@ -13,7 +13,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
   [&>img]:(h-full w-full)
   [&:before]:(w-full h-full flex! items-center justify-center)
   [&:after]:(w-full h-full flex! items-center justify-center)
-  select-none cursor-inherit layer-components:text-light-on-surface layer-components:dark:text-dark-on-surface inline-flex items-center justify-center v-middle
+  select-none cursor-inherit layer-components:text-$light-on-surface layer-components:dark:text-$dark-on-surface inline-flex items-center justify-center v-middle
   `
   ],
   // [

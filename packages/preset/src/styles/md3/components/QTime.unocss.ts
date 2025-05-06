@@ -6,7 +6,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-time$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-time'] ??
-      `bg-light-surface-container-high dark:bg-dark-surface-container-high
+      `bg-$light-surface-container-high dark:bg-$dark-surface-container-high
       [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px] outline-[0] w-[290px] min-w-[290px] max-w-full [&.disabled_.q-time\\_\\_header-ampm]:(pointer-events-none) [&.disabled_.q-time\\_\\_content]:(pointer-events-none)`
   ],
 
@@ -21,7 +21,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-time__header$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-time__header'] ??
-      `[border-top-left-radius:inherit] text-light-on-surface dark:text-dark-on-surface p-[16px] font-light`
+      `[border-top-left-radius:inherit] text-$light-on-surface dark:text-$dark-on-surface p-[16px] font-light`
   ],
 
   [
@@ -44,8 +44,8 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-time__link'] ??
       `p-6px
-        bg-light-surface-container-highest dark:bg-dark-surface-container-highest
-        text-light-on-surface dark:text-dark-on-surface
+        bg-$light-surface-container-highest dark:bg-$dark-surface-container-highest
+        text-$light-on-surface dark:text-$dark-on-surface
       opacity-[0.56] outline-[0] [transition:opacity_0.3s_ease-out] [&:hover]:(opacity-100) [&:focus]:(opacity-100)`
   ],
 
@@ -54,7 +54,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-time__link--active'] ??
       `
-            text-light-on-primary-container dark:text-dark-on-primary-container bg-light-primary-container dark:bg-dark-primary-container
+            text-$light-on-primary-container dark:text-$dark-on-primary-container bg-$light-primary-container dark:bg-$dark-primary-container
     opacity-100`
   ],
 
@@ -63,7 +63,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-time__header-ampm'] ??
       `text-[16px] tracking-widest !flex-initial
-      [&_.q-time\\_\\_link--active]:(bg-light-tertiary-container dark:bg-dark-tertiary-container)`
+      [&_.q-time\\_\\_link--active]:(bg-$light-tertiary-container dark:bg-$dark-tertiary-container)`
   ],
 
   [
@@ -83,7 +83,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-time__container-child$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-time__container-child'] ??
-      `rounded-[50%] bg-light-surface-container-highest dark:bg-dark-surface-container-highest`
+      `rounded-[50%] bg-$light-surface-container-highest dark:bg-$dark-surface-container-highest`
   ],
 
   [
@@ -110,7 +110,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-time__clock-pointer$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-time__clock-pointer'] ??
-      `text-light-primary dark:text-dark-primary w-[2px] h-1/2 origin-[0_0] min-h-[0] absolute left-2/4 right-[0] bottom-[0] bg-current -translate-x-1/2 [&:before]:(content-[''] absolute left-2/4 rounded-[50%] bg-current -translate-x-1/2) [&:after]:(content-[''] absolute left-2/4 rounded-[50%] bg-current -translate-x-1/2) 
+      `text-$light-primary dark:text-$dark-primary w-[2px] h-1/2 origin-[0_0] min-h-[0] absolute left-2/4 right-[0] bottom-[0] bg-current -translate-x-1/2 [&:before]:(content-[''] absolute left-2/4 rounded-[50%] bg-current -translate-x-1/2) [&:after]:(content-[''] absolute left-2/4 rounded-[50%] bg-current -translate-x-1/2) 
       [&:before]:(-bottom-[4px] w-[8px] h-[8px])
       [&:after]:(-top-[3px] h-[6px] w-[6px])`
   ],
@@ -133,7 +133,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-time__clock-position--active$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-time__clock-position--active'] ??
-      `bg-light-primary dark:bg-dark-primary text-light-on-primary dark:text-dark-on-primary`
+      `bg-$light-primary dark:bg-$dark-primary text-$light-on-primary dark:text-$dark-on-primary`
   ],
 
   [
@@ -298,7 +298,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-time__now-button$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-time__now-button'] ??
-      `text-light-on-surface dark:text-dark-on-surface top-[12px] right-[12px]`
+      `text-$light-on-surface dark:text-$dark-on-surface top-[12px] right-[12px]`
   ],
 
   [

@@ -1,6 +1,9 @@
 import { Preflight, Rule, UserShortcuts } from '@unocss/core'
 import { QuasarTheme } from '../theme.js'
-import { preflights as ColorPreflights } from './colors.unocss.js'
+import {
+  preflights as ColorPreflights,
+  shortcuts as ColorShortcuts
+} from './colors.unocss.js'
 import {
   preflights as DarkPreflights,
   shortcuts as DarkShortcuts
@@ -347,6 +350,7 @@ export const rules = ([] as Rule<QuasarTheme>[]).concat(
 )
 
 export const shortcuts = ([] as UserShortcuts<QuasarTheme>[]).concat(
+  ColorShortcuts,
   DarkShortcuts,
   FlexShortcuts,
   HelperShortcuts,

@@ -1626,7 +1626,7 @@ const defaultTheme: QuasarTheme = {
   }
 }
 
-export const generateTheme = (sourceColor: string): QuasarTheme => {
+const generateTheme = (sourceColor: string): QuasarTheme => {
   const materialTheme = themeFromSourceColor(argbFromHex(sourceColor))
 
   return {
@@ -1772,4 +1772,48 @@ export const generateTheme = (sourceColor: string): QuasarTheme => {
   }
 }
 
-export { defaultTheme }
+// https://github.com/quasarframework/quasar/blob/dev/ui/src/utils/css-var/set-css-var.js
+/**
+ *
+ * Do not use on server.
+ * @param name CSS variable name in kebap case
+ * @param value Variable value
+ * @param element Optional
+ */
+const setCssVar = (name: string, value: string, element = document.body) => {
+  if (typeof name !== 'string') {
+    throw new TypeError('Expected a string as name')
+  }
+  if (typeof value !== 'string') {
+    throw new TypeError('Expected a string as value')
+  }
+  if (!(element instanceof Element)) {
+    throw new TypeError('Expected a DOM element')
+  }
+
+  element.style.setProperty(`--${name}`, value)
+}
+
+const kebabize = (str: string) =>
+  str.replace(
+    /[A-Z]+(?![a-z])|[A-Z]/g,
+    ($, ofs) => (ofs ? '-' : '') + $.toLowerCase()
+  )
+
+/**
+ * Do not use on server.
+ * @param theme unocss-preset-quasar theme
+ */
+const setThemeColors = (themeColors: QuasarTheme['colors']) => {
+  for (const [name, value] of Object.entries(themeColors.light)) {
+    setCssVar('light-' + kebabize(name), value)
+  }
+  for (const [name, value] of Object.entries(themeColors.dark)) {
+    setCssVar('dark-' + kebabize(name), value)
+  }
+  setCssVar('q-primary', themeColors.light.primary)
+  setCssVar('q-secondary', themeColors.light.secondary)
+  setCssVar('q-accent', themeColors.light.tertiary)
+}
+
+export { defaultTheme, generateTheme, setThemeColors }

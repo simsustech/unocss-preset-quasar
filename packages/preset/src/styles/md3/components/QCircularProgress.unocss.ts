@@ -25,7 +25,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-circular-progress$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-circular-progress'] ??
-      `text-light-primary dark:text-dark-primary inline-block relative align-middle w-[1em] h-[1em] leading-none`
+      `text-$light-primary dark:text-$dark-primary inline-block relative align-middle w-[1em] h-[1em] leading-none`
   ],
 
   [/^q-circular-progress__svg$/, ([, c], { theme }) => `w-full h-full`],
