@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.2.1
+
+### Patch Changes
+
+- 1d659c4: feat(preset): add shape corner theme variables
+
 ## 0.2.0
 
 ### Minor Changes
