@@ -877,7 +877,8 @@ const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
       'q-toggle--dark',
       'q-toggle--dense'
     ],
-    QToolbar: ['q-toolbar', 'q-toolbar--inset', 'q-toolbar__title'],
+    QToolbar: ['q-toolbar', 'q-toolbar--inset'],
+    QToolbarTitle: ['q-toolbar__title'],
     QTooltip: ['q-tooltip--style', 'q-tooltip'],
     QTree: [
       'q-tree',
