@@ -40,21 +40,21 @@
   },
   "dependencies": {
     "@material/material-color-utilities": "^0.3.0",
-    "@unocss/core": "^66.0.0",
-    "@unocss/preset-uno": "^66.0.0",
-    "@unocss/preset-web-fonts": "66.1.0-beta.10",
-    "@unocss/preset-wind": "^66.0.0",
+    "@unocss/core": "^66.1.1",
+    "@unocss/preset-uno": "^66.1.1",
+    "@unocss/preset-web-fonts": "66.1.1",
+    "@unocss/preset-wind": "^66.1.1",
     "animated-unocss": "^0.0.6",
-    "unocss": "66.1.0-beta.10"
+    "unocss": "66.1.1"
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.2.3",
     "@quasar/extras": "^1.16.17",
     "@quasar/quasar-ui-qmarkdown": "^2.0.5",
     "@quasar/quasar-ui-qmediaplayer": "^2.0.0-beta.0",
-    "@types/node": "^22.14.0",
-    "@unocss/preset-icons": "^66.0.0",
-    "@unocss/preset-mini": "66.1.0-beta.10",
+    "@types/node": "^22.15.17",
+    "@unocss/preset-icons": "^66.1.1",
+    "@unocss/preset-mini": "66.1.1",
     "quasar": "^2.18.1",
     "typescript": "^5.8.3"
   },
