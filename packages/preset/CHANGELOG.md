@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.2.2
+
+### Patch Changes
+
+- 7861c8a: fix(preset): fix QItem side max width
+
 ## 0.2.1
 
 ### Patch Changes
