@@ -14,7 +14,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-item__section--side$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-item__section--side'] ??
-      `!flex-initial text-[#757575] items-start pr-[16px] w-auto max-w-full [&_>_.q-icon]:(text-[24px]) [&_>_.q-avatar]:(text-[40px])`
+      `!flex-initial text-[#757575] items-start pr-[16px] w-auto [&_>_.q-icon]:(text-[24px]) [&_>_.q-avatar]:(text-[40px])`
   ],
 
   [
