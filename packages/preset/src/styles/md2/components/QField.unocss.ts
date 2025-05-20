@@ -41,7 +41,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-field__marginal$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-field__marginal'] ??
-      `h-[56px] text-black/54 text-[24px] 
+      `text-black/54 text-[24px] 
 	[&_>_*_+_*]:(ml-[2px]) 
 	[&_.q-avatar]:(text-[32px])`
   ],
