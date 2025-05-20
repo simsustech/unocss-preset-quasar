@@ -1,5 +1,12 @@
 # unocss-preset-quasar
 
+## 0.2.3
+
+### Patch Changes
+
+- bb33cd2: fix(preset): remove height from q-field\_\_marginal
+- a721809: fix(preset): fix q-panel
+
 ## 0.2.2
 
 ### Patch Changes
