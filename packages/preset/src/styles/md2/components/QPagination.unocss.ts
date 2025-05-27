@@ -6,7 +6,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-pagination$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-pagination'] ??
-      `[&_input]:(text-center) [&_input::-webkit-outer-spin-button]:(m-0) [&_input::-webkit-inner-spin-button]:(m-0)`
+      `!flex-initial [&_input]:(text-center) [&_input::-webkit-outer-spin-button]:(m-0) [&_input::-webkit-inner-spin-button]:(m-0)`
   ],
 
   [
