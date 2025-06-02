@@ -170,6 +170,21 @@ const QChipSafelist = [
   'q-chip--dense',
   'q-chip--square'
 ]
+
+const QRadioSafelist = [
+  'q-radio',
+  'q-radio__native',
+  'q-radio__bg',
+  'q-radio__icon-container',
+  'q-radio__icon',
+  'q-radio__check',
+  'q-radio__inner',
+  'q-radio__inner--truthy',
+  'q-radio--dark',
+  'q-radio--dense',
+  'q-radio__label'
+]
+
 const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
   {
     QIcon: ['q-icon'],
@@ -598,7 +613,7 @@ const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
       'q-linear-progress__stripe--with-transition'
     ],
     QMenu: QMenuSafelist,
-    QOptionGroup: ['q-option-group--inline'],
+    QOptionGroup: [...QRadioSafelist, 'q-option-group, q-option-group--inline'],
     QPagination: [
       'q-pagination',
       'q-pagination__content',
@@ -611,18 +626,7 @@ const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
       'q-pull-to-refresh__puller',
       'q-pull-to-refresh__puller--animating'
     ],
-    QRadio: [
-      'q-radio',
-      'q-radio__native',
-      'q-radio__bg',
-      'q-radio__icon-container',
-      'q-radio__icon',
-      'q-radio__check',
-      'q-radio__inner',
-      'q-radio__inner--truthy',
-      'q-radio--dark',
-      'q-radio--dense'
-    ],
+    QRadio: QRadioSafelist,
     QRange: QSliderSafelist,
     QRating: [
       'q-rating',
@@ -1039,7 +1043,8 @@ const pluginSafelistMap: Partial<Record<keyof QuasarPlugins, string[]>> = {
     'q-option-group--inline',
     'q-spinner',
     'q-spinner-mat',
-    'fixed-full'
+    'fixed-full',
+    ...QRadioSafelist
   ],
   LoadingBar: [
     'q-loading-bar',
