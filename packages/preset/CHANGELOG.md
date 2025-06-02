@@ -1,5 +1,15 @@
 # unocss-preset-quasar
 
+## 0.2.3
+
+### Patch Changes
+
+- 5a07bb1: fix(preset): fix QDialog radio safelist
+- bb33cd2: fix(preset): remove height from q-field\_\_marginal
+- 36513ba: fix(preset): fix flex col width
+- a721809: fix(preset): fix q-panel
+- 1972766: fix(preset): fix QPagination
+
 ## 0.2.2
 
 ### Patch Changes
