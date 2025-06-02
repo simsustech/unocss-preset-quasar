@@ -29,7 +29,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
   [
     /^col(?:-)?(none|xs|sm|md|lg|xl|all|auto|grow)?(?:-)?([2-9]|1[0-2]?)?$/,
     ([, size, nr], { theme }) => {
-      const classes = ['w-auto max-w-full']
+      const classes = ['max-w-full']
       if (size && nr) {
         classes.push(`${size}:basis-${nr}/12)`)
       } else if (nr) {
