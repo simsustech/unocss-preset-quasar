@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.2.4
+
+### Patch Changes
+
+- d43c6f4: fix(preset): fix QItem avatar min-width
+
 ## 0.2.3
 
 ### Patch Changes
