@@ -21,7 +21,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-item__section--avatar$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-item__section--avatar'] ??
-      `!flex-initial [color:inherit] min-w-[40px]`
+      `!flex-initial [color:inherit] min-w-[56px]`
   ],
 
   [
