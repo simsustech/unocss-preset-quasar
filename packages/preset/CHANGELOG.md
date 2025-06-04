@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.2.5
+
+### Patch Changes
+
+- 10a16b5: fix(preset): fix md3 QDrawer mini border
+
 ## 0.2.4
 
 ### Patch Changes
