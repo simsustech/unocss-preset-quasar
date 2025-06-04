@@ -46,7 +46,8 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-drawer--mini$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-drawer--mini'] ??
-      `[&_>_.q-drawer\\_\\_content]:(!py-9px)
+      `rounded-none
+      [&_>_.q-drawer\\_\\_content]:(!py-9px)
       [&_>_.q-drawer\\_\\_content_>_*]:(!px-4px)
       [&_.q-mini-drawer-hide]:(hidden) [&_.q-expansion-item\\_\\_content]:(hidden)
       [&_.q-tab\\_\\_label]:(text-12px)
