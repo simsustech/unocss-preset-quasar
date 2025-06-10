@@ -49,7 +49,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-dialog__inner'] ??
       `outline-0
-      [&>div]:(pointer-events-all overflow-auto border-rd-28px)
+      [&>div]:(pointer-events-all overflow-auto rounded-$shape-corner-large)
       [&>.q-card>.q-card\\_\\_actions_.q-btn--rectangle]:(min-w-64px)
     `
   ],
@@ -81,7 +81,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-dialog__inner--top'] ??
       `pt-0! pb-0!
-    [&:not(.q-dialog\\_\\_inner--animating)>div]:(rounded-tl-none rounded-tr-none)
+    [&:not(.q-dialog\\_\\_inner--animating)>div]:()
     
 `
   ],

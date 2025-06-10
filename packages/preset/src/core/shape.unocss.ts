@@ -5,6 +5,7 @@ const preflights: Preflight<QuasarTheme>[] = [
   {
     getCSS: ({ theme }) => `
 :root {
+  --shape-corner-extra-small: ${theme.shape.corner.extraSmall};
   --shape-corner-small: ${theme.shape.corner.small};
   --shape-corner-medium: ${theme.shape.corner.medium};
   --shape-corner-large: ${theme.shape.corner.large};

@@ -63,6 +63,7 @@ export interface QuasarTheme {
   }
   shape: {
     corner: {
+      extraSmall: string
       small: string
       medium: string
       large: string
@@ -1231,6 +1232,7 @@ const defaultTheme: QuasarTheme = {
   },
   shape: {
     corner: {
+      extraSmall: '4px',
       small: '8px',
       medium: '12px',
       large: '16px'
