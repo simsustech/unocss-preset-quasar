@@ -62,7 +62,8 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       theme.quasar?.components?.['q-field__append'] ??
       `flex-initial pl-[12px] 
 	[&:empty]:(hidden) 
-	[&_+_.q-field\\_\\_append]:(pl-[2px])`
+	[&_+_.q-field\\_\\_append]:(pl-[2px])
+  [&_>_.q-icon]:(bg-light-on-surface dark:bg-dark-on-surface cursor-pointer)`
   ],
 
   [/^q-field__inner$/, ([, c], { theme }) => `text-left`],
@@ -222,9 +223,9 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-field--filled$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-field--filled'] ??
-      `[&_.q-field\\_\\_control]:(bg-$light-surface-container-highest text-$light-on-surface-variant
-       dark:bg-$dark-surface-container-highest dark:text-$dark-on-surface-variant)
-      [&_.q-field\\_\\_control]:(px-[16px] py-[0] layer-components:bg-black/5 rounded-tl-[4px] rounded-br-[0] rounded-tr-[4px] rounded-bl-[0]) 
+      `
+      [&_.q-field\\_\\_control]:(bg-$light-surface-container-highest text-$light-on-surface-variant
+       dark:bg-$dark-surface-container-highest dark:text-$dark-on-surface-variant px-[16px] py-[0] layer-components:bg-black/5 rounded-$shape-corner-extra-small) 
       [&_.q-field\\_\\_control:before]:(layer-components:bg-black/5 [border-bottom:1px_solid_rgba(0,_0,_0,_0.42)] opacity-0 [transition:opacity_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_background_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
       [&_.q-field\\_\\_control:hover:before]:(opacity-100) 
       [&_.q-field\\_\\_control:after]:(h-[2px] top-auto origin-[center_bottom] [transform:scale3d(0,_1,_1)] bg-current [transition:transform_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
