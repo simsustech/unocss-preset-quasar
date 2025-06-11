@@ -26,6 +26,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       [, c],
       { theme }
     ) => `outline-0 p-10px min-h-10em border-b-inherit border-b-inherit overflow-auto max-w-full
+      bg-$light-surface-container-highest text-$light-on-surface-variant dark:bg-$dark-surface-container-highest dark:text-$dark-on-surface-variant
       [&_pre]:(whitespace-pre-wrap)
       [&_hr]:(border-none outline-0 m-1px h-1px bg-black bg-op-12)
       [&:empty:not(:focus):before]:(content-[attr(placeholder)] op-70)
