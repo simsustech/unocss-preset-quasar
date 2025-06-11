@@ -1,5 +1,14 @@
 # unocss-preset-quasar
 
+## 0.2.6
+
+### Patch Changes
+
+- 34f191b: fix(preset): fix QDialog corner shape
+- 05809e7: fix(preset): fix QField\_\_append icon
+- 5ab7ebe: fix(preset): fix QEditor background color
+- 9d48806: fix(preset): fix QField
+
 ## 0.2.5
 
 ### Patch Changes
