@@ -232,9 +232,6 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       [&.q-field--rounded_.q-field\\_\\_control]:(rounded-tl-[28px] rounded-br-[0] rounded-tr-[28px] rounded-bl-[0]) 
       [&.q-field--highlighted_.q-field\\_\\_control:before]:(opacity-100 layer-components:bg-black/12) 
       [&.q-field--highlighted_.q-field\\_\\_control:after]:([transform:scale3d(1,_1,_1)]) 
-      [&.q-field--dark_.q-field\\_\\_control]:(layer-components:bg-white/7) 
-      [&.q-field--dark_.q-field\\_\\_control:before]:(layer-components:bg-white/7) 
-      [&.q-field--dark.q-field--highlighted_.q-field\\_\\_control:before]:(layer-components:bg-white/1) 
       [&.q-field--readonly_.q-field\\_\\_control:before]:(opacity-100 bg-transparent [border-bottom-style:dashed])`
   ],
 
@@ -271,15 +268,15 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-field--dark$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-field--dark'] ??
-      `[&_.q-field\\_\\_control:before]:(border-white/60) 
-	[&_.q-field\\_\\_control:hover:before]:(border-white) 
-	[&_.q-field\\_\\_native]:(text-white) 
-	[&_.q-field\\_\\_prefix]:(text-white) 
-	[&_.q-field\\_\\_suffix]:(text-white) 
-	[&_.q-field\\_\\_input]:(text-white) 
-	[&:not(.q-field--highlighted)_.q-field\\_\\_label]:(text-white/70) 
-	[&_.q-field\\_\\_marginal]:(text-white/70) 
-	[&_.q-field\\_\\_bottom]:(text-white/70)`
+      `[&_.q-field\\_\\_control:before]:(border-$dark-on-surface-variant/60) 
+	[&_.q-field\\_\\_control:hover:before]:(border-$dark-on-surface-variant) 
+	[&_.q-field\\_\\_native]:(text-$dark-on-surface-variant) 
+	[&_.q-field\\_\\_prefix]:(text-$dark-on-surface-variant) 
+	[&_.q-field\\_\\_suffix]:(text-$dark-on-surface-variant) 
+	[&_.q-field\\_\\_input]:(text-$dark-on-surface-variant) 
+	[&:not(.q-field--highlighted)_.q-field\\_\\_label]:(text-$dark-on-surface-variant/70) 
+	[&_.q-field\\_\\_marginal]:(text-$dark-on-surface-variant/70) 
+	[&_.q-field\\_\\_bottom]:(text-$dark-on-surface-variant/70)`
   ],
 
   [
@@ -382,7 +379,7 @@ text-$dark-on-surface)
     /^q-field__focusable-action$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-field__focusable-action'] ??
-      `opacity-60 cursor-pointer !outline-[0] border-[0] [color:inherit] bg-transparent p-0 
+      `opacity-60 cursor-pointer !outline-[0] border-[0] [color:inherit] p-0 
 	[&:hover]:(opacity-100) 
 	[&:focus]:(opacity-100)`
   ],
