@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.2.7
+
+### Patch Changes
+
+- 09411ee: fix(preset): fix QDialog title line height
+
 ## 0.2.6
 
 ### Patch Changes
