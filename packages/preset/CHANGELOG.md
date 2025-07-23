@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.2.8
+
+### Patch Changes
+
+- f351524: fix(preset): fix QTab QFocusHelper dimensions
+
 ## 0.2.7
 
 ### Patch Changes
