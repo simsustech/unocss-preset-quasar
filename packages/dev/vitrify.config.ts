@@ -1,7 +1,7 @@
 import { type VitrifyConfig, type VitrifyConfigAsync } from 'vitrify'
 import { QuasarPreset } from 'unocss-preset-quasar'
 import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
-
+import { QuasarPlugin, type QuasarPluginOptions } from 'vitrify/plugins'
 import { certificateFor } from 'devcert'
 
 const iconifyJsonIconSet = {
@@ -146,7 +146,7 @@ const iconifyJsonIconSet = {
   }
 }
 
-const quasarConf: NonNullable<VitrifyConfig['quasar']> = {
+const quasarConf: QuasarPluginOptions = {
   // extras: ['material-icons'],
   framework: {
     components: [
@@ -163,7 +163,7 @@ const quasarConf: NonNullable<VitrifyConfig['quasar']> = {
 }
 
 export default async function ({ mode, command }): VitrifyConfigAsync {
-  const config: VitrifyConfig & SimpleSiteGenerator = {
+  const config: VitrifyConfig = {
     optimizeDeps: {
       exclude: ['@simple-site-generator/templates']
     },
@@ -172,6 +172,7 @@ export default async function ({ mode, command }): VitrifyConfigAsync {
       hooks: {
         onSetup: [new URL('src/setup.ts', import.meta.url)]
       },
+      plugins: [{ plugin: QuasarPlugin, options: quasarConf }],
       unocss: {
         presets: [
           QuasarPreset({
