@@ -1,5 +1,12 @@
 # unocss-preset-quasar
 
+## 0.2.8
+
+### Patch Changes
+
+- 2d45dd1: feat: only round end borders of QDrawer in mobile mode
+- f351524: fix(preset): fix QTab QFocusHelper dimensions
+
 ## 0.2.7
 
 ### Patch Changes
