@@ -6,7 +6,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-drawer$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-drawer'] ??
-      `rounded-$shape-corner-large absolute top-[0] bottom-[0] bg-$light-surface-container-low dark:bg-$dark-surface-container-low z-${theme.quasar.z['side']}`
+      `absolute top-[0] bottom-[0] bg-$light-surface-container-low dark:bg-$dark-surface-container-low z-${theme.quasar.z['side']}`
   ],
 
   [
@@ -72,7 +72,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-drawer--mobile$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-drawer--mobile'] ??
-      `[&_.q-mini-drawer-only]:(hidden) [&_.q-mini-drawer-hide]:(hidden)`
+      `[&_.q-mini-drawer-only]:(hidden) [&_.q-mini-drawer-hide]:(hidden) rounded-e-$shape-corner-large`
   ],
 
   [
