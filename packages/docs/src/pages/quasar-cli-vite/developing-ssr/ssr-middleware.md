@@ -120,7 +120,6 @@ serve.static():
 
 - Syntax: `<middlewareFn> serve.static(pathFromPublicFolder, opts)`
 - Description: It's essentially a wrapper over `express.static()` with a few convenient tweaks:
-
   - the `pathFromPublicFolder` is a path resolved to the "public" folder out of the box
   - the `opts` are the same as for `express.static()`
   - `opts.maxAge` is used by default, taking into account the quasar.config file > ssr > maxAge configuration; this sets how long the respective file(s) can live in browser's cache

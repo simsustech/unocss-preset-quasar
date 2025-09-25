@@ -48,7 +48,7 @@ The default slot's parameters are:
 
 ```js
 {
-  initialValue, value, validate, set, cancel, updatePosition
+  ;(initialValue, value, validate, set, cancel, updatePosition)
 }
 ```
 

@@ -208,7 +208,6 @@ Preparations:
 - Make sure to update your `/quasar.config` file with the newest specs in order to satisfy the types. Check all following sections.
 
 - If you have linting, please review your setup by going to [Linter page](/quasar-cli-webpack/linter). You will need to:
-
   1. Uninstall all your current linting packages
   2. Rename `/.eslintrc.cjs` to `/eslint.config.js` (check link above on how the new file should look)
   3. Port `/.eslintignore` to the new `/eslint.config.js`
