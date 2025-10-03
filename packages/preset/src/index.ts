@@ -53,6 +53,22 @@ const toPascalCase = (text: string) => {
   return text.replace(/(^\w|-\w)/g, clearAndUpper)
 }
 
+const QCheckboxSafelist = [
+  'q-checkbox',
+  'q-checkbox__native',
+  'q-checkbox__bg',
+  'q-checkbox__icon-container',
+  'q-checkbox__icon',
+  'q-checkbox__svg',
+  'q-checkbox__truthy',
+  'q-checkbox__indet',
+  'q-checkbox__inner',
+  'q-checkbox__inner--truthy',
+  'q-checkbox__inner--indet',
+  'q-checkbox--dark',
+  'q-checkbox--dense'
+]
+
 const QPageStickySafelist = [
   'relative-position',
   'fixed',
@@ -307,21 +323,7 @@ const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
       'q-message-text-content--sent',
       'q-message-text'
     ],
-    QCheckbox: [
-      'q-checkbox',
-      'q-checkbox__native',
-      'q-checkbox__bg',
-      'q-checkbox__icon-container',
-      'q-checkbox__icon',
-      'q-checkbox__svg',
-      'q-checkbox__truthy',
-      'q-checkbox__indet',
-      'q-checkbox__inner',
-      'q-checkbox__inner--truthy',
-      'q-checkbox__inner--indet',
-      'q-checkbox--dark',
-      'q-checkbox--dense'
-    ],
+    QCheckbox: QCheckboxSafelist,
     QChip: QChipSafelist,
     QCircularProgress: [
       'q-circular-progress',
@@ -783,7 +785,8 @@ const componentsSafelistMap: Partial<Record<keyof QuasarComponents, string[]>> =
       'q-table--horizontal-separator',
       'q-table--cell-separator',
       'q-table--vertical-separator',
-      'q-table--dense'
+      'q-table--dense',
+      ...QCheckboxSafelist
     ],
     QTab: QTabSafelist,
     QRouteTab: QTabSafelist,
