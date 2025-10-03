@@ -777,11 +777,11 @@ The `@scroll` event parameter now has a slightly different content:
 
 ```js
 {
-  position, // Number (pixels from top)
+  ;(position, // Number (pixels from top)
     direction, // String ("top", "bottom")
     directionChanged, // Boolean
     inflectionPoint, // last position (from the top) when direction changed - Number (pixels)
-    delta // difference since last @scroll update - Number (pixels)
+    delta) // difference since last @scroll update - Number (pixels)
 }
 ```
 

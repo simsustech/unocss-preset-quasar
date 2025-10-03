@@ -48,7 +48,6 @@ Please do not report security vulnerabilities with public GitHub issue reports. 
 If you've found a problem in Quasar which is not a security risk, do a search on GitHub under [Issues](https://github.com/quasarframework/quasar/issues) to check if it is already answered or even fixed in the development branch (`dev`).
 
 - The issue list of the [main repo](https://github.com/quasarframework/quasar) is **exclusively** for bug reports and docs reports. Non-conforming issues will be closed immediately.
-
   - For simple beginner questions, you can get quick answers from the [Quasar Discord chat](https://chat.quasar.dev).
 
   - For more complicated questions, you can use [the Discussions section](https://forum.quasar.dev). Make sure to provide enough information when asking your questions - this makes it easier for others to help you!
@@ -246,7 +245,6 @@ An article [Look at the source code](https://medium.com/quasar-framework/wip-loo
 - It's OK to have multiple small commits as you work on the PR - we will let GitHub automatically squash it before merging.
 
 - If adding new feature:
-
   - Provide convincing reason to add this feature.
   - Ideally you should open a suggestion issue first and have it green-lighted before working on it. Otherwise, you risk spending a lot of time on something which might not get accepted at all or not in the form you expect.
 
@@ -291,7 +289,6 @@ $ pnpm lint
 - `build` - contains build-related configuration files. In most cases you don't need to touch them.
 
 - `src` - contains the source code. The codebase is written in ES2015.
-
   - `components` - JS, Sass and JSON (API) files for Quasar Vue components
 
   - `composables` - Quasar's composables for Vue 3 Composition API

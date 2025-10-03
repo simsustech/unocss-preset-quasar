@@ -54,7 +54,7 @@ export default {
 
 ```js
 ssrContext: {
-  req, // Express.js object
+  ;(req, // Express.js object
     res, // Express.js object
     $q, // The Quasar's $q Object
     nonce, // (optional to set it yourself)
@@ -65,7 +65,7 @@ ssrContext: {
     // to access ssrContext again after it has been fully processed.
     // Example: ssrContext.onRendered(() => { /* ... */ })
 
-    rendered // (optional to set it yourself)
+    rendered) // (optional to set it yourself)
   // Set this to a function which will be executed server-side
   // after the app has been rendered with Vue.
   // We recommend using the "onRendered" instead.

@@ -87,7 +87,6 @@ Pick `Quasar CLI with Vite` if you want:
 3. You will then be asked which Quasar App CLI you want. Do you prefer the Vite one or the Webpack one?
 
    ::: tip Tip: pick "Quasar CLI with Vite" if you want:
-
    - Faster dev server start
    - Faster hot updates
    - Faster build
