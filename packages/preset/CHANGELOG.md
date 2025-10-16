@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.2.9
+
+### Patch Changes
+
+- be02e69: feat(preset): increase q-dialog\_\_title line height
+
 ## 0.2.8
 
 ### Patch Changes
