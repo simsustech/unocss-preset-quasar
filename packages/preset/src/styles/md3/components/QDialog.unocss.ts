@@ -41,7 +41,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-dialog__title$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-dialog__title'] ??
-      `text-1.25rem font-500 lh-1rem tracking-0.0125em`
+      `text-1.25rem font-500 lh-1.75rem tracking-0.0125em`
   ],
   [/^q-dialog__progress$/, ([, c], { theme }) => `text-4rem`],
   [
