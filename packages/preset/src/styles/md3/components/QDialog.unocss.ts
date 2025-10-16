@@ -80,9 +80,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-dialog__inner--top$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-dialog__inner--top'] ??
-      `pt-0! pb-0!
-    [&:not(.q-dialog\\_\\_inner--animating)>div]:()
-    
+      `pt-0! pb-0!    
 `
   ],
   [

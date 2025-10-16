@@ -6,7 +6,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-drawer$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-drawer'] ??
-      `absolute top-[0] bottom-[0] bg-$light-surface-container-low dark:bg-$dark-surface-container-low z-${theme.quasar.z['side']}`
+      `absolute top-[0] bottom-[0] bg-$light-surface-container-low dark:bg-$dark-surface-container-low z-${theme.quasar.z['side']} sm:!w-full`
   ],
 
   [

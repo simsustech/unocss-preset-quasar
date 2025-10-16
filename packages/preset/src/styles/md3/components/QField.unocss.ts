@@ -132,7 +132,6 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
   [&:focus-visible]:(!outline-none)
   [&textarea:focus]:(outline-none)
   [&input:focus]:(outline-none)
-	[&:-webkit-autofill]:() 
 	[&:-webkit-autofill_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
 	[&[type='color']_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
 	[&[type='date']_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
@@ -163,7 +162,6 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-field__input'] ??
       `font-normal leading-[28px] tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] border-none rounded-none bg-transparent text-black/87 outline-none px-[0] py-[6px] w-full min-w-[0] !outline-none select-auto 
-	[&:-webkit-autofill]:() 
 	[&:-webkit-autofill_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
 	[&[type='color']_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
 	[&[type='date']_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
@@ -304,8 +302,8 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
 	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_suffix]:(text-$dark-primary) 
 	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_prepend]:(text-$dark-primary) 
 	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_append]:(text-$dark-primary) 
-	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_input]:(!      [&_>_.q-btn-item]:(text-$light-on-surface dark:text-$dark-on-surface self-stretch) 
-text-$dark-on-surface) 
+	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_input_>_.q-btn-item]:(text-$light-on-surface dark:text-$dark-on-surface self-stretch) 
+	[&.q-field--dark.q-field--highlighted_.q-field\\_\\_input]:(text-$dark-on-surface) 
 	[&.q-field--dark.q-field--readonly_.q-field\\_\\_control:before]:(border-white/24)`
   ],
 
@@ -320,10 +318,7 @@ text-$dark-on-surface)
 	[&:not(.q-field--float)_.q-field\\_\\_prefix]:(opacity-0) 
 	[&:not(.q-field--float)_.q-field\\_\\_suffix]:(opacity-0) 
 	[&:not(.q-field--float)_.q-field\\_\\_native::placeholder]:(text-transparent) 
-	[&:not(.q-field--float)_.q-field\\_\\_input::placeholder]:(text-transparent) 
-	[&.q-field--dense_.q-field\\_\\_native]:() 
-	[&.q-field--dense_.q-field\\_\\_prefix]:() 
-	[&.q-field--dense_.q-field\\_\\_suffix]:()`
+	[&:not(.q-field--float)_.q-field\\_\\_input::placeholder]:(text-transparent)`
   ],
 
   [
@@ -333,13 +328,8 @@ text-$dark-on-surface)
       `[&_.q-field--with-bottom]:(pb-[19px]) 
 	[&_.q-field\\_\\_shadow]:(top-[0]) 
 	[&_.q-field\\_\\_control]:(h-[40px]) 
-	[&_.q-field\\_\\_marginal]:() 
 	[&_.q-field\\_\\_bottom]:(text-[11px]) 
 	[&_.q-field\\_\\_label]:(text-[14px] top-[10px]) 
-	[&_.q-field\\_\\_before]:() 
-	[&_.q-field\\_\\_prepend]:() 
-	[&_.q-field\\_\\_after]:() 
-	[&_.q-field\\_\\_append]:() 
 	[&_.q-field\\_\\_append_+_.q-field\\_\\_append]:(pl-[2px]) 
 	[&_.q-field\\_\\_marginal_.q-avatar]:(text-[24px]) 
 	[&.q-field--float_.q-field\\_\\_label]:(-translate-y-[30%] scale-[0.75]) 

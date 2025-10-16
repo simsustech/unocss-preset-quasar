@@ -20,7 +20,6 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       [&_>_.q-btn-group]:([box-shadow:none]) 
       [&_>_.q-btn-group:first-child_>_.q-btn--active]:(!bg-$light-secondary-container dark:!bg-$dark-secondary-container) 
       [&_>_.q-btn-group:first-child_>_.q-btn:first-child]:([border-top-left-radius:inherit] [border-bottom-left-radius:inherit]) 
-      [&_>_.q-btn-group:last-child_>_.q-btn:last-child]:() 
       [&_>_.q-btn-group:not(:first-child)_>_.q-btn:first-child]:(border-rd-l-0) 
       [&_>_.q-btn-group:not(:last-child)_>_.q-btn:last-child:before]:([border-right:0]) 
       [&_>_.q-btn-item:not(:last-child)]:(rounded-tr-none rounded-br-none) 
