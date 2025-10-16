@@ -1,5 +1,12 @@
 # quasar.dev
 
+## 2.0.18
+
+### Patch Changes
+
+- Updated dependencies [e5686cb]
+  - unocss-preset-quasar@0.2.10
+
 ## 2.0.17
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.2.10
+
+### Patch Changes
+
+- e5686cb: fix(preset): remove w-full from QDrawer
+
 ## 0.2.9
 
 ### Patch Changes
