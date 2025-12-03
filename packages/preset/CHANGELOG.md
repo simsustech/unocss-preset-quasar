@@ -1,5 +1,25 @@
 # unocss-preset-quasar
 
+## 0.2.10
+
+### Patch Changes
+
+- e5686cb: fix(preset): remove w-full from QDrawer
+
+## 0.2.9
+
+### Patch Changes
+
+- be02e69: feat(preset): increase q-dialog\_\_title line height
+
+## 0.2.8
+
+### Patch Changes
+
+- 2d45dd1: feat: only round end borders of QDrawer in mobile mode
+- f351524: fix(preset): fix QTab QFocusHelper dimensions
+- de307d6: fix(preset): fix QTable safelist
+
 ## 0.2.7
 
 ### Patch Changes

@@ -38,7 +38,6 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       theme.quasar?.components?.['q-toggle__thumb'] ??
       `layer-components:text-$light-surface-container-highest layer-components:dark:text-$dark-surface-container-highest
       top-[0.125em] left-[0.5125em] w-[0.75em] h-[0.75em] [transition:left_0.22s_cubic-bezier(0.4,_0,_0.2,_1)] select-none z-0 
-    [&:before]:()
     [&:after]:(content-[''] layer-components:bg-$light-outline layer-components:dark:bg-$dark-outline absolute top-[0] right-[0] bottom-[0] left-[0] rounded-[50%] [box-shadow:0_3px_1px_-2px_rgba(0,_0,_0,_0.2),_0_2px_2px_0_rgba(0,_0,_0,_0.14),_0_1px_5px_0_rgba(0,_0,_0,_0.12)]) 
     [&_.q-icon]:(z-2 layer-components:text-[0.5em] layer-components:text-[#000] opacity-[0.54])`
   ],
@@ -70,7 +69,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-toggle--dark$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-toggle--dark'] ??
-      `[&_.q-toggle\\_\\_inner--truthy]:() [&_.q-toggle\\_\\_thumb:after]:([box-shadow:none]) [&_.q-toggle\\_\\_thumb:before]:(!opacity-[0.32])`
+      `[&_.q-toggle\\_\\_thumb:after]:([box-shadow:none]) [&_.q-toggle\\_\\_thumb:before]:(!opacity-[0.32])`
     // [&_.q-toggle\\_\\_inner]:(layer-components:text-[#fff])
   ],
 

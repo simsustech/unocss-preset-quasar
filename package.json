@@ -28,13 +28,13 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.7",
-    "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^19.8.1",
-    "@typescript-eslint/eslint-plugin": "^8.44.1",
-    "@typescript-eslint/parser": "^8.44.1",
-    "@unocss/preset-wind3": "66.5.2",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.1",
+    "@typescript-eslint/parser": "^8.46.1",
+    "@unocss/preset-wind3": "66.5.4",
     "changesets": "^1.0.2",
-    "eslint": "^9.36.0",
+    "eslint": "^9.37.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-define-config": "^2.1.0",
     "eslint-import-resolver-typescript": "^4.4.4",
@@ -45,7 +45,7 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^3.6.2",
     "simple-git-hooks": "^2.13.1",
-    "typescript-eslint": "^8.44.1"
+    "typescript-eslint": "^8.46.1"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm run lint && pnpm run format:check",
