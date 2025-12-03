@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.2.11
+
+### Patch Changes
+
+- 1d7b9e1: fix(preset): fix nested filled QField background color
+
 ## 0.2.10
 
 ### Patch Changes
