@@ -6,7 +6,7 @@ import {
   transformerDirectives,
   transformerVariantGroup
 } from 'unocss'
-import presetWind3 from '@unocss/preset-wind3'
+import presetWind4 from '@unocss/preset-wind3'
 import { generateTheme } from './theme.js'
 import { animatedUno } from 'animated-unocss'
 
@@ -1558,7 +1558,7 @@ export const QuasarPreset = definePreset((options: QuasarPresetOptions) => {
   const theme = generateTheme(options.sourceColor)
 
   return [
-    presetWind3({
+    presetWind4({
       dark: {
         light: '.body--light',
         dark: '.body--dark'

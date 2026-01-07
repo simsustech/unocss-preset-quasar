@@ -5,7 +5,7 @@ const preflights: Preflight<QuasarTheme>[] = [
   {
     getCSS: ({ theme }) => `
 body {
-  font-family: ${theme.typography.fontFamily};
+  font-family: ${theme.typography.font};
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
