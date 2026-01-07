@@ -1,5 +1,13 @@
 # unocss-preset-quasar
 
+## 0.2.12
+
+### Patch Changes
+
+- 00a9829: feat(preset): update Wind3 preset to Wind4
+- 718e9f2: fix(preset): fix QTimeline icon
+- 896eba0: fix(preset): do not apply highlighted background to children of QField
+
 ## 0.2.11
 
 ### Patch Changes
