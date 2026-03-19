@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.2.13
+
+### Patch Changes
+
+- 49c3182: fix(preset): fix invalid CSS in QBreadcrumbs
+
 ## 0.2.12
 
 ### Patch Changes
