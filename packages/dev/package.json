@@ -1,10 +1,12 @@
 {
   "name": "dev",
-  "productName": "App",
   "version": "0.1.0",
   "description": "Quasar MD3",
   "license": "UNLICENSED",
   "author": "Stefan van Herwijnen",
+  "files": [
+    "dist/"
+  ],
   "type": "module",
   "exports": {
     ".": {
@@ -18,9 +20,6 @@
       "import": "./dist/ssr/server/virtual_vitrify-hooks.mjs"
     }
   },
-  "files": [
-    "dist/"
-  ],
   "scripts": {
     "dev": "vitrify dev",
     "dev:ssr": "vitrify dev -m ssr",
@@ -29,10 +28,10 @@
     "build:ssr": "vitrify build -m ssr",
     "build:ssg": "vitrify build -m ssg",
     "test": "vitrify test",
-    "lint": "eslint --ext .vue --ext .ts src",
-    "lint:fix": "eslint --ext .vue --ext .ts src --fix",
-    "format:check": "prettier --check .",
-    "format:write": "prettier --write ."
+    "lint": "oxlint  src",
+    "lint:fix": "oxlint src --fix",
+    "format:check": "oxfmt --check .",
+    "format:write": "oxfmt --write ."
   },
   "dependencies": {
     "@fastify/middie": "9.0.3",
@@ -70,5 +69,6 @@
     "vitrify": "0.25.2",
     "vue-eslint-parser": "10.2.0",
     "workbox-window": "7.3.0"
-  }
+  },
+  "productName": "App"
 }

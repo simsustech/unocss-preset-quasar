@@ -1,10 +1,9 @@
 {
   "name": "quasar.dev",
   "version": "2.0.18",
-  "description": "Official Quasar Docs Website",
-  "productName": "quasar-docs",
-  "author": "Razvan Stoenescu <razvan.stoenescu@gmail.com>",
   "private": true,
+  "description": "Official Quasar Docs Website",
+  "author": "Razvan Stoenescu <razvan.stoenescu@gmail.com>",
   "type": "module",
   "scripts": {
     "prepare-docs": "node build/copy-quasar-api.js",
@@ -47,5 +46,6 @@
     "unocss": "66.5.4",
     "vite-plugin-checker": "^0.11.0",
     "workbox-build": "^7.3.0"
-  }
+  },
+  "productName": "quasar-docs"
 }

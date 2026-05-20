@@ -553,7 +553,7 @@ The structure of `iconMapFn` is as follows:
 type GlobalQuasarIconMapFn = (
   iconName: string
 ) => // Map to another existing icon
-| {
+  | {
       icon: string // the mapped icon string, which will be handled
       // by Quasar as if the original QIcon name was this value
     }

@@ -1,9 +1,28 @@
 {
   "name": "unocss-preset-quasar",
   "version": "0.2.10",
+  "description": "UnoCSS preset for Quasar Framework",
+  "keywords": [
+    "fastify",
+    "full stack",
+    "vite"
+  ],
+  "homepage": "https://github.com/simsustech/unocss-preset-quasar/tree/main/#readme",
+  "bugs": {
+    "url": "https://github.com/simsustech/unocss-preset-quasar/issues"
+  },
   "license": "MIT",
   "author": "Stefan van Herwijnen",
-  "description": "UnoCSS preset for Quasar Framework",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simsustech/unocss-preset-quasar.git",
+    "directory": "packages/vitrify"
+  },
+  "files": [
+    "dist",
+    "src",
+    "!dist/**/*.test.js"
+  ],
   "type": "module",
   "types": "./dist/types/index.d.ts",
   "exports": {
@@ -20,22 +39,14 @@
       "import": "./dist/theme.js"
     }
   },
-  "engines": {
-    "node": ">=20.0.0"
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/simsustech/unocss-preset-quasar.git",
-    "directory": "packages/vitrify"
-  },
-  "bugs": {
-    "url": "https://github.com/simsustech/unocss-preset-quasar/issues"
-  },
-  "homepage": "https://github.com/simsustech/unocss-preset-quasar/tree/main/#readme",
   "scripts": {
     "build": "tsc",
-    "lint": "eslint --ext .ts src",
-    "lint:fix": "eslint--ext .ts src --fix",
+    "lint": "oxlint src",
+    "lint:fix": "oxlint src --fix",
     "test": "vitest test/"
   },
   "dependencies": {
@@ -61,18 +72,7 @@
   "peerDependencies": {
     "quasar": "^2.18.1"
   },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
-  "files": [
-    "dist",
-    "src",
-    "!dist/**/*.test.js"
-  ],
-  "keywords": [
-    "vite",
-    "full stack",
-    "fastify"
-  ]
+  "engines": {
+    "node": ">=20.0.0"
+  }
 }
