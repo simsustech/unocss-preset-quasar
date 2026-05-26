@@ -23,6 +23,7 @@ import {
   shortcuts as coreShortcuts
 } from './core/index.js'
 import { WebFontsOptions } from '@unocss/preset-web-fonts/index.js'
+import { Theme } from '@unocss/preset-mini'
 
 export interface QuasarPresetOptions {
   style: QuasarStyle
@@ -1154,7 +1155,46 @@ const colorSafelist = [
   'bg-info',
   'text-info',
   'bg-warning',
-  'text-warning'
+  'text-warning',
+  'text-light-primary',
+  'bg-red',
+  'text-red',
+  'bg-pink',
+  'text-pink',
+  'bg-purple',
+  'text-purple',
+  'bg-deep-purple',
+  'text-deep-purple',
+  'bg-indigo',
+  'text-indigo',
+  'bg-blue',
+  'text-blue',
+  'bg-light-blue',
+  'text-light-blue',
+  'bg-cyan',
+  'text-cyan',
+  'bg-teal',
+  'text-teal',
+  'bg-green',
+  'text-green',
+  'bg-light-green',
+  'text-light-green',
+  'bg-lime',
+  'text-lime',
+  'bg-yellow',
+  'text-yellow',
+  'bg-amber',
+  'text-amber',
+  'bg-orange',
+  'text-orange',
+  'bg-deep-orange',
+  'text-deep-orange',
+  'bg-brown',
+  'text-brown',
+  'bg-grey',
+  'text-grey',
+  'bg-blue-grey',
+  'text-blue-grey'
 ]
 
 const baseSafelist = [
@@ -1581,7 +1621,17 @@ export const QuasarPreset = definePreset((options: QuasarPresetOptions) => {
       rules: coreRules.concat(style.rules),
       variants: style.variants,
       shortcuts: coreShortcuts.concat(style.shortcuts),
-      theme,
+      extendTheme: (themeArg: Theme) => {
+        console.log(themeArg.colors)
+        return {
+          ...themeArg,
+          ...theme,
+          colors: {
+            ...themeArg.colors,
+            ...theme.colors
+          }
+        }
+      },
       outputToCssLayers: true,
       layers: {
         components: -1,

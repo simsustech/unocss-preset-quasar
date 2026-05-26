@@ -84,7 +84,7 @@ export interface QuasarTheme {
     'dark-page': string
     // dark: string
 
-    red: string
+    // red: string
     'red-1': string
     'red-2': string
     'red-3': string
@@ -99,7 +99,7 @@ export interface QuasarTheme {
     'red-12': string
     'red-13': string
     'red-14': string
-    pink: string
+    // pink: string
     'pink-1': string
     'pink-2': string
     'pink-3': string
@@ -114,7 +114,7 @@ export interface QuasarTheme {
     'pink-12': string
     'pink-13': string
     'pink-14': string
-    purple: string
+    // purple: string
     'purple-1': string
     'purple-2': string
     'purple-3': string
@@ -144,7 +144,7 @@ export interface QuasarTheme {
     'deep-purple-12': string
     'deep-purple-13': string
     'deep-purple-14': string
-    indigo: string
+    // indigo: string
     'indigo-1': string
     'indigo-2': string
     'indigo-3': string
@@ -159,7 +159,7 @@ export interface QuasarTheme {
     'indigo-12': string
     'indigo-13': string
     'indigo-14': string
-    blue: string
+    // blue: string
     'blue-1': string
     'blue-2': string
     'blue-3': string
@@ -189,7 +189,7 @@ export interface QuasarTheme {
     'light-blue-12': string
     'light-blue-13': string
     'light-blue-14': string
-    cyan: string
+    // cyan: string
     'cyan-1': string
     'cyan-2': string
     'cyan-3': string
@@ -204,7 +204,7 @@ export interface QuasarTheme {
     'cyan-12': string
     'cyan-13': string
     'cyan-14': string
-    teal: string
+    // teal: string
     'teal-1': string
     'teal-2': string
     'teal-3': string
@@ -219,7 +219,7 @@ export interface QuasarTheme {
     'teal-12': string
     'teal-13': string
     'teal-14': string
-    green: string
+    // green: string
     'green-1': string
     'green-2': string
     'green-3': string
@@ -249,7 +249,7 @@ export interface QuasarTheme {
     'light-green-12': string
     'light-green-13': string
     'light-green-14': string
-    lime: string
+    // lime: string
     'lime-1': string
     'lime-2': string
     'lime-3': string
@@ -264,7 +264,7 @@ export interface QuasarTheme {
     'lime-12': string
     'lime-13': string
     'lime-14': string
-    yellow: string
+    // yellow: string
     'yellow-1': string
     'yellow-2': string
     'yellow-3': string
@@ -279,7 +279,7 @@ export interface QuasarTheme {
     'yellow-12': string
     'yellow-13': string
     'yellow-14': string
-    amber: string
+    // amber: string
     'amber-1': string
     'amber-2': string
     'amber-3': string
@@ -294,7 +294,7 @@ export interface QuasarTheme {
     'amber-12': string
     'amber-13': string
     'amber-14': string
-    orange: string
+    // orange: string
     'orange-1': string
     'orange-2': string
     'orange-3': string
@@ -324,7 +324,7 @@ export interface QuasarTheme {
     'deep-orange-12': string
     'deep-orange-13': string
     'deep-orange-14': string
-    brown: string
+    // brown: string
     'brown-1': string
     'brown-2': string
     'brown-3': string
@@ -339,7 +339,7 @@ export interface QuasarTheme {
     'brown-12': string
     'brown-13': string
     'brown-14': string
-    grey: string
+    // grey: string
     'grey-1': string
     'grey-2': string
     'grey-3': string
@@ -1328,7 +1328,7 @@ const defaultTheme: QuasarTheme = {
     'dark-page': '#121212',
     // dark: '#1d1d1d',
 
-    red: '#f44336',
+    // red: '#f44336',
     'red-1': '#ffebee',
     'red-2': '#ffcdd2',
     'red-3': '#ef9a9a',
@@ -1343,7 +1343,7 @@ const defaultTheme: QuasarTheme = {
     'red-12': '#ff5252',
     'red-13': '#ff1744',
     'red-14': '#d50000',
-    pink: '#e91e63',
+    // pink: '#e91e63',
     'pink-1': '#fce4ec',
     'pink-2': '#f8bbd0',
     'pink-3': '#f48fb1',
@@ -1358,7 +1358,7 @@ const defaultTheme: QuasarTheme = {
     'pink-12': '#ff4081',
     'pink-13': '#f50057',
     'pink-14': '#c51162',
-    purple: '#9c27b0',
+    // purple: '#9c27b0',
     'purple-1': '#f3e5f5',
     'purple-2': '#e1bee7',
     'purple-3': '#ce93d8',
@@ -1388,7 +1388,7 @@ const defaultTheme: QuasarTheme = {
     'deep-purple-12': '#7c4dff',
     'deep-purple-13': '#651fff',
     'deep-purple-14': '#6200ea',
-    indigo: '#3f51b5',
+    // indigo: '#3f51b5',
     'indigo-1': '#e8eaf6',
     'indigo-2': '#c5cae9',
     'indigo-3': '#9fa8da',
@@ -1403,7 +1403,7 @@ const defaultTheme: QuasarTheme = {
     'indigo-12': '#536dfe',
     'indigo-13': '#3d5afe',
     'indigo-14': '#304ffe',
-    blue: '#2196f3',
+    // blue: '#2196f3',
     'blue-1': '#e3f2fd',
     'blue-2': '#bbdefb',
     'blue-3': '#90caf9',
@@ -1433,7 +1433,7 @@ const defaultTheme: QuasarTheme = {
     'light-blue-12': '#40c4ff',
     'light-blue-13': '#00b0ff',
     'light-blue-14': '#0091ea',
-    cyan: '#00bcd4',
+    // cyan: '#00bcd4',
     'cyan-1': '#e0f7fa',
     'cyan-2': '#b2ebf2',
     'cyan-3': '#80deea',
@@ -1448,7 +1448,7 @@ const defaultTheme: QuasarTheme = {
     'cyan-12': '#18ffff',
     'cyan-13': '#00e5ff',
     'cyan-14': '#00b8d4',
-    teal: '#009688',
+    // teal: '#009688',
     'teal-1': '#e0f2f1',
     'teal-2': '#b2dfdb',
     'teal-3': '#80cbc4',
@@ -1463,7 +1463,7 @@ const defaultTheme: QuasarTheme = {
     'teal-12': '#64ffda',
     'teal-13': '#1de9b6',
     'teal-14': '#00bfa5',
-    green: '#4caf50',
+    // green: '#4caf50',
     'green-1': '#e8f5e9',
     'green-2': '#c8e6c9',
     'green-3': '#a5d6a7',
@@ -1493,7 +1493,7 @@ const defaultTheme: QuasarTheme = {
     'light-green-12': '#b2ff59',
     'light-green-13': '#76ff03',
     'light-green-14': '#64dd17',
-    lime: '#cddc39',
+    // lime: '#cddc39',
     'lime-1': '#f9fbe7',
     'lime-2': '#f0f4c3',
     'lime-3': '#e6ee9c',
@@ -1508,7 +1508,7 @@ const defaultTheme: QuasarTheme = {
     'lime-12': '#eeff41',
     'lime-13': '#c6ff00',
     'lime-14': '#aeea00',
-    yellow: '#ffeb3b',
+    // yellow: '#ffeb3b',
     'yellow-1': '#fffde7',
     'yellow-2': '#fff9c4',
     'yellow-3': '#fff59d',
@@ -1523,7 +1523,7 @@ const defaultTheme: QuasarTheme = {
     'yellow-12': '#ffff00',
     'yellow-13': '#ffea00',
     'yellow-14': '#ffd600',
-    amber: '#ffc107',
+    // amber: '#ffc107',
     'amber-1': '#fff8e1',
     'amber-2': '#ffecb3',
     'amber-3': '#ffe082',
@@ -1538,7 +1538,7 @@ const defaultTheme: QuasarTheme = {
     'amber-12': '#ffd740',
     'amber-13': '#ffc400',
     'amber-14': '#ffab00',
-    orange: '#ff9800',
+    // orange: '#ff9800',
     'orange-1': '#fff3e0',
     'orange-2': '#ffe0b2',
     'orange-3': '#ffcc80',
@@ -1568,7 +1568,7 @@ const defaultTheme: QuasarTheme = {
     'deep-orange-12': '#ff6e40',
     'deep-orange-13': '#ff3d00',
     'deep-orange-14': '#dd2c00',
-    brown: '#795548',
+    // brown: '#795548',
     'brown-1': '#efebe9',
     'brown-2': '#d7ccc8',
     'brown-3': '#bcaaa4',
@@ -1583,7 +1583,7 @@ const defaultTheme: QuasarTheme = {
     'brown-12': '#bcaaa4',
     'brown-13': '#8d6e63',
     'brown-14': '#5d4037',
-    grey: '#9e9e9e',
+    // grey: '#9e9e9e',
     'grey-1': '#fafafa',
     'grey-2': '#f5f5f5',
     'grey-3': '#eeeeee',
