@@ -19,7 +19,7 @@
     "lint:preset:fix": "cd packages/preset && pnpm run lint:fix",
     "lint:dev:fix": "cd packages/preset && pnpm run lint:fix",
     "lint:docs:fix": "cd packages/docs && pnpm run lint:fix",
-    "lint:fix": "run-s lint:preset:fix lint:dev:fix lint:docs:fix",
+    "lint:fix": "run-s lint:preset:fix lint:dev:fix",
     "test:preset": "cd packages/preset && pnpm run test",
     "test": "run-s test:preset"
   },
@@ -27,24 +27,14 @@
     "@changesets/cli": "^2.29.7",
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
-    "@typescript-eslint/eslint-plugin": "^8.46.1",
-    "@typescript-eslint/parser": "^8.46.1",
     "@unocss/preset-wind3": "66.5.4",
     "changesets": "^1.0.2",
-    "eslint": "^9.37.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-define-config": "^2.1.0",
-    "eslint-import-resolver-typescript": "^4.4.4",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^5.5.4",
     "git-conventional-commits": "^2.8.0",
     "npm-run-all": "^4.1.5",
     "oxfmt": "^0.51.0",
     "oxlint": "^1.66.0",
     "prettier": "^3.6.2",
-    "simple-git-hooks": "^2.13.1",
-    "typescript-eslint": "^8.46.1"
+    "simple-git-hooks": "^2.13.1"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm run lint && pnpm run format:check",
@@ -55,10 +45,10 @@
       "prettier --write --ignore-unknown"
     ],
     "packages/*/{src,types}/**/*.ts": [
-      "eslint --ext .ts"
+      "oxlint --ext .ts"
     ],
     "packages/**/*.d.ts": [
-      "eslint --ext .ts"
+      "oxlint --ext .ts"
     ]
   },
   "engines": {
