@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.2.14
+
+### Patch Changes
+
+- 3320433: fix(preset): use extendTheme to prevent overwriting default colors
+
 ## 0.2.13
 
 ### Patch Changes
