@@ -52,7 +52,7 @@ interface MaterialColorScheme {
 
 export interface QuasarTheme {
   typography: {
-    fontFamily: string
+    font: string
   }
   breakpoints: {
     xs: string
@@ -1220,8 +1220,7 @@ export interface QuasarTheme {
 
 const defaultTheme: QuasarTheme = {
   typography: {
-    fontFamily:
-      '"Roboto", "-apple-system", "Helvetica Neue", Helvetica, Arial, sans-serif'
+    font: '"Roboto", "-apple-system", "Helvetica Neue", Helvetica, Arial, sans-serif'
   },
   breakpoints: {
     xs: '0',

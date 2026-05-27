@@ -1,5 +1,25 @@
 # unocss-preset-quasar
 
+## 0.2.13
+
+### Patch Changes
+
+- 49c3182: fix(preset): fix invalid CSS in QBreadcrumbs
+
+## 0.2.12
+
+### Patch Changes
+
+- 00a9829: feat(preset): update Wind3 preset to Wind4
+- 718e9f2: fix(preset): fix QTimeline icon
+- 896eba0: fix(preset): do not apply highlighted background to children of QField
+
+## 0.2.11
+
+### Patch Changes
+
+- 1d7b9e1: fix(preset): fix nested filled QField background color
+
 ## 0.2.10
 
 ### Patch Changes

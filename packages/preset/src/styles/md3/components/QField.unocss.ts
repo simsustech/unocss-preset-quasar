@@ -228,8 +228,8 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       [&_.q-field\\_\\_control:hover:before]:(opacity-100) 
       [&_.q-field\\_\\_control:after]:(h-[2px] top-auto origin-[center_bottom] [transform:scale3d(0,_1,_1)] bg-current [transition:transform_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
       [&.q-field--rounded_.q-field\\_\\_control]:(rounded-tl-[28px] rounded-br-[0] rounded-tr-[28px] rounded-bl-[0]) 
-      [&.q-field--highlighted_.q-field\\_\\_control:before]:(opacity-100 layer-components:bg-black/12) 
-      [&.q-field--highlighted_.q-field\\_\\_control:after]:([transform:scale3d(1,_1,_1)]) 
+      [&_>_*_>_.q-field--highlighted_.q-field\\_\\_control:before]:(opacity-100 layer-components:bg-black/12) 
+      [&_>_*_>_.q-field--highlighted_.q-field\\_\\_control:after]:([transform:scale3d(1,_1,_1)]) 
       [&.q-field--readonly_.q-field\\_\\_control:before]:(opacity-100 bg-transparent [border-bottom-style:dashed])`
   ],
 
