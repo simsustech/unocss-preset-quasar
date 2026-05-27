@@ -1622,7 +1622,6 @@ export const QuasarPreset = definePreset((options: QuasarPresetOptions) => {
       variants: style.variants,
       shortcuts: coreShortcuts.concat(style.shortcuts),
       extendTheme: (themeArg: Theme) => {
-        console.log(themeArg.colors)
         return {
           ...themeArg,
           ...theme,
