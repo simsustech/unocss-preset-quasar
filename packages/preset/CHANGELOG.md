@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.2.15
+
+### Patch Changes
+
+- 7984915: chore: update dependencies and fix type errors
+
 ## 0.2.14
 
 ### Patch Changes
