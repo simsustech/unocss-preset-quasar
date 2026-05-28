@@ -1,4 +1,4 @@
-import type { Preflight, Rule, UserShortcuts } from '@unocss/core'
+import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
 
 const preflights: Preflight<QuasarTheme>[] = [
@@ -27,7 +27,7 @@ body.platform-ios:not(.native-mobile) .q-dialog__inner--top .q-select__dialog--f
   }
 ]
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
+const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-select--without-input$/,
     ([, c], { theme }) =>

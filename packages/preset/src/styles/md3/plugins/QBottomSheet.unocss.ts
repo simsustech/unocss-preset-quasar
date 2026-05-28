@@ -1,7 +1,7 @@
-import type { UserShortcuts } from '@unocss/core'
+import type { Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
+const shortcuts: Shortcut<QuasarTheme>[] = [
   [/^q-bottom-sheet$/, ([, c], { theme }) => `pb-[8px]`],
 
   [/^q-bottom-sheet__avatar$/, ([, c], { theme }) => `rounded-[50%]`],

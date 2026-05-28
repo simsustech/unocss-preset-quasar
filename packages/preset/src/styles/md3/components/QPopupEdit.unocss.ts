@@ -1,7 +1,7 @@
-import type { Rule, UserShortcuts } from '@unocss/core'
+import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
+const shortcuts: Shortcut<QuasarTheme>[] = [
   [/^q-popup-edit$/, ([, c], { theme }) => `px-[16px] py-[8px]`],
 
   [

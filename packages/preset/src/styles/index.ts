@@ -1,4 +1,4 @@
-import { Preflight, Rule, UserShortcuts, Variant } from '@unocss/core'
+import { Preflight, Rule, Shortcut, Variant } from '@unocss/core'
 import { QuasarTheme } from '../theme.js'
 import {
   default as MaterialDesign2,
@@ -13,7 +13,7 @@ export interface QuasarStyle {
   rules: Rule<QuasarTheme>[]
   variants: Variant<QuasarTheme>[]
   preflights: Preflight<QuasarTheme>[]
-  shortcuts: UserShortcuts<QuasarTheme>[]
+  shortcuts: Shortcut<QuasarTheme>[]
 }
 
 export {

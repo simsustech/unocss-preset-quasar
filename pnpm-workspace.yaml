@@ -1,5 +1,11 @@
 packages:
   - 'packages/*'
+
+minimumReleaseAge: 1440
+
+minimumReleaseAgeExclude:
+  - vue-router
+
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true

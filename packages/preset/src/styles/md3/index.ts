@@ -1,4 +1,4 @@
-import { type Preflight, type Rule, type UserShortcuts } from 'unocss'
+import { type Preflight, type Rule, type Shortcut } from 'unocss'
 import { type QuasarTheme } from '../../theme.js'
 
 import { shortcuts as QIconShortcuts } from './components/QIcon.unocss.js'
@@ -147,7 +147,7 @@ const style: QuasarStyle = {
     QTreePreflights
   ),
   rules: ([] as Rule<QuasarTheme>[]).concat(),
-  shortcuts: ([] as UserShortcuts<QuasarTheme>[]).concat(
+  shortcuts: ([] as Shortcut<QuasarTheme>[]).concat(
     QIconShortcuts,
     QAjaxBarShortcuts,
     QAvatarShortcuts,

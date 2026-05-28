@@ -71,13 +71,11 @@ ${selector} {
 
   const tailwindCss = CssToTailwindTranslator(cssCode)
 
-  cssToUnoCssMap[selector] = [
-    ...(cssToUnoCssMap[selector] || []).concat(
-      `${subselector}${subselector ? '(' : ''}${tailwindCss.data[0].resultVal}${
-        subselector ? ')' : ''
-      }`.split(' ')
-    )
-  ]
+  cssToUnoCssMap[selector] = (cssToUnoCssMap[selector] || []).concat(
+    `${subselector}${subselector ? '(' : ''}${tailwindCss.data[0].resultVal}${
+      subselector ? ')' : ''
+    }`.split(' ')
+  )
 
   if (tailwindCss)
     return `

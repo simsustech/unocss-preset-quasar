@@ -1,4 +1,4 @@
-import type { Preflight, Rule, UserShortcuts } from '@unocss/core'
+import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../theme.js'
 
 const preflights: Preflight<QuasarTheme>[] = [
@@ -30,7 +30,7 @@ const rules: Rule<QuasarTheme>[] = [
   ]
 ]
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
+const shortcuts: Shortcut<QuasarTheme>[] = [
   [/^rounded-borders$/, ([, c], { theme }) => `rounded-[4px]`],
 
   [/^border-radius-inherit$/, ([, c], { theme }) => `[border-radius:inherit]`],

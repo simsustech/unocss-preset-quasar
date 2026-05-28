@@ -1,13 +1,13 @@
 import {
   definePreset,
-  type Preset,
   presetIcons,
+  PresetOptions,
   presetWebFonts,
   transformerDirectives,
   transformerVariantGroup
 } from 'unocss'
 import presetWind4 from '@unocss/preset-wind3'
-import { generateTheme } from './theme.js'
+import { generateTheme, QuasarTheme } from './theme.js'
 import { animatedUno } from 'animated-unocss'
 
 import {
@@ -16,16 +16,15 @@ import {
   type QuasarPlugins
 } from 'quasar'
 
-import { type QuasarStyle } from './styles/index.js'
+import { MaterialDesign3, type QuasarStyle } from './styles/index.js'
 import {
   preflights as corePreflights,
   rules as coreRules,
   shortcuts as coreShortcuts
 } from './core/index.js'
-import { WebFontsOptions } from '@unocss/preset-web-fonts/index.js'
-import { Theme } from '@unocss/preset-mini'
+import { WebFontsOptions } from '@unocss/preset-web-fonts'
 
-export interface QuasarPresetOptions {
+export interface QuasarPresetOptions extends PresetOptions {
   style: QuasarStyle
   sourceColor?: string
   plugins?: (keyof QuasarPlugins)[]
@@ -1593,35 +1592,37 @@ const generateSafelist = ({
   return safelist
 }
 
-export const QuasarPreset = definePreset((options: QuasarPresetOptions) => {
-  const style = options.style
-  const theme = generateTheme(options.sourceColor)
+export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
+  (options) => {
+    const style = options?.style ?? MaterialDesign3
+    const theme = generateTheme(options?.sourceColor ?? '#1976d2')
 
-  return [
-    presetWind4({
-      dark: {
-        light: '.body--light',
-        dark: '.body--dark'
-      }
-    }),
-    animatedUno(),
-    presetIcons({}),
-    presetWebFonts(
-      options.presetWebFonts || {
-        provider: 'bunny',
-        fonts: {
-          roboto: 'Roboto'
-        }
-      }
-    ),
-    {
+    return {
+      presets: [
+        presetWind4({
+          dark: {
+            light: '.body--light',
+            dark: '.body--dark'
+          }
+        }),
+        animatedUno(),
+        presetIcons({}),
+        presetWebFonts(
+          options?.presetWebFonts ?? {
+            provider: 'bunny',
+            fonts: {
+              roboto: 'Roboto'
+            }
+          }
+        )
+      ],
       name: 'quasar',
-      safelist: generateSafelist(options),
+      safelist: generateSafelist(options ?? {}),
       preflights: corePreflights.concat(style.preflights),
       rules: coreRules.concat(style.rules),
       variants: style.variants,
       shortcuts: coreShortcuts.concat(style.shortcuts),
-      extendTheme: (themeArg: Theme) => {
+      extendTheme: (themeArg: QuasarTheme) => {
         return {
           ...themeArg,
           ...theme,
@@ -1641,6 +1642,7 @@ export const QuasarPreset = definePreset((options: QuasarPresetOptions) => {
         {
           name: 'quasar-extractor',
           order: 0,
+
           extract({ code }) {
             const kebabMatch = code.matchAll(/q-(\w)([\w-]*)/g)
             const pascalMatch = code.matchAll(/Q([A-Z][a-z0-9]+)+/g)
@@ -1746,9 +1748,9 @@ export const QuasarPreset = definePreset((options: QuasarPresetOptions) => {
         //   }
         // }
       ]
-    } as Preset
-  ]
-})
+    }
+  }
+)
 
 export const defaultSplitRE = /[\\:]?[\s'"`;{}]+/g
 export const splitWithVariantGroupRE = /([\\:]?[\s"'`;<>]|:\(|\)"|\)\s)/g

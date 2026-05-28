@@ -1,4 +1,4 @@
-import type { Rule, UserShortcuts } from '@unocss/core'
+import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../theme.js'
 
 const cols = 12
@@ -15,7 +15,7 @@ const colGutter = {
 
 const sizes = ['none', 'xs', 'sm', 'md', 'lg', 'xl']
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
+const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^row$/,
     ([, c], { theme }) =>

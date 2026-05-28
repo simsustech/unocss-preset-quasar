@@ -1,4 +1,4 @@
-import type { Preflight, Rule, UserShortcuts } from '@unocss/core'
+import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
 
 const preflights: Preflight<QuasarTheme>[] = [
@@ -27,7 +27,7 @@ body.desktop .q-checkbox--dense:not(.disabled):focus .q-checkbox__inner:before, 
   }
 ]
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
+const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-checkbox$/,
     ([, c], { theme }) =>

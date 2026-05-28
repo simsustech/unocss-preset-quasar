@@ -1,6 +1,6 @@
 <template>
   <q-page padding class="">
-    <div class="row q-gutter-md"></div>
+    <div class="row bg-primary q-gutter-md">Home page</div>
   </q-page>
 </template>
 

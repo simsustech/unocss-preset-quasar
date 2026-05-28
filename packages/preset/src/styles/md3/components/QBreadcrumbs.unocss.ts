@@ -1,4 +1,4 @@
-import type { Preflight, Rule, UserShortcuts } from '@unocss/core'
+import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
 
 const preflights: Preflight<QuasarTheme>[] = [
@@ -10,7 +10,7 @@ const preflights: Preflight<QuasarTheme>[] = [
   }
 ]
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
+const shortcuts: Shortcut<QuasarTheme>[] = [
   [/^q-breadcrumbs__el$/, ([, c], { theme }) => `text-inherit`],
   [/^q-breadcrumbs__el-icon$/, ([, c], { theme }) => `text-125%`],
   [/^q-breadcrumbs__el-icon--with-label$/, ([, c], { theme }) => `mr-8px`]

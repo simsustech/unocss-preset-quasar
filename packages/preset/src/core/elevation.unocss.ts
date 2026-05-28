@@ -1,4 +1,4 @@
-import type { Rule, UserShortcuts } from '@unocss/core'
+import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../theme.js'
 
 type Enumerate<
@@ -52,51 +52,41 @@ type IntRange<F extends number, T extends number> = Exclude<
 //   ] as Rule<QuasarTheme>
 // ]
 
-const rules: Rule<QuasarTheme>[] = [
-  // [
-  //   /^shadow-transition$/,
-  //   function* ([, color], { theme }) {
-  //     yield {
-  //       transition: `${theme['shadowTransition']} !important`
-  //     }
-  //   }
-  // ] as Rule<QuasarTheme>,
-  // ...shadows('light'),
-  // ...shadows('dark'),
-  // ...['no-shadow', 'shadow-0'].map(
-  //   (c) =>
-  //     [
-  //       new RegExp(`${c}`),
-  //       function* ([, color], { theme }) {
-  //         yield {
-  //           'box-shadow': `none !important`
-  //         }
-  //       }
-  //     ] as Rule<QuasarTheme>
-  // ),
-  ...(['z-marginals', 'z-notify', 'z-fullscreen', 'z-inherit'] as const).map(
-    (c) =>
-      [
-        new RegExp(`${c}`),
-        function* ([, color], { theme }) {
-          const selector = c.replace('z-', '') as
-            | 'marginals'
-            | 'notify'
-            | 'fullscreen'
-          yield {
-            'z-index':
-              c === 'z-inherit' ? 'inherit' : theme.quasar?.['z'][selector]
-          }
+const rules: Rule<QuasarTheme>[] = (
+  ['z-marginals', 'z-notify', 'z-fullscreen', 'z-inherit'] as const
+).map(
+  (c) =>
+    [
+      new RegExp(`${c}`),
+      function* ([, color], { theme }) {
+        const selector = c.replace('z-', '') as
+          | 'marginals'
+          | 'notify'
+          | 'fullscreen'
+        yield {
+          'z-index':
+            c === 'z-inherit' ? 'inherit' : theme.quasar?.['z'][selector]
         }
-      ] as Rule<QuasarTheme>
-  )
-]
+      }
+    ] as Rule<QuasarTheme>
+)
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
+const shortcuts: Shortcut<QuasarTheme>[] = [
   [/^shadow-none$/, ([, c], { theme }) => `shadow-none`],
   [/^no-shadow$/, ([, c], { theme }) => `shadow-none`],
   // TODO
-  [/^shadow-(0?[1-9]|1[0-9]|2[0-4])$/, ([, nr], { theme }) => `shadow-md`],
+  [
+    /^shadow-(0?[1-9]|1[0-9]|2[0-4])$/,
+    ([, nr], { theme }) => {
+      const classes = ['shadow-gray']
+      if (Number(nr) > 18) classes.push(`shadow-xl`)
+      else if (Number(nr) > 12) classes.push(`shadow-lg`)
+      else if (Number(nr) > 8) classes.push(`shadow-md`)
+      else if (Number(nr) < 4) classes.push(`shadow-sm`)
+      else classes.push(`shadow`)
+      return classes.join(' ')
+    }
+  ],
   [
     /^elevation-1$/,
     ([, nr], { theme }) =>

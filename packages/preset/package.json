@@ -50,27 +50,27 @@
     "test": "vitest test/"
   },
   "dependencies": {
-    "@material/material-color-utilities": "^0.3.0",
-    "@unocss/core": "^66.5.4",
-    "@unocss/preset-uno": "^66.5.4",
-    "@unocss/preset-web-fonts": "66.5.4",
-    "@unocss/preset-wind": "^66.5.4",
+    "@material/material-color-utilities": "^0.4.0",
+    "@unocss/core": "^66.7.0",
+    "@unocss/preset-uno": "^66.7.0",
+    "@unocss/preset-web-fonts": "66.7.0",
+    "@unocss/preset-wind": "^66.7.0",
     "animated-unocss": "^0.0.6",
-    "unocss": "66.5.4"
+    "unocss": "66.7.0"
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.2.3",
-    "@quasar/extras": "^1.17.0",
+    "@quasar/extras": "^2.0.0",
     "@quasar/quasar-ui-qmarkdown": "^2.0.5",
     "@quasar/quasar-ui-qmediaplayer": "^2.0.0-beta.0",
-    "@types/node": "^24.7.2",
-    "@unocss/preset-icons": "^66.5.4",
-    "@unocss/preset-mini": "66.5.4",
-    "quasar": "^2.18.5",
-    "typescript": "^5.9.3"
+    "@types/node": "^25.9.1",
+    "@unocss/preset-icons": "^66.7.0",
+    "@unocss/preset-mini": "66.7.0",
+    "quasar": "^2.19.3",
+    "typescript": "^6.0.3"
   },
   "peerDependencies": {
-    "quasar": "^2.18.1"
+    "quasar": "^2.19.3"
   },
   "engines": {
     "node": ">=20.0.0"

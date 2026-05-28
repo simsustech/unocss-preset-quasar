@@ -1,7 +1,7 @@
-import type { Preflight, Rule, UserShortcuts } from '@unocss/core'
+import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
+const shortcuts: Shortcut<QuasarTheme>[] = [
   [/^q-slider$/, ([, c], { theme }) => `relative`],
 
   [/^q-slider--h$/, ([, c], { theme }) => `w-full`],

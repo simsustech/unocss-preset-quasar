@@ -15,7 +15,8 @@
     "skipLibCheck": true,
     "paths": {
       "src": ["./src"]
-    }
+    },
+    "rootDir": "./"
   },
   "include": [
     "vitrify.config.ts",
