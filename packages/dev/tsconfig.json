@@ -16,7 +16,7 @@
     "paths": {
       "src": ["./src"]
     },
-    "rootDir": "./"
+    "rootDir": "./src"
   },
   "include": [
     "vitrify.config.ts",
