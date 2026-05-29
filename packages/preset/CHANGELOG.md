@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.2.17
+
+### Patch Changes
+
+- df19b5b: fix(preset): replace @material/material-color-utilities with @poupe/material-color-utilities
+
 ## 0.2.16
 
 ### Patch Changes
