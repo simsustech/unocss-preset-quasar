@@ -2,7 +2,7 @@ import {
   argbFromHex,
   hexFromArgb,
   themeFromSourceColor
-} from '@material/material-color-utilities'
+} from '@poupe/material-color-utilities'
 
 interface MaterialColorScheme {
   primary: string
