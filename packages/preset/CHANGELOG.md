@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.2.16
+
+### Patch Changes
+
+- d692913: fix(preset): set correct rootDir in tsconfig
+
 ## 0.2.15
 
 ### Patch Changes
