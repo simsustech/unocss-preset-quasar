@@ -9,6 +9,7 @@ import {
 import presetWind4 from '@unocss/preset-wind3'
 import { generateTheme, QuasarTheme } from './theme.js'
 import { animatedUno } from 'animated-unocss'
+import { scopeStyle } from './styles/_scope.js'
 
 import {
   type QuasarComponents,
@@ -1594,7 +1595,14 @@ const generateSafelist = ({
 
 export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
   (options) => {
-    const style = options?.style ?? MaterialDesign3
+    const rawStyle = options?.style ?? MaterialDesign3
+    // If the style declares a `bodyClass`, scope its preflights and
+    // rules so they only apply when `<body>` has that class. This
+    // lets a consumer bundle multiple styles into one build and
+    // switch at runtime via a body class.
+    const style = rawStyle.bodyClass
+      ? scopeStyle(rawStyle, rawStyle.bodyClass)
+      : rawStyle
     const theme = generateTheme(options?.sourceColor ?? '#1976d2')
 
     return {

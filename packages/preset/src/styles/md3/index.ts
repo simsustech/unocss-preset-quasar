@@ -128,6 +128,7 @@ import { shortcuts as QDrawerShortcuts } from './components/QDrawer.unocss.js'
 import { QuasarStyle } from '../index.js'
 
 const style: QuasarStyle = {
+  bodyClass: 'quasar-style-md3',
   variants: [],
   preflights: ([] as Preflight<QuasarTheme>[]).concat(
     QBreadcrumbsPreflights,

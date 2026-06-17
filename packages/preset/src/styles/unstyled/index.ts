@@ -25,7 +25,8 @@ const style: QuasarStyle = {
   rules: [] as Rule<QuasarTheme>[],
   variants: [] as Variant<QuasarTheme>[],
   preflights: [] as Preflight<QuasarTheme>[],
-  shortcuts: [] as Shortcut<QuasarTheme>[]
+  shortcuts: [] as Shortcut<QuasarTheme>[],
+  bodyClass: 'quasar-style-unstyled'
 }
 
 /**

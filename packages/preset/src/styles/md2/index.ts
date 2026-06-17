@@ -129,6 +129,7 @@ import { QuasarStyle } from '../index.js'
 
 import { QBtn as QuasarButton } from 'quasar'
 const style: QuasarStyle = {
+  bodyClass: 'quasar-style-md2',
   variants: [],
   preflights: ([] as Preflight<QuasarTheme>[]).concat(
     QBreadcrumbsPreflights,
