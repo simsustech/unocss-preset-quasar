@@ -8,6 +8,10 @@ import {
   default as MaterialDesign3,
   setDefaultProps as setDefaultPropsMd3
 } from './md3/index.js'
+import {
+  default as Unstyled,
+  setDefaultProps as setDefaultPropsUnstyled
+} from './unstyled/index.js'
 
 export interface QuasarStyle {
   rules: Rule<QuasarTheme>[]
@@ -19,6 +23,8 @@ export interface QuasarStyle {
 export {
   MaterialDesign2,
   MaterialDesign3,
+  Unstyled,
   setDefaultPropsMd2,
-  setDefaultPropsMd3
+  setDefaultPropsMd3,
+  setDefaultPropsUnstyled
 }

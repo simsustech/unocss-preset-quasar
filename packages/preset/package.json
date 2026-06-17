@@ -27,16 +27,24 @@
   "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
+      "source": "./src/index.ts",
       "types": "./dist/types/index.d.ts",
       "import": "./dist/index.js"
     },
     "./styles": {
+      "source": "./src/styles/index.ts",
       "types": "./dist/types/styles/index.d.ts",
       "import": "./dist/styles/index.js"
     },
     "./theme": {
-      "types": "./dist/types/theme.d.ts",
+      "source": "./src/theme.ts",
+      "types": "./dist/theme.d.ts",
       "import": "./dist/theme.js"
+    },
+    "./vite-aliases": {
+      "source": "./src/vite-aliases.ts",
+      "types": "./dist/types/vite-aliases.d.ts",
+      "import": "./dist/vite-aliases.js"
     }
   },
   "publishConfig": {
@@ -71,6 +79,11 @@
   },
   "peerDependencies": {
     "quasar": "^2.19.3"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=20.0.0"

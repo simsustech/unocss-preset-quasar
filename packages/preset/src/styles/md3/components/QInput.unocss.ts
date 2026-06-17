@@ -1,11 +1,12 @@
 import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
+import { mdComponent, mdStatic } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-textarea$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-textarea'] ??
+    mdComponent(
+      'q-textarea',
       `[&_.q-field\\_\\_control]:(min-h-[56px] h-auto) 
        [&_.q-field\\_\\_control-container]:(pt-[2px] pb-[2px]) 
        [&_.q-field\\_\\_shadow]:(top-[2px] bottom-[2px]) 
@@ -28,13 +29,15 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
        [&.q-field--dense.q-field--labeled_.q-field\\_\\_prefix]:(pt-[2px]) 
        [&.q-field--dense.q-field--labeled_.q-field\\_\\_suffix]:(pt-[2px]) 
        [&.disabled_.q-field\\_\\_native]:(resize-none)`
+    )
   ],
 
   [
     /^q-textarea--autogrow$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-textarea--autogrow'] ??
+    mdComponent(
+      'q-textarea--autogrow',
       `[&_.q-field\\_\\_native]:(resize-none)`
+    )
   ]
 ]
 

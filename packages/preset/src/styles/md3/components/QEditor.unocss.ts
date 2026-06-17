@@ -1,5 +1,6 @@
 import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
+import { mdComponent, mdStatic } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [
@@ -15,10 +16,11 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   [/^q-editor.disabled$/, ([, c], { theme }) => `border-dashed`],
   [
     /^q-editor__toolbars-container$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-editor__toolbars-container'] ??
+    mdComponent(
+      'q-editor__toolbars-container',
       `rounded-tl-[inherit] rounded-tr-[inherit]
     [&>div:first-child]:(rounded-tl-[inherit] rounded-tr-[inherit])`
+    )
   ],
   [
     /^q-editor__content$/,
@@ -43,18 +45,20 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   ],
   [
     /^q-editor__toolbars-container$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-editor__toolbars-container'] ??
+    mdComponent(
+      'q-editor__toolbars-container',
       `max-w-full
     `
+    )
   ],
   [
     /^q-editor__toolbar-group$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-editor__toolbar-group'] ??
+    mdComponent(
+      'q-editor__toolbar-group',
       `relative mx-4px my-0
     [&+.q-editor\\_\\_toolbar-group:before]:(content-empty absolute left--4px top-4px bottom-4px w-1px bg-black bg-op-12)
     `
+    )
   ],
   [
     /^q-editor__link-input$/,
@@ -66,11 +70,12 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   ],
   [
     /^q-editor--flat$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-editor--flat'] ??
+    mdComponent(
+      'q-editor--flat',
       `border-0
       [&_.q-editor\\_\\_toolbar]:(border-0)
     `
+    )
   ],
   [
     /^q-editor--dense$/,
@@ -82,14 +87,15 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   ],
   [
     /^q-editor--dark$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-editor--dark'] ??
+    mdComponent(
+      'q-editor--dark',
       `border-color-white border-op-28
       [&_.q-editor\\_\\_content_hr]:(border-color-white border-op-28)
       [&_.q-editor\\_\\_toolbar]:(border-color-white border-op-28)
       [&_.q-editor\\_\\_toolbar-group+.q-editor\\_\\_toolbar-group:before]:(border-color-white border-op-28)
 
     `
+    )
   ]
 ]
 

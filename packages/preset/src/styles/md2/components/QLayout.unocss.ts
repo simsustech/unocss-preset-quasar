@@ -1,5 +1,6 @@
 import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
+import { mdComponent, mdStatic } from '../../_helpers.js'
 
 const preflights: Preflight<QuasarTheme>[] = [
   {
@@ -67,28 +68,28 @@ body.platform-ios .q-layout--containerized {
 ]
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
-  [/^q-layout$/, ([, c], { theme }) => `w-full outline-0 relative`],
+  [/^q-layout$/, mdStatic(`w-full outline-0 relative`)],
 
   [
     /^q-layout-container$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-layout-container'] ??
+    mdComponent(
+      'q-layout-container',
       `relative w-full h-full [&_.q-layout]:(min-h-full) [&_>_div]:([transform:translate3d(0,_0,_0)]) [&_>_div_>_div]:(min-h-[0] max-h-full)`
+    )
   ],
 
   [
     /^q-layout__shadow$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-layout__shadow'] ??
+    mdComponent(
+      'q-layout__shadow',
       `w-full 
       [&:after]:(content-empty absolute top-[0] right-[0] bottom-[0] left-[0] [box-shadow:0_0_10px_2px_rgba(0,_0,_0,_0.2),_0_0px_10px_rgba(0,_0,_0,_0.24)])`
+    )
   ],
 
   [
     /^q-layout__section--marginal$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-layout__section--marginal'] ??
-      `text-[#fff] bg-primary`
+    mdComponent('q-layout__section--marginal', `text-[#fff] bg-primary`)
   ]
 ]
 

@@ -1,5 +1,6 @@
 import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
+import { mdComponent, mdStatic } from '../../_helpers.js'
 
 const preflights: Preflight<QuasarTheme>[] = [
   {
@@ -36,37 +37,41 @@ body.q-ios-padding .q-dialog__inner > div {
 ]
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
-  [/^q-dialog$/, ([, c], { theme }) => ``],
+  [/^q-dialog$/, mdStatic(``)],
   [
     /^q-dialog__title$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-dialog__title'] ??
+    mdComponent(
+      'q-dialog__title',
       `text-1.25rem font-500 lh-1rem tracking-0.0125em`
+    )
   ],
-  [/^q-dialog__progress$/, ([, c], { theme }) => `text-4rem`],
+  [/^q-dialog__progress$/, mdStatic(`text-4rem`)],
   [
     /^q-dialog__inner$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-dialog__inner'] ??
+    mdComponent(
+      'q-dialog__inner',
       `outline-0
       [&>div]:(pointer-events-all overflow-auto border-rd-4px)
       [&>.q-card>.q-card\\_\\_actions_.q-btn--rectangle]:(min-w-64px)
     `
+    )
   ],
   [
     /^q-dialog__inner--square$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-dialog__inner--square'] ??
+    mdComponent(
+      'q-dialog__inner--square',
       `[&>div]:(border-rd-0!)
     `
+    )
   ],
   [
     /^q-dialog__inner--minimized$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-dialog__inner--minimized'] ??
+    mdComponent(
+      'q-dialog__inner--minimized',
       `p-24px
     [&>div]:(max-h-[calc(100vh-48px)])
     `
+    )
   ],
   [
     /^q-dialog__inner--maximized$/,
@@ -78,64 +83,72 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   ],
   [
     /^q-dialog__inner--top$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-dialog__inner--top'] ??
+    mdComponent(
+      'q-dialog__inner--top',
       `pt-0! pb-0!
     [&:not(.q-dialog\\_\\_inner--animating)>div]:(rounded-tl-none rounded-tr-none)
     
 `
+    )
   ],
   [
     /^q-dialog__inner--bottom$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-dialog__inner--bottom'] ??
+    mdComponent(
+      'q-dialog__inner--bottom',
       `pt-0! pb-0!
     [&:not(.q-dialog\\_\\_inner--animating)>div]:(rounded-bl-none rounded-br-none)
     `
+    )
   ],
   [
     /^q-dialog__inner--left$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-dialog__inner--left'] ??
+    mdComponent(
+      'q-dialog__inner--left',
       `pt-0! pb-0!
     [&:not(.q-dialog\\_\\_inner--animating)>div]:(rounded-tl-none rounded-bl-none)
     `
+    )
   ],
   [
     /^q-dialog__inner--right$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-dialog__inner--right'] ??
+    mdComponent(
+      'q-dialog__inner--right',
       `pt-0! pb-0!
     [&:not(.q-dialog\\_\\_inner--animating)>div]:(rounded-tr-none rounded-br-none)
     `
+    )
   ],
   [
     /^q-dialog__inner--fullwidth$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-dialog__inner--fullwidth'] ??
+    mdComponent(
+      'q-dialog__inner--fullwidth',
       `[&>div]:(w-full! max-w-full!)
     `
+    )
   ],
   [
     /^q-dialog__inner--fullheight$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-dialog__inner--fullheight'] ??
+    mdComponent(
+      'q-dialog__inner--fullheight',
       `[&>div]:(h-full! max-h-full!)
     `
+    )
   ],
   [
     /^q-dialog__backdrop$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-dialog__backdrop'] ??
+    mdComponent(
+      'q-dialog__backdrop',
       `-z-1 pointer-events-all outline-0 bg-black bg-op-40
     `
+    )
   ],
   [
     /^q-body--dialog$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-body--dialog'] ??
+    mdComponent(
+      'q-body--dialog',
       `overflow-hidden
     `
+    )
   ]
 ]
 

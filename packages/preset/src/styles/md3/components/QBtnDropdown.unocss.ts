@@ -1,5 +1,6 @@
 import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
+import { mdComponent, mdStatic } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [
@@ -14,17 +15,19 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   ],
   [
     /^q-btn-dropdown--simple$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-btn-dropdown--simple'] ??
+    mdComponent(
+      'q-btn-dropdown--simple',
       `[&+.q-btn-dropdown\\_\\_arrow]:(ml-8px)`
+    )
   ],
   [
     /^q-btn-dropdown__arrow$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-btn-dropdown__arrow'] ??
+    mdComponent(
+      'q-btn-dropdown__arrow',
       `transition-property-transform transition-duration-280`
+    )
   ],
-  [/^q-btn-dropdown--current$/, ([, c], { theme }) => `grow-1`]
+  [/^q-btn-dropdown--current$/, mdStatic(`grow-1`)]
 ]
 
 export { shortcuts }

@@ -1,35 +1,31 @@
 import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
+import { mdComponent, mdStatic } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-separator$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-separator'] ??
+    mdComponent(
+      'q-separator',
       `border-0 bg-[rgba(0,_0,_0,_0.12)] m-0 [transition:background_0.3s,_opacity_0.3s] flex-shrink-0`
+    )
   ],
 
   [
     /^q-separator--dark$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-separator--dark'] ??
-      `bg-[rgba(255,_255,_255,_0.28)]`
+    mdComponent('q-separator--dark', `bg-[rgba(255,_255,_255,_0.28)]`)
   ],
 
-  [/^q-separator--horizontal$/, ([, c], { theme }) => `block h-px`],
+  [/^q-separator--horizontal$/, mdStatic(`block h-px`)],
 
   [
     /^q-separator--horizontal-inset$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-separator--horizontal-inset'] ??
-      `ml-[16px] mr-[16px]`
+    mdComponent('q-separator--horizontal-inset', `ml-[16px] mr-[16px]`)
   ],
 
   [
     /^q-separator--horizontal-item-inset$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-separator--horizontal-item-inset'] ??
-      `ml-[72px] mr-0`
+    mdComponent('q-separator--horizontal-item-inset', `ml-[72px] mr-0`)
   ],
 
   [
@@ -40,9 +36,9 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       ] ?? `ml-[116px] mr-0`
   ],
 
-  [/^q-separator--vertical$/, ([, c], { theme }) => `w-px h-auto self-stretch`],
+  [/^q-separator--vertical$/, mdStatic(`w-px h-auto self-stretch`)],
 
-  [/^q-separator--vertical-inset$/, ([, c], { theme }) => `mt-[8px] mb-[8px]`]
+  [/^q-separator--vertical-inset$/, mdStatic(`mt-[8px] mb-[8px]`)]
 ]
 
 export { shortcuts }

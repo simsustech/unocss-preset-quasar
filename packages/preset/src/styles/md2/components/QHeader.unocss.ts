@@ -1,14 +1,16 @@
 import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
+import { mdComponent, mdStatic } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
-  [/^q-header--hidden$/, ([, c], { theme }) => `-translate-y-[110%]`],
+  [/^q-header--hidden$/, mdStatic(`-translate-y-[110%]`)],
 
   [
     /^q-header--bordered$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-header--bordered'] ??
+    mdComponent(
+      'q-header--bordered',
       `[border-bottom:1px_solid_rgba(0,_0,_0,_0.12)]`
+    )
   ],
 
   [
