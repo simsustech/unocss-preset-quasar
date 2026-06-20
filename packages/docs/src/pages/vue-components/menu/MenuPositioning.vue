@@ -165,14 +165,14 @@
 
     <q-separator />
 
-    <doc-code lang="html" :code="menuExport" />
+    <DocCode lang="html" :code="menuExport" />
   </q-card>
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue'
+import { computed, reactive, ref } from 'vue'
 
-import DocCode from 'src/components/DocCode.vue'
+import DocCode from '@/components/DocCode.vue'
 
 const fit = ref(false)
 const cover = ref(false)
@@ -184,10 +184,9 @@ const anchor = computed(
 )
 const self = computed(() => `${selfOrigin.vertical} ${selfOrigin.horizontal}`)
 const menuExport = computed(() => {
-  const props =
-    cover.value === true
-      ? `cover anchor="${anchor.value}"`
-      : `${fit.value ? 'fit ' : ''}anchor="${anchor.value}" self="${self.value}"`
+  const props = cover.value
+    ? `cover anchor="${anchor.value}"`
+    : `${fit.value ? 'fit ' : ''}anchor="${anchor.value}" self="${self.value}"`
 
   return `<q-menu ${props}>
   <q-item clickable>

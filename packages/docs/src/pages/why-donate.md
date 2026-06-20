@@ -73,7 +73,3 @@ import DonatingButtons from './sponsors-and-backers/DonatingButtons.vue'
 <DonatingButtons />
 
 All donations are used for Quasar Development purposes exclusively.
-
-::: tip
-For a full list of our wonderful people who make Quasar happen, visit the [Backers](https://github.com/quasarframework/quasar/blob/dev/backers.md) page.
-:::

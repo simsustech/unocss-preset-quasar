@@ -6,20 +6,20 @@ desc: (@quasar/app-vite) The Quasar CLI list of commands when developing or buil
 Developing:
 
 ```bash
-$ quasar dev
+quasar dev
 ```
 
 Building for Production:
 
 ```bash
-$ quasar build
+quasar build
 ```
 
 If you want a production build with debugging enabled:
 
 ```bash
-$ quasar build -d
+quasar build -d
 
 # ..or the longer form
-$ quasar build --debug
+quasar build --debug
 ```

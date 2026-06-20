@@ -570,15 +570,13 @@ export const quasarElements = [
     ...entry,
     to: `/quasar-utils/${componentNameToKebabCase(entry.name)}`
   }))
-].map((entry, key) => {
-  return {
-    key,
-    name: entry.name,
-    description: entry.description,
-    tag: entry.tag,
-    img: entry.img,
-    haystack:
-      `${entry.name} ${entry.description} ${entry.short || ''}`.toLowerCase(),
-    to: entry.to
-  }
-})
+].map((entry, key) => ({
+  key,
+  name: entry.name,
+  description: entry.description,
+  tag: entry.tag,
+  img: entry.img,
+  haystack:
+    `${entry.name} ${entry.description} ${entry.short || ''}`.toLowerCase(),
+  to: entry.to
+}))

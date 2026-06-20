@@ -1,25 +1,25 @@
 import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
-import { mdComponent, mdStatic } from '../../_helpers.js'
+import { componentClass, staticClass, qe } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-avatar$/,
-    mdComponent(
+    componentClass(
       'q-avatar',
-      `relative align-middle inline-block rounded-[50%] text-[48px] h-[1em] w-[1em] [&_img:not(.q-icon):not(.q-img\\_\\_image)]:([border-radius:inherit] [height:inherit] [width:inherit])`
+      qe`relative align-middle inline-block rounded-[50%] text-[48px] h-[1em] w-[1em] [&_img:not(.q-icon):not(.q-img__image)]:([border-radius:inherit] [height:inherit] [width:inherit])`
     )
   ],
 
   [
     /^q-avatar__content$/,
-    mdComponent(
+    componentClass(
       'q-avatar__content',
       `text-[0.5em] leading-[0.5em] [border-radius:inherit] [height:inherit] [width:inherit]`
     )
   ],
 
-  [/^q-avatar--square$/, mdStatic(`rounded-none`)]
+  [/^q-avatar--square$/, staticClass(`rounded-none`)]
 ]
 
 export { shortcuts }

@@ -43,10 +43,8 @@ export default {
         // If "var" content is undefined/null, then it doesn't tampers with the model
         // and only resets the input textbox to empty string
 
-        if (val.length > 2) {
-          if (!stringOptions.includes(val)) {
-            done(val, 'add-unique')
-          }
+        if (val.length > 2 && !stringOptions.includes(val)) {
+          done(val, 'add-unique')
         }
       },
 
@@ -56,8 +54,8 @@ export default {
             filterOptions.value = stringOptions
           } else {
             const needle = val.toLowerCase()
-            filterOptions.value = stringOptions.filter(
-              (v) => v.toLowerCase().indexOf(needle) > -1
+            filterOptions.value = stringOptions.filter((v) =>
+              v.toLowerCase().includes(needle)
             )
           }
         })

@@ -76,7 +76,7 @@ export default {
         const data = []
 
         for (const [name, value] of formData.entries()) {
-          if (value.name.length > 0) {
+          if (value.name.length !== 0) {
             data.push({
               name,
               value: value.name

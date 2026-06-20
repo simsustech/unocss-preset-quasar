@@ -50,11 +50,13 @@
 import { ref } from 'vue'
 
 const stringOptions = [
+  // #region
   'Google',
   'Facebook',
   'Twitter',
   'Apple',
   'Oracle'
+  // #endregion
 ].reduce((acc, opt) => {
   for (let i = 1; i <= 5; i++) {
     acc.push(opt + ' ' + i)
@@ -80,17 +82,17 @@ export default {
                 options.value = stringOptions
               } else {
                 const needle = val.toLowerCase()
-                options.value = stringOptions.filter(
-                  (v) => v.toLowerCase().indexOf(needle) > -1
+                options.value = stringOptions.filter((v) =>
+                  v.toLowerCase().includes(needle)
                 )
               }
             },
 
-            // "ref" is the Vue reference to the QSelect
-            (ref) => {
-              if (val !== '' && ref.options.length > 0) {
-                ref.setOptionIndex(-1) // reset optionIndex in case there is something selected
-                ref.moveOptionSelection(1, true) // focus the first selectable option and do not update the input-value
+            // "compRef" is the Vue reference to the QSelect
+            (compRef) => {
+              if (val !== '' && compRef.options.length !== 0) {
+                compRef.setOptionIndex(-1) // reset optionIndex in case there is something selected
+                compRef.moveOptionSelection(1, true) // focus the first selectable option and do not update the input-value
               }
             }
           )
@@ -107,21 +109,24 @@ export default {
                 options.value = stringOptions
               } else {
                 const needle = val.toLowerCase()
-                options.value = stringOptions.filter(
-                  (v) => v.toLowerCase().indexOf(needle) > -1
+                options.value = stringOptions.filter((v) =>
+                  v.toLowerCase().includes(needle)
                 )
               }
             },
 
-            // "ref" is the Vue reference to the QSelect
-            (ref) => {
+            // "compRef" is the Vue reference to the QSelect
+            (compRef) => {
               if (
                 val !== '' &&
-                ref.options.length > 0 &&
-                ref.getOptionIndex() === -1
+                compRef.options.length !== 0 &&
+                compRef.getOptionIndex() === -1
               ) {
-                ref.moveOptionSelection(1, true) // focus the first selectable option and do not update the input-value
-                ref.toggleOption(ref.options[ref.optionIndex], true) // toggle the focused option
+                compRef.moveOptionSelection(1, true) // focus the first selectable option and do not update the input-value
+                compRef.toggleOption(
+                  compRef.options[compRef.getOptionIndex()],
+                  true
+                ) // toggle the focused option
               }
             }
           )

@@ -43,7 +43,7 @@ export default {
         // If "var" content is undefined/null, then it doesn't tampers with the model
         // and only resets the input textbox to empty string
 
-        if (val.length > 0) {
+        if (val.length !== 0) {
           if (!stringOptions.includes(val)) {
             stringOptions.push(val)
           }
@@ -57,8 +57,8 @@ export default {
             filterOptions.value = stringOptions
           } else {
             const needle = val.toLowerCase()
-            filterOptions.value = stringOptions.filter(
-              (v) => v.toLowerCase().indexOf(needle) > -1
+            filterOptions.value = stringOptions.filter((v) =>
+              v.toLowerCase().includes(needle)
             )
           }
         })

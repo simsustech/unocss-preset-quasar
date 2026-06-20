@@ -49,7 +49,7 @@ export function provideDocStore() {
   injectToc(store)
   injectScroll(store)
 
-  if (process.env.SERVER) {
+  if (import.meta.env.QUASAR_SERVER) {
     store.state = { value: store.state }
     $q.dark.set(store.state.value.dark || $route.meta.dark)
   } else {

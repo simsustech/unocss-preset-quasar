@@ -25,17 +25,17 @@
 <script>
 import { useQuasar } from 'quasar'
 
+function checkFileSize(files) {
+  return files.filter((file) => file.size < 2048)
+}
+
+function checkFileType(files) {
+  return files.filter((file) => file.type === 'image/png')
+}
+
 export default {
   setup() {
     const $q = useQuasar()
-
-    function checkFileSize(files) {
-      return files.filter((file) => file.size < 2048)
-    }
-
-    function checkFileType(files) {
-      return files.filter((file) => file.type === 'image/png')
-    }
 
     function onRejected(rejectedEntries) {
       // Notify plugin needs to be installed

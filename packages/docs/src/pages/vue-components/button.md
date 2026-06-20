@@ -83,7 +83,8 @@ Should you wish, you can also display a deterministic progress within the button
 
 - If you will be using `to` & `replace` props, make sure that you also inject Vue Router in your project (Quasar CLI projects have this out of the box). Otherwise use the alternative `href` prop.
 - Due to the above, some of the QBtn below won't work in Codepen/jsFiddle too.
-  :::
+
+:::
 
 ::: tip
 Prefer the Vue Router props over `href` when you can, because with `href` you will trigger a window navigation instead of an in-page Vue Router navigation.

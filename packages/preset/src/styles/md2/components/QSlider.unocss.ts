@@ -1,43 +1,43 @@
 import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
-import { mdComponent, mdStatic } from '../../_helpers.js'
+import { componentClass, staticClass, qe } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
-  [/^q-slider$/, mdStatic(`relative`)],
+  [/^q-slider$/, staticClass(`relative`)],
 
-  [/^q-slider--h$/, mdStatic(`w-full`)],
+  [/^q-slider--h$/, staticClass(`w-full`)],
 
-  [/^q-slider--v$/, mdStatic(`h-[200px]`)],
+  [/^q-slider--v$/, staticClass(`h-[200px]`)],
 
   [
     /^q-slider--editable$/,
-    mdComponent(
+    componentClass(
       'q-slider--editable',
-      `[&_.q-slider\\_\\_track-container]:(cursor-grab)`
+      qe`[&_.q-slider__track-container]:(cursor-grab)`
     )
   ],
 
-  [/^q-slider__track-container$/, mdStatic(`outline-0`)],
+  [/^q-slider__track-container$/, staticClass(`outline-0`)],
 
   [
     /^q-slider__track-container--h$/,
-    mdComponent(
+    componentClass(
       'q-slider__track-container--h',
-      `w-full px-[0] py-[12px] [&_.q-slider\\_\\_selection]:(will-change-width will-change-left)`
+      qe`w-full px-[0] py-[12px] [&_.q-slider__selection]:(will-change-width will-change-left)`
     )
   ],
 
   [
     /^q-slider__track-container--v$/,
-    mdComponent(
+    componentClass(
       'q-slider__track-container--v',
-      `h-full px-[12px] py-[0] [&_.q-slider\\_\\_selection]:(will-change-height will-change-top)`
+      qe`h-full px-[12px] py-[0] [&_.q-slider__selection]:(will-change-height will-change-top)`
     )
   ],
 
   [
     /^q-slider__track$/,
-    mdComponent(
+    componentClass(
       'q-slider__track',
       `bg-[rgba(0,_0,_0,_0.1)] rounded-[4px] [width:inherit] [height:inherit] text-primary`
     )
@@ -45,7 +45,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__inner$/,
-    mdComponent(
+    componentClass(
       'q-slider__inner',
       `bg-[rgba(0,_0,_0,_0.1)] [border-radius:inherit] w-full h-full`
     )
@@ -53,7 +53,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__selection$/,
-    mdComponent(
+    componentClass(
       'q-slider__selection',
       `bg-current [border-radius:inherit] w-full h-full`
     )
@@ -61,7 +61,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__markers$/,
-    mdComponent(
+    componentClass(
       'q-slider__markers',
       `text-[rgba(0,_0,_0,_0.3)] [border-radius:inherit] w-full h-full [&:after]:(content-empty absolute bg-current)`
     )
@@ -69,7 +69,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__markers--h$/,
-    mdComponent(
+    componentClass(
       'q-slider__markers--h',
       `bg-[repeating-linear-gradient(_to_right,_currentColor,_currentColor_2px,_rgba(255,_255,_255,_0)_0,_rgba(255,_255,_255,_0)_)] [&:after]:(h-full w-[2px] top-0 right-0)`
     )
@@ -77,7 +77,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__markers--v$/,
-    mdComponent(
+    componentClass(
       'q-slider__markers--v',
       `bg-[repeating-linear-gradient(_to_bottom,_currentColor,_currentColor_2px,_rgba(255,_255,_255,_0)_0,_rgba(255,_255,_255,_0)_)] [&:after]:(w-full h-[2px] left-0 bottom-0)`
     )
@@ -85,52 +85,52 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__marker-labels-container$/,
-    mdComponent(
+    componentClass(
       'q-slider__marker-labels-container',
       `relative w-full h-full min-h-[24px] min-w-[24px]`
     )
   ],
 
-  [/^q-slider__marker-labels$/, mdStatic(`absolute`)],
+  [/^q-slider__marker-labels$/, staticClass(`absolute`)],
 
-  [/^q-slider__marker-labels--h-standard$/, mdStatic(`top-0`)],
+  [/^q-slider__marker-labels--h-standard$/, staticClass(`top-0`)],
 
-  [/^q-slider__marker-labels--h-switched$/, mdStatic(`bottom-0`)],
+  [/^q-slider__marker-labels--h-switched$/, staticClass(`bottom-0`)],
 
   [
     /^q-slider__marker-labels--h-ltr$/,
-    mdComponent('q-slider__marker-labels--h-ltr', `-translate-x-1/2`)
+    componentClass('q-slider__marker-labels--h-ltr', `-translate-x-1/2`)
   ],
 
-  [/^q-slider__marker-labels--h-rtl$/, mdStatic(`translate-x-1/2`)],
+  [/^q-slider__marker-labels--h-rtl$/, staticClass(`translate-x-1/2`)],
 
-  [/^q-slider__marker-labels--v-standard$/, mdStatic(`left-[4px]`)],
+  [/^q-slider__marker-labels--v-standard$/, staticClass(`left-[4px]`)],
 
   [
     /^q-slider__marker-labels--v-switched$/,
-    mdComponent('q-slider__marker-labels--v-switched', `right-[4px]`)
+    componentClass('q-slider__marker-labels--v-switched', `right-[4px]`)
   ],
 
   [
     /^q-slider__marker-labels--v-ltr$/,
-    mdComponent('q-slider__marker-labels--v-ltr', `-translate-y-1/2`)
+    componentClass('q-slider__marker-labels--v-ltr', `-translate-y-1/2`)
   ],
 
-  [/^q-slider__marker-labels--v-rtl$/, mdStatic(`translate-y-1/2`)],
+  [/^q-slider__marker-labels--v-rtl$/, staticClass(`translate-y-1/2`)],
 
   [
     /^q-slider__thumb$/,
-    mdComponent(
+    componentClass(
       'q-slider__thumb',
       `outline-0 [transition:transform_0.18s_ease-out,_fill_0.18s_ease-out,_stroke_0.18s_ease-out] text-primary`
     )
   ],
 
-  [/^q-slider__thumb--h$/, mdStatic(`top-2/4`)],
+  [/^q-slider__thumb--h$/, staticClass(`top-2/4`)],
 
   [
     /^q-slider__thumb--h-ltr$/,
-    mdComponent(
+    componentClass(
       'q-slider__thumb--h-ltr',
       `scale-100 -translate-x-1/2 -translate-y-1/2`
     )
@@ -138,17 +138,17 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__thumb--h-rtl$/,
-    mdComponent(
+    componentClass(
       'q-slider__thumb--h-rtl',
       `scale-100 translate-x-1/2 -translate-y-1/2`
     )
   ],
 
-  [/^q-slider__thumb--v$/, mdStatic(`left-2/4`)],
+  [/^q-slider__thumb--v$/, staticClass(`left-2/4`)],
 
   [
     /^q-slider__thumb--v-ltr$/,
-    mdComponent(
+    componentClass(
       'q-slider__thumb--v-ltr',
       `scale-100 -translate-x-1/2 -translate-y-1/2`
     )
@@ -156,7 +156,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__thumb--v-rtl$/,
-    mdComponent(
+    componentClass(
       'q-slider__thumb--v-rtl',
       `scale-100 -translate-x-1/2 translate-y-1/2`
     )
@@ -164,7 +164,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__thumb-shape$/,
-    mdComponent(
+    componentClass(
       'q-slider__thumb-shape',
       `top-0 left-0 stroke-[3.5] stroke-current [transition:transform_0.28s] [&_path]:(stroke-current fill-current)`
     )
@@ -172,7 +172,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__focus-ring$/,
-    mdComponent(
+    componentClass(
       'q-slider__focus-ring',
       `rounded-[50%] opacity-0 [transition:transform_266.67ms_ease-out,_opacity_266.67ms_ease-out,_background-color_266.67ms_ease-out] delay-[140ms]`
     )
@@ -180,7 +180,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__pin$/,
-    mdComponent(
+    componentClass(
       'q-slider__pin',
       `opacity-0 whitespace-nowrap [transition:opacity_0.28s_ease-out] delay-[140ms] [&:before]:(content-empty w-[0] h-[0] absolute)`
     )
@@ -188,7 +188,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__pin--h$/,
-    mdComponent(
+    componentClass(
       'q-slider__pin--h',
       `[&:before]:([border-left:6px_solid_transparent] [border-right:6px_solid_transparent] left-2/4 -translate-x-1/2)`
     )
@@ -196,7 +196,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__pin--h-standard$/,
-    mdComponent(
+    componentClass(
       'q-slider__pin--h-standard',
       `bottom-full [&:before]:(bottom-[2px] [border-top:6px_solid_currentColor])`
     )
@@ -204,7 +204,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__pin--h-switched$/,
-    mdComponent(
+    componentClass(
       'q-slider__pin--h-switched',
       `top-full [&:before]:(top-[2px] [border-bottom:6px_solid_currentColor])`
     )
@@ -212,7 +212,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__pin--v$/,
-    mdComponent(
+    componentClass(
       'q-slider__pin--v',
       `top-0 [&:before]:(top-2/4 -translate-y-1/2 [border-top:6px_solid_transparent] [border-bottom:6px_solid_transparent])`
     )
@@ -220,7 +220,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__pin--v-standard$/,
-    mdComponent(
+    componentClass(
       'q-slider__pin--v-standard',
       `left-full [&:before]:(left-[2px] [border-right:6px_solid_currentColor])`
     )
@@ -228,89 +228,89 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-slider__pin--v-switched$/,
-    mdComponent(
+    componentClass(
       'q-slider__pin--v-switched',
       `right-full [&:before]:(right-[2px] [border-left:6px_solid_currentColor])`
     )
   ],
 
-  [/^q-slider__label$/, mdStatic(`whitespace-nowrap absolute`)],
+  [/^q-slider__label$/, staticClass(`whitespace-nowrap absolute`)],
 
-  [/^q-slider__label--h$/, mdStatic(`left-2/4 -translate-x-1/2`)],
+  [/^q-slider__label--h$/, staticClass(`left-2/4 -translate-x-1/2`)],
 
-  [/^q-slider__label--h-standard$/, mdStatic(`bottom-[7px]`)],
+  [/^q-slider__label--h-standard$/, staticClass(`bottom-[7px]`)],
 
-  [/^q-slider__label--h-switched$/, mdStatic(`top-[7px]`)],
+  [/^q-slider__label--h-switched$/, staticClass(`top-[7px]`)],
 
-  [/^q-slider__label--v$/, mdStatic(`top-2/4 -translate-y-1/2`)],
+  [/^q-slider__label--v$/, staticClass(`top-2/4 -translate-y-1/2`)],
 
-  [/^q-slider__label--v-standard$/, mdStatic(`left-[7px]`)],
+  [/^q-slider__label--v-standard$/, staticClass(`left-[7px]`)],
 
-  [/^q-slider__label--v-switched$/, mdStatic(`right-[7px]`)],
+  [/^q-slider__label--v-switched$/, staticClass(`right-[7px]`)],
 
   [
     /^q-slider__text-container$/,
-    mdComponent(
+    componentClass(
       'q-slider__text-container',
       `min-h-[25px] px-[8px] py-[2px] rounded-[4px] bg-current relative text-center`
     )
   ],
 
-  [/^q-slider__text$/, mdStatic(`text-[#fff] text-[12px]`)],
+  [/^q-slider__text$/, staticClass(`text-[#fff] text-[12px]`)],
 
   [
     /^q-slider--no-value$/,
-    mdComponent(
+    componentClass(
       'q-slider--no-value',
-      `[&_.q-slider\\_\\_thumb]:(opacity-0) [&_.q-slider\\_\\_inner]:(opacity-0) [&_.q-slider\\_\\_selection]:(opacity-0)`
+      qe`[&_.q-slider__thumb]:(opacity-0) [&_.q-slider__inner]:(opacity-0) [&_.q-slider__selection]:(opacity-0)`
     )
   ],
 
   [
     /^q-slider--focus$/,
-    mdComponent(
+    componentClass(
       'q-slider--focus',
-      `[&_.q-slider\\_\\_focus-ring]:(bg-current [transform:scale3d(1.55,_1.55,_1)] opacity-25) [&_.q-slider\\_\\_thumb]:(opacity-100) [&_.q-slider\\_\\_inner]:(opacity-100) [&_.q-slider\\_\\_selection]:(opacity-100)`
+      qe`[&_.q-slider__focus-ring]:(bg-current [transform:scale3d(1.55,_1.55,_1)] opacity-25) [&_.q-slider__thumb]:(opacity-100) [&_.q-slider__inner]:(opacity-100) [&_.q-slider__selection]:(opacity-100)`
     )
   ],
 
   [
     /^q-slider--inactive$/,
-    mdComponent(
+    componentClass(
       'q-slider--inactive',
-      `[&_.q-slider\\_\\_thumb--h]:([transition:left_0.28s,_right_0.28s]) [&_.q-slider\\_\\_thumb--v]:([transition:top_0.28s,_bottom_0.28s]) [&_.q-slider\\_\\_selection]:([transition:width_0.28s,_left_0.28s,_right_0.28s,_height_0.28s,_top_0.28s,_bottom_0.28s]) [&_.q-slider\\_\\_text-container]:([transition:transform_0.28s])`
+      qe`[&_.q-slider__thumb--h]:([transition:left_0.28s,_right_0.28s]) [&_.q-slider__thumb--v]:([transition:top_0.28s,_bottom_0.28s]) [&_.q-slider__selection]:([transition:width_0.28s,_left_0.28s,_right_0.28s,_height_0.28s,_top_0.28s,_bottom_0.28s]) [&_.q-slider__text-container]:([transition:transform_0.28s])`
     )
   ],
 
   [
     /^q-slider--active$/,
-    mdComponent(
+    componentClass(
       'q-slider--active',
-      ` [&_.q-slider\\_\\_thumb-shape]:(scale-150) [&_.q-slider\\_\\_focus-ring]:(!scale-0)`
+      qe` [&_.q-slider__thumb-shape]:(scale-150) [&_.q-slider__focus-ring]:(!scale-0)`
     )
   ],
 
   [
     /^q-slider--label$/,
-    mdComponent(
+    componentClass(
       'q-slider--label',
-      `[&_.q-slider--focus_.q-slider\\_\\_pin]:(opacity-100)`
+      qe`[&_.q-slider--focus_.q-slider__pin]:(opacity-100)`
     )
   ],
 
   [
     /^q-slider--dark$/,
-    mdComponent(
+    componentClass(
       'q-slider--dark',
-      `[&_.q-slider\\_\\_track]:(bg-[rgba(255,_255,_255,_0.1)]) [&_.q-slider\\_\\_inner]:(bg-[rgba(255,_255,_255,_0.1)]) [&_.q-slider\\_\\_markers]:(text-[rgba(255,_255,_255,_0.3)])`
+      qe`[&_.q-slider__track]:(bg-[rgba(255,_255,_255,_0.1)]) [&_.q-slider__inner]:(bg-[rgba(255,_255,_255,_0.1)]) [&_.q-slider__markers]:(text-[rgba(255,_255,_255,_0.3)])`
     )
   ],
 
   [
     /^q-slider--dense$/,
-    mdComponent(
+    componentClass(
       'q-slider--dense',
-      `[&_.q-slider\\_\\_track-container--h]:(px-[0] py-[6px]) [&_.q-slider\\_\\_track-container--v]:(px-[6px] py-[0])`
+      qe`[&_.q-slider__track-container--h]:(px-[0] py-[6px]) [&_.q-slider__track-container--v]:(px-[6px] py-[0])`
     )
   ]
 ]

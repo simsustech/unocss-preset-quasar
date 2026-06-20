@@ -1,31 +1,31 @@
 import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
-import { mdComponent, mdStatic } from '../../_helpers.js'
+import { componentClass, staticClass, qe } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-banner$/,
-    mdComponent('q-banner', `min-h-[54px] px-[16px] py-[8px] bg-transparent`)
+    componentClass('q-banner', `min-h-[54px] px-[16px] py-[8px] bg-transparent`)
   ],
 
-  [/^q-banner--top-padding$/, mdStatic(`pt-[14px]`)],
+  [/^q-banner--top-padding$/, staticClass(`pt-[14px]`)],
 
   [
     /^q-banner__avatar$/,
-    mdComponent(
+    componentClass(
       'q-banner__avatar',
-      `!self-auto !flex-initial !min-w-[1px] [&_>_.q-avatar]:(text-[46px]) [&_>_.q-icon]:(text-[40px]) [&:not(:empty)_+_.q-banner\\_\\_content]:(pl-[16px])`
+      qe`!self-auto !flex-initial !min-w-[1px] [&_>_.q-avatar]:(text-[46px]) [&_>_.q-icon]:(text-[40px]) [&:not(:empty)_+_.q-banner__content]:(pl-[16px])`
     )
   ],
 
   [
     /^q-banner__content$/,
-    mdComponent('q-banner__content', `max-w-[calc(100%-56px)]`)
+    componentClass('q-banner__content', `max-w-[calc(100%-56px)]`)
   ],
 
   [
     /^q-banner__actions$/,
-    mdComponent(
+    componentClass(
       'q-banner__actions',
       `[&.col-auto]:(pl-[16px]) [&.col-all_.q-btn-item]:(mt-[4px] mr-[0] mb-[0] ml-[4px])`
     )
@@ -33,9 +33,9 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-banner--dense$/,
-    mdComponent(
+    componentClass(
       'q-banner--dense',
-      `min-h-[32px] p-[8px] [&.q-banner--top-padding]:(pt-[12px]) [&_.q-banner\\_\\_avatar_>_.q-avatar]:(text-[28px]) [&_.q-banner\\_\\_avatar_>_.q-icon]:(text-[28px]) [&_.q-banner\\_\\_avatar:not(:empty)_+_.q-banner\\_\\_content]:(pl-[8px]) [&_.q-banner\\_\\_actions.col-auto]:(pl-[8px])`
+      qe`min-h-[32px] p-[8px] [&.q-banner--top-padding]:(pt-[12px]) [&_.q-banner__avatar_>_.q-avatar]:(text-[28px]) [&_.q-banner__avatar_>_.q-icon]:(text-[28px]) [&_.q-banner__avatar:not(:empty)_+_.q-banner__content]:(pl-[8px]) [&_.q-banner__actions.col-auto]:(pl-[8px])`
     )
   ]
 ]

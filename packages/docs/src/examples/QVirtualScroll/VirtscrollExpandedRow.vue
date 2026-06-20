@@ -60,9 +60,10 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 const columns = [
+  // #region
   {
     name: 'desc',
     required: true,
@@ -94,24 +95,26 @@ const columns = [
     label: 'Calcium (%)',
     field: 'calcium',
     sortable: true,
-    sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)
+    sort: (a, b) => Number.parseInt(a, 10) - Number.parseInt(b, 10)
   },
   {
     name: 'iron',
     label: 'Iron (%)',
     field: 'iron',
     sortable: true,
-    sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)
+    sort: (a, b) => Number.parseInt(a, 10) - Number.parseInt(b, 10)
   }
+  // #endregion
 ]
 
 const seed = [
+  // #region
   {
     name: 'Frozen Yogurt',
     calories: 159,
-    fat: 6.0,
+    fat: 6,
     carbs: 24,
-    protein: 4.0,
+    protein: 4,
     sodium: 87,
     calcium: '14%',
     iron: '1%'
@@ -119,7 +122,7 @@ const seed = [
   {
     name: 'Ice cream sandwich',
     calories: 237,
-    fat: 9.0,
+    fat: 9,
     carbs: 37,
     protein: 4.3,
     sodium: 129,
@@ -129,9 +132,9 @@ const seed = [
   {
     name: 'Eclair',
     calories: 262,
-    fat: 16.0,
+    fat: 16,
     carbs: 23,
-    protein: 6.0,
+    protein: 6,
     sodium: 337,
     calcium: '6%',
     iron: '7%'
@@ -149,7 +152,7 @@ const seed = [
   {
     name: 'Gingerbread',
     calories: 356,
-    fat: 16.0,
+    fat: 16,
     carbs: 49,
     protein: 3.9,
     sodium: 327,
@@ -159,9 +162,9 @@ const seed = [
   {
     name: 'Jelly bean',
     calories: 375,
-    fat: 0.0,
+    fat: 0,
     carbs: 94,
-    protein: 0.0,
+    protein: 0,
     sodium: 50,
     calcium: '0%',
     iron: '0%'
@@ -189,7 +192,7 @@ const seed = [
   {
     name: 'Donut',
     calories: 452,
-    fat: 25.0,
+    fat: 25,
     carbs: 51,
     protein: 4.9,
     sodium: 326,
@@ -199,22 +202,21 @@ const seed = [
   {
     name: 'KitKat',
     calories: 518,
-    fat: 26.0,
+    fat: 26,
     carbs: 65,
     protein: 7,
     sodium: 54,
     calcium: '12%',
     iron: '6%'
   }
+  // #endregion
 ]
 
 const seedSize = seed.length
 
-let rows = []
+const rows = []
 for (let i = 0; i < 1000; i++) {
-  rows = rows.concat(
-    seed.map((r, j) => ({ ...r, index: i * seedSize + j + 1 }))
-  )
+  rows.push(...seed.map((r, j) => ({ ...r, index: i * seedSize + j + 1 })))
 }
 
 const initialExpanded = rows.filter((r, i) => i % 3 === 0).map((r) => r.index)

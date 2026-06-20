@@ -35,10 +35,10 @@ We won't go into details on how to configure or use Pinia since it has great doc
 
 When you scaffold a Quasar project folder you can choose to add Pinia. It will create all the necessary configuration for you. Like for example the creation of `/src/stores` which handles all the Pinia related code that you need.
 
-If you don't choose the Pinia option during project creation but would like to add it later then all you need to do is to check the next section and create the `src/stores/index.js` file (it's automatically created when you run `quasar new store <name>`):
+If you don't choose the Pinia option during project creation but would like to add it later then all you need to do is to check the next section and create the `/src/stores/index.js` file (it's automatically created when you run `quasar new store <name>`):
 
 ```js /src/stores/index.js
-import { defineStore } from '#q-app/wrappers'
+import { defineStore } from '#q-app'
 import { createPinia } from 'pinia'
 
 /*
@@ -62,15 +62,15 @@ export default defineStore((/* { ssrContext } */) => {
 
 ## Adding a Pinia store
 
-Adding a Pinia store is easy with Quasar CLI through the `$ quasar new` command.
+Adding a Pinia store is easy with Quasar CLI through the `quasar new` command.
 
 ```bash
-$ quasar new store <store_name> [--format ts]
+quasar new store <store_name> [--format ts]
 ```
 
 It will create a folder in `/src/stores` named by "store_name" from the command above. It will contain all the boilerplate that you need.
 
-Let's say that you want to create a "counter" Pinia store. You issue `$ quasar new store counter`. You then notice the newly created `/src/stores/counter.js` file:
+Let's say that you want to create a "counter" Pinia store. You issue `quasar new store counter`. You then notice the newly created `/src/stores/counter.js` file:
 
 <DocTree :def="scope.newStore" />
 
@@ -141,42 +141,22 @@ We've created the new Pinia store, but we haven't yet used it in our app. In a V
   </div>
 </template>
 
-<script>
+<script setup>
   import { computed } from 'vue'
-  import { useCounterStore } from 'stores/counter'
   import { storeToRefs } from 'pinia'
+  import { useCounterStore } from '@/stores/counter'
 
-  export default {
-    setup() {
-      const store = useCounterStore()
+  const store = useCounterStore()
 
-      // Option 2: use computed and functions to use the store
-      const count = computed(() => store.counter)
-      const doubleCountValue = computed(() => store.doubleCount)
-      const incrementCount = () => store.increment() // use action
-      const decrementCount = () => store.counter-- // manipulate directly
+  // Option 2: use computed and functions to use the store
+  const count = computed(() => store.counter)
+  const doubleCountValue = computed(() => store.doubleCount)
+  const incrementCount = () => store.increment() // use action
+  const decrementCount = () => store.counter-- // manipulate directly
 
-      // Option 3: use destructuring to use the store in the template
-      const { counter, doubleCount } = storeToRefs(store) // state and getters need "storeToRefs"
-      const { increment } = store // actions can be destructured directly
-
-      return {
-        // Option 1: return the store directly and couple it in the template
-        store,
-
-        // Option 2: use the store in functions and compute the state to use in the template
-        count,
-        doubleCountValue,
-        incrementCount,
-        decrementCount,
-
-        // Option 3: pass the destructed state, getters and actions to the template
-        counter,
-        increment,
-        doubleCount
-      }
-    }
-  }
+  // Option 3: use destructuring to use the store in the template
+  const { counter, doubleCount } = storeToRefs(store) // state and getters need "storeToRefs"
+  const { increment } = store // actions can be destructured directly
 </script>
 ```
 

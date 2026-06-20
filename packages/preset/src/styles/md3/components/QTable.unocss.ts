@@ -1,6 +1,6 @@
 import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
-import { mdComponent, mdStatic } from '../../_helpers.js'
+import { componentClass, staticClass, qe } from '../../_helpers.js'
 
 const preflights: Preflight<QuasarTheme>[] = [
   {
@@ -13,28 +13,31 @@ body.desktop .q-table > tbody > tr:not(.q-tr--no-hover):hover > td:not(.q-td--no
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-markup-table$/,
-    mdComponent('q-markup-table', `overflow-auto bg-[#fff]`)
+    componentClass(
+      'q-markup-table',
+      `overflow-auto bg-$light-surface-container dark:bg-$dark-surface-container text-$light-on-surface dark:text-$dark-on-surface`
+    )
   ],
 
   [
     /^q-table$/,
-    mdComponent(
+    componentClass(
       'q-table',
-      `w-full max-w-full border-separate [border-spacing:0] [&_thead_tr]:(h-[48px]) [&_tbody_td]:(h-[48px]) [&_th]:(font-medium text-[12px] select-none) [&_th.sortable]:(cursor-pointer) [&_th.sortable:hover_.q-table\\_\\_sort-icon]:(opacity-[0.64]) [&_th.sorted_.q-table\\_\\_sort-icon]:(!opacity-[0.86]) [&_th.sort-desc_.q-table\\_\\_sort-icon]:(rotate-180) [&_th]:(px-[16px] py-[7px] [background-color:inherit]) [&_td]:(px-[16px] py-[7px] [background-color:inherit]) [&_thead]:(border-solid border-0) [&_td]:(border-solid border-0) [&_th]:(border-solid border-0) [&_tbody_td]:(text-[13px]) [&_thead]:(border-[rgba(0,_0,_0,_0.12)]) [&_tr]:(border-[rgba(0,_0,_0,_0.12)]) [&_th]:(border-[rgba(0,_0,_0,_0.12)]) [&_td]:(border-[rgba(0,_0,_0,_0.12)]) [&_tbody_td]:(relative) [&_tbody_td:before]:(absolute top-[0] left-[0] right-[0] bottom-[0] pointer-events-none) [&_tbody_td:after]:(absolute top-[0] left-[0] right-[0] bottom-[0] pointer-events-none) [&_tbody_td:before]:(bg-[rgba(0,_0,_0,_0.03)]) [&_tbody_td:after]:(bg-[rgba(0,_0,_0,_0.06)]) [&_tbody_tr.selected_td:after]:(content-['']) [&_.q-virtual-scroll\\_\\_padding_tr]:(!h-[0]) [&_.q-virtual-scroll\\_\\_padding_td]:(!p-0)`
+      qe`w-full max-w-full border-separate [border-spacing:0] [&_thead_tr]:(h-[48px]) [&_tbody_td]:(h-[48px]) [&_th]:(font-medium text-[12px] text-$light-on-surface-variant dark:text-$dark-on-surface-variant select-none) [&_th.sortable]:(cursor-pointer) [&_th.sortable:hover_.q-table__sort-icon]:(opacity-[0.64]) [&_th.sorted_.q-table__sort-icon]:(!opacity-[0.86]) [&_th.sort-desc_.q-table__sort-icon]:(rotate-180) [&_th]:(px-[16px] py-[7px] [background-color:inherit]) [&_td]:(px-[16px] py-[7px] [background-color:inherit]) [&_thead]:(border-solid border-0) [&_td]:(border-solid border-0) [&_th]:(border-solid border-0) [&_tbody_td]:(text-[13px]) [&_thead]:(border-$light-outline-variant dark:border-$dark-outline-variant) [&_tr]:(border-$light-outline-variant dark:border-$dark-outline-variant) [&_th]:(border-$light-outline-variant dark:border-$dark-outline-variant) [&_td]:(border-$light-outline-variant dark:border-$dark-outline-variant) [&_tbody_td]:(relative) [&_tbody_td:before]:(absolute top-[0] left-[0] right-[0] bottom-[0] pointer-events-none) [&_tbody_td:after]:(absolute top-[0] left-[0] right-[0] bottom-[0] pointer-events-none) [&_tbody_td:before]:(bg-$light-on-surface/3 dark:bg-$dark-on-surface/3) [&_tbody_td:after]:(bg-$light-secondary-container dark:bg-$dark-secondary-container) [&_tbody_tr.selected_td]:(text-$light-on-secondary-container dark:text-$dark-on-secondary-container) [&_tbody_tr.selected_td:after]:(content-['']) [&_.q-virtual-scroll__padding_tr]:(!h-[0]) [&_.q-virtual-scroll__padding_td]:(!p-0)`
     )
   ],
 
   [
     /^q-table__card$/,
-    mdComponent(
+    componentClass(
       'q-table__card',
-      `text-[#000] bg-[#fff] rounded-[4px] [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] [&_.q-table\\_\\_middle]:(flex-auto) [&_.q-table\\_\\_top]:(flex-[0_0_auto]) [&_.q-table\\_\\_bottom]:(flex-[0_0_auto])`
+      qe`text-$light-on-surface dark:text-$dark-on-surface bg-$light-surface-container dark:bg-$dark-surface-container rounded-[4px] [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] [&_.q-table__middle]:(flex-auto) [&_.q-table__top]:(flex-[0_0_auto]) [&_.q-table__bottom]:(flex-[0_0_auto])`
     )
   ],
 
   [
     /^q-table__container$/,
-    mdComponent(
+    componentClass(
       'q-table__container',
       `relative [&_>_div:first-child]:([border-top-left-radius:inherit] [border-top-right-radius:inherit]) [&_>_div:last-child]:([border-bottom-left-radius:inherit] [border-bottom-right-radius:inherit]) [&_>_.q-inner-loading]:([border-radius:inherit!important])`
     )
@@ -42,49 +45,61 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-table__top$/,
-    mdComponent(
+    componentClass(
       'q-table__top',
-      `px-[16px] py-[12px] [&_.q-table\\_\\_control]:(flex-wrap)`
+      qe`px-[16px] py-[12px] [&_.q-table__control]:(flex-wrap)`
     )
   ],
 
   [
     /^q-table__title$/,
-    mdComponent('q-table__title', `text-[20px] tracking-[0.005em] font-normal`)
+    componentClass(
+      'q-table__title',
+      `text-[20px] tracking-[0.005em] font-normal`
+    )
   ],
 
-  [/^q-table__separator$/, mdComponent('q-table__separator', `!min-w-[8px]`)],
+  [
+    /^q-table__separator$/,
+    componentClass('q-table__separator', `!min-w-[8px]`)
+  ],
 
   [
     /^q-table__progress$/,
-    mdComponent(
+    componentClass(
       'q-table__progress',
       `!h-[0] [&_th]:(!p-0 !border-0) [&_.q-linear-progress]:(absolute bottom-[0])`
     )
   ],
 
-  [/^q-table__middle$/, mdComponent('q-table__middle', `max-w-full`)],
+  [/^q-table__middle$/, componentClass('q-table__middle', `max-w-full`)],
 
   [
     /^q-table__bottom$/,
-    mdComponent(
+    componentClass(
       'q-table__bottom',
-      `min-h-[50px] pl-[16px] pr-[14px] py-[4px] text-[12px] [&_.q-table\\_\\_control]:(min-h-[24px]) [border-top:1px_solid_rgba(0,_0,_0,_0.12)]`
+      qe`min-h-[50px] pl-[16px] pr-[14px] py-[4px] text-$light-on-surface dark:text-$dark-on-surface text-[12px] [&_.q-table__control]:(min-h-[24px]) [border-top:1px_solid_var(--light-outline-variant)] dark:[border-top:1px_solid_var(--dark-outline-variant)]`
     )
   ],
 
   [
     /^q-table__bottom-nodata-icon$/,
-    mdComponent('q-table__bottom-nodata-icon', `text-[200%] mr-[8px]`)
+    componentClass('q-table__bottom-nodata-icon', `text-[200%] mr-[8px]`)
   ],
 
-  [/^q-table__bottom-item$/, mdComponent('q-table__bottom-item', `mr-[16px]`)],
+  [
+    /^q-table__bottom-item$/,
+    componentClass('q-table__bottom-item', `mr-[16px]`)
+  ],
 
-  [/^q-table__control$/, mdComponent('q-table__control', `flex items-center`)],
+  [
+    /^q-table__control$/,
+    componentClass('q-table__control', `flex items-center`)
+  ],
 
   [
     /^q-table__sort-icon$/,
-    mdComponent(
+    componentClass(
       'q-table__sort-icon',
       `[transition:transform_0.3s_cubic-bezier(0.25,_0.8,_0.5,_1)] opacity-0 text-[120%]`
     )
@@ -92,57 +107,60 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-table__sort-icon--left$/,
-    mdComponent('q-table__sort-icon--left', `ml-[4px]`)
+    componentClass('q-table__sort-icon--left', `ml-[4px]`)
   ],
 
   [
     /^q-table__sort-icon--center$/,
-    mdComponent('q-table__sort-icon--center', `ml-[4px]`)
+    componentClass('q-table__sort-icon--center', `ml-[4px]`)
   ],
 
   [
     /^q-table__sort-icon--right$/,
-    mdComponent('q-table__sort-icon--right', `mr-[4px]`)
+    componentClass('q-table__sort-icon--right', `mr-[4px]`)
   ],
 
-  [/^q-table--col-auto-width$/, mdComponent('q-table--col-auto-width', `w-px`)],
+  [
+    /^q-table--col-auto-width$/,
+    componentClass('q-table--col-auto-width', `w-px`)
+  ],
 
   [
     /^q-table__card--dark$/,
-    mdComponent(
+    componentClass(
       'q-table__card--dark',
-      `[box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] border-[rgba(255,_255,_255,_0.28)]`
+      `[box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] border-$dark-outline-variant`
     )
   ],
 
   [
     /^q-table--dark$/,
-    mdComponent(
+    componentClass(
       'q-table--dark',
-      `[box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] border-[rgba(255,_255,_255,_0.28)] [&_.q-table\\_\\_bottom]:(border-[rgba(255,_255,_255,_0.28)]) [&_thead]:(border-[rgba(255,_255,_255,_0.28)]) [&_tr]:(border-[rgba(255,_255,_255,_0.28)]) [&_th]:(border-[rgba(255,_255,_255,_0.28)]) [&_td]:(border-[rgba(255,_255,_255,_0.28)]) [&_tbody_td:before]:(bg-[rgba(255,_255,_255,_0.07)]) [&_tbody_td:after]:(bg-[rgba(255,_255,_255,_0.1)]) [&.q-table--vertical-separator_.q-table\\_\\_top]:(border-[rgba(255,_255,_255,_0.28)]) [&.q-table--cell-separator_.q-table\\_\\_top]:(border-[rgba(255,_255,_255,_0.28)])`
+      qe`[box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] border-$dark-outline-variant [&_.q-table__bottom]:(border-$dark-outline-variant) [&_thead]:(border-$dark-outline-variant) [&_tr]:(border-$dark-outline-variant) [&_th]:(border-$dark-outline-variant) [&_td]:(border-$dark-outline-variant) [&_tbody_td:before]:(bg-$dark-on-surface/8) [&_tbody_td:after]:(bg-$dark-secondary-container) [&_tbody_tr.selected_td]:(text-$dark-on-secondary-container) [&.q-table--vertical-separator_.q-table__top]:(border-$dark-outline-variant) [&.q-table--cell-separator_.q-table__top]:(border-$dark-outline-variant)`
     )
   ],
 
-  [/^q-table--flat$/, mdComponent('q-table--flat', `[box-shadow:none]`)],
+  [/^q-table--flat$/, componentClass('q-table--flat', `[box-shadow:none]`)],
 
   [
     /^q-table--bordered$/,
-    mdComponent(
+    componentClass(
       'q-table--bordered',
-      `border-[1px] border-solid border-[rgba(0,0,0,0.12)]`
+      `border-[1px] border-solid border-$light-outline-variant dark:border-$dark-outline-variant`
     )
   ],
 
-  [/^q-table--square$/, mdComponent('q-table--square', `rounded-none`)],
+  [/^q-table--square$/, componentClass('q-table--square', `rounded-none`)],
 
   [
     /^q-table__linear-progress$/,
-    mdComponent('q-table__linear-progress', `h-[2px]`)
+    componentClass('q-table__linear-progress', `h-[2px]`)
   ],
 
   [
     /^q-table--no-wrap$/,
-    mdComponent(
+    componentClass(
       'q-table--no-wrap',
       `[&_th]:(whitespace-nowrap) [&_td]:(whitespace-nowrap)`
     )
@@ -150,15 +168,15 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-table--grid$/,
-    mdComponent(
+    componentClass(
       'q-table--grid',
-      `[box-shadow:none] rounded-[4px] [&_.q-table\\_\\_top]:(pb-[4px]) [&_.q-table\\_\\_middle]:(min-h-[2px] mb-[4px]) [&_.q-table\\_\\_middle_thead]:(!border-0) [&_.q-table\\_\\_middle_thead_th]:(!border-0) [&_.q-table\\_\\_linear-progress]:(bottom-[0]) [&_.q-table\\_\\_bottom]:([border-top:0]) [&_.q-table\\_\\_grid-content]:(flex-auto) [&.fullscreen]:([background:inherit])`
+      qe`[box-shadow:none] rounded-[4px] [&_.q-table__top]:(pb-[4px]) [&_.q-table__middle]:(min-h-[2px] mb-[4px]) [&_.q-table__middle_thead]:(!border-0) [&_.q-table__middle_thead_th]:(!border-0) [&_.q-table__linear-progress]:(bottom-[0]) [&_.q-table__bottom]:([border-top:0]) [&_.q-table__grid-content]:(flex-auto) [&.fullscreen]:([background:inherit])`
     )
   ],
 
   [
     /^q-table__grid-item-card$/,
-    mdComponent(
+    componentClass(
       'q-table__grid-item-card',
       `align-top p-[12px] [&_.q-separator]:(mx-[0] my-[12px])`
     )
@@ -166,15 +184,15 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-table__grid-item-row$/,
-    mdComponent(
+    componentClass(
       'q-table__grid-item-row',
-      `[&_+_.q-table\\_\\_grid-item-row]:(mt-[8px])`
+      qe`[&_+_.q-table__grid-item-row]:(mt-[8px])`
     )
   ],
 
   [
     /^q-table__grid-item-title$/,
-    mdComponent(
+    componentClass(
       'q-table__grid-item-title',
       `opacity-[0.54] font-medium text-[12px]`
     )
@@ -182,12 +200,12 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-table__grid-item-value$/,
-    mdComponent('q-table__grid-item-value', `text-[13px]`)
+    componentClass('q-table__grid-item-value', `text-[13px]`)
   ],
 
   [
     /^q-table__grid-item$/,
-    mdComponent(
+    componentClass(
       'q-table__grid-item',
       `p-[4px] [transition:transform_0.3s_cubic-bezier(0.25,_0.8,_0.5,_1)]`
     )
@@ -195,12 +213,12 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-table__grid-item--selected$/,
-    mdComponent('q-table__grid-item--selected', `scale-[0.95]`)
+    componentClass('q-table__grid-item--selected', `scale-[0.95]`)
   ],
 
   [
     /^q-table--horizontal-separator$/,
-    mdComponent(
+    componentClass(
       'q-table--horizontal-separator',
       `[&_thead_th]:(border-b) [&_tbody_tr:not(:last-child)_>_td]:(border-b)`
     )
@@ -208,25 +226,25 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-table--cell-separator$/,
-    mdComponent(
+    componentClass(
       'q-table--cell-separator',
-      `[&_thead_th]:(border-b) [&_tbody_tr:not(:last-child)_>_td]:(border-b) [&_td]:(border-l) [&_th]:(border-l) [&_thead_tr:last-child_th]:(border-b) [&.q-table--loading_tr:nth-last-child(2)_th]:(border-b) [&_td:first-child]:([border-left:0]) [&_th:first-child]:([border-left:0]) [&_.q-table\\_\\_top]:([border-bottom:1px_solid_rgba(0,_0,_0,_0.12)])`
+      qe`[&_thead_th]:(border-b) [&_tbody_tr:not(:last-child)_>_td]:(border-b) [&_td]:(border-l) [&_th]:(border-l) [&_thead_tr:last-child_th]:(border-b) [&.q-table--loading_tr:nth-last-child(2)_th]:(border-b) [&_td:first-child]:([border-left:0]) [&_th:first-child]:([border-left:0]) [&_.q-table__top]:([border-bottom:1px_solid_var(--light-outline-variant)])`
     )
   ],
 
   [
     /^q-table--vertical-separator$/,
-    mdComponent(
+    componentClass(
       'q-table--vertical-separator',
-      `[&_td]:(border-l) [&_th]:(border-l) [&_thead_tr:last-child_th]:(border-b) [&.q-table--loading_tr:nth-last-child(2)_th]:(border-b) [&_td:first-child]:([border-left:0]) [&_th:first-child]:([border-left:0]) [&_.q-table\\_\\_top]:([border-bottom:1px_solid_rgba(0,_0,_0,_0.12)])`
+      qe`[&_td]:(border-l) [&_th]:(border-l) [&_thead_tr:last-child_th]:(border-b) [&.q-table--loading_tr:nth-last-child(2)_th]:(border-b) [&_td:first-child]:([border-left:0]) [&_th:first-child]:([border-left:0]) [&_.q-table__top]:([border-bottom:1px_solid_var(--light-outline-variant)])`
     )
   ],
 
   [
     /^q-table--dense$/,
-    mdComponent(
+    componentClass(
       'q-table--dense',
-      `[&_.q-table\\_\\_top]:(px-[16px] py-[6px]) [&_.q-table\\_\\_bottom]:(min-h-[33px]) [&_.q-table\\_\\_sort-icon]:(text-[110%]) [&_.q-table_th]:(px-[8px] py-[4px]) [&_.q-table_td]:(px-[8px] py-[4px]) [&_.q-table_thead_tr]:(h-[28px]) [&_.q-table_tbody_tr]:(h-[28px]) [&_.q-table_tbody_td]:(h-[28px]) [&_.q-table_th:first-child]:(pl-[16px]) [&_.q-table_td:first-child]:(pl-[16px]) [&_.q-table_th:last-child]:(pr-[16px]) [&_.q-table_td:last-child]:(pr-[16px]) [&_.q-table\\_\\_bottom-item]:(mr-[8px]) [&_.q-table\\_\\_select_.q-field\\_\\_control]:(min-h-[24px] p-0) [&_.q-table\\_\\_select_.q-field\\_\\_native]:(min-h-[24px] p-0) [&_.q-table\\_\\_select_.q-field\\_\\_marginal]:(h-[24px])`
+      qe`[&_.q-table__top]:(px-[16px] py-[6px]) [&_.q-table__bottom]:(min-h-[33px]) [&_.q-table__sort-icon]:(text-[110%]) [&_.q-table_th]:(px-[8px] py-[4px]) [&_.q-table_td]:(px-[8px] py-[4px]) [&_.q-table_thead_tr]:(h-[28px]) [&_.q-table_tbody_tr]:(h-[28px]) [&_.q-table_tbody_td]:(h-[28px]) [&_.q-table_th:first-child]:(pl-[16px]) [&_.q-table_td:first-child]:(pl-[16px]) [&_.q-table_th:last-child]:(pr-[16px]) [&_.q-table_td:last-child]:(pr-[16px]) [&_.q-table__bottom-item]:(mr-[8px]) [&_.q-table__select_.q-field__control]:(min-h-[24px] p-0) [&_.q-table__select_.q-field__native]:(min-h-[24px] p-0) [&_.q-table__select_.q-field__marginal]:(h-[24px])`
     )
   ]
 ]

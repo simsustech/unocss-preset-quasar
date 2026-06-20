@@ -1,13 +1,18 @@
 import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
-import { mdComponent, mdStatic, mdComponentCtx } from '../../_helpers.js'
+import {
+  componentClass,
+  staticClass,
+  componentCtxClass,
+  qe
+} from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [/^q-footer--hidden$/, ([, c], { theme }) => `translate-y-[110%]`],
 
   [
     /^q-footer--bordered$/,
-    mdComponentCtx(
+    componentCtxClass(
       'q-footer--bordered',
       ({ theme }) => `[border-top:1px_solid_rgba(0,_0,_0,_0.12)]`
     )
@@ -15,10 +20,10 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-footer$/,
-    mdComponentCtx(
+    componentCtxClass(
       'q-footer',
       ({ theme }) =>
-        `[&_.q-layout\\_\\_shadow]:(-top-[10px]) [&_.q-layout\\_\\_shadow:after]:(top-[10px])  z-${theme.quasar.z['marginals']}`
+        qe`[&_.q-layout__shadow]:(-top-[10px]) [&_.q-layout__shadow:after]:(top-[10px])  z-${theme.quasar.z['marginals']}`
     )
   ]
 ]

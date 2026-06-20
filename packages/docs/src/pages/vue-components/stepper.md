@@ -33,7 +33,8 @@ If the QStep content also has images and you want to use swipe actions to naviga
 
 - Please take notice of the Boolean `keep-alive` prop for QStepper, if you need this behavior. Do NOT use Vue's native `<keep-alive>` component over QStep.
 - Should you need the `keep-alive-include` or `keep-alive-exclude` props then the QStep `name`s must be valid Vue component names (no spaces allowed, don't start with a number etc).
-  :::
+
+:::
 
 ### Horizontal
 

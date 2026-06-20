@@ -12,75 +12,70 @@ A nice combo is to use frameless Electron window along with [QBar](/vue-componen
 
 ### Setting frameless window
 
-Firstly, install the `@electron/remote` dependency into your app.
+In your `src-electron/electron-main` file, make some edits to these lines:
 
-```tabs
-<<| bash Yarn |>>
-$ yarn add @electron/remote
-<<| bash NPM |>>
-$ npm install --save @electron/remote
-<<| bash PNPM |>>
-$ pnpm add @electron/remote
-<<| bash Bun |>>
-$ bun add @electron/remote
-```
+```js /src-electron/electron-main file
+import {
+  // ...other imports
+  ipcMain // <-- add this
+} from 'electron'
 
-Then, in your `src-electron/main-process/electron-main.js` file, make some edits to these lines:
+function createWindow() {
+  const mainWindow = new BrowserWindow({
+    // ...other settings
+    frame: false // <-- add this
+  })
 
-```js /src-electron/main-process/electron-main
-import { app, BrowserWindow, nativeTheme } from 'electron'
-import { initialize, enable } from '@electron/remote/main' // <-- add this
-import path from 'path'
+  // ...
+}
 
-initialize() // <-- add this
+// Add this function:
+function registerWindowControls() {
+  ipcMain.on('window:minimize', () => {
+    BrowserWindow.getFocusedWindow()?.minimize()
+  })
 
-// ...
-
-mainWindow = new BrowserWindow({
-  width: 1000,
-  height: 600,
-  useContentSize: true,
-  frame: false // <-- add this
-  webPreferences: {
-    sandbox: false // <-- to be able to import @electron/remote in preload script
-    // ...
-  }
-})
-
-enable(mainWindow.webContents) // <-- add this
-
-mainWindow.loadURL(process.env.APP_URL)
-
-// ...
-```
-
-Notice that we need to explicitly enable the remote module too. We'll be using it in the preload script to provide the renderer thread with the window minimize/maximize/close functionality.
-
-### The preload script
-
-Since we can't directly access Electron from within the renderer thread, we'll need to provide the necessary functionality through the electron preload script (`src-electron/main-process/electron-preload.js`). So we edit it to:
-
-```js /src-electron/main-process/electron-preload
-import { contextBridge } from 'electron'
-import { BrowserWindow } from '@electron/remote'
-
-contextBridge.exposeInMainWorld('myWindowAPI', {
-  minimize() {
-    BrowserWindow.getFocusedWindow().minimize()
-  },
-
-  toggleMaximize() {
+  ipcMain.on('window:toggle-maximize', () => {
     const win = BrowserWindow.getFocusedWindow()
+    if (!win) return
 
     if (win.isMaximized()) {
       win.unmaximize()
     } else {
       win.maximize()
     }
-  },
+  })
 
+  ipcMain.on('window:close', () => {
+    BrowserWindow.getFocusedWindow()?.close()
+  })
+}
+
+app.whenReady().then(async () => {
+  registerWindowControls() // <-- call this before createWindow()
+  createWindow()
+  // ...
+})
+```
+
+### The preload script
+
+We will expose our window API to the renderer thread through our `/src-electron/electron-preload` script:
+
+```js /src-electron/electron-preload
+import { contextBridge, ipcRenderer } from 'electron'
+
+// notice "myWindowAPI" (can be anything as long as we reference
+// the same name that we define here in the renderer thread)
+contextBridge.exposeInMainWorld('myWindowAPI', {
+  minimize() {
+    ipcRenderer.send('window:minimize')
+  },
+  toggleMaximize() {
+    ipcRenderer.send('window:toggle-maximize')
+  },
   close() {
-    BrowserWindow.getFocusedWindow().close()
+    ipcRenderer.send('window:close')
   }
 })
 ```
@@ -124,19 +119,19 @@ export default {
   setup() {
     // we rely upon
     function minimize() {
-      if (process.env.MODE === 'electron') {
+      if (import.meta.env.QUASAR_ELECTRON_MODE) {
         window.myWindowAPI.minimize()
       }
     }
 
     function toggleMaximize() {
-      if (process.env.MODE === 'electron') {
+      if (import.meta.env.QUASAR_ELECTRON_MODE) {
         window.myWindowAPI.toggleMaximize()
       }
     }
 
     function closeApp() {
-      if (process.env.MODE === 'electron') {
+      if (import.meta.env.QUASAR_ELECTRON_MODE) {
         window.myWindowAPI.close()
       }
     }
@@ -144,4 +139,24 @@ export default {
     return { minimize, toggleMaximize, closeApp }
   }
 }
+```
+
+We can also hide the header window bar for non-Electron Quasar modes:
+
+```html
+<q-bar v-if="isElectron" class="q-electron-drag">
+  <q-icon name="laptop_chromebook" />
+  <div>Google Chrome</div>
+
+  <q-space />
+
+  <q-btn dense flat icon="minimize" @click="minimize" />
+  <q-btn dense flat icon="crop_square" @click="toggleMaximize" />
+  <q-btn dense flat icon="close" @click="closeApp" />
+</q-bar>
+
+<script setup>
+  const isElectron = import.meta.env.QUASAR_ELECTRON_MODE
+  // ...
+</script>
 ```

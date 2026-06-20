@@ -5,9 +5,9 @@ import {
   mdiCardMultiple,
   mdiFormDropdown,
   mdiFormTextbox,
+  mdiHumanMaleBoard,
   mdiImageSizeSelectSmall,
-  mdiTable,
-  mdiHumanMaleBoard
+  mdiTable
 } from '@quasar/extras/mdi-v7'
 
 export const mostUsedPages = [

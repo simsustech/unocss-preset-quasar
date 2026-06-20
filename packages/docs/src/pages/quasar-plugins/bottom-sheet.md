@@ -16,7 +16,7 @@ Bottom Sheets can be displayed as a list or as a grid, with icons or with avatar
 
 <DocApi file="BottomSheet" />
 
-<DocInstallation plugins="BottomSheet" />
+<DocInstall plugins="BottomSheet" />
 
 ## Usage
 

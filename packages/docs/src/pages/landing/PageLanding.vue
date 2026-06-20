@@ -1,6 +1,6 @@
 <template>
   <div class="landing-page q-px-lg doc-brand">
-    <doc-stars />
+    <DocStars />
 
     <div>
       <div class="column items-center intro-section letter-spacing-300">
@@ -36,7 +36,7 @@
         <div
           class="intro-section__sponsors-heading q-mt-xl text-weight-bold text-brand-primary text-size-16 text-capitalize"
         >
-          Our Platinum sponsors
+          Our Platinum sponsor
         </div>
         <div class="row justify-center full-width">
           <sponsor-tile
@@ -174,16 +174,16 @@
 </template>
 
 <script setup>
-import { useMeta, scroll } from 'quasar'
+import { scroll, useMeta } from 'quasar'
 
-import DocStars from 'src/components/DocStars.vue'
+import DocStars from '@/components/DocStars.vue'
 import SponsorList from './SponsorList.vue'
 import TwitterCards from './TwitterCards.vue'
 import WhyQuasarCard from './WhyQuasarCard.vue'
 import SponsorTile from '../sponsors-and-backers/SponsorTile.vue'
 
-import { socialLinks } from 'src/assets/links.social.js'
-import { sponsors } from 'src/assets/sponsors.js'
+import { socialLinks } from '@/assets/links.social.js'
+import { sponsors } from '@/assets/sponsors.js'
 
 useMeta({
   title: 'Quasar Framework',
@@ -216,7 +216,7 @@ const whyQuasar = [
 
 function goToSection(sectionId) {
   const el = document.getElementById(sectionId)
-  el && scroll.setVerticalScrollPosition(window, el.offsetTop, 400)
+  if (el) scroll.setVerticalScrollPosition(window, el.offsetTop, 400)
 }
 
 const scrollSectionIntoView = {
@@ -277,9 +277,6 @@ $support-quasar-background-padding: 35vw
 
   .sponsors-section
     margin-top: 200px
-
-    @media screen and (min-width: $breakpoint-md-max)
-      height: calc(100vh - $header-height)
 
   .intro-section
     margin-top: 60px

@@ -5,7 +5,7 @@
 <script setup>
 import { useMeta } from 'quasar'
 
-import getMeta from 'assets/get-meta.js'
+import getMeta from '@/assets/get-meta.js'
 
 useMeta({
   title: 'Quasar Framework',

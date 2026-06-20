@@ -23,7 +23,8 @@ This directive morphs one element in a group into another. The morphing is activ
 
 - The "name" and "group" (as directive arg or through the value of the directive) are mandatory.
 - If the value of the directive is in Object form, then "model" is also mandatory.
-  :::
+
+:::
 
 <DocExample title="Morph between multiple elements in a group" file="BasicGroup" />
 

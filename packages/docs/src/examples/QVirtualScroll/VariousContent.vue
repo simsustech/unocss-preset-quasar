@@ -6,7 +6,7 @@
     v-slot="{ item, index }"
   >
     <q-banner
-      v-if="item.banner === true"
+      v-if="item.banner"
       class="bg-black text-white q-py-xl"
       :key="'a' + index"
     >
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-const maxSize = 10000
+const maxSize = 10_000
 const heavyList = []
 
 for (let i = 0; i < maxSize; i++) {

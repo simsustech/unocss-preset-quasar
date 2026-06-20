@@ -67,6 +67,7 @@ export interface QuasarTheme {
       small: string
       medium: string
       large: string
+      extraLarge: string
     }
   }
   colors: {
@@ -1234,7 +1235,8 @@ const defaultTheme: QuasarTheme = {
       extraSmall: '4px',
       small: '8px',
       medium: '12px',
-      large: '16px'
+      large: '16px',
+      extraLarge: '28px'
     }
   },
   colors: {

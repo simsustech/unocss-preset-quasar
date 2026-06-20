@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { useQuasar, QSpinnerGears } from 'quasar'
+import { QSpinnerGears, useQuasar } from 'quasar'
 import { onBeforeUnmount } from 'vue'
 
 export default {

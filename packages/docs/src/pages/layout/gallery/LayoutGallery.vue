@@ -43,5 +43,5 @@
 
 <script setup>
 import { mdiCodeTags, mdiOpenInNew } from '@quasar/extras/mdi-v7'
-import list from 'assets/layout-gallery.js'
+import list from '@/assets/layout-gallery.js'
 </script>

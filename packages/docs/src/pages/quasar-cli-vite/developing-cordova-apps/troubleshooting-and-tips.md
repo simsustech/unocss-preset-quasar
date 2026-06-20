@@ -40,7 +40,7 @@ The environmental variable `ANDROID_HOME` has been deprecated and replaced with 
 
 Some newer Debian-based OS (e.g. ubuntu, elementary OS) might leave you with a `Android SDK not found.` after you installed and (correctly) configured the environment. The output might look similar to this:
 
-```bash
+```
 $ cordova requirements
 
 Requirements check results for android:
@@ -57,27 +57,23 @@ Error: Some of requirements check failed
 This could have two different reasons: Usually the paths aren't configured correctly. The first step is to verify if your paths are set correctly. This can be done by running the following commands:
 
 ```bash
-$ echo $ANDROID_HOME
-
+echo $ANDROID_HOME
 # or
-
-$ echo $ANDROID_SDK_ROOT
+echo $ANDROID_SDK_ROOT
 ```
 
 The expected output should be a path similar to this `$HOME/Android/Sdk`. After this run:
 
 ```bash
-$ ls -la $ANDROID_HOME
-
+ls -la $ANDROID_HOME
 # or
-
-$ ls -la $ANDROID_SDK_ROOT
+ls -la $ANDROID_SDK_ROOT
 ```
 
 To ensure the folder contains the SDK. The expected output should contain folders like 'tools', 'sources', 'platform-tools', etc.
 
 ```bash
-$ echo $PATH
+echo $PATH
 ```
 
 The output should contain each one entry for the Android SDK 'tools'-folder and 'platform-tools'-tools. This could look like this:
@@ -172,7 +168,7 @@ If you find a bug using one of the above methods, do not edit the output files (
 
 ### Device type not found
 
-If you get this error while running `$ quasar dev -m cordova -T ios`:
+If you get this error while running `quasar dev -m cordova -T ios`:
 
 ```
 No target specified for emulator. Deploying to undefined simulator
@@ -182,22 +178,10 @@ Device type "com.apple.CoreSimulator.SimDeviceType.undefined" could not be found
 Then it means you need to specify an emulator. Depending on your Cordova CLI version, here are some examples:
 
 ```bash
-$ quasar dev -m cordova -T ios -e iPhone-X,12.2
+quasar dev -m cordova -T ios -e iPhone-X,12.2
 # or with older versions of Cordova CLI installed on your machine:
-$ quasar dev -m cordova -T ios -e iPhone-X,com.apple.CoreSimulator.SimRuntime.iOS-12-2
+quasar dev -m cordova -T ios -e iPhone-X,com.apple.CoreSimulator.SimRuntime.iOS-12-2
 ```
-
-### Enabling modern build
-
-By default, Xcode modern build for iOS is disabled due to Cordova issues. However, if you know what you are doing and you want to enable it, do so from the `/quasar.config` file:
-
-```js
-cordova: {
-  noIosLegacyBuildFlag: true
-}
-```
-
-The above applies also if you want to specify the build type in your "build.json".
 
 ### iOS remote debugging
 

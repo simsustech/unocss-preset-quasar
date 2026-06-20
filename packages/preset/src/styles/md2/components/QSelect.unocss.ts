@@ -1,10 +1,10 @@
 import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
-import { mdComponent, mdStatic } from '../../_helpers.js'
+import { componentClass, staticClass, qe } from '../../_helpers.js'
 
 const preflights: Preflight<QuasarTheme>[] = [
   {
-    getCSS: ({ theme }) => `
+    getCSS: ({ theme }) => qe`
 body.mobile:not(.native-mobile) .q-select__dialog {
   max-height: calc(100vh - 108px) !important;
 }
@@ -31,31 +31,31 @@ body.platform-ios:not(.native-mobile) .q-dialog__inner--top .q-select__dialog--f
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-select--without-input$/,
-    mdComponent(
+    componentClass(
       'q-select--without-input',
-      `[&_.q-field\\_\\_control]:(cursor-pointer)`
+      qe`[&_.q-field__control]:(cursor-pointer)`
     )
   ],
 
   [
     /^q-select--with-input$/,
-    mdComponent(
+    componentClass(
       'q-select--with-input',
-      `[&_.q-field\\_\\_control]:(cursor-text)`
+      qe`[&_.q-field__control]:(cursor-text)`
     )
   ],
 
   [
     /^q-select$/,
-    mdComponent(
+    componentClass(
       'q-select',
-      `[&_.q-field\\_\\_input]:(!min-w-[50px] cursor-text) [&_.q-field\\_\\_input--padding]:(pl-[4px])`
+      qe`[&_.q-field__native]:(pr-[48px]) [&_.q-field__input]:(!min-w-[50px] cursor-text pr-[48px]) [&_.q-field__input--padding]:(pl-[4px])`
     )
   ],
 
   [
     /^q-select__focus-target$/,
-    mdComponent(
+    componentClass(
       'q-select__focus-target',
       `absolute !outline-0 w-px h-px p-0 border-0 opacity-0`
     )
@@ -63,7 +63,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-select__autocomplete-input$/,
-    mdComponent(
+    componentClass(
       'q-select__autocomplete-input',
       `absolute !outline-0 w-px h-px p-0 border-0 opacity-0`
     )
@@ -71,7 +71,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-select__dropdown-icon$/,
-    mdComponent(
+    componentClass(
       'q-select__dropdown-icon',
       `cursor-pointer [transition:transform_0.28s]`
     )
@@ -79,7 +79,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-select__dialog$/,
-    mdComponent(
+    componentClass(
       'q-select__dialog',
       `!w-[90vw] !max-w-[90vw] !max-h-[calc(100vh-70px)] bg-[#fff] flex flex-col [&_>_.scroll]:(relative [background:inherit])`
     )

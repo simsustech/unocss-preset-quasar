@@ -31,11 +31,13 @@ scope:
 Start developing a Browser Extension with just one command.
 
 ```bash
-$ quasar dev -m bex -T [chrome|firefox]
+quasar dev -m bex -T [chrome|firefox]
 
 # ..or the longer form:
-$ quasar dev --mode bex -T [chrome|firefox]
+quasar dev --mode bex --target [chrome|firefox]
 ```
+
+The default target is `chrome`, so the `-T` param can be ommitted.
 
 You may or may not have already had a `src-bex` folder, but you will definitely have one now. Now that we've created a development environment, we need to load generated browser extension into your browser.
 
@@ -108,11 +110,13 @@ For more information, please visit [Debugging extensions](https://developer.chro
 ## Building for Production
 
 ```bash
-$ quasar build -m bex -T [chrome|firefox]
+quasar build -m bex -T [chrome|firefox]
 
 # ..or the longer form:
-$ quasar build --mode bex -T [chrome|firefox]
+quasar build --mode bex --target [chrome|firefox]
 ```
+
+The default target is `chrome`, so the `-T` param can be ommitted.
 
 You will be instructed which is the output folder. Normally, it's `/dist/bex-chrome/` and `/dist/bex-firefox`, based on the target specified for the "quasar build" command.
 

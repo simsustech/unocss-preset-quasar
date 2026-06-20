@@ -1,10 +1,5 @@
 <template>
-  <router-link
-    v-if="internal === true"
-    v-bind="$attrs"
-    class="doc-link"
-    :to="to"
-  >
+  <router-link v-if="internal" v-bind="$attrs" class="doc-link" :to="to">
     <slot />
   </router-link>
   <a
@@ -25,7 +20,7 @@ import { computed } from 'vue'
 import { mdiLaunch } from '@quasar/extras/mdi-v7'
 
 const props = defineProps({ to: String })
-const internal = computed(() => props.to.charAt(0) === '/')
+const internal = computed(() => props.to[0] === '/')
 </script>
 
 <style lang="sass">

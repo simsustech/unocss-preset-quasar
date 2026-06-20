@@ -33,7 +33,7 @@
     </h2>
 
     <div class="row justify-center q-gutter-md q-mb-xl">
-      <doc-card-link
+      <DocCardLink
         v-for="(entry, cardIndex) in buildTargets"
         :key="cardIndex"
         :to="entry.path"
@@ -57,7 +57,7 @@
             {{ entry.name }}
           </div>
         </q-card>
-      </doc-card-link>
+      </DocCardLink>
     </div>
 
     <h2 class="heading heading--medium q-mb-lg normal-line-height">
@@ -72,7 +72,7 @@
       </div>
 
       <div class="row justify-center q-gutter-md q-mb-lg">
-        <doc-card-link
+        <DocCardLink
           v-for="(entry, cardIndex) in part.options"
           :key="cardIndex"
           :to="entry.path"
@@ -93,19 +93,19 @@
               {{ entry.label }}
             </div>
           </q-card>
-        </doc-card-link>
+        </DocCardLink>
       </div>
     </template>
   </div>
 </template>
 
 <script setup>
-import DocCardLink from 'components/DocCardLink.vue'
+import DocCardLink from '@/components/DocCardLink.vue'
 import {
-  platformIcons,
   buildTargets,
-  ecosystemParts
-} from 'src/assets/links.integrations.js'
+  ecosystemParts,
+  platformIcons
+} from '@/assets/links.integrations.js'
 </script>
 
 <style lang="sass">

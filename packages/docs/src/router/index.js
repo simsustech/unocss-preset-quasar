@@ -1,6 +1,6 @@
 /* global gtag */
 
-import { createRouter, createMemoryHistory, createWebHistory } from 'vue-router'
+import { createMemoryHistory, createRouter, createWebHistory } from 'vue-router'
 
 import routes from './routes'
 
@@ -13,8 +13,8 @@ import routes from './routes'
  * with the Router instance.
  */
 
-export default function () {
-  const createHistory = process.env.SERVER
+export default function appRouter() {
+  const createHistory = import.meta.env.QUASAR_SERVER
     ? createMemoryHistory
     : createWebHistory
 
@@ -22,27 +22,16 @@ export default function () {
     scrollBehavior: (to, _, savedPosition) =>
       to.hash.length > 1 ? false : savedPosition || { left: 0, top: 0 },
     routes,
-    history: createHistory(process.env.VUE_ROUTER_BASE)
+    history: createHistory(import.meta.env.QUASAR_VUE_ROUTER_BASE)
   })
 
-  Router.beforeEach((to, _, next) => {
-    if (to.fullPath.startsWith('/quasar-cli/') === true) {
-      next({
-        path: to.fullPath.replace('/quasar-cli/', '/quasar-cli-webpack/'),
-        query: to.query,
-        hash: to.hash
-      })
-    } else {
-      next()
-    }
-  })
-
-  process.env.CLIENT === true &&
+  if (import.meta.env.QUASAR_CLIENT) {
     Router.afterEach((to) => {
       gtag('config', 'G-WRH1VBGG35', {
         page_path: to.path
       })
     })
+  }
 
   return Router
 }

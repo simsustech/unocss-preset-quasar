@@ -3,667 +3,808 @@ title: Upgrade Guide for Quasar CLI with Vite
 desc: (@quasar/app-vite) How to upgrade Quasar CLI with Vite from older versions to the latest one.
 ---
 
-## @quasar/app-vite v2
+::: warning Important!
+This guide refers to upgrading a @quasar/app-vite v2 project to @quasar/app-vite v3.
+For older versions, please refer to [https://legacy-app.quasar.dev](https://legacy-app.quasar.dev).
+:::
 
-### A note to App Extensions owners
+## A note to App Extensions owners
 
-You might want to release new versions of your Quasar App Extensions with support for the new @quasar/app-vite. If you are not touching the quasar.config configuration, then it will be as easy as just changing the following:
+You might want to release new versions of your Quasar App Extensions with support for the new `@quasar/app-vite`. If you are not touching the quasar.config configuration, then it will be as easy as just changing the following:
 
-```diff
+```js
 api.compatibleWith(
   '@quasar/app-vite',
-- '^1.0.0'
-+ '^1.0.0 || ^2.0.0'
+  '^2.0.0' // [!code --]
+  '^3.0.0-rc.1' // [!code ++]
 )
 ```
 
-### Notable breaking changes
+::: warning
+The changes to the engine behind App Extensions will only be compatible with @quasar/app-vite v3+ going forward. You will have to drop support for @quasar/app-vite v2 and @quasar/app-webpack (any version).
+:::
 
-- Minimum Node.js version is now 18 (mainly due to Vite 6)
-- We have shifted towards an ESM style for the whole Quasar project folder, so many default project files now require ESM code (although using `.cjs` as an extension for these files is supported, but you will most likely need to rename the extension should you not wish to change anything). One example is the `/quasar.config.js` file which now it's assumed to be ESM too (so change from `.js` to `.cjs` should you still want a CommonJs file).
-- The "test" cmd was removed due to latest updates for @quasar/testing-\* packages. See [here](https://testing.quasar.dev/packages/testing/)
-- The "clean" cmd has been re-designed. Type "quasar clean -h" in your upgraded Quasar project folder for more info.
-- TypeScript detection is based on the quasar.config file being in TS form (quasar.config.ts) and tsconfig.json file presence.
-- TypeScript `tsconfig.json` presets have been replaced by an auto-generated `.quasar/tsconfig.json` file. This is more flexible and brings new features, more on this below.
-- feat+refactor(app-vite): ability to run multiple modes + dev/build simultaneously (huge effort!)
-- SSR and Electron modes now build in ESM format.
-- New BEX mode with significant new capabilities and ease of use (includes HMR for Chrome now!).
-- Dropped support for our internal linting system (quasar.config file > eslint). Should use [vite-plugin-checker](https://vite-plugin-checker.netlify.app/) instead.
-- Dropped support for Vuex. [Pinia](https://pinia.vuejs.org/) has been the official store for Vue 3 for a while now. Vuex was deprecated in app-vite v1 and it had problems with the new structure, so it's now removed. You can still use Vuex as any Vue plugin, but you will have to manage everything(installing the store, hydration, no `store` parameter in boot files, etc.) yourself and will not receive any support from Quasar CLI. You will likely have to patch Vuex in order to get it working with TypeScript. We recommend migrating to Pinia.
-- **We will detail more breaking changes for each of the Quasar modes below**.
+Removed `api.engine`, `api.hasVite`, `api.hasWebpack` and `api.hasLint`.
 
-### Highlights on what's new
+All `api.extendX(fn, api)` methods can now be async and optionally return a (Rolldown/etc) config that will be merged with the default one.
 
-Some of the work below has already been backported to the old @quasar/app-vite v1, but posting here for reader's awareness.
+```js api.extendX() example
+api.extendSSRWebserverConf((rolldownConf, api) => {
+  // add/remove/change Quasar CLI generated Rolldown config object
 
-- feat(app-vite): upgrade to Vite 6
-- feat(app-vite): ability to run multiple quasar dev/build commands simultaneously (example: can run "quasar dev -m capacitor" and "quasar dev -m ssr" and "quasar dev -m capacitor -T ios" simultaneously)
-- feat(app-vite): Better TS typings overall
-- refactor(app-vite): port CLI to ESM format (major effort! especially to support Vite 6 and SSR)
-- feat(app-vite): support for quasar.config file in multiple formats (.js, .mjs, .ts, .cjs)
-- feat(app-vite): Improve quasarConfOptions, generate types for it, improve docs (fix: #14069) (#15945)
-- feat(app-vite): reload app if one of the imports from quasar.config file changes
-- feat(app-vite): TS detection should keep account of quasar.config file format too (quasar.config.ts)
-- feat(app-vite): The shorthand CLI command "quasar dev/build -m ios/android" is now targeting Capacitor mode instead of Cordova (2.0.0-beta.12+)
-- feat(app-vite): support for SSR development with HTTPS
-- feat(app-vite): env dotfiles support #15303
-- feat(app-vite): New quasar.config file props: build > envFolder (string) and envFiles (string[])
-- feat(app-vite): reopen browser (if configured so) when changing app url through quasar.config file
-- feat&perf(app-vite): faster & more accurate algorithm for determining node package manager to use
-- feat(app-vite): upgrade deps
-- feat(app-vite): remove workaround for bug in Electron 6-8 in cli templates (#15845)
-- feat(app-vite): remove bundleWebRuntime config for Capacitor v5+
-- feat(app-vite): use workbox v7 by default
-- feat(app-vite): quasar.config > pwa > injectPwaMetaTags can now also be a function: (({ pwaManifest, publicPath }) => string);
-- feat(app-vite): quasar.config > build > htmlMinifyOptions
-- feat(app-vite): lookup open port for vue devtools when being used; ability to run multiple cli instances with vue devtools
-- perf(app-vite): SSR render-template in specific esm or cjs form, according to host project; interpolation by variable
-- perf(app-vite): only verify quasar.conf server address for "dev" cmd
-- feat(app-vite): pick new electron inspect port for each instance
-- feat(app-vite): Electron - can now load multiple preload scripts
-- refactor(app-vite): AE support - better and more efficient algorithms
-- feat(app-vite): AE support for ESM format
-- feat(app-vite): AE support for TS format (through a build step)
-- feat(app-vite): AE API new methods -> hasTypescript() / hasLint() / getStorePackageName() / getNodePackagerName()
-- feat(app-vite): AE -> Prompts API (and ability for prompts default exported fn to be async)
-- refactor(app-vite): the "clean" cmd now works different, since the CLI can be run in multiple instances on the same project folder (multiple modes on dev or build)
-- feat(app-vite): Support for Bun as package manager #16335
-- feat(app-vite): for default /src-ssr template -> prod ssr -> on error, print err stack if built with debugging enabled
-- feat(app-vite): extend build > vitePlugins form (additional { server?: boolean, client?: boolean } param
-- feat+refactor(app-vite): BEX -> Completely rewrote & redesigned the Quasar Bridge (with a ton of new features); Automatically infer the background script file & the content script files from the bex manifest itself; Ability to compile other js/ts files as well that you might need to dynamically load/inject; No more 3s delay when opening the popup; No more "dom" script (use content script directly); The bridge is available globally in App (/src) through the $q object or window.QBexBridge
-- feat(app-vite): BEX with HMR (hot module reload) for Chrome
-- feat(app-vite): support returning overrides from build > extendViteConf
+  // New! Now, optionally, we can also return a config object that will
+  // be merged into the default one
+  return {
+    output: {
+      banner: '/**! My Banner */'
+    }
+  }
+})
+```
 
-### Beginning of the upgrade process
+Many new Index API methods:
+
+```tabs
+<<| ts SSR |>>
+/**
+ * Add/remove/change properties of SSR production generated package.json
+ *
+ * Can be async. Can directly modify the "pkgJson" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendSSRPackageJson: (
+  pkgJson: { [index in string]: any },
+  api: IndexAPI
+) =>
+  | void
+  | { [index in string]: any }
+  | Promise<void | { [index in string]: any }>;
+
+/**
+ * Extend/configure the Workbox GenerateSW options
+ * Specify Workbox options which will be applied on top of
+ *  `pwa > extendPWAGenerateSWOptions()`.
+ *
+ * https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
+ *
+ * Can be async. Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendSSRGenerateSWOptions: (
+  config: GenerateSWOptions,
+  api: IndexAPI
+) => void | GenerateSWOptions | Promise<void | GenerateSWOptions>;
+
+/**
+ * Extend/configure the Workbox InjectManifest options
+ * Specify Workbox options which will be applied on top of
+ *  `pwa > extendPWAInjectManifestOptions()`.
+ *
+ * https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
+ *
+ * Can be async. Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendSSRInjectManifestOptions: (
+  config: InjectManifestOptions,
+  api: IndexAPI
+) => void | InjectManifestOptions | Promise<void | InjectManifestOptions>;
+<<| ts Electron |>>
+/**
+ * Add/remove/change properties of Electron production generated package.json
+ *
+ * Can be async. Can directly modify the "pkgJson" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendElectronPackageJson: (
+  pkgJson: { [index in string]: any },
+  api: IndexAPI
+) =>
+  | void
+  | { [index in string]: any }
+  | Promise<void | { [index in string]: any }>;
+<<| ts PWA |>>
+/**
+ * Should you need some dynamic changes to the /src-pwa/manifest.json,
+ * use this method to do it.
+ *
+ * Can be async. Can directly modify the "json" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendPWAManifestJson: (
+  json: PwaManifestOptions,
+  api: IndexAPI
+) => void | PwaManifestOptions | Promise<void | PwaManifestOptions>;
+
+/**
+ * Extend/configure the Workbox GenerateSW options.
+ *
+ * Can be async. Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendPWAGenerateSWOptions: (
+  config: GenerateSWOptions,
+  api: IndexAPI
+) => void | GenerateSWOptions | Promise<void | GenerateSWOptions>;
+
+/**
+ * Extend/configure the Workbox InjectManifest options.
+ *
+ * Can be async. Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendPWAInjectManifestOptions: (
+  config: InjectManifestOptions,
+  api: IndexAPI
+) => void | InjectManifestOptions | Promise<void | InjectManifestOptions>;
+<<| ts BEX |>>
+/**
+ * Should you need some dynamic changes to the Browser Extension manifest file
+ * (/src-bex/manifest.json) then use this method to do it.
+ *
+ * Can be async. Can directly modify the "json" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendBexManifestJson: (
+  json: object,
+  api: IndexAPI
+) => void | object | Promise<void | object>;
+```
+
+A new `api.logger` (available on all four scripts: Index, Install, Uninstall, Prompts) prints in the Quasar CLI's own output style and tags every line with your extension id. See [api.logger](/app-extensions/development-guide/index-api#api-logger).
+
+There's also new wrappers that `@quasar/app-vite` now supplies for the Index/Prompts/Install/Uninstall scripts. IDE auto-completion, here we come.
+
+The short form of running CLI commands provided by an App Extension has been removed:
+
+```bash
+# works, still good; the way to go!
+quasar run <ext-id> <cmd> [...args]
+
+# this will NO LONGER WORK:
+quasar <ext-id> <cmd> [...args]
+```
+
+And the params for [api.registerCommand()](/app-extensions/common-formulas-and-patterns/provide-cli-commands) have changed.
+
+We've also massively upgraded the dev setup for AEs. You might want to do a top to bottom read of the AE docs again, starting with [AE Development Guide](/app-extensions/development-guide/introduction) and spawn a new AE project folder to take advantage of all the new goodies. **TS variant included!**
+
+## Bird's eye view on what's new
+
+- ⚡ Blazing Fast Compilation: We've replaced esbuild with Rolldown for /src-\* folders and completely redesigned the build architecture. Build steps are now parallelized across all Quasar modes, resulting in significantly faster speeds and a smaller footprint for your production distributables.
+
+- ⚙️ Next-Gen Environment Management: We’ve redesigned env file management from the ground up. You will no longer need to restart the dev server when making changes to these files, and you can now use them directly within your quasar.config file too!
+
+- 🔒 Enhanced Security & Modern Standards: We’ve migrated from `process.env` to the modern `import.meta.env` (aligning with Vite's native model) with full TypeScript support. A new security layer ensures client-side files only use a configurable prefix for env definitions, preventing potential leaks of sensitive data.
+
+- 📦 Smarter Dependency Isolation: We now have a clear separation of dependencies for each Quasar mode. You can install mode-specific packages directly in their respective /src-\* folders. For example, the default Electron app will no longer require dependencies to be installed in its dist folder—only what you explicitly install in /src-electron will be included.
+
+- 🌍 Redesigned SSR Architecture: SSR mode now features superior support for custom web servers and proper TypeScript integration. When adding SSR, the CLI will prompt you to spawn a preconfigured /src-ssr folder using Hono, Fastify, Express, or Koa (let us know what other out-of-the-box servers you’d like!).
+
+- 📂 New Server Assets Folder for SSR: We've introduced a /src-ssr/server-assets folder alongside helpful utility functions. This makes it incredibly easy to reference assets (like HTTPS certificates) across dev and production runtimes, eliminating the strict need for an Apache/Nginx wrapper. We've also made the serverless support a breeze.
+
+- 🚀 Paving the Way for SSG: This new SSR architecture lays the necessary groundwork for us to finally release Static Site Generation (SSG) mode in the future.
+
+- 🖥️ Revamped Electron Mode: We've added lots of new features to make desktop development smoother. Similar to SSR, we've introduced a /src-electron/electron-assets folder. Referencing files from here (or from the /public folder) is now much easier via new utility methods available in both /src-electron and /src.
+
+- 🛣️ Vue Router: First-class support for the [filename-based routing](/quasar-cli-vite/page-routing-with-vue-router#filename-based-routing).
+
+- 🚀 Smarter reloads (when absolutely needed): You'll notice the DX on dev has improved significantly, with even smarter heuristics when changing the quasar.config file or the dotenv files.
+
+- 🛠️ Modernized Core: The codebase has been updated to take full advantage of Node.js v22+ features, alongside countless other small but significant improvements across all Quasar modes to boost your productivity. The CLI uses significantly less dependencies.
+
+## Start the upgrade
 
 ::: tip
-If you are unsure that you won't skip by mistake any of the recommended changes, you can scaffold a new project folder with the @quasar/app-vite v2 at any time and then easily start porting your app from there. The bulk of the changes refer to the different project folder config files and mostly NOT to your /src files.
+If you are unsure that you won't skip by mistake any of the recommended changes, you can scaffold a new project folder with the @quasar/app-vite v3 at any time and then easily start porting your app from there.
 <br><br>
 
 ```tabs
-<<| bash Yarn |>>
-$ yarn create quasar
-<<| bash NPM |>>
-$ npm init quasar@latest
 <<| bash PNPM |>>
-$ pnpm create quasar@latest
+pnpm create quasar@latest
+<<| bash Yarn |>>
+yarn create quasar
+<<| bash NPM |>>
+npm init quasar@latest
 <<| bash Bun |>>
-# experimental support
-$ bun create quasar@latest
+bun create quasar@latest
 ```
 
-<br>
-When asked to "Pick Quasar App CLI variant", answer with: "Quasar App CLI with Vite 6 (v2)".
 :::
 
-Preparations:
-
-- If using the global installation of Quasar CLI (`@quasar/cli`), make sure that you have the latest one. This is due to the support of quasar.config file in multiple formats.
-- Again, we highlight that the minimum supported version of Node.js is now v18 (always use the LTS versions of Node.js - the higher the version the better).
-
-- Edit your `/package.json` on the `@quasar/app-vite` entry and assign it `^2.0.0`:
-
-  ```diff /package.json
-  "devDependencies": {
-  - "@quasar/app-vite": "^1.0.0",
-  + "@quasar/app-vite": "^2.0.0"
-  }
-  ```
-
-  <br>
-  Then yarn/npm/pnpm/bun install.
-  <br><br>
-
-- Convert your `/quasar.config.js` file to the ESM format (which is recommended, otherwise rename the file extension to `.cjs` and use CommonJs format). Also notice the wrappers import change, more on that later.
-
-  ```diff /quasar.config.js file
-  - const { configure } = require('quasar/wrappers')
-  + import { defineConfig } from '#q-app/wrappers'
-
-  - module.export = configure((ctx) => {
-  + export default defineConfig((ctx) => {
-      return {
-        // ...
-      }
-    })
-  ```
-
-  ::: tip Tip on TypeScript
-  You can now write this file in TS too should you wish (rename `/quasar.config.js` to `/quasar.config.ts` -- notice the `.ts` file extension).
-  :::
-
-- Set `type` to `module` in your `/package.json`. Do not overlook this step!
-
-  ```diff /package.json
-  {
-  + "type": "module"
-  }
-  ```
-
-  <br>
-
-  Convert `postcss.config.js` to ESM, if it's not already in ESM format.
-
-  ```js /postcss.config.js
-  import autoprefixer from 'autoprefixer'
-  // import rtlcss from 'postcss-rtlcss'
-
-  export default {
-    plugins: [
-      // https://github.com/postcss/autoprefixer
-      autoprefixer({
-        overrideBrowserslist: [
-          'last 4 Chrome versions',
-          'last 4 Firefox versions',
-          'last 4 Edge versions',
-          'last 4 Safari versions',
-          'last 4 Android versions',
-          'last 4 ChromeAndroid versions',
-          'last 4 FirefoxAndroid versions',
-          'last 4 iOS versions'
-        ]
-      })
-
-      // https://github.com/elchininet/postcss-rtlcss
-      // If you want to support RTL css, then
-      // 1. yarn/pnpm/bun/npm install postcss-rtlcss
-      // 2. optionally set quasar.config.js > framework > lang to an RTL language
-      // 3. uncomment the following line (and its import statement above):
-      // rtlcss()
-    ]
-  }
-  ```
-
-  <br>
-
-- You might want to add the following to your `/.gitignore` file. The `/quasar.config.*.temporary.compiled*` entry refers to files that are left for inspection purposes when something fails with your `/quasar.config` file (and can be removed by the `quasar clean` command):
-
-  ```bash [highlight=8,11] /.gitignore
-  .DS_Store
-  .thumbs.db
-  node_modules
-
-  # Quasar core related directories
-  .quasar
-  /dist
-  /quasar.config.*.temporary.compiled*
-
-  # local .env files
-  .env.local*
-
-  # Cordova related directories and files
-  /src-cordova/node_modules
-  /src-cordova/platforms
-  /src-cordova/plugins
-  /src-cordova/www
-
-  # Capacitor related directories and files
-  /src-capacitor/www
-  /src-capacitor/node_modules
-
-  # Log files
-  npm-debug.log*
-  yarn-debug.log*
-  yarn-error.log*
-
-  # Editor directories and files
-  .idea
-  *.suo
-  *.ntvs*
-  *.njsproj
-  *.sln
-  ```
-
-  <br>
-
-- Make sure to update your `/quasar.config` file with the newest specs in order to satisfy the types. Check all following sections.
-
-- If you've installed the `dotenv` package and are using it in your quasar.config file then uninstall it and use our CLIs native [dotenv support](#the-env-dotfiles-support).
-
-  ```diff /quasar.config file
-  - build: {
-  -  env: require('dotenv').config().parsed
-  - }
-  ```
-
-  <br>
-
-- If you have linting, please review your setup by going to [Linter page](/quasar-cli-vite/linter). You will need to:
-  1. Uninstall all your current linting packages
-  2. Rename `/.eslintrc.cjs` to `/eslint.config.js` (check link above on how the new file should look)
-  3. Port `/.eslintignore` to the new `/eslint.config.js`
-  4. Delete `/.eslintignore`
-  5. Install the new dependencies (check the link above).
-  6. Edit your `/package.json` > scripts > lint:
-     <br><br>
-
-  ```diff /package.json
-  "scripts": {
-  -  "lint": "eslint --ext .js,.ts,.vue ./"
-
-  // for non-TS projects:
-  +  "lint": "eslint -c ./eslint.config.js \"./src*/**/*.{js,cjs,mjs,vue}\""
-  // for TS projects:
-  +  "lint": "eslint -c ./eslint.config.js \"./src*/**/*.{ts,js,cjs,mjs,vue}\""
-  }
-  ```
-
-  <br>
-
-- The types feature flag files will now be auto-generated in the `.quasar` folder. So, you must delete them:
-
-  ```tabs
-  <<| bash rimraf through npx (cross-platform) |>>
-  # in project folder root:
-  $ npx rimraf -g ./src*/*-flag.d.ts
-  $ quasar prepare
-  <<| bash Unix-like (Linux, macOS) |>>
-  # in project folder root:
-  $ rm ./src*/*-flag.d.ts
-  $ quasar prepare
-  ```
-
-  <br>
-
-- We have deprecated all the imports coming from `quasar/wrappers`. You can still use them, but we highly recommend switching to the new `#q-app/wrappers`, as shown below:
-
-  ```diff The wrapper functions
-  - import { configure } from 'quasar/wrappers'
-  + import { defineConfig } from '#q-app/wrappers'
-
-  - import { boot } from 'quasar/wrappers'
-  + import { defineBoot } from '#q-app/wrappers'
-
-  - import { preFetch } from 'quasar/wrappers'
-  + import { definePreFetch } from '#q-app/wrappers'
-
-  - import { route } from 'quasar/wrappers'
-  + import { defineRouter } from '#q-app/wrappers'
-
-  - import { store } from 'quasar/wrappers'
-  + import { defineStore } from '#q-app/wrappers'
-
-  - import { ssrMiddleware } from 'quasar/wrappers'
-  + import { defineSsrMiddleware } from '#q-app/wrappers'
-
-  - import { ssrCreate } from 'quasar/wrappers'
-  + import { defineSsrCreate } from '#q-app/wrappers'
-
-  - import { ssrListen } from 'quasar/wrappers'
-  + import { defineSsrListen } from '#q-app/wrappers'
-
-  - import { ssrClose } from 'quasar/wrappers'
-  + import { defineSsrClose } from '#q-app/wrappers'
-
-  - import { ssrServeStaticContent } from 'quasar/wrappers'
-  + import { defineSsrServeStaticContent } from '#q-app/wrappers'
-
-  - import { ssrRenderPreloadTag } from 'quasar/wrappers'
-  + import { defineSsrRenderPreloadTag } from '#q-app/wrappers'
-  ```
-
-  <br>
-
-- For **non-TS projects**, update your `/jsconfig.json` file. Yes, it contains `tsconfig` in it and it's correct.
-
-  ```json /jsconfig.json
-  {
-    "extends": "./.quasar/tsconfig.json"
-  }
-  ```
-
-  <br>
-
-- For **TypeScript projects**: `@quasar/app-vite/tsconfig-preset` has been dropped, so update your `/tsconfig.json` file to extend the new auto-generated `.quasar/tsconfig.json` file. Unless you really know what you are doing, drop any other configuration and just keep `extends` as the only option in the file.
-
-  ```diff /tsconfig.json
-  {
-  +  "extends": "./.quasar/tsconfig.json"
-  -  "extends": "@quasar/app-vite/tsconfig-preset",
-  -  "compilerOptions": {
-  -    "baseUrl": "."
-  -  },
-  - "include": [ ... ],
-  - "exclude": [ ... ]
-  }
-  ```
-
-  <br>
-
-  The underlying configuration is different now, so please review the new options in the generated file to see if you need further adjustments to your `tsconfig.json` file. Here is an example of the generated tsconfig (non strict) for reviewing purposes:
-  <br>
-
-  ```json /.quasar/tsconfig.json
-  {
-    "compilerOptions": {
-      "esModuleInterop": true,
-      "skipLibCheck": true,
-      "target": "esnext",
-      "allowJs": true,
-      "resolveJsonModule": true,
-      "moduleDetection": "force",
-      "isolatedModules": true,
-      "module": "preserve",
-      "noEmit": true,
-      "lib": [
-        "esnext",
-        "dom",
-        "dom.iterable"
-      ],
-      "paths": { ... }
-    },
-    "exclude": [ ... ]
-  }
-  ```
-
-  <br>
-
-  If you are using ESLint, we recommend enabling `@typescript-eslint/consistent-type-imports` rules in your ESLint configuration. If you don't have linting set up, we recommend using `verbatimModuleSyntax` in your `tsconfig.json` file as an alternative (_unlike ESLint rules, it's not auto-fixable_). These changes will help you unify your imports regarding regular and type-only imports. Please read [typescript-eslint Blog - Consistent Type Imports and Exports: Why and How](https://typescript-eslint.io/blog/consistent-type-imports-and-exports-why-and-how) for more information about this and how to set it up. Here is an example:
-
-  ```js /eslint.config.js
-  rules: {
-    // ...
-    '@typescript-eslint/consistent-type-imports': [
-      'error',
-      { prefer: 'type-imports' },
-    ],
-    // ...
-  }
-  ```
-
-  <br>
-
-  You can use `quasar.config file > build > typescript` to control the TypeScript-related behavior. Add this section into your configuration:
-  <br>
-
-  ```diff /quasar.config.ts
-   build: {
-  +  typescript: {
-  +    strict: true, // (recommended) enables strict settings for TypeScript
-  +    vueShim: true, // required when using ESLint with type-checked rules, will generate a shim file for `*.vue` files
-  +    extendTsConfig (tsConfig) {
-  +      // You can use this hook to extend tsConfig dynamically
-  +      // For basic use cases, you can still update the usual tsconfig.json file to override some settings
-  +    },
-  +  }
-  }
-  ```
-
-  <br>
-
-  Most of the strict options were already enabled in the previous preset. So,
-  you should be able to set the `strict` option to `true` without facing much trouble. But, if you face any issues, you can either update your code to satisfy the stricter rules or set the "problematic" options to `false` in your `tsconfig.json` file, at least until you can fix them.
-
-  `src/quasar.d.ts` and `src/shims-vue.d.ts` files will now be auto-generated in the `.quasar` folder. So, you must delete those files:
-  <br>
-
-  ```tabs
-  <<| bash rimraf through npx (cross-platform) |>>
-  # in project folder root:
-  $ npx rimraf src/quasar.d.ts src/shims-vue.d.ts
-  <<| bash Unix-like (Linux, macOS) |>>
-  # in project folder root:
-  $ rm src/quasar.d.ts src/shims-vue.d.ts
-  ```
-
-  <br>
-
-  If you are using ESLint with type-check rules, enable the `vueShim` option to preserve the previous behavior with the shim file. If your project is working fine without that option, you don't need to enable it.
-  <br>
-
-  ```diff /quasar.config.ts
-  build: {
-    typescript: {
-  +    vueShim: true // required when using ESLint with type-checked rules, will generate a shim file for `*.vue` files
-    }
-  }
-  ```
-
-  <br>
-
-  Thanks to this change, Capacitor dependencies are now properly linked to the project's TypeScript configuration. That means you won't have to install dependencies twice, once in `/src-capacitor` and once in the root folder. So, you can remove the Capacitor dependencies from the root `package.json` file. From now on, installing Capacitor dependencies only in the `/src-capacitor` folder will be enough.
-
-  Another benefit of this change is that folder aliases(`quasar.config file > build > alias`) are automatically recognized by TypeScript. So, you can remove `tsconfig.json > compilerOptions > paths`. If you were using a plugin like `vite-tsconfig-paths`, you can uninstall it and use `quasar.config file > build > alias` as the source of truth.
-
-  Properly running typechecking and linting requires the `.quasar/tsconfig.json` to be present. The file will be auto-generated when running `quasar dev` or `quasar build` commands. But, as a lightweight alternative, there is a new CLI command `quasar prepare` that will generate the `.quasar/tsconfig.json` file and some types files. It is especially useful for CI/CD pipelines.
-  <br>
-
-  ```bash
-  $ quasar prepare
-  ```
-
-  <br>
-
-  You can add it as a `postinstall` script to make sure it's run after installing the dependencies. This would be helpful when someone is pulling the project for the first time.
-  <br>
-
-  ```json /package.json
-  {
-    "scripts": {
-      "postinstall": "quasar prepare"
-    }
-  }
-  ```
-
-  <br>
-
-  If you are using Pinia, we are now augmenting the `router` property inside `.quasar/pinia.d.ts` automatically. So, you can remove the `router` property from the `PiniaCustomProperties` interface in the `src/stores/index.ts` file. It will continue to work as before, but it's recommended to remove it to avoid confusion.
-
-  ```diff /src/stores/index.ts
-  import { defineStore } from '#q-app/wrappers'
-  import { createPinia } from 'pinia'
-  - import { type Router } from 'vue-router';
-
-  /*
-   * When adding new properties to stores, you should also
-   * extend the `PiniaCustomProperties` interface.
-  - * @see https://pinia.vuejs.org/core-concepts/plugins.html#typing-new-store-properties
-  + * @see https://pinia.vuejs.org/core-concepts/plugins.html#Typing-new-store-properties
-   */
-  declare module 'pinia' {
-    export interface PiniaCustomProperties {
-  -    readonly router: Router;
-  +    // add your custom properties here, if any
-    }
-  }
-  ```
-
-### Capacitor / Cordova modes changes
-
-The UI code (`/src`) can now use `process.env.TARGET` (which will be "ios" or "android").
-
-### PWA mode changes
-
-The `register-service-worker` dependency is no longer supplied by the CLI. You will have to install it yourself in your project folder.
-
-```tabs
-<<| bash Yarn |>>
-$ yarn add register-service-worker@^1.0.0
-<<| bash NPM |>>
-$ npm install --save register-service-worker@^1.0.0
-<<| bash PNPM |>>
-$ pnpm add register-service-worker@^1.0.0
-<<| bash Bun |>>
-$ bun add register-service-worker@^1.0.0
+### PNPM related
+
+If you're using PNPM v11, edit your `/pnpm-workspace.yaml` file. No longer needing the shamefullyHoist config.
+
+```yaml /pnpm-workspace.yaml
+# https://pnpm.io/settings
+
+allowBuilds:
+  '@parcel/watcher': true
+  core-js: true
+  electron-winstaller: true
+  esbuild: true
+  lightningcss: true
+  rolldown: true
+  unrs-resolver: true
 ```
 
-Edit your `/src-pwa/custom-service-worker.js` file:
+Also, create a `pnpm-workspace.yaml` file inside `/src-<bex|pwa|electron|ssr>` with this content:
 
-```diff /src-pwa/custom-service-worker.js
-if (process.env.MODE !== 'ssr' || process.env.PROD) {
-  registerRoute(
-    new NavigationRoute(
-      createHandlerBoundToURL(process.env.PWA_FALLBACK_HTML),
--     { denylist: [/sw\.js$/, /workbox-(.)*\.js$/] }
-+     { denylist: [new RegExp(process.env.PWA_SERVICE_WORKER_REGEX), /workbox-(.)*\.js$/] }
-    )
-  )
+```bash /src-<bex|pwa|electron|ssr>/pnpm-workspace.yaml
+# This file exists to force pnpm install deps here, regardless of upper workspaces
+# https://pnpm.io/settings
+```
+
+### /package.json
+
+Edit your `/package.json` on the `@quasar/app-vite` entry:
+
+```json /package.json
+"devDependencies": {
+  "@quasar/app-vite": "^2.0.0", // [!code --]
+  "@quasar/app-vite": "^3.0.0-rc.1" // [!code ++]
 }
 ```
 
-There are some subtle changes in `/quasar.config` file too:
+Make sure you also have Vue Router v5+ too, which is now the minimum version required!
 
-```diff /quasar.config file
+```json /package.json
+"dependencies": {
+  "vue-router": "^5.0.6"
+}
+```
+
+### Global search and replace
+
+Do a global search for `#q-app/wrappers` and replace with `#q-app`.
+
+In an effort to better align with the Vue ecosystem, Quasar CLI now injects only one alias: `@/`. So please do a global search and replace in your code on your `import` statements like below. Alternatively, you can inject the old aliases yourself (take a look below the table to find out how).
+
+| Alias         | Status   | Description                                                                                                             |
+| ------------- | -------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `@/`          | **New!** | Points to `/src` and replaces the old `src` alias.                                                                      |
+| `app/`        | Removed  | Replace import to `@/../`                                                                                               |
+| `src/`        | Removed  | Replace import to `@/`                                                                                                  |
+| `components/` | Removed  | Replace import to `@/components/`                                                                                       |
+| `layouts/`    | Removed  | Replace import to `@/layouts/`                                                                                          |
+| `pages/`      | Removed  | Replace import to `@/pages/`                                                                                            |
+| `assets/`     | Removed  | Replace import to `@/assets/`. Replace `~assets/...` in your .vue files in `<template>` section to `~@/assets/...` too! |
+| `boot/`       | Removed  | Replace code using it by `@/boot/`                                                                                      |
+| `stores/`     | Removed  | Replace code using it by `@/stores/`                                                                                    |
+
+::: tip Alternative to alias changes
+Should you want, you can inject the old aliases yourself and avoid the necessary changes above:
+<br><br>
+
+```js /quasar.config file
+import { defineConfig } from '#q-app'
+
+export default defineConfig((ctx) => ({
+  build: {
+    alias: {
+      src: ctx.appPaths.srcDir,
+      app: ctx.appPaths.appDir,
+      components: ctx.appPaths.resolve.src('components'),
+      layouts: ctx.appPaths.resolve.src('layouts'),
+      pages: ctx.appPaths.resolve.src('pages'),
+      assets: ctx.appPaths.resolve.src('assets'),
+      boot: ctx.appPaths.resolve.src('boot'),
+      stores: ctx.appPaths.resolve.src('stores')
+    }
+  }
+}))
+```
+
+:::
+
+Do a global search for `process.env` and replace with `import.meta.env`. For the Quasar supplied constants, you will need to prefix them with `QUASAR_` too. Here's a list:
+
+```js process.env -> import.meta.env
+// new boolean ones!
+import.meta.env.QUASAR_SPA_MODE
+import.meta.env.QUASAR_PWA_MODE
+import.meta.env.QUASAR_SSR_MODE
+import.meta.env.QUASAR_ELECTRON_MODE
+import.meta.env.QUASAR_BEX_MODE
+import.meta.env.QUASAR_CAPACITOR_MODE
+import.meta.env.QUASAR_CORDOVA_MODE
+
+process.env.DEV // [!code --]
+process.env.PROD // [!code --]
+import.meta.env.QUASAR_DEV
+import.meta.env.QUASAR_PROD
+
+// notice the DEBUGGING -> DEBUG change!
+process.env.DEBUGGING // [!code --]
+import.meta.env.QUASAR_DEBUG
+
+process.env.MODE // [!code --]
+process.env.TARGET // [!code --]
+import.meta.env.QUASAR_MODE
+import.meta.env.QUASAR_TARGET
+
+process.env.CLIENT // [!code --]
+process.env.SERVER // [!code --]
+import.meta.env.QUASAR_CLIENT
+import.meta.env.QUASAR_SERVER
+
+process.env.SERVICE_WORKER_FILE // [!code --]
+process.env.PWA_FALLBACK_HTML // [!code --]
+process.env.PWA_SERVICE_WORKER_REGEX // [!code --]
+import.meta.env.QUASAR_SERVICE_WORKER_FILE
+import.meta.env.QUASAR_PWA_FALLBACK_HTML
+import.meta.env.QUASAR_PWA_SERVICE_WORKER_REGEX
+
+process.env.QUASAR_ELECTRON_PRELOAD_FOLDER // [!code --]
+process.env.APP_URL // [!code --]
+import.meta.env.QUASAR_ELECTRON_PRELOAD_FOLDER
+import.meta.env.QUASAR_APP_URL
+
+// removed; use ".cjs" instead: // [!code --]
+process.env.QUASAR_ELECTRON_PRELOAD_EXTENSION // [!code --]
+```
+
+For the `/index.html` file, instead of relying on the previous "process.env.X", you can now use:
+
+<!-- prettier-ignore -->
+```html
+<!-- old way, REPLACE! -->
+<%= process.env.MY_ENV_VAR_OR_DEFINE %> // [!code --]
+
+<!-- new way: -->
+<%= importMetaEnv.MY_ENV_VAR_OR_DEFINE %> // [!code ++]
+<!-- or shorthand: -->
+%MY_ENV_VAR_OR_DEFINE% // [!code ++]
+
+<% if (importMetaEnv.MY_ENV_VAR_OR_DEFINE) { %>Wow!<% } %>
+```
+
+### Quasar mode package.json
+
+Edit your /package.json file to remove Quasar mode specific dependencies and move them over to new `/src-<mode>/package.json` (create them!):
+
+```tabs /package.json to new /src-<mode>/package.json
+<<| js BEX |>>
+// create /src-bex/package.json: // [!code ++]
+{
+  "name": "quasar-bex-app",
+  "version": "1.0.0",
+  "description": "Quasar BEX Folder",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@types/chrome": "^0.1.40" // for TS only
+  }
+}
+<<| js PWA |>>
+// remove from /package.json // [!code --]
+{
+  "dependencies": {
+    "register-service-worker": "^1.7.2"
+  },
+  "devDependencies": {
+    "workbox-build": "^7.0.0",
+    "workbox-cacheable-response": "^7.0.0",
+    "workbox-core": "^7.0.0",
+    "workbox-expiration": "^7.0.0",
+    "workbox-precaching": "^7.0.0",
+    "workbox-routing": "^7.0.0",
+    "workbox-strategies": "^7.0.0"
+  }
+}
+
+// create /src-pwa/package.json: // [!code ++]
+{
+  "name": "quasar-pwa-app",
+  "version": "1.0.0",
+  "description": "Quasar PWA Folder",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "register-service-worker": "^1.7.2"
+  },
+  "devDependencies": {
+    "workbox-build": "^7.0.0",
+    "workbox-cacheable-response": "^7.0.0",
+    "workbox-core": "^7.0.0",
+    "workbox-expiration": "^7.0.0",
+    "workbox-precaching": "^7.0.0",
+    "workbox-routing": "^7.0.0",
+    "workbox-strategies": "^7.0.0"
+  }
+}
+<<| js Electron |>>
+// remove from /package.json // [!code --]
+{
+  "devDependencies": {
+    "electron": "^42.0.0"
+  }
+}
+
+// create /src-electron/package.json: // [!code ++]
+{
+  "name": "quasar-electron-app",
+  "version": "1.0.0",
+  "description": "Quasar Electron Folder",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "electron": "^42.0.0"
+  }
+}
+<<| js SSR |>>
+// create /src-ssr/package.json: // [!code ++]
+{
+  "name": "quasar-ssr-app-express",
+  "version": "1.0.0",
+  "description": "Quasar SSR server folder",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "express": "^5.0.0",
+    "compression": "^1.8.1",
+    "helmet": "^8.1.0"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.8.1", // for TS only
+    "@types/express": "^5.0.6" // for TS only
+  }
+}
+```
+
+### Notable /quasar.config file changes
+
+Edit your `/quasar.config` file. These are just the important changes that you need to be aware of:
+
+```js /quasar.config file
+build: {
+  rawDefine: {}, // [!code --]
+  define: {}, // values need to be JSON.stringify()
+
+  env: {}, // [!code --]
+  defineEnv: {}, // or long form "define" with 'import.meta.env.' prefix in key
+
+  // change to "true" if needed; defaults to "false" now!
+  vueOptionsAPI,
+
+  // removed; deferring to Vite's default // [!code --]
+  polyfillModulePreload, // [!code --]
+
+  // new! Vue Router v5+ filename-based routing
+  filenameBasedRouting: boolean | VueRouterVitePluginOptions,
+
+  // NOT async, but it can now also return a new config
+  // that will be merged with the default one
+  extendTsConfig: (tsConfig: TSConfig) => void | TSConfig,
+
+  // removed; add your preferred analyzer yourself; // [!code --]
+  // example available below // [!code --]
+  analyze, // [!code --]
+},
+
 sourceFiles: {
-- registerServiceWorker: 'src-pwa/register-service-worker',
-- serviceWorker: 'src-pwa/custom-service-worker',
-+ pwaRegisterServiceWorker: 'src-pwa/register-service-worker',
-+ pwaServiceWorker: 'src-pwa/custom-service-worker',
-+ pwaManifestFile: 'src-pwa/manifest.json',
-  // ...
+  // defaults to: 'src-pwa/register-sw' now!
+  // change file name or set to your current one:
+  pwaRegisterServiceWorker: 'src-pwa/register-service-worker',
+
+  // defaults to 'src-pwa/custom-sw' now!
+  // change file name or set to your current one:
+  pwaServiceWorker: 'src-pwa/custom-service-worker',
+},
+
+cordova: {
+  // no longer available; only modern build system
+  noIosLegacyBuildFlag: true,  // [!code --]
+},
+
+ssr: {
+  extendPackageJson (pkgJson) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendSSRPackageJson (pkgJson) {},
+
+  extendSSRWebserverConf (esbuildConf) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendSSRWebserverConf (rolldownConf) {},
+
+  pwaExtendGenerateSWOptions (conf) {}, // [!code --]
+  pwaExtendInjectManifestOptions (conf) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendSSRGenerateSWOptions (conf) {},
+  // can now be async and optionally return object to be merged with default one
+  extendSSRInjectManifestOptions (conf) {},
 },
 
 pwa: {
-- workboxMode?: "generateSW" | "injectManifest";
-+ workboxMode?: "GenerateSW" | "InjectManifest";
+  // new! NOT async, but it can now also return a new config
+  // that will be merged with the default one
+  extendPWASwTsConfig: (tsConfig: TSConfig) => void | TSConfig,
 
-- // useFilenameHashes: false,
-+ // Moved to quasar.config > build > useFilenameHashes
+  extendManifestJson (json) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendPWAManifestJson (json) {},
 
-  /**
-   * Auto inject the PWA meta tags?
-   * If using the function form, return HTML tags as one single string.
-   * @default true
-   */
-- injectPwaMetaTags?: boolean;
-+ injectPwaMetaTags?: boolean | ((injectParam: InjectPwaMetaTagsParams) => string);
-+ // see below for the InjectPwaMetaTagsParams interface
+  injectPwaMetaTags: boolean, // [!code --]
+  injectPWAMetaTags: boolean,
 
-  // ...
-}
+  extendGenerateSWOptions (conf) {}, // [!code --]
+  extendInjectManifestOptions (conf) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendPWAGenerateSWOptions (conf) {},
+  // can now be async and optionally return object to be merged with default one
+  extendPWAInjectManifestOptions (conf) {},
 
-// additional types for injectPwaMetaTags
-interface InjectPwaMetaTagsParams {
-  pwaManifest: PwaManifestOptions;
-  publicPath: string;
-}
-interface PwaManifestOptions {
-  id?: string;
-  background_color?: string;
-  categories?: string[];
-  description?: string;
-  // ...
-}
-```
-
-### Electron mode changes
-
-::: warning
-The distributables (your production code) will be compiled to ESM form, thus also taking advantage of Electron in ESM form.
-:::
-
-::: tip
-You might want to upgrade the `electron` package to the latest so it can handle the ESM format.
-:::
-
-Most changes refer to editing your `/src-electron/electron-main.js` file:
-
-```diff Icon path
-+import { fileURLToPath } from 'node:url'
-
-+const currentDir = fileURLToPath(new URL('.', import.meta.url))
-
-function createWindow () {
-  mainWindow = new BrowserWindow({
--   icon: path.resolve(__dirname, 'icons/icon.png'), // tray icon
-+   icon: path.resolve(currentDir, 'icons/icon.png'), // tray icon
-    // ...
-  })
-```
-
-```diff Preload script
-import { fileURLToPath } from 'node:url'
-
-const currentDir = fileURLToPath(new URL('.', import.meta.url))
-
-function createWindow () {
-  mainWindow = new BrowserWindow({
-    // ...
-    webPreferences: {
--     preload: path.resolve(__dirname, process.env.QUASAR_ELECTRON_PRELOAD)
-+     preload: path.resolve(
-+       currentDir,
-+       path.join(process.env.QUASAR_ELECTRON_PRELOAD_FOLDER, 'electron-preload' + process.env.QUASAR_ELECTRON_PRELOAD_EXTENSION)
-+     )
-    }
-  })
-```
-
-::: danger
-Edit `/quasar.config.js` to specify your preload script:
-<br><br>
-
-```diff /quasar.config file
-sourceFiles: {
-- electronPreload?: string;
+  extendPWACustomSWConf (esbuildConf) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendPWACustomSWConf (rolldownConf) {},
 },
 
 electron: {
-+ // Electron preload scripts (if any) from /src-electron, WITHOUT file extension
-+ preloadScripts: [ 'electron-preload' ],
+  extendPackageJson (pkgJson) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendElectronPackageJson (pkgJson) {},
+
+  extendElectronMainConf (esbuildConf) {}, // [!code --]
+  extendElectronPreloadConf (esbuildConf) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendElectronMainConf (rolldownConf) {},
+  // can now be async and optionally return object to be merged with default one
+  extendElectronPreloadConf (rolldownConf) {},
+},
+
+bex: {
+  extendBexScriptsConf (esbuildConf) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendBexScriptsConf (rolldownConf) {},
 }
 ```
 
-<br>
-As you can see, you can now specify multiple preload scripts should you need them.
-:::
+Since `build.analyze` has been removed, here is how to manually do it now:
 
-```diff
-- function createWindow () {
-+ async function createWindow () {
-   // ...
--  mainWindow.loadURL(process.env.APP_URL)
-+  if (process.env.DEV) {
-+    await mainWindow.loadURL(process.env.APP_URL)
-+  } else {
-+    await mainWindow.loadFile('index.html')
-+  }
+```tabs Alternatives for build.analyze
+<<| js rollup-plugin-visualizer |>>
+// pnpm/yarn/npm/bun add -D rollup-plugin-visualizer
+// ...and yes, rollup-* as rollup plugins are compatible with Rolldown
+
+import { defineConfig } from '#q-app'
+
+export default defineConfig(ctx => {
+  return {
+    build: {
+      vitePlugins: [
+        ctx.prod
+          ? [
+              "rollup-plugin-visualizer",
+              {
+                open: true,
+                filename: ctx.appPaths.resolve.cache("stats.html")
+              },
+              { client: true }
+            ]
+          : null
+      ]
+    }
+  }
+})
+<<| js vite-bundle-analyzer |>>
+// pnpm/yarn/npm/bun add -D vite-bundle-analyzer
+
+import { defineConfig } from '#q-app'
+import { analyzer } from 'vite-bundle-analyzer'
+
+export default defineConfig(ctx => {
+  return {
+    build: {
+      vitePlugins: [
+        ctx.prod
+          ? [
+              analyzer,
+              {
+                openAnalyzer: true,
+                analyzerMode: "static",
+                fileName: ctx.appPaths.resolve.cache("stats.html")
+              },
+              { client: true }
+            ]
+          : null
+      ]
+    }
+  }
+})
 ```
 
-Finally, the new file should look like this:
+The `ctx` object now includes a logger that prints in the Quasar CLI's own output style. See [Logging via ctx](/quasar-cli-vite/quasar-config-file#logging-via-ctx).
 
-```js The new /src-electron/electron-main.js
+### TypeScript changes
+
+The only `.d.ts` file that you need will be in the root of your project folder:
+
+```ts /env.d.ts
+/**
+ * Add types (that are not auto-magically added by Quasar CLI already)
+ * for your custom variables to avoid TypeScript errors, like dynamic
+ * process.env variables or definitions in dotenv files configured ONLY
+ * for the /quasar.config file itself.
+ *
+ * @example
+ * interface ImportMetaEnv {
+ *   readonly MY_VAR: string;
+ *   readonly MY_OTHER_VAR: string;
+ * }
+ */
+interface ImportMetaEnv {}
+```
+
+You were previously using the following, which needs to be removed from all your `.d.ts` files. It would be a good idea to just have the `/env.d.ts` file defined above.
+
+```ts *env.d.ts
+/**
+ * REMOVE this! No longer needed.
+ * Delete the entire block:
+ */
+declare namespace NodeJS {
+  interface ProcessEnv {
+    NODE_ENV: string
+    VUE_ROUTER_MODE: 'hash' | 'history' | 'abstract' | undefined
+    VUE_ROUTER_BASE: string | undefined
+    // ...along with any other previously Quasar needed defines
+  }
+}
+```
+
+You can read about [Handling import.meta.env](/quasar-cli-vite/handling-import-meta-env). Highly recommended as it will show you all the new goodies.
+
+### Install new deps
+
+Then pnpm/yarn/npm/bun install in the root folder and run `quasar prepare`. Restart your IDE to make sure the new dependencies have been correctly picked up.
+
+Make sure to update your `/quasar.config` file with the newest specs in order to satisfy the types. Check all following sections.
+
+## Notable breaking changes
+
+- All imports from `#q-app/wrappers` need to be replaced with `#q-app`. Do a global search and replace.
+- Switched from `process.env` to the modern `import.meta.env`. [Link](/quasar-cli-vite/handling-import-meta-env)
+- /quasar.config > build > vueOptionsAPI is now `false` by default
+- /quasar.config > build > polyfillModulePreload (removed and now defaulting to Vite's own config for this)
+- /index.html -> new [HTML Constant Replacement](/quasar-cli-vite/handling-import-meta-env#html-constant-replacement). `<% if (process.env.X) %>` will no longer work.
+- New [dotenv files support](/quasar-cli-vite/handling-import-meta-end#more-on-dotenv-files), including for the `/quasar.config` file itself. By default, Quasar CLI will only look for `.env` and `.env.local`, but you can add other files as well to support the ones with prod/dev/mode suffixes.
+- /quasar.config > `env` is now used by the new dotenv support. Dropped `build > rawDefine` as well. Use the new build > `define` & `defineEnv` instead. [Link](/quasar-cli-vite/handling-import-meta-env#adding-to-import-meta-env)
+- Boot files & preFetch > redirect() usage has changed. Need to return immediately after calling it. No longer supporting throwing an error (or returning a Promise) with the `{ url }` syntax. Directly use `redirect()` instead.
+- The /quasar.config file can come with `.js` or `.ts` extensions only. Dropped support for `.cjs`, `.mjs`, `.cts` and `.mts`.
+- All Quasar Modes now need to install their specific dependencies directly under their `/src-<mode>` folder.
+- Replaced `esbuild` tool with `Rolldown` for all the specific Quasar mode files (under their `/src-<mode>` folders). This also has impact over all the /quasar.config `extendX()` methods, as they will now receive a Rolldown config object.
+- All /quasar.config `extendX()` methods can now be async and optionally return a (Rolldown/etc) config that will be merged with the default one.
+- Dropped support for Capacitor v4 and below
+- Dropped support for `@electron/packager` v18 and below
+- Cordova with iOS now uses the modern build system. The `noIosLegacyBuildFlag` has been removed.
+- The "quasar dev -m cordova" command now opens up the corresponding IDE instead (just like Capacitor mode)
+- The "quasar dev/build -m bex" command now defaults to "chrome" target, so the `-t|--target` option can be ommitted.
+
+## Electron mode changes
+
+We are introducing `quasarRuntime`. [More info](/quasar-cli-vite/developing-electron-apps/electron-accessing-files).
+
+Move your `/src-electron/icons` to `/src-electron/electron-assets/icons` (create the new `electron-assets` folder).
+
+### Preload script
+
+```js /src-electron/electron-preload (Optional!)
+/**
+ * Only one preload script should contain this
+ */
+
+import { contextBridge } from 'electron'
+import { quasarRuntime } from '#q-app/electron/preload'
+
+/**
+ * Can be used in the renderer process through `window.quasarRuntime`
+ */
+contextBridge.exposeInMainWorld('quasarRuntime', quasarRuntime)
+```
+
+### Main script
+
+And you might also want to update your `/src-electron/electron-main` script:
+
+```tabs /src-electron/electron-main
+<<| js Diff |>>
+import { fileURLToPath } from 'url' // [!code --]
+const currentDir = fileURLToPath(new URL('.', import.meta.url)) // [!code --]
+
+import {
+  registerQuasarRuntime,
+  resolveElectronAssetsPath
+} from "#q-app/electron/main"
+
+let mainWindow: BrowserWindow | undefined; // [!code --]
+async function createWindow() { // [!code --]
+  mainWindow = new BrowserWindow({ // [!code --]
+    icon: path.resolve(currentDir, 'icons/icon.png'), // tray icon // [!code --]
+    webPreferences: { // [!code --]
+      preload: path.resolve( // [!code --]
+        currentDir, // [!code --]
+        path.join(process.env.QUASAR_ELECTRON_PRELOAD_FOLDER, 'electron-preload' + process.env.QUASAR_ELECTRON_PRELOAD_EXTENSION) // [!code --]
+      ), // [!code --]
+    }, // [!code --]
+async function createWindow() {
+  const mainWindow = new BrowserWindow({
+    icon: resolveElectronAssetsPath("icons/icon.png"), // linux
+    webPreferences: {
+      preload: path.join(import.meta.dirname, "electron-preload.cjs")
+    },
+
+   if (process.env.DEV) { // [!code --]
+     await mainWindow.loadURL(process.env.APP_URL); // [!code --]
+   } // [!code --]
+   if (import.meta.env.QUASAR_DEV) {
+     await mainWindow.loadURL(import.meta.env.QUASAR_APP_URL);
+   }
+
+   mainWindow.on('closed', () => { // [!code --]
+     mainWindow = undefined; // [!code --]
+   }); // [!code --]
+}
+
+void app.whenReady().then(createWindow); // [!code --]
+app.on('window-all-closed', () => { // [!code --]
+  if (platform !== 'darwin') { // [!code --]
+    app.quit(); // [!code --]
+  } // [!code --]
+}); // [!code --]
+app.on('activate', () => { // [!code --]
+  if (mainWindow === undefined) { // [!code --]
+    void createWindow(); // [!code --]
+  } // [!code --]
+}); // [!code --]
+void app.whenReady().then(async () => {
+  await registerQuasarRuntime();
+  void createWindow();
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      void createWindow();
+    }
+  });
+});
+app.on("window-all-closed", () => {
+  if (platform !== "darwin") {
+    app.quit();
+  }
+});
+<<| js Full (JS) |>>
 import { app, BrowserWindow } from 'electron'
 import path from 'node:path'
 import os from 'node:os'
-import { fileURLToPath } from 'node:url'
+import {
+  registerQuasarRuntime,
+  resolveElectronAssetsPath
+} from '#q-app/electron/main'
 
 // needed in case process is undefined under Linux
 const platform = process.platform || os.platform()
 
-const currentDir = fileURLToPath(new URL('.', import.meta.url))
-
-let mainWindow
-
-async function createWindow() {
+async function createWindow () {
   /**
    * Initial window options
    */
-  mainWindow = new BrowserWindow({
-    icon: path.resolve(currentDir, 'icons/icon.png'), // tray icon
+  const mainWindow = new BrowserWindow({
+    icon: resolveElectronAssetsPath('icons/icon.png'), // linux
     width: 1000,
     height: 600,
     useContentSize: true,
     webPreferences: {
       contextIsolation: true,
-      // More info: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/electron-preload-script
-      preload: path.resolve(
-        currentDir,
-        path.join(
-          process.env.QUASAR_ELECTRON_PRELOAD_FOLDER,
-          'electron-preload' + process.env.QUASAR_ELECTRON_PRELOAD_EXTENSION
-        )
-      )
+      // https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/electron-preload-script
+      preload: path.join(import.meta.dirname, 'electron-preload.cjs')
     }
   })
 
-  if (process.env.DEV) {
-    await mainWindow.loadURL(process.env.APP_URL)
+  if (import.meta.env.QUASAR_DEV) {
+    await mainWindow.loadURL(import.meta.env.QUASAR_APP_URL)
   } else {
     await mainWindow.loadFile('index.html')
   }
 
-  if (process.env.DEBUGGING) {
+  if (import.meta.env.QUASAR_DEBUG) {
     // if on DEV or Production with debug enabled
     mainWindow.webContents.openDevTools()
   } else {
@@ -672,802 +813,335 @@ async function createWindow() {
       mainWindow.webContents.closeDevTools()
     })
   }
-
-  mainWindow.on('closed', () => {
-    mainWindow = null
-  })
 }
 
-app.whenReady().then(createWindow)
+void app.whenReady().then(async () => {
+  await registerQuasarRuntime()
+
+  createWindow()
+
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow()
+    }
+  })
+})
 
 app.on('window-all-closed', () => {
   if (platform !== 'darwin') {
     app.quit()
   }
 })
+<<| ts Full (TypeScript) |>>
+import { BrowserWindow, app } from "electron";
+import path from "node:path";
+import os from "node:os";
+import {
+  registerQuasarRuntime,
+  resolveElectronAssetsPath
+} from "#q-app/electron/main";
 
-app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow()
-  }
-})
-```
+// needed in case process is undefined under Linux
+const platform = process.platform || os.platform();
 
-### SSR mode changes
-
-::: warning
-The distributables (your production code) will be compiled to ESM form.
-:::
-
-```diff /src-ssr/middlewares/*
-- import { ssrMiddleware } from 'quasar/wrappers'
-+ import { defineSsrMiddleware } from '#q-app/wrappers'
-
-- export default ssrMiddleware({
-+ export default defineSsrMiddleware(({
-  app,
-  port,
-  resolve,
-  publicPath,
-  folders,
-  render,
-  serve
-}) => {
-  // something to do with the server "app"
-})
-```
-
-The other changes refer to editing your `/src-ssr/server.js` file. Since you can now use HTTPS while developing your app too, you need to make the following changes to the file:
-
-```diff /src-ssr/server.js > listen
-- import { ssrListen } from 'quasar/wrappers'
-+ import { defineSsrListen } from '#q-app/wrappers'
-
-- export const listen = ssrListen(async ({ app, port, isReady }) => {
-+ // notice: devHttpsApp param which will be a Node httpsServer (on DEV only) and if https is enabled
-+ // notice: no "isReady" param (starting with 2.0.0-beta.16+)
-+ // notice: defineSsrListen() param can still be async (below it isn't)
-+ export const listen = defineSsrListen(({ app, devHttpsApp, port }) => {
--   await isReady()
--   return app.listen(port, () => {
-+   const server = devHttpsApp || app
-+   return server.listen(port, () => {
-      if (process.env.PROD) {
-        console.log('Server listening at port ' + port)
-      }
-    })
-  })
-```
-
-Finally, this is how it should look like now:
-
-```js /src-ssr/server.js > listen
-import { defineSsrListen } from '#q-app/wrappers'
-export const listen = defineSsrListen(({ app, devHttpsApp, port }) => {
-  const server = devHttpsApp || app
-  return server.listen(port, () => {
-    if (process.env.PROD) {
-      console.log('Server listening at port ' + port)
+async function createWindow() {
+  /**
+   * Initial window options
+   */
+  const mainWindow = new BrowserWindow({
+    icon: resolveElectronAssetsPath("icons/icon.png"), // linux
+    width: 1000,
+    height: 600,
+    useContentSize: true,
+    webPreferences: {
+      contextIsolation: true,
+      // https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/electron-preload-script
+      preload: path.join(import.meta.dirname, "electron-preload.cjs")
     }
-  })
-})
-```
+  });
 
-For a serverless approach, this is how the "listen" part should look like:
-
-```js /src-ssr/server.js > listen
-export const listen = defineSsrListen(({ app, devHttpsApp, port }) => {
-  if (process.env.DEV) {
-    const server = devHttpsApp || app
-    return server.listen(port, () => {
-      console.log('Server listening at port ' + port)
-    })
+  if (import.meta.env.QUASAR_DEV) {
+    await mainWindow.loadURL(import.meta.env.QUASAR_APP_URL);
   } else {
-    // in production
-    // return an object with a "handler" property
-    // that the server script will named-export
-    return { handler: app }
+    await mainWindow.loadFile("index.html");
   }
-})
-```
 
-Next, the `serveStaticContent` function has changed:
-
-```diff /src-ssr/server.js > serveStaticContent
-- import { serveStaticContent }
-+ import { defineSsrServeStaticContent } from '#q-app/wrappers'
-
-- export const serveStaticContent = ssrServeStaticContent((path, opts) => {
--  return express.static(path, { maxAge, ...opts })
-- })
-
-+ /**
-+ * Should return a function that will be used to configure the webserver
-+ * to serve static content at "urlPath" from "pathToServe" folder/file.
-+ *
-+ * Notice resolve.urlPath(urlPath) and resolve.public(pathToServe) usages.
-+ *
-+ * Can be async: defineSsrServeStaticContent(async ({ app, resolve }) => {
-+ * Can return an async function: return async ({ urlPath = '/', pathToServe = '.', opts = {} }) => {
-+ */
-+ export const serveStaticContent = defineSsrServeStaticContent(({ app, resolve }) => {
-+  return ({ urlPath = '/', pathToServe = '.', opts = {} }) => {
-+    const serveFn = express.static(resolve.public(pathToServe), { maxAge, ...opts })
-+    app.use(resolve.urlPath(urlPath), serveFn)
-+  }
-+ })
-```
-
-Also, the `renderPreloadTag()` function can now take an additional parameter (`ssrContext`):
-
-```diff /src-ssr/server.js
-- import { ssrRenderPreloadTag } from 'quasar/wrappers'
-+ import { defineSsrRenderPreloadTag } from '#q-app/wrappers'
-
-+ export const renderPreloadTag = defineSsrRenderPreloadTag((file, { ssrContext }) => {
-+  // ...
-+ })
-```
-
-For TS devs, you should also make a small change to your /src-ssr/middlewares files, like this:
-
-```diff For TS devs
-+ import { type Request, type Response } from 'express';
-// ...
-- app.get(resolve.urlPath('*'), (req, res) => {
-+ app.get(resolve.urlPath('*'), (req: Request, res: Response) => {
-```
-
-There are some additions to the `/quasar.config` file too:
-
-```diff /quasar.config file
-ssr: {
-  // ...
-
-  /**
-   * When using SSR+PWA, this is the name of the
-   * PWA index html file that the client-side fallbacks to.
-   * For production only.
-   *
-   * Do NOT use index.html as name as it will mess SSR up!
-   *
-   * @default 'offline.html'
-   */
-- ssrPwaHtmlFilename?: string;
-+ pwaOfflineHtmlFilename?: string;
-
-  /**
-   * Tell browser when a file from the server should expire from cache
-   * (the default value, in ms)
-   * Has effect only when server.static() is used
-   */
-- maxAge?: number;
-
-  /**
-   * Extend/configure the Workbox GenerateSW options
-   * Specify Workbox options which will be applied on top of
-   *  `pwa > extendGenerateSWOptions()`.
-   * More info: https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
-   */
-+ pwaExtendGenerateSWOptions?: (config: object) => void;
-
-  /**
-   * Extend/configure the Workbox InjectManifest options
-   * Specify Workbox options which will be applied on top of
-   *  `pwa > extendInjectManifestOptions()`.
-   * More info: https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
-   */
-+ pwaExtendInjectManifestOptions?: (config: object) => void;
+  if (import.meta.env.QUASAR_DEBUG) {
+    // if on DEV or Production with debug enabled
+    mainWindow.webContents.openDevTools();
+  } else {
+    // we're on production; no access to devtools pls
+    mainWindow.webContents.on("devtools-opened", () => {
+      mainWindow?.webContents.closeDevTools();
+    });
+  }
 }
+
+void app.whenReady().then(async () => {
+  await registerQuasarRuntime();
+
+  void createWindow();
+
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      void createWindow();
+    }
+  });
+});
+
+app.on("window-all-closed", () => {
+  if (platform !== "darwin") {
+    app.quit();
+  }
+});
 ```
 
-### Bex mode changes
+### Other Electron Mentions
 
-There are quite a few improvements:
+- Don't forget to look over the [Installing Electron Dependencies](/quasar-cli-vite/developing-electron-apps/installing-electron-dependencies) page.
+- You might want to check out the updated [Frameless Electron Window](/quasar-cli-vite/developing-electron-apps/frameless-electron-window) page.
 
-- **The BEX mode now has HMR (hot module reload)!!!** (Chrome only)
-- Completely rewrote & redesigned the Quasar Bridge to allow for:
-  - Sending/receiving messages directly between any part of your bex (app, content scripts, background)
-  - Ability to skip using the bridge altogether
-  - Error handling for sending & receiving messages through the bridge
-  - Better handling of internal resources to avoid memory leaks (there were some edge cases in the previous implementation)
-  - Debug mode (where all the bridge communication will be outputted to the browser console)
-  - Breaking changes highlights: background & content scripts initialization of the bridge; bride.on() calls when responding; bridge.send() calls
-  - The bridge is now available throughout the App in `/src/` (regardless of the file used: boot files, router init, App.vue, any Vue component, ...) by accessing the `$q object` or `window.QBexBridge`
-- One single manifest file from which both chrome & firefox ones can be extracted.
-- Automatically infer the background script file & the content script files from the BEX manifest file.
-- Ability to compile other js/ts files as well that you might need to dynamically load/inject.
-- No more 3s delay when opening the popup.
-- The "dom" script support was removed. Simply move your logic from there into one of your content scripts.
-- New, easier API for the background/content scripts.
+## SSR mode changes
 
-#### Dependencies
+We've added way better support for non-Express.js webservers and highly improved typings. When the SSR mode is added to a project, the Quasar CLI will ask what webserver you would like to use. You can pick from Hono/Express.js/Fastify/Koa.
 
-The `events` dependency is no longer required. If you have it installed, uninstall it:
+Instead of diffing here, you might want to check the next pages (even if you still want to stay with Express.js):
+
+- [Installing SSR Dependencies](/quasar-cli-vite/developing-ssr/installing-ssr-dependencies)
+- Webserver: check out examples with Hono/Express/Fastify/Koa: [SSR Webserver](/quasar-cli-vite/developing-ssr/ssr-webserver); or remove and add SSR mode again.
+- Middlewares: check out examples with Hono/Express/Fastify/Koa: [SSR Middleware](/quasar-cli-vite/developing-ssr/ssr-middleware); or remove and add SSR mode again.
+- Check out the [SSR Handling of 404 and 500 Errors](/quasar-cli-vite/developing-ssr/handling-404-and-500-errors) page.
+- If using a serverless architecture, then check out the new [Serverless](/quasar-cli-vite/developing-ssr/ssr-webserver#serverless) section in SSR Webserver page.
+- You might also want to use thew new `/src-ssr/server-assets` folder (create it). This is copied as-is to dist and can be used in dev too, through `resolve.serverAssets()` or `folders.serverAssets`.
+- One more thing to note, for SSR middlewares: `serve.error()` has been changed to `serve.devError()` (with new params).
+
+## PWA mode changes
+
+### `/src-pwa/sw/` subfolder for the service worker
+
+The service worker and the PWA-specific `tsconfig.json` (for TypeScript projects) now lives inside `/src-pwa/sw/`. The main-thread file `register-sw.{js,ts}` stays at the `/src-pwa/` root.
+
+Background: TypeScript does NOT pick up nested `tsconfig.json` files when running `tsc`/`vue-tsc` from the project root, so the previous flat layout (`src-pwa/custom-sw.ts` + sibling `tsconfig.json`) produced false errors like `Property 'skipWaiting' does not exist on type 'ServiceWorkerGlobalScope'`. Also, you could not use DOM types (e.g., `location.reload()`) inside the register service worker script when it works perfectly in runtime. Quasar's generated `.quasar/tsconfig.json` now auto-excludes `/src-pwa/sw/` so root tsc/vue-tsc skip it, it is checked separately, and the nested tsconfig handles SW typing in the IDE as before.
+
+Migration steps:
+
+1. Create `/src-pwa/sw/`.
+2. Move `/src-pwa/custom-sw.{js,ts}` -> `/src-pwa/sw/custom-sw.{js,ts}`.
+3. TS only: move `/src-pwa/tsconfig.json` -> `/src-pwa/sw/tsconfig.json` then replace the contents with a thin pointer to the Quasar-generated SW config:
+
+   ```json /src-pwa/sw/tsconfig.json
+   {
+     "extends": "../../.quasar/tsconfig.pwa-sw.json"
+   }
+   ```
+
+   <br>
+   The generated `.quasar/tsconfig.pwa-sw.json` handles the WebWorker lib swap and the scoped include/exclude. If you had custom settings in your old `src-pwa/tsconfig.json`, you can use `quasar.config file > pwa > extendPWASwTsConfig` to customize the generated one. See [PWA with TypeScript](/quasar-cli-vite/developing-pwa/pwa-with-typescript) for more information.
+   <br><br>
+
+4. Update your ESLint config glob:
+
+   ```js
+   {
+     files: ['src-pwa/custom-service-worker.ts'], // [!code --]
+     files: ['src-pwa/sw/**/*.ts'], // [!code ++]
+     languageOptions: {
+       globals: {
+         ...globals.serviceworker
+       }
+     }
+   }
+   ```
+
+   <br>
+
+5. If you set `sourceFiles.pwaServiceWorker` explicitly in `quasar.config`, update it:
+
+   ```js
+   sourceFiles: {
+     pwaServiceWorker: 'src-pwa/custom-service-worker', // [!code --]
+     pwaServiceWorker: 'src-pwa/sw/custom-sw', // [!code ++]
+   }
+   ```
+
+   <br>
+   If you don't set it, the new default kicks in automatically.
+   <br><br>
+
+6. (Optional) TypeScript + ESLint only: to type-check the SW during dev/build, add a `typescript` entry to your `vite-plugin-checker` options (alongside `vueTsc: true`):
+
+<!-- prettier-ignore -->
+```js /quasar.config.ts
+vitePlugins: [
+  [
+    'vite-plugin-checker',
+    {
+      vueTsc: true,
+      typescript: { // [!code ++]
+        tsconfigPath: './src-pwa/sw/tsconfig.json' // [!code ++]
+      } // [!code ++]
+      // ...
+    },
+    { server: false }
+  ]
+]
+```
+
+7. (Optional) TypeScript: add a `package.json` script to check both root and SW types:
+
+   ```json /package.json
+   "scripts": {
+    "typecheck": "vue-tsc --noEmit && tsc --project src-pwa/sw/tsconfig.json --noEmit", // [!code ++]
+     // ...
+   }
+   ```
+
+## Capacitor mode changes
+
+### capacitor.config in js/ts form
+
+The new @quasar/app-vite adds support for `capacitor.config.js` and `capacitor.config.ts` files, and drops support for `capacitor.config.json`. The .js and .ts variants are much more flexible and do not have the git noise of the .json one, which was being rewritten on every "quasar dev" / "quasar build" with relevant fields. You must migrate to `capacitor.config.ts` (for TypeScript projects) or `capacitor.config.js` (for JS projects) before upgrading, more details below.
+
+The "quasar mode add capacitor" command now scaffolds `capacitor.config.js` for JS projects, or a `capacitor.config.ts` for TypeScript projects. See [Configuring Capacitor](/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor) for more information. Config files use the new `defineCapacitorConfig` helper from "@quasar/app-vite/capacitor":
 
 ```tabs
-<<| bash Yarn |>>
-$ yarn remove events
-<<| bash NPM |>>
-$ npm uninstall --save events
-<<| bash PNPM |>>
-$ pnpm remove events
-<<| bash Bun |>>
-$ bun remove events
+<<| js /src-capacitor/capacitor.config.js |>>
+const { defineCapacitorConfig } = require('@quasar/app-vite/capacitor')
+
+module.exports = defineCapacitorConfig({
+  appId: 'org.example.app',
+  appName: 'My App'
+})
+<<| ts /src-capacitor/capacitor.config.ts |>>
+import { defineCapacitorConfig } from '@quasar/app-vite/capacitor';
+
+export default defineCapacitorConfig({
+  appId: 'org.example.app',
+  appName: 'My App'
+});
 ```
 
-#### CLI commands
+The helper defaults `webDir` to `'www'`, injects `server.url` (and `server.cleartext: true` on Android) in dev mode, and types your input against CapacitorConfig from "@capacitor/cli". Your own values always win, and the source file isn't mutated. Inside the config, `import.meta.env.QUASAR_DEV`, `QUASAR_TARGET`, `QUASAR_APP_URL`, and your own `.env` / `build.env` values are available. Read [Configuring Capacitor](/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor#reading-env-values) for more information.
 
-The `quasar dev` and `quasar build` commands now require an explicit target (chrome or firefox). Should you wish to develop for both simultaneously, then you can spawn two quasar dev commands.
+To migrate from ".json", replace the file with a `defineCapacitorConfig({...})` call carrying the same fields. `webDir` can be dropped:
+
+```tabs Migrating from capacitor.config.json
+<<| json capacitor.config.js (JS projects) |>>
+{ // [!code --]
+  "appId": "org.example.app", // [!code --]
+  "appName": "My App", // [!code --]
+  "webDir": "www" // [!code --]
+} // [!code --]
+const { defineCapacitorConfig } = require('@quasar/app-vite/capacitor');
+
+module.exports = defineCapacitorConfig({
+  appId: 'org.example.app',
+  appName: 'My App'
+});
+<<| ts capacitor.config.ts (TS projects) |>>
+{ // [!code --]
+  "appId": "org.example.app", // [!code --]
+  "appName": "My App", // [!code --]
+  "webDir": "www" // [!code --]
+} // [!code --]
+import { defineCapacitorConfig } from '@quasar/app-vite/capacitor';
+
+export default defineCapacitorConfig({
+  appId: 'org.example.app',
+  appName: 'My App'
+});
+```
+
+### Removed: quasar.config > capacitor.{appName, version, description}
+
+Three fields under quasar.config > capacitor are gone. None of them did what they appeared to.
+
+The `version` and `description` were never read by the Capacitor CLI, neither from capacitor.config.\* nor from src-capacitor/package.json. iOS and Android take their versions from android/app/build.gradle (`versionName` / `versionCode`) and ios/App/App/Info.plist (CFBundleShortVersionString / CFBundleVersion). Edit those directly when bumping for a store release. See [Publishing to Store](/quasar-cli-vite/developing-capacitor-apps/publishing-to-store).
+
+The `appName` had some effect, but it was limited. Capacitor writes it into Info.plist's "CFBundleDisplayName" (iOS) and "strings.xml" > app_name (Android), but only at "cap add" time. The "cap sync" and "cap copy" commands don't re-run that step, so a quasar.config file field suggested a live setting it wasn't. It's now captured via a prompt during "quasar mode add capacitor", written into the scaffolded capacitor.config.\*, and applied to the native projects when you add the platform. Later renames happen by editing Info.plist and strings.xml directly, or by removing and re-adding the platform.
+
+If you were setting any of these, remove them:
+
+```js /quasar.config file
+capacitor: {
+  appName: 'My App', // [!code --]
+  version: '1.2.0', // [!code --]
+  description: 'My great app' // [!code --]
+  // hideSplashscreen, capacitorCliPreparationParams remain
+}
+```
+
+### src-capacitor/package.json no longer rewritten
+
+Quasar used to overwrite "name", "version", "description", and "author" in src-capacitor/package.json on every "quasar dev/build" command. Capacitor's CLI doesn't read most of that, so the rewrites were churn for no benefit (and noise in git). New projects scaffold a static `quasar-capacitor-app` / `1.0.0` template. Existing projects can update theirs to match, or leave it alone. Quasar won't touch it either way.
+
+## Other considerations
+
+### Switching to Oxlint and Oxfmt
+
+You may also want to switch your linting and formatting to `oxlint` and `oxfmt`. In our opinion, this is the future anyway. At some point in the near future, Quasar's project scaffolding package will only offer this for linting.
+
+As of writing these lines, the support for `.vue` files is not yet fully ready, but you will still be able to enjoy it a lot.
+
+[More info](/quasar-cli-vite/lint-and-format-code#oxlint-oxfmt)
+
+### Filename-based routing with Vue Router v5+
+
+We now have first-class support for Vue Router's filename-based routing. You might want to [give it a try](/quasar-cli-vite/page-routing-with-vue-router#filename-based-routing).
+
+### Upgrade to @quasar/extras v2
+
+Optionally (but highly recommended) also upgrade to the new `@quasar/extras` v2: [Release notes](https://github.com/quasarframework/quasar/releases/tag/%40quasar%2Fextras-v2.0.0).
+
+### New CLI command options
+
+#### For all commands: --no-color
+
+By default, all CLI commands output colored text in the terminal (when not running in a CI environment). Should you wish to avoid this, use the `--no-color` when you run any of the CLI commands.
+
+#### For build command: --no-summary
+
+Should you want your build to skip printing the build summary (and thus being slightly faster) after building your app:
 
 ```bash
-$ quasar dev -m bex -T <chrome|firefox>
-$ quasar dev -m bex --target <chrome|firefox>
-
-$ quasar build -m bex -T <chrome|firefox>
-$ quasar build -m bex --target <chrome|firefox>
+quasar build --no-summary
 ```
 
-Note that the code in `/src` and `/src-bex` can now use `process.env.TARGET` (which will be "chrome" or "firefox").
+### Running AE commands
 
-#### HMR for Chrome
+The short form of running CLI commands provided by an App Extension has been removed:
 
-Significant improvements to the DX:
+```bash
+# works, still good; the way to go!
+quasar run <ext-id> <cmd> [...args]
 
-- Full HMR for devtools/options/popup page
-- When changing the background script, the extension will automatically reload.
-- When changing a content script, the extension will automatically reload & the tabs using those content scripts will auto-refresh.
-
-#### The quasar.config file
-
-```diff /quasar.config file
-sourceFiles: {
-+ bexManifestFile: 'src-bex/manifest.json',
-  // ...
-},
-bex: {
-- contentScripts: [] // no longer needed as scripts are
--                    // now extracted from the manifest file
-+ extraScripts: []
-}
+# this will NO LONGER WORK:
+quasar <ext-id> <cmd> [...args]
 ```
 
-#### The BEX manifest file
+### CSP (Content Security Policy)
 
-We are now supplying a way to differentiate the manifest for each target (chrome and firefox).
+You may want to add a CSP meta tag in your `/index.html`. This is especially useful for Electron mode where a warning about the lack of one is displayed, but it's a good security measure for all Quasar Modes too:
 
-Notice that the manifest file now contains three root props: `all`, `chrome` & `firefox`. The manifest for chrome is deeply merged from all+chrome, while the firefox one is generated from all+firefox. You could even have different manifest versions for each target.
-
-```json
-{
-  "all": {
-    "manifest_version": 3,
-
-    "icons": {
-      "16": "icons/icon-16x16.png",
-      "48": "icons/icon-48x48.png",
-      "128": "icons/icon-128x128.png"
-    },
-
-    "permissions": ["storage", "tabs", "activeTab"],
-
-    "host_permissions": ["*://*/*"],
-    "content_security_policy": {
-      "extension_pages": "script-src 'self'; object-src 'self';"
-    },
-    "web_accessible_resources": [
-      {
-        "resources": ["*"],
-        "matches": ["*://*/*"]
-      }
-    ],
-
-    "action": {
-      "default_popup": "www/index.html"
-    },
-
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "css": ["assets/content.css"],
-        "js": ["my-content-script.js"]
-      }
-    ]
-  },
-
-  "chrome": {
-    "background": {
-      "service_worker": "background.js"
-    }
-  },
-
-  "firefox": {
-    "background": {
-      "scripts": ["background.js"]
-    }
-  }
-}
+```html
+<!doctype html>
+<html>
+  <head>
+    <!-- add to the head -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';<% if (ctx.dev) { %> connect-src 'self' ws://localhost:*; worker-src 'self' blob:;<% } %>"
+    />
+  </head>
+</html>
 ```
 
-::: warning For TS devs
-Your background and content scripts have the `.ts` extension. Use that extension in the manifest.json file as well! Examples: "background.ts", "my-content-script.ts". While the browser vendors do support only the `.js` extension, Quasar CLI will convert the file extensions automatically.
+::: tip
+This works great with Oxlint and Oxfmt. However, the above might need a bit of tweaking when using ESLint and vite-plugin-checker.
 :::
 
-#### The script files
+## Final Note
 
-```tabs Background script
-<<| js New way |>>
-/**
- * Importing the file below initializes the extension background.
- *
- * Warnings:
- * 1. Do NOT remove the import statement below. It is required for the extension to work.
- *    If you don't need createBridge(), leave it as "import '#q-app/bex/background'".
- * 2. Do NOT import this file in multiple background scripts. Only in one!
- * 3. Import it in your background service worker (if available for your target browser).
- */
-import { createBridge } from '#q-app/bex/background'
+A quick favor to ask: Please consider supporting our efforts! If you use Quasar at work, drop a message to your management about sponsoring us at [https://donate.quasar.dev/](https://donate.quasar.dev/). We rely on your support to make massive updates like this possible!
 
-/**
- * Call useBridge() to enable communication with the app & content scripts
- * (and between the app & content scripts), otherwise skip calling
- * useBridge() and use no bridge.
- */
-const bridge = createBridge({ debug: false })
-<<| js Old way |>>
-import { bexBackground } from 'quasar/wrappers'
-
-export default bexBackground((bridge /* , allActiveConnections */) => {
-  // ...
-})
-```
-
-```tabs Content script
-<<| js New way |>>
-/**
- * Importing the file below initializes the content script.
- *
- * Warning:
- *   Do not remove the import statement below. It is required for the extension to work.
- *   If you don't need createBridge(), leave it as "import '#q-app/bex/content'".
- */
-import { createBridge } from '#q-app/bex/content'
-
-// The use of the bridge is optional.
-const bridge = createBridge({ debug: false })
-/**
- * bridge.portName is 'content@<path>-<number>'
- *   where <path> is the relative path of this content script
- *   filename (without extension) from /src-bex
- *   (eg. 'my-content-script', 'subdir/my-script')
- *   and <number> is a unique instance number (1-10000).
- */
-
-// Attach initial bridge listeners...
-
-/**
- * Leave this AFTER you attach your initial listeners
- * so that the bridge can properly handle them.
- *
- * You can also disconnect from the background script
- * later on by calling bridge.disconnectFromBackground().
- *
- * To check connection status, access bridge.isConnected
- */
-bridge.connectToBackground()
-  .then(() => {
-    console.log('Connected to background')
-  })
-  .catch(err => {
-    console.error('Failed to connect to background:', err)
-  })
-<<| js Old way |>>
-import { bexContent } from 'quasar/wrappers'
-
-export default bexContent((/* bridge */) => {
-  // ...
-})
-```
-
-```tabs App (/src/...) vue components
-<<| html Composition API + script setup |>>
-<template>
-  <div />
-</template>
-
-<script setup>
-import { useQuasar } from 'quasar'
-const $q = useQuasar()
-
-// Use $q.bex (the bridge)
-// $q.bex.portName is "app"
-</script>
-<<| html Composition API + script |>>
-<template>
-  <div />
-</template>
-
-<script>
-import { useQuasar } from 'quasar'
-
-export default {
-  setup () {
-    const $q = useQuasar()
-    // Use $q.bex (the bridge)
-    // $q.bex.portName is "app"
-  }
-}
-</script>
-<<| html Options API |>>
-<template>
-  <div />
-</template>
-
-<script>
-export default {
-  // Use this.$q.bex (the bridge)
-  // this.$q.bex.portName is "app"
-}
-</script>
-```
-
-Please note that the devtools/popup/options page portName will be `app`.
-
-#### The new BEX bridge
-
-```js Bex Bridge messaging
-// Listen to a message from the client
-bridge.on('test', message => {
-  console.log(message)
-  console.log(message.payload)
-  console.log(message.from)
-})
-
-// Send a message and split payload into chunks
-// to avoid max size limit of BEX messages.
-// Warning! This happens automatically when the payload is an array.
-// If you actually want to send an Array, wrap it in an object.
-bridge.send({
-  event: 'test',
-  to: 'app',
-  payload: [ 'chunk1', 'chunk2', 'chunk3', ... ]
-}).then(responsePayload => { ... }).catch(err => { ... })
-
-// Send a message and wait for a response
-bridge.send({
-  event: 'test',
-  to: 'background',
-  payload: { banner: 'Hello from content-script' }
-}).then(responsePayload => { ... }).catch(err => { ... })
-
-// Listen to a message from the client and respond synchronously
-bridge.on('test', message => {
-  console.log(message)
-  return { banner: 'Hello from a content-script!' }
-})
-
-// Listen to a message from the client and respond asynchronously
-bridge.on('test', async message => {
-  console.log(message)
-  const result = await someAsyncFunction()
-  return result
-})
-bridge.on('test', message => {
-  console.log(message)
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve({ banner: 'Hello from a content-script!' })
-    }, 1000)
-  })
-})
-
-// Broadcast a message to app & content scripts
-bridge.portList.forEach(portName => {
-  bridge.send({ event: 'test', to: portName, payload: 'Hello from background!' })
-})
-
-// Find any connected content script and send a message to it
-const contentPort = bridge.portList.find(portName => portName.startsWith('content@'))
-if (contentPort) {
-  bridge.send({ event: 'test', to: contentPort, payload: 'Hello from background!' })
-}
-
-// Send a message to a certain content script
-bridge
-  .send({ event: 'test', to: 'content@my-content-script-2345', payload: 'Hello from a content-script!' })
-  .then(responsePayload => { ... })
-  .catch(err => { ... })
-
-// Listen for connection events
-// (the "@quasar:ports" is an internal event name registered automatically by the bridge)
-// --> ({ portList: string[], added?: string } | { portList: string[], removed?: string })
-bridge.on('@quasar:ports', ({ portList, added, removed }) => {
-  console.log('Ports:', portList)
-  if (added) {
-    console.log('New connection:', added)
-  } else if (removed) {
-    console.log('Connection removed:', removed)
-  }
-})
-
-// Current bridge port name (can be 'background', 'app', or 'content@<name>-<xxxxx>')
-console.log(bridge.portName)
-```
-
-::: warning Warning! Sending large amounts of data
-All browser extensions have a hard limit on the amount of data that can be passed as communication messages (example: 50MB). If you exceed that amount on your payload, you can send chunks (**`payload` param should be an Array**).
-
-<br>
-
-```js
-bridge.send({
-  event: 'some.event',
-  to: 'app',
-  payload: [chunk1, chunk2, ...chunkN]
-})
-```
-
-<br>
-
-When calculating the payload size, have in mind that the payload is wrapped in a message built by the Bridge that contains some other properties too. That takes a few bytes as well. So your chunks' size should be with a few bytes below the browser's threshold.
-:::
-
-::: warning Warning! Performance on sending an Array
-Like we've seen on the warning above, if `payload` is Array then the bridge will send a message for each of the Array's elements.
-When you actually want to send an Array (not split the payload into chunks), this will be **VERY** inefficient.
-
-<br>
-
-The solution is to wrap your Array in an Object (so only one message will be sent):
-
-<br>
-
-```js
-bridge.send({
-  event: 'some.event',
-  to: 'background',
-  payload: {
-    myArray: [
-      /*...*/
-    ]
-  }
-})
-```
-
-:::
-
-If you encounter problems with sending messages between the BEX parts, you could enable the debug mode for the bridges that interest you. In doing so, the communication will also be outputted to the browser console:
-
-```js Bridge debug mode
-// Dynamically set debug mode
-bridge.setDebug(true) // boolean
-
-// Log a message on the console (if debug is enabled)
-bridge.log('Hello world!')
-bridge.log('Hello', 'world!')
-bridge.log('Hello world!', { some: 'data' })
-bridge.log('Hello', 'world', '!', { some: 'object' })
-// Log a warning on the console (regardless of the debug setting)
-bridge.warn('Hello world!')
-bridge.warn('Hello', 'world!')
-bridge.warn('Hello world!', { some: 'data' })
-bridge.warn('Hello', 'world', '!', { some: 'object' })
-```
-
-### Other /quasar.config file changes
-
-The `ctx` from `/quasar.config` file has an additional prop (`appPaths`):
-
-```js
-import { defineConfig } from '#q-app/wrappers'
-export default defineConfig((ctx) => ({
-  // ctx.appPaths is available
-```
-
-The definition for `ctx.appPaths` is defined with QuasarAppPaths TS type as below:
-
-```diff
-export interface IResolve {
-  cli: (dir: string) => string;
-  app: (dir: string) => string;
-  src: (dir: string) => string;
-+ public: (dir: string) => string;
-  pwa: (dir: string) => string;
-  ssr: (dir: string) => string;
-  cordova: (dir: string) => string;
-  capacitor: (dir: string) => string;
-  electron: (dir: string) => string;
-  bex: (dir: string) => string;
-}
-
-export interface QuasarAppPaths {
-  cliDir: string;
-  appDir: string;
-  srcDir: string;
-+ publicDir: string;
-  pwaDir: string;
-  ssrDir: string;
-  cordovaDir: string;
-  capacitorDir: string;
-  electronDir: string;
-  bexDir: string;
-
-  quasarConfigFilename: string;
-+ quasarConfigInputFormat: "esm" | "cjs" | "ts";
-+ quasarConfigOutputFormat: "esm" | "cjs";
-
-  resolve: IResolve;
-}
-```
-
-```diff /quasar.config > sourceFiles
-sourceFiles: {
-+ bexManifestFile?: string;
-}
-```
-
-```diff /quasar.config > framework
-framework: {
-  /**
-   * Auto import - how to detect components in your vue files
-   *   "kebab": q-carousel q-page
-   *   "pascal": QCarousel QPage
-   *   "combined": q-carousel QPage
-   * @default 'kebab'
-   */
-  autoImportComponentCase?: "kebab" | "pascal" | "combined";
-
-  /**
-   * Auto import - which file extensions should be interpreted as referring to Vue SFC?
-   * @default [ 'vue' ]
-   */
-+ autoImportVueExtensions?: string[];
-
-  /**
-   * Auto import - which file extensions should be interpreted as referring to script files?
-   * @default [ 'js', 'jsx', 'ts', 'tsx' ]
-   */
-+ autoImportScriptExtensions?: string[];
-
-  /**
-   * Treeshake Quasar's UI on dev too?
-   * Recommended to leave this as false for performance reasons.
-   * @default false
-   */
-+ devTreeshaking?: boolean;
-+ // was previously under /quasar.conf > build
-}
-```
-
-```diff /quasar.config > build
-build: {
-  /**
-   * Treeshake Quasar's UI on dev too?
-   * Recommended to leave this as false for performance reasons.
-   * @default false
-   */
-- devTreeshaking?: boolean;
-- // moved under /quasar.conf > framework
-
-  /**
-   * Should we invalidate the Vite and ESLint cache on startup?
-   * @default false
-   */
-- rebuildCache?: boolean;
-
-  /**
-   * Automatically open remote Vue Devtools when running in development mode.
-   */
-+ vueDevtools?: boolean;
-
-  /**
-   * Folder where Quasar CLI should look for .env* files.
-   * Can be an absolute path or a relative path to project root directory.
-   *
-   * @default project root directory
-   */
-+ envFolder?: string;
-  /**
-   * Additional .env* files to be loaded.
-   * Each entry can be an absolute path or a relative path to quasar.config > build > envFolder.
-   *
-   * @example ['.env.somefile', '../.env.someotherfile']
-   */
-+ envFiles?: string[];
-}
-```
-
-### Other considerations
-
-You might want to upgrade/switch from `@intlify/vite-plugin-vue-i18n` to the newer `@intlify/unplugin-vue-i18n`.
-
-After removing the old package and installing the new one then update your `/quasar.config` file as follows:
-
-```diff /quasar.config
-- import path from 'node:path'
-+ import { fileURLToPath } from 'node:url'
-
-export default defineConfig((ctx) => {
-  return {
-    build: {
-      vitePlugins: [
--       ['@intlify/vite-plugin-vue-i18n', {
-+       ['@intlify/unplugin-vue-i18n/vite', {
--         include: path.resolve(__dirname, './src/i18n/**')
-+         include: [ fileURLToPath(new URL('./src/i18n', import.meta.url)) ],
-+         ssr: ctx.modeName === 'ssr'
-        }]
-      ]
-    }
-  }
-})
-```
-
-### The env dotfiles support
-
-Expanding a bit on the env dotfiles support. These files will be detected and used (the order matters):
-
-```
-.env                                # loaded in all cases
-.env.local                          # loaded in all cases, ignored by git
-.env.[dev|prod]                     # loaded for dev or prod only
-.env.local.[dev|prod]               # loaded for dev or prod only, ignored by git
-.env.[quasarMode]                   # loaded for specific Quasar CLI mode only
-.env.local.[quasarMode]             # loaded for specific Quasar CLI mode only, ignored by git
-.env.[dev|prod].[quasarMode]        # loaded for specific Quasar CLI mode and dev|prod only
-.env.local.[dev|prod].[quasarMode]  # loaded for specific Quasar CLI mode and dev|prod only, ignored by git
-```
-
-...where "ignored by git" assumes a default project folder created after releasing this package, otherwise add `.env.local*` to your `/.gitignore` file.
-
-You can also configure the files above to be picked up from a different folder or even add more files to the list:
-
-```js /quasar.config file
-build: {
-  /**
-   * Folder where Quasar CLI should look for .env* files.
-   * Can be an absolute path or a relative path to project root directory.
-   *
-   * @default project root directory
-   */
-  envFolder?: string;
-
-  /**
-   * Additional .env* files to be loaded.
-   * Each entry can be an absolute path or a relative path to quasar.config > build > envFolder.
-   *
-   * @example ['.env.somefile', '../.env.someotherfile']
-   */
-  envFiles?: string[];
-
-  /**
-   * Filter the env variables that are exposed to the client
-   * through the env files. This does not account also for the definitions
-   * assigned directly to quasar.config > build > env prop.
-   *
-   * Requires @quasar/app-vite v2.0.3+
-   */
-  envFilter?:
-    (env: { [index: string]: string | boolean | undefined | null })
-      => { [index: string]: string | boolean | undefined | null };
-}
-```
-
-Remember that you can filter out unwanted keys, or even change values for keys by using `build > envFilter`:
-
-```js /quasar.config file
-build: {
-  // @quasar/app-vite v2.0.3+
-  envFilter (originalEnv) {
-    const newEnv = {}
-    for (const key in originalEnv) {
-      if (/* ...decide if it goes in or not... */) {
-        newEnv[ key ] = originalEnv[ key ]
-      }
-    }
-
-    // remember to return your processed env
-    return newEnv
-  }
-}
-```
+And don't forget to enjoy your new modern setup! That's it! 🚀

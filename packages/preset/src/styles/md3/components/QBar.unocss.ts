@@ -1,11 +1,11 @@
 import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
-import { mdComponent, mdStatic } from '../../_helpers.js'
+import { componentClass, staticClass } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-bar$/,
-    mdComponent(
+    componentClass(
       'q-bar',
       `bg-black/20
     [&>.q-icon]:(ml-2px)
@@ -19,7 +19,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   ],
   [
     /^q-bar--standard$/,
-    mdComponent(
+    componentClass(
       'q-bar--standard',
       `px-12px py-0 h-32px text-18px
     [&>div]:(text-16px)
@@ -28,13 +28,13 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   ],
   [
     /^q-bar--dense$/,
-    mdComponent(
+    componentClass(
       'q-bar--dense',
       `px-8px py-0 h-24px text-14px
     [&_.q-btn]:(text-8px)`
     )
   ],
-  [/^q-bar--dark$/, mdStatic(`bg-white/20`)]
+  [/^q-bar--dark$/, staticClass(`bg-white/20`)]
 ]
 
 export { shortcuts }

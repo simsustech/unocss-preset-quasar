@@ -1605,6 +1605,22 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
       : rawStyle
     const theme = generateTheme(options?.sourceColor ?? '#1976d2')
 
+    // Build the layers config. The per-style layer is added only
+    // when `bodyClass` is set, so consumers who pass `bodyClass: ''`
+    // (or a style without a bodyClass) keep the original 3-layer
+    // setup. The per-style layer sits in the same priority slot as
+    // the `components` layer (so shortcut utilities from this preset
+    // land alongside the existing component CSS) but with a unique
+    // name so other presets' postprocessors can distinguish them.
+    const layers: Record<string, number> = {
+      components: -1,
+      default: 1,
+      utilities: 2
+    }
+    if (style.bodyClass) {
+      layers[style.bodyClass] = -1
+    }
+
     return {
       presets: [
         presetWind4({
@@ -1630,6 +1646,7 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
       rules: coreRules.concat(style.rules),
       variants: style.variants,
       shortcuts: coreShortcuts.concat(style.shortcuts),
+      postprocess: style.postprocess,
       extendTheme: (themeArg: QuasarTheme) => {
         return {
           ...themeArg,
@@ -1641,11 +1658,7 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
         }
       },
       outputToCssLayers: true,
-      layers: {
-        components: -1,
-        default: 1,
-        utilities: 2
-      },
+      layers,
       extractors: [
         {
           name: 'quasar-extractor',

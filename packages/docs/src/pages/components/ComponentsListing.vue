@@ -1,6 +1,6 @@
 <template>
   <div class="page-all fit column doc-brand">
-    <doc-stars />
+    <DocStars />
 
     <div
       class="page-all__search q-py-md q-px-xl q-pa-md row no-wrap items-center justify-center"
@@ -57,7 +57,7 @@
       class="q-py-xl text-size-16 row items-center justify-center q-gutter-lg relative-position"
     >
       <transition-group name="page-all-transition">
-        <doc-card-link
+        <DocCardLink
           v-for="entry in searchResults"
           :key="entry.key"
           :to="entry.to"
@@ -77,7 +77,7 @@
               {{ entry.description }}
             </q-card-section>
           </q-card>
-        </doc-card-link>
+        </DocCardLink>
       </transition-group>
     </div>
   </div>
@@ -86,10 +86,10 @@
 <script setup>
 import { ref, watch } from 'vue'
 
-import { quasarElements } from 'src/assets/links.components.js'
+import { quasarElements } from '@/assets/links.components.js'
 
-import DocStars from 'src/components/DocStars.vue'
-import DocCardLink from 'src/components/DocCardLink.vue'
+import DocStars from '@/components/DocStars.vue'
+import DocCardLink from '@/components/DocCardLink.vue'
 
 const filterChips = [
   { label: 'Buttons', value: 'button' },
@@ -133,12 +133,11 @@ watch([searchTerms, filterTag], () => {
 
     // allow to search for direct components name (example: qbtn)
     const needle =
-      terms.length !== 1 && terms.startsWith('q') ? terms.substring(1) : terms
+      terms.length !== 1 && terms.startsWith('q') ? terms.slice(1) : terms
 
     const results = quasarElements.filter(
       (entry) =>
-        (tag === null || entry.tag === tag) &&
-        entry.haystack.indexOf(needle) !== -1
+        (tag === null || entry.tag === tag) && entry.haystack.includes(needle)
     )
 
     if (results.length === 0) {

@@ -11,57 +11,86 @@ If you are a more advanced Vue developer, we invite you to start off by [decidin
 
 ## Prerequisites
 
-Make sure that you have Node >=14 (or any newer **LTS Node.js version**) and NPM v6+ or Yarn v1 (classic) or PNPM v8+ installed on your machine. Please do not use any odd versions of Node, as these are [considered experimental](https://nodejs.org/en/about/previous-releases).
+Make sure that you have Node.js >=22 (or any newer **LTS Node.js version**) and PNPM v11+ or Yarn v1 classic or or NPM or Bun installed on your machine. Again, please do not use non LTS versions of Node.js.
 
 ## Step 1: Create a Project
+
+Navigate to the folder above where you want your project to be. Quasar will later prompt you for the name of the project folder and create that folder within this.
 
 Enter the following command:
 
 ```tabs
-<<| bash Yarn |>>
-$ yarn create quasar
-<<| bash NPM |>>
-$ npm init quasar@latest
 <<| bash PNPM |>>
-$ pnpm create quasar@latest
+pnpm create quasar@latest
+<<| bash Yarn |>>
+yarn create quasar
+<<| bash NPM |>>
+npm init quasar@latest
 <<| bash Bun |>>
-# experimental support
-$ bun create quasar@latest
+bun create quasar@latest
 ```
 
-As the `create` or `init` command runs, you'll be prompted with some options. Depending on your needs, you can select the CLI type (Vite or Webpack) and you can add things like TypeScript support or a different CSS preprocessor. If you are unsure about any of the options, just take the defaults (hit enter) and you'll be good to go. You can change the options, except for the CLI type, later if you wish.
+As the command above runs, you'll be prompted with some options. Depending on your needs, you can add things like TypeScript support or a different CSS preprocessor. If you are unsure about any of the options, just take the defaults (hit enter) and you'll be good to go. You can change the options, except for the CLI type, later if you wish.
 
 ### Optional - Install the Global CLI
 
 For doing more with Quasar, you should also install the global CLI. With it you can directly run Quasar commands in the terminal, run a local http server for testing or do upgrades on your project.
 
 ```tabs
-<<| bash Yarn |>>
-$ yarn global add @quasar/cli
-<<| bash NPM |>>
-$ npm i -g @quasar/cli
 <<| bash PNPM |>>
-$ pnpm add -g @quasar/cli
+pnpm add -g @quasar/cli
+<<| bash Yarn |>>
+yarn global add @quasar/cli
+<<| bash NPM |>>
+npm i -g @quasar/cli
 <<| bash Bun |>>
-# experimental support
-$ bun install -g @quasar/cli
+bun install -g @quasar/cli
 ```
 
 ## Step 2: Start developing
 
 For the second and last step, navigate into the newly created project folder and run the Quasar CLI command to start the dev server.
 
-```bash
-$ cd <project_folder_name>
-# then run:
-
+```tabs
+<<| bash PNPM |>>
 # if you have the global CLI:
-$ quasar dev
+quasar dev
+
 # otherwise:
-$ yarn quasar dev # or: npx quasar dev
+
+pnpm run dev
+# to run a local Quasar CLI command:
+pnpm quasar dev
+<<| bash Yarn |>>
+# if you have the global CLI:
+quasar dev
+
+# otherwise:
+
+yarn run dev
+# to run a local Quasar CLI command:
+yarn quasar dev
+<<| bash NPM |>>
+# if you have the global CLI:
+quasar dev
+
+# otherwise:
+
+npm run dev
+# to run a local Quasar CLI command:
+npx quasar dev
+<<| bash Bun |>>
+# if you have the global CLI:
+quasar dev
+
+# otherwise:
+
+bun run dev
+# to run a local Quasar CLI command:
+bun quasar dev
 ```
 
-You'll see the dev server compiling your new application and once it is finished, your new app should open up in your browser. That's it! You can now develop your app with your favorite IDE/ Code Editor.
+You'll see the dev server compiling your new application and once it is finished, your new app should open up in your browser. That's it! You can now develop your app with your favorite IDE / Code Editor.
 
 ## Now What?
 

@@ -18,7 +18,7 @@ When running the code server-side on SSR builds, this feature can't work. Web St
 
 <DocApi file="SessionStorage" />
 
-<DocInstallation :plugins="['LocalStorage', 'SessionStorage']" />
+<DocInstall :plugins="['LocalStorage', 'SessionStorage']" />
 
 ## Usage
 

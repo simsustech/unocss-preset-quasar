@@ -7,16 +7,13 @@
       <q-fab color="purple" direction="up">
         <template v-slot:icon="{ opened }">
           <q-icon
-            :class="{ 'example-fab-animate--hover': opened !== true }"
+            :class="{ 'example-fab-animate--hover': !opened }"
             name="keyboard_arrow_up"
           />
         </template>
 
         <template v-slot:active-icon="{ opened }">
-          <q-icon
-            :class="{ 'example-fab-animate': opened === true }"
-            name="close"
-          />
+          <q-icon :class="{ 'example-fab-animate': opened }" name="close" />
         </template>
 
         <q-fab-action color="primary" external-label @click="onClick">
@@ -44,8 +41,8 @@
         direction="left"
       >
         <template v-slot:label="{ opened }">
-          <div :class="{ 'example-fab-animate--hover': opened !== true }">
-            {{ opened !== true ? 'Open' : 'Close' }}
+          <div :class="{ 'example-fab-animate--hover': !opened }">
+            {{ opened ? 'Close' : 'Open' }}
           </div>
         </template>
 

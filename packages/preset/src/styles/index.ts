@@ -1,4 +1,4 @@
-import { Preflight, Rule, Shortcut, Variant } from '@unocss/core'
+import { Postprocessor, Preflight, Rule, Shortcut, Variant } from '@unocss/core'
 import { QuasarTheme } from '../theme.js'
 import {
   default as MaterialDesign2,
@@ -18,6 +18,13 @@ export interface QuasarStyle {
   variants: Variant<QuasarTheme>[]
   preflights: Preflight<QuasarTheme>[]
   shortcuts: Shortcut<QuasarTheme>[]
+  /**
+   * Optional UnoCSS `postprocess` hooks attached to this style. The
+   * preset's `scopeStyle` helper injects a body-class-scoping
+   * postprocess when `bodyClass` is set, but styles can also attach
+   * their own custom hooks here for further utility mutation.
+   */
+  postprocess?: Postprocessor[]
   /**
    * If set, the style's preflights and rules are scoped so they only
    * apply when `<body>` has this class. Theme tokens (`:root` CSS

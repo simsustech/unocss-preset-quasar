@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { ref, onBeforeUnmount } from 'vue'
+import { onBeforeUnmount, ref } from 'vue'
 
 export default {
   setup() {

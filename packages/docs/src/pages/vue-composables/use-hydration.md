@@ -34,17 +34,8 @@ function useHydration(): {
   </div>
 </template>
 
-<script>
+<script setup>
   import { useHydration } from 'quasar'
-
-  export default {
-    setup() {
-      const { isHydrated } = useHydration()
-
-      return {
-        isHydrated
-      }
-    }
-  }
+  const { isHydrated } = useHydration()
 </script>
 ```

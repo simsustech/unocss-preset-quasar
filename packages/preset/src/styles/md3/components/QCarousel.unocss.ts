@@ -1,28 +1,28 @@
 import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
-import { mdComponent, mdStatic } from '../../_helpers.js'
+import { componentClass, staticClass, qe } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-carousel$/,
-    mdComponent(
+    componentClass(
       'q-carousel',
-      `bg-[#fff] h-[400px] [&_.q-carousel--padding]:(p-[16px]) [&_.q-carousel\\_\\_thumbnail]:(m-[2px] h-[50px] w-auto inline-block cursor-pointer border-[1px] border-solid border-[transparent] rounded-[4px] align-middle opacity-70 [transition:opacity_0.3s]) [&_.q-carousel\\_\\_thumbnail:hover]:(opacity-100) [&_.q-carousel\\_\\_thumbnail--active]:(opacity-100) [&_.q-carousel\\_\\_thumbnail--active]:(border-current cursor-default)`
+      qe`bg-[#fff] h-[400px] [&_.q-carousel--padding]:(p-[16px]) [&_.q-carousel__thumbnail]:(m-[2px] h-[50px] w-auto inline-block cursor-pointer border-[1px] border-solid border-[transparent] rounded-[4px] align-middle opacity-70 [transition:opacity_0.3s]) [&_.q-carousel__thumbnail:hover]:(opacity-100) [&_.q-carousel__thumbnail--active]:(opacity-100) [&_.q-carousel__thumbnail--active]:(border-current cursor-default)`
     )
   ],
 
   [
     /^q-carousel__slide$/,
-    mdComponent('q-carousel__slide', `min-h-full bg-cover bg-[50%] p-[16px]`)
+    componentClass('q-carousel__slide', `min-h-full bg-cover bg-[50%] p-[16px]`)
   ],
 
-  [/^q-carousel__slides-container$/, mdStatic(`h-full`)],
+  [/^q-carousel__slides-container$/, staticClass(`h-full`)],
 
-  [/^q-carousel__control$/, mdStatic(`text-[#fff]`)],
+  [/^q-carousel__control$/, staticClass(`text-[#fff]`)],
 
   [
     /^q-carousel__arrow$/,
-    mdComponent(
+    componentClass(
       'q-carousel__arrow',
       `pointer-events-none [&_.q-icon]:(text-[28px]) [&_.q-btn]:(pointer-events-all)`
     )
@@ -30,7 +30,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-carousel__prev-arrow--horizontal$/,
-    mdComponent(
+    componentClass(
       'q-carousel__prev-arrow--horizontal',
       `top-[16px] bottom-[16px] left-[16px]`
     )
@@ -38,7 +38,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-carousel__next-arrow--horizontal$/,
-    mdComponent(
+    componentClass(
       'q-carousel__next-arrow--horizontal',
       `top-[16px] bottom-[16px] right-[16px]`
     )
@@ -46,7 +46,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-carousel__prev-arrow--vertical$/,
-    mdComponent(
+    componentClass(
       'q-carousel__prev-arrow--vertical',
       `left-[16px] right-[16px] top-[16px]`
     )
@@ -54,7 +54,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-carousel__next-arrow--vertical$/,
-    mdComponent(
+    componentClass(
       'q-carousel__next-arrow--vertical',
       `left-[16px] right-[16px] bottom-[16px]`
     )
@@ -62,7 +62,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-carousel__navigation--top$/,
-    mdComponent(
+    componentClass(
       'q-carousel__navigation--top',
       `left-[16px] right-[16px] overflow-x-auto overflow-y-hidden top-[16px]`
     )
@@ -70,7 +70,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-carousel__navigation--bottom$/,
-    mdComponent(
+    componentClass(
       'q-carousel__navigation--bottom',
       `left-[16px] right-[16px] overflow-x-auto overflow-y-hidden bottom-[16px]`
     )
@@ -78,25 +78,25 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-carousel__navigation--left$/,
-    mdComponent(
+    componentClass(
       'q-carousel__navigation--left',
-      `top-[16px] bottom-[16px] overflow-x-hidden overflow-y-auto [&_>_.q-carousel\\_\\_navigation-inner]:(flex-col) left-[16px]`
+      qe`top-[16px] bottom-[16px] overflow-x-hidden overflow-y-auto [&_>_.q-carousel__navigation-inner]:(flex-col) left-[16px]`
     )
   ],
 
   [
     /^q-carousel__navigation--right$/,
-    mdComponent(
+    componentClass(
       'q-carousel__navigation--right',
-      `top-[16px] bottom-[16px] overflow-x-hidden overflow-y-auto [&_>_.q-carousel\\_\\_navigation-inner]:(flex-col) right-[16px]`
+      qe`top-[16px] bottom-[16px] overflow-x-hidden overflow-y-auto [&_>_.q-carousel__navigation-inner]:(flex-col) right-[16px]`
     )
   ],
 
-  [/^q-carousel__navigation-inner$/, mdStatic(`flex-auto`)],
+  [/^q-carousel__navigation-inner$/, staticClass(`flex-auto`)],
 
   [
     /^q-carousel__navigation$/,
-    mdComponent(
+    componentClass(
       'q-carousel__navigation',
       `[&_.q-btn]:(mx-[4px] my-[6px] p-[5px])`
     )
@@ -104,12 +104,12 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-carousel__navigation-icon--inactive$/,
-    mdComponent('q-carousel__navigation-icon--inactive', `opacity-70`)
+    componentClass('q-carousel__navigation-icon--inactive', `opacity-70`)
   ],
 
   [
     /^q-carousel--navigation-top$/,
-    mdComponent(
+    componentClass(
       'q-carousel--navigation-top',
       `[&_.q-carousel--padding]:(pt-[60px])`
     )
@@ -117,7 +117,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-carousel--arrows-vertical$/,
-    mdComponent(
+    componentClass(
       'q-carousel--arrows-vertical',
       `[&_.q-carousel--padding]:(pt-[60px]) [&_.q-carousel--padding]:(pb-[60px])`
     )
@@ -125,7 +125,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-carousel--navigation-bottom$/,
-    mdComponent(
+    componentClass(
       'q-carousel--navigation-bottom',
       `[&_.q-carousel--padding]:(pb-[60px])`
     )
@@ -133,7 +133,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-carousel--navigation-left$/,
-    mdComponent(
+    componentClass(
       'q-carousel--navigation-left',
       `[&_.q-carousel--padding]:(pl-[60px])`
     )
@@ -141,7 +141,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-carousel--arrows-horizontal$/,
-    mdComponent(
+    componentClass(
       'q-carousel--arrows-horizontal',
       `[&_.q-carousel--padding]:(pl-[60px]) [&_.q-carousel--padding]:(pr-[60px])`
     )
@@ -149,7 +149,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-carousel--navigation-right$/,
-    mdComponent(
+    componentClass(
       'q-carousel--navigation-right',
       `[&_.q-carousel--padding]:(pr-[60px])`
     )

@@ -150,20 +150,29 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { mdiClose, mdiMagnify } from '@quasar/extras/mdi-v7'
 
 import DocCardTitle from './DocCardTitle.vue'
 import DocApiEntry from './DocApiEntry.js'
 
+const props = defineProps({
+  file: {
+    type: String,
+    required: true
+  },
+
+  pageLink: Boolean
+})
+
 const defaultInnerTabName = '__default'
 
-function getPropsCategories(props) {
+function getPropsCategories(localProps) {
   const acc = new Set()
 
-  for (const key in props) {
-    if (props[key] !== void 0) {
-      const value = props[key]
+  for (const key in localProps) {
+    if (localProps[key] !== void 0) {
+      const value = localProps[key]
 
       value.category.split('|').forEach((groupKey) => {
         acc.add(groupKey)
@@ -171,7 +180,7 @@ function getPropsCategories(props) {
     }
   }
 
-  return acc.size === 1 ? [defaultInnerTabName] : Array.from(acc).sort()
+  return acc.size === 1 ? [defaultInnerTabName] : [...acc].sort()
 }
 
 function getInnerTabs(api, tabs, apiType) {
@@ -222,8 +231,8 @@ function parseApi(api, tabs, innerTabs) {
 
 function passesFilter(filter, name, desc) {
   return (
-    name.toLowerCase().indexOf(filter) > -1 ||
-    (desc !== void 0 && desc.toLowerCase().indexOf(filter) > -1)
+    name.toLowerCase().includes(filter) ||
+    (desc !== void 0 && desc.toLowerCase().includes(filter))
   )
 }
 
@@ -238,8 +247,7 @@ function getFilteredApi(parsedApi, filter, tabs, innerTabs) {
     if (tab === 'injection') {
       const name = parsedApi[tab][defaultInnerTabName]
       acc[tab] = {}
-      acc[tab][defaultInnerTabName] =
-        passesFilter(filter, name, '') === true ? name : {}
+      acc[tab][defaultInnerTabName] = passesFilter(filter, name, '') ? name : {}
 
       return
     }
@@ -255,14 +263,14 @@ function getFilteredApi(parsedApi, filter, tabs, innerTabs) {
 
       for (const name in api.definition || {}) {
         const entry = api.definition[name]
-        if (passesFilter(filter, name, entry.desc) === true) {
+        if (passesFilter(filter, name, entry.desc)) {
           result.definition[name] = entry
         }
       }
 
       if (
         Object.keys(result.definition).length === 0 &&
-        passesFilter(filter, api.propName, '') === false
+        !passesFilter(filter, api.propName, '')
       ) {
         acc[tab][defaultInnerTabName] = {}
       }
@@ -280,7 +288,7 @@ function getFilteredApi(parsedApi, filter, tabs, innerTabs) {
 
       for (const name in categoryEntries) {
         const entry = categoryEntries[name]
-        if (passesFilter(filter, name, entry.desc) === true) {
+        if (passesFilter(filter, name, entry.desc)) {
           subTabs[name] = entry
         }
       }
@@ -344,20 +352,6 @@ function getApiCount(parsedApi, tabs, innerTabs) {
 
   return acc
 }
-
-const getJsonUrl =
-  process.env.DEV === true
-    ? (file) => `/@fs/${process.env.FS_QUASAR_FOLDER}/dist/api/${file}.json`
-    : (file) => `/quasar-api/${file}.json`
-
-const props = defineProps({
-  file: {
-    type: String,
-    required: true
-  },
-
-  pageLink: Boolean
-})
 
 const inputRef = ref(null)
 
@@ -423,15 +417,14 @@ function onFilterClick() {
   }
 }
 
-process.env.CLIENT &&
-  onMounted(() => {
-    fetch(getJsonUrl(props.file))
-      .then((response) => response.json())
-      .then((json) => {
-        parseApiFile(props.file, json)
-        loading.value = false
-      })
+if (import.meta.env.QUASAR_CLIENT) {
+  onMounted(async () => {
+    const loaders = await import('quasar:api')
+    const { default: json } = await loaders[props.file]()
+    parseApiFile(props.file, json)
+    loading.value = false
   })
+}
 </script>
 
 <style lang="sass">

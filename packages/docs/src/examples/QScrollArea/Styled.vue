@@ -1,6 +1,7 @@
 <template>
   <div class="q-ma-md">
     <q-scroll-area
+      :horizontal-offset="[0, 2]"
       :thumb-style="thumbStyle"
       :content-style="contentStyle"
       :content-active-style="contentActiveStyle"
@@ -29,7 +30,6 @@ export default {
       },
 
       thumbStyle: {
-        right: '2px',
         borderRadius: '5px',
         backgroundColor: '#027be3',
         width: '5px',

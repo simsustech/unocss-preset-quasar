@@ -1,4 +1,4 @@
-import type { Preflight } from '@unocss/core'
+import type { Preflight, Shortcut, UtilObject } from '@unocss/core'
 import type { QuasarTheme } from '../theme.js'
 import type { QuasarStyle } from './index.js'
 
@@ -130,8 +130,101 @@ function wrapBlock(
 }
 
 /**
- * Scope a `QuasarStyle` so its preflights only apply when `body` has
- * the given class.
+ * Decide whether a util's selector should be wrapped with the body-class
+ * guard. Returns the wrapped selector, or the original selector if
+ * wrapping is unsafe / unnecessary.
+ *
+ * Skips:
+ *  - empty selectors (e.g. `@keyframes` won't reach here, but be safe)
+ *  - selectors that already start with the body-class guard (idempotent)
+ *  - selectors in the `preflights` layer (handled separately by
+ *    `wrapPreWithBodyClass`)
+ *  - selectors that are just a pseudo-element/::marker with no class
+ *    root — these are emitted by the shortcut expansion for things
+ *    like `[&::before]:(content-empty)` and have no selector to scope
+ *  - keyframe-related selectors (e.g. `%from`) — but those never
+ *    appear as top-level shortcut selectors, so this is a defensive
+ *    no-op
+ *  - selectors containing `@layer` directives
+ *  - selectors that are global rules like `*`, `html`, `:root`,
+ *    `@media`, etc.
+ */
+function wrapShortcutSelector(
+  selector: string | undefined,
+  bodyClass: string
+): string | undefined {
+  if (!selector) return selector
+  const guard = `body.${bodyClass} `
+  if (selector.includes(guard)) return selector
+  // Skip selectors that already carry ANY body-class guard from a
+  // sibling style's postprocess. This prevents double-wrapping when
+  // multiple QuasarPreset instances each contribute their own
+  // postprocess and share the same shortcut output. We detect a
+  // guard by looking for `body.quasar-style-` at any selector-group
+  // boundary — that's the namespace the playground uses for all
+  // three styles' body classes.
+  if (/\bbody\.quasar-style-[a-z0-9-]+\s/.test(selector)) return selector
+  // Pseudo-only selectors (e.g. a `[&::before]` expansion that lost
+  // its parent, or a leading pseudo) cannot be scoped by themselves —
+  // they need a real class. Skip them; the browser will treat them
+  // as `:scope::before` (the root) which is rarely what's wanted, but
+  // at minimum we don't make things worse by emitting invalid CSS.
+  if (/^\s*(::?[a-z-]+|\*)\s*$/i.test(selector)) return selector
+  // Preflight-like selectors (`:root`, `:where(...)`) are global and
+  // should not be body-class-scoped — they hold theme tokens / global
+  // resets. The MD2/MD3 shortcut files never emit these, but defend
+  // anyway in case a future shortcut does.
+  if (/^\s*:root\b/i.test(selector)) return selector
+  // Reject obviously invalid selectors produced by shortcut expansion
+  // edge cases — wrapping them just compounds the problem.
+  if (selector.includes('@')) return selector
+  return `${guard}${selector}`
+}
+
+/**
+ * Tag every shortcut in the style with `meta.layer = bodyClass`. This
+ * is the cornerstone of multi-style coexistence: when three
+ * QuasarPresets are registered into the same UnoCSS generator, each
+ * preset's shortcuts emit utilities with a distinct `layer` value.
+ * The postprocess hook below can then identify which preset's
+ * utility it's looking at and apply the correct body-class guard
+ * without colliding with the other presets' wrappers.
+ *
+ * Why this matters: without per-style layer tagging, when both MD3
+ * and MD2 register a `q-btn` shortcut, UnoCSS produces utilities
+ * with `layer === 'components'` for both. The postprocess pipeline
+ * runs sequentially — preset A's postprocess wraps the selector,
+ * preset B's postprocess sees "already has body-class prefix" and
+ * skips, leaving B's utilities with A's body class. The result is
+ * that only the first-registered preset's CSS applies regardless of
+ * the active body class.
+ *
+ * With per-style layer tagging, each util's `util.layer` matches
+ * exactly one preset's bodyClass. The postprocess for that preset
+ * applies its own prefix; the postprocess for sibling presets sees
+ * `util.layer !== bodyClass` and passes through. Each preset's CSS
+ * carries the correct body-class guard.
+ */
+function tagShortcutsWithLayer(
+  shortcuts: Shortcut<QuasarTheme>[],
+  layerName: string
+): Shortcut<QuasarTheme>[] {
+  return shortcuts.map((sc) => {
+    // Static shortcut: [name, value, meta?]
+    // Dynamic shortcut: [regex, fn, meta?]
+    const [first, second, existingMeta] = sc as [
+      string | RegExp,
+      unknown,
+      Record<string, unknown> | undefined
+    ]
+    const nextMeta = { ...(existingMeta ?? {}), layer: layerName }
+    return [first, second, nextMeta] as unknown as Shortcut<QuasarTheme>
+  })
+}
+
+/**
+ * Scope a `QuasarStyle` so its preflights and emitted utilities only
+ * apply when `body` has the given class.
  *
  * - Preflights: every selector inside the emitted CSS is wrapped with
  *   the body-class guard. `:root` declarations are left alone so theme
@@ -139,8 +232,16 @@ function wrapBlock(
  * - Rules: passed through unchanged. The shipped MD2/MD3 styles have
  *   empty `rules` arrays, so wrapping rules is a no-op for them; if a
  *   future style needs rule wrapping, add it here.
- * - Shortcuts: NOT touched. They emit class names whose CSS is resolved
- *   via the scoped rules / preflights, so the scoping propagates.
+ * - Shortcuts: each shortcut is tagged with a per-style UnoCSS layer
+ *   name (the body class). The resulting utilities carry that layer.
+ *   The postprocess hook then checks `util.layer === bodyClass` and
+ *   wraps matching utilities with the body-class guard — and ONLY
+ *   matching utilities, leaving sibling presets' utilities untouched.
+ *
+ * This makes the shortcut CSS per-style: MD3's `.q-btn` becomes
+ * `body.quasar-style-md3 .q-btn`, MD2's `.q-btn` becomes
+ * `body.quasar-style-md2 .q-btn`, and the browser applies only the
+ * matching one at runtime.
  *
  * No-op when `bodyClass` is empty (backward compatible).
  */
@@ -161,8 +262,24 @@ export function scopeStyle(style: QuasarStyle, bodyClass: string): QuasarStyle {
       }
     })
   )
+  const taggedShortcuts = tagShortcutsWithLayer(style.shortcuts, bodyClass)
+  const postprocess = (util: UtilObject): UtilObject => {
+    // Skip preflights — they're handled by `wrapPreWithBodyClass`.
+    if (util.layer === 'preflights') return util
+    // Only wrap utilities that originated from THIS preset. With the
+    // per-style layer tag applied above, `util.layer` is the body
+    // class of the preset whose shortcut produced the util. Sibling
+    // presets' utilities have a different layer and pass through
+    // untouched, so each preset's CSS carries the correct prefix.
+    if (util.layer !== bodyClass) return util
+    const next = wrapShortcutSelector(util.selector, bodyClass)
+    if (!next || next === util.selector) return util
+    return { ...util, selector: next }
+  }
   return {
     ...style,
-    preflights: wrappedPreflights
+    preflights: wrappedPreflights,
+    shortcuts: taggedShortcuts,
+    postprocess: [postprocess]
   }
 }

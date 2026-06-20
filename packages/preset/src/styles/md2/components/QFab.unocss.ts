@@ -1,6 +1,6 @@
 import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
-import { mdComponent, mdStatic } from '../../_helpers.js'
+import { componentClass, staticClass, qe } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [/^z-fab$/, ([, c], { theme }) => ``],
@@ -12,13 +12,13 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     // [&_>_.q-btn]:(w-full)
   ],
 
-  [/^q-fab--form-rounded$/, mdStatic(`rounded-[28px]`)],
+  [/^q-fab--form-rounded$/, staticClass(`rounded-[28px]`)],
 
-  [/^q-fab--form-square$/, mdStatic(`rounded-[4px]`)],
+  [/^q-fab--form-square$/, staticClass(`rounded-[4px]`)],
 
   [
     /^q-fab__icon$/,
-    mdComponent(
+    componentClass(
       'q-fab__icon',
       `[transition:opacity_0.4s,_transform_0.4s] opacity-100 rotate-0 relative!`
     )
@@ -26,7 +26,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-fab__active-icon$/,
-    mdComponent(
+    componentClass(
       'q-fab__active-icon',
       `[transition:opacity_0.4s,_transform_0.4s] opacity-0 -rotate-180 relative! !left--20px !mr--20px`
     )
@@ -34,7 +34,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-fab__label--external$/,
-    mdComponent(
+    componentClass(
       'q-fab__label--external',
       `absolute px-[8px] py-[0] [transition:opacity_0.18s_cubic-bezier(0.65,_0.815,_0.735,_0.395)]`
     )
@@ -42,7 +42,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-fab__label--external-hidden$/,
-    mdComponent(
+    componentClass(
       'q-fab__label--external-hidden',
       `opacity-0 pointer-events-none`
     )
@@ -50,7 +50,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-fab__label--external-left$/,
-    mdComponent(
+    componentClass(
       'q-fab__label--external-left',
       `top-2/4 -left-[12px] -translate-x-full -translate-y-1/2`
     )
@@ -58,7 +58,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-fab__label--external-right$/,
-    mdComponent(
+    componentClass(
       'q-fab__label--external-right',
       `top-2/4 -right-[12px] translate-x-full -translate-y-1/2`
     )
@@ -66,7 +66,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-fab__label--external-bottom$/,
-    mdComponent(
+    componentClass(
       'q-fab__label--external-bottom',
       `-bottom-[12px] left-2/4 -translate-x-1/2 translate-y-full`
     )
@@ -74,7 +74,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-fab__label--external-top$/,
-    mdComponent(
+    componentClass(
       'q-fab__label--external-top',
       `-top-[12px] left-2/4 -translate-x-1/2 -translate-y-full`
     )
@@ -82,7 +82,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-fab__label--internal$/,
-    mdComponent(
+    componentClass(
       'q-fab__label--internal',
       `p-0 [transition:font-size_0.12s_cubic-bezier(0.65,_0.815,_0.735,_0.395),_max-height_0.12s_cubic-bezier(0.65,_0.815,_0.735,_0.395),_opacity_0.07s_cubic-bezier(0.65,_0.815,_0.735,_0.395)] max-h-[30px]`
     )
@@ -90,21 +90,21 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-fab__label--internal-hidden$/,
-    mdComponent('q-fab__label--internal-hidden', `text-[0] opacity-0`)
+    componentClass('q-fab__label--internal-hidden', `text-[0] opacity-0`)
   ],
 
-  [/^q-fab__label--internal-top$/, mdStatic(`pb-[0.12em]`)],
+  [/^q-fab__label--internal-top$/, staticClass(`pb-[0.12em]`)],
 
-  [/^q-fab__label--internal-bottom$/, mdStatic(`pt-[0.12em]`)],
+  [/^q-fab__label--internal-bottom$/, staticClass(`pt-[0.12em]`)],
 
   [
     /^q-fab__label--internal-left$/,
-    mdComponent('q-fab__label--internal-left', `pl-[0.285em] pr-[0.571em]`)
+    componentClass('q-fab__label--internal-left', `pl-[0.285em] pr-[0.571em]`)
   ],
 
   [
     /^q-fab__label--internal-right$/,
-    mdComponent('q-fab__label--internal-right', `pr-[0.285em] pl-[0.571em]`)
+    componentClass('q-fab__label--internal-right', `pr-[0.285em] pl-[0.571em]`)
   ],
 
   [
@@ -117,15 +117,15 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-fab__icon-holder--opened$/,
-    mdComponent(
+    componentClass(
       'q-fab__icon-holder--opened',
-      `[&_.q-fab\\_\\_icon]:(rotate-180 opacity-0) [&_.q-fab\\_\\_active-icon]:(rotate-0 opacity-100)`
+      qe`[&_.q-fab__icon]:(rotate-180 opacity-0) [&_.q-fab__active-icon]:(rotate-0 opacity-100)`
     )
   ],
 
   [
     /^q-fab__actions$/,
-    mdComponent(
+    componentClass(
       'q-fab__actions',
       `absolute opacity-0 [transition:transform_0.18s_ease-in,_opacity_0.18s_ease-in] pointer-events-none items-center justify-center self-center p-[3px] [&_.q-btn]:(m-[5px])`
     )
@@ -133,7 +133,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-fab__actions--right$/,
-    mdComponent(
+    componentClass(
       'q-fab__actions--right',
       `origin-[0_50%] scale-[0.4] -translate-x-[62px] h-[56px] left-full ml-[9px]`
     )
@@ -141,7 +141,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-fab__actions--left$/,
-    mdComponent(
+    componentClass(
       'q-fab__actions--left',
       `origin-[100%_50%] scale-[0.4] translate-x-[62px] h-[56px] right-full mr-[9px] flex-row-reverse`
     )
@@ -149,7 +149,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-fab__actions--up$/,
-    mdComponent(
+    componentClass(
       'q-fab__actions--up',
       `origin-[50%_100%] scale-[0.4] translate-y-[62px] w-[56px] bottom-full mb-[9px] flex-col-reverse left-2/4 -ml-[28px]`
     )
@@ -157,7 +157,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-fab__actions--down$/,
-    mdComponent(
+    componentClass(
       'q-fab__actions--down',
       `origin-[50%_0] scale-[0.4] -translate-y-[62px] w-[56px] top-full mt-[9px] flex-col left-2/4 -ml-[28px]`
     )
@@ -165,7 +165,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-fab__actions--opened$/,
-    mdComponent(
+    componentClass(
       'q-fab__actions--opened',
       `opacity-100 scale-100 translate-x-[0.1px] translate-y-[0] pointer-events-all`
     )
@@ -173,17 +173,17 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-fab--align-left$/,
-    mdComponent(
+    componentClass(
       'q-fab--align-left',
-      `[&_>_.q-fab\\_\\_actions--up]:(items-start left-[28px]) [&_>_.q-fab\\_\\_actions--down]:(items-start left-[28px])`
+      qe`[&_>_.q-fab__actions--up]:(items-start left-[28px]) [&_>_.q-fab__actions--down]:(items-start left-[28px])`
     )
   ],
 
   [
     /^q-fab--align-right$/,
-    mdComponent(
+    componentClass(
       'q-fab--align-right',
-      `[&_>_.q-fab\\_\\_actions--up]:(items-end left-auto right-0) [&_>_.q-fab\\_\\_actions--down]:(items-end left-auto right-0)`
+      qe`[&_>_.q-fab__actions--up]:(items-end left-auto right-0) [&_>_.q-fab__actions--down]:(items-end left-auto right-0)`
     )
   ]
 ]

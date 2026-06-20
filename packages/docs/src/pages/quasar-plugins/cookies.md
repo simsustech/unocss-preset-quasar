@@ -16,7 +16,7 @@ In addition to the standard way of dealing with cookies, with Cookie Plugin you 
 With Electron version >= v1.12.2 the Cookie Plugin isn't functional in the Electron Enviroment. You may want to look up the [Electron Cookies](https://www.electronjs.org/docs/api/cookies) documentation.
 :::
 
-<DocInstallation plugins="Cookies" />
+<DocInstall plugins="Cookies" />
 
 ## Notes on SSR
 
@@ -27,7 +27,7 @@ import { Cookies } from 'quasar'
 
 // you need access to `ssrContext`
 function (ssrContext) {
-  const cookies = process.env.SERVER
+  const cookies = import.meta.env.QUASAR_SERVER
     ? Cookies.parseSSR(ssrContext)
     : Cookies // otherwise we're on client
 
@@ -35,7 +35,7 @@ function (ssrContext) {
 }
 ```
 
-The `ssrContext` is available in [@quasar/app-vite Boot File](/quasar-cli-vite/boot-files) or [@quasar/app-webpack Boot File](/quasar-cli-webpack/boot-files). And also in the [@quasar/app-vite preFetch](/quasar-cli-vite/prefetch-feature) or [@quasar/app-webpack preFetch](/quasar-cli-webpack/prefetch-feature) feature, where it is supplied as a parameter.
+The `ssrContext` is available in [@quasar/app-vite Boot File](/quasar-cli-vite/boot-files). And also in the [@quasar/app-vite preFetch](/quasar-cli-vite/prefetch-feature) feature, where it is supplied as a parameter.
 
 The reason for this is that in a client-only app, every user will be using a fresh instance of the app in their browser. For server-side rendering we want the same: each request should have a fresh, isolated app instance so that there is no cross-request state pollution. So Cookies needs to be bound to each request separately.
 

@@ -123,7 +123,7 @@ We highly recommend using the [Icon Genie CLI](/icongenie/introduction), because
 Quickly bootstrap the necessary images with Icon Genie CLI. For a complete list of options, please visit the [Icon Genie CLI](/icongenie/command-list) command list page.
 
 ```bash
-$ icongenie generate -m capacitor -i /path/to/source/icon.png [-b /path/to/background.png]
+icongenie generate -m capacitor -i /path/to/source/icon.png [-b /path/to/background.png]
 ```
 
 Depending on what packager (@electron/packager or electron-builder) you will be using, please see their docs on how to hook the icons.

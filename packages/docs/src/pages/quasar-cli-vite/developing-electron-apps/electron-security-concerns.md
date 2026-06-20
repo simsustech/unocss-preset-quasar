@@ -31,6 +31,19 @@ Except for items 3 and 4 above, Electron will put a warning in the dev console i
 
 ## Tips and Tricks
 
+#### Using CSP (Content Security Protocol)
+
+Your `/index.html` file should contain a CSP meta tag in your `<head>`. Example:
+
+```html /index.html
+<head>
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';<% if (ctx.dev) { %> connect-src 'self' ws://localhost:*; worker-src 'self' blob:;<% } %>"
+  />
+</head>
+```
+
 #### Communication Protocols
 
 You should know this by now, but if you are not using **https** / **sftp** / **wss** then the app's communications with the outside world can be very easily tampered with. Whatever you are building, please use a secure protocol everywhere.
@@ -62,7 +75,7 @@ The key-combination <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>I</kbd> (or <kbd>ALT</
 
 When you have built your binary blobs and want to publish them e.g. on GitHub, use `shasum` and post these results somewhere prominent (like on the GitHub release page for your project) and potentially on a public blockchain, such as [Steem](https://steemworld.org/@quasarframework).
 
-```bash
+```
 $ shasum -a 256 myApp-v1.0.0_darwin-x64.dmg
 40ed03e0fb3c422e554c7e75d41ba71405a4a49d560b1bf92a00ea6f5cbd8daa myApp-v1.0.0_darwin-x64.dmg
 ```

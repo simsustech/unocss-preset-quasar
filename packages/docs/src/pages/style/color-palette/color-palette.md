@@ -9,7 +9,7 @@ Quasar Framework offers a wide selection of colors out of the box. You can use t
 
 <DocApi file="Brand" />
 
-<DocInstallation title="Configuration" config="brand" />
+<DocInstall title="Configuration" config="brand" />
 
 ## Brand Colors
 
@@ -177,12 +177,12 @@ You can set up some brand colors without tampering with the Sass/SCSS variables.
 
 See the [Configuration](/style/color-palette#configuration) section above for setting it during initial configuration for Quasar CLI, Quasar Vite plugin, and UMD projects.
 
-If you are using Quasar CLI, you can also use a [@quasar/app-vite Boot File](/quasar-cli-vite/boot-files) or a [@quasar/app-webpack Boot File](/quasar-cli-webpack/boot-files).
+If you are using Quasar CLI, you can also use a [@quasar/app-vite Boot File](/quasar-cli-vite/boot-files).
 This is especially useful if you want to change the colors dynamically at initial load time, perhaps after fetching them from an API.
 
 ```js /src/boot/brand-colors.js - or any other name
 import { setCssVar } from 'quasar'
-import { defineBoot } from '#q-app/wrappers'
+import { defineBoot } from '#q-app'
 
 export default defineBoot(() => {
   setCssVar('primary', '#ff0000')

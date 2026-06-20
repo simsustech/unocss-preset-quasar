@@ -41,7 +41,7 @@ If you want to add some Vite plugins, see the [Adding Vite plugins](#adding-vite
 
 Quasar CLI offers a useful command for this:
 
-```bash
+```
 $ quasar inspect -h
 
   Description
@@ -66,7 +66,7 @@ $ quasar inspect -h
 
 ## Adding Vite plugins
 
-Make sure to yarn/npm install the vite plugin package that you want to use, then edit the `/quasar.config` file:
+Make sure to pnpm/yarn/npm/bun install the vite plugin package that you want to use, then edit the `/quasar.config` file:
 
 ```js /quasar.config file
 build: {
@@ -286,38 +286,33 @@ Quasar comes with a bunch of useful folder aliases pre-configured. You can use t
 
 We will use `utils` as an example, which may be used as `import { formatTime } from 'utils/time.js'`. There are two ways to add a folder alias:
 
-1. Through `/quasar.config file > build > alias` property. This is the simplest way to add a folder alias. Use an absolute path to your alias. Example:
+1. Through /quasar.config file > build > "alias" property. This is the simplest way to add a folder alias. Use an absolute path to your alias. Example:
 
 ```js /quasar.config file
-import { fileURLToPath } from 'node:url'
-
-export default (ctx) => {
+export default defineConfig((ctx) => {
   return {
     build: {
       alias: {
-        utils: fileURLToPath(new URL('./src/utils', import.meta.url))
+        // will point to /src/utils
+        utils: ctx.appPaths.resolve.src('utils')
       }
     }
   }
-}
+})
 ```
 
 2. By extending the Vite config directly. Do not assign to `viteConf.resolve.alias` directly to preserve the built-in aliases, use `Object.assign` instead or return an Object with your extra aliases. Always use absolute paths.
 
 ```js /quasar.config file
-import { fileURLToPath } from 'node:url'
-
-export default (ctx) => {
+export default defineConfig((ctx) => {
   return {
     build: {
       extendViteConf(viteConf, { isServer, isClient }) {
-        Object.assign(viteConf.resolve.alias, {
-          utils: fileURLToPath(new URL('./src/utils', import.meta.url))
-        })
+        viteConf.resolve.alias.utils = ctx.appPaths.resolve.src('utils')
       }
     }
   }
-}
+})
 ```
 
 ##### Using with TypeScript

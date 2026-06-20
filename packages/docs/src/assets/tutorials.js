@@ -36,7 +36,7 @@ export default {
     },
 
     {
-      t: 'Fullstack - Facebook Clone com Quasar (VueJS) e NodeJS',
+      t: 'Fullstack - Facebook Clone com Quasar (VueJS) e Node.JS',
       d: 'Nesse curso eu irei abordar a criação de uma aplicação completa com Frontend e BackendEsse curso é indicado para todos que desejam aprender Quasar Framework, mas que sentem um novo curso, sentem muita dificuldade no aprendizado.Não se preocupe, no curso nós utilizaremos uma...',
       u: 'https://click.linksynergy.com/link?id=V56OaeB17aU&offerid=1597309.391977338745591199968672&type=2&murl=https%3a%2f%2fwww.udemy.com%2fcourse%2ffullstack-dev2dev%2f',
       i: 'https://img-c.udemycdn.com/course/480x270/3791258_ab22_2.jpg'
@@ -192,8 +192,8 @@ export default {
     },
 
     {
-      t: 'Vue 3 Essentials with Typescript: A Practical Guide',
-      d: 'Hello and welcome to this course, in this course you will learn how to create an Admin App using Vue 3 Composition API with Typescript.In this tutorial you will learn: Use Vue with TypescriptUse VuexHow to use Composition APICreate classes, interfacesCreate public and private routesRestrict...',
+      t: 'Vue 3 Essentials with TypeScript: A Practical Guide',
+      d: 'Hello and welcome to this course, in this course you will learn how to create an Admin App using Vue 3 Composition API with TypeScript. In this tutorial you will learn: Use Vue with TypeScript, Use Vuex, How to use Composition API, Create classes, interfaces, Create public and private routes, Restrict...',
       u: 'https://click.linksynergy.com/link?id=V56OaeB17aU&offerid=1597309.391976542949406940778227&type=2&murl=https%3a%2f%2fwww.udemy.com%2fcourse%2fvue-admin%2f',
       i: 'https://img-c.udemycdn.com/course/480x270/3558285_b7aa.jpg'
     },

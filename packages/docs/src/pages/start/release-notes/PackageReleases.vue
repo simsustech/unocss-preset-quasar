@@ -70,7 +70,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { mdiMagnify } from '@quasar/extras/mdi-v7'
 
 const props = defineProps(['releases'])
@@ -94,8 +94,8 @@ const filteredReleases = computed(() => {
     const val = search.value.toLowerCase()
     return props.releases.filter(
       (release) =>
-        release.version.indexOf(val) !== -1 ||
-        release.body.toLowerCase().indexOf(val) !== -1
+        release.version.includes(val) ||
+        release.body.toLowerCase().includes(val)
     )
   }
 

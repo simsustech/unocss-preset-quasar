@@ -4,7 +4,6 @@ desc: The QNoSsr Vue component makes it easy to differentiate content between se
 keys: QNoSsr
 related:
   - /quasar-cli-vite/developing-ssr/introduction
-  - /quasar-cli-webpack/developing-ssr/introduction
   - /vue-composables/use-hydration
 ---
 

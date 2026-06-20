@@ -6,7 +6,7 @@ keys: capitalize,humanStorageSize,between,normalizeToInterval,pad
 
 ### Helping Tree-Shake
 
-You will notice all examples import `format` Object from Quasar. However, if you need only one formatter method from it, then you can use ES6 destructuring to help Tree Shaking embed only that method and not all of `format`.
+You will notice all examples import `format` Object from Quasar. However, if you need only one formatter method from it, then you can use destructuring to help Tree Shaking embed only that method and not all of `format`.
 
 Example:
 

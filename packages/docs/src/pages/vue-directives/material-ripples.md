@@ -13,7 +13,7 @@ Do not use this directive on components that already have material ripples baked
 
 <DocApi file="Ripple" />
 
-<DocInstallation title="Configuration" config="ripple" />
+<DocInstall title="Configuration" config="ripple" />
 
 ## Usage
 

@@ -68,7 +68,7 @@ The first line cannot be longer than 70 characters, the second line is always bl
 
 **Example `<scope>` values:**
 
-- Directory/package related: ui, cli, app-webpack, app-vite, etc.
+- Directory/package related: ui, cli, app-vite, etc.
 - Feature related: api, TouchSwipe, QTime, etc.
 
 ::: tip

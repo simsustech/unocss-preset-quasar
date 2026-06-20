@@ -10,9 +10,9 @@ So, you've finished working on your Mobile App. Now it's time to deploy it. Let'
 To generate a release build for Android, we can use the following Quasar CLI command:
 
 ```bash
-$ quasar build -m cordova -T android
+quasar build -m cordova -T android
 # or the short form:
-$ quasar build -m android
+quasar build -m android
 ```
 
 This will generate a release build based on the settings in your `/src-cordova/config.xml`.
@@ -22,7 +22,7 @@ Next, we can find our unsigned APK file in "/src-cordova/platforms/android/app/b
 Let’s generate our private key using the keytool command that comes with the JDK. If this tool isn’t found, refer to the installation guide:
 
 ```bash
-$ keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 20000
+keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 20000
 ```
 
 You’ll first be prompted to create a password for the keystore. Then, answer the rest of the nice tool’s questions and when it’s all done, you should have a file called my-release-key.keystore created in the current directory.
@@ -36,7 +36,7 @@ Next, we need to _zip align_ and to sign the APK. For this we use a couple of ap
 To zip align the APK:
 
 ```bash
-$ zipalign -v 4 <path-to-same-apk-file> HelloWorld.apk
+zipalign -v 4 <path-to-same-apk-file> HelloWorld.apk
 ```
 
 To sign the APK:
@@ -110,13 +110,13 @@ You can learn more about managing your app in iTunes Connect from the [official 
 ### Building the app for production
 
 ```bash
-$ quasar build -m cordova -T ios
+quasar build -m cordova -T ios
 # or the short form:
-$ quasar build -m ios
+quasar build -m ios
 
 # passing extra parameters and/or options to
 # underlying "cordova" executable:
-$ quasar build -m ios -- some params --and options --here
+quasar build -m ios -- some params --and options --here
 ```
 
 If everything went well you’ll see the `BUILD SUCCEEDED` output in the console.

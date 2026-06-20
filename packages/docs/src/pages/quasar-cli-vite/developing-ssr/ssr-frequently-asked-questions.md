@@ -17,7 +17,7 @@ import { Platform } from 'quasar'
 
 // you need access to `ssrContext`
 function (ssrContext) {
-  const platform = process.env.SERVER
+  const platform = import.meta.env.QUASAR_SERVER
     ? Platform.parseSSR(ssrContext)
     : Platform // otherwise we're on client
 

@@ -20,7 +20,7 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { mdiCodeTags } from '@quasar/extras/mdi-v7'
 
-import getMeta from 'assets/get-meta.js'
+import getMeta from '@/assets/get-meta.js'
 
 const $route = useRoute()
 const sourceLink = computed(() => $route.meta.sourceLink)

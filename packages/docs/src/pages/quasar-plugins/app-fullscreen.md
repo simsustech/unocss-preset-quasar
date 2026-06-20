@@ -14,7 +14,7 @@ Please note that the behavior is different depending on the platform the code is
 
 <DocApi file="AppFullscreen" />
 
-<DocInstallation plugins="AppFullscreen" />
+<DocInstall plugins="AppFullscreen" />
 
 ## Usage
 
@@ -88,21 +88,17 @@ It all depends on the Web Fullscreen API support of the platform the code is run
 ```html
 <template>...</template>
 
-<script>
+<script setup>
   import { useQuasar } from 'quasar'
   import { watch } from 'vue'
 
-  export default {
-    setup() {
-      const $q = useQuasar()
+  const $q = useQuasar()
 
-      watch(
-        () => $q.fullscreen.isActive,
-        (val) => {
-          console.log(val ? 'In fullscreen now' : 'Exited fullscreen')
-        }
-      )
+  watch(
+    () => $q.fullscreen.isActive,
+    (val) => {
+      console.log(val ? 'In fullscreen now' : 'Exited fullscreen')
     }
-  }
+  )
 </script>
 ```

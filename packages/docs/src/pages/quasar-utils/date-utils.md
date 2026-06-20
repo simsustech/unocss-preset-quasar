@@ -16,7 +16,7 @@ Get familiar with JS native Date class, which is very powerful, and remember tha
 Quasar date utils includes tree shaking, except for the UMD version.
 :::
 
-You will notice all examples import `date` Object from Quasar. However, if you need only one method from it, then you can use ES6 destructuring to help Tree Shaking embed only that method and not all of `date`.
+You will notice all examples import `date` Object from Quasar. However, if you need only one method from it, then you can use destructuring to help Tree Shaking embed only that method and not all of `date`.
 
 Example with `addToDate()`:
 

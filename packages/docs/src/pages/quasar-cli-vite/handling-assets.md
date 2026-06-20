@@ -17,7 +17,7 @@ Since these assets may be inlined/copied/renamed during build, they are essentia
 
 Relative URLs, e.g. `./assets/logo.png` will be interpreted as a module dependency. They will be replaced with an auto-generated URL based on your Vite output configuration.
 
-URLs prefixed with `~` are treated as a module request, similar to `import 'some-module/image.png'`. You need to use this prefix if you want to leverage Vite's module resolving configurations. Quasar provides the `assets` alias out of the box, so it is recommended that you use it like this: `<img src="~assets/logo.png">`. Notice `~` in front of 'assets'.
+URLs prefixed with `~` are treated as a module request, similar to `import 'some-module/image.png'`. You need to use this prefix if you want to leverage Vite's module resolving configurations. Quasar provides the `assets` alias out of the box, so it is recommended that you use it like this: `<img src="~@/assets/logo.png">`. Notice `~` in front of '@/assets'.
 
 ## Static Assets - /public
 

@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 
 export default {
   setup() {
@@ -100,9 +100,7 @@ export default {
       readonly,
       disable,
 
-      tabindex: computed(() =>
-        disable.value === true || readonly.value === true ? -1 : 0
-      )
+      tabindex: computed(() => (disable.value || readonly.value ? -1 : 0))
     }
   }
 }

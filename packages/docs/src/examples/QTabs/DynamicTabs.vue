@@ -47,15 +47,17 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const tabsDefinition = [
+  // #region
   { name: 'mails', icon: 'mail', label: 'Mails' },
   { name: 'alarms', icon: 'alarm', label: 'Alarms' },
   { name: 'movies', icon: 'movie', label: 'Movies' },
   { name: 'photos', icon: 'photo', label: 'Photos' },
   { name: 'videos', icon: 'slow_motion_video', label: 'Videos' },
   { name: 'addressbook', icon: 'people', label: 'Address Book' }
+  // #endregion
 ]
 
 export default {
@@ -66,20 +68,20 @@ export default {
       tab: ref('mails'),
       tabs,
 
-      allTabs: computed(() => {
-        return tabsDefinition.map((tab) => ({
+      allTabs: computed(() =>
+        tabsDefinition.map((tab) => ({
           tab,
-          selected: tabs.value.indexOf(tab) > -1
+          selected: tabs.value.includes(tab)
         }))
-      }),
+      ),
 
       setTabSelected(tab, status) {
-        if (status === true) {
+        if (status) {
           tabs.value.push(tab)
         } else {
           const index = tabs.value.indexOf(tab)
 
-          if (index > -1) {
+          if (index !== -1) {
             tabs.value.splice(index, 1)
           }
         }

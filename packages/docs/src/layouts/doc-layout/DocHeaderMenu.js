@@ -1,10 +1,10 @@
 import {
-  QMenu,
   QIcon,
-  QList,
   QItem,
-  QItemSection,
   QItemLabel,
+  QItemSection,
+  QList,
+  QMenu,
   QSeparator,
   Screen
 } from 'quasar'
@@ -42,18 +42,19 @@ export default {
             () => {
               const acc = []
 
-              entry.icon !== void 0 &&
+              if (entry.icon !== void 0) {
                 acc.push(
                   h(QItemSection, { side: true }, () =>
                     h(QIcon, { name: entry.icon })
                   )
                 )
+              }
 
               acc.push(
                 h(QItemSection, { class: 'text-no-wrap' }, () => entry.name)
               )
 
-              entry.children !== void 0 &&
+              if (entry.children !== void 0) {
                 acc.push(
                   h(
                     QItemSection,
@@ -71,6 +72,7 @@ export default {
                     () => getChildren(entry.children)
                   )
                 )
+              }
 
               return acc
             }

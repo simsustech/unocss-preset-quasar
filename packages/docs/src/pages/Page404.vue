@@ -1,5 +1,5 @@
 <template>
-  <doc-stars />
+  <DocStars />
   <div class="page404 flex flex-center text-center relative-position doc-brand">
     <div>
       <div
@@ -31,7 +31,7 @@
 <script setup>
 import { useMeta } from 'quasar'
 
-import DocStars from 'src/components/DocStars.vue'
+import DocStars from '@/components/DocStars.vue'
 
 useMeta({ title: 'Page not found' })
 </script>

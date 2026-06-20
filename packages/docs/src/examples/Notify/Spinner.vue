@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { useQuasar, QSpinnerGears } from 'quasar'
+import { QSpinnerGears, useQuasar } from 'quasar'
 
 export default {
   setup() {

@@ -9,7 +9,7 @@ Quasar makes use of the Web [Page Visibility API](https://developer.mozilla.org/
 
 <DocApi file="AppVisibility" />
 
-<DocInstallation plugins="AppVisibility" scrollable />
+<DocInstall plugins="AppVisibility" scrollable />
 
 ## Usage
 
@@ -32,21 +32,17 @@ setup () {
 ```html
 <template>...</template>
 
-<script>
+<script setup>
   import { useQuasar } from 'quasar'
   import { watch } from 'vue'
 
-  export default {
-    setup() {
-      const $q = useQuasar()
+  const $q = useQuasar()
 
-      watch(
-        () => $q.appVisible,
-        (val) => {
-          console.log(val ? 'App became visible' : 'App went in the background')
-        }
-      )
+  watch(
+    () => $q.appVisible,
+    (val) => {
+      console.log(val ? 'App became visible' : 'App went in the background')
     }
-  }
+  )
 </script>
 ```

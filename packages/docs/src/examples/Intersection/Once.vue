@@ -17,13 +17,13 @@
       class="example-state rounded-borders text-center absolute-top q-mt-md q-ml-md q-mr-lg text-white"
       :class="visibleClass"
     >
-      {{ visible === true ? 'Visible' : 'Hidden' }}
+      {{ visible ? 'Visible' : 'Hidden' }}
     </div>
   </div>
 </template>
 
 <script>
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 
 export default {
   setup() {

@@ -1,6 +1,7 @@
 <template>
   <div class="q-ma-md">
     <q-scroll-area
+      :horizontal-offset="[0, 3]"
       :thumb-style="thumbStyle"
       :bar-style="barStyle"
       style="height: 200px"
@@ -24,7 +25,7 @@
 </template>
 
 <script>
-const maxSize = 10000
+const maxSize = 10_000
 const heavyList = []
 
 for (let i = 0; i < maxSize; i++) {
@@ -39,7 +40,6 @@ export default {
       heavyList,
 
       thumbStyle: {
-        right: '5px',
         borderRadius: '8px',
         backgroundColor: '#027be3',
         width: '8px',
@@ -47,15 +47,10 @@ export default {
       },
 
       barStyle: {
-        right: '2px',
         borderRadius: '14px',
         backgroundColor: '#027be3',
         width: '14px',
-        opacity: 0.2,
-        marginTop: '-3px',
-        marginBottom: '-3px',
-        paddingTop: '3px',
-        paddingBottom: '3px'
+        opacity: 0.2
       }
     }
   }

@@ -28,7 +28,7 @@ We highly recommend using the [Icon Genie CLI](/icongenie/introduction), because
 Quickly bootstrap the necessary images with Icon Genie CLI. For a complete list of options, please visit the [Icon Genie CLI](/icongenie/command-list) command list page.
 
 ```bash
-$ icongenie generate -m bex -i /path/to/source/icon.png
+icongenie generate -m bex -i /path/to/source/icon.png
 ```
 
 ## Manual instructions

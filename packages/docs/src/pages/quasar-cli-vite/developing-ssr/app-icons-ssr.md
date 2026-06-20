@@ -59,10 +59,10 @@ Quickly bootstrap the necessary images with Icon Genie CLI. For a complete list 
 
 ```bash
 # SSR only:
-$ icongenie generate -m ssr -i /path/to/source/icon.png
+icongenie generate -m ssr -i /path/to/source/icon.png
 
 # SSR + PWA:
-$ icongenie generate -m ssr,pwa -i /path/to/source/icon.png [-b /path/to/background.png]
+icongenie generate -m ssr,pwa -i /path/to/source/icon.png [-b /path/to/background.png]
 ```
 
 ## Manual instructions

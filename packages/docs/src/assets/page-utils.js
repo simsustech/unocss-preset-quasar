@@ -5,12 +5,12 @@ export function copyToClipboard(text) {
   const textArea = document.createElement('textarea')
   textArea.className = 'fixed-top'
   textArea.value = text
-  document.body.appendChild(textArea)
+  document.body.append(textArea)
   textArea.focus()
   textArea.select()
 
   document.execCommand('copy')
-  document.body.removeChild(textArea)
+  textArea.remove()
 }
 
 export function copyHeading(id) {

@@ -3,7 +3,7 @@ title: App Extensions
 desc: What Quasar App Extensions are and how they can help both you and the community.
 ---
 
-App Extensions are a way to painlessly inject complicated (or simple) libraries with a variety of dependencies, boot files, templates and custom logic. They can extend webpack, the `quasar.config` file, tightly couple external UI components to core, and even register new commands with the Quasar CLI. They can be run with `quasar dev` and have complete access to the current live `ctx` (context).
+App Extensions are a way to painlessly inject complicated (or simple) libraries with a variety of dependencies, boot files, templates and custom logic. They can extend Vite configuration, the `quasar.config` file, tightly couple external UI components to core, and even register new commands with the Quasar CLI. They can be run with `quasar dev` and have complete access to the current live `ctx` (context).
 
 The patterns for development literally open the floodgates to making Quasar one of the most extensible and powerful frameworks out there - now limited only by your imagination and innovation. This page will introduce you to the usage of App Extensions.
 
@@ -44,7 +44,7 @@ App Extensions can be installed, executed and also uninstalled. The following gu
 ### Installing an App Extension
 
 ```bash
-$ quasar ext add <ext-id>
+quasar ext add <ext-id>
 ```
 
 This command will find and install the extension's module. After installation is complete, there may be one or more prompts asking you to make choices or add information needed by the extension. When the installation is concluded, you will be returned to the command line.
@@ -54,9 +54,9 @@ This command will find and install the extension's module. After installation is
 There are several ways to "discover" what App Extensions have been installed:
 
 ```bash
-$ quasar ext
-$ quasar info
-$ cat quasar.extensions.json
+quasar ext
+quasar info
+cat quasar.extensions.json
 ```
 
 ### "Running" App Extensions
@@ -70,7 +70,7 @@ Nevertheless, each and every App Extension will be initialized during `quasar de
 You may need to update your extension, and this is done with the same command as used for installation:
 
 ```bash
-$ quasar ext add <ext-id>
+quasar ext add <ext-id>
 ```
 
 ::: warning
@@ -82,7 +82,7 @@ Reinstalling the extension MIGHT overwrite files that you have changed. You will
 You can remove an App Extension from being hooked from the Quasar CLI by running this command. Depending upon the author and the extension itself, you may have to manually clean up files though.
 
 ```bash
-$ quasar ext remove <ext-id>
+quasar ext remove <ext-id>
 ```
 
 ## List of official app-extensions

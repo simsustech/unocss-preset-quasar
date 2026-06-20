@@ -15,6 +15,7 @@
           @dragstart="onDragStart"
           class="box navy"
         />
+        <!-- #region -->
         <div
           id="box2"
           draggable="true"
@@ -57,6 +58,7 @@
           @dragstart="onDragStart"
           class="box orange"
         />
+        <!-- #endregion -->
       </div>
 
       <div
@@ -103,7 +105,7 @@ export default {
         status1.value = []
         for (const index in mutationRecords) {
           const record = mutationRecords[index]
-          const info = `type: ${record.type}, nodes added: ${record.addedNodes.length > 0 ? 'true' : 'false'}, nodes removed: ${record.removedNodes.length > 0 ? 'true' : 'false'}, oldValue: ${record.oldValue}`
+          const info = `type: ${record.type}, nodes added: ${record.addedNodes.length !== 0 ? 'true' : 'false'}, nodes removed: ${record.removedNodes.length !== 0 ? 'true' : 'false'}, oldValue: ${record.oldValue}`
           status1.value.push(info)
         }
       },
@@ -112,7 +114,7 @@ export default {
         status2.value = []
         for (const index in mutationRecords) {
           const record = mutationRecords[index]
-          const info = `type: ${record.type}, nodes added: ${record.addedNodes.length > 0 ? 'true' : 'false'}, nodes removed: ${record.removedNodes.length > 0 ? 'true' : 'false'}, oldValue: ${record.oldValue}`
+          const info = `type: ${record.type}, nodes added: ${record.addedNodes.length !== 0 ? 'true' : 'false'}, nodes removed: ${record.removedNodes.length !== 0 ? 'true' : 'false'}, oldValue: ${record.oldValue}`
           status2.value.push(info)
         }
       },
@@ -142,7 +144,7 @@ export default {
         e.preventDefault()
 
         // don't drop on other draggables
-        if (e.target.draggable === true) return
+        if (e.target.draggable) return
 
         const draggedId = e.dataTransfer.getData('text')
         const draggedEl = document.getElementById(draggedId)
@@ -154,8 +156,8 @@ export default {
         }
 
         // make the exchange
-        draggedEl.parentNode.removeChild(draggedEl)
-        e.target.appendChild(draggedEl)
+        draggedEl.remove()
+        e.target.append(draggedEl)
         e.target.classList.remove('drag-enter')
       }
     }

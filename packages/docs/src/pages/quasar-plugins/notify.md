@@ -9,7 +9,7 @@ Notify is a Quasar plugin that can display animated messages (floating above eve
 
 <DocApi file="Notify" />
 
-<DocInstallation plugins="Notify" config="notify" />
+<DocInstall plugins="Notify" config="notify" />
 
 ## Usage
 
@@ -101,7 +101,7 @@ There are four predefined types out of the box that you can use: "positive", "ne
 
 <DocExample title="Out of the box types" file="PredefinedTypesDefault" />
 
-Furthermore, you can register your own types or even override the predefined ones. The best place to do this would be in a [@quasar/app-vite Boot File](/quasar-cli-vite/boot-files) or a [@quasar/app-webpack Boot File](/quasar-cli-webpack/boot-files).
+Furthermore, you can register your own types or even override the predefined ones. The best place to do this would be in a [@quasar/app-vite Boot File](/quasar-cli-vite/boot-files).
 
 <DocExample title="Custom type" file="PredefinedTypesCustom" />
 
@@ -166,35 +166,38 @@ dismiss()
 
 There are two ways of setting default configuration that will apply to all Notifications: through quasar.config file > framework > config > notify Object (see Installation section) or programmatically (see below).
 
-We'll describe setting the defaults through a [@quasar/app-vite Boot File](/quasar-cli-vite/boot-files) or a [@quasar/app-webpack Boot File](/quasar-cli-webpack/boot-files) (works the same anywhere in your code, but a boot file ensures this is run before your app starts):
+We'll describe setting the defaults through a [@quasar/app-vite Boot File](/quasar-cli-vite/boot-files) (works the same anywhere in your code, but a boot file ensures this is run before your app starts):
 
 First we create the boot file. Let's name it "notify-defaults.js".
 
 ```bash
-$ quasar new boot notify-defaults [--format ts]
+quasar new boot notify-defaults [--format ts]
 ```
 
 Add the created notify-defaults.js file to the boot array in the `/quasar.config` file:
 
 ```js
-export default (ctx) => {
+import { defineBoot } from '#q-app'
+
+export default defineBoot((ctx) => {
   return {
     // ...
-    boot: ['notify-defaults'],
+    boot: ['notify-defaults']
     // ...
   }
+})
 ```
 
 We then edit the newly created `/src/boot/notify-defaults.js`:
 
-```js
+```ts
 import { Notify } from 'quasar'
 
 Notify.setDefaults({
-  position: 'top-right',
   timeout: 2500,
   textColor: 'white',
-  actions: [{ icon: 'close', color: 'white' }]
+  actions: [{ icon: 'close', color: 'white' }],
+  position: 'top-right'
 })
 ```
 

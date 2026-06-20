@@ -15,14 +15,14 @@ You do not need a new Quasar App per BEX type above as a single Quasar Applicati
 
 ## quasar.config file
 
-```js /quasar.config file > sourceFiles
+```ts /quasar.config file > sourceFiles
 // should you wish to change default files
 sourceFiles: {
   bexManifestFile?: 'src-bex/manifest.json',
 }
 ```
 
-```js /quasar.config file > bex
+```ts /quasar.config file > bex
 bex: {
   /**
    * The list of extra scripts (js/ts) not in your bex manifest that you want to
@@ -35,16 +35,26 @@ bex: {
   extraScripts?: string[];
 
   /**
-   * Extend the Esbuild config that is used for the bex scripts
-   * (background, content scripts, dom script)
+   * Extend the Rolldown config that is used for the bex scripts
+   * (background, content scripts, dom script).
+   *
+   * Can be async. Can directly modify the "config" parameter or
+   * return a new one that will be merged with the default one.
    */
-  extendBexScriptsConf?: (config: EsbuildConfiguration) => void;
+  extendBexScriptsConf?: (
+    config: RolldownOptions
+  ) => void | RolldownOptions | Promise<void | RolldownOptions>;
 
   /**
    * Should you need some dynamic changes to the Browser Extension manifest file
    * (/src-bex/manifest.json) then use this method to do it.
+   *
+   * Can be async. Can directly modify the "json" parameter or
+   * return a new one that will be merged with the default one.
    */
-  extendBexManifestJson?: (json: object) => void;
+  extendBexManifestJson?: (
+    json: object
+  ) => void | object | Promise<void | object>;
 }
 ```
 

@@ -72,8 +72,8 @@
 
       <div class="q-mb-md">
         <span>Caught a mistake?</span>
-        <doc-link class="q-ml-xs" :to="editHref"
-          >Edit this page in browser</doc-link
+        <DocLink class="q-ml-xs" :to="editHref"
+          >Edit this page in browser</DocLink
         >
       </div>
     </div>
@@ -84,7 +84,7 @@
     :class="tocClass"
   >
     <q-scroll-area class="doc-page__toc-area">
-      <doc-page-toc />
+      <DocPageToc />
     </q-scroll-area>
   </div>
 </template>
@@ -93,12 +93,12 @@
 import { useMeta } from 'quasar'
 import { computed } from 'vue'
 
-import { mdiPencil, mdiFlash, mdiLaunch } from '@quasar/extras/mdi-v7'
+import { mdiFlash, mdiLaunch, mdiPencil } from '@quasar/extras/mdi-v7'
 
-import DocLink from 'src/components/DocLink.vue'
+import DocLink from '@/components/DocLink.vue'
 import DocPageToc from './DocPageToc.vue'
 
-import getMeta from 'assets/get-meta.js'
+import getMeta from '@/assets/get-meta.js'
 import { useDocStore } from './store/index.js'
 
 const props = defineProps({
@@ -129,7 +129,7 @@ docStore.setToc(props.toc)
 
 const editHref = computed(
   () =>
-    `https://github.com/quasarframework/quasar/edit/${process.env.DOCS_BRANCH}/docs/src/pages/${props.editLink}.md`
+    `https://github.com/quasarframework/quasar/edit/${import.meta.env.DOCS_BRANCH}/docs/src/pages/${props.editLink}.md`
 )
 
 const tocClass = computed(

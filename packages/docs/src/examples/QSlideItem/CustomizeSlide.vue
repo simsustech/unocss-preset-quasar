@@ -29,7 +29,7 @@
 
 <script>
 import { useQuasar } from 'quasar'
-import { ref, computed, onBeforeUnmount } from 'vue'
+import { computed, onBeforeUnmount, ref } from 'vue'
 
 export default {
   setup() {
@@ -84,7 +84,7 @@ export default {
           () => {
             slideRatio.value[side] = ratio
           },
-          isReset === true ? 200 : void 0
+          isReset ? 200 : void 0
         )
       }
     }

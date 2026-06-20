@@ -75,7 +75,8 @@
     "@unocss/preset-icons": "^66.7.0",
     "@unocss/preset-mini": "66.7.0",
     "quasar": "^2.19.3",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
   },
   "peerDependencies": {
     "quasar": "^2.19.3"

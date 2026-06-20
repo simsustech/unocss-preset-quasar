@@ -32,7 +32,8 @@ Works great along with [QTabPanels](/vue-components/tab-panels), a component whi
 - On a desktop you will see chevrons on either side that can be clicked.
 - On a mobile, you can pan the tabs with your finger.
 - If you want to force arrows to be visible on mobile use `mobile-arrows` prop.
-  :::
+
+:::
 
 ::: warning
 QRouteTab won't and cannot work with the UMD version if you don't also install Vue Router.
@@ -178,44 +179,38 @@ Please refer to the QRouteTab API card at the top of the page for a more in-dept
   </q-tabs>
 </template>
 
-<script>
-  export default {
-    setup() {
-      function navDelay(e, go) {
-        e.preventDefault() // we cancel the default navigation
+<script setup>
+  function navDelay(e, go) {
+    e.preventDefault() // we cancel the default navigation
 
-        // console.log('triggering navigation in 2s')
-        setTimeout(() => {
-          // console.log('navigating as promised 2s ago')
-          go()
-        }, 2000)
-      }
-
-      function navCancel(e) {
-        e.preventDefault() // we cancel the default navigation
-      }
-
-      function navRedirect(e, go) {
-        e.preventDefault() // we cancel the default navigation
-
-        // call this at your convenience
-        go({
-          to: { query: { tab: '2', noScroll: true } }
-          // replace: boolean; default is what the tab is configured with
-          // returnRouterError: boolean; default is false
-        })
-          .then((vueRouterResult) => {
-            /* ... */
-          })
-          .catch((vueRouterError) => {
-            /* ...will not reach here unless returnRouterError === true */
-          })
-      }
-
-      function navPass() {}
-
-      return { navDelay, navCancel, navRedirect, navPass }
-    }
+    // console.log('triggering navigation in 2s')
+    setTimeout(() => {
+      // console.log('navigating as promised 2s ago')
+      go()
+    }, 2000)
   }
+
+  function navCancel(e) {
+    e.preventDefault() // we cancel the default navigation
+  }
+
+  function navRedirect(e, go) {
+    e.preventDefault() // we cancel the default navigation
+
+    // call this at your convenience
+    go({
+      to: { query: { tab: '2', noScroll: true } }
+      // replace: boolean; default is what the tab is configured with
+      // returnRouterError: boolean; default is false
+    })
+      .then((vueRouterResult) => {
+        /* ... */
+      })
+      .catch((vueRouterError) => {
+        /* ...will not reach here unless returnRouterError === true */
+      })
+  }
+
+  function navPass() {}
 </script>
 ```

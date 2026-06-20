@@ -1,0 +1,11 @@
+# Should be copied to /docs root when building the docs,
+# BEFORE "pnpm build" and then deleted after build
+
+allowBuilds:
+  '@parcel/watcher': true
+  core-js: true
+  electron-winstaller: true
+  esbuild: true
+  lightningcss: true
+  rolldown: true
+  unrs-resolver: true

@@ -3,7 +3,7 @@ title: How To Use Vue
 desc: Quick tutorial about Vue principles and how to use it with Quasar.
 ---
 
-Before you begin with Quasar, it is a good idea to get acquainted with ES6 and have a fairly good knowledge about how Vue 3 works. ([Quick overview of ES6](https://github.com/lukehoban/es6features) and [ES6 complete list of features](http://es6-features.org/#Constants) -- don't worry, you don't need to understand ALL of ES6). For devs experienced with reactive UIs, the [Vue 3 documentation](https://vuejs.org/) itself takes a half-day at most to read top-to-bottom and will help you understand how Quasar components can be used and configured.
+Before you begin with Quasar, it is a good idea to have a fairly good knowledge about how Vue 3 works. For devs experienced with reactive UIs, the [Vue 3 documentation](https://vuejs.org/) itself takes a half-day at most to read top-to-bottom and will help you understand how Quasar components can be used and configured.
 
 ::: tip
 If you are a total beginner to Vue and reactive UI libraries and want a good tutorial, we recommend you take a look at [Vue and Quasar video tutorials](/video-tutorials).
@@ -144,21 +144,13 @@ Let's take Notify as an example and see how we can then use it. In a Vue file, y
   </div>
 </template>
 
-<script>
+<script setup>
   import { useQuasar } from 'quasar'
 
-  export default {
-    setup() {
-      const $q = useQuasar()
+  const $q = useQuasar()
 
-      function showNotification() {
-        $q.notify('Some other message')
-      }
-
-      return {
-        showNotification
-      }
-    }
+  function showNotification() {
+    $q.notify('Some other message')
   }
 </script>
 ```
@@ -241,17 +233,9 @@ If you are trying to control that property and change it dynamically at runtime,
   <q-bogus :infinite="myInfiniteVariable" />
 </template>
 
-<script>
+<script setup>
   import { ref } from 'vue'
-
-  export default {
-    setup() {
-      const myInfiniteVariable = ref(false)
-      return {
-        myInfiniteVariable
-      }
-    }
-  }
+  const myInfiniteVariable = ref(false)
 </script>
 ```
 
@@ -289,18 +273,11 @@ As you can imagine, Strings are required as a value for this type of property.
   <q-bogus :size="mySize" />
 </template>
 
-<script>
+<script setup>
   import { ref } from 'vue'
 
-  export default {
-    setup() {
-      // notice String as value
-      const mySize = ref('16px')
-      return {
-        mySize
-      }
-    }
-  }
+  // notice String as value
+  const mySize = ref('16px')
 </script>
 ```
 
@@ -318,18 +295,11 @@ As you can imagine, Strings are required as a value for this type of property.
   <q-bogus :speed="myNumber" />
 </template>
 
-<script>
+<script setup>
   import { ref } from 'vue'
 
-  export default {
-    setup() {
-      // notice Number as value
-      const myNumber = ref(50)
-      return {
-        myNumber
-      }
-    }
-  }
+  // notice Number as value
+  const myNumber = ref(50)
 </script>
 ```
 
@@ -344,19 +314,13 @@ As you can imagine, Strings are required as a value for this type of property.
   <q-bogus :columns="myColumns" />
 </template>
 
-<script>
+<script setup>
   import { ref } from 'vue'
 
-  export default {
-    setup() {
-      const myColumns = ref({
-        key: 'value',
-        anotherKey: 'another value'
-      })
-
-      return { myColumns }
-    }
-  }
+  const myColumns = ref({
+    key: 'value',
+    anotherKey: 'another value'
+  })
 </script>
 ```
 
@@ -371,14 +335,8 @@ As you can imagine, Strings are required as a value for this type of property.
   <q-bogus :offset="myOffset" />
 </template>
 
-<script>
-  export default {
-    setup() {
-      return {
-        myOffset: [10, 20]
-      }
-    }
-  }
+<script setup>
+  const myOffset = [10, 20]
 </script>
 ```
 
@@ -403,26 +361,18 @@ In order for you to access these methods, you will need to set a Vue reference o
   <q-bogus ref="myRef" />
 </template>
 
-<script>
+<script setup>
   import { ref, onMounted } from 'vue'
 
-  export default {
-    setup() {
-      const myRef = ref(null)
+  const myRef = ref(null)
 
-      // after the component has mounted into DOM:
-      onMounted(() => {
-        // we call "next()" method of our component
-        myRef.value.next()
-      })
-      // calling before mount point might result in errors
-      // as Vue hasn't yet prepared the Vue reference
-
-      // we expose myRef to the scope so Vue
-      // can use it in the template as well
-      return { myRef }
-    }
-  }
+  // after the component has mounted into DOM:
+  onMounted(() => {
+    // we call "next()" method of our component
+    myRef.value.next()
+  })
+  // calling before mount point might result in errors
+  // as Vue hasn't yet prepared the Vue reference
 </script>
 ```
 
@@ -469,24 +419,15 @@ In order for you to catch these events, when they are triggered, you will need t
   <q-bogus @show="doSomething" @hide="doSomethingElse" />
 </template>
 
-<script>
-  export default {
-    setup() {
-      function doSomething() {
-        // this method has been called (in this case)
-        // because @show event was triggered by QBogus component
-      }
+<script setup>
+  function doSomething() {
+    // this method has been called (in this case)
+    // because @show event was triggered by QBogus component
+  }
 
-      function doSomethingElse() {
-        // this method has been called (in this case)
-        // because @hide event was triggered by QBogus component
-      }
-
-      return {
-        doSomething,
-        doSomethingElse
-      }
-    }
+  function doSomethingElse() {
+    // this method has been called (in this case)
+    // because @hide event was triggered by QBogus component
   }
 </script>
 ```

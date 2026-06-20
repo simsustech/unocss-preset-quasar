@@ -5,8 +5,8 @@ scope:
   tree:
     l: '.'
     c:
-      - l: public
-        e: Pure static assets (directly copied)
+      - l: public/
+        e: Pure static assets (copied as-is)
         url: '/quasar-cli-vite/handling-assets#static-assets-public'
       - l: src
         c:
@@ -33,12 +33,14 @@ scope:
             url: '/quasar-cli-vite/boot-files'
           - l: router
             e: Vue Router
-            url: '/quasar-cli-vite/routing'
+            url: '/quasar-cli-vite/page-routing-with-vue-router'
             c:
               - l: index.js
                 e: (or .ts) Vue Router definition
               - l: routes.js
                 e: (or .ts) App Routes definitions
+              - l: typed-router.d.ts
+                e: TypeScript only, along with build.filenameBasedRouting enabled
           - l: stores
             e: Pinia Stores
             url: '/quasar-cli-vite/state-management-with-pinia'
@@ -51,7 +53,7 @@ scope:
           - l: App.vue
             e: Root Vue component of your App
       - l: src-ssr/
-        e: SSR specific code (like production Node webserver)
+        e: SSR specific code (like production Node.js webserver)
         url: '/quasar-cli-vite/developing-ssr/introduction'
       - l: src-pwa/
         e: PWA specific code (like Service Worker)
@@ -101,6 +103,8 @@ scope:
       - l: tsconfig.json
         e: TypeScript config
         url: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
+      - l: env.d.ts
+        e: TypeScript only
       - l: package.json
         e: npm scripts and dependencies
         url: https://docs.npmjs.com/cli/v9/configuring-npm/package-json

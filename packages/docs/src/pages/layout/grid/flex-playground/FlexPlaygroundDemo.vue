@@ -103,7 +103,7 @@
         :class="resultClasses"
       >
         <div class="text-subtitle2">{{ classes }}</div>
-        <copy-button />
+        <DocCopyBtn />
       </div>
     </div>
 
@@ -173,7 +173,7 @@
               :class="resultClasses"
             >
               <div class="text-subtitle2">{{ classes }}</div>
-              <copy-button />
+              <DocCopyBtn />
             </div>
           </td>
         </tr>
@@ -188,7 +188,7 @@
               <div class="text-subtitle2">
                 {{ group.childClasses || '* none *' }}
               </div>
-              <copy-button v-if="group.childClasses" />
+              <DocCopyBtn v-if="group.childClasses" />
             </div>
           </td>
         </tr>
@@ -203,27 +203,27 @@
               <div class="text-subtitle2">
                 {{ group.childStyles || '* none *' }}
               </div>
-              <copy-button v-if="group.childStyles" />
+              <DocCopyBtn v-if="group.childStyles" />
             </div>
           </td>
         </tr>
       </tbody>
     </q-markup-table>
 
-    <doc-codepen ref="codepenRef" title="Flex example" />
+    <DocCodepen ref="codepenRef" title="Flex example" />
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted, onBeforeUpdate } from 'vue'
+import { computed, onBeforeUpdate, onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { useQuasar, copyToClipboard } from 'quasar'
-import { fabCodepen } from '@quasar/extras/fontawesome-v6'
+import { copyToClipboard, useQuasar } from 'quasar'
+import { fabCodepen } from '@quasar/extras/fontawesome-v7'
 import { mdiPlus, mdiShareVariant } from '@quasar/extras/mdi-v7'
 
 import FlexChild from './FlexChild.vue'
-import DocCodepen from 'src/components/DocCodepen.vue'
-import CopyButton from 'src/components/CopyButton.vue'
+import DocCodepen from '@/components/DocCodepen.vue'
+import DocCopyBtn from '@/components/DocCopyBtn.vue'
 
 const queryParams = {
   containerGroup: 'string',
@@ -311,11 +311,13 @@ function checkQueryParams() {
     if (param in query) {
       const paramType = queryParams[param]
       switch (paramType) {
-        case 'object':
+        case 'object': {
           group[param] = JSON.parse(query[param])
           break
-        default:
+        }
+        default: {
           group[param] = query[param]
+        }
       }
     }
   }
@@ -353,7 +355,7 @@ function onChange(index) {
 function share() {
   let playgroudUrl = window.location.href
   if (playgroudUrl.includes('?')) {
-    playgroudUrl = playgroudUrl.substring(0, playgroudUrl.indexOf('?'))
+    playgroudUrl = playgroudUrl.slice(0, playgroudUrl.indexOf('?'))
   }
   let queryString = '',
     index = 0
@@ -362,11 +364,13 @@ function share() {
     const paramType = queryParams[param]
     let value
     switch (paramType) {
-      case 'object':
+      case 'object': {
         value = JSON.stringify(group[param])
         break
-      default:
+      }
+      default: {
         value = group[param]
+      }
     }
     queryString += `${param}=${encodeURIComponent(value)}`
     index++
@@ -393,17 +397,17 @@ function editInCodepen() {
     </div>`
   })
 
-  const Template = `
-    <div class="flex flex-center column">
-      <div class="text-h6">Flex playground example</div>
-      <div class="row bg-blue-grey-2" style="min-height: 400px; width: 80%; padding: 24px;">
-        <div id="parent" class="${classes.value}" style="overflow: hidden;">
-          ${children.join('')}
-        </div>
-      </div>
+  const content = `
+<div class="flex flex-center column">
+  <div class="text-h6">Flex playground example</div>
+  <div class="row bg-blue-grey-2" style="min-height: 400px; width: 80%; padding: 24px;">
+    <div id="parent" class="${classes.value}" style="overflow: hidden;">
+      ${children.join('')}
     </div>
+  </div>
+</div>
   `
-  codepenRef.value.open({ Template })
+  codepenRef.value.open([{ codepen: 'html', content }])
 }
 
 onMounted(checkQueryParams)
@@ -413,8 +417,8 @@ onBeforeUpdate(() => {
   childRef.value = []
 })
 
-const classes = computed(() => {
-  return (
+const classes = computed(() =>
+  (
     group.containerGroup +
     ' ' +
     group.directionGroup +
@@ -427,10 +431,10 @@ const classes = computed(() => {
     ' ' +
     group.contentGroup
   )
-    .replace(/,/g, ' ')
-    .replace(/'  +'/g, ' ')
+    .replaceAll(',', ' ')
+    .replaceAll(/'  +'/g, ' ')
     .trim()
-})
+)
 
 const resultClasses = computed(() =>
   $q.dark.isActive ? 'bg-grey-9 text-white' : 'bg-grey-2 text-dark'
@@ -445,7 +449,7 @@ const containerClass = computed(
 
 function toggleFullscreen() {
   const target = document.getElementById('flex-playground')
-  target && $q.fullscreen.toggle(target)
+  if (target) $q.fullscreen.toggle(target)
 }
 </script>
 

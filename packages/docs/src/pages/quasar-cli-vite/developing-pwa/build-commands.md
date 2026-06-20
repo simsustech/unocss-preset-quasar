@@ -6,10 +6,10 @@ desc: (@quasar/app-vite) The Quasar CLI list of commands when developing or buil
 ## Developing
 
 ```bash
-$ quasar dev -m pwa
+quasar dev -m pwa
 
 # ..or the longer form:
-$ quasar dev --mode pwa
+quasar dev --mode pwa
 ```
 
 ::: warning
@@ -23,17 +23,17 @@ Do not run [Lighthouse](https://developers.google.com/web/tools/lighthouse/) on 
 ## Building for Production
 
 ```bash
-$ quasar build -m pwa
+quasar build -m pwa
 
 # ..or the longer form:
-$ quasar build --mode pwa
+quasar build --mode pwa
 ```
 
 If you want a production build with debugging enabled:
 
 ```bash
-$ quasar build -m pwa -d
+quasar build -m pwa -d
 
 # ..or the longer form
-$ quasar build -m pwa --debug
+quasar build -m pwa --debug
 ```

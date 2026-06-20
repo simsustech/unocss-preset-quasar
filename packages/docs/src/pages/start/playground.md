@@ -18,10 +18,7 @@ For more intricate Quasar code examples, like when using all the features of Qua
 
 #### Stackblitz
 
-| Type    | URL                                                                            |
-| ------- | ------------------------------------------------------------------------------ |
-| Vite    | [https://stackblitz.quasar.dev](https://stackblitz.quasar.dev)                 |
-| Webpack | [https://stackblitz-webpack.quasar.dev](https://stackblitz-webpack.quasar.dev) |
+Fork: [https://stackblitz.quasar.dev](https://stackblitz.quasar.dev)
 
 #### Codesandbox Template
 

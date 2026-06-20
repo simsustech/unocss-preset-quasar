@@ -1,9 +1,9 @@
 import {
+  fabDiscord,
   fabFacebook,
   fabGithub,
-  fabXTwitter,
-  fabDiscord
-} from '@quasar/extras/fontawesome-v6'
+  fabXTwitter
+} from '@quasar/extras/fontawesome-v7'
 import { mdiForum } from '@quasar/extras/mdi-v7'
 
 export const socialLinks = {

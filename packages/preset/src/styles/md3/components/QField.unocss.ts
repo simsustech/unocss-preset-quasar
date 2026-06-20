@@ -1,6 +1,9 @@
 import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
-import { mdComponent, mdStatic } from '../../_helpers.js'
+import {
+  componentClass as mdComponent,
+  staticClass as mdStatic
+} from '../../_helpers.js'
 
 const preflights: Preflight<QuasarTheme>[] = [
   {
@@ -351,21 +354,21 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 	[&_.q-field\\_\\_label]:(text-[14px] top-[10px]) 
 	[&_.q-field\\_\\_append_+_.q-field\\_\\_append]:(pl-[2px]) 
 	[&_.q-field\\_\\_marginal_.q-avatar]:(text-[24px]) 
-	[&.q-field--float_.q-field\\_\\_label]:(-translate-y-[30%] scale-[0.75]) 
-	[&_.q-field\\_\\_native:-webkit-autofill_+_.q-field\\_\\_label]:(-translate-y-[30%] scale-[0.75]) 
-	[&_.q-field\\_\\_input:-webkit-autofill_+_.q-field\\_\\_label]:(-translate-y-[30%] scale-[0.75]) 
-	[&_.q-field\\_\\_native[type='color']_+_.q-field\\_\\_label]:(-translate-y-[30%] scale-[0.75]) 
-	[&_.q-field\\_\\_native[type='date']_+_.q-field\\_\\_label]:(-translate-y-[30%] scale-[0.75]) 
-	[&_.q-field\\_\\_native[type='datetime-local']_+_.q-field\\_\\_label]:(-translate-y-[30%] scale-[0.75]) 
-	[&_.q-field\\_\\_native[type='month']_+_.q-field\\_\\_label]:(-translate-y-[30%] scale-[0.75]) 
-	[&_.q-field\\_\\_native[type='time']_+_.q-field\\_\\_label]:(-translate-y-[30%] scale-[0.75]) 
-	[&_.q-field\\_\\_native[type='week']_+_.q-field\\_\\_label]:(-translate-y-[30%] scale-[0.75]) 
-	[&_.q-field\\_\\_input[type='color']_+_.q-field\\_\\_label]:(-translate-y-[30%] scale-[0.75]) 
-	[&_.q-field\\_\\_input[type='date']_+_.q-field\\_\\_label]:(-translate-y-[30%] scale-[0.75]) 
-	[&_.q-field\\_\\_input[type='datetime-local']_+_.q-field\\_\\_label]:(-translate-y-[30%] scale-[0.75]) 
-	[&_.q-field\\_\\_input[type='month']_+_.q-field\\_\\_label]:(-translate-y-[30%] scale-[0.75]) 
-	[&_.q-field\\_\\_input[type='time']_+_.q-field\\_\\_label]:(-translate-y-[30%] scale-[0.75]) 
-	[&_.q-field\\_\\_input[type='week']_+_.q-field\\_\\_label]:(-translate-y-[30%] scale-[0.75])`
+	[&.q-field--float_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
+	[&_.q-field\\_\\_native:-webkit-autofill_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
+	[&_.q-field\\_\\_input:-webkit-autofill_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
+	[&_.q-field\\_\\_native[type='color']_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
+	[&_.q-field\\_\\_native[type='date']_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
+	[&_.q-field\\_\\_native[type='datetime-local']_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
+	[&_.q-field\\_\\_native[type='month']_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
+	[&_.q-field\\_\\_native[type='time']_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
+	[&_.q-field\\_\\_native[type='week']_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
+	[&_.q-field\\_\\_input[type='color']_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
+	[&_.q-field\\_\\_input[type='date']_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
+	[&_.q-field\\_\\_input[type='datetime-local']_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
+	[&_.q-field\\_\\_input[type='month']_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
+	[&_.q-field\\_\\_input[type='time']_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75]) 
+	[&_.q-field\\_\\_input[type='week']_+_.q-field\\_\\_label]:(-translate-y-[40%] scale-[0.75])`
     )
   ],
 

@@ -33,13 +33,12 @@
 import { ref } from 'vue'
 
 const generateCells = () =>
-  Array(24)
-    .fill(null)
-    .map((_, cell) =>
-      Array(2 + Math.ceil(3 * Math.random()))
-        .fill(null)
-        .map((_, text) => `Cell ${cell + 1} - ${text + 1}`)
+  Array.from({ length: 24 }, (item, cell) =>
+    Array.from(
+      { length: 2 + Math.ceil(3 * Math.random()) },
+      (entry, text) => `Cell ${cell + 1} - ${text + 1}`
     )
+  )
 
 export default {
   setup() {

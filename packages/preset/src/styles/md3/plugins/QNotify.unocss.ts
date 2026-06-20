@@ -55,7 +55,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-notification$/,
     ([, c], { theme }) =>
-      `[box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px] inline-flex mt-[10px] mx-[10px] mb-[0] [transition:transform_1s,_opacity_1s] flex-shrink-0 max-w-[95vw] bg-[#323232] text-[#fff] text-[14px]
+      `[box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-$shape-corner-extra-small inline-flex mt-[10px] mx-[10px] mb-[0] [transition:transform_1s,_opacity_1s] flex-shrink-0 max-w-[95vw] bg-$light-inverse-surface dark:bg-$dark-inverse-surface text-$light-inverse-on-surface dark:text-$dark-inverse-on-surface text-[14px]
       sm:max-w-65vw z-${theme.quasar.z['notify']} pointer-events-all`
   ],
 
@@ -118,13 +118,13 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-notification--standard$/,
     ([, c], { theme }) =>
-      `px-[16px] py-[0] min-h-[48px] [&_.q-notification\\_\\_actions]:(pl-[8px] pr-[0] py-[6px] -mr-[8px])`
+      `px-[16px] py-[0] min-h-[48px] [&_.q-notification__actions]:(pl-[8px] pr-[0] py-[6px] -mr-[8px])`
   ],
 
   [
     /^q-notification--multi-line$/,
     ([, c], { theme }) =>
-      `min-h-[68px] px-[16px] py-[8px] [&_.q-notification\\_\\_badge--top-left]:(-top-[15px]) [&_.q-notification\\_\\_badge--top-right]:(-top-[15px]) [&_.q-notification\\_\\_badge--bottom-left]:(-bottom-[15px]) [&_.q-notification\\_\\_badge--bottom-right]:(-bottom-[15px]) [&_.q-notification\\_\\_progress]:(-bottom-[8px]) [&_.q-notification\\_\\_actions]:(p-0) [&_.q-notification\\_\\_actions--with-media]:(pl-[25px])`
+      `min-h-[68px] px-[16px] py-[8px] [&_.q-notification__badge--top-left]:(-top-[15px]) [&_.q-notification__badge--top-right]:(-top-[15px]) [&_.q-notification__badge--bottom-left]:(-bottom-[15px]) [&_.q-notification__badge--bottom-right]:(-bottom-[15px]) [&_.q-notification__progress]:(-bottom-[8px]) [&_.q-notification__actions]:(p-0) [&_.q-notification__actions--with-media]:(pl-[25px])`
   ],
 
   [

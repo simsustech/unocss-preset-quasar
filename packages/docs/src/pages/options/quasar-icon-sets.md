@@ -58,10 +58,10 @@ Full example of including MDI & Fontawesome and telling Quasar to use Fontawesom
 ```js
 extras: [
   'mdi-v7',
-  'fontawesome-v6'
+  'fontawesome-v7'
 ],
 framework: {
-  iconSet: 'fontawesome-v6'
+  iconSet: 'fontawesome-v7'
 }
 ```
 
@@ -73,7 +73,7 @@ Include the Quasar Icon Set tag for your Quasar version and also tell Quasar to 
 
 ```html
 <!-- include this after Quasar JS tag -->
-<script src="https://cdn.jsdelivr.net/npm/quasar@v2/dist/icon-set/fontawesome-v6.umd.prod.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/quasar@v2/dist/icon-set/fontawesome-v7.umd.prod.js"></script>
 <script>
   Quasar.IconSet.set(Quasar.IconSet.fontawesomeV6)
 </script>
@@ -89,8 +89,8 @@ We edit your `main.js`:
 // ...
 import { Quasar } from 'quasar'
 // ...
-import iconSet from 'quasar/icon-set/fontawesome-v6'
-import '@quasar/extras/fontawesome-v6/fontawesome-v6.css'
+import iconSet from 'quasar/icon-set/fontawesome-v7'
+import '@quasar/extras/fontawesome-v7/fontawesome-v7.css'
 // ...
 app.use(Quasar, {
   // ...,
@@ -100,18 +100,18 @@ app.use(Quasar, {
 
 ### Dynamic (on non-SSR)
 
-Quasar CLI: If your desired Quasar Icon Set must be dynamically selected (example: depends on a cookie), then you need to create a boot file: `$ quasar new boot quasar-icon-set [--format ts]`. This will create `/src/boot/quasar-icon-set.js` file. Edit it to:
+Quasar CLI: If your desired Quasar Icon Set must be dynamically selected (example: depends on a cookie), then you need to create a boot file: `quasar new boot quasar-icon-set [--format ts]`. This will create `/src/boot/quasar-icon-set.js` file. Edit it to:
 
 ```tabs /src/boot/quasar-icon-set.js
 <<| js With @quasar/app-vite |>>
-import { defineBoot } from '#q-app/wrappers'
+import { defineBoot } from '#q-app'
 import { IconSet } from 'quasar'
 
 // relative path to your node_modules/quasar/..
 // change to YOUR path
 const iconSetList = import.meta.glob('../../node_modules/quasar/icon-set/*.js')
-// or just a select few (example below with only mdi-v7 and fontawesome-v6):
-// import.meta.glob('../../node_modules/quasar/icon-set/(mdi-v7|fontawesome-v6).js')
+// or just a select few (example below with only mdi-v7 and fontawesome-v7):
+// import.meta.glob('../../node_modules/quasar/icon-set/{mdi-v7,fontawesome-v7}.js')
 
 export default defineBoot(async () => {
   const iconSetName = 'mdi-v7' // ... some logic to determine it (use Cookies Plugin?)
@@ -123,26 +123,6 @@ export default defineBoot(async () => {
   }
   catch (err) {
     console.error(err)
-    // Requested Quasar Icon Set does not exist,
-    // let's not break the app, so catching error
-  }
-})
-<<| js With @quasar/app-webpack |>>
-import { defineBoot } from '#q-app/wrappers'
-import { IconSet } from 'quasar'
-
-export default defineBoot(async () => {
-  const iconSetName = 'mdi-v7' // ... some logic to determine it (use Cookies Plugin?)
-
-  try {
-    await import(
-      /* webpackInclude: /(mdi-v7|fontawesome-v6)\.js$/ */
-      'quasar/icon-set/' + iconSetName
-    ).then(setDefinition => {
-      IconSet.set(setDefinition.default)
-    })
-  }
-  catch (err) {
     // Requested Quasar Icon Set does not exist,
     // let's not break the app, so catching error
   }
@@ -155,24 +135,20 @@ Then register this boot file into the `/quasar.config` file:
 boot: ['quasar-icon-set']
 ```
 
-::: warning Always constrain a dynamic import
-Notice the use of the [Webpack magic comment](https://webpack.js.org/api/module-methods/#magic-comments) - `webpackInclude`. Otherwise all the available icon set files will be bundled, resulting in an increase in the compilation time and the bundle size. See [Caveat for dynamic imports](/quasar-cli-webpack/lazy-loading#caveat-for-dynamic-imports)
-:::
-
 ### Dynamic (on SSR)
 
 When dealing with SSR, we can't use singleton objects because that would pollute sessions. As a result, as opposed to the dynamical example above (read it first!), you must also specify the `ssrContext` from your boot file:
 
 ```tabs /src/boot/quasar-icon-set.js
 <<| js With @quasar/app-vite |>>
-import { defineBoot } from '#q-app/wrappers'
+import { defineBoot } from '#q-app'
 import { IconSet } from 'quasar'
 
 // relative path to your node_modules/quasar/..
 // change to YOUR path
 const iconSetList = import.meta.glob('../../node_modules/quasar/icon-set/*.js')
-// or just a select few (example below with only mdi-v7 and fontawesome-v6):
-// import.meta.glob('../../node_modules/quasar/icon-set/(mdi-v7|fontawesome-v6).js')
+// or just a select few (example below with only mdi-v7 and fontawesome-v7):
+// import.meta.glob('../../node_modules/quasar/icon-set/{mdi-v7,fontawesome-v7}.js')
 
 // ! NOTICE ssrContext param:
 export default defineBoot(async ({ ssrContext }) => {
@@ -180,28 +156,6 @@ export default defineBoot(async ({ ssrContext }) => {
 
   try {
     iconSetList[ `../../node_modules/quasar/icon-set/${ iconSetName }.js` ]().then(lang => {
-      IconSet.set(setDefinition.default, ssrContext)
-    })
-  }
-  catch (err) {
-    console.error(err)
-    // Requested Quasar Icon Set does not exist,
-    // let's not break the app, so catching error
-  }
-})
-<<| js With @quasar/app-webpack |>>
-import { defineBoot } from '#q-app/wrappers'
-import { IconSet } from 'quasar'
-
-// ! NOTICE ssrContext param:
-export default defineBoot(async ({ ssrContext }) => {
-  const iconSetName = 'mdi-v7' // ... some logic to determine it (use Cookies Plugin?)
-
-  try {
-    await import(
-      /* webpackInclude: /(mdi-v7|fontawesome-v6)\.js$/ */
-      'quasar/icon-set/' + iconSetName
-    ).then(setDefinition => {
       IconSet.set(setDefinition.default, ssrContext)
     })
   }
@@ -248,7 +202,7 @@ methods: {
 If you want to do this outside of a .vue file (and you are NOT on SSR mode) then you can
 
 ```js /src/boot/some-boot-file.js
-import { defineBoot } from '#q-app/wrappers'
+import { defineBoot } from '#q-app'
 import { IconSet } from 'quasar'
 import mdiIconSet from 'quasar/icon-set/mdi-v7.js'
 

@@ -13,10 +13,10 @@ RTL is referring to "right to left" UI for languages that need it.
 ### Quasar CLI with Vite
 
 - Edit `/postcss.config.js` file and uncomment the `import rtlcss from 'postcss-rtlcss'` line.
-- Yarn/npm/pnpm/bun install the `postcss-rtlcss` package.
+- PNPM/Yarn/NPM/Bun install the `postcss-rtlcss` package (to `devDependencies`).
 - If you are already running "quasar dev" command, restart it.
 
-```js [highlight=2,25] /postcss.config.js
+```js /postcss.config.js
 import autoprefixer from 'autoprefixer'
 import rtlcss from 'postcss-rtlcss'
 
@@ -46,29 +46,19 @@ export default {
 }
 ```
 
-### Quasar CLI with Webpack
-
-To enable it, you need to edit the `/quasar.config` file:
-
-```js
-build: {
-  rtl: true
-}
-```
-
 ### Vite Plugin
 
 You first need to install `postcss-rtlcss` package:
 
 ```tabs
-<<| bash Yarn |>>
-$ yarn add --dev postcss-rtlcss
-<<| bash NPM |>>
-$ npm install --save-dev postcss-rtlcss
 <<| bash PNPM |>>
-$ pnpm add -D postcss-rtlcss
+pnpm add -D postcss-rtlcss
+<<| bash Yarn |>>
+yarn add -D postcss-rtlcss
+<<| bash NPM |>>
+npm install -D postcss-rtlcss
 <<| bash Bun |>>
-$ bun add --dev postcss-rtlcss
+bun add -D postcss-rtlcss
 ```
 
 Then create `/postcss.config.js` file if you don't have it already, and add this to it:
@@ -138,7 +128,6 @@ Let's discuss about each of these requirements:
 
 3. Optional: _Treat devland source CSS as RTL_.
    By default, Quasar assumes that all styles are written in LTR direction and generates corresponding RTL styles for them. Should you wish to write your own css directly in RTL then you need to:
-   - (Quasar CLI with Webpack) set quasar.config file > "build" > rtl > "source" to `rtl`
    - (Quasar CLI with Vite / Quasar Vite plugin) set `postcssRtlCss({ source: 'rtl' })` in /postcss.config.js
 
 ::: tip

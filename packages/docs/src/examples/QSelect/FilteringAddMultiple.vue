@@ -45,18 +45,18 @@ export default {
         // If "var" content is undefined/null, then it doesn't tampers with the model
         // and only resets the input textbox to empty string
 
-        if (val.length > 0) {
-          const modelValue = (model.value || []).slice()
+        if (val.length !== 0) {
+          const modelValue = [...(model.value || [])]
 
           val
             .split(/[,;|]+/)
             .map((v) => v.trim())
-            .filter((v) => v.length > 0)
+            .filter((v) => v.length !== 0)
             .forEach((v) => {
-              if (stringOptions.includes(v) === false) {
+              if (!stringOptions.includes(v)) {
                 stringOptions.push(v)
               }
-              if (modelValue.includes(v) === false) {
+              if (!modelValue.includes(v)) {
                 modelValue.push(v)
               }
             })
@@ -72,8 +72,8 @@ export default {
             filterOptions.value = stringOptions
           } else {
             const needle = val.toLowerCase()
-            filterOptions.value = stringOptions.filter(
-              (v) => v.toLowerCase().indexOf(needle) > -1
+            filterOptions.value = stringOptions.filter((v) =>
+              v.toLowerCase().includes(needle)
             )
           }
         })

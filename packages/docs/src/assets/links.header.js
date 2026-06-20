@@ -1,6 +1,6 @@
 import { Quasar } from 'quasar'
 
-import { fasCubes, fasBolt } from '@quasar/extras/fontawesome-v5'
+import { fasBolt, fasCubes } from '@quasar/extras/fontawesome-v7'
 
 import {
   mdiBug,
@@ -10,14 +10,14 @@ import {
   mdiFlask,
   mdiGithub,
   mdiJsfiddle,
+  mdiMathIntegralBox,
   mdiPaletteSwatch,
   mdiPuzzle,
+  mdiSecurity,
   mdiShoppingMusic,
   mdiStarCircle,
   mdiThemeLightDark,
-  mdiViewDashboard,
-  mdiSecurity,
-  mdiMathIntegralBox
+  mdiViewDashboard
 } from '@quasar/extras/mdi-v7'
 
 import { socialLinks } from './links.social.js'
@@ -53,12 +53,7 @@ export const versionLinks = [
         header: 'Older CLI Releases'
       },
       {
-        name: '@quasar/app-vite v1',
-        path: 'https://legacy-app.quasar.dev/',
-        external: true
-      },
-      {
-        name: '@quasar/app-webpack v3',
+        name: 'Legacy @quasar/app-*',
         path: 'https://legacy-app.quasar.dev/',
         external: true
       },
@@ -107,15 +102,13 @@ const gettingStarted = {
         {
           separator: true
         },
-        { name: 'Quasar CLI', path: '/start/quasar-cli' },
+        { name: 'Quasar CLI (with Vite)', path: '/start/quasar-cli' },
         { name: 'Vite Plugin', path: '/start/vite-plugin' },
-        { name: 'UMD / Standalone', path: '/start/umd' },
-        { name: 'Vue CLI Plugin', path: '/start/vue-cli-plugin' }
+        { name: 'UMD / Standalone', path: '/start/umd' }
       ]
     },
     { name: 'How to use Vue', path: '/start/how-to-use-vue' },
     { name: 'Playground', path: '/start/playground' },
-    { name: 'UI Upgrade Guide', path: '/start/upgrade-guide' },
     { name: 'VS Code Configuration', path: '/start/vs-code-configuration' }
   ]
 }
@@ -178,15 +171,9 @@ const tools = {
       external: true
     },
     {
-      name: 'Stackblitz (Vite)',
+      name: 'Stackblitz',
       icon: fasBolt,
       path: 'https://stackblitz.quasar.dev',
-      external: true
-    },
-    {
-      name: 'Stackblitz (Webpack)',
-      icon: fasBolt,
-      path: 'https://stackblitz-webpack.quasar.dev',
       external: true
     },
     {
@@ -216,7 +203,7 @@ export const secondaryToolbarLinks = [
     path: 'https://github.com/quasarframework/quasar/discussions/categories/announcements',
     external: true
   },
-  { name: 'Video Tutorials', mq: 1000, path: '/video-tutorials' },
+  { name: 'Video Tutorials', mq: 1130, path: '/video-tutorials' },
   {
     name: 'Roadmap',
     mq: 1130,

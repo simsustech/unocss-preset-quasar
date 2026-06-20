@@ -110,7 +110,7 @@ We highly recommend using the [Icon Genie CLI](/icongenie/introduction), because
 Quickly bootstrap the necessary images with Icon Genie CLI. For a complete list of options, please visit the [Icon Genie CLI](/icongenie/command-list) command list page.
 
 ```bash
-$ icongenie generate -m cordova -i /path/to/source/icon.png [-b /path/to/background.png]
+icongenie generate -m cordova -i /path/to/source/icon.png [-b /path/to/background.png]
 ```
 
 ## Manual instructions
@@ -118,9 +118,9 @@ $ icongenie generate -m cordova -i /path/to/source/icon.png [-b /path/to/backgro
 Unless you are using the Icon Genie CLI, this is what you need to do:
 
 ```bash
-$ cd src-cordova
-$ cordova plugin add cordova-plugin-splashscreen
-$ cordova plugin save
+cd src-cordova
+cordova plugin add cordova-plugin-splashscreen
+cordova plugin save
 ```
 
 <DocTree :def="scope.tree" />

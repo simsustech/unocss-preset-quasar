@@ -12,7 +12,7 @@
 
 <script setup>
 import TutorialLink from './TutorialLink.vue'
-import listing from 'assets/tutorials.js'
+import listing from '@/assets/tutorials.js'
 
 const props = defineProps({ which: String })
 const tutorials = listing[props.which]

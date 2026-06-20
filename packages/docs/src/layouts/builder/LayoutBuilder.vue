@@ -89,7 +89,7 @@
             <div class="q-mb-md text-grey-8">Layout "View"</div>
 
             <div class="q-mb-lg rounded-borders overflow-hidden shadow-2">
-              <div class="row q-gutter-md">
+              <div class="row">
                 <div
                   class="col-3 q-pa-md flex flex-center"
                   :class="
@@ -147,7 +147,7 @@
                 </div>
               </div>
 
-              <div class="row q-gutter-md">
+              <div class="row">
                 <div
                   class="col-3 q-px-md q-py-xl flex flex-center bg-orange text-grey-9"
                 >
@@ -181,7 +181,7 @@
                 </div>
               </div>
 
-              <div class="row q-gutter-md">
+              <div class="row">
                 <div
                   class="col-3 q-pa-md flex flex-center"
                   :class="
@@ -407,7 +407,7 @@
         <q-dialog v-model="exportDialog">
           <q-card class="layout-builder__export-card">
             <div class="export-code">
-              <doc-code lang="html" :code="layoutExport" />
+              <DocCode lang="html" :code="layoutExport" />
             </div>
 
             <q-separator />
@@ -518,17 +518,17 @@
 
 <script setup>
 import { useMeta, useQuasar } from 'quasar'
-import { ref, reactive, computed } from 'vue'
+import { computed, reactive, ref } from 'vue'
 
 import {
-  mdiMenu,
-  mdiViewDashboard,
   mdiCog,
-  mdiPlayCircleOutline
+  mdiMenu,
+  mdiPlayCircleOutline,
+  mdiViewDashboard
 } from '@quasar/extras/mdi-v7'
 
-import getMeta from 'assets/get-meta.js'
-import DocCode from 'src/components/DocCode.vue'
+import getMeta from '@/assets/get-meta.js'
+import DocCode from '@/components/DocCode.vue'
 
 const drawerBehaviorOptions = [
   { label: 'Behave Normal', value: 'default' },
@@ -607,16 +607,15 @@ const navTabModel = ref('tab1')
 const step = ref('pick')
 const exportDialog = ref(false)
 
-const isContracted = computed(() => {
-  return (
+const isContracted = computed(
+  () =>
     $q.screen.lt.sm === true ||
     ($q.screen.md === true &&
       play.left === true &&
       cfg.leftOverlay === false &&
       play.right === true &&
       cfg.rightOverlay === false)
-  )
-})
+)
 
 const layoutExport = computed(() => {
   let code = `<${'template'}>
@@ -703,42 +702,24 @@ const layoutExport = computed(() => {
     pick.left || pick.right
       ? `
 
-<${'script'}>
+<${'script'} setup>
 import { ref } from 'vue'
 
-export default {
-  setup () {${
-            pick.left
-              ? `
-    const leftDrawerOpen = ref(false)`
-              : ''
-          }${
-            pick.right
-              ? `
-    const rightDrawerOpen = ref(false)`
-              : ''
-          }
-
-    return {${
-              pick.left
-                ? `
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }${pick.right ? ',\n' : ''}`
-                : ''
-            }${
-              pick.right
-                ? `
-      rightDrawerOpen,
-      toggleRightDrawer () {
-        rightDrawerOpen.value = !rightDrawerOpen.value
-      }`
-                : ''
-            }
-    }
-  }
-}
+${
+          pick.left
+            ? `const leftDrawerOpen = ref(false)
+toggleLeftDrawer () {
+  leftDrawerOpen.value = !leftDrawerOpen.value
+}${pick.right ? '\n\n' : ''}`
+            : ''
+        }${
+          pick.right
+            ? `const rightDrawerOpen = ref(false)
+toggleRightDrawer () {
+  rightDrawerOpen.value = !rightDrawerOpen.value
+}`
+            : ''
+        }
 </${'script'}>`
       : ''
   }`

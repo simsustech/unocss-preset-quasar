@@ -20,13 +20,13 @@ You can find the documentation of testing AEs at https://testing.quasar.dev or i
 ## Installing
 
 ```bash
-$ cd your-quasar-project
+cd your-quasar-project
 
-$ quasar ext add @quasar/testing-e2e-cypress
+quasar ext add @quasar/testing-e2e-cypress
 # or
-$ quasar ext add @quasar/testing-unit-jest
+quasar ext add @quasar/testing-unit-jest
 # or
-$ quasar ext add @quasar/testing-unit-vitest
+quasar ext add @quasar/testing-unit-vitest
 ```
 
 These extension will install the respective harnesses, which you can configure as you like.

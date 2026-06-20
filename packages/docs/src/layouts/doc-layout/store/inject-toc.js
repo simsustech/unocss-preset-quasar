@@ -35,8 +35,7 @@ function updateActiveToc(position, state) {
 export default function injectToc(store) {
   Object.assign(store.state, {
     toc: [],
-    activeToc:
-      store.$route.hash.length > 1 ? store.$route.hash.substring(1) : null
+    activeToc: store.$route.hash.length > 1 ? store.$route.hash.slice(1) : null
   })
 
   const onClick = () => {

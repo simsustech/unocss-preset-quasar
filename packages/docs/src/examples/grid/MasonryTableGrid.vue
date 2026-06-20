@@ -50,9 +50,10 @@
 
 <script>
 import { useQuasar } from 'quasar'
-import { ref, computed, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 const deserts = [
+  // #region
   'Frozen Yogurt',
   'Ice cream sandwich',
   'Eclair',
@@ -63,6 +64,7 @@ const deserts = [
   'Honeycomb',
   'Donut',
   'KitKat'
+  // #endregion
 ]
 
 const rows = []
@@ -116,16 +118,16 @@ export default {
         { name: 'calories', label: 'Calories (g)', field: 'calories' }
       ],
 
-      cardContainerClass: computed(() => {
-        return $q.screen.gt.xs
+      cardContainerClass: computed(() =>
+        $q.screen.gt.xs
           ? 'example-masonry-table-grid example-masonry-table-grid--' +
-              ($q.screen.gt.sm ? '3' : '2')
+            ($q.screen.gt.sm ? '3' : '2')
           : null
-      }),
+      ),
 
-      rowsPerPageOptions: computed(() => {
-        return $q.screen.gt.xs ? ($q.screen.gt.sm ? [3, 6, 9] : [3, 6]) : [3]
-      })
+      rowsPerPageOptions: computed(() =>
+        $q.screen.gt.xs ? ($q.screen.gt.sm ? [3, 6, 9] : [3, 6]) : [3]
+      )
     }
   }
 }

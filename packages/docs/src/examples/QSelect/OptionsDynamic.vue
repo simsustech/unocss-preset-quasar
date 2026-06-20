@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import { ref, computed, nextTick } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 
 const allOptions = []
-for (let i = 0; i <= 100000; i++) {
+for (let i = 0; i <= 100_000; i++) {
   allOptions.push('Opt ' + i)
 }
 
@@ -37,7 +37,7 @@ export default {
       nextPage,
       options,
 
-      onScroll({ to, ref }) {
+      onScroll({ to, ref: compRef }) {
         const lastIndex = options.value.length - 1
 
         if (
@@ -50,7 +50,7 @@ export default {
           setTimeout(() => {
             nextPage.value++
             nextTick(() => {
-              ref.refresh()
+              compRef.refresh()
               loading.value = false
             })
           }, 500)

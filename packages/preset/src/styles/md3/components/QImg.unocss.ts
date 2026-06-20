@@ -1,26 +1,26 @@
 import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
-import { mdComponent, mdStatic } from '../../_helpers.js'
+import { componentClass, staticClass, qe } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-img$/,
-    mdComponent(
+    componentClass(
       'q-img',
       `relative w-full inline-block align-middle overflow-hidden`
     )
   ],
 
-  [/^q-img__loading$/, mdStatic(`[&_.q-spinner]:(text-[50px])`)],
+  [/^q-img__loading$/, staticClass(`[&_.q-spinner]:(text-[50px])`)],
 
   [
     /^q-img__container$/,
-    mdComponent('q-img__container', `[border-radius:inherit] text-[0]`)
+    componentClass('q-img__container', `[border-radius:inherit] text-[0]`)
   ],
 
   [
     /^q-img__image$/,
-    mdComponent(
+    componentClass(
       'q-img__image',
       `[border-radius:inherit] w-full h-full opacity-0`
     )
@@ -28,17 +28,17 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-img__image--with-transition$/,
-    mdComponent(
+    componentClass(
       'q-img__image--with-transition',
       `[transition:opacity_0.28s_ease-in]`
     )
   ],
 
-  [/^q-img__image--loaded$/, mdStatic(`opacity-100`)],
+  [/^q-img__image--loaded$/, staticClass(`opacity-100`)],
 
   [
     /^q-img__content$/,
-    mdComponent(
+    componentClass(
       'q-img__content',
       `[border-radius:inherit] pointer-events-none [&_>_div]:(pointer-events-all absolute p-[16px] text-[#fff] bg-[rgba(0,_0,_0,_0.47)])`
     )
@@ -46,9 +46,9 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-img--no-menu$/,
-    mdComponent(
+    componentClass(
       'q-img--no-menu',
-      `[&_.q-img\\_\\_image]:(pointer-events-none) [&_.q-img\\_\\_placeholder]:(pointer-events-none)`
+      qe`[&_.q-img__image]:(pointer-events-none) [&_.q-img__placeholder]:(pointer-events-none)`
     )
   ]
 ]

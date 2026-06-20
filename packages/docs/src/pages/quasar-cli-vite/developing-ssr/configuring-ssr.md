@@ -7,8 +7,13 @@ scope:
   nodeJsTree:
     l: src-ssr
     c:
-      - l: middlewares/
+      - l: server-assets/
+        e: copied as-is to dist
+      - l: middlewares
         e: SSR middleware files
+        c:
+          - l: render.js
+            e: (or .ts) middleware to render pages with Vue
       - l: server.js
         e: (or .ts) SSR webserver
 ---
@@ -17,7 +22,7 @@ scope:
 
 This is the place where you can configure some SSR options. Like if you want the client side to takeover as a SPA (Single Page Application -- the default behaviour), or as a PWA (Progressive Web App).
 
-```js /quasar.config file
+```ts /quasar.config file
 return {
   // ...
   ssr: {
@@ -41,18 +46,30 @@ return {
     /**
      * Extend/configure the Workbox GenerateSW options
      * Specify Workbox options which will be applied on top of
-     *  `pwa > extendGenerateSWOptions()`.
-     * More info: https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
+     *  `pwa > extendPWAGenerateSWOptions()`.
+     *
+     * https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
+     *
+     * Can be async. Can directly modify the "config" parameter or
+     * return a new one that will be merged with the default one.
      */
-    pwaExtendGenerateSWOptions?: (config: object) => void;
+    extendSSRGenerateSWOptions?: (
+      config: GenerateSWOptions
+    ) => void | GenerateSWOptions | Promise<void | GenerateSWOptions>;
 
     /**
      * Extend/configure the Workbox InjectManifest options
      * Specify Workbox options which will be applied on top of
-     *  `pwa > extendInjectManifestOptions()`.
-     * More info: https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
+     *  `pwa > extendPWAInjectManifestOptions()`.
+     *
+     * https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
+     *
+     * Can be async. Can directly modify the "config" parameter or
+     * return a new one that will be merged with the default one.
      */
-    pwaExtendInjectManifestOptions?: (config: object) => void;
+    extendSSRInjectManifestOptions?: (
+      config: InjectManifestOptions
+    ) => void | InjectManifestOptions | Promise<void | InjectManifestOptions>;
 
     /**
      * Manually serialize the store state and provide it yourself
@@ -97,15 +114,82 @@ return {
     middlewares?: string[];
 
     /**
-     * Add/remove/change properties of production generated package.json
+     * Add/remove/change properties of SSR production generated package.json
+     *
+     * Can be async. Can directly modify the "pkgJson" parameter or
+     * return a new one that will be merged with the default one.
      */
-    extendPackageJson?: (pkg: { [index in string]: any }) => void;
+    extendSSRPackageJson?: (pkgJson: { [index in string]: any }) =>
+      | void
+      | { [index in string]: any }
+      | Promise<void | { [index in string]: any }>;
 
     /**
-     * Extend the Esbuild config that is used for the SSR webserver
-     * (which includes the SSR middlewares)
+     * Extend the Rolldown config that is used for the SSR webserver
+     * (which includes the SSR middlewares).
+     *
+     * Can be async. Can directly modify the "config" parameter or
+     * return a new one that will be merged with the default one.
      */
-    extendSSRWebserverConf?: (config: EsbuildConfiguration) => void;
+    extendSSRWebserverConf?: (
+      config: RolldownOptions
+    ) => void | RolldownOptions | Promise<void | RolldownOptions>;
+
+    /**
+     * The named exports to use for the production generated SSR index.js script.
+     * Works with `false` (no named exports), a single string (one named export),
+     * or an array of strings (multiple named exports).
+     *
+     * Useful for serverless environments where you might want to export the
+     * handler function. It creates one or more named exports from the
+     * object returned by the defineSsrListen() function in /src-ssr/server file.
+     *
+     * @default false
+     *
+     * @example
+     * prodScriptNamedExport: ['handler', 'ssr']
+     * export const listen = defineSsrListen(() => {
+     *   if (import.meta.env.QUASAR_PROD) {
+     *     return { handler, ssr }
+     *   }
+     * })
+     *
+     * This will generate an SSR index.js with the following exports:
+     * const { handler, ssr } = await listen({...})
+     * export { handler, ssr }
+     *
+     * @example
+     * prodScriptNamedExport: 'default'
+     * export const listen = defineSsrListen(({ app }) => {
+     *   if (import.meta.env.QUASAR_PROD) {
+     *     return { default: app }
+     *   }
+     * })
+     *
+     * This will generate an SSR index.js with the following exports:
+     * const listenResult = await listen({...})
+     * export default listenResult?.default
+     *
+     * @example
+     * prodScriptNamedExport: 'app'
+     * export const listen = defineSsrListen(({ app }) => {
+     *   if (import.meta.env.QUASAR_PROD) {
+     *     return { app }
+     *   }
+     * })
+     *
+     * This will generate an SSR index.js with the following exports:
+     * const { app } = await listen({...})
+     * export { app }
+     *
+     * @example 'renderSsrContext' (special case)
+     *
+     * This will generate an SSR index.js with the following export:
+     *   export { render as renderSsrContext }
+     * where "render" is the same function used in
+     * the /src-ssr/middlewares/render file
+     */
+    prodScriptNamedExport?: false | string | string[];
   }
 }
 ```
@@ -138,7 +222,7 @@ However, should you wish to manually hydrate it yourself, you need to set quasar
 ```js Some boot file
 // MAKE SURE TO CONFIGURE THIS BOOT FILE
 // TO RUN ONLY ON CLIENT-SIDE
-import { defineBoot } from '#q-app/wrappers'
+import { defineBoot } from '#q-app'
 
 export default defineBoot(({ store }) => {
   // For Pinia
@@ -179,27 +263,27 @@ export default {
 }
 ```
 
-## Nodejs Server
+## Node.js Webserver
 
-Adding SSR mode to a Quasar project means a new folder will be created: `/src-ssr`, which contains SSR specific files:
+Adding SSR mode to a Quasar project means a new folder will be created: `/src-ssr`, which contains SSR specific files for the actual Node.js webserver:
 
 <DocTree :def="scope.nodeJsTree" />
 
-You can freely edit these files. Each of the two folders are detailed in their own doc pages (check left-side menu).
+You can freely edit these files. All folders are detailed in their own doc pages (check left-side menu).
 
 Notice a few things:
 
-1. If you import anything from node_modules, then make sure that the package is specified in package.json > "dependencies" and NOT in "devDependencies".
+1. If you import anything from node_modules in /src-ssr, then make sure that the package is specified in /src-ssr/package.json > "dependencies" (runtime deps) and NOT in "devDependencies" (build system deps). The "dependencies" will be embedded into your dist/.
 
-2. The `/src-ssr/middlewares` is built through a separate Esbuild config. You can extend the Esbuild configuration of these files through the `/quasar.config` file:
+2. These files are built through a separate Rolldown config. You can extend the Rolldown configuration of these files through the `/quasar.config` file:
 
 ```js /quasar.config file
 return {
   // ...
   ssr: {
     // ...
-    extendSSRWebserverConf(esbuildConf) {
-      // tamper with esbuildConf here
+    extendSSRWebserverConf(rolldownConf) {
+      // tamper with rolldownConf here
     }
   }
 }
@@ -213,7 +297,7 @@ One of the main reasons when you develop a SSR instead of a SPA is for taking ca
 
 ## Boot Files
 
-When running on SSR mode, your application code needs to be isomorphic or "universal", which means that it must run both on a Node context and in the browser. This applies to your [Boot Files](/quasar-cli-vite/boot-files) too.
+When running on SSR mode, your application code needs to be isomorphic or "universal", which means that it must run both on a Node.js context and in the browser. This applies to your [Boot Files](/quasar-cli-vite/boot-files) too.
 
 However, there are cases where you only want some boot files to run only on the server or only on the client-side. You can achieve that by specifying:
 
@@ -233,15 +317,17 @@ Just make sure that your app is consistent, though.
 When a boot file runs on the server, you will have access to one more parameter (called [ssrContext](/quasar-cli-vite/developing-ssr/ssr-context)) on the default exported function:
 
 ```js Some boot file
-export default ({ app, ..., ssrContext }) => {
+import { defineBoot } from '#q-app'
+
+export default defineBoot(({ app, ..., ssrContext }) => {
   // You can add props to the ssrContext then use them in the /index.html.
   // Example - let's say we ssrContext.someProp = 'some value', then in index template we can reference it:
-  // {{ someProp }}
-}
+  // {{ ssrContext.someProp }}
+})
 ```
 
-When you add such references (`someProp` surrounded by brackets in the example above) into your `/index.html`, make sure you tell Quasar it’s only valid for SSR builds:
+When you add such references into your `/index.html`, make sure you tell Quasar it's only valid for SSR builds:
 
 ```html /index.html
-<% if (ctx.mode.ssr) { %>{{ someProp }} <% } %>
+<% if (ctx.mode.ssr) { %>{{ ssrContext.someProp }} <% } %>
 ```

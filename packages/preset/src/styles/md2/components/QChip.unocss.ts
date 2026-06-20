@@ -1,6 +1,6 @@
 import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
-import { mdComponent, mdStatic } from '../../_helpers.js'
+import { componentClass, staticClass, qe } from '../../_helpers.js'
 
 const preflights: Preflight<QuasarTheme>[] = [
   {
@@ -18,7 +18,7 @@ body.desktop.body--dark .q-chip--clickable:focus {
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-chip$/,
-    mdComponent(
+    componentClass(
       'q-chip',
       `!flex-initial align-middle rounded-[16px] outline-[0] relative h-[2em] max-w-full m-[4px] bg-[#e0e0e0] text-[rgba(0,_0,_0,_0.87)] text-[14px] px-[0.9em] py-[0.5em] [&_.q-avatar]:(text-[2em] -ml-[0.45em] mr-[0.2em] rounded-[16px])`
     )
@@ -26,17 +26,17 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-chip--colored$/,
-    mdComponent('q-chip--colored', `[&_.q-chip\\_\\_icon]:([color:inherit])`)
+    componentClass('q-chip--colored', qe`[&_.q-chip__icon]:([color:inherit])`)
   ],
 
   [
     /^q-chip--dark$/,
-    mdComponent('q-chip--dark', `[&_.q-chip\\_\\_icon]:([color:inherit])`)
+    componentClass('q-chip--dark', qe`[&_.q-chip__icon]:([color:inherit])`)
   ],
 
   [
     /^q-chip--outline$/,
-    mdComponent(
+    componentClass(
       'q-chip--outline',
       `!bg-transparent border-[1px] border-solid border-[currentColor]`
     )
@@ -44,42 +44,45 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-chip--selected$/,
-    mdComponent('q-chip--selected', `[&_.q-avatar]:(hidden)`)
+    componentClass('q-chip--selected', `[&_.q-avatar]:(hidden)`)
   ],
 
   [
     /^q-chip__icon$/,
-    mdComponent(
+    componentClass(
       'q-chip__icon',
       `text-[rgba(0,_0,_0,_0.54)] text-[1.5em] -m-[0.2em]`
     )
   ],
 
-  [/^q-chip__icon--left$/, mdComponent('q-chip__icon--left', `mr-[0.2em]`)],
+  [/^q-chip__icon--left$/, componentClass('q-chip__icon--left', `mr-[0.2em]`)],
 
-  [/^q-chip__icon--right$/, mdComponent('q-chip__icon--right', `ml-[0.2em]`)],
+  [
+    /^q-chip__icon--right$/,
+    componentClass('q-chip__icon--right', `ml-[0.2em]`)
+  ],
 
   [
     /^q-chip__icon--remove$/,
-    mdComponent(
+    componentClass(
       'q-chip__icon--remove',
       `ml-[0.1em] -mr-[0.5em] opacity-60 outline-[0] [&:hover]:(opacity-100) [&:focus]:(opacity-100)`
     )
   ],
 
-  [/^q-chip__content$/, mdStatic(`whitespace-nowrap`)],
+  [/^q-chip__content$/, staticClass(`whitespace-nowrap`)],
 
   [
     /^q-chip--dense$/,
-    mdComponent(
+    componentClass(
       'q-chip--dense',
-      `rounded-[12px] px-[0.4em] py-[0] h-[1.5em] [&_.q-avatar]:(text-[1.5em] -ml-[0.27em] mr-[0.1em] rounded-[12px]) [&_.q-chip\\_\\_icon]:(text-[1.25em]) [&_.q-chip\\_\\_icon--left]:(mr-[0.195em]) [&_.q-chip\\_\\_icon--remove]:(-mr-[0.25em])`
+      qe`rounded-[12px] px-[0.4em] py-[0] h-[1.5em] [&_.q-avatar]:(text-[1.5em] -ml-[0.27em] mr-[0.1em] rounded-[12px]) [&_.q-chip__icon]:(text-[1.25em]) [&_.q-chip__icon--left]:(mr-[0.195em]) [&_.q-chip__icon--remove]:(-mr-[0.25em])`
     )
   ],
 
   [
     /^q-chip--square$/,
-    mdComponent(
+    componentClass(
       'q-chip--square',
       `rounded-[4px] [&_.q-avatar]:(rounded-tl-[3px] rounded-br-[0] rounded-tr-[0] rounded-bl-[3px])`
     )

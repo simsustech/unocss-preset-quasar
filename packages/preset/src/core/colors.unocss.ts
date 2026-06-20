@@ -91,8 +91,14 @@ const preflights: Preflight<QuasarTheme>[] = [
 ]
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
-  [/^text-(primary|secondary|accent)$/, ([, c], { theme }) => `text-$q-${c}`],
-  [/^bg-(primary|secondary|accent)$/, ([, c], { theme }) => `bg-$q-${c}`]
+  [
+    /^text-(primary|secondary|accent)$/,
+    ([, c], { theme }) => `text-$light-${c} dark:text-$dark-${c}`
+  ],
+  [
+    /^bg-(primary|secondary|accent)$/,
+    ([, c], { theme }) => `bg-$light-${c} dark:text-$dark-${c}`
+  ]
 ]
 
 export { preflights, shortcuts }

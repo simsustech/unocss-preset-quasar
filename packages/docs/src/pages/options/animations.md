@@ -50,7 +50,8 @@ Try changing **Visual Effects** to **Adjust for Best Appearance**.
 2. Click `Advanced System Settings`
 3. Click the `Settings` button under `Performance`
 4. Under the `Visual Effects` tab, change the radio option to: `Adjust for Best Appearance`
-   :::
+
+:::
 
 ## Usage
 

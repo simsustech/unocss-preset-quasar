@@ -13,7 +13,8 @@ This is a Vue directive which takes one parameter (a Function) and fires when us
 
 - One alternative to using this directive is to place a [QScrollObserver](/vue-components/scroll-observer) component on your page.
 - There is one more scrolling-related directive available called [Scroll Fire](/vue-directives/scroll-fire).
-  :::
+
+:::
 
 <DocApi file="Scroll" />
 
@@ -26,41 +27,35 @@ This is a Vue directive which takes one parameter (a Function) and fires when us
   ...
 </template>
 
-<script>
-  export default {
-    setup() {
-      function onScroll(position) {
-        // when this method is invoked then it means user
-        // has scrolled the page to `position`
-        //
-        // `position` is an Integer designating the current
-        // scroll position in pixels.
-      }
-
-      return { onScroll }
-    }
+<script setup>
+  function onScroll(position) {
+    // when this method is invoked then it means user
+    // has scrolled the page to `position`
+    //
+    // `position` is an Integer designating the current
+    // scroll position in pixels.
   }
 </script>
 ```
 
-```js
-import { debounce } from 'quasar'
+```html
+<template>
+  ...
+  <div v-scroll="onScroll">...</div>
+  ...
+</template>
 
-export default {
-  setup() {
-    function onScroll(position) {
-      // when this method is invoked then it means user
-      // has scrolled the page to `position`
-      //
-      // `position` is an Integer designating the current
-      // scroll position in pixels.
-    }
+<script setup>
+  import { debounce } from 'quasar'
 
-    return {
-      onScroll: debounce(onScroll, 200) // debounce for 200ms
-    }
-  }
-}
+  const onScroll = debounce((position) => {
+    // when this method is invoked then it means user
+    // has scrolled the page to `position`
+    //
+    // `position` is an Integer designating the current
+    // scroll position in pixels.
+  }, 200) // debounce for 200ms
+</script>
 ```
 
 ### Determining Scrolling Container

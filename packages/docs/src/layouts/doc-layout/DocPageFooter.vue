@@ -61,22 +61,13 @@
           >Razvan Stoenescu</a
         >
       </div>
-      <div>
-        This website has been designed in collaboration with
-        <a
-          href="https://www.dreamonkey.com/"
-          target="_blank"
-          class="text-brand-accent text-weight-bold"
-          >Dreamonkey Srl</a
-        >
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import menu from 'assets/menu.js'
-import { footerLinks } from 'assets/links.footer.js'
+import menu from '@/assets/menu.js'
+import { footerLinks } from '@/assets/links.footer.js'
 
 /**
  * Loop through the menus and extract all menu items therein, including children to a flat array of menu items
@@ -88,12 +79,13 @@ function getMenu(path) {
   const menuItem = menu.find((item) => item.path === path)
 
   for (const item of menuItem.children) {
-    item.children === void 0 &&
+    if (item.children === void 0) {
       children.push({
         name: item.name,
         path: item.external === true ? item.path : `/${path}/${item.path}`,
         external: item.external
       })
+    }
   }
 
   return children

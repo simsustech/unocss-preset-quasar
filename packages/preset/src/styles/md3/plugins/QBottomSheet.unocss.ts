@@ -15,7 +15,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-bottom-sheet--grid$/,
     ([, c], { theme }) =>
-      `w-[700px] [&_.q-bottom-sheet\\_\\_item]:(p-[8px] text-center min-w-[100px]) [&_.q-icon]:(text-[48px] w-[48px] h-[48px] mb-[8px]) [&_img]:(text-[48px] w-[48px] h-[48px] mb-[8px]) [&_.q-bottom-sheet\\_\\_empty-icon]:(text-[48px] w-[48px] h-[48px] mb-[8px]) [&_.q-separator]:(mx-[0] my-[12px])`
+      `w-[700px] [&_.q-bottom-sheet__item]:(p-[8px] text-center min-w-[100px]) [&_.q-icon]:(text-[48px] w-[48px] h-[48px] mb-[8px]) [&_img]:(text-[48px] w-[48px] h-[48px] mb-[8px]) [&_.q-bottom-sheet__empty-icon]:(text-[48px] w-[48px] h-[48px] mb-[8px]) [&_.q-separator]:(mx-[0] my-[12px])`
   ],
 
   [

@@ -1,9 +1,9 @@
-import mdPageList from 'src/pages/listing.js'
+import mdPageList from '@/pages/listing.js'
 
-import layoutGallery from 'assets/layout-gallery.js'
-import vueGalleryPageList from 'src/layouts/gallery/listing.js'
+import layoutGallery from '@/assets/layout-gallery.js'
+import vueGalleryPageList from '@/layouts/gallery/listing.js'
 
-import DocLayout from 'src/layouts/doc-layout/DocLayout.vue'
+import DocLayout from '@/layouts/doc-layout/DocLayout.vue'
 
 const routeMap = {
   // './docs/docs.md': { path: 'docs' },
@@ -15,34 +15,28 @@ const routeMap = {
 }
 
 const routes = [
-  // legacy redirecting
+  // legacy redirects
   {
-    path: '/quasar-cli/supporting-ie',
-    redirect: '/quasar-cli-webpack/browser-compatibility'
+    path: '/quasar-cli-vite/handling-process-env',
+    redirect: '/quasar-cli-vite/handling-import-meta-env'
   },
   {
-    path: '/quasar-cli/modern-build',
-    redirect: '/quasar-cli-webpack/browser-compatibility'
+    path: '/quasar-cli-vite/developing-electron-apps/electron-packages',
+    redirect:
+      '/quasar-cli-vite/developing-electron-apps/installing-electron-dependencies'
   },
   {
-    path: '/quasar-cli/quasar-conf-js',
-    redirect: '/quasar-cli-webpack/quasar-config-file'
+    path: '/quasar-cli-vite/linter',
+    redirect: '/quasar-cli-vite/lint-and-format-code'
   },
   {
-    path: '/contribution-guide',
-    redirect: '/how-to-contribute/contribution-guide'
-  },
-
-  {
-    path: '/quasar-cli-webpack/quasar-config-js',
-    redirect: '/quasar-cli-webpack/quasar-config-file'
+    path: '/quasar-cli-vite/convert-to-quasar-cli-with-vite',
+    redirect: '/quasar-cli-vite/convert-app-webpack-to-app-vite'
   },
   {
-    path: '/quasar-cli-vite/quasar-config-js',
-    redirect: '/quasar-cli-vite/quasar-config-file'
+    path: '/quasar-cli-vite/routing',
+    redirect: '/quasar-cli-vite/page-routing-with-vue-router'
   },
-
-  { path: '/vue-components/file-picker', redirect: '/vue-components/file' },
 
   // shortcuts
   { path: '/start', redirect: '/start/quick-start' },
@@ -67,10 +61,10 @@ const routes = [
         const acc = { component: mdPageList[key] }
 
         const route = routeMap[key]
-        route !== void 0 && Object.assign(acc, route)
+        if (route !== void 0) Object.assign(acc, route)
 
         if (acc.path === void 0) {
-          const parts = key.substring(1, key.length - 3).split('/')
+          const parts = key.slice(1, -3).split('/')
           const len = parts.length
           const path =
             parts[len - 2] === parts[len - 1] ? parts.slice(0, len - 1) : parts

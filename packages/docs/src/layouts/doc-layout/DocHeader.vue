@@ -29,14 +29,14 @@
 
       <div class="doc-header__primary-left-spacer gt-lg" />
 
-      <doc-header-text-links
+      <DocHeaderTextLinks
         class="doc-header__links col text-size-16 gt-700"
         :menu="primaryToolbarLinks"
         mq-prefix="gt"
         nav-class="text-uppercase text-size-16 letter-spacing-300"
       />
 
-      <doc-search />
+      <DocSearch />
 
       <div
         v-if="showThemeChanger"
@@ -70,21 +70,21 @@
       <div class="doc-header__secondary-left-spacer gt-lg" />
 
       <div class="doc-header__links col row items-center no-wrap">
-        <doc-header-text-links
+        <DocHeaderTextLinks
           :menu="secondaryToolbarLinks"
           nav-class="text-size-14 letter-spacing-100"
           mq-prefix="gt"
         />
-        <doc-header-text-links
+        <DocHeaderTextLinks
           :menu="moreLinks"
           nav-class="text-size-14 letter-spacing-100 lt-1400"
           mq-prefix="lt"
         />
       </div>
 
-      <doc-header-icon-links class="gt-1310" :menu="socialLinks.children" />
+      <DocHeaderIconLinks class="gt-1310" :menu="socialLinks.children" />
 
-      <doc-header-text-links
+      <DocHeaderTextLinks
         :menu="versionLinks"
         nav-class="text-size-14 letter-spacing-100 doc-header__version q-ml-sm"
       />
@@ -115,22 +115,23 @@ import { computed } from 'vue'
 import { mdiCompare, mdiFolderPound } from '@quasar/extras/mdi-v7'
 
 import {
-  versionLinks,
+  moreLinks,
   primaryToolbarLinks,
   secondaryToolbarLinks,
-  moreLinks
-} from 'src/assets/links.header.js'
-import { socialLinks } from 'src/assets/links.social.js'
+  versionLinks
+} from '@/assets/links.header.js'
+import { socialLinks } from '@/assets/links.social.js'
 
 import DocSearch from './DocSearch.vue'
 import DocHeaderTextLinks from './DocHeaderTextLinks.vue'
 import DocHeaderIconLinks from './DocHeaderIconLinks.vue'
 
 import { useDocStore } from './store/index.js'
+
 const docStore = useDocStore()
 
 const logo = computed(() => {
-  const opt = docStore.$q.dark.isActive === true ? '-dark' : ''
+  const opt = docStore.$q.dark.isActive ? '-dark' : ''
   return {
     img: `https://cdn.quasar.dev/logo-v2/svg/logo${opt}.svg`,
     text: `https://cdn.quasar.dev/logo-v2/svg/logotype${opt}.svg`

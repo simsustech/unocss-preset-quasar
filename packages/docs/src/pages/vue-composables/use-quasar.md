@@ -27,26 +27,18 @@ setup () {
   </div>
 </template>
 
-<script>
+<script setup>
   import { useQuasar } from 'quasar'
 
-  export default {
-    setup() {
-      const $q = useQuasar()
+  const $q = useQuasar()
 
-      console.log($q.platform.is.ios)
+  console.log($q.platform.is.ios)
 
-      // showing an example on a method, but
-      // can be any part of Vue script
-      function show() {
-        // prints out Quasar version
-        console.log($q.version)
-      }
-
-      return {
-        show
-      }
-    }
+  // showing an example on a method, but
+  // can be any part of Vue script
+  function show() {
+    // prints out Quasar version
+    console.log($q.version)
   }
 </script>
 ```

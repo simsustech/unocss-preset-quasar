@@ -33,7 +33,7 @@
               icon="check_circle"
               @click.stop.prevent="scope.set"
               :disable="
-                scope.validate(scope.value) === false ||
+                !scope.validate(scope.value) ||
                 scope.initialValue === scope.value
               "
             />

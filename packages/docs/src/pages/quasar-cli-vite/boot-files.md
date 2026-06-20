@@ -30,7 +30,7 @@ A boot file is a simple JavaScript file which can optionally export a function. 
 | `redirect`   | Function to call to redirect to another URL. Accepts String (full URL) or a Vue Router location String or Object. |
 
 ```js
-import { defineBoot } from '#q-app/wrappers'
+import { defineBoot } from '#q-app'
 export default defineBoot(({ app, router, store }) => {
   // something to do
 })
@@ -39,7 +39,7 @@ export default defineBoot(({ app, router, store }) => {
 Boot files can also be async:
 
 ```js
-import { defineBoot } from '#q-app/wrappers'
+import { defineBoot } from '#q-app'
 export default defineBoot(async ({ app, router, store }) => {
   // something to do
   await something()
@@ -49,15 +49,13 @@ export default defineBoot(async ({ app, router, store }) => {
 Notice the `defineBoot` import. This is essentially a no-op function, but its purpose is to help with a better IDE autocomplete experience:
 
 ```js
-import { defineBoot } from '#q-app/wrappers'
+import { defineBoot } from '#q-app'
 
 export default defineBoot(async ({ app, router, store }) => {
   // something to do
   await something()
 })
 ```
-
-Notice we are using the [ES6 destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment). Only assign what you actually need/use.
 
 You may ask yourself why we need to export a function. This is actually optional, but before you decide to remove the default export, you need to understand when you need it:
 
@@ -108,7 +106,7 @@ Boot files fulfill one special purpose: they run code **before** the App's Vue r
 The first step is always to generate a new boot file using Quasar CLI:
 
 ```bash
-$ quasar new boot <name> [--format ts]
+quasar new boot <name> [--format ts]
 ```
 
 Where `<name>` should be exchanged by a suitable name for your boot file.
@@ -197,6 +195,10 @@ boot: [ctx.mode.electron ? 'some-file' : '']
 Please be mindful when redirecting as you might configure the app to go into an infinite redirect loop.
 :::
 
+::: warning
+Please remember to return from the function immediately after calling `redirect()`.
+:::
+
 ```js
 export default defineBoot(({ urlPath, redirect }) => {
   // ...
@@ -207,6 +209,21 @@ export default defineBoot(({ urlPath, redirect }) => {
   }
   // ...
 })
+```
+
+Here is the definition for it:
+
+```ts
+readonly redirect: (
+  url: string | RouteLocationRaw,
+  /**
+   * HTTP status code to use for the redirection.
+   * Only used in SSR mode.
+   *
+   * @default 302
+   */
+  httpStatusCode?: HttpRedirectStatusCode
+) => void;
 ```
 
 The `redirect()` method accepts a String (full URL) or a Vue Router location String or Object. On SSR it can receive a second parameter which should be a Number for any of the HTTP STATUS codes that redirect the browser (3xx ones).
@@ -254,37 +271,6 @@ redirect('/#/one') // WRONG!
 
 :::
 
-As it was mentioned in the previous sections, the default export of a boot file can return a Promise. If this Promise gets rejected with an Object that contains a "url" property, then Quasar CLI will redirect the user to that URL:
-
-```js
-export default defineBoot(({ urlPath }) => {
-  return new Promise((resolve, reject) => {
-    // ...
-    const isAuthorized = // ...
-    if (!isAuthorized && !urlPath.startsWith('/login')) {
-      // the "url" param here is of the same type
-      // as for "redirect" above
-      reject({ url: '/login' })
-      return
-    }
-    // ...
-  })
-})
-```
-
-Or a simpler equivalent:
-
-```js
-export default defineBoot(() => {
-  // ...
-  const isAuthorized = // ...
-  if (!isAuthorized && !urlPath.startsWith('/login')) {
-    return Promise.reject({ url: '/login' })
-  }
-  // ...
-})
-```
-
 ### Quasar App Flow
 
 In order to better understand how a boot file works and what it does, you need to understand how your website/app boots:
@@ -307,7 +293,7 @@ In order to better understand how a boot file works and what it does, you need t
 ### Axios
 
 ```js
-import { defineBoot } from '#q-app/wrappers'
+import { defineBoot } from '#q-app'
 import axios from 'axios'
 
 const api = axios.create({ baseURL: 'https://api.example.com' })
@@ -330,9 +316,9 @@ export { axios, api }
 ### vue-i18n
 
 ```js
-import { defineBoot } from '#q-app/wrappers'
+import { defineBoot } from '#q-app'
 import { createI18n } from 'vue-i18n'
-import messages from 'src/i18n'
+import messages from '@/i18n'
 
 export default defineBoot(({ app }) => {
   // Create I18n instance
@@ -351,7 +337,7 @@ export default defineBoot(({ app }) => {
 Some boot files might need to interfere with Vue Router configuration:
 
 ```js
-import { defineBoot } from '#q-app/wrappers'
+import { defineBoot } from '#q-app'
 
 export default defineBoot(({ router, store }) => {
   router.beforeEach((to, from, next) => {
@@ -396,8 +382,6 @@ export { axios, api }
 In any JavaScript file, you'll be able to import the axios instance like this.
 
 ```js
-// we import one of the named exports from src/boot/axios.js
-import { api } from 'boot/axios'
+// we import one of the named exports from /src/boot/axios.js
+import { api } from '@/boot/axios'
 ```
-
-Further reading on syntax: [ES6 import](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/import), [ES6 export](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export).

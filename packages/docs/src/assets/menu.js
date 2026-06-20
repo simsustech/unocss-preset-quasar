@@ -664,37 +664,30 @@ export default [
       },
       {
         name: 'useHydration',
-        badge: 'new',
         path: 'use-hydration'
       },
       {
         name: 'useId',
-        badge: 'new',
         path: 'use-id'
       },
       {
         name: 'useInterval',
-        badge: 'new',
         path: 'use-interval'
       },
       {
         name: 'useRenderCache',
-        badge: 'new',
         path: 'use-render-cache'
       },
       {
         name: 'useTick',
-        badge: 'new',
         path: 'use-tick'
       },
       {
         name: 'useTimeout',
-        badge: 'new',
         path: 'use-timeout'
       },
       {
         name: 'useSplitAttrs',
-        badge: 'new',
         path: 'use-split-attrs'
       }
     ]
@@ -720,25 +713,28 @@ export default [
     path: 'quasar-cli-vite',
     children: [
       {
-        name: 'Upgrade guide',
-        badge: 'NEW!',
+        name: 'Upgrade Guide',
         path: 'upgrade-guide'
       },
       {
-        name: 'The quasar.config file',
+        name: 'Creating a New Project',
+        path: 'creating-a-quasar-app-vite-project-folder'
+      },
+      {
+        name: 'The /quasar.config File',
         path: 'quasar-config-file'
       },
       {
-        name: 'Convert project to CLI with Vite',
-        path: 'convert-to-quasar-cli-with-vite'
+        name: 'Convert q/app-webpack Project',
+        path: 'convert-app-webpack-to-app-vite'
       },
       {
         name: 'Browser Compatibility',
         path: 'browser-compatibility'
       },
       {
-        name: 'Supporting TypeScript',
-        path: 'supporting-ts'
+        name: 'TypeScript Support',
+        path: 'typescript-support'
       },
       {
         name: 'Directory Structure',
@@ -753,8 +749,8 @@ export default [
         path: 'css-preprocessors'
       },
       {
-        name: 'Routing',
-        path: 'routing'
+        name: 'Page Routing with VueRouter',
+        path: 'page-routing-with-vue-router'
       },
       {
         name: 'Lazy Loading - Code Splitting',
@@ -781,23 +777,23 @@ export default [
         path: 'handling-vite'
       },
       {
-        name: 'Handling process.env',
-        path: 'handling-process-env'
+        name: 'Handling import.meta.env',
+        path: 'handling-import-meta-env'
       },
       {
         name: 'State Management with Pinia',
         path: 'state-management-with-pinia'
       },
       {
-        name: 'Linter',
-        path: 'linter'
+        name: 'Lint and Format Code',
+        path: 'lint-and-format-code'
       },
       {
         name: 'Testing & Auditing',
         path: 'testing-and-auditing'
       },
       {
-        name: 'SPA mode',
+        name: 'SPA Mode',
         path: 'developing-spa',
         children: [
           {
@@ -819,7 +815,7 @@ export default [
         ]
       },
       {
-        name: 'SSR mode',
+        name: 'SSR Mode',
         path: 'developing-ssr',
         children: [
           {
@@ -835,20 +831,36 @@ export default [
             path: 'preparation'
           },
           {
+            name: 'Installing SSR Deps',
+            path: 'installing-ssr-dependencies'
+          },
+          {
+            name: 'Build Commands',
+            path: 'build-commands'
+          },
+          {
             name: 'Configuring SSR',
             path: 'configuring-ssr'
           },
           {
-            name: 'ssrContext',
+            name: 'The ssrContext',
             path: 'ssr-context'
+          },
+          {
+            name: 'SSR Webserver',
+            path: 'ssr-webserver'
           },
           {
             name: 'SSR Middleware',
             path: 'ssr-middleware'
           },
           {
-            name: 'SSR Webserver',
-            path: 'ssr-webserver'
+            name: 'Handling 404 and 500 Errors',
+            path: 'handling-404-and-500-errors'
+          },
+          {
+            name: 'SSR with TypeScript',
+            path: 'ssr-with-typescript'
           },
           {
             name: 'Vue SSR Directives',
@@ -867,10 +879,6 @@ export default [
             path: 'client-side-hydration'
           },
           {
-            name: 'Handling 404 and 500 Errors',
-            path: 'handling-404-and-500-errors'
-          },
-          {
             name: 'SSR with PWA',
             path: 'ssr-with-pwa'
           },
@@ -879,21 +887,13 @@ export default [
             path: 'ssr-frequently-asked-questions'
           },
           {
-            name: 'Build Commands',
-            path: 'build-commands'
-          },
-          {
-            name: 'SSR with Typescript',
-            path: 'ssr-with-typescript'
-          },
-          {
             name: 'Deploying',
             path: 'deploying'
           }
         ]
       },
       {
-        name: 'PWA mode',
+        name: 'PWA Mode',
         path: 'developing-pwa',
         children: [
           {
@@ -907,6 +907,10 @@ export default [
           {
             name: 'Build Commands',
             path: 'build-commands'
+          },
+          {
+            name: 'Installing PWA Deps',
+            path: 'installing-pwa-dependencies'
           },
           {
             name: 'Configuring PWA',
@@ -925,7 +929,7 @@ export default [
             path: 'handling-service-worker'
           },
           {
-            name: 'PWA with Typescript',
+            name: 'PWA with TypeScript',
             path: 'pwa-with-typescript'
           }
         ]
@@ -935,7 +939,7 @@ export default [
         path: 'developing-mobile-apps'
       },
       {
-        name: 'Capacitor mode',
+        name: 'Capacitor Mode',
         path: 'developing-capacitor-apps',
         children: [
           {
@@ -977,11 +981,15 @@ export default [
           {
             name: 'Publishing to Store',
             path: 'publishing-to-store'
+          },
+          {
+            name: 'Live Updates',
+            path: 'live-updates'
           }
         ]
       },
       {
-        name: 'Cordova mode',
+        name: 'Cordova Mode',
         path: 'developing-cordova-apps',
         children: [
           {
@@ -1023,7 +1031,7 @@ export default [
         ]
       },
       {
-        name: 'Electron mode',
+        name: 'Electron Mode',
         path: 'developing-electron-apps',
         children: [
           {
@@ -1031,12 +1039,16 @@ export default [
             path: 'introduction'
           },
           {
-            name: 'Upgrade guide',
+            name: 'Upgrade Guide',
             path: 'electron-upgrade-guide'
           },
           {
             name: 'Preparation',
             path: 'preparation'
+          },
+          {
+            name: 'Installing Electron Deps',
+            path: 'installing-electron-dependencies'
           },
           {
             name: 'Configuring Electron',
@@ -1055,10 +1067,6 @@ export default [
             path: 'electron-preload-script'
           },
           {
-            name: 'Electron Packages',
-            path: 'electron-packages'
-          },
-          {
             name: 'Accessing files',
             path: 'electron-accessing-files'
           },
@@ -1067,7 +1075,11 @@ export default [
             path: 'frameless-electron-window'
           },
           {
-            name: 'Electron with Typescript',
+            name: 'Live Updates',
+            path: 'electron-live-updates'
+          },
+          {
+            name: 'Electron with TypeScript',
             path: 'electron-with-typescript'
           },
           {
@@ -1081,7 +1093,7 @@ export default [
         ]
       },
       {
-        name: 'Browser Extensions mode',
+        name: 'Browser Extensions (BEX) Mode',
         path: 'developing-browser-extensions',
         children: [
           {
@@ -1091,6 +1103,10 @@ export default [
           {
             name: 'Preparation',
             path: 'preparation'
+          },
+          {
+            name: 'Installing BEX Deps',
+            path: 'installing-bex-dependencies'
           },
           {
             name: 'Configuring BEX',
@@ -1119,6 +1135,10 @@ export default [
           {
             name: 'Content Scripts',
             path: 'content-scripts'
+          },
+          {
+            name: 'BEX with TypeScript',
+            path: 'bex-with-typescript'
           }
         ]
       },
@@ -1138,415 +1158,9 @@ export default [
     path: 'quasar-cli-webpack',
     children: [
       {
-        name: 'Upgrade guide',
-        badge: 'NEW!',
-        path: 'upgrade-guide'
-      },
-      {
-        name: 'The quasar.config file',
-        path: 'quasar-config-file'
-      },
-      {
-        name: 'Convert to CLI with Webpack',
-        path: 'convert-to-quasar-cli-with-webpack'
-      },
-      {
-        name: 'Browser Compatibility',
-        path: 'browser-compatibility'
-      },
-      {
-        name: 'Supporting TypeScript',
-        path: 'supporting-ts'
-      },
-      {
-        name: 'Directory Structure',
-        path: 'directory-structure'
-      },
-      {
-        name: 'Commands List',
-        path: 'commands-list'
-      },
-      {
-        name: 'CSS Preprocessors',
-        path: 'css-preprocessors'
-      },
-      {
-        name: 'Routing',
-        path: 'routing'
-      },
-      {
-        name: 'Lazy Loading - Code Splitting',
-        path: 'lazy-loading'
-      },
-      {
-        name: 'Handling Assets',
-        path: 'handling-assets'
-      },
-      {
-        name: 'Boot Files',
-        path: 'boot-files'
-      },
-      {
-        name: 'Prefetch Feature',
-        path: 'prefetch-feature'
-      },
-      {
-        name: 'API Proxying',
-        path: 'api-proxying'
-      },
-      {
-        name: 'Handling Webpack',
-        path: 'handling-webpack'
-      },
-      {
-        name: 'Handling process.env',
-        path: 'handling-process-env'
-      },
-      {
-        name: 'State Management with Pinia',
-        path: 'state-management-with-pinia'
-      },
-      {
-        name: 'Linter',
-        path: 'linter'
-      },
-      {
-        name: 'Testing & Auditing',
-        path: 'testing-and-auditing'
-      },
-      {
-        name: 'SPA mode',
-        path: 'developing-spa',
-        children: [
-          {
-            name: 'Introduction',
-            path: 'introduction'
-          },
-          {
-            name: 'App Icons for SPA',
-            path: 'app-icons-spa'
-          },
-          {
-            name: 'Build Commands',
-            path: 'build-commands'
-          },
-          {
-            name: 'Deploying',
-            path: 'deploying'
-          }
-        ]
-      },
-      {
-        name: 'SSR mode',
-        path: 'developing-ssr',
-        children: [
-          {
-            name: 'Introduction',
-            path: 'introduction'
-          },
-          {
-            name: 'Writing Universal Code',
-            path: 'writing-universal-code'
-          },
-          {
-            name: 'Preparation',
-            path: 'preparation'
-          },
-          {
-            name: 'Configuring SSR',
-            path: 'configuring-ssr'
-          },
-          {
-            name: 'ssrContext',
-            path: 'ssr-context'
-          },
-          {
-            name: 'SSR Middleware',
-            path: 'ssr-middleware'
-          },
-          {
-            name: 'SSR Webserver',
-            path: 'ssr-webserver'
-          },
-          {
-            name: 'Vue SSR Directives',
-            path: 'vue-ssr-directives'
-          },
-          {
-            name: 'App Icons for SSR',
-            path: 'app-icons-ssr'
-          },
-          {
-            name: 'SEO for SSR',
-            path: 'seo-for-ssr'
-          },
-          {
-            name: 'Client Side Hydration',
-            path: 'client-side-hydration'
-          },
-          {
-            name: 'Handling 404 and 500 Errors',
-            path: 'handling-404-and-500-errors'
-          },
-          {
-            name: 'SSR with PWA',
-            path: 'ssr-with-pwa'
-          },
-          {
-            name: 'SSR FAQ',
-            path: 'ssr-frequently-asked-questions'
-          },
-          {
-            name: 'Build Commands',
-            path: 'build-commands'
-          },
-          {
-            name: 'SSR with Typescript',
-            path: 'ssr-with-typescript'
-          },
-          {
-            name: 'Deploying',
-            path: 'deploying'
-          }
-        ]
-      },
-      {
-        name: 'PWA mode',
-        path: 'developing-pwa',
-        children: [
-          {
-            name: 'Introduction',
-            path: 'introduction'
-          },
-          {
-            name: 'Preparation',
-            path: 'preparation'
-          },
-          {
-            name: 'Build Commands',
-            path: 'build-commands'
-          },
-          {
-            name: 'Configuring PWA',
-            path: 'configuring-pwa'
-          },
-          {
-            name: 'HMR for PWA',
-            path: 'hmr-for-dev'
-          },
-          {
-            name: 'App Icons for PWA',
-            path: 'app-icons-pwa'
-          },
-          {
-            name: 'Handling Service Worker',
-            path: 'handling-service-worker'
-          },
-          {
-            name: 'PWA with Typescript',
-            path: 'pwa-with-typescript'
-          }
-        ]
-      },
-      {
-        name: 'Developing Mobile Apps',
-        path: 'developing-mobile-apps'
-      },
-      {
-        name: 'Capacitor mode',
-        path: 'developing-capacitor-apps',
-        children: [
-          {
-            name: 'Introduction',
-            path: 'introduction'
-          },
-          {
-            name: 'Preparation',
-            path: 'preparation'
-          },
-          {
-            name: 'Capacitor versions',
-            path: 'capacitor-version-support'
-          },
-          {
-            name: 'Configuring Capacitor',
-            path: 'configuring-capacitor'
-          },
-          {
-            name: 'App Icons for Capacitor',
-            path: 'app-icons-capacitor'
-          },
-          {
-            name: 'Capacitor API',
-            path: 'capacitor-api'
-          },
-          {
-            name: 'Build Commands',
-            path: 'build-commands'
-          },
-          {
-            name: 'Troubleshooting and Tips',
-            path: 'troubleshooting-and-tips'
-          },
-          {
-            name: 'Managing Google Analytics',
-            path: 'managing-google-analytics'
-          },
-          {
-            name: 'Publishing to Store',
-            path: 'publishing-to-store'
-          }
-        ]
-      },
-      {
-        name: 'Cordova mode',
-        path: 'developing-cordova-apps',
-        children: [
-          {
-            name: 'Introduction',
-            path: 'introduction'
-          },
-          {
-            name: 'Preparation',
-            path: 'preparation'
-          },
-          {
-            name: 'Configuring Cordova',
-            path: 'configuring-cordova'
-          },
-          {
-            name: 'App Icons for Cordova',
-            path: 'app-icons-cordova'
-          },
-          {
-            name: 'Cordova Plugins',
-            path: 'cordova-plugins'
-          },
-          {
-            name: 'Build Commands',
-            path: 'build-commands'
-          },
-          {
-            name: 'Troubleshooting and Tips',
-            path: 'troubleshooting-and-tips'
-          },
-          {
-            name: 'Managing Google Analytics',
-            path: 'managing-google-analytics'
-          },
-          {
-            name: 'Publishing to Store',
-            path: 'publishing-to-store'
-          }
-        ]
-      },
-      {
-        name: 'Electron mode',
-        path: 'developing-electron-apps',
-        children: [
-          {
-            name: 'Introduction',
-            path: 'introduction'
-          },
-          {
-            name: 'Upgrade guide',
-            path: 'electron-upgrade-guide'
-          },
-          {
-            name: 'Preparation',
-            path: 'preparation'
-          },
-          {
-            name: 'Configuring Electron',
-            path: 'configuring-electron'
-          },
-          {
-            name: 'App Icons for Electron',
-            path: 'app-icons-electron'
-          },
-          {
-            name: 'Build Commands',
-            path: 'build-commands'
-          },
-          {
-            name: 'Preload Script',
-            path: 'electron-preload-script'
-          },
-          {
-            name: 'Electron Packages',
-            path: 'electron-packages'
-          },
-          {
-            name: 'Accessing files',
-            path: 'electron-accessing-files'
-          },
-          {
-            name: 'Frameless Electron Window',
-            path: 'frameless-electron-window'
-          },
-          {
-            name: 'Electron with Typescript',
-            path: 'electron-with-typescript'
-          },
-          {
-            name: 'Electron Security Concerns',
-            path: 'electron-security-concerns'
-          },
-          {
-            name: 'Troubleshooting and Tips',
-            path: 'troubleshooting-and-tips'
-          }
-        ]
-      },
-      {
-        name: 'Browser Extensions mode',
-        path: 'developing-browser-extensions',
-        children: [
-          {
-            name: 'Introduction',
-            path: 'introduction'
-          },
-          {
-            name: 'Preparation',
-            path: 'preparation'
-          },
-          {
-            name: 'Configuring BEX',
-            path: 'configuring-bex'
-          },
-          {
-            name: 'App Icons for BEX',
-            path: 'app-icons-browser-extension'
-          },
-          {
-            name: 'Build Commands',
-            path: 'build-commands'
-          },
-          {
-            name: 'Types of BEX',
-            path: 'types-of-bex'
-          },
-          {
-            name: 'BEX Bridge Communication',
-            path: 'bex-bridge'
-          },
-          {
-            name: 'Background Script',
-            path: 'background-script'
-          },
-          {
-            name: 'Content Scripts',
-            path: 'content-scripts'
-          }
-        ]
-      },
-      {
-        name: 'Ajax Requests',
-        path: 'ajax-requests'
-      },
-      {
-        name: 'Opening Dev Server To Public',
-        path: 'opening-dev-server-to-public'
+        name: 'About',
+        badge: 'Deprecated',
+        path: 'about'
       }
     ]
   },
@@ -1578,6 +1192,49 @@ export default [
       {
         name: 'Profile files',
         path: 'profile-files'
+      }
+    ]
+  },
+  {
+    name: 'Quasar Utils',
+    icon: 'healing',
+    path: 'quasar-utils',
+    children: [
+      {
+        name: 'Date Utils',
+        path: 'date-utils'
+      },
+      {
+        name: 'Color Utils',
+        path: 'color-utils'
+      },
+      {
+        name: 'DOM Utils',
+        path: 'dom-utils'
+      },
+      {
+        name: 'Morph Utils',
+        path: 'morph-utils'
+      },
+      {
+        name: 'Formatter Utils',
+        path: 'formatter-utils'
+      },
+      {
+        name: 'Scrolling Utils',
+        path: 'scrolling-utils'
+      },
+      {
+        name: 'Type Checking Utils',
+        path: 'type-checking-utils'
+      },
+      {
+        name: 'EventBus Util',
+        path: 'event-bus-util'
+      },
+      {
+        name: 'Other Utils',
+        path: 'other-utils'
       }
     ]
   },
@@ -1622,78 +1279,31 @@ export default [
         ]
       },
       {
-        name: 'Tips and Tricks',
-        path: 'tips-and-tricks',
+        name: 'Common Formulas and Patterns',
+        path: 'common-formulas-and-patterns',
         opened: true,
         children: [
           {
-            name: 'Introduction',
-            path: 'introduction'
+            name: 'Starter kit equivalent',
+            path: 'starter-kit-equivalent'
           },
           {
-            name: 'Provide a UI component',
-            path: 'provide-a-ui-component'
+            name: 'Provide UI elements',
+            path: 'provide-ui-elements'
           },
           {
-            name: 'Provide a directive',
-            path: 'provide-a-directive'
+            name: 'Provide CLI commands',
+            path: 'provide-cli-commands'
           },
           {
             name: 'Inject Quasar Plugin',
             path: 'inject-quasar-plugin'
           },
           {
-            name: 'Starter kit equivalent',
-            path: 'starter-kit-equivalent'
-          },
-          {
-            name: 'Chain Webpack',
-            path: 'chain-webpack'
+            name: 'JSON API',
+            path: 'json-api'
           }
         ]
-      }
-    ]
-  },
-  {
-    name: 'Quasar Utils',
-    icon: 'healing',
-    path: 'quasar-utils',
-    children: [
-      {
-        name: 'Date Utils',
-        path: 'date-utils'
-      },
-      {
-        name: 'Color Utils',
-        path: 'color-utils'
-      },
-      {
-        name: 'DOM Utils',
-        path: 'dom-utils'
-      },
-      {
-        name: 'Morph Utils',
-        path: 'morph-utils'
-      },
-      {
-        name: 'Formatter Utils',
-        path: 'formatter-utils'
-      },
-      {
-        name: 'Scrolling Utils',
-        path: 'scrolling-utils'
-      },
-      {
-        name: 'Type Checking Utils',
-        path: 'type-checking-utils'
-      },
-      {
-        name: 'EventBus Util',
-        path: 'event-bus-util'
-      },
-      {
-        name: 'Other Utils',
-        path: 'other-utils'
       }
     ]
   }
