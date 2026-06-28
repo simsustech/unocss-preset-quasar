@@ -124,9 +124,9 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentClass(
       'q-stepper__header--contracted',
       qe`min-h-[72px] [&.q-stepper__header--alternative-labels
-__.q-stepper__tab]:(min-h-[72px]) [&.q-stepper__header--alternative-labels
-__.q-stepper__tab:first-child]:(items-start) [&.q-stepper__header--alternative-labels
-__.q-stepper__tab:last-child]:(items-end) [&_.q-stepper__tab]:(px-[0] py-[24px]) [&_.q-stepper__tab:first-child_.q-stepper__dot]:(translate-x-[24px]) [&_.q-stepper__tab:last-child_.q-stepper__dot]:(-translate-x-[24px]) [&_.q-stepper__dot]:(m-0) [&_.q-stepper__label]:(hidden)`
+_.q-stepper__tab]:(min-h-[72px]) [&.q-stepper__header--alternative-labels
+_.q-stepper__tab:first-child]:(items-start) [&.q-stepper__header--alternative-labels
+_.q-stepper__tab:last-child]:(items-end) [&_.q-stepper__tab]:(px-[0] py-[24px]) [&_.q-stepper__tab:first-child_.q-stepper__dot]:(translate-x-[24px]) [&_.q-stepper__tab:last-child_.q-stepper__dot]:(-translate-x-[24px]) [&_.q-stepper__dot]:(m-0) [&_.q-stepper__label]:(hidden)`
     )
   ],
 
@@ -134,7 +134,7 @@ __.q-stepper__tab:last-child]:(items-end) [&_.q-stepper__tab]:(px-[0] py-[24px])
     /^q-stepper__header--contracted$/,
     componentClass(
       'q-stepper__header--contracted',
-      qe`[&__.q-stepper__tab:not(:last-child)__.q-stepper__dot:after]:(!block)`
+      qe`[&_.q-stepper__tab:not(:last-child)_.q-stepper__dot:after]:(!block)`
     )
   ],
 

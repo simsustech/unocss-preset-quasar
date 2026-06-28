@@ -190,6 +190,7 @@ export const componentsSafelistMap: Partial<
   ],
   QBtn: [
     'q-btn',
+    'q-btn--standard',
     'q-btn--actionable',
     'q-btn--no-uppercase',
     'q-btn--rectangle',

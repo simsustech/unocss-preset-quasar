@@ -25,6 +25,16 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     )
   ],
 
+  [
+    /^q-btn--standard$/,
+    componentCtxClass(
+      'q-btn--standard',
+      ({ theme }) =>
+        `!rounded-[28px] layer-components:bg-$light-primary layer-components:dark:bg-$dark-primary layer-components:text-$light-on-primary layer-components:dark:text-$dark-on-primary
+       [&:before]:([border-radius:inherit] shadow-md shadow-gray/14)`
+    )
+  ],
+
   [/^q-btn--no-uppercase$/, staticClass(`normal-case`)],
 
   [/^q-btn--rectangle$/, staticClass(`rounded-[3px]`)],

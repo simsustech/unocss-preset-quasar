@@ -60,10 +60,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-card__actions$/,
-    componentClass(
-      'q-card__actions',
-      `p-[8px] items-center [&_.q-btn--rectangle:not(.q-btn--rounded)]:(px-[8px] py-[0])`
-    )
+    componentClass('q-card__actions', `p-[8px] items-center`)
   ],
 
   [
