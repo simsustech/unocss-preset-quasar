@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.3.1
+
+### Patch Changes
+
+- d383b41: fix: lightning css and qbtn fixes
+
 ## 0.3.0
 
 ### Minor Changes
