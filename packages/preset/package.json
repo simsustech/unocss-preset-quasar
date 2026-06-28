@@ -40,7 +40,7 @@
     },
     "./theme": {
       "source": "./src/theme.ts",
-      "types": "./dist/theme.d.ts",
+      "types": "./dist/types/theme.d.ts",
       "import": "./dist/theme.js"
     },
     "./vite-aliases": {
