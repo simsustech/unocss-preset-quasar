@@ -37,8 +37,8 @@ interface ImportMetaEnv {
   readonly DESKTOP_SESSION?: string
   readonly LC_MONETARY?: string
   readonly PWD?: string
-  readonly XDG_SESSION_DESKTOP?: string
   readonly LOGNAME?: string
+  readonly XDG_SESSION_DESKTOP?: string
   readonly XDG_SESSION_TYPE?: string
   readonly PNPM_HOME?: string
   readonly SYSTEMD_EXEC_PID?: number
@@ -48,8 +48,8 @@ interface ImportMetaEnv {
   readonly GDM_LANG?: string
   readonly HOME?: string
   readonly USERNAME?: string
-  readonly LANG?: string
   readonly LC_PAPER?: string
+  readonly LANG?: string
   readonly LS_COLORS?: string
   readonly XDG_CURRENT_DESKTOP?: string
   readonly npm_package_version?: string
@@ -81,6 +81,7 @@ interface ImportMetaEnv {
   readonly LC_MEASUREMENT?: string
   readonly MANAGERPIDFDID?: number
   readonly npm_config_user_agent?: string
+  readonly DEEPSEEK_API_KEY?: string
   readonly PNPM_SCRIPT_SRC_DIR?: string
   readonly npm_execpath?: string
   readonly XDG_RUNTIME_DIR?: string
@@ -95,8 +96,8 @@ interface ImportMetaEnv {
   readonly GDMSESSION?: string
   readonly XDG_SESSION_EXTRA_DEVICE_ACCESS?: string
   readonly DBUS_SESSION_BUS_ADDRESS?: string
-  readonly MAIL?: string
   readonly NVM_BIN?: string
+  readonly MAIL?: string
   readonly GIO_LAUNCHED_DESKTOP_FILE_PID?: number
   readonly npm_node_execpath?: string
   readonly GIO_LAUNCHED_DESKTOP_FILE?: string

@@ -13,7 +13,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     [&_.q_btn]:(m-4px)
     `
   ],
-  [/^q-editor.disabled$/, ([, c], { theme }) => `border-dashed`],
+  [/^q-editor.disabled$/, staticClass(`border-dashed`)],
   [
     /^q-editor__toolbars-container$/,
     componentClass(

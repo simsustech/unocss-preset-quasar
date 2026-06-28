@@ -126,8 +126,7 @@ function fetchQuery(val, onResult, onError) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization:
-            'Bearer b7a6ea9a9978a4e4d994c1f9451210327f207441adbcf04a4aada3d17d829359'
+          Authorization: `Bearer ${import.meta.env.VITE_SEARCH_API_KEY}`
         },
         body: JSON.stringify({
           q: val,

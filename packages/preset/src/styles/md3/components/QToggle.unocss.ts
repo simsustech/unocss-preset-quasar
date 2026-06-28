@@ -2,13 +2,7 @@ import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
 import { componentClass, qe } from '../../_helpers.js'
 
-const preflights: Preflight<QuasarTheme>[] = [
-  {
-    getCSS: ({ theme }) => `
-
-`
-  }
-]
+const preflights: Preflight<QuasarTheme>[] = []
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-toggle$/,

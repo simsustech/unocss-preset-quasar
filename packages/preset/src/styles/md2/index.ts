@@ -4,7 +4,7 @@ import { type QuasarTheme } from '../../theme.js'
 import { shortcuts as QIconShortcuts } from './components/QIcon.unocss.js'
 import { shortcuts as QAjaxBarShortcuts } from './components/QAjaxBar.unocss.js'
 import { shortcuts as QBtnShortcuts } from './components/QBtn.unocss.js'
-import { shortcuts as PanelShortcuts } from './composables/panel.unocss.js'
+import { shortcuts as PanelShortcuts } from '../shared/composables/panel.unocss.js'
 import { shortcuts as QAvatarShortcuts } from './components/QAvatar.unocss.js'
 import { shortcuts as QBadgeShortcuts } from './components/QBadge.unocss.js'
 import { shortcuts as QBannerShortcuts } from './components/QBanner.unocss.js'
@@ -114,12 +114,12 @@ import { shortcuts as QUploaderShortcuts } from './components/QUploader.unocss.j
 import { shortcuts as QVideoShortcuts } from './components/QVideo.unocss.js'
 import { shortcuts as QVirtualScrollShortcuts } from './components/QVirtualScroll.unocss.js'
 
-import { shortcuts as QMorphShortcuts } from './directives/QMorph.unocss.js'
-import { shortcuts as QRippleShortcuts } from './directives/QRipple.unocss.js'
+import { shortcuts as QMorphShortcuts } from '../shared/directives/QMorph.unocss.js'
+import { shortcuts as QRippleShortcuts } from '../shared/directives/QRipple.unocss.js'
 
-import { shortcuts as QBottomSheetShortcuts } from './plugins/QBottomSheet.unocss.js'
+import { shortcuts as QBottomSheetShortcuts } from '../shared/plugins/QBottomSheet.unocss.js'
 import { shortcuts as QDialogPluginShortcuts } from './plugins/QDialogPlugin.unocss.js'
-import { shortcuts as QLoadingShortcuts } from './plugins/QLoading.unocss.js'
+import { shortcuts as QLoadingShortcuts } from '../shared/plugins/QLoading.unocss.js'
 import { shortcuts as QNotifyShortcuts } from './plugins/QNotify.unocss.js'
 
 import { shortcuts as QHeaderShortcuts } from './components/QHeader.unocss.js'
@@ -127,7 +127,6 @@ import { shortcuts as QFooterShortcuts } from './components/QFooter.unocss.js'
 import { shortcuts as QDrawerShortcuts } from './components/QDrawer.unocss.js'
 import { QuasarStyle } from '../index.js'
 
-import { QBtn as QuasarButton } from 'quasar'
 const style: QuasarStyle = {
   bodyClass: 'quasar-style-md2',
   variants: [],
@@ -229,7 +228,5 @@ const style: QuasarStyle = {
     QDrawerShortcuts
   )
 }
-
-export const setDefaultProps = ({ QBtn }: { QBtn: any }) => {}
 
 export default style

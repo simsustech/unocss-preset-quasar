@@ -10,7 +10,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentClass(
       'q-btn-group',
       `!flex-initial
-      rounded-[3px] 
+      rounded-[28px] 
       [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] 
       align-middle 
       [&_>_.q-btn]:(layer-components:bg-$light-surface-container layer-components:dark:bg-$dark-surface-container) 

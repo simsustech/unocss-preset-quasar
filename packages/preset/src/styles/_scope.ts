@@ -120,7 +120,7 @@ function wrapBlock(
     return `${selectorRaw}{${body}}`
   }
   // Class / id / element / attribute / combinator selectors get wrapped.
-  if (/^[.#a-zA-Z\[&:>+~*\s]/.test(selectorRaw)) {
+  if (/^[.#a-zA-Z[&:>+~*\s]/.test(selectorRaw)) {
     const wrapped = splitTopLevelCommas(selectorRaw)
       .map((s) => `${guard}${s}`)
       .join(', ')
@@ -217,7 +217,7 @@ function tagShortcutsWithLayer(
       unknown,
       Record<string, unknown> | undefined
     ]
-    const nextMeta = { ...(existingMeta ?? {}), layer: layerName }
+    const nextMeta = { ...existingMeta, layer: layerName }
     return [first, second, nextMeta] as unknown as Shortcut<QuasarTheme>
   })
 }

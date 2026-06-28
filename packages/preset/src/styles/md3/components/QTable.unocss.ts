@@ -23,7 +23,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-table$/,
     componentClass(
       'q-table',
-      qe`w-full max-w-full border-separate [border-spacing:0] [&_thead_tr]:(h-[48px]) [&_tbody_td]:(h-[48px]) [&_th]:(font-medium text-[12px] text-$light-on-surface-variant dark:text-$dark-on-surface-variant select-none) [&_th.sortable]:(cursor-pointer) [&_th.sortable:hover_.q-table__sort-icon]:(opacity-[0.64]) [&_th.sorted_.q-table__sort-icon]:(!opacity-[0.86]) [&_th.sort-desc_.q-table__sort-icon]:(rotate-180) [&_th]:(px-[16px] py-[7px] [background-color:inherit]) [&_td]:(px-[16px] py-[7px] [background-color:inherit]) [&_thead]:(border-solid border-0) [&_td]:(border-solid border-0) [&_th]:(border-solid border-0) [&_tbody_td]:(text-[13px]) [&_thead]:(border-$light-outline-variant dark:border-$dark-outline-variant) [&_tr]:(border-$light-outline-variant dark:border-$dark-outline-variant) [&_th]:(border-$light-outline-variant dark:border-$dark-outline-variant) [&_td]:(border-$light-outline-variant dark:border-$dark-outline-variant) [&_tbody_td]:(relative) [&_tbody_td:before]:(absolute top-[0] left-[0] right-[0] bottom-[0] pointer-events-none) [&_tbody_td:after]:(absolute top-[0] left-[0] right-[0] bottom-[0] pointer-events-none) [&_tbody_td:before]:(bg-$light-on-surface/3 dark:bg-$dark-on-surface/3) [&_tbody_td:after]:(bg-$light-secondary-container dark:bg-$dark-secondary-container) [&_tbody_tr.selected_td]:(text-$light-on-secondary-container dark:text-$dark-on-secondary-container) [&_tbody_tr.selected_td:after]:(content-['']) [&_.q-virtual-scroll__padding_tr]:(!h-[0]) [&_.q-virtual-scroll__padding_td]:(!p-0)`
+      qe`w-full max-w-full border-separate [border-spacing:0] [&_thead_tr]:(h-[48px]) [&_tbody_td]:(h-[48px]) [&_th]:(font-medium text-[12px] text-$light-on-surface-variant dark:text-$dark-on-surface-variant select-none) [&_th.sortable]:(cursor-pointer) [&_th.sortable:hover_.q-table__sort-icon]:(opacity-[0.64]) [&_th.sorted_.q-table__sort-icon]:(!opacity-[0.86]) [&_th.sort-desc_.q-table__sort-icon]:(rotate-180) [&_th]:(px-[16px] py-[7px] [background-color:inherit]) [&_td]:(px-[16px] py-[7px] [background-color:inherit]) [&_thead]:(border-solid border-0) [&_td]:(border-solid border-0) [&_th]:(border-solid border-0) [&_tbody_td]:(text-[13px]) [&_thead]:(border-$light-outline-variant dark:border-$dark-outline-variant) [&_tr]:(border-$light-outline-variant dark:border-$dark-outline-variant) [&_th]:(border-$light-outline-variant dark:border-$dark-outline-variant) [&_td]:(border-$light-outline-variant dark:border-$dark-outline-variant) [&_tbody_td]:(relative) [&_tbody_td:before]:(absolute top-[0] left-[0] right-[0] bottom-[0] pointer-events-none) [&_tbody_td:after]:(absolute top-[0] left-[0] right-[0] bottom-[0] pointer-events-none) [&_tbody_td:before]:([background-color:var(--light-on-surface)] [opacity:var(--q-hover-opacity,0.08)]) dark:[&_tbody_td:before]:([background-color:var(--dark-on-surface)] [opacity:var(--q-hover-opacity-dark,0.12)]) [&_tbody_td:after]:(bg-$light-secondary-container dark:bg-$dark-secondary-container) [&_tbody_tr.selected_td]:(text-$light-on-secondary-container dark:text-$dark-on-secondary-container) [&_tbody_tr.selected_td:after]:(content-['']) [&_.q-virtual-scroll__padding_tr]:(!h-[0]) [&_.q-virtual-scroll__padding_td]:(!p-0)`
     )
   ],
 
@@ -137,7 +137,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-table--dark$/,
     componentClass(
       'q-table--dark',
-      qe`[box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] border-$dark-outline-variant [&_.q-table__bottom]:(border-$dark-outline-variant) [&_thead]:(border-$dark-outline-variant) [&_tr]:(border-$dark-outline-variant) [&_th]:(border-$dark-outline-variant) [&_td]:(border-$dark-outline-variant) [&_tbody_td:before]:(bg-$dark-on-surface/8) [&_tbody_td:after]:(bg-$dark-secondary-container) [&_tbody_tr.selected_td]:(text-$dark-on-secondary-container) [&.q-table--vertical-separator_.q-table__top]:(border-$dark-outline-variant) [&.q-table--cell-separator_.q-table__top]:(border-$dark-outline-variant)`
+      qe`[box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] border-$dark-outline-variant [&_.q-table__bottom]:(border-$dark-outline-variant) [&_thead]:(border-$dark-outline-variant) [&_tr]:(border-$dark-outline-variant) [&_th]:(border-$dark-outline-variant) [&_td]:(border-$dark-outline-variant) [&_tbody_td:before]:([background-color:var(--dark-on-surface)] [opacity:var(--q-hover-opacity-dark,0.12)]) [&_tbody_td:after]:(bg-$dark-secondary-container) [&_tbody_tr.selected_td]:(text-$dark-on-secondary-container) [&.q-table--vertical-separator_.q-table__top]:(border-$dark-outline-variant) [&.q-table--cell-separator_.q-table__top]:(border-$dark-outline-variant)`
     )
   ],
 
@@ -246,6 +246,12 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       'q-table--dense',
       qe`[&_.q-table__top]:(px-[16px] py-[6px]) [&_.q-table__bottom]:(min-h-[33px]) [&_.q-table__sort-icon]:(text-[110%]) [&_.q-table_th]:(px-[8px] py-[4px]) [&_.q-table_td]:(px-[8px] py-[4px]) [&_.q-table_thead_tr]:(h-[28px]) [&_.q-table_tbody_tr]:(h-[28px]) [&_.q-table_tbody_td]:(h-[28px]) [&_.q-table_th:first-child]:(pl-[16px]) [&_.q-table_td:first-child]:(pl-[16px]) [&_.q-table_th:last-child]:(pr-[16px]) [&_.q-table_td:last-child]:(pr-[16px]) [&_.q-table__bottom-item]:(mr-[8px]) [&_.q-table__select_.q-field__control]:(min-h-[24px] p-0) [&_.q-table__select_.q-field__native]:(min-h-[24px] p-0) [&_.q-table__select_.q-field__marginal]:(h-[24px])`
     )
+  ],
+
+  [
+    /^q-table--hover-opacity-(\d+)$/,
+    ([, n]) =>
+      `[--q-hover-opacity:${+n / 100}] [--q-hover-opacity-dark:${+n / 100}]`
   ]
 ]
 

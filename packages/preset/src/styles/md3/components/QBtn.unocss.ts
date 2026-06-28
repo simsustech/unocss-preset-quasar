@@ -13,7 +13,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentCtxClass(
       'q-btn',
       ({ theme }) =>
-        `layer-components:bg-$light-primary layer-components:dark:bg-$dark-primary layer-components:text-$light-on-primary layer-components:dark:text-$dark-on-primary inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle text-[14px] leading-[1.715em] no-underline font-medium text-center w-auto min-h-40px cursor-default px-[16px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit] shadow-md shadow-gray/14)`
+        `layer-components:bg-$light-primary layer-components:dark:bg-$dark-primary layer-components:text-$light-on-primary layer-components:dark:text-$dark-on-primary inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle rounded-[28px] text-[14px] leading-[1.715em] no-underline font-medium text-center w-auto min-h-40px cursor-default px-[16px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit] shadow-md shadow-gray/14)`
     )
   ],
   [
@@ -25,9 +25,9 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     )
   ],
 
-  [/^q-btn--no-uppercase$/, ([, c], { theme }) => `normal-case`],
+  [/^q-btn--no-uppercase$/, staticClass(`normal-case`)],
 
-  [/^q-btn--rectangle$/, ([, c], { theme }) => `rounded-[3px]`],
+  [/^q-btn--rectangle$/, staticClass(`rounded-[3px]`)],
 
   [
     /^q-btn--outline$/,
@@ -50,7 +50,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     )
   ],
 
-  [/^q-btn--rounded$/, ([, c], { theme }) => `rounded-[28px]`],
+  [/^q-btn--rounded$/, staticClass(`rounded-[28px]`)],
 
   [
     /^q-btn--round$/,
@@ -60,7 +60,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     )
   ],
 
-  [/^q-btn--square$/, ([, c], { theme }) => `rounded-none`],
+  [/^q-btn--square$/, staticClass(`rounded-none`)],
 
   [
     /^q-btn--flat$/,
@@ -112,7 +112,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     // min-h-[40px] min-w-[40px]
   ],
 
-  [/^q-btn__content$/, ([, c], { theme }) => `[transition:opacity_0.3s] z-0`],
+  [/^q-btn__content$/, staticClass(`[transition:opacity_0.3s] z-0`)],
 
   [
     /^q-btn__content--hidden$/,
@@ -122,7 +122,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     )
   ],
 
-  [/^q-btn__progress$/, ([, c], { theme }) => `[border-radius:inherit] z-0`],
+  [/^q-btn__progress$/, staticClass(`[border-radius:inherit] z-0`)],
 
   [
     /^q-btn__progress-indicator$/,

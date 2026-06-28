@@ -7,7 +7,7 @@ import { codeSplitting, examplesVitePlugin } from './build/prod-chunks.js'
 
 import UnoCSS from 'unocss/vite'
 import { QuasarPreset } from 'unocss-preset-quasar'
-import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
+import { Unstyled } from 'unocss-preset-quasar/styles'
 
 const quasarPlugins = [
   'AddressbarColor',
@@ -72,7 +72,7 @@ export default defineConfig((ctx) => ({
           enforce: 'pre',
           presets: [
             QuasarPreset({
-              style: MaterialDesign3,
+              style: Unstyled,
               plugins: quasarPlugins
             })
           ]

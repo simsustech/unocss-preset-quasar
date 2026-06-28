@@ -18,7 +18,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     )
   ],
 
-  [/^q-menu--square$/, ([, c], { theme }) => `rounded-none`],
+  [/^q-menu--square$/, staticClass(`rounded-none`)],
 
   [
     /^q-menu--dark$/,

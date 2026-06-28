@@ -51,8 +51,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       [&:not(.q-drawer--mini-animate)_.q-drawer--mini_.q-item]:(text-center justify-center pl-0 pr-0 min-w-[0])
       [&:not(.q-drawer--mini-animate)_.q-drawer--mini_.q-item__section]:(text-center justify-center pl-0 pr-0 min-w-[0])
       [&:not(.q-drawer--mini-animate)_.q-drawer--mini_.q-item__label]:(hidden)
-      [&:not(.q-drawer--mini-animate)__.q-drawer--mini__.q-item__section--main]:(hidden)
-      [&:not(.q-drawer--mini-animate)__.q-drawer--mini__.q-item__section--side__~_.q-item__section--side]:(hidden)`
+      `
     )
   ],
 

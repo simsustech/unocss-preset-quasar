@@ -16,10 +16,6 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   select-none cursor-inherit layer-components:text-$light-on-surface layer-components:dark:text-$dark-on-surface inline-flex items-center justify-center v-middle
   `
   ],
-  // [
-  //   /^(q-icon:before|q-icon:after)$/,
-  //   ([, c], { theme }) => `w-full h-full flex! items-center justify-center`
-  // ],
   [
     /^(material-icons|material-icons-outlined|material-icons-round|material-icons-sharp|material-symbols-outlined|material-symbols-rounded|material-symbols-sharp)$/,
     ([, c], { theme }) =>

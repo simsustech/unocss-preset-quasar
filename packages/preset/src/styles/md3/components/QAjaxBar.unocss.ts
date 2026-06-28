@@ -15,7 +15,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
         `fixed z-${theme.quasar.z['max']} transition-transform bg-red`
     )
   ],
-  [/^q-loading-bar--top$/, ([, c], { theme }) => `left-0 right-0 top-0 w-full`],
+  [/^q-loading-bar--top$/, staticClass(`left-0 right-0 top-0 w-full`)],
   [
     /^q-loading-bar--bottom$/,
     componentCtxClass(

@@ -3,7 +3,7 @@ import type { QuasarTheme } from '../../../theme.js'
 import { componentClass, staticClass, qe } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
-  [/^z-fab$/, ([, c], { theme }) => ``],
+  [/^z-fab$/, staticClass(``)],
 
   [
     /^q-fab$/,

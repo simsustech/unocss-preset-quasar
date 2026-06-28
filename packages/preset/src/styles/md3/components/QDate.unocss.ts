@@ -41,7 +41,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentClass(
       'q-date__header-link',
       `opacity-[0.64] outline-0 
-      [transition:\_opacity\_0.3s\_ease-out] 
+      [transition:_opacity_0.3s_ease-out] 
       [&:hover]:(opacity-100) 
       [&:focus]:(opacity-100)`
     )

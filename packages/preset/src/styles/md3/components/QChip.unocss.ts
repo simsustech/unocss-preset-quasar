@@ -25,7 +25,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       bg-$light-surface-container-low dark:bg-$dark-secondary-container
       text-$light-on-surface-variant dark:text-$dark-on-secondary-container
       text-[14px] leading-[20px] font-500 px-[12px] py-[0]
-      [&_.q-avatar]:(text-[2em] -ml-[0.45em] mr-[0.2em] rounded-$shape-corner-large)`
+      [&_.q-avatar]:(text-[2em] -ml-[0.45em] mr-[0.2em] rounded-tl-[3px] rounded-br-[0] rounded-tr-[0] rounded-bl-[3px])`
     )
   ],
 
