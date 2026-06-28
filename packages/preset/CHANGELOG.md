@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.3.0
+
+### Minor Changes
+
+- 6642723: refactor: ai refactor, fixes and features
+
 ## 0.2.17
 
 ### Patch Changes
