@@ -52,7 +52,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { date } from 'quasar'
 
 import PackageReleases from './PackageReleases.vue'
@@ -88,7 +88,7 @@ function queryReleases() {
       loading.value = false
     })
     .catch((err) => {
-      console.error(err) // eslint-disable-line
+      console.error(err)
       error.value = true
     })
 }

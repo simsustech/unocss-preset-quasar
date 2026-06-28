@@ -14,7 +14,7 @@ For a demo, please visit the QAjaxBar documentation page.
 
 <DocApi file="LoadingBar" />
 
-<DocInstallation plugins="LoadingBar" config="loadingBar" />
+<DocInstall plugins="LoadingBar" config="loadingBar" />
 
 LoadingBar options are same as when configuring a [QAjaxBar](/vue-components/ajax-bar).
 

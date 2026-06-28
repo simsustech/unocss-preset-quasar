@@ -108,12 +108,12 @@ Notice that you must install and use one more component (QUploaderAddTrigger) in
 QUploader works by default with the HTTP(S) protocol to upload files (but it's not limited to it as you'll see in the section following this one).
 
 ::: tip
-It is by no means required to use a Nodejs server or Spring or ASP.NET like below -- you can handle file upload however you want, as long as the method you are using fits the HTTP protocol. Example with [PHP](https://secure.php.net/manual/en/features.file-upload.php).
+It is by no means required to use a Node.js server or Spring or ASP.NET like below -- you can handle file upload however you want, as long as the method you are using fits the HTTP protocol. Example with [PHP](https://secure.php.net/manual/en/features.file-upload.php).
 :::
 
-### Nodejs
+### Node.js
 
-Below is a basic server example written in Nodejs. It does nothing other than receiving the files, so consider it as a starting point.
+Below is a basic server example written in Node.js. It does nothing other than receiving the files, so consider it as a starting point.
 
 ```js
 import fs from 'node:fs'
@@ -125,7 +125,7 @@ import throttle from 'express-throttle-bandwidth'
 const app = express()
 
 const port = process.env.PORT || 4444
-const folder = fileURLToPath(new URL('./files', import.meta.url))
+const folder = path.join(import.meta.dirname, 'files')
 
 if (!fs.existsSync(folder)) {
   fs.mkdirSync(folder)
@@ -181,21 +181,17 @@ If your server requires authentication such as a JWT token, use QUploader's fact
   <q-uploader label="Upload" :factory="factoryFn" style="max-width: 300px" />
 </template>
 
-<script>
-  export default {
-    methods: {
-      factoryFn(file) {
-        return new Promise((resolve, reject) => {
-          // Retrieve JWT token from your store.
-          const token = 'myToken'
-          resolve({
-            url: 'http://localhost:4444/fileuploader/upload',
-            method: 'POST',
-            headers: [{ name: 'Authorization', value: `Bearer ${token}` }]
-          })
-        })
-      }
-    }
+<script setup>
+  function factoryFn(file) {
+    return new Promise((resolve, reject) => {
+      // Retrieve JWT token from your store.
+      const token = 'myToken'
+      resolve({
+        url: 'http://localhost:4444/fileuploader/upload',
+        method: 'POST',
+        headers: [{ name: 'Authorization', value: `Bearer ${token}` }]
+      })
+    })
   }
 </script>
 ```
@@ -425,17 +421,19 @@ export default createUploaderComponent({
 
 - For the default XHR implementation in the form of such a plugin, check out [source code](https://github.com/quasarframework/quasar/blob/dev/ui/src/components/uploader/xhr-uploader-plugin.js).
 - For the UMD version use `Quasar.createUploaderComponent({ ... })`.
-  :::
+
+:::
 
 Then you register this component globally with Vue or you import it and add it to the "components: {}" in your Vue components.
 
 ```js
 // globally registering your component in a boot file
+import { defineBoot } from '#q-app'
 import MyUploader from '../../path/to/MyUploader' // the file from above
 
-export default ({ app }) {
+export default defineBoot(({ app }) {
   app.component('MyUploader', MyUploader)
-}
+})
 
 // or declaring it in a .vue file
 import MyUploader from '../../path/to/MyUploader' // the file from above

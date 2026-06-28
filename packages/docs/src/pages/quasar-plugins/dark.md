@@ -13,7 +13,7 @@ For a better understanding of this Quasar plugin, please head to the Style & Ide
 
 <DocApi file="Dark" />
 
-<DocInstallation title="Configuration" config="dark" />
+<DocInstall title="Configuration" config="dark" />
 
 ## Usage
 
@@ -90,21 +90,17 @@ When on a SSR build:
 ```html
 <template>...</template>
 
-<script>
+<script setup>
   import { useQuasar } from 'quasar'
   import { watch } from 'vue'
 
-  export default {
-    setup() {
-      const $q = useQuasar()
+  const $q = useQuasar()
 
-      watch(
-        () => $q.dark.isActive,
-        (val) => {
-          console.log(val ? 'On dark mode' : 'On light mode')
-        }
-      )
+  watch(
+    () => $q.dark.isActive,
+    (val) => {
+      console.log(val ? 'On dark mode' : 'On light mode')
     }
-  }
+  )
 </script>
 ```

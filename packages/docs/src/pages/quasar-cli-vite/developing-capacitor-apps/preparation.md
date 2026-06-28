@@ -68,7 +68,7 @@ If you haven't installed [CocoaPods](https://cocoapods.org/), please install it 
 In order to develop/build a Mobile app, we need to add the Capacitor mode to our Quasar project. This will use the Capacitor CLI to generate a Capacitor project in `/src-capacitor` folder.
 
 ```bash
-$ quasar mode add capacitor
+quasar mode add capacitor
 ```
 
 ## Step 3: Start Developing
@@ -76,7 +76,7 @@ $ quasar mode add capacitor
 To start a dev server with HMR, run the command below:
 
 ```bash
-$ quasar dev -m capacitor -T [android|ios]
+quasar dev -m capacitor -T [android|ios]
 ```
 
 Once the dev server is ready, your IDE will open (Android Studio or Xcode) and from there you can manually select the emulator (or multiple ones simultaneously!) and install the dev app on it/them. You can also run the dev app on a connected mobile/tablet device.

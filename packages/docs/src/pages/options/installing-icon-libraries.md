@@ -36,7 +36,7 @@ extras: [
   'mdi-v7',
   'ionicons-v4', // last webfont was available in v4.6.3
   'eva-icons',
-  'fontawesome-v6',
+  'fontawesome-v7',
   'themify',
   'line-awesome',
   'bootstrap-icons'
@@ -68,20 +68,20 @@ If you have a Fontawesome v6 Pro license and want to use it instead of the Fonta
 3. Install Fontawesome webfonts:
 
 ```tabs
-<<| bash Yarn |>>
-$ yarn add @fortawesome/fontawesome-pro
-<<| bash NPM |>>
-$ npm install --save @fortawesome/fontawesome-pro
 <<| bash PNPM |>>
-$ pnpm add @fortawesome/fontawesome-pro
+pnpm add @fortawesome/fontawesome-pro
+<<| bash Yarn |>>
+yarn add @fortawesome/fontawesome-pro
+<<| bash NPM |>>
+npm install @fortawesome/fontawesome-pro
 <<| bash Bun |>>
-$ bun add @fortawesome/fontawesome-pro
+bun add @fortawesome/fontawesome-pro
 ```
 
 4. Create new boot file:
 
 ```bash
-$ quasar new boot fontawesome-pro [--format ts]
+quasar new boot fontawesome-pro [--format ts]
 ```
 
 5. Edit the `/quasar.config` file:
@@ -92,11 +92,11 @@ boot: [
   'fontawesome-pro' // Add boot file
 ],
 extras: [
-  // 'fontawesome-v6' // Disable free version!
+  // 'fontawesome-v7' // Disable free version!
 ],
 framework: {
   // if you want Quasar to use Fontawesome for its icons
-  iconSet: 'fontawesome-v6-pro'
+  iconSet: 'fontawesome-v7-pro'
 }
 ```
 
@@ -120,7 +120,7 @@ Since the default `font-weight` for fontawesome-pro is `light` or `fal`, some ic
 
 For instance, to override the `fal` version of the close icon for chips, do this:
 
-_First_, find the icon used for chip close in Quasar Fontawesome v6 Pro [icon-set source](https://github.com/quasarframework/quasar/blob/dev/ui/icon-set/fontawesome-v6-pro.js).
+_First_, find the icon used for chip close in Quasar Fontawesome v6 Pro [icon-set source](https://github.com/quasarframework/quasar/blob/dev/ui/icon-set/fontawesome-v7-pro.js).
 
 (Alternatively, you can check inside the render function of the component you are overriding.)
 

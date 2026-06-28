@@ -7,7 +7,7 @@
       Here you can find everything you need to start working with Quasar.
     </div>
 
-    <div class="row q-gutter-md">
+    <div class="row">
       <div
         class="col-12 col-md text-center page-docs__text letter-spacing-40 text-size-16 q-ma-md"
       >
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="row q-gutter-md">
+    <div class="row">
       <div class="col-12 col-md row justify-center q-gutter-sm q-py-lg">
         <div
           class="text-center full-width text-size-24 text-weight-bolder letter-spacing-450 text-brand-primary text-uppercase"
@@ -42,7 +42,7 @@
           Most Used
         </div>
 
-        <doc-card-link
+        <DocCardLink
           v-for="(entry, pageIndex) in mostUsedPages"
           :key="pageIndex"
           :to="entry.path"
@@ -56,7 +56,7 @@
               {{ entry.name }}
             </div>
           </q-card>
-        </doc-card-link>
+        </DocCardLink>
       </div>
 
       <div class="gt-sm q-px-md row justify-center">
@@ -72,7 +72,7 @@
           Discover Also
         </div>
 
-        <doc-card-link
+        <DocCardLink
           v-for="(entry, pageIndex) in pagesToDiscover"
           :key="pageIndex"
           :to="entry.path"
@@ -88,15 +88,15 @@
               {{ entry.name }}
             </div>
           </q-card>
-        </doc-card-link>
+        </DocCardLink>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import DocCardLink from 'components/DocCardLink.vue'
-import { mostUsedPages, pagesToDiscover } from 'src/assets/docs-homepage.js'
+import DocCardLink from '@/components/DocCardLink.vue'
+import { mostUsedPages, pagesToDiscover } from '@/assets/docs-homepage.js'
 </script>
 
 <style lang="sass">

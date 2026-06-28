@@ -55,16 +55,16 @@ import { ref } from 'vue'
 function domToObj(domEl, whitelist) {
   const obj = {}
   for (let i = 0; i < whitelist.length; i++) {
-    if (domEl[whitelist[i]] instanceof NodeList) {
-      obj[whitelist[i]] = Array.from(domEl[whitelist[i]])
-    } else {
-      obj[whitelist[i]] = domEl[whitelist[i]]
-    }
+    obj[whitelist[i]] =
+      domEl[whitelist[i]] instanceof NodeList
+        ? [...domEl[whitelist[i]]]
+        : domEl[whitelist[i]]
   }
   return obj
 }
 
 const whitelist = [
+  // #region
   'id',
   'type',
   'addedNodes',
@@ -78,6 +78,7 @@ const whitelist = [
   'tagName',
   'className',
   'childNodes'
+  // #endregion
 ]
 
 export default {
@@ -108,7 +109,7 @@ export default {
                   }
                   return value
                 }
-                if (whitelist.find((x) => x === name)) {
+                if (whitelist.some((x) => x === name)) {
                   return value
                 }
               },

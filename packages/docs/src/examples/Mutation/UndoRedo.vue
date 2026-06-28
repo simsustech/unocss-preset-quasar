@@ -42,6 +42,10 @@
 <script>
 import { ref } from 'vue'
 
+function clearStack(stack) {
+  stack.splice(0)
+}
+
 export default {
   setup() {
     const maxStack = ref(100)
@@ -55,10 +59,6 @@ export default {
       if (stack.length > maxStack.value) {
         stack.splice(maxStack.value)
       }
-    }
-
-    function clearStack(stack) {
-      stack.splice(0)
     }
 
     return {
@@ -75,7 +75,7 @@ export default {
         if (data !== void 0) {
           // block undo from receiving its own data
           undoBlocked.value = true
-          editorRef.value.innerText = data
+          editorRef.value.textContent = data
         }
       },
 
@@ -85,7 +85,7 @@ export default {
         if (data !== void 0) {
           // unblock undo from receiving redo data
           undoBlocked.value = false
-          editorRef.value.innerText = data
+          editorRef.value.textContent = data
         }
       },
 
@@ -97,7 +97,7 @@ export default {
             clearStack(redoStack.value)
           } else if (record.type === 'childList') {
             record.removedNodes.forEach((node) => {
-              if (undoBlocked.value === false) {
+              if (!undoBlocked.value) {
                 // comes from redo
                 undoStack.value.unshift(node.textContent)
               } else {

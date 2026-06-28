@@ -7,7 +7,6 @@ related:
   - /quasar-plugins/loading
   - /quasar-plugins/loading-bar
   - /quasar-cli-vite/ajax-requests
-  - /quasar-cli-webpack/ajax-requests
 ---
 
 In most mobile apps and even some desktop apps, you will most likely have some API communication to a server via an [Ajax call](<https://en.wikipedia.org/wiki/Ajax_(programming)>). Since these calls can take more than a second or two, it is good UX to offer the user feedback, when such an API call is being made. Which is where QAjaxBar comes into helping you out.
@@ -41,16 +40,10 @@ Should you want QAjaxBar to trigger only for some URLs (and not for all, like in
   <q-ajax-bar :hijack-filter="myFilterFn" />
 </template>
 
-<script>
-  export default {
-    setup() {
-      return {
-        myFilterFn(url) {
-          // example (only https://my-service.com/* should trigger)
-          return /^https:\/\/my-service\.com/.test(url)
-        }
-      }
-    }
+<script setup>
+  function myFilterFn(url) {
+    // example (only https://my-service.com/* should trigger)
+    return /^https:\/\/my-service\.com/.test(url)
   }
 </script>
 ```

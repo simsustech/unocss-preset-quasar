@@ -36,9 +36,10 @@
 </template>
 
 <script>
-import { ref, computed, nextTick, toRaw } from 'vue'
+import { computed, nextTick, ref, toRaw } from 'vue'
 
 const columns = [
+  // #region
   {
     name: 'desc',
     required: true,
@@ -64,25 +65,27 @@ const columns = [
     label: 'Calcium (%)',
     field: 'calcium',
     sortable: true,
-    sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)
+    sort: (a, b) => Number.parseInt(a, 10) - Number.parseInt(b, 10)
   },
   {
     name: 'iron',
     label: 'Iron (%)',
     field: 'iron',
     sortable: true,
-    sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)
+    sort: (a, b) => Number.parseInt(a, 10) - Number.parseInt(b, 10)
   }
+  // #endregion
 ]
 
 const rows = [
+  // #region
   {
     id: 1,
     name: 'Frozen Yogurt',
     calories: 159,
-    fat: 6.0,
+    fat: 6,
     carbs: 24,
-    protein: 4.0,
+    protein: 4,
     sodium: 87,
     calcium: '14%',
     iron: '1%'
@@ -91,7 +94,7 @@ const rows = [
     id: 2,
     name: 'Ice cream sandwich',
     calories: 237,
-    fat: 9.0,
+    fat: 9,
     carbs: 37,
     protein: 4.3,
     sodium: 129,
@@ -102,9 +105,9 @@ const rows = [
     id: 3,
     name: 'Eclair',
     calories: 262,
-    fat: 16.0,
+    fat: 16,
     carbs: 23,
-    protein: 6.0,
+    protein: 6,
     sodium: 337,
     calcium: '6%',
     iron: '7%'
@@ -124,7 +127,7 @@ const rows = [
     id: 5,
     name: 'Gingerbread',
     calories: 356,
-    fat: 16.0,
+    fat: 16,
     carbs: 49,
     protein: 3.9,
     sodium: 327,
@@ -135,9 +138,9 @@ const rows = [
     id: 6,
     name: 'Jelly bean',
     calories: 375,
-    fat: 0.0,
+    fat: 0,
     carbs: 94,
-    protein: 0.0,
+    protein: 0,
     sodium: 50,
     calcium: '0%',
     iron: '0%'
@@ -168,7 +171,7 @@ const rows = [
     id: 9,
     name: 'Donut',
     calories: 452,
-    fat: 25.0,
+    fat: 25,
     carbs: 51,
     protein: 4.9,
     sodium: 326,
@@ -179,7 +182,7 @@ const rows = [
     id: 10,
     name: 'KitKat',
     calories: 518,
-    fat: 26.0,
+    fat: 26,
     carbs: 65,
     protein: 7,
     sodium: 54,
@@ -190,9 +193,9 @@ const rows = [
     id: 11,
     name: 'Frozen Yogurt-1',
     calories: 159,
-    fat: 6.0,
+    fat: 6,
     carbs: 24,
-    protein: 4.0,
+    protein: 4,
     sodium: 87,
     calcium: '14%',
     iron: '1%'
@@ -201,7 +204,7 @@ const rows = [
     id: 12,
     name: 'Ice cream sandwich-1',
     calories: 237,
-    fat: 9.0,
+    fat: 9,
     carbs: 37,
     protein: 4.3,
     sodium: 129,
@@ -212,9 +215,9 @@ const rows = [
     id: 13,
     name: 'Eclair-1',
     calories: 262,
-    fat: 16.0,
+    fat: 16,
     carbs: 23,
-    protein: 6.0,
+    protein: 6,
     sodium: 337,
     calcium: '6%',
     iron: '7%'
@@ -234,7 +237,7 @@ const rows = [
     id: 15,
     name: 'Gingerbread-1',
     calories: 356,
-    fat: 16.0,
+    fat: 16,
     carbs: 49,
     protein: 3.9,
     sodium: 327,
@@ -245,9 +248,9 @@ const rows = [
     id: 16,
     name: 'Jelly bean-1',
     calories: 375,
-    fat: 0.0,
+    fat: 0,
     carbs: 94,
-    protein: 0.0,
+    protein: 0,
     sodium: 50,
     calcium: '0%',
     iron: '0%'
@@ -278,7 +281,7 @@ const rows = [
     id: 19,
     name: 'Donut-1',
     calories: 452,
-    fat: 25.0,
+    fat: 25,
     carbs: 51,
     protein: 4.9,
     sodium: 326,
@@ -289,7 +292,7 @@ const rows = [
     id: 20,
     name: 'KitKat-1',
     calories: 518,
-    fat: 26.0,
+    fat: 26,
     carbs: 65,
     protein: 7,
     sodium: 54,
@@ -300,9 +303,9 @@ const rows = [
     id: 21,
     name: 'Frozen Yogurt-2',
     calories: 159,
-    fat: 6.0,
+    fat: 6,
     carbs: 24,
-    protein: 4.0,
+    protein: 4,
     sodium: 87,
     calcium: '14%',
     iron: '1%'
@@ -311,7 +314,7 @@ const rows = [
     id: 22,
     name: 'Ice cream sandwich-2',
     calories: 237,
-    fat: 9.0,
+    fat: 9,
     carbs: 37,
     protein: 4.3,
     sodium: 129,
@@ -322,9 +325,9 @@ const rows = [
     id: 23,
     name: 'Eclair-2',
     calories: 262,
-    fat: 16.0,
+    fat: 16,
     carbs: 23,
-    protein: 6.0,
+    protein: 6,
     sodium: 337,
     calcium: '6%',
     iron: '7%'
@@ -344,7 +347,7 @@ const rows = [
     id: 25,
     name: 'Gingerbread-2',
     calories: 356,
-    fat: 16.0,
+    fat: 16,
     carbs: 49,
     protein: 3.9,
     sodium: 327,
@@ -355,9 +358,9 @@ const rows = [
     id: 26,
     name: 'Jelly bean-2',
     calories: 375,
-    fat: 0.0,
+    fat: 0,
     carbs: 94,
-    protein: 0.0,
+    protein: 0,
     sodium: 50,
     calcium: '0%',
     iron: '0%'
@@ -388,7 +391,7 @@ const rows = [
     id: 29,
     name: 'Donut-2',
     calories: 452,
-    fat: 25.0,
+    fat: 25,
     carbs: 51,
     protein: 4.9,
     sodium: 326,
@@ -399,7 +402,7 @@ const rows = [
     id: 30,
     name: 'KitKat-2',
     calories: 518,
-    fat: 26.0,
+    fat: 26,
     carbs: 65,
     protein: 7,
     sodium: 54,
@@ -410,9 +413,9 @@ const rows = [
     id: 31,
     name: 'Frozen Yogurt-3',
     calories: 159,
-    fat: 6.0,
+    fat: 6,
     carbs: 24,
-    protein: 4.0,
+    protein: 4,
     sodium: 87,
     calcium: '14%',
     iron: '1%'
@@ -421,7 +424,7 @@ const rows = [
     id: 32,
     name: 'Ice cream sandwich-3',
     calories: 237,
-    fat: 9.0,
+    fat: 9,
     carbs: 37,
     protein: 4.3,
     sodium: 129,
@@ -432,9 +435,9 @@ const rows = [
     id: 33,
     name: 'Eclair-3',
     calories: 262,
-    fat: 16.0,
+    fat: 16,
     carbs: 23,
-    protein: 6.0,
+    protein: 6,
     sodium: 337,
     calcium: '6%',
     iron: '7%'
@@ -454,7 +457,7 @@ const rows = [
     id: 35,
     name: 'Gingerbread-3',
     calories: 356,
-    fat: 16.0,
+    fat: 16,
     carbs: 49,
     protein: 3.9,
     sodium: 327,
@@ -465,9 +468,9 @@ const rows = [
     id: 36,
     name: 'Jelly bean-3',
     calories: 375,
-    fat: 0.0,
+    fat: 0,
     carbs: 94,
-    protein: 0.0,
+    protein: 0,
     sodium: 50,
     calcium: '0%',
     iron: '0%'
@@ -498,7 +501,7 @@ const rows = [
     id: 39,
     name: 'Donut-3',
     calories: 452,
-    fat: 25.0,
+    fat: 25,
     carbs: 51,
     protein: 4.9,
     sodium: 326,
@@ -509,13 +512,14 @@ const rows = [
     id: 40,
     name: 'KitKat-3',
     calories: 518,
-    fat: 26.0,
+    fat: 26,
     carbs: 65,
     protein: 7,
     sodium: 54,
     calcium: '12%',
     iron: '6%'
   }
+  // #endregion
 ]
 
 export default {
@@ -538,7 +542,7 @@ export default {
       rows,
 
       tableClass: computed(() =>
-        navigationActive.value === true ? 'shadow-8 no-outline' : null
+        navigationActive.value ? 'shadow-8 no-outline' : null
       ),
 
       activateNavigation() {
@@ -551,8 +555,8 @@ export default {
 
       onKey(evt) {
         if (
-          navigationActive.value !== true ||
-          [33, 34, 35, 36, 38, 40].indexOf(evt.keyCode) === -1 ||
+          !navigationActive.value ||
+          ![33, 34, 35, 36, 38, 40].includes(evt.keyCode) ||
           tableRef.value === null
         ) {
           return
@@ -565,7 +569,7 @@ export default {
         if (computedRows.length === 0) return
 
         const currentIndex =
-          selected.value.length > 0
+          selected.value.length !== 0
             ? computedRows.indexOf(toRaw(selected.value[0]))
             : -1
         const currentPage = pagination.value.page
@@ -580,27 +584,36 @@ export default {
         let page = currentPage
 
         switch (evt.keyCode) {
-          case 36: // Home
+          case 36: {
+            // Home
             page = 1
             index = 0
             break
-          case 35: // End
+          }
+          case 35: {
+            // End
             page = lastPage
             index = rowsPerPage - 1
             break
-          case 33: // PageUp
+          }
+          case 33: {
+            // PageUp
             page = currentPage <= 1 ? lastPage : currentPage - 1
             if (index < 0) {
               index = 0
             }
             break
-          case 34: // PageDown
+          }
+          case 34: {
+            // PageDown
             page = currentPage >= lastPage ? 1 : currentPage + 1
             if (index < 0) {
               index = rowsPerPage - 1
             }
             break
-          case 38: // ArrowUp
+          }
+          case 38: {
+            // ArrowUp
             if (currentIndex <= 0) {
               page = currentPage <= 1 ? lastPage : currentPage - 1
               index = rowsPerPage - 1
@@ -608,7 +621,9 @@ export default {
               index = currentIndex - 1
             }
             break
-          case 40: // ArrowDown
+          }
+          case 40: {
+            // ArrowDown
             if (currentIndex >= lastIndex) {
               page = currentPage >= lastPage ? 1 : currentPage + 1
               index = 0
@@ -616,15 +631,16 @@ export default {
               index = currentIndex + 1
             }
             break
+          }
         }
 
         if (page !== pagination.value.page) {
           pagination.value.page = page
 
           nextTick(() => {
-            const { computedRows } = tableRef.value
+            const { computedRows: computedRowsList } = tableRef.value
             selected.value = [
-              computedRows[Math.min(index, computedRows.length - 1)]
+              computedRowsList[Math.min(index, computedRowsList.length - 1)]
             ]
             tableRef.value.$el.focus()
           })

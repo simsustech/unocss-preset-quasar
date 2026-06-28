@@ -1,5 +1,6 @@
 import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
+import { componentClass, staticClass, qe } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [
@@ -15,10 +16,11 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   [/^q-editor.disabled$/, ([, c], { theme }) => `border-dashed`],
   [
     /^q-editor__toolbars-container$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-editor__toolbars-container'] ??
+    componentClass(
+      'q-editor__toolbars-container',
       `rounded-tl-[inherit] rounded-tr-[inherit]
     [&>div:first-child]:(rounded-tl-[inherit] rounded-tr-[inherit])`
+    )
   ],
   [
     /^q-editor__content$/,
@@ -42,18 +44,20 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   ],
   [
     /^q-editor__toolbars-container$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-editor__toolbars-container'] ??
+    componentClass(
+      'q-editor__toolbars-container',
       `max-w-full
     `
+    )
   ],
   [
     /^q-editor__toolbar-group$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-editor__toolbar-group'] ??
-      `relative mx-4px my-0
-    [&+.q-editor\\_\\_toolbar-group:before]:(content-empty absolute left--4px top-4px bottom-4px w-1px bg-black bg-op-12)
+    componentClass(
+      'q-editor__toolbar-group',
+      qe`relative mx-4px my-0
+    [&+.q-editor__toolbar-group:before]:(content-empty absolute left--4px top-4px bottom-4px w-1px bg-black bg-op-12)
     `
+    )
   ],
   [
     /^q-editor__link-input$/,
@@ -65,30 +69,32 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   ],
   [
     /^q-editor--flat$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-editor--flat'] ??
-      `border-0
-      [&_.q-editor\\_\\_toolbar]:(border-0)
+    componentClass(
+      'q-editor--flat',
+      qe`border-0
+      [&_.q-editor__toolbar]:(border-0)
     `
+    )
   ],
   [
     /^q-editor--dense$/,
     (
       [, c],
       { theme }
-    ) => `[&_.q-editor\\_\\_toolbar-group]:(flex items-center flex-nowrap)
+    ) => qe`[&_.q-editor__toolbar-group]:(flex items-center flex-nowrap)
     `
   ],
   [
     /^q-editor--dark$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-editor--dark'] ??
-      `border-color-white border-op-28
-      [&_.q-editor\\_\\_content_hr]:(border-color-white border-op-28)
-      [&_.q-editor\\_\\_toolbar]:(border-color-white border-op-28)
-      [&_.q-editor\\_\\_toolbar-group+.q-editor\\_\\_toolbar-group:before]:(border-color-white border-op-28)
+    componentClass(
+      'q-editor--dark',
+      qe`border-color-white border-op-28
+      [&_.q-editor__content_hr]:(border-color-white border-op-28)
+      [&_.q-editor__toolbar]:(border-color-white border-op-28)
+      [&_.q-editor__toolbar-group+.q-editor__toolbar-group:before]:(border-color-white border-op-28)
 
     `
+    )
   ]
 ]
 

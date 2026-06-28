@@ -131,29 +131,27 @@
 
     <q-separator />
 
-    <doc-code lang="html" :code="tooltipExport" />
+    <DocCode lang="html" :code="tooltipExport" />
   </q-card>
 </template>
 
 <script setup>
-import { reactive, computed } from 'vue'
+import { computed, reactive } from 'vue'
 
-import DocCode from 'src/components/DocCode.vue'
+import DocCode from '@/components/DocCode.vue'
 
 const anchorOrigin = reactive({ vertical: 'bottom', horizontal: 'middle' })
 const selfOrigin = reactive({ vertical: 'top', horizontal: 'middle' })
 
-const anchor = computed(() => {
-  return `${anchorOrigin.vertical} ${anchorOrigin.horizontal}`
-})
+const anchor = computed(
+  () => `${anchorOrigin.vertical} ${anchorOrigin.horizontal}`
+)
 
-const self = computed(() => {
-  return `${selfOrigin.vertical} ${selfOrigin.horizontal}`
-})
+const self = computed(() => `${selfOrigin.vertical} ${selfOrigin.horizontal}`)
 
-const tooltipExport = computed(() => {
-  return `<q-tooltip anchor="${anchor.value}" self="${self.value}">
+const tooltipExport = computed(
+  () => `<q-tooltip anchor="${anchor.value}" self="${self.value}">
   Here I am!
 </q-tooltip>`
-})
+)
 </script>

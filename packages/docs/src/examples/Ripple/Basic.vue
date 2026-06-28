@@ -11,9 +11,10 @@
 </template>
 
 <script>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 
 const colors = [
+  // #region
   'primary',
   'amber',
   'secondary',
@@ -24,6 +25,7 @@ const colors = [
   'purple',
   'brown',
   'blue'
+  // #endregion
 ]
 
 export default {

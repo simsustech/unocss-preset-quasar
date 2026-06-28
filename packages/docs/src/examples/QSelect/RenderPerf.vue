@@ -10,7 +10,7 @@
 import { ref } from 'vue'
 
 const options = []
-for (let i = 0; i <= 100000; i++) {
+for (let i = 0; i <= 100_000; i++) {
   options.push('Opt ' + i)
 }
 

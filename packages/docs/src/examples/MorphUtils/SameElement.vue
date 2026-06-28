@@ -36,7 +36,7 @@
 
 <script>
 import { morph } from 'quasar'
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 
 export default {
   setup() {
@@ -55,8 +55,8 @@ export default {
       firstMorphRef,
       secondMorphRef,
 
-      props1: computed(() => {
-        return toggle1.value === true
+      props1: computed(() =>
+        toggle1.value
           ? {
               class: 'q-ml-sm q-pa-md bg-orange text-white rounded-borders',
               style: 'font-size: 24px'
@@ -65,10 +65,10 @@ export default {
               class: 'q-ml-xl q-px-xl q-py-lg bg-blue text-white',
               style: 'border-radius: 25% 0/50% 0; font-size: 36px'
             }
-      }),
+      ),
 
-      props2: computed(() => {
-        return toggle2.value === true
+      props2: computed(() =>
+        toggle2.value
           ? {
               fontSize: '52px',
               color: 'positive',
@@ -80,11 +80,11 @@ export default {
               color: 'negative',
               icon: 'close'
             }
-      }),
+      ),
 
       morphContent1() {
         const onToggle = () => {
-          toggle1.value = toggle1.value !== true
+          toggle1.value = !toggle1.value
         }
 
         if (cancel1 === void 0 || cancel1() === false) {
@@ -94,7 +94,7 @@ export default {
             duration: 500,
             tween: true,
             onEnd: (end) => {
-              end === 'from' && onToggle()
+              if (end === 'from') onToggle()
             }
           })
         }
@@ -102,7 +102,7 @@ export default {
 
       morphContent2() {
         const onToggle = () => {
-          toggle2.value = toggle2.value !== true
+          toggle2.value = !toggle2.value
         }
 
         if (cancel2 === void 0 || cancel2() === false) {
@@ -114,7 +114,7 @@ export default {
             tweenFromOpacity: 0.8,
             tweenToOpacity: 0.4,
             onEnd: (end) => {
-              end === 'from' && onToggle()
+              if (end === 'from') onToggle()
             }
           })
         }

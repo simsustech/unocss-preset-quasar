@@ -11,7 +11,7 @@
         direction="up"
         icon="add"
         color="accent"
-        @update:model-value="(val) => val === true && morph(false)"
+        @update:model-value="(val) => val && morph(false)"
       >
         <q-fab-action color="primary" @click="morph(true)" icon="alarm" />
       </q-fab>
@@ -45,6 +45,9 @@ export default {
     const refFab = ref(null)
     const refCard = ref(null)
 
+    const getFab = () => refFab.value
+    const getCard = () => refCard.value?.$el
+
     return {
       toggle,
       refFab,
@@ -53,19 +56,16 @@ export default {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
 
       morph(state) {
-        if (state !== toggle.value) {
-          const getFab = () => refFab.value
-          const getCard = () => (refCard.value ? refCard.value.$el : void 0)
+        if (state === toggle.value) return
 
-          morph({
-            from: toggle.value === true ? getCard : getFab,
-            to: toggle.value === true ? getFab : getCard,
-            onToggle: () => {
-              toggle.value = state
-            },
-            duration: 500
-          })
-        }
+        morph({
+          from: toggle.value ? getCard : getFab,
+          to: toggle.value ? getFab : getCard,
+          onToggle: () => {
+            toggle.value = state
+          },
+          duration: 500
+        })
       }
     }
   }

@@ -27,7 +27,7 @@
 import { ref } from 'vue'
 import apiList from 'quasar/dist/transforms/api-list.json'
 
-import DocApi from 'src/components/DocApi.vue'
+import DocApi from '@/components/DocApi.vue'
 
 const item = ref('')
 const options = ref(apiList)
@@ -35,7 +35,7 @@ const options = ref(apiList)
 function filterFn(val, update) {
   update(() => {
     const needle = val.toLowerCase()
-    options.value = apiList.filter((v) => v.toLowerCase().indexOf(needle) > -1)
+    options.value = apiList.filter((v) => v.toLowerCase().includes(needle))
   })
 }
 </script>

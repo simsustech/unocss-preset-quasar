@@ -1,6 +1,7 @@
 <template>
   <div class="q-ma-md">
     <q-scroll-area
+      :horizontal-offset="[0, 2]"
       :thumb-style="thumbStyle"
       :bar-style="barStyle"
       style="height: 200px; max-width: 300px"
@@ -18,7 +19,6 @@ export default {
   setup() {
     return {
       thumbStyle: {
-        right: '4px',
         borderRadius: '5px',
         backgroundColor: '#027be3',
         width: '5px',
@@ -26,7 +26,6 @@ export default {
       },
 
       barStyle: {
-        right: '2px',
         borderRadius: '9px',
         backgroundColor: '#027be3',
         width: '9px',

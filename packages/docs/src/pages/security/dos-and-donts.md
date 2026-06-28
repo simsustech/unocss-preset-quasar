@@ -19,7 +19,7 @@ The `v-html` directive is a wonderful way to programmatically render markup, but
 
 If you don't know what that means, take a quick look at what OWASP has to say about [XSS (aka cross-site scripting)](https://owasp.org/www-community/attacks/xss/).
 
-To be fair, this _is_ good advice, but **DON'T** be all hand-wavy. **DO** think like an attacker who will innovate, social engineer, lie, phish and steal their way into your systems. What if a webpack loader exploit arises and changes your page in an evil way? What if someone makes a dastardly and ill-intentioned PR? What if suddenly a third party API changes and instead of plaintext starts sending the same structure but with different content? What if the systems you thought were safe turn out to actually have been backdoored? What if a junior dev makes an accidental and fundamentally threatening change to the code that isn't reviewed properly? (Yes, idiocy is sometimes as dangerous as bad intentions!) The point is, **DO** anticipate the unexpected by preparing for the absolute worst case scenario and hardening all of your systems.
+To be fair, this _is_ good advice, but **DON'T** be all hand-wavy. **DO** think like an attacker who will innovate, social engineer, lie, phish and steal their way into your systems. What if a Vite plugin exploit arises and changes your page in an evil way? What if someone makes a dastardly and ill-intentioned PR? What if suddenly a third party API changes and instead of plaintext starts sending the same structure but with different content? What if the systems you thought were safe turn out to actually have been backdoored? What if a junior dev makes an accidental and fundamentally threatening change to the code that isn't reviewed properly? (Yes, idiocy is sometimes as dangerous as bad intentions!) The point is, **DO** anticipate the unexpected by preparing for the absolute worst case scenario and hardening all of your systems.
 
 **DO** use the `v-pre` directive if you need to take extra precaution.
 
@@ -68,6 +68,91 @@ Any field that enables users to enter keystrokes, paste from the buffer or drop 
 ### QEditor
 
 This component allows the users to actually create HTML (and even paste it). If you are going to be saving this and showing it to other users, care will be needed on the server-side to validate it. In that case **DO** strip out `<script></script>` and `<iframe></iframe>`. You can visit the [v-html vs. double-moustache](/vue-components/editor#example--default-editor) example in the docs to play around with the QEditor component and see what the two rendering methods will provide. There is NO `sanitize` tag for QEditor. Further, if you create custom buttons, it is your responsibility to make them safe. You have been warned.
+
+## Dotenv Files
+
+Dotenv files (eg. `.env`) keep sensitive data, like database passwords, API keys, and secret tokens—safe. But if you commit these files to a public repository (eg. on GitHub) then you've just handed over your secrets to anyone.
+
+To avoid this, you might want to edit your `/.gitignore` file and add:
+
+```bash
+# ignore dotenv files
+.env*
+```
+
+For the actual production code, Quasar CLI also offers a security feature when parsing the dotenv files, to make sure that what gets exposed to the client code is explicitly intended as such: it filters out definitions that don't match the `QCLI_` prefix. This prefix can be changed and it might be a good idea to do it to differentiate from all the other Quasar apps:
+
+```ts /quasar.config file setting
+build: {
+  env: {
+    /**
+     * For security reasons, only variables with this prefix from the env files
+     * and Node.js process.env will be exposed to the code shipped to the client.
+     * The client app code includes Electron main & preload scripts, as they get
+     * shipped to the client side as well.
+     *
+     * Such variables exposed to the client app code should not contain sensitive
+     * information such as API keys.
+     *
+     * Avoid setting it to 'QUASAR_' so it won't conflict with
+     * Quasar's own environment variables.
+     *
+     * Setting it to an empty string will default to
+     * the default value (QCLI_).
+     *
+     * @default 'QCLI_'
+     */
+    clientPrefix?: string | string[];
+    /**
+     * Setting this prefix will filter out env files variables and Node.js process.env
+     * variables that are exposed to the backend code (like the SSR server-side).
+     *
+     * Avoid setting it to 'QUASAR_' so it won't conflict with
+     * Quasar's own environment variables.
+     *
+     * @default ''
+     */
+    backendPrefix?: string | string[];
+  }
+}
+```
+
+```json For /quasar.config file itself
+"quasarCli": {
+  "quasarConfEnv": {
+    /**
+     * Setting this prefix will filter out env files variables and Node.js process.env
+     * variables that are exposed.
+     *
+     * Avoid setting it to 'QUASAR_' so it won't conflict with
+     * Quasar's own environment variables.
+     *
+     * @default ''
+     */
+    "prefix": ""
+  }
+}
+```
+
+## CSP (Content Security Protocol)
+
+A Content Security Policy (CSP) is an added layer of security that helps detect and mitigate certain types of attacks, including Cross-Site Scripting (XSS) and data injection attacks. By defining exactly where resources (like scripts, styles, and images) are allowed to load from, you significantly reduce the attack surface of your application.
+
+While CSP can be enforced via HTTP response headers (which is the recommended approach for production), you can also define it directly in your application's HTML using a `<meta>` tag.
+
+Here is how you can implement a robust baseline CSP in your Quasar app's `/index.html` file:
+
+```html /index.html
+<!doctype html>
+<html>
+  <head>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';<% if (ctx.dev) { %> connect-src 'self' ws://localhost:*; worker-src 'self' blob:;<% } %>"
+    />
+  </head>
+</html>
+```
 
 ## Dealing with Files
 
@@ -136,7 +221,7 @@ Electron is a very special case, because XSS and remote code injection can actua
 
 ### SSR
 
-When you generate your project with the SSR mode, you are provided with a minimal Express server. It is your responsibility to harden your environment to protect your server and your users. To this end, we have provided a collection of important HEADERS that you can consider and should selectively activate before your project enters the production phase (see `src-ssr/index.js`). It is important to remember, that HEADERS are not bulletproof, because it is up to Browser vendors to respect them - and for example [Chrome will break PDF viewing](https://bugs.chromium.org/p/chromium/issues/detail?id=413851) if your Content Security Policy uses the `sandbox` value.
+When you generate your project with the SSR mode, you are provided with a minimal Express server. It is your responsibility to harden your environment to protect your server and your users. To this end, we have provided a collection of important HEADERS that you can consider and should selectively activate before your project enters the production phase (see `src-ssr/server.js`). It is important to remember, that HEADERS are not bulletproof, because it is up to Browser vendors to respect them - and for example [Chrome will break PDF viewing](https://bugs.chromium.org/p/chromium/issues/detail?id=413851) if your Content Security Policy uses the `sandbox` value.
 
 - **DON'T** forget to set restrictive headers
 - **DON'T** think that headers alone will protect you from all attacks

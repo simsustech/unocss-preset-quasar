@@ -1,5 +1,12 @@
-import { h, ref, computed } from 'vue'
-import { QCard, QTabs, QTab, QTabPanels, QSeparator } from 'quasar'
+import { computed, h, ref } from 'vue'
+import { QCard, QSeparator, QTab, QTabPanels, QTabs } from 'quasar'
+
+const iconClassMap = {
+  Yarn: ' doc-tab-icon doc-tab-icon--yarn',
+  NPM: ' doc-tab-icon doc-tab-icon--npm',
+  PNPM: ' doc-tab-icon doc-tab-icon--pnpm',
+  Bun: ' doc-tab-icon doc-tab-icon--bun'
+}
 
 export default {
   props: {
@@ -17,14 +24,15 @@ export default {
     function getContent() {
       const acc = []
 
-      props.title !== void 0 &&
+      if (props.title !== void 0) {
         acc.push(
           h('div', { class: 'header-toolbar row items-center' }, [
             h('div', { class: 'doc-card-title q-my-xs q-mr-sm' }, props.title)
           ])
         )
+      }
 
-      props.tabs !== void 0 &&
+      if (props.tabs !== void 0) {
         acc.push(
           h(
             QTabs,
@@ -43,34 +51,34 @@ export default {
             },
             () =>
               props.tabs.map((tab) =>
-                h(
-                  QTab,
-                  { name: tab, class: 'header-btn', noCaps: true },
-                  () => tab
-                )
+                h(QTab, {
+                  name: tab,
+                  label: tab,
+                  class: 'header-btn' + (iconClassMap[tab] || ''),
+                  noCaps: true
+                })
               )
           )
         )
+      }
 
-      hasHeader.value === true && acc.push(h(QSeparator))
+      if (hasHeader.value) acc.push(h(QSeparator))
 
-      acc.push(
-        props.tabs !== void 0
-          ? h(
-              QTabPanels,
-              {
-                class: 'copybtn-hover',
-                animated: true,
-                modelValue: currentTab.value
-              },
-              slots.default
-            )
-          : h(
-              'div',
-              { class: 'copybtn-hover relative-position' },
-              slots.default()
-            )
-      )
+      if (props.tabs !== void 0) {
+        acc.push(
+          h(
+            QTabPanels,
+            {
+              animated: true,
+              modelValue: currentTab.value,
+              keepAlive: true
+            },
+            slots.default
+          )
+        )
+      } else {
+        acc.push(...slots.default())
+      }
 
       return acc
     }

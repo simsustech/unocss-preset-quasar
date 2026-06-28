@@ -13,7 +13,7 @@ You'll need to include a `<script>` tag provided by Google in `/index.html`, whi
 
 ## Prerequisites
 
-- Make sure all your routes have a name and path parameter specified. Otherwise, they cannot be posted to the `ga.logPage` function. Please refer to [Routing](/quasar-cli-vite/routing) for more info on routing.
+- Make sure all your routes have a name and path parameter specified. Otherwise, they cannot be posted to the `ga.logPage` function. Please refer to [Page Routing with Vue Router](/quasar-cli-vite/page-routing-with-vue-router) for more info on routing.
 - Have Basic knowledge of Google Analytics
 
 ## Preparation
@@ -26,7 +26,7 @@ Before we can start implementing Google Analytics into your application, you'll 
 
 Place the Tag Manager snippet into head of your `index.html` file (if you've followed the [Multiminds article](http://www.multiminds.eu/2016/12/06/google-analytics-tag-manager-ionic-cordova/), you already have this.) Create a new file in your codebase called `analytics.js` with the following contents:
 
-```javascript
+```js
 export default {
   logEvent(category, action, label, sessionId = null) {
     window.dataLayer.push({
@@ -52,13 +52,13 @@ export default {
 To make sure all the pages in your application are automatically posted to Google Analytics, we create an app boot file:
 
 ```bash
-$ quasar new boot google-analytics [--format ts]
+quasar new boot google-analytics [--format ts]
 ```
 
 Then we edit the newly created file: `/src/boot/google-analytics.js`:
 
 ```js
-import { defineRouter } from '#q-app/wrappers'
+import { defineRouter } from '#q-app'
 import ga from 'analytics.js'
 
 export default defineRouter(({ router }) => {

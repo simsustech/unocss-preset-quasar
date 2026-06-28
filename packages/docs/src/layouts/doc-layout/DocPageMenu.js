@@ -1,18 +1,18 @@
 import {
+  QBadge,
   QExpansionItem,
-  QList,
+  QIcon,
   QItem,
   QItemSection,
-  QIcon,
-  QBadge,
+  QList,
   Ripple
 } from 'quasar'
 
 import { mdiMenuDown } from '@quasar/extras/mdi-v7'
-import { h, ref, watch, onBeforeUpdate, withDirectives } from 'vue'
+import { h, onBeforeUpdate, ref, watch, withDirectives } from 'vue'
 import { useRoute } from 'vue-router'
 
-import Menu from 'assets/menu.js'
+import Menu from '@/assets/menu.js'
 import './DocPageMenu.sass'
 
 function getParentProxy(proxy) {
@@ -53,7 +53,7 @@ export default {
 
     function showMenu(proxy) {
       if (proxy !== void 0 && proxy !== rootRef.value) {
-        proxy.show !== void 0 && proxy.show()
+        proxy.show?.()
         const parent = getParentProxy(proxy)
         if (parent !== void 0) {
           showMenu(parent)
@@ -110,7 +110,7 @@ export default {
         props.insetLevel = Math.min(level, 1)
       }
 
-      menu.external === true &&
+      if (menu.external === true) {
         Object.assign(props, {
           to: void 0,
           clickable: true,
@@ -118,10 +118,11 @@ export default {
           href: menu.path,
           target: '_blank'
         })
+      }
 
       const child = []
 
-      menu.icon !== void 0 &&
+      if (menu.icon !== void 0) {
         child.push(
           h(
             QItemSection,
@@ -131,10 +132,11 @@ export default {
             () => h(QIcon, { name: menu.icon })
           )
         )
+      }
 
       child.push(h(QItemSection, () => menu.name))
 
-      menu.badge !== void 0 &&
+      if (menu.badge !== void 0) {
         child.push(
           h(
             QItemSection,
@@ -144,6 +146,7 @@ export default {
             () => h(QBadge, { label: menu.badge, class: 'header-badge' })
           )
         )
+      }
 
       return withDirectives(
         h(QItem, props, () => child),

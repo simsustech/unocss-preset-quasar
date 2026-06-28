@@ -5,7 +5,7 @@ desc: Command list for Icon Genie CLI.
 
 Familiarize yourself with the list of available Icon Genie CLI commands inside a Quasar project folder:
 
-```bash
+```
 $ icongenie
 
   Example usage
@@ -29,7 +29,7 @@ $ icongenie
 See help for any command:
 
 ```bash
-$ icongenie [command_name] --help
+icongenie [command_name] --help
 ```
 
 ## Generate
@@ -42,7 +42,7 @@ For splash screens, you may want to combine it with the `--background` (or `-b`)
 
 You may also want to use the `--profile` (or `-p`) parameter, which can run one or more Icon Genie [profile files](/icongenie/profile-files).
 
-```bash
+```
 $ icongenie generate -h
 
   Description
@@ -159,6 +159,7 @@ $ icongenie generate -h
                               "assets": [ /* list of custom assets */ ]
                             }
 
+    --no-color            Disable colored output
     --help, -h            Displays this message
 ```
 
@@ -166,7 +167,7 @@ $ icongenie generate -h
 
 The `verify` command confirms that you have all required app icons and splash screens in the right place and that each file has the correct resolution in pixels.
 
-```bash
+```
 $ icongenie -h
 
   Description
@@ -216,6 +217,7 @@ $ icongenie -h
                         "assets": [ /* list of custom assets */ ]
                       }
 
+    --no-color      Disable colored output
     --help, -h      Displays this message
 ```
 
@@ -234,7 +236,7 @@ The generic form of a JSON profile file is:
 
 You can also generate multiple profile files (with different params/settings). For more information please head on to the [Profile files](/icongenie/profile-files) page.
 
-```bash
+```
 $ icongenie profile -h
 
   Description
@@ -336,4 +338,7 @@ $ icongenie profile -h
                                Represents percentages; Valid values: 0 - 100
                                If 0 then it doesn't add the icon of top of background
                                Default: 40
+
+    --no-color            Disable colored output
+    --help, -h            Displays this message
 ```

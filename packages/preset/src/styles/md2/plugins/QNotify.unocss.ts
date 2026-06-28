@@ -118,13 +118,13 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-notification--standard$/,
     ([, c], { theme }) =>
-      `px-[16px] py-[0] min-h-[48px] [&_.q-notification\\_\\_actions]:(pl-[8px] pr-[0] py-[6px] -mr-[8px])`
+      `px-[16px] py-[0] min-h-[48px] [&_.q-notification__actions]:(pl-[8px] pr-[0] py-[6px] -mr-[8px])`
   ],
 
   [
     /^q-notification--multi-line$/,
     ([, c], { theme }) =>
-      `min-h-[68px] px-[16px] py-[8px] [&_.q-notification\\_\\_badge--top-left]:(-top-[15px]) [&_.q-notification\\_\\_badge--top-right]:(-top-[15px]) [&_.q-notification\\_\\_badge--bottom-left]:(-bottom-[15px]) [&_.q-notification\\_\\_badge--bottom-right]:(-bottom-[15px]) [&_.q-notification\\_\\_progress]:(-bottom-[8px]) [&_.q-notification\\_\\_actions]:(p-0) [&_.q-notification\\_\\_actions--with-media]:(pl-[25px])`
+      `min-h-[68px] px-[16px] py-[8px] [&_.q-notification__badge--top-left]:(-top-[15px]) [&_.q-notification__badge--top-right]:(-top-[15px]) [&_.q-notification__badge--bottom-left]:(-bottom-[15px]) [&_.q-notification__badge--bottom-right]:(-bottom-[15px]) [&_.q-notification__progress]:(-bottom-[8px]) [&_.q-notification__actions]:(p-0) [&_.q-notification__actions--with-media]:(pl-[25px])`
   ],
 
   [

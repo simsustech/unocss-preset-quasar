@@ -25,10 +25,10 @@
 
 <script setup>
 import {
-  mdiArrowUpBold,
   mdiArrowDownBold,
-  mdiKeyboardReturn,
-  mdiKeyboardEsc
+  mdiArrowUpBold,
+  mdiKeyboardEsc,
+  mdiKeyboardReturn
 } from '@quasar/extras/mdi-v7'
 
 import ResultEntry from './ResultEntry.vue'

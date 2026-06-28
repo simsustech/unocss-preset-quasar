@@ -53,7 +53,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { fabGithub, fabTwitter } from '@quasar/extras/fontawesome-v6'
+import { fabGithub, fabTwitter } from '@quasar/extras/fontawesome-v7'
 
 const props = defineProps({
   name: String,

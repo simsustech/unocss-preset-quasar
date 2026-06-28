@@ -22,7 +22,8 @@ There are currently two types of QVirtualScroll: "list" (using QItems) and "tabl
 - (Options API) To get the best performance while using large lists, freeze the array that you are passing in the `items` prop using `Object.freeze(items)`. This allows Vue to skip making the list "responsive" to changes.
 - The number of items that will be rendered will be calculated based on the `virtual-scroll-item-size` prop and the size of the scrollable area, but you can fit it to your needs using the `virtual-scroll-slice-size` prop.
 - Use the `virtual-scroll-item-size` to specify the size of elements (pixels of height, or width if horizontal). After an element is rendered on screen its size is updated automatically, but if you specify an element size close to the real size you'll get a better initial indication of the scroll position. Regardless if you will be using this property or not, QVirtualScroll will still work, but without it you may experience the scrollbar not following the mouse grab position while continuously scrolling (on desktop) or the actual scroll of the container getting slightly off by one or two elements when on mobile and continuously scrolling.
-  :::
+
+:::
 
 ::: warning
 There is a maximum height of the scrolling container, imposed by each browser. In IE11 this is around 1,000,000px, while in the rest of the browsers it's much more, but still limited.
@@ -72,7 +73,8 @@ If you need to use the virtual list with the whole page as the scrolling element
 
 - If you pass a custom scroll target container with `scroll-target` prop you must make sure that the element exists and that it can be overflowed (it must have a maximum height and an overflow that allows scrolling).
 - If the scroll target container cannot be overflowed you'll get the whole list rendered.
-  :::
+
+:::
 
 ::: danger
 If you want to use a Vue reference for `scroll-target`, please take care to set it after mounting the component, like in the example below.

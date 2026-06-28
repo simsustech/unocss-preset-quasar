@@ -9,7 +9,7 @@ If you haven't selected Axios during the project initialization then you should 
 (Here you can also specify additional settings for your axios instance)
 
 ```js /src/boot/axios.js
-import { defineBoot } from '#q-app/wrappers'
+import { defineBoot } from '#q-app'
 import axios from 'axios'
 
 const api = axios.create({ baseURL: 'https://api.example.com' })
@@ -29,7 +29,7 @@ export default defineBoot(({ app }) => {
 export { axios, api }
 ```
 
-Also make sure to yarn/npm install the `axios` package.
+Also make sure to pnpm/yarn/npm/bun install the `axios` package.
 
 ::: tip
 Be sure to check out [Prefetch Feature](/quasar-cli-vite/prefetch-feature) if you are using Quasar CLI.
@@ -39,8 +39,8 @@ Usage in your single file components methods will be like below. Notice that in 
 
 ```js
 import { ref } from 'vue'
-import { api } from 'boot/axios'
 import { useQuasar } from 'quasar'
+import { api } from '@/boot/axios'
 
 setup () {
   const $q = useQuasar()
@@ -68,7 +68,7 @@ setup () {
 Usage in Pinia Actions for globally adding headers to axios (such as during authentication):
 
 ```js
-import { api } from 'boot/axios'
+import { api } from '@/boot/axios'
 
 export const useAuthStore = defineStore('auth', {
   actions: {

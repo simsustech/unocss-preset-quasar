@@ -3,6 +3,12 @@ title: Lazy Loading / Code Splitting
 desc: (@quasar/app-vite) How to create async chunks in a Quasar CLI with Vite app.
 ---
 
+::: tip Important!
+This page refers to a project where [Filename-Based Routing](/quasar-cli-vite/page-routing-with-vue-router#filename-based-routing) is **NOT** enabled.
+
+When this feature is enabled, the default config will automatically lazy load all the layouts and pages, so you don't need this guide.
+:::
+
 When your website/app is small, you can load all layouts/pages/components into the initial bundle and serve everything at startup. But when your code gets complex and has many layouts/pages/components, it won't be optimal to do this as it will massively impact loading time. Fortunately, there is a way to solve this.
 
 We'll cover how you can lazy load / code split parts of your app so that they are automatically requested only on demand. This is done through dynamic imports. Let's start with an example and then convert it so that we use lazy loading -- we'll focus this example on loading a page, but the same principle can be applied to load anything (assets, JSONs, ...).
@@ -16,7 +22,7 @@ Quasar documentation assumes you are already familiar with [Vue Router](https://
 :::
 
 ```js
-import SomePage from 'pages/SomePage.vue'
+import SomePage from '@/pages/SomePage.vue'
 
 const routes = [
   {
@@ -32,7 +38,7 @@ Now let's change this and make the page be loaded on demand only, using dynamic 
 const routes = [
   {
     path: '/some-page',
-    component: () => import('pages/SomePage.vue')
+    component: () => import('@/pages/SomePage.vue')
   }
 ]
 ```
@@ -45,7 +51,7 @@ Normally you would import a component and then register it to the Page, Layout o
 
 ```html
 <script>
-  import SomeComponent from 'components/SomeComponent.vue'
+  import SomeComponent from '@/components/SomeComponent.vue'
 
   export default {
     components: {
@@ -63,7 +69,7 @@ Now let's change this and make the component be loaded on demand only, using dyn
   export default {
     components: {
       SomeComponent: defineAsyncComponent(
-        () => import('components/SomeComponent.vue')
+        () => import('@/components/SomeComponent.vue')
       )
     }
   }
@@ -89,7 +95,7 @@ import('./categories.json')
 One advantage of using dynamic imports as opposed to regular imports is that the import path can be determined at runtime:
 
 ```js
-import('pages/' + pageName + '/' + idWithExtension)
+import('@/pages/' + pageName + '/' + idWithExtension)
 ```
 
 ## Importing with Vite

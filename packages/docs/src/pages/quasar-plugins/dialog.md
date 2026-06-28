@@ -33,7 +33,7 @@ In order to create #2, the options selection form, you have the `options` proper
 
 <DocApi file="Dialog" />
 
-<DocInstallation plugins="Dialog" />
+<DocInstall plugins="Dialog" />
 
 ## Built-in component
 

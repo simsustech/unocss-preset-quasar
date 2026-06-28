@@ -20,7 +20,7 @@
         @click="docStore.toggleMenuDrawer"
       />
     </div>
-    <doc-page-menu class="q-mx-xs q-mb-lg" />
+    <DocPageMenu class="q-mx-xs q-mb-lg" />
   </q-drawer>
 </template>
 

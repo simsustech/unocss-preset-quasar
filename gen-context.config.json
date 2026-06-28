@@ -1,0 +1,59 @@
+{
+  "output": ".github/copilot-instructions.md",
+
+  "outputs": ["copilot", "claude", "gemini"],
+
+  "srcDirs": ["packages/preset"],
+
+  "exclude": [
+    "node_modules",
+    ".git",
+    "dist",
+    "build",
+    "out",
+    "__pycache__",
+    ".next",
+    "coverage",
+    "target",
+    "vendor",
+    ".context"
+  ],
+
+  "maxDepth": 6,
+
+  "maxSigsPerFile": 25,
+
+  "autoMaxTokens": true,
+
+  "coverageTarget": 0.9,
+
+  "modelContextLimit": 128000,
+
+  "maxTokensHeadroom": 0.2,
+
+  "secretScan": true,
+
+  "monorepo": false,
+
+  "diffPriority": true,
+
+  "mcp": {
+    "autoRegister": true
+  },
+
+  "strategy": "full",
+
+  "hotCommits": 10,
+
+  "depMap": true,
+
+  "todos": true,
+
+  "changes": true,
+
+  "changesCommits": 5,
+
+  "testCoverage": false,
+
+  "impactRadius": false
+}

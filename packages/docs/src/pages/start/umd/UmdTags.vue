@@ -34,8 +34,7 @@
         label="Material Symbols (Sharp)"
       />
       <q-toggle v-model="css['mdi-v7']" label="MDI v7" />
-      <q-toggle v-model="css['fontawesome-v6']" label="Fontawesome v6" />
-      <q-toggle v-model="css['fontawesome-v5']" label="Fontawesome v5" />
+      <q-toggle v-model="css['fontawesome-v7']" label="Fontawesome v7" />
       <q-toggle v-model="css['ionicons-v4']" label="Ionicons v4" />
       <q-toggle v-model="css['eva-icons']" label="Eva Icons" />
       <q-toggle v-model="css.themify" label="Themify" />
@@ -84,23 +83,21 @@
 
     <q-separator />
 
-    <doc-code class="relative-position" lang="html" :code="output" />
+    <DocCode class="relative-position" lang="html" :code="output" />
   </q-card>
 </template>
 
 <script setup>
 import { useQuasar } from 'quasar'
-import { ref, reactive, computed } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import languages from 'quasar/lang/index.json'
 
-import DocCode from 'src/components/DocCode.vue'
+import DocCode from '@/components/DocCode.vue'
 
 const cssMap = {
   'mdi-v7':
     'cdn.jsdelivr.net/npm/@mdi/font@^7.0.0/css/materialdesignicons.min.css',
-  'fontawesome-v5': 'use.fontawesome.com/releases/v5.15.4/css/all.css',
-  // must come after v5 if used together: https://fontawesome.com/v6/docs/web/setup/upgrade/#if-you-re-unable-to-remove-font-awesome-5
-  'fontawesome-v6': 'use.fontawesome.com/releases/v6.1.1/css/all.css',
+  'fontawesome-v7': 'use.fontawesome.com/releases/v7.0.0/css/all.css',
   'ionicons-v4':
     'cdn.jsdelivr.net/npm/ionicons@^4.0.0/dist/css/ionicons.min.css',
   'eva-icons': 'cdn.jsdelivr.net/npm/eva-icons@^1.0.0/style/eva-icons.css',
@@ -127,7 +124,7 @@ const googleSymbolsMap = {
   'material-symbols-sharp': 'Material+Symbols+Sharp'
 }
 
-const camelize = (str) => str.replace(/(-\w)/g, (m) => m[1].toUpperCase())
+const camelize = (str) => str.replaceAll(/(-\w)/g, (m) => m[1].toUpperCase())
 
 const { version } = useQuasar()
 const langOptions = languages.map((lang) => ({
@@ -154,14 +151,11 @@ const iconSetOptions = [
   },
   { label: 'MDI v7 (webfont)', value: 'mdi-v7' },
   { label: 'MDI v7 (svg)', value: 'svg-mdi-v7' },
-  { label: 'Ionicons v6 (svg)', value: 'svg-ionicons-v6' },
-  { label: 'Ionicons v5 (svg)', value: 'svg-ionicons-v5' },
+  { label: 'Ionicons v8 (svg)', value: 'svg-ionicons-v8' },
   { label: 'Ionicons v4 (webfont)', value: 'ionicons-v4' },
   { label: 'Ionicons v4 (svg)', value: 'svg-ionicons-v4' },
-  { label: 'Fontawesome v6 (webfont)', value: 'fontawesome-v6' },
-  { label: 'Fontawesome v6 (svg)', value: 'svg-fontawesome-v6' },
-  { label: 'Fontawesome v5 (webfont)', value: 'fontawesome-v5' },
-  { label: 'Fontawesome v5 (svg)', value: 'svg-fontawesome-v5' },
+  { label: 'Fontawesome v7 (webfont)', value: 'fontawesome-v7' },
+  { label: 'Fontawesome v7 (svg)', value: 'svg-fontawesome-v7' },
   { label: 'Eva Icons (webfont)', value: 'eva-icons' },
   { label: 'Eva Icons (svg)', value: 'svg-eva-icons' },
   { label: 'Themify (webfont)', value: 'themify' },
@@ -185,8 +179,7 @@ const css = reactive({
   'material-symbols-sharp': false,
 
   'mdi-v7': false,
-  'fontawesome-v6': false,
-  'fontawesome-v5': false,
+  'fontawesome-v7': false,
   'ionicons-v4': false,
   'eva-icons': false,
   themify: false,
@@ -203,9 +196,8 @@ const lang = ref('en-US')
 const iconSet = ref('material-icons')
 
 function parseUrl(url) {
-  const min = minified.value === false ? url.replace('.prod', '') : url
-
-  return rtl.value === false ? min.replace('.rtl', '') : min
+  const min = minified.value ? url : url.replace('.prod', '')
+  return rtl.value ? min : min.replace('.rtl', '')
 }
 
 function getCssTag(url) {
@@ -224,7 +216,7 @@ function getJsTag(url) {
 
 const googleFonts = computed(() => {
   const cssAcc = Object.keys(googleMap)
-    .filter((key) => css[key] === true)
+    .filter((key) => css[key])
     .map((key) => googleMap[key])
 
   return cssAcc.length === 0
@@ -234,7 +226,7 @@ const googleFonts = computed(() => {
 
 const googleSymbolsFonts = computed(() => {
   const cssAcc = Object.keys(googleSymbolsMap)
-    .filter((key) => css[key] === true)
+    .filter((key) => css[key])
     .map((key) => googleSymbolsMap[key])
 
   return cssAcc.length === 0
@@ -244,7 +236,7 @@ const googleSymbolsFonts = computed(() => {
 
 const head = computed(() => {
   const cssAcc = Object.keys(cssMap)
-    .filter((key) => css[key] === true)
+    .filter((key) => css[key])
     .map((key) => cssMap[key])
 
   cssAcc.unshift(googleSymbolsFonts.value)
@@ -252,16 +244,13 @@ const head = computed(() => {
   cssAcc.push(`cdn.jsdelivr.net/npm/quasar@${version}/dist/quasar.rtl.prod.css`)
 
   return cssAcc
-    .filter((url) => url)
+    .filter(Boolean)
     .map((url) => getCssTag(url))
     .join('\n    ')
 })
 
 const configInstantiation = computed(() => {
-  if (cfgObject.value === false) {
-    return ''
-  }
-
+  if (!cfgObject.value) return ''
   return `, {
         config: {
           /*
@@ -281,7 +270,7 @@ const postCreateApp = computed(() => {
   let str = ''
 
   if (lang.value !== 'en-US') {
-    str += `Quasar.Lang.set(Quasar.Lang.${lang.value.replace(/-/g, '')})\n      `
+    str += `Quasar.Lang.set(Quasar.Lang.${lang.value.replaceAll('-', '')})\n      `
   }
 
   if (iconSet.value !== 'material-icons') {
@@ -332,8 +321,8 @@ const body = computed(() => {
   return js.map(getJsTag).join('\n    ')
 })
 
-const output = computed(() => {
-  return `<!DOCTYPE html>
+const output = computed(
+  () => `<!doctype html>
 <html>
   <!--
     WARNING! Make sure that you match all Quasar related
@@ -354,5 +343,5 @@ const output = computed(() => {
   </body>
 </html>
 `
-})
+)
 </script>

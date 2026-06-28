@@ -17,7 +17,7 @@ Loading is a feature that you can use to display an overlay with a spinner on to
 
 <DocApi file="Loading" />
 
-<DocInstallation plugins="Loading" config="loading" />
+<DocInstall plugins="Loading" config="loading" />
 
 ## Usage
 

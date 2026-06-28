@@ -15,7 +15,7 @@
       :href="entry.external ? entry.path : void 0"
       :target="entry.external ? '_blank' : void 0"
     >
-      <doc-header-menu
+      <DocHeaderMenu
         v-if="entry.children"
         :elements="entry.children"
         :mq-prefix="props.mqPrefix"

@@ -6,37 +6,25 @@ desc: (@quasar/app-vite) The Quasar CLI list of commands when developing or buil
 Before we dive in, make sure you got the Cordova CLI installed.
 
 ```bash
-$ npm install -g cordova
+npm install -g cordova
 ```
 
 ## Developing
 
 ```bash
-$ quasar dev -m [ios|android]
-
-# ..or the explicit form:
-$ quasar dev -m cordova -T [ios|android]
+quasar dev -m cordova -T [ios|android]
 
 # ..or the longer form:
-$ quasar dev --mode cordova --target [ios|android]
-
-# using a specific emulator (--emulator, -e)
-$ quasar dev -m ios -e iPhone-7
-# or
-$ quasar dev -m ios -e iPhone-X,com.apple.CoreSimulator.SimRuntime.iOS-12-2
+quasar dev --mode cordova --target [ios|android]
 
 # passing extra parameters and/or options to
 # underlying "cordova" executable:
-$ quasar dev -m ios -- some params --and options --here
+quasar dev -m cordova -T ios -- some params --and options --here
 # when on Windows and using Powershell:
-$ quasar dev -m ios '--' some params --and options --here
+quasar dev -m cordova -T ios '--' some params --and options --here
 ```
 
-However, if you wish to open the IDE (Android Studio / Xcode) and from there to manually select the emulator (or multiple ones simultaneously!) to run the dev app on it/them (or to run the dev app on a real mobile/tablet device):
-
-```bash
-$ quasar dev -m [ios|android] --ide
-```
+It will open the IDE (Android Studio / Xcode) and from there you can manually select the emulator (or multiple ones simultaneously!) and install the dev app on it/them. You can also run the dev app on a real mobile/tablet device.
 
 ::: warning
 In Android Studio, you will be greeted with a message recommending to upgrade the Gradle version. **DO NOT UPGRADE GRADLE** as it will break the Cordova project. Same goes for any other requested upgrades.
@@ -62,35 +50,20 @@ In order for you to be able to develop on a device emulator or directly on a pho
 If developing on a mobile phone/tablet, it is very important that the external IP address of your build machine is accessible from the phone/tablet, otherwise you'll get a development app with white screen only. Also check your machine's firewall to allow connections to the development chosen port.
 :::
 
-### Enabling iOS modern build
-
-By default, Xcode modern build for iOS is disabled due to Cordova issues. However, if you know what you are doing and you want to enable it, do so from the `/quasar.config` file:
-
-```js
-cordova: {
-  noIosLegacyBuildFlag: true
-}
-```
-
-The above applies also if you want to specify the build type in your "build.json".
-
 ## Building for Production
 
 ```bash
-$ quasar build -m [android|ios]
-
-# ..or the explicit form:
-$ quasar build -m cordova -T [ios|android]
+quasar build -m cordova -T [android|ios]
 
 # ..or the longer form:
-$ quasar build --mode cordova --target [ios|android]
+quasar build --mode cordova --target [ios|android]
 
 # this skips .app or .apk creation and just fills in /src-cordova/www
-$ quasar build -m [ios|android] --skip-pkg
+quasar build -m cordova -T [ios|android] --skip-pkg
 
 # passing extra parameters and/or options to
 # underlying "cordova" executable:
-$ quasar build -m ios -- some params --and options --here
+quasar build -m cordova -T ios -- some params --and options --here
 ```
 
 - These commands parse and build your `/src` folder then overwrite `/src-cordova/www` then defer to Cordova CLI to trigger the actual native app creation.
@@ -100,13 +73,13 @@ $ quasar build -m ios -- some params --and options --here
 - If you wish to skip the Cordova CLI packaging step and only fill `/src-cordova/www` folder:
 
 ```bash
-$ quasar build -m [ios|android] --skip-pkg
+quasar build -m cordova -T [ios|android] --skip-pkg
 ```
 
 - Should you wish to manually build the final assets using the IDE (Android Studio / Xcode) instead of doing a terminal build, then:
 
 ```bash
-$ quasar build -m [ios|android] --ide
+quasar build -m cordova -T [ios|android] --ide
 ```
 
 ::: warning
@@ -123,10 +96,10 @@ If you encounter any IDE errors then click on File > Invalidate caches and resta
 If you want a production build with debugging enabled for the UI code:
 
 ```bash
-$ quasar build -m [ios|android] -d
+quasar build -m cordova -T [ios|android] -d
 
 # ..or the longer form
-$ quasar build -m [ios|android] --debug
+quasar build -m cordova -T [ios|android] --debug
 ```
 
 ::: tip

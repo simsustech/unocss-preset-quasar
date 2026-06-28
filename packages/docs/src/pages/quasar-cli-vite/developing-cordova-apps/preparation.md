@@ -10,7 +10,7 @@ Before we dive into the actual development, we need to do some preparation work.
 The first step is to make sure you got the Cordova CLI installed and the necessary SDKs.
 
 ```bash
-$ npm install -g cordova
+npm install -g cordova
 ```
 
 ::: warning
@@ -86,7 +86,7 @@ You will need a macOS with [Xcode](https://developer.apple.com/xcode/) installed
 In order to develop/build a Mobile app, we need to add the Cordova mode to our Quasar project. What this does is that it uses Cordova CLI to generate a Cordova project in the `/src-cordova` folder. The `/src-cordova/www` folder will be overwritten each time you build.
 
 ```bash
-$ quasar mode add cordova
+quasar mode add cordova
 ```
 
 ## Step 3: Add Platform
@@ -94,19 +94,19 @@ $ quasar mode add cordova
 To switch to the Cordova project, type:
 
 ```bash
-$ cd src-cordova
+cd src-cordova
 ```
 
 Target platforms get installed on demand by Quasar CLI. However, if you want to add a platform manually, type:
 
 ```bash
-$ cordova platform add [android|ios]
+cordova platform add [android|ios]
 ```
 
 To verify that everything is in order, type:
 
 ```bash
-$ cordova requirements
+cordova requirements
 ```
 
 > On some newer Debian-based operating systems you might face a very persistent problem when running `cordova requirements`. Please see the ["Android SDK not found" after installation](/quasar-cli-vite/developing-cordova-apps/troubleshooting-and-tips#Android-SDK-not-found-after-installation-of-the-SDK) section for assistance.
@@ -123,7 +123,7 @@ Switching to WKWebView is highly recommended (but optional!) as UIWebView has be
 
 ```bash
 # from /src-cordova
-$ cordova plugin add cordova-plugin-ionic-webview
+cordova plugin add cordova-plugin-ionic-webview
 ```
 
 2. Add `ScrollEnabled` preference to `Config.xml`
@@ -136,7 +136,7 @@ $ cordova plugin add cordova-plugin-ionic-webview
 
 3. Consult Ionic Docs for caveats on WkWebViewPlugin
 
-- [https://beta.ionicframework.com/docs/building/webview](https://beta.ionicframework.com/docs/building/webview)
+- [https://ionicframework.com/docs/core-concepts/webview](https://ionicframework.com/docs/core-concepts/webview)
 - [https://github.com/ionic-team/cordova-plugin-ionic-webview](https://github.com/ionic-team/cordova-plugin-ionic-webview)
 
 #### Option 2: Cordova WkWebviewEngine Plugin
@@ -145,7 +145,7 @@ $ cordova plugin add cordova-plugin-ionic-webview
 
 ```bash
 # from /src-cordova
-$ cordova plugin add cordova-plugin-wkwebview-engine
+cordova plugin add cordova-plugin-wkwebview-engine
 ```
 
 2. For caveats and more info, visit: [https://github.com/apache/cordova-plugin-wkwebview-engine](https://github.com/apache/cordova-plugin-wkwebview-engine)
@@ -155,13 +155,13 @@ $ cordova plugin add cordova-plugin-wkwebview-engine
 You can start the development server with the command below:
 
 ```bash
-$ quasar dev -m cordova -T [android|ios]
+quasar dev -m cordova -T [android|ios]
 
 # passing extra parameters and/or options to
 # underlying "cordova" executable:
-$ quasar dev -m ios -- some params --and options --here
+quasar dev -m ios -- some params --and options --here
 # when on Windows and using PowerShell:
-$ quasar dev -m ios '--' some params --and options --here
+quasar dev -m ios '--' some params --and options --here
 ```
 
 This will also add Cordova mode and install the related Cordova platform automatically if it is missing.

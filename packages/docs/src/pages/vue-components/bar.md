@@ -5,7 +5,6 @@ keys: QBar
 examples: QBar
 related:
   - /quasar-cli-vite/developing-electron-apps/frameless-electron-window
-  - /quasar-cli-webpack/developing-electron-apps/frameless-electron-window
 ---
 
 The QBar is a small component for creating the top bar on different types of mobile or desktop websites/apps. For instance, in desktop apps QBar will have things like the close, minimize or maximize buttons and other menu controls for your application.

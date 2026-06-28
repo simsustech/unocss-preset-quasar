@@ -72,19 +72,20 @@
 
 <script>
 const rows = [
+  // #region
   {
     name: 'Frozen Yogurt',
     calories: 159,
-    fat: 6.0,
+    fat: 6,
     carbs: 24,
-    protein: 4.0,
+    protein: 4,
     sodium: 87,
     calcium: '14%'
   },
   {
     name: 'Ice cream sandwich',
     calories: 237,
-    fat: 9.0,
+    fat: 9,
     carbs: 37,
     protein: 4.3,
     sodium: 129,
@@ -93,9 +94,9 @@ const rows = [
   {
     name: 'Eclair',
     calories: 262,
-    fat: 16.0,
+    fat: 16,
     carbs: 23,
-    protein: 6.0,
+    protein: 6,
     sodium: 337,
     calcium: '6%'
   },
@@ -111,7 +112,7 @@ const rows = [
   {
     name: 'Gingerbread',
     calories: 356,
-    fat: 16.0,
+    fat: 16,
     carbs: 49,
     protein: 3.9,
     sodium: 327,
@@ -120,9 +121,9 @@ const rows = [
   {
     name: 'Jelly bean',
     calories: 375,
-    fat: 0.0,
+    fat: 0,
     carbs: 94,
-    protein: 0.0,
+    protein: 0,
     sodium: 50,
     calcium: '0%'
   },
@@ -147,7 +148,7 @@ const rows = [
   {
     name: 'Donut',
     calories: 452,
-    fat: 25.0,
+    fat: 25,
     carbs: 51,
     protein: 4.9,
     sodium: 326,
@@ -156,15 +157,17 @@ const rows = [
   {
     name: 'KitKat',
     calories: 518,
-    fat: 26.0,
+    fat: 26,
     carbs: 65,
     protein: 7,
     sodium: 54,
     calcium: '12%'
   }
+  // #endregion
 ]
 
 const columns = [
+  // #region
   { name1: '(100g serving)', name2: 'Dessert', prop: 'name' },
   { name1: '(val)', name2: 'Calories', prop: 'calories' },
   { name1: '(g)', name2: 'Fat', prop: 'fat' },
@@ -172,6 +175,7 @@ const columns = [
   { name1: '(g)', name2: 'Protein', prop: 'protein' },
   { name1: '(mg)', name2: 'Sodium', prop: 'sodium' },
   { name1: '(%)', name2: 'Calcium', prop: 'calcium' }
+  // #endregion
 ]
 
 const heavyList = []

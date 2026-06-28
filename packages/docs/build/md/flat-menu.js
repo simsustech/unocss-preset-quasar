@@ -1,9 +1,8 @@
-import { join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { join, normalize } from 'node:path'
 
 import menu from '../../src/assets/menu.js'
 
-const prefix = fileURLToPath(new URL('../../src/pages', import.meta.url))
+const prefix = normalize(join(import.meta.dirname, '../../src/pages'))
 
 let prev = null
 export const flatMenu = {}
@@ -48,16 +47,16 @@ menu.forEach((n) => {
 })
 
 export function convertToRelated(entry, id) {
-  const menu = flatMenu[join(prefix, entry + '.md')]
+  const localMenu = flatMenu[join(prefix, entry + '.md')]
 
-  if (!menu) {
+  if (!localMenu) {
     console.error('[flat-menu] ERROR - wrong related link:', entry, '@id', id)
     return {}
   }
 
   return {
-    name: menu.name,
-    category: menu.category,
-    path: menu.path
+    name: localMenu.name,
+    category: localMenu.category,
+    path: localMenu.path
   }
 }

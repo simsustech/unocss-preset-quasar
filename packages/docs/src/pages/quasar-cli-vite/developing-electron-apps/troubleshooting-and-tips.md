@@ -11,9 +11,9 @@ While we're at it, why not also open devtools by default when we're on dev mode.
 
 ```js /src-electron/electron-main
 function createWindow () {
-  mainWindow = new BrowserWindow({ ... })
+  const mainWindow = new BrowserWindow({ ... })
 
-  if (process.env.DEBUGGING) {
+  if (import.meta.env.QUASAR_DEBUG) {
     // if on DEV or Production with debug enabled
     mainWindow.webContents.openDevTools()
   }

@@ -10,7 +10,7 @@ module.exports = {
     browser: true
   },
 
-  extends: ['quasar/base', 'quasar/vue', 'plugin:prettier/recommended'],
+  extends: ['quasar/base', 'quasar/vue'],
 
   // required to lint *.vue files
   plugins: ['vue', 'quasar'],
@@ -40,7 +40,6 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     'vue/no-v-text-v-html-on-component': 'off',
     'vue/no-setup-props-destructure': 'off',
-    'vue/require-toggle-inside-transition': 'off',
-    '@typescript-eslint/no-unused-expressions': 'off'
+    'vue/require-toggle-inside-transition': 'off'
   }
 }

@@ -33,12 +33,16 @@
 <script>
 import { ref } from 'vue'
 
+function sortAtoi(a, b) {
+  return Number(a) - Number(b)
+}
+
 export default {
   setup() {
     const inView = ref([])
 
     function onIntersection(entry) {
-      if (entry.isIntersecting === true) {
+      if (entry.isIntersecting) {
         add(entry.target.dataset.id)
       } else {
         remove(entry.target.dataset.id)
@@ -57,10 +61,6 @@ export default {
         inView.value.splice(index, 1)
         inView.value.sort(sortAtoi)
       }
-    }
-
-    function sortAtoi(a, b) {
-      return Number(a) - Number(b)
     }
 
     return {

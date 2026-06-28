@@ -9,12 +9,12 @@ Quasar supplies a global EventBus, especially useful when upgrading from Quasar 
 
 ### Methods
 
-```js
+```ts
 class EventBus {
-  on (event: string, callback: Function, ctx?: any): this;
-  once (event: string, callback: Function, ctx?: any): this;
-  emit (event: string, ...args: any[]): this;
-  off (event: string, callback?: Function): this;
+  on(event: string, callback: Function, ctx?: any): this
+  once(event: string, callback: Function, ctx?: any): this
+  emit(event: string, ...args: any[]): this
+  off(event: string, callback?: Function): this
 }
 ```
 
@@ -34,13 +34,12 @@ bus.emit('some-event', 'arg1 value', 'arg2 value', 'arg3 value')
 
 When using TypeScript the events can be strongly-typed:
 
-```js
-// Quasar v2.11.11+
+```ts Quasar v2.11.11+
 import { EventBus } from 'quasar'
 
 const bus = new EventBus<{
-    'some-event': (arg1: string, arg2: string, arg3: string) => void;
-    'other': (arg: boolean) => void;
+  'some-event': (arg1: string, arg2: string, arg3: string) => void
+  other: (arg: boolean) => void
 }>()
 
 bus.emit('some-event', 'arg1 value', 'arg2 value', 'arg3 value')
@@ -54,7 +53,7 @@ Alternatively, when on a Quasar CLI project, for your convenience (so NOT requir
 
 ```js A Quasar CLI boot file (let's say /src/boot/bus.js)
 import { EventBus } from 'quasar'
-import { defineBoot } from '#q-app/wrappers'
+import { defineBoot } from '#q-app'
 
 export default defineBoot(({ app }) => {
   const bus = new EventBus()

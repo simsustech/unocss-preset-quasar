@@ -2,6 +2,7 @@
   <div class="q-ma-md row no-wrap">
     <q-scroll-area
       visible
+      :horizontal-offset="[0, 2]"
       :thumb-style="thumbStyle"
       :bar-style="barStyle"
       style="height: 200px"
@@ -17,6 +18,7 @@
 
     <q-scroll-area
       visible
+      :horizontal-offset="[0, 2]"
       :thumb-style="thumbStyle"
       :bar-style="barStyle"
       style="height: 200px"
@@ -68,7 +70,6 @@ export default {
       secondRef,
 
       thumbStyle: {
-        right: '4px',
         borderRadius: '7px',
         backgroundColor: '#027be3',
         width: '4px',
@@ -76,7 +77,6 @@ export default {
       },
 
       barStyle: {
-        right: '2px',
         borderRadius: '9px',
         backgroundColor: '#027be3',
         width: '8px',

@@ -17,7 +17,7 @@
 
 <script>
 import { QChatMessage, QSkeleton } from 'quasar'
-import { h, defineComponent, ref, onBeforeMount, onBeforeUnmount } from 'vue'
+import { defineComponent, h, onBeforeMount, onBeforeUnmount, ref } from 'vue'
 
 const AsyncComponent = defineComponent({
   props: {
@@ -35,11 +35,10 @@ const AsyncComponent = defineComponent({
         () => {
           asyncContent.value = {
             sent: props.sent,
-            name: props.sent === true ? 'me' : 'Someone else',
-            avatar:
-              props.sent === true
-                ? 'https://cdn.quasar.dev/img/avatar4.jpg'
-                : 'https://cdn.quasar.dev/img/avatar3.jpg',
+            name: props.sent ? 'me' : 'Someone else',
+            avatar: props.sent
+              ? 'https://cdn.quasar.dev/img/avatar4.jpg'
+              : 'https://cdn.quasar.dev/img/avatar3.jpg',
             stamp: `${Math.floor(props.index / 1000)} minutes ago`,
             text: [`Message with id ${props.index}`]
           }
@@ -71,7 +70,7 @@ const AsyncComponent = defineComponent({
         })
       ]
 
-      content[props.sent === true ? 'push' : 'unshift'](
+      content[props.sent ? 'push' : 'unshift'](
         h(QSkeleton, {
           animation: 'none',
           type: 'QAvatar'
@@ -81,7 +80,7 @@ const AsyncComponent = defineComponent({
       return h(
         'div',
         {
-          class: `row no-wrap items-center q-mx-sm justify-${props.sent === true ? 'end' : 'start'}`,
+          class: `row no-wrap items-center q-mx-sm justify-${props.sent ? 'end' : 'start'}`,
           style: 'height: 78px',
           key: props.index
         },
@@ -91,7 +90,8 @@ const AsyncComponent = defineComponent({
   }
 })
 
-const size = ref(100000)
+const size = ref(100_000)
+// oxlint-disable-next-line unicorn/new-for-builtins
 const allItems = Array(size.value)
   .fill(null)
   .map((_, index) => ({
@@ -108,10 +108,10 @@ export default {
     return {
       size,
 
-      getItems(from, size) {
+      getItems(from, curSize) {
         const items = []
 
-        for (let i = 0; i < size; i++) {
+        for (let i = 0; i < curSize; i++) {
           items.push(allItems[from + i])
         }
 

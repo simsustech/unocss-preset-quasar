@@ -6,10 +6,10 @@ desc: (@quasar/app-vite) The Quasar CLI list of commands when developing or buil
 ## Developing
 
 ```bash
-$ quasar dev -m capacitor -T [ios|android]
+quasar dev -m capacitor -T [ios|android]
 
 # ..or the longer form:
-$ quasar dev --mode capacitor --target [ios|android]
+quasar dev --mode capacitor --target [ios|android]
 ```
 
 It will open the IDE (Android Studio / Xcode) and from there you can manually select the emulator (or multiple ones simultaneously!) and install the dev app on it/them. You can also run the dev app on a real mobile/tablet device.
@@ -40,10 +40,10 @@ If developing on a mobile phone/tablet, it is very important that the external I
 ## Building for Production
 
 ```bash
-$ quasar build -m capacitor -T [ios|android]
+quasar build -m capacitor -T [ios|android]
 
 # ..or the longer form:
-$ quasar build --mode capacitor --target [ios|android]
+quasar build --mode capacitor --target [ios|android]
 ```
 
 - These commands parse and build your `/src` folder then overwrite `/src-capacitor/www` then use the Gradle/xcodebuild to generate the final assets that go into a phone/tablet.
@@ -53,13 +53,13 @@ $ quasar build --mode capacitor --target [ios|android]
 - If you wish to skip the Gradle/xcodebuild step and only fill `/src-capacitor/www` folder:
 
 ```bash
-$ quasar build -m capacitor -T [ios|android] --skip-pkg
+quasar build -m capacitor -T [ios|android] --skip-pkg
 ```
 
 - Should you wish to manually build the final assets using the IDE (Android Studio / Xcode) instead of doing a terminal build, then:
 
 ```bash
-$ quasar build -m capacitor -T [ios|android] --ide
+quasar build -m capacitor -T [ios|android] --ide
 ```
 
 ::: warning
@@ -76,8 +76,8 @@ If you encounter any IDE errors then click on File > Invalidate caches and resta
 If you want a production build with debugging enabled for the UI code:
 
 ```bash
-$ quasar build -m capacitor -T [ios|android] -d
+quasar build -m capacitor -T [ios|android] -d
 
 # ..or the longer form
-$ quasar build -m capacitor -T [ios|android] --debug
+quasar build -m capacitor -T [ios|android] --debug
 ```

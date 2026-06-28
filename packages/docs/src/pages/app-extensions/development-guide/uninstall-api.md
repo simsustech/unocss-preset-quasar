@@ -3,29 +3,53 @@ title: App Extension Uninstall API
 desc: The API for the uninstall script of a Quasar App Extension.
 ---
 
-This page refers to `src/uninstall.js` file which is executed when the App Extension is uninstalled. Not all App Extensions will need an uninstall -- this is an optional step.
+This page refers to `/ae/src/uninstall.js|ts` file which is executed when the App Extension is uninstalled. Not all App Extensions will need an uninstall -- this is an optional step.
 
 Example of basic structure of the file:
 
-```js
+```js /ae/src/uninstall.js (or .ts)
+import { defineUninstallScript } from '#q-app'
+
 // can be async
-export default function (api) {
-  // props and methods for "api" Object
-  // are described below
-}
+export default defineUninstallScript((/* api */) => {})
 ```
 
-### api.engine
+## The API param
 
-Contains the Quasar CLI engine (as String) being used. Examples: `@quasar/app-vite` or `@quasar/app-webpack`.
+### api.ctx
 
-### api.hasVite
+Same as the `ctx` from the `/quasar.config` file.
 
-Boolean - is running on `@quasar/app-vite` or not.
-
-### api.hasWebpack
-
-Boolean - is running on `@quasar/app-webpack` or not.
+```js api.ctx example:
+{
+  appPaths: {
+    cliDir: '...absolute path of it',
+    appDir: '...absolute path of it',
+    srcDir: '...absolute path of it',
+    publicDir: '...absolute path of it',
+    pwaDir: '...absolute path of it',
+    ssrDir: '...absolute path of it',
+    cordovaDir: '...absolute path of it',
+    capacitorDir: '...absolute path of it',
+    electronDir: '...absolute path of it',
+    bexDir: '...absolute path of it',
+    quasarConfigFilename: '...absolute path of the quasar.config file',
+    quasarConfigInputFormat: 'js', // or 'ts'
+    resolve: {
+      cli: (...paths) => theAbsolutePathToCliDir,
+      app: (...paths) => theAbsolutePathToAppDir,
+      src: (...paths) => theAbsolutePathToAppSrcDir,
+      public: (...paths) => theAbsolutePathToPublicDir,
+      pwa: (...paths) => theAbsolutePathToAppSrcPwaDir,
+      ssr: (...paths) => theAbsolutePathToAppSrcSsrDir,
+      cordova: (...paths) => theAbsolutePathToAppSrcCordovaDir,
+      capacitor: (...paths) => theAbsolutePathToAppSrcCapacitorDir,
+      electron: (...paths) => theAbsolutePathToAppSrcElectronDir,
+      bex: (...paths) => theAbsolutePathToAppSrcBexDir
+    }
+  }
+}
+```
 
 ### api.extId
 
@@ -47,7 +71,6 @@ api.resolve.app('src/my-file.js')
 api.resolve.src('my-file.js')
 
 // resolves to root/public of app
-// (@quasar/app-webpack v3.4+ or @quasar/app-vite v1+)
 api.resolve.public('my-image.png')
 
 // resolves to root/src-pwa of app
@@ -70,25 +93,42 @@ api.resolve.bex('some-file.js')
 
 Contains the full path (String) to the root of the app on which this App Extension is running.
 
-### api.hasTypescript <q-badge label="@quasar/app-vite 1.6+" /> <q-badge label="@quasar/app-webpack 3.11+" />
+### api.logger
+
+A logger scoped to this App Extension. Every method tags its output with `AE (<extId>)`, so users can see which extension printed which line.
+
+```js
+api.logger.log('hello') // green-bannered line
+api.logger.warn('careful') // yellow-bannered warning
+api.logger.fatal('boom') // red-bannered error; exits with code 1
+api.logger.tip('try foo') // TIP-pilled tip line
+api.logger.info('synced') // INFO-pilled line
+api.logger.info('synced', 'SYNC') // custom pill text instead of INFO
+api.logger.success('built')
+api.logger.error('oh no')
+api.logger.warning('hmm')
+
+const finish = api.logger.progress({
+  tool: 'ssg',
+  waitAction: 'building',
+  doneAction: 'built'
+})
+// ...later
+finish() // prints the DONE line with elapsed time
+
+api.logger.dot // the bullet character the helpers print
+```
+
+### api.hasTypescript
 
 ```js
 /**
- * @return {Promise<boolean>} host project has Typescript active or not
+ * @return {Promise<boolean>} host project has TypeScript active or not
  */
 await api.hasTypescript()
 ```
 
-### api.hasLint <q-badge label="@quasar/app-vite 1.6+" /> <q-badge label="@quasar/app-webpack 3.11+" />
-
-```js
-/**
- * @return {Promise<boolean>} host project has ESLint or not
- */
-await api.hasLint()
-```
-
-### api.getStorePackageName <q-badge label="@quasar/app-vite 1.6+" /> <q-badge label="@quasar/app-webpack 3.11+" />
+### api.getStorePackageName
 
 ```js
 /**
@@ -97,7 +137,7 @@ await api.hasLint()
 await api.getStorePackageName()
 ```
 
-### api.getNodePackagerName <q-badge label="@quasar/app-vite 1.6+" /> <q-badge label="@quasar/app-webpack 3.11+" />
+### api.getNodePackagerName
 
 ```js
 /**

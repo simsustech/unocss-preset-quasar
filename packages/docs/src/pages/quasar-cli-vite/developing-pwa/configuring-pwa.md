@@ -7,12 +7,19 @@ scope:
   tree:
     l: src-pwa
     c:
-      - l: register-service-worker.js
-        e: '(or .ts) UI code *managing* service worker'
+      - l: register-sw.js
+        e: '(or .ts) UI code *managing* service worker (main thread)'
       - l: manifest.json
         e: Your PWA manifest file
-      - l: custom-service-worker.js
-        e: '(or .ts) Optional custom service worker file (injectManifest mode ONLY)'
+      - l: package.json
+        e: 'helps install PWA only deps directly under /src-pwa'
+      - l: sw
+        e: 'Service worker context (WebWorker)'
+        c:
+          - l: custom-sw.js
+            e: '(or .ts) Optional custom service worker file (InjectManifest mode ONLY)'
+          - l: tsconfig.json
+            e: 'TypeScript only - WebWorker lib, scoped to /src-pwa/sw/'
 ---
 
 ## Service Worker
@@ -23,19 +30,19 @@ Adding PWA mode to a Quasar project means a new folder will be created: `/src-pw
 
 You can freely edit these files. Notice a few things:
 
-1. `register-service-worker.js` is automatically imported into your app (like any other /src file). It registers the service worker (created by Workbox or your custom one, depending on workbox plugin mode -- quasar.config file > pwa > workboxPluginMode) and you can listen for Service Worker's events. You can use ES6 code.
-2. `custom-service-worker.js` will be your service worker file ONLY if workbox plugin mode is set to "injectManifest" (quasar.config file > pwa > workboxMode: 'injectManifest'). Otherwise, Quasar and Workbox will create a service-worker file for you.
+1. `register-sw.js` is automatically imported into your app (like any other /src file). It registers the service worker (created by Workbox or your custom one, depending on workbox plugin mode -- quasar.config file > pwa > workboxPluginMode) and you can listen for Service Worker's events.
+2. `sw/custom-sw.js` will be your service worker file ONLY if workbox plugin mode is set to "InjectManifest" (quasar.config file > pwa > workboxMode: 'InjectManifest'). Otherwise, Quasar and Workbox will create a service-worker file for you. The `/src-pwa/sw/` folder is the WebWorker context. Anything inside it runs in the service worker, not the main thread.
 3. It makes sense to run [Lighthouse](https://developers.google.com/web/tools/lighthouse/) tests on production builds only.
 
 ::: tip
-Read more on `register-service-worker.js` and how to interact with the Service Worker on [Handling Service Worker](/quasar-cli-vite/developing-pwa/handling-service-worker) documentation page.
+Read more on `register-sw.js` and how to interact with the Service Worker on [Handling Service Worker](/quasar-cli-vite/developing-pwa/handling-service-worker) documentation page.
 :::
 
 ## quasar.config file
 
 This is the place where you can configure Workbox behavior and also tweak your manifest.json.
 
-```js
+```ts
 pwa: {
   workboxMode?: "GenerateSW" | "InjectManifest";
 
@@ -55,7 +62,7 @@ pwa: {
    * Should you need some dynamic changes to the /src-pwa/manifest.json,
    * use this method to do it.
    */
-  extendManifestJson?: (json: PwaManifestOptions) => void;
+  extendPWAManifestJson?: (json: PwaManifestOptions) => void;
 
   /**
    * Does the PWA manifest tag requires crossorigin auth?
@@ -68,28 +75,53 @@ pwa: {
    * If using the function form, return HTML tags as one single string.
    * @default true
    */
-  injectPwaMetaTags?: boolean | ((injectParam: InjectPwaMetaTagsParams) => string);
+  injectPWAMetaTags?: boolean | ((injectParam: InjectPWAMetaTagsParams) => string);
 
   /**
-   * Extend the Esbuild config that is used for the custom service worker
-   * (if using it through workboxMode: 'InjectManifest')
+   * Extend the Rolldown config that is used for the custom service worker
+   * (if using it through workboxMode: 'InjectManifest').
+   *
+   * Can be async. Can directly modify the "config" parameter or
+   * return a new one that will be merged with the default one.
    */
-  extendPWACustomSWConf?: (config: EsbuildConfiguration) => void;
+  extendPWACustomSWConf?: (
+    config: RolldownOptions
+  ) => void | RolldownOptions | Promise<void | RolldownOptions>;
 
   /**
-   * Extend/configure the Workbox GenerateSW options
+   * Extend/configure the Workbox GenerateSW options.
+   *
+   * Can be async. Can directly modify the "config" parameter or
+   * return a new one that will be merged with the default one.
    */
-  extendGenerateSWOptions?: (config: GenerateSWOptions) => void;
+  extendPWAGenerateSWOptions?: (
+    config: GenerateSWOptions
+  ) => void | GenerateSWOptions | Promise<void | GenerateSWOptions>;
 
   /**
-   * Extend/configure the Workbox InjectManifest options
+   * Extend/configure the Workbox InjectManifest options.
+   *
+   * Can be async. Can directly modify the "config" parameter or
+   * return a new one that will be merged with the default one.
    */
-  extendInjectManifestOptions?: (config: InjectManifestOptions) => void;
+  extendPWAInjectManifestOptions?: (
+    config: InjectManifestOptions
+  ) => void | InjectManifestOptions | Promise<void | InjectManifestOptions>;
+
+  /**
+   * Extend the generated `.quasar/tsconfig.pwa-sw.json` file.
+   *
+   * NOT async! Can directly modify the "config" parameter or
+   * return a new one that will be merged with the default one.
+   */
+  extendPWASwTsConfig (tsConfig) {
+    tsConfig.compilerOptions!.lib!.push('WebWorker.AsyncIterable')
+  }
 }
 
 sourceFiles: {
-  pwaRegisterServiceWorker: 'src-pwa/register-service-worker',
-  pwaServiceWorker: 'src-pwa/custom-service-worker',
+  pwaRegisterServiceWorker: 'src-pwa/register-sw',
+  pwaServiceWorker: 'src-pwa/sw/custom-sw',
   pwaManifestFile: 'src-pwa/manifest.json',
 }
 ```
@@ -119,7 +151,7 @@ Quasar CLI adds (dynamically) some PWA oriented meta tags into your index.html. 
 
 ```js /quasar.config file
 pwa: {
-  injectPwaMetaTags: false
+  injectPWAMetaTags: false
 }
 ```
 
@@ -161,11 +193,11 @@ Then, edit your `/index.html` file. The following are the actual meta tags that 
 
 Notice that you have access to your PWA manifest through `pwaManifest` above.
 
-Alternatively, you can assign a function to injectPwaMetaTags like below:
+Alternatively, you can assign a function to injectPWAMetaTags like below:
 
 ```js /quasar.config file
 pwa: {
-  injectPwaMetaTags ({ pwaManifest, publicPath }) {
+  injectPWAMetaTags ({ pwaManifest, publicPath }) {
     return `<meta name="mobile-web-app-capable" content="yes">`
       + `<meta name="apple-mobile-web-app-status-bar-style" content="default">`
   }
@@ -174,34 +206,34 @@ pwa: {
 
 ## Picking Workbox mode
 
-There are two Workbox operating modes: **generateSW** (default) and **injectManifest**.
+There are two Workbox operating modes: **GenerateSW** (default) and **InjectManifest**.
 
 Setting the mode that you want to use is done through the `/quasar.config` file:
 
 ```js /quasar.config file
 pwa: {
-  workboxMode: 'generateSW',
-  extendGenerateSWOptions (cfg) {
-    // configure workbox on generateSW
+  workboxMode: 'GenerateSW',
+  extendPWAGenerateSWOptions (cfg) {
+    // configure workbox on GenerateSW
   }
 }
 
 pwa: {
-  workboxMode: 'injectManifest',
-  extendInjectManifestOptions (cfg) {
-    // configure workbox on injectManifest
+  workboxMode: 'InjectManifest',
+  extendPWAInjectManifestOptions (cfg) {
+    // configure workbox on InjectManifest
   }
 }
 ```
 
-### generateSW
+### GenerateSW
 
-When to use generateSW:
+When to use GenerateSW:
 
 - You want to precache files.
 - You have simple runtime configuration needs (e.g. the configuration allows you to define routes and strategies).
 
-When NOT to use generateSW:
+When NOT to use GenerateSW:
 
 - You want to use other Service Worker features (i.e. Web Push).
 - You want to import additional scripts or add additional logic.
@@ -225,26 +257,28 @@ When NOT to use InjectManifest:
 
 ::: tip TIPS
 
-- If you want to use this mode, you will have to write the service worker (`/src-pwa/custom-service-worker.js`) file by yourself.
+- If you want to use this mode, you will have to write the service worker (`/src-pwa/sw/custom-sw.js`) file by yourself.
 - Please check the available workboxOptions for this mode on [Workbox website](https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build#.injectManifest).
-  :::
 
-The following snippet is the default code for a custom service worker (`/src-pwa/custom-service-worker.js`) which mimics the behavior of `generateSW` mode:
+:::
 
-```js
+The following snippet is the default code for a custom service worker (`/src-pwa/sw/custom-sw.js`) which mimics the behavior of `generateSW` mode:
+
+```tabs /src-pwa/sw/custom-sw file
+<<| js custom-sw.js |>>
 /*
  * This file (which will be your service worker)
  * is picked up by the build system ONLY if
- * quasar.config file > pwa > workboxMode is set to "injectManifest"
+ * quasar.config file > pwa > workboxMode is set to "InjectManifest"
  */
 
 import { clientsClaim } from 'workbox-core'
+import { NavigationRoute, registerRoute } from 'workbox-routing'
 import {
-  precacheAndRoute,
   cleanupOutdatedCaches,
-  createHandlerBoundToURL
+  createHandlerBoundToURL,
+  precacheAndRoute
 } from 'workbox-precaching'
-import { registerRoute, NavigationRoute } from 'workbox-routing'
 
 self.skipWaiting()
 clientsClaim()
@@ -254,20 +288,60 @@ precacheAndRoute(self.__WB_MANIFEST)
 
 cleanupOutdatedCaches()
 
-// Non-SSR fallbacks to index.html
-// Production SSR fallbacks to offline.html (except for dev)
-if (process.env.MODE !== 'ssr' || process.env.PROD) {
+if (import.meta.env.QUASAR_PROD) {
+  // Non-SSR fallbacks to index.html
+  // Production SSR fallbacks to offline.html (except for dev)
   registerRoute(
     new NavigationRoute(
-      createHandlerBoundToURL(process.env.PWA_FALLBACK_HTML),
+      createHandlerBoundToURL(import.meta.env.QUASAR_PWA_FALLBACK_HTML),
       {
         denylist: [
-          new RegExp(process.env.PWA_SERVICE_WORKER_REGEX),
+          new RegExp(import.meta.env.QUASAR_PWA_SERVICE_WORKER_REGEX),
           /workbox-(.)*\.js$/
         ]
       }
     )
   )
+}
+<<| ts custom-sw.ts |>>
+/*
+ * This file (which will be your service worker)
+ * is picked up by the build system ONLY if
+ * quasar.config file > pwa > workboxMode is set to "InjectManifest"
+ */
+
+import { clientsClaim } from "workbox-core";
+import { NavigationRoute, registerRoute } from "workbox-routing";
+import {
+  cleanupOutdatedCaches,
+  createHandlerBoundToURL,
+  precacheAndRoute
+} from "workbox-precaching";
+
+declare const self: ServiceWorkerGlobalScope & typeof globalThis;
+
+void self.skipWaiting();
+clientsClaim();
+
+// Use with precache injection
+precacheAndRoute(self.__WB_MANIFEST);
+
+cleanupOutdatedCaches();
+
+if (import.meta.env.QUASAR_PROD) {
+  // Non-SSR fallbacks to index.html
+  // Production SSR fallbacks to offline.html (except for dev)
+  registerRoute(
+    new NavigationRoute(
+      createHandlerBoundToURL(import.meta.env.QUASAR_PWA_FALLBACK_HTML),
+      {
+        denylist: [
+          new RegExp(import.meta.env.QUASAR_PWA_SERVICE_WORKER_REGEX),
+          /workbox-(.)*\.js$/
+        ]
+      }
+    )
+  );
 }
 ```
 
@@ -279,7 +353,7 @@ Should you need to change it dynamically at build time, you can do so by editing
 
 ```js /quasar.config file
 pwa: {
-  extendManifestJson (json) {
+  extendPWAManifestJson (json) {
     // tamper with the json inline
   }
 }
@@ -309,7 +383,7 @@ For those who don't want to manually reload the page when the service worker is 
 
 ```js /quasar.config file
 pwa: {
-  extendGenerateSWOptions (cfg) {
+  extendPWAGenerateSWOptions (cfg) {
     cfg.skipWaiting = false
     cfg.clientsClaim = false
   }
@@ -318,7 +392,7 @@ pwa: {
 
 ## Filename hashes quirk
 
-Due to how Rollup builds the assets (through Vite), when you change any of your script source files (.js) this will also change the hash part of (almost) ALL .js files (ex: `454d87bd` in `assets/index.454d87bd.js`). The revision number of all assets will get changed in your service worker file and this means that when PWA updates it will re-download ALL your assets again. What a waste of bandwidth and such a longer time to get the PWA updated!
+Due to how Rolldown builds the assets (through Vite), when you change any of your script source files (.js) this will also change the hash part of (almost) ALL .js files (ex: `454d87bd` in `assets/index.454d87bd.js`). The revision number of all assets will get changed in your service worker file and this means that when PWA updates it will re-download ALL your assets again. What a waste of bandwidth and such a longer time to get the PWA updated!
 
 By default, Vite builds all filenames **with the hash part**. However, should you want your filenames to NOT contain the hash part, you need to edit the `/quasar.config` file:
 

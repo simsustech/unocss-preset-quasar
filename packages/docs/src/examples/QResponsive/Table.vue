@@ -20,12 +20,13 @@
 import { ref } from 'vue'
 
 const seed = [
+  // #region
   {
     name: 'Frozen Yogurt',
     calories: 159,
-    fat: 6.0,
+    fat: 6,
     carbs: 24,
-    protein: 4.0,
+    protein: 4,
     sodium: 87,
     calcium: '14%',
     iron: '1%'
@@ -33,7 +34,7 @@ const seed = [
   {
     name: 'Ice cream sandwich',
     calories: 237,
-    fat: 9.0,
+    fat: 9,
     carbs: 37,
     protein: 4.3,
     sodium: 129,
@@ -43,9 +44,9 @@ const seed = [
   {
     name: 'Eclair',
     calories: 262,
-    fat: 16.0,
+    fat: 16,
     carbs: 23,
-    protein: 6.0,
+    protein: 6,
     sodium: 337,
     calcium: '6%',
     iron: '7%'
@@ -63,7 +64,7 @@ const seed = [
   {
     name: 'Gingerbread',
     calories: 356,
-    fat: 16.0,
+    fat: 16,
     carbs: 49,
     protein: 3.9,
     sodium: 327,
@@ -73,9 +74,9 @@ const seed = [
   {
     name: 'Jelly bean',
     calories: 375,
-    fat: 0.0,
+    fat: 0,
     carbs: 94,
-    protein: 0.0,
+    protein: 0,
     sodium: 50,
     calcium: '0%',
     iron: '0%'
@@ -103,7 +104,7 @@ const seed = [
   {
     name: 'Donut',
     calories: 452,
-    fat: 25.0,
+    fat: 25,
     carbs: 51,
     protein: 4.9,
     sodium: 326,
@@ -113,25 +114,27 @@ const seed = [
   {
     name: 'KitKat',
     calories: 518,
-    fat: 26.0,
+    fat: 26,
     carbs: 65,
     protein: 7,
     sodium: 54,
     calcium: '12%',
     iron: '6%'
   }
+  // #endregion
 ]
 
 // we generate lots of rows here
-let rows = []
+const rows = []
 for (let i = 0; i < 100; i++) {
-  rows = rows.concat(seed.slice(0).map((r) => ({ ...r })))
+  rows.push(...seed.map((r) => ({ ...r })))
 }
 rows.forEach((row, index) => {
   row.index = index
 })
 
 const columns = [
+  // #region
   {
     name: 'index',
     label: '#',
@@ -162,15 +165,16 @@ const columns = [
     label: 'Calcium (%)',
     field: 'calcium',
     sortable: true,
-    sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)
+    sort: (a, b) => Number.parseInt(a, 10) - Number.parseInt(b, 10)
   },
   {
     name: 'iron',
     label: 'Iron (%)',
     field: 'iron',
     sortable: true,
-    sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)
+    sort: (a, b) => Number.parseInt(a, 10) - Number.parseInt(b, 10)
   }
+  // #endregion
 ]
 
 export default {

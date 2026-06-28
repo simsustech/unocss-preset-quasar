@@ -15,44 +15,65 @@ Make sure that your `/src-electron/electron-main.js` has the following (near the
 
 ```js /src-electron/electron-main
 // Add this at the top:
-import path from 'path'
-import { fileURLToPath } from 'url'
+import path from 'node:path'
 
-const currentDir = fileURLToPath(new URL('.', import.meta.url))
 // ...
 
 function createWindow () {
   // ...
-  mainWindow = new BrowserWindow({
+  const mainWindow = new BrowserWindow({
     // ...
     webPreferences: {
-      // HERE IS THE MAGIC:
-      preload: path.resolve(
-        currentDir,
-        path.join(process.env.QUASAR_ELECTRON_PRELOAD_FOLDER, 'electron-preload' + process.env.QUASAR_ELECTRON_PRELOAD_EXTENSION)
-      )
+      // HERE IS THE MAGIC (notice .cjs - NOT a mistake):
+      preload: path.join(import.meta.dirname, "electron-preload.cjs")
     }
   })
 ```
 
-Example of `/src-electron/electron-preload.js` content:
+Example of `/src-electron/electron-preload` content:
 
 ```js
-// example which injects window.myAPI.doAThing() into the renderer
-// thread (/src/*)
+/**
+ * This file is used specifically for security reasons.
+ * Here you can access Node.js stuff and inject functionality into
+ * the renderer thread (accessible there through the "window" object)
+ *
+ * WARNING!
+ * If you import anything from node_modules, then make sure that the package is specified
+ * in /src-electron/package.json > dependencies and NOT in devDependencies
+ *
+ * Example (injects window.myAPI.doAThing() into renderer thread):
+ *
+ *   import { contextBridge } from 'electron'
+ *
+ *   contextBridge.exposeInMainWorld('myAPI', {
+ *     doAThing: () => {}
+ *   })
+ *
+ * WARNING!
+ * If accessing Node functionality (like importing @electron/remote) then in your
+ * electron-main.ts you will need to set the following when you instantiate BrowserWindow:
+ *
+ * mainWindow = new BrowserWindow({
+ *   // ...
+ *   webPreferences: {
+ *     // ...
+ *     sandbox: false // <-- to be able to import @electron/remote in preload script
+ *   }
+ * }
+ */
+import { contextBridge } from 'electron'
+import { quasarRuntime } from '#q-app/electron/preload'
 
-const { contextBridge } = require('electron')
-
-contextBridge.exposeInMainWorld('myAPI', {
-  doAThing: () => {}
-})
+contextBridge.exposeInMainWorld('quasarRuntime', quasarRuntime)
 ```
 
 ::: warning
 
 1. Be aware that this file runs in a Node.js context.
-2. If you import anything from node_modules, then make sure that the package is specified in /package.json > "dependencies" and NOT in "devDependencies".
-   :::
+2. If you import anything from node_modules, then make sure that the package is specified in /src-electonr/package.json > "dependencies" and NOT in "devDependencies".
+
+:::
 
 ## Security considerations
 

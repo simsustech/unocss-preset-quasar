@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { ref, onBeforeUpdate } from 'vue'
+import { onBeforeUpdate, ref } from 'vue'
 import { morph } from 'quasar'
 
 export default {
@@ -45,9 +45,10 @@ export default {
 
     const indexZoomed = ref(void 0)
     const images = ref(
-      Array(24)
-        .fill(null)
-        .map((_, i) => 'https://picsum.photos/id/' + i + '/500/300')
+      Array.from(
+        { length: 24 },
+        (_, i) => 'https://picsum.photos/id/' + i + '/500/300'
+      )
     )
 
     function zoomImage(index) {

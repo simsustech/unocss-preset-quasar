@@ -9,6 +9,7 @@ const preflights: Preflight<QuasarTheme>[] = [
   --shape-corner-small: ${theme.shape.corner.small};
   --shape-corner-medium: ${theme.shape.corner.medium};
   --shape-corner-large: ${theme.shape.corner.large};
+  --shape-corner-extra-large: ${theme.shape.corner.extraLarge};
 }`
   }
 ]

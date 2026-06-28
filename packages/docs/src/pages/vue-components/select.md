@@ -60,7 +60,7 @@ In the example below there's a few transitions showcased. For a full list of tra
 By default QSelect shows the list of options as a menu on desktop and as a dialog on mobiles. You can force one behavior by using the `behavior` property.
 
 ::: warning
-Please note that on iOS menu behavior might generate problems, especially when used in combination with `use-input` prop. You can use a conditional `behavior` prop like `:behavior="$q.platform.is.ios === true ? 'dialog' : 'menu'"` to use dialog mode only on iOS.
+Please note that on iOS menu behavior might generate problems, especially when used in combination with `use-input` prop. You can use a conditional `behavior` prop like `:behavior="$q.platform.is.ios ? 'dialog' : 'menu'"` to use dialog mode only on iOS.
 :::
 
 <DocExample title="Show options in menu" file="BehaviorMenu" />
@@ -247,7 +247,8 @@ Notice the infinite scroll in place which renders additional options as the user
 
 - (Composition API) To get the best performance while using lots of options, do not wrap the array that you are passing in the `options` prop with ref()/computed()/reactive()/etc. This allows Vue to skip making the list "responsive" to changes.
 - (Options API) To get the best performance while using lots of options, freeze the array that you are passing in the `options` prop using `Object.freeze(items)`. This allows Vue to skip making the list "responsive" to changes.
-  :::
+
+:::
 
 <DocExample title="100k options" file="RenderPerf" />
 

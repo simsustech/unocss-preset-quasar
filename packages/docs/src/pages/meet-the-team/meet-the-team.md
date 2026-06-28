@@ -11,12 +11,6 @@ scope:
       twitter: rstoenescu1
       github: rstoenescu
       desc: Architecture and development of Quasar on all fronts
-    - name: Dan Popescu
-      role: Senior Core Developer
-      avatar: dan_popescu.jpg
-      email: dan@quasar.dev
-      github: pdanpdan
-      desc: Focuses on Quasar UI components, directives and plugins
     - name: Jeff Galbraith
       role: Senior Developer
       avatar: jeff_galbraith.jpg
@@ -35,7 +29,7 @@ scope:
       role: Senior Developer
       avatar: paolo_caleffi.jpg
       github: IlCallo
-      desc: Typescript support
+      desc: TypeScript support
     - name: Yusuf Kandemir
       role: Senior Developer
       avatar: yusuf_kandemir.jpg
@@ -52,6 +46,12 @@ scope:
       github: ldiebold
       desc: Creates video tutorials, podcasts and shows for Quasar Framework.
   others:
+    - name: Dan Popescu
+      role: Senior Core Developer
+      avatar: dan_popescu.jpg
+      email: dan@quasar.dev
+      github: pdanpdan
+      desc: Focused on Quasar UI components, directives and plugins
     - name: Allan Gaunt
       role: Senior Developer
       avatar: allan_gaunt.png
@@ -66,7 +66,7 @@ scope:
       role: Senior Developer
       avatar: kerry_huguet.jpeg
       github: outofmemoryagain
-      desc: Typescript support
+      desc: TypeScript support
     - name: Noah Klayman
       role: Developer / Community Staff
       avatar: noah_klayman.jpeg

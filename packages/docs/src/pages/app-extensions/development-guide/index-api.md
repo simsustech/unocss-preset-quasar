@@ -1,18 +1,20 @@
 ---
 title: App Extension Index API
-desc: The API for the index script of a Quasar App Extension. Provides access to Quasar context, registers new CLI commands, extends Webpack config and more.
+desc: The API for the index script of a Quasar App Extension. Provides access to Quasar context, registers new CLI commands, extends Vite config and more.
 ---
 
-This page refers to `src/index.js` file, which is executed on `quasar dev` and `quasar build`. This is the main process where you can modify the build to suit the needs of your App Extension. For instance, registering a boot file, modifying the webpack process, registering CSS, registering a UI component, registering a Quasar CLI command, etc.
+This page refers to `/ae/src/index.js|ts` file, which is executed on `quasar dev` and `quasar build`. This is the main process where you can modify the build to suit the needs of your App Extension. For instance, registering a boot file, modifying the Vite configuration, registering CSS, registering a UI component, registering a Quasar CLI command, etc.
 
 Example of basic structure of the file:
 
-```js
+```js /ae/src/index.js (or .ts)
+import { defineIndexScript } from '#q-app'
+
 // can be async
-export default function (api) {
-  // props & methods for "api" Object described below
-}
+export default defineIndexScript((api) => {})
 ```
+
+## The API param
 
 ### api.ctx
 
@@ -21,7 +23,7 @@ Same as the `ctx` from the `/quasar.config` file. Helps you make decisions based
 Example: You might want to use one of the api methods if running for electron mode only.
 
 ```js
-if (api.ctx.dev === true && api.ctx.mode.electron === true) {
+if (api.ctx.dev && api.ctx.mode.electron) {
   api.beforeDev((api) => {
     // do something when running quasar dev and
     // with Electron mode
@@ -29,17 +31,49 @@ if (api.ctx.dev === true && api.ctx.mode.electron === true) {
 }
 ```
 
-### api.engine
-
-Contains the Quasar CLI engine (as String) being used. Examples: `@quasar/app-vite` or `@quasar/app-webpack`.
-
-### api.hasVite
-
-Boolean - is running on `@quasar/app-vite` or not.
-
-### api.hasWebpack
-
-Boolean - is running on `@quasar/app-webpack` or not.
+```js api.ctx example:
+{
+  dev: true,
+  prod: false,
+  mode: { spa: true },
+  modeName: 'spa',
+  target: {},
+  targetName: undefined,
+  arch: {},
+  archName: undefined,
+  bundler: {},
+  bundlerName: undefined,
+  debug: false,
+  publish: undefined,
+  vueDevtools: false,
+  appPaths: {
+    cliDir: '...absolute path of it',
+    appDir: '...absolute path of it',
+    srcDir: '...absolute path of it',
+    publicDir: '...absolute path of it',
+    pwaDir: '...absolute path of it',
+    ssrDir: '...absolute path of it',
+    cordovaDir: '...absolute path of it',
+    capacitorDir: '...absolute path of it',
+    electronDir: '...absolute path of it',
+    bexDir: '...absolute path of it',
+    quasarConfigFilename: '...absolute path of the quasar.config file',
+    quasarConfigInputFormat: 'js', // or 'ts'
+    resolve: {
+      cli: (...paths) => theAbsolutePathToCliDir,
+      app: (...paths) => theAbsolutePathToAppDir,
+      src: (...paths) => theAbsolutePathToAppSrcDir,
+      public: (...paths) => theAbsolutePathToPublicDir,
+      pwa: (...paths) => theAbsolutePathToAppSrcPwaDir,
+      ssr: (...paths) => theAbsolutePathToAppSrcSsrDir,
+      cordova: (...paths) => theAbsolutePathToAppSrcCordovaDir,
+      capacitor: (...paths) => theAbsolutePathToAppSrcCapacitorDir,
+      electron: (...paths) => theAbsolutePathToAppSrcElectronDir,
+      bex: (...paths) => theAbsolutePathToAppSrcBexDir
+    }
+  }
+}
+```
 
 ### api.extId
 
@@ -61,7 +95,6 @@ api.resolve.app('src/my-file.js')
 api.resolve.src('my-file.js')
 
 // resolves to root/public of app
-// (@quasar/app-webpack v3.4+ or @quasar/app-vite v1+)
 api.resolve.public('my-image.png')
 
 // resolves to root/src-pwa of app
@@ -87,25 +120,42 @@ api.resolve.bex('some-file.js')
 
 Contains the full path (String) to the root of the app on which this App Extension is running.
 
-### api.hasTypescript <q-badge label="@quasar/app-vite 1.6+" /> <q-badge label="@quasar/app-webpack 3.11+" />
+### api.logger
+
+A logger scoped to this App Extension. Every method tags its output with `AE (<extId>)`, so users can see which extension printed which line.
+
+```js
+api.logger.log('hello') // green-bannered line
+api.logger.warn('careful') // yellow-bannered warning
+api.logger.fatal('boom') // red-bannered error; exits with code 1
+api.logger.tip('try foo') // TIP-pilled tip line
+api.logger.info('synced') // INFO-pilled line
+api.logger.info('synced', 'SYNC') // custom pill text instead of INFO
+api.logger.success('built')
+api.logger.error('oh no')
+api.logger.warning('hmm')
+
+const finish = api.logger.progress({
+  tool: 'ssg',
+  waitAction: 'building',
+  doneAction: 'built'
+})
+// ...later
+finish() // prints the DONE line with elapsed time
+
+api.logger.dot // the bullet character the helpers print
+```
+
+### api.hasTypescript
 
 ```js
 /**
- * @return {Promise<boolean>} host project has Typescript active or not
+ * @return {Promise<boolean>} host project has TypeScript active or not
  */
 await api.hasTypescript()
 ```
 
-### api.hasLint <q-badge label="@quasar/app-vite 1.6+" /> <q-badge label="@quasar/app-webpack 3.11+" />
-
-```js
-/**
- * @return {Promise<boolean>} host project has ESLint or not
- */
-await api.hasLint()
-```
-
-### api.getStorePackageName <q-badge label="@quasar/app-vite 1.6+" /> <q-badge label="@quasar/app-webpack 3.11+" />
+### api.getStorePackageName
 
 ```js
 /**
@@ -114,7 +164,7 @@ await api.hasLint()
 await api.getStorePackageName()
 ```
 
-### api.getNodePackagerName <q-badge label="@quasar/app-vite 1.6+" /> <q-badge label="@quasar/app-webpack 3.11+" />
+### api.getNodePackagerName
 
 ```js
 /**
@@ -136,15 +186,11 @@ Example of semver condition: `'1.x || >=2.5.0 || 5.0.0 - 7.2.3'`.
  * @param {string} packageName
  * @param {string} semverCondition
  */
-api.compatibleWith('@quasar/app', '1.x')
+api.compatibleWith('@quasar/app-vite', '3.x')
 ```
 
 ```js A more complex example
-if (api.hasVite === true) {
-  api.compatibleWith('@quasar/app-vite', '^2.0.0')
-} else {
-  api.compatbileWith('@quasar/app-webpack', '^4.0.0')
-}
+api.compatibleWith('@quasar/app-vite', '^3.0.0-rc.1')
 ```
 
 ### api.hasPackage
@@ -202,51 +248,45 @@ console.log(api.getPackageVersion(packageName))
 
 Extends quasar.config file
 
-```js
-/**
- * @param {function} fn
- *   (cfg: Object, ctx: Object) => undefined
- */
-api.extendQuasarConf((conf, api) => {
-  // do something with quasar.config file:
-  // add, change anything
-})
-```
+```ts
+extendQuasarConf: Callback<
+  (
+    cfg: QuasarConf,
+    api: IndexAPI
+  ) => QuasarConf | void | Promise<QuasarConf | void>
+>
 
-```js A more complex example:
+// Example:
 api.extendQuasarConf((conf, api) => {
-  if (api.hasVite === true) {
-    // do something with quasar.config file that is specific
-    // to @quasar/app-vite
-  } else {
-    // api.hasWebpack === true
-    // do something with quasar.config file that is specific
-    // to @quasar/app-webpack
-  }
+  // Do something with quasar.config file.
+  // Optionally, return a config that will be merged
+  // with the default one
 })
 ```
 
 #### Registering boot and css files
 
 ```js
-export default function (api, ctx) {
+import { defineIndexScript } from '#q-app'
+
+export default defineIndexScript((api) => {
+  api.extendQuasarConf((conf, api) => {
+    return {
+      // make sure my-ext boot file is registered
+      boot: ['~quasar-app-extension-my-ext/src/runtime/boot.register.js'],
+      // make sure my global my-ext css goes through Vite
+      css: ['~quasar-app-extension-my-ext/src/runtime/style.sass']
+    }
+  })
+
+  // Alternatively, directly touch the "conf" param
   api.extendQuasarConf((conf, api) => {
     // make sure my-ext boot file is registered
-    conf.boot.push('~quasar-app-extension-my-ext/src/boot/my-ext-bootfile.js')
-
-    if (api.hasVite !== true) {
-      // make sure boot file transpiles
-      conf.build.webpackTranspileDependencies.push(
-        /quasar-app-extension-my-ext[\\/]src[\\/]boot/
-      )
-      // if boot file imports anything, make sure that
-      // the regex above matches those files too!
-    }
-
-    // make sure my-ext css goes through webpack
-    conf.css.push('~quasar-app-extension-my-ext/src/component/my-ext.sass')
+    conf.boot.push('~quasar-app-extension-my-ext/src/runtime/boot.register.js')
+    // make sure my global my-ext css goes through Vite
+    conf.css.push('~quasar-app-extension-my-ext/src/runtime/style.sass')
   })
-}
+})
 ```
 
 ::: tip
@@ -255,25 +295,48 @@ Notice the tidle (`~`) in front of the paths. This tells Quasar CLI that the pat
 
 ### api.registerCommand
 
-Register a command that will become available as `quasar run <ext-id> <cmd> [args]` (or the short form: `quasar <ext-id> <cmd> [args]`).
+Register a command that will become available as `quasar run <ext-id> <cmd> [...args]`.
 
 ```js
 /**
  * @param {string} commandName
  * @param {function} fn
- *   ({ args: [ string, ... ], params: {object} }) => ?Promise
+ *   (processArgv: string[]) => ?Promise
  */
-api.registerCommand('start', ({ args, params }) => {
+api.registerCommand('start', (processArgv) => {
   // do something here
   // this registers the "start" command
   // and this handler is executed when running
-  // $ quasar run <ext-id> start
+  // quasar run <ext-id> start
+})
+```
+
+Example with defining and parsing arguments:
+
+```js
+// import { parseArgs } from 'node:util'
+
+api.registerCommand('fun', () => {
+  try {
+    const { values, positionals } = parseArgs({
+      options: {
+        name: { type: 'string', short: 'n' },
+        debug: { type: 'boolean' }
+      },
+      strict: true,
+      allowPositionals: true
+    })
+
+    console.log(values, positionals)
+  } catch (err) {
+    console.error(err.message)
+  }
 })
 ```
 
 ### api.registerDescribeApi
 
-Register an API file for `$ quasar describe` command.
+Register an API file for `quasar describe` command.
 
 ```js
 /**
@@ -287,7 +350,7 @@ api.registerDescribeApi(
 )
 ```
 
-The above will then respond to `$ quasar describe MyComponent`.
+The above will then respond to `quasar describe MyComponent`.
 
 For syntax of such a JSON file, look into `/node_modules/quasar/dist/api` (in your project folder). Be aware that your JSON must contain a `type` property ("component", "directive", "plugin"). For instance:
 
@@ -299,6 +362,10 @@ For syntax of such a JSON file, look into `/node_modules/quasar/dist/api` (in yo
   ...
 }
 ```
+
+::: tip
+You might also want to take a look at [Quasar JSON API Schema](/app-extensions/common-formulas-and-patterns/json-api) page.
+:::
 
 ::: tip
 Always test with the `quasar describe` command to ensure you got the syntax right and there are no errors.
@@ -343,7 +410,7 @@ api.mergePersistentConf({
 
 ### api.beforeDev
 
-Prepare external services before `$ quasar dev` command runs, like starting some backend or any other service that the app relies on.
+Prepare external services before `quasar dev` command runs, like starting some backend or any other service that the app relies on.
 
 Can use async/await or directly return a Promise.
 
@@ -359,7 +426,7 @@ api.beforeDev((api, { quasarConf }) => {
 
 ### api.afterDev
 
-Run hook after Quasar dev server is started (`$ quasar build`). At this point, the dev server has been started and is available should you wish to do something with it.
+Run hook after Quasar dev server is started (`quasar build`). At this point, the dev server has been started and is available should you wish to do something with it.
 
 Can use async/await or directly return a Promise.
 
@@ -375,7 +442,7 @@ api.afterDev((api, { quasarConf }) => {
 
 ### api.beforeBuild
 
-Run hook before Quasar builds app for production (`$ quasar build`). At this point, the distributables folder hasn't been created yet.
+Run hook before Quasar builds app for production (`quasar build`). At this point, the distributables folder hasn't been created yet.
 
 Can use async/await or directly return a Promise.
 
@@ -391,7 +458,7 @@ api.beforeBuild((api, { quasarConf }) => {
 
 ### api.afterBuild
 
-Run hook after Quasar built app for production (`$ quasar build`). At this point, the distributables folder has been created and is available should you wish to do something with it.
+Run hook after Quasar built app for production (`quasar build`). At this point, the distributables folder has been created and is available should you wish to do something with it.
 
 Can use async/await or directly return a Promise.
 
@@ -407,7 +474,7 @@ api.afterBuild((api, { quasarConf }) => {
 
 ### api.onPublish
 
-Run hook if publishing was requested (`$ quasar build -P`), after Quasar built app for production and the afterBuild hook (if specified) was executed.
+Run hook if publishing was requested (`quasar build -P`), after Quasar built app for production and the afterBuild hook (if specified) was executed.
 
 Can use async/await or directly return a Promise.
 
@@ -424,263 +491,316 @@ api.onPublish((api, opts) => {
 })
 ```
 
-## @quasar/app-vite only
-
 ### api.extendViteConf
 
-```js
+```ts
 /**
- * @param {function} fn
- *   (viteConf: Object, invoke: Object {isClient, isServer}, api) => undefined
+ * Extend the Vite config generated by Quasar CLI.
+ *
+ * Can be async. Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
  */
-if (api.hasVite === true) {
-  api.extendViteConf((viteConf, { isClient, isServer }, api) => {
-    // add/remove/change Quasar CLI generated Vite config object
-  })
-}
+api.extendViteConf: (
+  config: ViteUserConfig,
+  invokeParams: { isClient: boolean, isServer: boolean },
+  api
+) => ViteUserConfig | void | Promise<ViteUserConfig | void>;
+
+// Example:
+api.extendViteConf((viteConf, { isClient, isServer }, api) => {
+  // add/remove/change Quasar CLI generated Vite config object;
+  // similar in use to /quasar.config > build > extendViteConf
+})
 ```
 
 ### api.extendSSRWebserverConf
 
-```js
+```ts
 /**
- * @param {function} fn
- *   (esbuildConf: Object, api) => undefined
+ * Extend the Rolldown config that is used for the SSR webserver
+ * (which includes the SSR middlewares).
+ *
+ * Can be async. Can directly modify the "rolldownConf" parameter or
+ * return a new one that will be merged with the default one.
  */
-if (api.hasVite === true) {
-  api.extendSSRWebserverConf((esbuildConf, api) => {
-    // add/remove/change Quasar CLI generated esbuild config object
-    // that is used for the SSR webserver (includes SSR middlewares)
-  })
-}
+api.extendSSRWebserverConf: (
+  config: RolldownOptions,
+  api
+) => void | RolldownOptions | Promise<void | RolldownOptions>;
+
+// Example:
+api.extendSSRWebserverConf((rolldownConf, api) => {
+  // add/remove/change Quasar CLI generated Rolldown config object;
+  // similar in use to /quasar.config > ssr > extendSSRWebserverConf
+})
+```
+
+### api.extendSSRPackageJson <q-badge label="@quasar/app-vite v3+" />
+
+```ts
+/**
+ * Add/remove/change properties of SSR production generated package.json
+ *
+ * Can be async. Can directly modify the "pkgJson" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendSSRPackageJson: (
+  pkgJson: { [index in string]: any },
+  api: IndexAPI
+) =>
+  | void
+  | { [index in string]: any }
+  | Promise<void | { [index in string]: any }>;
+
+// Example:
+api.extendSSRPackageJson((pkgJson, api) => {
+  // add/remove/change pkgJson;
+  // similar in use to /quasar.config > ssr > extendSSRPackageJson
+})
+```
+
+### api.extendSSRGenerateSWOptions <q-badge label="@quasar/app-vite v3+" />
+
+```ts
+/**
+ * Extend/configure the Workbox GenerateSW options
+ * Specify Workbox options which will be applied on top of
+ *  `pwa > extendPWAGenerateSWOptions()`.
+ *
+ * https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
+ *
+ * Can be async. Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendSSRGenerateSWOptions: (
+  config: GenerateSWOptions,
+  api: IndexAPI
+) => void | GenerateSWOptions | Promise<void | GenerateSWOptions>;
+
+// Example:
+api.extendSSRGenerateSWOptions((config, api) => {
+  // add/remove/change config;
+  // similar in use to /quasar.config > ssr > extendSSRGenerateSWOptions
+})
+```
+
+### api.extendSSRInjectManifestOptions <q-badge label="@quasar/app-vite v3+" />
+
+```ts
+/**
+ * Extend/configure the Workbox InjectManifest options
+ * Specify Workbox options which will be applied on top of
+ *  `pwa > extendPWAInjectManifestOptions()`.
+ *
+ * https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
+ *
+ * Can be async. Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendSSRInjectManifestOptions: (
+  config: InjectManifestOptions,
+  api: IndexAPI
+) => void | InjectManifestOptions | Promise<void | InjectManifestOptions>;
+
+// Example:
+api.extendSSRInjectManifestOptions((config, api) => {
+  // add/remove/change config;
+  // similar in use to /quasar.config > ssr > extendSSRInjectManifestOptions
+})
 ```
 
 ### api.extendElectronMainConf
 
-```js
+```ts
 /**
- * @param {function} fn
- *   (esbuildConf: Object, api) => undefined
+ * Extend the Rolldown config that is used for the electron-main thread.
+ *
+ * Can be async. Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
  */
-if (api.hasVite === true) {
-  api.extendElectronMainConf((esbuildConf, api) => {
-    // add/remove/change Quasar CLI generated esbuild config object
-    // that is used for the SSR webserver (includes SSR middlewares)
-  })
-}
+api.extendElectronMainConf: (
+  config: RolldownOptions,
+  api
+) => void | RolldownOptions | Promise<void | RolldownOptions>;
+
+// Example:
+api.extendElectronMainConf((rolldownConf, api) => {
+  // add/remove/change Quasar CLI generated Rolldown config object;
+  // similar in use to /quasar.config > electron > extendElectronMainConf
+})
 ```
 
 ### api.extendElectronPreloadConf
 
-```js
+```ts
 /**
- * @param {function} fn
- *   (esbuildConf: Object, api) => undefined
+ * Extend the Rolldown config that is used for the electron-preload thread.
+ *
+ * Can be async. Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
  */
-if (api.hasVite === true) {
-  api.extendElectronPreloadConf((esbuildConf, api) => {
-    // add/remove/change Quasar CLI generated esbuild config object
-    // that is used for the SSR webserver (includes SSR middlewares)
-  })
-}
+api.extendElectronPreloadConf: (
+  config: RolldownOptions,
+  api
+) => void | RolldownOptions | Promise<void | RolldownOptions>;
+
+// Example:
+api.extendElectronPreloadConf((rolldownConf, api) => {
+  // add/remove/change Quasar CLI generated Rolldown config object;
+  // similar in use to /quasar.config > electron > extendElectronPreloadConf
+})
+```
+
+### api.extendElectronPackageJson <q-badge label="@quasar/app-vite v3+" />
+
+```ts
+/**
+ * Add/remove/change properties of Electron production generated package.json
+ *
+ * Can be async. Can directly modify the "pkgJson" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendElectronPackageJson: (
+  pkgJson: { [index in string]: any },
+  api: IndexAPI
+) =>
+  | void
+  | { [index in string]: any }
+  | Promise<void | { [index in string]: any }>;
+
+// Example:
+api.extendElectronPackageJson((pkgJson, api) => {
+  // add/remove/change pkgJson;
+  // similar in use to /quasar.config > electron > extendElectronPackageJson
+})
 ```
 
 ### api.extendPWACustomSWConf
 
-```js
+```ts
 /**
- * @param {function} fn
- *   (esbuildConf: Object, api) => undefined
+ * Extend the Rolldown config that is used for the custom service worker
+ * (if using it through workboxMode: 'InjectManifest').
+ *
+ * Can be async. Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
  */
-if (api.hasVite === true) {
-  api.extendPWACustomSWConf((esbuildConf, api) => {
-    // add/remove/change Quasar CLI generated esbuild config object
-    // that is used for the SSR webserver (includes SSR middlewares)
-  })
-}
+api.extendPWACustomSWConf: (
+  config: RolldownOptions,
+  api
+) => void | RolldownOptions | Promise<void | RolldownOptions>;
+
+// Example:
+api.extendPWACustomSWConf((rolldownConf, api) => {
+  // add/remove/change Quasar CLI generated Rolldown config object;
+  // similar in use to /quasar.config > pwa > extendPWACustomSWConf
+})
+```
+
+### api.extendPWAManifestJson <q-badge label="@quasar/app-vite v3+" />
+
+```ts
+/**
+ * Should you need some dynamic changes to the /src-pwa/manifest.json,
+ * use this method to do it.
+ *
+ * Can be async. Can directly modify the "json" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendPWAManifestJson: (
+  json: PwaManifestOptions,
+  api: IndexAPI
+) => void | PwaManifestOptions | Promise<void | PwaManifestOptions>;
+
+// Example:
+api.extendPWAManifestJson((json, api) => {
+  // add/remove/change json;
+  // similar in use to /quasar.config > pwa > extendPWAManifestJson
+})
+```
+
+### api.extendPWAGenerateSWOptions <q-badge label="@quasar/app-vite v3+" />
+
+```ts
+/**
+ * Extend/configure the Workbox GenerateSW options.
+ *
+ * Can be async. Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendPWAGenerateSWOptions: (
+  config: GenerateSWOptions,
+  api: IndexAPI
+) => void | GenerateSWOptions | Promise<void | GenerateSWOptions>;
+
+// Example:
+api.extendPWAGenerateSWOptions((config, api) => {
+  // add/remove/change config;
+  // similar in use to /quasar.config > pwa > extendPWAGenerateSWOptions
+})
+```
+
+### api.extendPWAInjectManifestOptions <q-badge label="@quasar/app-vite v3+" />
+
+```ts
+/**
+ * Extend/configure the Workbox InjectManifest options.
+ *
+ * Can be async. Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendPWAInjectManifestOptions: (
+  config: InjectManifestOptions,
+  api: IndexAPI
+) => void | InjectManifestOptions | Promise<void | InjectManifestOptions>;
+
+// Example:
+api.extendPWAInjectManifestOptions((config, api) => {
+  // add/remove/change config;
+  // similar in use to /quasar.config > pwa > extendPWAInjectManifestOptions
+})
 ```
 
 ### api.extendBexScriptsConf
 
-```js
+```ts
 /**
- * @param {function} fn
- *   (esbuildConf: Object, api) => undefined
+ * Extend the Rolldown config that is used for the bex scripts
+ * (background, content scripts, dom script).
+ *
+ * Can be async. Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
  */
-if (api.hasVite === true) {
-  api.extendBexScriptsConf((esbuildConf, api) => {
-    // add/remove/change Quasar CLI generated esbuild config object
-    // that is used for the SSR webserver (includes SSR middlewares)
-  })
-}
+api.extendBexScriptsConf: (
+  config: RolldownOptions,
+  api
+) => void | RolldownOptions | Promise<void | RolldownOptions>;
+
+// Example:
+api.extendBexScriptsConf((rolldownConf, api) => {
+  // add/remove/change Quasar CLI generated Rolldown config object;
+  // similar in use to /quasar.config > bex > extendBexScriptsConf
+})
 ```
 
-## @quasar/app-webpack only
+### api.extendBexManifestJson <q-badge label="@quasar/app-vite v3+" />
 
-### api.chainWebpack
-
-Chain webpack config
-
-```js
+```ts
 /**
- * @param {function} fn
- *   (chain: ChainObject, invoke: Object {isClient, isServer}, api) => undefined
+ * Should you need some dynamic changes to the Browser Extension manifest file
+ * (/src-bex/manifest.json) then use this method to do it.
+ *
+ * Can be async. Can directly modify the "json" parameter or
+ * return a new one that will be merged with the default one.
  */
-if (api.hasWebpack === true) {
-  api.chainWebpack((chain, { isClient, isServer }, api) => {
-    // add/remove/change chain (Webpack chain Object)
-  })
-}
-```
+api.extendBexManifestJson: (
+  json: object,
+  api: IndexAPI
+) => void | object | Promise<void | object>;
 
-The configuration is a Webpack chain Object. The API for it is described on [webpack-chain](https://github.com/neutrinojs/webpack-chain) docs.
-
-### api.extendWebpack
-
-Extend webpack config
-
-```js
-/**
- * @param {function} fn
- *   (cfg: Object, invoke: Object {isClient, isServer}, api) => undefined
- */
-if (api.hasWebpack === true) {
-  api.extendWebpack((cfg, { isClient, isServer }, api) => {
-    // add/remove/change cfg (Webpack configuration Object)
-  })
-}
-```
-
-### api.chainWebpackMainElectronProcess
-
-Chain webpack config of the main electron process
-
-```js
-/**
- * @param {function} fn
- *   (chain: ChainObject) => undefined
- */
-if (api.hasWebpack === true) {
-  api.chainWebpackMainElectronProcess((chain, { isClient, isServer }, api) => {
-    // add/remove/change chain (Webpack chain Object)
-  })
-}
-```
-
-### api.extendWebpackMainElectronProcess
-
-Extend webpack config Object of the main electron process
-
-```js
-/**
- * @param {function} fn
- *   (cfg: Object) => undefined
- */
-if (api.hasWebpack === true) {
-  api.extendWebpackMainElectronProcess((cfg, { isClient, isServer }, api) => {
-    // add/remove/change cfg (Webpack configuration Object)
-  })
-}
-```
-
-### api.chainWebpackPreloadElectronProcess
-
-Chain webpack config of the preload electron process
-
-```js
-/**
- * @param {function} fn
- *   (chain: ChainObject) => undefined
- */
-if (api.hasWebpack === true) {
-  api.chainWebpackPreloadElectronProcess(
-    (chain, { isClient, isServer }, api) => {
-      // add/remove/change chain (Webpack chain Object)
-    }
-  )
-}
-```
-
-### api.extendWebpackPreloadElectronProcess
-
-Extend webpack config Object of the preload electron process
-
-```js
-/**
- * @param {function} fn
- *   (cfg: Object) => undefined
- */
-if (api.hasWebpack === true) {
-  api.extendWebpackPreloadElectronProcess(
-    (cfg, { isClient, isServer }, api) => {
-      // add/remove/change cfg (Webpack configuration Object)
-    }
-  )
-}
-```
-
-### api.chainWebpackWebserver
-
-Chain webpack config of SSR webserver (includes the SSR middlewares from /src-ssr/middlewares)
-
-```js
-/**
- * @param {function} fn
- *   (chain: ChainObject) => undefined
- */
-if (api.hasWebpack === true) {
-  api.chainWebpackWebserver((chain, { isClient, isServer }, api) => {
-    // add/remove/change chain (Webpack chain Object)
-    // isClient is always "false" and isServer is always "true"
-  })
-}
-```
-
-### api.extendWebpackWebserver
-
-Extend webpack config Object of SSR webserver (includes the SSR middlewares from /src-ssr/middlewares)
-
-```js
-/**
- * @param {function} fn
- *   (cfg: Object) => undefined
- */
-if (api.hasWebpack === true) {
-  api.extendWebpackWebserver((cfg, { isClient, isServer }, api) => {
-    // add/remove/change cfg (Webpack configuration Object)
-    // isClient is always "false" and isServer is always "true"
-  })
-}
-```
-
-### api.chainWebpackCustomSW
-
-Chain webpack config for the custom service worker when using InjectManifest (content of /src-pwa/custom-service-worker.js):
-
-```js
-/**
- * @param {function} fn
- *   (cfg: ChainObject) => undefined
- */
-if (api.hasWebpack === true) {
-  api.chainWebpackCustomSW((cfg, { isClient, isServer }, api) => {
-    // add/remove/change cfg (Webpack chain Object)
-  })
-}
-```
-
-### api.extendWebpackCustomSW
-
-Extend webpack config Object for the custom service worker when using InjectManifest (content of /src-pwa/custom-service-worker.js):
-
-```js
-/**
- * @param {function} fn
- *   (chain: Object) => undefined
- */
-if (api.hasWebpack === true) {
-  api.extendWebpackCustomSW((chain, { isClient, isServer }, api) => {
-    // add/remove/change chain (Webpack configuration Object)
-  })
-}
+// Example:
+api.extendBexManifestJson((json, api) => {
+  // add/remove/change json;
+  // similar in use to /quasar.config > bex > extendBexManifestJson
+})
 ```

@@ -172,7 +172,7 @@ Consider coupling async rules with `debounce` prop to avoid calling the async ru
 You can also use external validation and only pass `error` and `error-message` (enable `bottom-slots` to display this error message).
 
 ::: tip
-Depending on your needs, you might connect [Vuelidate](https://vuelidate.netlify.com/) (our recommended approach) or some other validation library to QField.
+Depending on your needs, you might connect [Regle](https://reglejs.dev/) (our recommended approach) or some other validation library to QField.
 :::
 
 <DocExample title="External" file="ValidationExternal" />

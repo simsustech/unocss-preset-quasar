@@ -9,7 +9,7 @@ related:
 Internationalization is a design process that ensures a product (a website or application) can be adapted to various languages and regions without requiring engineering changes to the source code. Think of internationalization as readiness for localization.
 
 ::: tip
-The recommended package for handling website/app is [vue-i18n](https://github.com/intlify/vue-i18n-next). This package should be added through a [@quasar/app-vite Boot File](/quasar-cli-vite/boot-files) or a [@quasar/app-webpack Boot File](/quasar-cli-webpack/boot-files). On the Boot File documentation page you can see a specific example for plugging in vue-i18n.
+The recommended package for handling website/app is [vue-i18n](https://github.com/intlify/vue-i18n-next). This package should be added through a [@quasar/app-vite Boot File](/quasar-cli-vite/boot-files). On the Boot File documentation page you can see a specific example for plugging in vue-i18n.
 :::
 
 ::: warning
@@ -23,23 +23,23 @@ If you missed enabling i18n during `yarn create quasar` (or `npm init quasar@lat
 1. Install the `vue-i18n` dependency into your app.
 
 ```tabs
-<<| bash Yarn |>>
-$ yarn add vue-i18n
-<<| bash NPM |>>
-$ npm install --save vue-i18n
 <<| bash PNPM |>>
-$ pnpm add vue-i18n
+pnpm add vue-i18n
+<<| bash Yarn |>>
+yarn add vue-i18n
+<<| bash NPM |>>
+npm install vue-i18n
 <<| bash Bun |>>
-$ bun add vue-i18n
+bun add vue-i18n
 ```
 
-2. Create a file `src/boot/i18n.js` with following content:
+2. Create a file `/src/boot/i18n.js` with following content:
 
 ```tabs
 <<| js JS |>>
-import { defineBoot } from '#q-app/wrappers'
+import { defineBoot } from '#q-app'
 import { createI18n } from 'vue-i18n'
-import messages from 'src/i18n'
+import messages from '@/i18n'
 
 export default defineBoot(({ app }) => {
   const i18n = createI18n({
@@ -52,10 +52,10 @@ export default defineBoot(({ app }) => {
   app.use(i18n)
 })
 <<| js TypeScript |>>
-import { defineBoot } from '#q-app/wrappers';
+import { defineBoot } from '#q-app';
 import { createI18n } from 'vue-i18n';
 
-import messages from 'src/i18n';
+import messages from '@/i18n';
 
 export type MessageLanguages = keyof typeof messages;
 // Type-define 'en-US' as the master schema for the resource
@@ -87,7 +87,7 @@ export default defineBoot(({ app }) => {
 });
 ```
 
-3. Create a folder (/src/i18n/) in your app which will hold the definitions for each language that you'll support. Example: [src/i18n](https://github.com/quasarframework/quasar-starter-kit/tree/master/template/src/i18n). Notice the "import messages from 'src/i18n'" from step 2. This is step where you write the content that gets imported.
+3. Create a folder (/src/i18n/) in your app which will hold the definitions for each language that you'll support. Example: [src/i18n](https://github.com/quasarframework/quasar-starter-kit/tree/master/template/src/i18n). Notice the "import messages from '@/i18n'" from step 2. This is step where you write the content that gets imported.
 
 4. Now reference this file in `quasar.config` one in the `boot` section:
 
@@ -115,43 +115,41 @@ If we want to add support to the `<i18n>` tag inside a SFC (single file componen
 We first install the `@intlify/unplugin-vue-i18n` package:
 
 ```tabs
-<<| bash Yarn |>>
-$ yarn add --dev @intlify/unplugin-vue-i18n
-<<| bash NPM |>>
-$ npm install --save-dev @intlify/unplugin-vue-i18n
 <<| bash PNPM |>>
-$ pnpm add -D @intlify/unplugin-vue-i18n
+pnpm add -D @intlify/unplugin-vue-i18n
+<<| bash Yarn |>>
+yarn add -D @intlify/unplugin-vue-i18n
+<<| bash NPM |>>
+npm install -D @intlify/unplugin-vue-i18n
 <<| bash Bun |>>
-$ bun add --dev @intlify/unplugin-vue-i18n
+bun add -D @intlify/unplugin-vue-i18n
 ```
 
 Then we edit the /quasar.config file:
 
 ```js /quasar.config file
-import { fileURLToPath } from 'node:url'
+export default defineConfig((ctx) => {
+  build: {
+    vitePlugins: [
+      [
+        '@intlify/unplugin-vue-i18n/vite',
+        {
+          // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
+          // compositionOnly: false,
 
-// ...
+          // if you want to use named tokens in your Vue I18n messages, such as 'Hello {name}',
+          // you need to set `runtimeOnly: false`
+          // runtimeOnly: false,
 
-build: {
-  vitePlugins: [
-    [
-      '@intlify/unplugin-vue-i18n/vite',
-      {
-        // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
-        // compositionOnly: false,
+          ssr: ctx.modeName === 'ssr',
 
-        // if you want to use named tokens in your Vue I18n messages, such as 'Hello {name}',
-        // you need to set `runtimeOnly: false`
-        // runtimeOnly: false,
-
-        ssr: ctx.modeName === 'ssr',
-
-        // you need to set i18n resource including paths !
-        include: [fileURLToPath(new URL('./src/i18n', import.meta.url))]
-      }
+          // you need to set i18n resource including paths !
+          include: [ctx.appPaths.resolve.src('i18n')]
+        }
+      ]
     ]
-  ]
-}
+  }
+})
 ```
 
 ## How to use
@@ -199,8 +197,8 @@ Here is an example displaying the main use cases:
 
 Let's say you want to add new German language.
 
-1. Create the new file `src/i18n/de/index.js` and copy there the content of the file `src/i18n/en-US/index.js` then make changes to the language strings.
-2. Now change `src/i18n/index.js` and add the new `de` language there.
+1. Create the new file `/src/i18n/de/index.js` and copy there the content of the file `/src/i18n/en-US/index.js` then make changes to the language strings.
+2. Now change `/src/i18n/index.js` and add the new `de` language there.
 
 ```js
 import enUS from './en-US'

@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { mdiFileDocumentEditOutline } from '@quasar/extras/mdi-v7'
 
 const confDate = new Date('2022-07-09T15:00:00.000Z').getTime()
@@ -62,16 +62,16 @@ const hasEnded = ref(false)
 let interval
 
 function calcTimeRemaining() {
-  const now = new Date().getTime()
+  const now = Date.now()
   const remaining = confDate - now
   hasEnded.value = remaining <= 0
 
-  if (hasEnded.value === false) {
+  if (hasEnded.value) {
+    clearInterval(interval)
+  } else {
     days.value = Math.floor(remaining / oneDay)
     hours.value = Math.floor((remaining % oneDay) / oneHour)
     minutes.value = Math.floor((remaining % oneHour) / oneMin)
-  } else {
-    clearInterval(interval)
   }
 }
 

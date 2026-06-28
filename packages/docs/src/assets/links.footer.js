@@ -8,14 +8,15 @@ export const footerLinks = [
   },
   {
     name: socialLinks.name,
-    children: socialLinks.children.concat([
+    children: [
+      ...socialLinks.children,
       { name: 'Blog', path: 'https://blog.quasar.dev', external: true },
       {
         name: 'Announcements',
         path: 'https://github.com/quasarframework/quasar/discussions/categories/announcements',
         external: true
       }
-    ])
+    ]
   },
   {
     name: 'Options & Helpers',
@@ -59,39 +60,6 @@ export const footerLinks = [
     ]
   },
   {
-    name: 'Quasar CLI with Webpack',
-    children: [
-      {
-        name: 'Developing SPA',
-        path: '/quasar-cli-webpack/developing-spa/introduction'
-      },
-      {
-        name: 'Developing SSR',
-        path: '/quasar-cli-webpack/developing-ssr/introduction'
-      },
-      {
-        name: 'Developing PWA',
-        path: '/quasar-cli-webpack/developing-pwa/introduction'
-      },
-      {
-        name: 'Developing Capacitor Apps',
-        path: '/quasar-cli-webpack/developing-capacitor-apps/introduction'
-      },
-      {
-        name: 'Developing Cordova Apps',
-        path: '/quasar-cli-webpack/developing-cordova-apps/introduction'
-      },
-      {
-        name: 'Developing Electron Apps',
-        path: '/quasar-cli-webpack/developing-electron-apps/introduction'
-      },
-      {
-        name: 'Developing Browser Extensions',
-        path: '/quasar-cli-webpack/developing-browser-extensions/introduction'
-      }
-    ]
-  },
-  {
     name: 'Icon Genie CLI',
     extract: 'icongenie'
   },
@@ -110,10 +78,6 @@ export const footerLinks = [
       {
         name: 'Development Guide',
         path: '/app-extensions/development-guide/introduction'
-      },
-      {
-        name: 'Tips & Tricks',
-        path: '/app-extensions/tips-and-tricks/introduction'
       }
     ]
   }

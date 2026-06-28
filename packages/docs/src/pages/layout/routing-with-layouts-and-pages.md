@@ -30,11 +30,11 @@ To make it more clear, let's take an example. We have one layout ('user') and tw
 Let's create the layout and page files. You can use a helper command of Quasar CLI or simply create them yourself.
 
 ```bash
-$ quasar new layout User
+quasar new layout User
  app:new Generated layout: src/layouts/User.vue +0ms
  app:new Make sure to reference it in src/router/routes.js +2ms
 
-$ quasar new page Profile Posts
+quasar new page Profile Posts
  app:new Generated page: src/pages/Profile.vue +0ms
  app:new Make sure to reference it in src/router/routes.js +2ms
 
@@ -58,7 +58,7 @@ Example of `routes.js` using lazy-loading:
 const routes = [
   {
     path: '/',
-    component: () => import('pages/Landing')
+    component: () => import('@/pages/Landing')
   }
 ]
 
@@ -70,7 +70,7 @@ Example of `routes.js` using eager loading:
 ```js
 // we define our routes in this file
 
-import LandingPage from 'pages/Landing'
+import LandingPage from '@/pages/Landing'
 
 const routes = [
   {
@@ -83,7 +83,7 @@ export default routes
 ```
 
 ::: tip
-More in-depth analysis of Lazy loading / code-splitting with [@quasar/app-vite](/quasar-cli-vite/lazy-loading) or [@quasar/app-webpack](/quasar-cli-webpack/lazy-loading).
+More in-depth analysis of Lazy loading / code-splitting with [@quasar/app-vite](/quasar-cli-vite/lazy-loading).
 :::
 
 ::: tip
@@ -132,10 +132,10 @@ Since User layout wraps inner pages, they need an injection point. This is suppl
 
 Our example has some routes specified (/user/profile and /user/posts). **So how can we put everything together now?** We edit the routes file. That's where we will configure routes, tell which components are Layouts and which are Pages and also reference/import them into our app:
 
-```js src/router/routes.js
-import User from 'layouts/User'
-import Profile from 'pages/Profile'
-import Posts from 'pages/Posts'
+```js /src/router/routes.js
+import User from '@/layouts/User'
+import Profile from '@/pages/Profile'
+import Posts from '@/pages/Posts'
 
 const routes = [
   {
@@ -178,7 +178,7 @@ export default [
 
     // We point it to our component
     // where we defined our QLayout
-    component: () => import('layouts/user'),
+    component: () => import('@/layouts/user'),
 
     // Now we define the sub-routes.
     // These are getting injected into
@@ -188,11 +188,11 @@ export default [
     children: [
       {
         path: 'feed',
-        component: () => import('pages/user-feed')
+        component: () => import('@/pages/user-feed')
       },
       {
         path: 'profile',
-        component: () => import('pages/user-profile')
+        component: () => import('@/pages/user-profile')
       }
     ]
   }
@@ -204,9 +204,9 @@ Please notice a few things:
 - We are using lazy loading of layouts and pages (`() => import(<path>)`). If your website/app is small, then you can skip the lazy loading benefits as they could add more overhead than what it's worth:
 
   ```js
-  import UserLayout from 'layouts/user'
-  import UserFeed from 'pages/user-feed'
-  import UserProfile from 'pages/user-profile'
+  import UserLayout from '@/layouts/user'
+  import UserFeed from '@/pages/user-feed'
+  import UserProfile from '@/pages/user-profile'
 
   export default [
     path: '/user',
@@ -218,7 +218,7 @@ Please notice a few things:
   ]
   ```
 
-- Quasar provides some out of the box Webpack aliases ('layouts' which points to '/src/layouts' and 'pages' which points to '/src/pages'), which are used in the above examples.
+- Quasar provides some out of the box Vite aliases ('layouts' which points to '/src/layouts' and 'pages' which points to '/src/pages'), which are used in the above examples.
 - Pages of a Layout are declared as children of it in the Vue Router configuration so that `<router-view/>` will know what page component to inject. Remember to always use this Vue component whenever your Layout has pages attached to it.
 
   ```html

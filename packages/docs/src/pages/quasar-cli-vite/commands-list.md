@@ -5,8 +5,11 @@ desc: (@quasar/app-vite) The entire list of Quasar CLI commands.
 
 Familiarize yourself with the list of available commands inside a Quasar project:
 
-```bash
+```
 $ quasar -h
+
+  Running @quasar/cli v<...>
+  Running @quasar/app-vite v<...>
 
   Example usage
     $ quasar <command> <options>
@@ -16,6 +19,7 @@ $ quasar -h
     $ quasar <command> -h
 
   Options
+    --no-color    Disable colored output (can be used with any command)
     --version, -v Print Quasar App CLI version
 
   Commands
@@ -25,7 +29,7 @@ $ quasar -h
     clean, c      Clean dev/build cache, /dist folder & entry points
     new, n        Quickly scaffold page/layout/component/... vue file
     mode, m       Add/remove Quasar Modes for your App
-    inspect       Inspect Vite/esbuild configs used under the hood
+    inspect       Inspect Vite/Rolldown configs used under the hood
                     - keeps into account your quasar.config file
                       and your installed App Extensions
     ext, e        Manage Quasar App Extensions
@@ -48,34 +52,49 @@ $ quasar -h
 See help for any command:
 
 ```bash
-$ quasar [command-name] --help
+quasar [command-name] --help
 ```
 
 ## Upgrade
 
-Check (and optionally) upgrade Quasar packages from a Quasar project folder:
+Helper command to upgrade Quasar packages from a Quasar project folder:
 
-```bash
-# view all options:
+```
 $ quasar upgrade -h
 
-# checks for non-breaking change upgrades and displays them,
-# but will not carry out the install
-$ quasar upgrade
+  Description
+    Upgrades all Quasar packages to their latest version
+    which are compatible with the API that you are currently using
+    (unless -m/--major param is used which may include breaking changes).
 
-# checks for pre-releases (alpha/beta):
-$ quasar upgrade -p
+    Works only in a project folder by upgrading to latest minor versions
+    (or latest major versions if chosen to) of all Quasar related packages.
 
-# checks for major new releases (includes breaking changes):
-$ quasar upgrade -m
+    This will also upgrade official Quasar App Extensions.
 
-# use another npm registry url than what your machine is configured with:
-# (added in @quasar/cli v2.4)
-$ quasar upgrade -r https://registry.npmjs.org/
+  Usage
+    # will prompt you to install
+    $ quasar upgrade
 
-# to perform the actual upgrade,
-# combine any of the params above and add "-i" (or "--install"):
-$ quasar upgrade -i
+    # checks for pre-releases (alpha/beta/rc) also:
+    $ quasar upgrade -p
+
+    # checks for major new releases (includes breaking changes):
+    $ quasar upgrade -m
+
+    # to skip the install prompt and just do it,
+    # combine any of the params above and add "-i" (or "--install"):
+    $ quasar upgrade -i
+
+  Options
+    --install, -i     Skips the install prompt and just does it
+    --prerelease, -p  Allow pre-release versions (alpha/beta/rc)
+    --major, -m       Allow newer major versions (breaking changes)
+    --registry, -r    NPM registry URL
+                        * default is taken from your machine's npm config
+                        * example: https://registry.npmjs.org/
+    --no-color        Disable colored output
+    --help, -h        Displays this message
 ```
 
 ::: warning Note for code editor terminals
@@ -86,15 +105,11 @@ If you're using a code editor terminal instead of the real one, you run `quasar 
 
 The Quasar CLI is equipped with a stable combination of multiple NPM build packages (Vite, Vue, etc) which gets updated frequently after heavy testing.
 
-In order for you to see what versions of Node, Quasar CLI, Quasar, Vue (and many others) you are using, issue this command in a Quasar project folder:
-
-```bash
-$ quasar info
-```
+In order for you to see what versions of Node, Quasar CLI, Quasar, Vue (and many others) you are using, issue this command in a Quasar project folder: `quasar info`.
 
 ## Dev
 
-```bash
+```
 $ quasar dev -h
 
   Description
@@ -126,23 +141,16 @@ $ quasar dev -h
     --port, -p       A port number on which to start the application
     --hostname, -H   A hostname to use for serving the application
     --devtools, -d   Open remote Vue Devtools
+    --no-color       Disable colored output
     --help, -h       Displays this message
 
-    Only for Cordova mode:
+    Only for Capacitor & Cordova modes:
     --target, -T     (required) App target [android|ios]
-    --emulator, -e   (optional) Emulator name
-                        Examples: iPhone-7, iPhone-X
-                        iPhone-X,com.apple.CoreSimulator.SimRuntime.iOS-12-2
-    --ide, -i        Open IDE (Android Studio / XCode) instead of letting Cordova
-                       boot up the emulator / building in terminal, in which case
-                       the "--emulator" param will have no effect
-
-
-    Only for Capacitor mode:
-    --target, -T     (required) App target [android|ios]
+    --ide, -i        (prod only) Open IDE to build the app instead of using CLI tools
 
     Only for BEX mode:
-    --target, -T     (required) Browser family target [chrome|firefox]
+    --target, -T     Browser family target [chrome|firefox]
+                       (default: chrome)
 ```
 
 The Quasar development server allows you to develop your App by compiling and maintaining code in-memory. A web server will serve your App while offering hot-reload out of the box. Running in-memory offers faster rebuilds when you change your code.
@@ -151,39 +159,45 @@ The Quasar development server allows you to develop your App by compiling and ma
 
 Based on what you want to develop, you can start the development server by using "quasar dev" command as follows:
 
-```bash
-# Developing a SPA
-$ quasar dev
-# ...or
-$ quasar dev -m spa
+```
+$ quasar dev -h
 
-# Developing for SSR
-$ quasar dev -m ssr
+  Description
+    Starts the app in development mode (HMR, error reporting, etc)
 
-# Developing a PWA
-$ quasar dev -m pwa
+  Usage
+    $ quasar dev
+    $ quasar dev -p <port number>
 
-# Developing a BEX for production
-$ quasar dev -m bex
+    $ quasar dev -m ssr
 
-# Developing a Mobile App (through Cordova)
-$ quasar dev -m cordova -T [android|ios]
-# or the short form:
-$ quasar dev -m [android|ios]
+    # alias for "quasar dev -m capacitor -T ios"
+    $ quasar dev -m ios
 
-# Developing an Electron App
-$ quasar dev -m electron
+    # alias for "quasar dev -m capacitor -T android"
+    $ quasar dev -m android
 
-# Developing a Browser Extension (BEX)
-$ quasar dev -m bex -T [chrome|firefox]
+    # passing extra parameters and/or options to
+    # underlying "cordova" or "electron" executables:
+    $ quasar dev -m cordova -T ios -- some params --and options --here
+    $ quasar dev -m electron -- --no-sandbox --disable-setuid-sandbox
+    # when on Windows and using Powershell:
+    $ quasar dev -m cordova -T ios '--' some params --and options --here
+    $ quasar dev -m electron '--' --no-sandbox --disable-setuid-sandbox
 
-# passing extra parameters and/or options to
-# underlying "cordova" or "electron" executables:
-$ quasar dev -m ios -- some params --and options --here
-$ quasar dev -m electron -- --no-sandbox --disable-setuid-sandbox
-# when on Windows and using Powershell:
-$ quasar dev -m ios '--' some params --and options --here
-$ quasar dev -m electron '--' --no-sandbox --disable-setuid-sandbox
+  Options
+    --mode, -m       App mode [spa|ssr|pwa|cordova|capacitor|electron|bex] (default: spa)
+    --port, -p       A port number on which to start the application
+    --hostname, -H   A hostname to use for serving the application
+    --target, -T     App target
+                       - Capacitor & Cordova: [android|ios]
+                       - Bex: [chrome|firefox]
+    --devtools, -d   Open remote Vue Devtools
+    --no-color       Disable colored output
+    --help, -h       Displays this message
+
+    Only for Capacitor & Cordova modes:
+    --ide, -i        (prod only) Open IDE to build the app instead of using CLI tools
 ```
 
 If you wish to change the hostname or port serving your App you have 3 options:
@@ -198,27 +212,18 @@ If you wish to change the hostname or port serving your App you have 3 options:
 - Through '-H' (hostname) and '-p' (port) command options.
 - If this is a one time thing, specify the hostname and/or port as an environment variable:
   ```bash
-  $ PORT=3000 quasar dev
-  $ HOSTNAME=1.1.1.14 quasar dev
+  PORT=3000 quasar dev
+  HOSTNAME=1.1.1.14 quasar dev
   ```
 
 If there appears to be an issue with hot reload, you can try two fixes:
 
-- Change the permissions for the project folder with
-
-  ```bash
-  sudo chown -R username: .
-  ```
-
-- or run the dev server with root privileges
-
-  ```bash
-  sudo quasar dev
-  ```
+- Change the permissions for the project folder with: `sudo chown -R username: .`
+- or run the dev server with root privileges: `sudo quasar dev`
 
 ## Build
 
-```bash
+```
 $ quasar build -h
 
   Description
@@ -226,21 +231,15 @@ $ quasar build -h
 
   Usage
     $ quasar build
-    $ quasar build -p <port number>
 
     $ quasar build -m ssr
-
-    # alias for "quasar build -m cordova -T ios"
-    $ quasar build -m ios
-
-    # alias for "quasar build -m cordova -T android"
-    $ quasar build -m android
+    $ quasar build -m capacitor -T ios
 
     # passing extra parameters and/or options to
     # underlying "cordova" executable:
-    $ quasar build -m ios -- some params --and options --here
+    $ quasar build -m electron -- some params --and options --here
     # when on Windows and using Powershell:
-    $ quasar build -m ios '--' some params --and options --here
+    $ quasar build -m electron '--' some params --and options --here
 
   Options
     --mode, -m      App mode [spa|ssr|pwa|cordova|capacitor|electron|bex] (default: spa)
@@ -259,10 +258,13 @@ $ quasar build -h
                       - Has special meaning when building with Electron mode and using
                         electron-builder as bundler
     --debug, -d     Build for debugging purposes
-    --skip-pkg, -s  Build only UI (skips creating Cordova/Capacitor/Electron executables)
+    --skip-pkg, -s  Build only UI (skips creating Cordova/Capacitor/Electron executables or BEX zip file)
                       - Cordova (it only fills in /src-cordova/www folder with the UI code)
                       - Capacitor (it only fills in /src-capacitor/www folder with the UI code)
                       - Electron (it only creates the /dist/electron/UnPackaged folder)
+                      - BEX (it only creates the /dist/bex-* folder)
+    --no-summary    Don't output build summary at the end of the process
+    --no-color      Disable colored output
     --help, -h      Displays this message
 
     ONLY for Cordova and Capacitor mode:
@@ -279,47 +281,44 @@ $ quasar build -h
                           [ia32|x64|armv7l|arm64|all]
 
     ONLY for electron-builder (when using "publish" parameter):
-    --publish, -P  Publish options [onTag|onTagOrDraft|always|never]
-                     - see https://www.electron.build/configuration/publish
-
-    Only for BEX mode:
-    --target, -T     (required) Browser family target [chrome|firefox]
+    --publish, -P   Publish options [onTag|onTagOrDraft|always|never]
+                      - see https://www.electron.build/configuration/publish
 ```
 
 The Quasar CLI can pack everything together and optimize your App for production. It minifies source code, extracts vendor components, leverages browser cache and much more.
 
 ```bash
 # Build a SPA for production
-$ quasar build
+quasar build
 # ...or
-$ quasar build -m spa
+quasar build -m spa
 
 # Build a SSR for production
-$ quasar build -m ssr
+quasar build -m ssr
 
 # Build a PWA for production
-$ quasar build -m pwa
+quasar build -m pwa
 
 # Build a BEX for production
-$ quasar build -m bex -T [chrome|firefox]
+quasar build -m bex -T [chrome|firefox]
 
-# Build a Mobile App (through Cordova)
-$ quasar build -m cordova -T [android|ios]
+# Build a Mobile App (through Capacitor)
+quasar build -m capacitor -T [android|ios]
 # or the short form:
-$ quasar build -m [android|ios]
+quasar build -m [android|ios]
 
 # Build an Electron App for production
-$ quasar build -m electron
+quasar build -m electron
 
 # passing extra parameters and/or options to
 # underlying "cordova" executable:
-$ quasar build -m ios -- some params --and options --here
+quasar build -m cordova -T ios -- some params --and options --here
 # when on Windows and using Powershell:
-$ quasar build -m ios '--' some params --and options --here
+quasar build -m cordova -T ios '--' some params --and options --here
 
 # Create a production build with ability to debug it
 # (has source-maps and code is NOT minified)
-$ quasar build -d [-m <mode>]
+quasar build -d [-m <mode>]
 ```
 
 ## Prepare
@@ -327,7 +326,11 @@ $ quasar build -d [-m <mode>]
 Prepares your project folder for the IDE, making autocompletion and other IDE features work correctly.
 
 ```bash
-$ quasar prepare
+quasar prepare
+
+# silent (no terminal output)
+quasar prepare --silent
+quasar prepare -s
 ```
 
 ## Clean
@@ -335,7 +338,7 @@ $ quasar prepare
 Cleans up all the build assets:
 
 ```bash
-$ quasar clean
+quasar clean
 # requires "quasar prepare" to be called again
 ```
 
@@ -347,7 +350,7 @@ Generates Components, Pages, Layouts, Pinia Store.
 This command is simply a helper in order to quickly scaffold a page/layout/component/pinia store module. You are not required to use it, but can help you when you don't know how to start.
 :::
 
-```bash
+```
 $ quasar new -h
 
   Description
@@ -378,6 +381,7 @@ $ quasar new -h
     $ quasar new store -f ts myStore
 
   Options
+    --no-color            Disable colored output
     --help, -h            Displays this message
 
     --format -f <option>  (optional) Use a supported format for the template.
@@ -389,7 +393,7 @@ $ quasar new -h
 
 ## Mode
 
-```bash
+```
 $ quasar mode -h
 
   Description
@@ -404,6 +408,7 @@ $ quasar mode -h
   Options
     --yes, -y     Skips the "Are you sure?" question
                   when removing a Quasar mode
+    --no-color    Disable colored output
     --help, -h    Displays this message
 ```
 
@@ -413,7 +418,7 @@ These modes will add a "src-\*" folder into your project with very specific code
 
 | Folder       | Mode     | Description                                                                                                                                                                                                                                                           |
 | ------------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| src-ssr      | ssr      | Contains the production Node server files.                                                                                                                                                                                                                            |
+| src-ssr      | ssr      | Contains the production Node.js server files.                                                                                                                                                                                                                         |
 | src-pwa      | pwa      | Contains the Service Worker file that you can tweak.                                                                                                                                                                                                                  |
 | src-cordova  | cordova  | Is a Cordova project folder that will be using your 'src' as content. Tweak Cordova config, add/remove platforms, splash screens, Cordova plugins and so on from this folder. Do NOT touch "src-cordova/www" folder though as it will get overwritten at every build. |
 | src-electron | electron | Has code for the main Electron thread. The renderer thread will be your app in 'src'.                                                                                                                                                                                 |
@@ -422,16 +427,16 @@ These modes will add a "src-\*" folder into your project with very specific code
 If for some reason you decide you don't need a mode, you can remove it. **This will permanently delete** the respective "src-\*" folder.
 
 ```bash
-$ quasar mode remove pwa
+quasar mode remove pwa
 ```
 
 ## Describe
 
 This command is useful to describe the API of any Quasar components/directives/plugins that your project is using. **It is specific to your Quasar version installed in your project folder.**
 
-Examples: `$ quasar describe QIcon`, `$ quasar describe TouchPan`, `$ quasar describe Cookies`.
+Examples: `quasar describe QIcon`, `quasar describe TouchPan`, `quasar describe Cookies`.
 
-```bash
+```
 $ quasar describe -h
 
   Description
@@ -473,10 +478,11 @@ $ quasar describe -h
     --injection, -i       Displays the API injection
     --quasar, -q          Displays the API quasar conf options
     --docs, -d            Opens the docs API URL
+    --no-color            Disable colored output
     --help, -h            Displays this message
 ```
 
-```bash
+```
 $ quasar describe QIcon
 
  Describing QIcon component API
@@ -530,7 +536,7 @@ $ quasar describe QIcon
 
 This command can be used to inspect the Vite config generated by Quasar CLI.
 
-```bash
+```
 $ quasar inspect -h
 
   Description
@@ -550,6 +556,7 @@ $ quasar inspect -h
                           -p module.rules
                           -p plugins
     --thread, -t     Display only one specific app mode config thread
+    --no-color       Disable colored output
     --help, -h       Displays this message
 ```
 
@@ -557,7 +564,7 @@ $ quasar inspect -h
 
 This command is used to manage [App Extensions](/app-extensions/introduction).
 
-```bash
+```
 $ quasar ext -h
 
   Description
@@ -583,6 +590,7 @@ $ quasar ext -h
     $ quasar ext uninvoke <ext-id>
 
   Options
+    --no-color       Disable colored output
     --help, -h       Displays this message
 ```
 
@@ -590,7 +598,7 @@ $ quasar ext -h
 
 This command is used to run commands supplied by the [App Extensions](/app-extensions/introduction) that you've installed into your project folder.
 
-```bash
+```
 $ quasar run -h
 
   Description
@@ -609,14 +617,15 @@ $ quasar run -h
         # with "pic" argument and "-s --mark some_file" params
 
   Options
+    --no-color       Disable colored output
     --help, -h       Displays this message
 ```
 
 ## Serve
 
-This command can be used in production too and it is being supplied by the global installation of `@quasar/cli` package.
+This command should NOT be used in production. It is rather a quick convenience way to test things out and it is being supplied by the global installation of `@quasar/cli` package.
 
-```bash
+```
 $ quasar serve -h
 
   Description
@@ -626,48 +635,42 @@ $ quasar serve -h
     $ quasar serve [path]
     $ quasar serve . # serve current folder
 
-    If you serve a SSR folder built with the CLI then
-    control is yielded to /index.js and params have no effect.
+    If you serve a SSR dist folder built with Quasar CLI then
+    run "node index.js" instead.
 
   Options
     --port, -p              Port to use (default: 4000)
     --hostname, -H          Address to use (default: 0.0.0.0)
-    --gzip, -g              Compress content (default: true)
     --silent, -s            Suppress log message
-    --colors                Log messages with colors (default: true)
+    --cors                  Enable CORS
     --open, -o              Open browser window after starting
-    --cache, -c <number>    Cache time (max-age) in seconds;
-                            Does not apply to /service-worker.js
-                            (default: 86400 - 24 hours)
-    --micro, -m <seconds>   Use micro-cache (default: 1 second)
 
-    --history               Use history api fallback;
+    --index, -i <path>      Index url path (default: index.html)
+    --history               Use history mode;
                               All requests fallback to /index.html,
-                              unless using "--index" parameter
-    --index, -i <file>      History mode (only!) index url path
-                              (default: index.html)
+                              or whatever "--index" parameter specifies
+                              (default: false)
 
     --https                 Enable HTTPS
     --cert, -C [path]       Path to SSL cert file (Optional)
     --key, -K [path]        Path to SSL key file (Optional)
-    --proxy <file.mjs>      Proxy specific requests defined in file;
-                            File must export Array ({ path, rule })
-                            See example below. "rule" is defined at:
-                            https://github.com/chimurai/http-proxy-middleware
-    --cors                  Enable CORS for all requests
+
+    --no-color              Disable colored output
     --help, -h              Displays this message
 
-  Proxy file example
-    export default [
-      {
-        path: '/api',
-        rule: { target: 'http://www.example.org' }
-      }
-    ]
-    --> will be transformed into app.use(path, httpProxyMiddleware(rule))
+    --proxy, -P [path]      Path to proxy definition file (Optional)
+
+  Proxy file example:
+    // https://hono.dev/docs/helpers/proxy
+    // "proxy" param is hono/proxy
+    export default ({ app, proxy }) => {
+      app.get('/proxy/:path', (c) => {
+        return proxy('http://some.api.com/' + c.req.param('path'))
+      })
+    }
 ```
 
-### Custom Node server
+### Custom Node.js server
 
 When building a SPA or PWA, the distributable folder can be served by any static webserver. To test it out (assuming you don't have a specific publicPath or not using Vue Router "history" mode), you can use the "http-server" npm package.
 
@@ -715,8 +718,4 @@ app.use(
 // then app.listen(...)
 ```
 
-Finally, run one of these files:
-
-```bash
-$ node my-server.js
-```
+Finally, run one of these files: `node my-server.js`

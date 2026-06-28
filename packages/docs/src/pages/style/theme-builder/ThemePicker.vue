@@ -6,7 +6,7 @@
           v-for="color in list"
           :key="`picker-${color}`"
           :color="color"
-          :text-color="dark[color] === true ? 'white' : 'black'"
+          :text-color="dark[color] ? 'white' : 'black'"
           no-caps
           glossy
           unelevated
@@ -27,7 +27,7 @@
           :class="pageClass"
         >
           <div
-            :class="`bg-primary text-${dark.primary === true ? 'white shadow-2' : 'black'}`"
+            :class="`bg-primary text-${dark.primary ? 'white shadow-2' : 'black'}`"
           >
             <q-bar dense :dark="dark.primary">
               <q-space />
@@ -78,7 +78,7 @@
               >
                 <q-card
                   flat
-                  :class="`bg-${color} text-${dark[color] === true ? 'white' : 'black'}`"
+                  :class="`bg-${color} text-${dark[color] ? 'white' : 'black'}`"
                 >
                   <q-card-section>
                     <div class="text-h6 row no-wrap items-center">
@@ -103,7 +103,7 @@
               fab
               :icon="mdiMapMarkerRadius"
               color="accent"
-              :text-color="dark.accent === true ? 'white' : 'black'"
+              :text-color="dark.accent ? 'white' : 'black'"
               style="bottom: 16px; right: 16px"
             />
           </div>
@@ -141,16 +141,16 @@
 
         <q-tab-panels v-model="exportTab" animated>
           <q-tab-panel class="q-pa-none" name="sass">
-            <doc-code copy :code="sassExport" />
+            <DocCode copy lang="sass" :code="sassExport" />
           </q-tab-panel>
           <q-tab-panel class="q-pa-none" name="scss">
-            <doc-code copy :code="scssExport" />
+            <DocCode copy lang="sass" :code="scssExport" />
           </q-tab-panel>
           <q-tab-panel class="q-pa-none" name="quasar-cli">
-            <doc-code copy :code="quasarCliExport" />
+            <DocCode copy lang="js" :code="quasarCliExport" />
           </q-tab-panel>
           <q-tab-panel class="q-pa-none" name="umd">
-            <doc-code copy :code="umdExport" />
+            <DocCode copy lang="js" :code="umdExport" />
           </q-tab-panel>
         </q-tab-panels>
 
@@ -171,19 +171,19 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, watch } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import { colors as quasarColors, setCssVar } from 'quasar'
 
-import { fasSquare, fasCircle, fasPlay } from '@quasar/extras/fontawesome-v6'
+import { fasCircle, fasPlay, fasSquare } from '@quasar/extras/fontawesome-v7'
 
 import {
   mdiArrowLeft,
   mdiMagnify,
-  mdiMenu,
-  mdiMapMarkerRadius
+  mdiMapMarkerRadius,
+  mdiMenu
 } from '@quasar/extras/mdi-v7'
 
-import DocCode from 'src/components/DocCode.vue'
+import DocCode from '@/components/DocCode.vue'
 
 const { luminosity } = quasarColors
 
@@ -244,14 +244,12 @@ list.forEach((entry) => {
   )
 })
 
-const pageClass = computed(() => {
-  return darkMode.value === true
-    ? 'theme-picker__bg-dark text-white'
-    : 'bg-white text-black'
-})
+const pageClass = computed(() =>
+  darkMode.value ? 'theme-picker__bg-dark text-white' : 'bg-white text-black'
+)
 
-const sassExport = computed(() => {
-  return (
+const sassExport = computed(
+  () =>
     '// src/css/quasar.variables.sass\n\n' +
     `$primary   : ${colors.primary}\n` +
     `$secondary : ${colors.secondary}\n` +
@@ -262,11 +260,10 @@ const sassExport = computed(() => {
     `$negative  : ${colors.negative}\n` +
     `$info      : ${colors.info}\n` +
     `$warning   : ${colors.warning}`
-  )
-})
+)
 
-const scssExport = computed(() => {
-  return (
+const scssExport = computed(
+  () =>
     '// src/css/quasar.variables.scss\n\n' +
     `$primary   : ${colors.primary};\n` +
     `$secondary : ${colors.secondary};\n` +
@@ -277,11 +274,10 @@ const scssExport = computed(() => {
     `$negative  : ${colors.negative};\n` +
     `$info      : ${colors.info};\n` +
     `$warning   : ${colors.warning};`
-  )
-})
+)
 
-const quasarCliExport = computed(() => {
-  return `// quasar.config file
+const quasarCliExport = computed(
+  () => `// quasar.config file
 
 return {
   framework: {
@@ -302,10 +298,10 @@ return {
     }
   }
 }`
-})
+)
 
-const umdExport = computed(() => {
-  return `app.use(Quasar, {
+const umdExport = computed(
+  () => `app.use(Quasar, {
   config: {
     brand: {
       primary: '${colors.primary}',
@@ -322,7 +318,7 @@ const umdExport = computed(() => {
     }
   }
 }`
-})
+)
 
 const sideColors = [
   'secondary',

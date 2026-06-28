@@ -27,9 +27,9 @@ export default {
 
       setTimeout(
         () => {
-          const barRef = bar.value
-          if (barRef) {
-            barRef.stop()
+          const refVal = bar.value
+          if (refVal) {
+            refVal.stop()
           }
         },
         Math.random() * 3000 + 1000

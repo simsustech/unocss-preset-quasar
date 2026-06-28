@@ -3,7 +3,7 @@ import { convertToRelated, flatMenu } from './flat-menu.js'
 import { getVueComponent, parseFrontMatter } from './md-parse-utils.js'
 
 const docApiRE = /<DocApi /
-const docInstallationRE = /<DocInstallation /
+const docInstallationRE = /<DocInstall /
 const docTreeRE = /<DocTree /
 const scriptRE = /<script doc>\n((.|\n)*?)\n<\/script>/g
 
@@ -21,11 +21,11 @@ function splitRenderedContent(mdPageContent) {
   return { mdContent, userScripts }
 }
 
-export default function mdParse(code, id) {
+export default function mdParse(code, id, isProd) {
   const { data: frontMatter, content } = parseFrontMatter(code)
 
   frontMatter.id = id
-  frontMatter.title = frontMatter.title || 'Generic Page'
+  frontMatter.title ||= 'Generic Page'
 
   if (frontMatter.related !== void 0) {
     frontMatter.related = frontMatter.related.map((entry) =>
@@ -37,36 +37,30 @@ export default function mdParse(code, id) {
   frontMatter.pageScripts = new Set()
 
   frontMatter.pageScripts.add(
-    "import DocPage from 'src/layouts/doc-layout/DocPage.vue'"
+    "import DocPage from '@/layouts/doc-layout/DocPage.vue'"
   )
 
   if (frontMatter.examples !== void 0) {
     frontMatter.pageScripts.add(
-      "import DocExample from 'src/components/DocExample.vue'"
+      "import DocExample from '@/components/DocExample.vue'"
     )
   }
-  if (docApiRE.test(code) === true) {
+  if (docApiRE.test(code)) {
+    frontMatter.pageScripts.add("import DocApi from '@/components/DocApi.vue'")
+  }
+  if (docInstallationRE.test(code)) {
     frontMatter.pageScripts.add(
-      "import DocApi from 'src/components/DocApi.vue'"
+      "import DocInstall from '@/components/DocInstall.vue'"
     )
   }
-  if (docInstallationRE.test(code) === true) {
+  if (docTreeRE.test(code)) {
     frontMatter.pageScripts.add(
-      "import DocInstallation from 'src/components/DocInstallation.vue'"
-    )
-  }
-  if (docTreeRE.test(code) === true) {
-    frontMatter.pageScripts.add(
-      "import DocTree from 'src/components/DocTree.vue'"
+      "import DocTree from '@/components/DocTree.vue'"
     )
   }
 
-  if (frontMatter.overline === void 0) {
-    if (id.indexOf('quasar-cli-webpack') !== -1) {
-      frontMatter.overline = 'Quasar CLI with Webpack - @quasar/app-webpack'
-    } else if (id.indexOf('quasar-cli-vite') !== -1) {
-      frontMatter.overline = 'Quasar CLI with Vite - @quasar/app-vite'
-    }
+  if (frontMatter.overline === void 0 && id.includes('quasar-cli-vite')) {
+    frontMatter.overline = 'Quasar CLI with Vite - @quasar/app-vite v3'
   }
 
   const menu = flatMenu[id]
@@ -91,10 +85,7 @@ export default function mdParse(code, id) {
   const mdRenderedContent = md.render(content)
 
   if (frontMatter.editLink !== false) {
-    frontMatter.editLink = id.substring(
-      id.indexOf('src/pages/') + 10,
-      id.length - 3
-    )
+    frontMatter.editLink = id.slice(id.indexOf('src/pages/') + 10, -3)
   }
 
   md.$frontMatter = null // free up memory
@@ -102,11 +93,9 @@ export default function mdParse(code, id) {
   const { mdContent, userScripts } = splitRenderedContent(mdRenderedContent)
 
   return getVueComponent({
+    isProd,
     frontMatter,
     mdContent,
-    pageScripts: [
-      ...Array.from(frontMatter.pageScripts),
-      ...Array.from(userScripts)
-    ].join('\n')
+    pageScripts: [...frontMatter.pageScripts, ...userScripts].join('\n')
   })
 }

@@ -39,30 +39,22 @@ setup () {
 ## Example
 
 ```html
-<script>
+<script setup>
   import { useMeta } from 'quasar'
 
-  export default {
-    setup() {
-      const title = ref('Some title') // we define the "title" prop
+  const title = ref('Some title') // we define the "title" prop
 
-      // NOTICE the parameter here is a function
-      // Under the hood, it is converted to a Vue computed prop for reactivity
-      useMeta(() => {
-        return {
-          // whenever "title" from above changes, your meta will automatically update
-          title: title.value
-        }
-      })
-
-      function setAnotherTitle() {
-        title.value = 'Another title' // will automatically trigger a Meta update due to the binding
-      }
-
-      return {
-        setAnotherTitle
-      }
+  // NOTICE the parameter here is a function
+  // Under the hood, it is converted to a Vue computed prop for reactivity
+  useMeta(() => {
+    return {
+      // whenever "title" from above changes, your meta will automatically update
+      title: title.value
     }
+  })
+
+  function setAnotherTitle() {
+    title.value = 'Another title' // will automatically trigger a Meta update due to the binding
   }
 </script>
 ```

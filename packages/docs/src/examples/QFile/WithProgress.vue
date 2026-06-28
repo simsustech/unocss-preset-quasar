@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { ref, computed, onBeforeUnmount } from 'vue'
+import { computed, onBeforeUnmount, ref } from 'vue'
 
 export default {
   setup() {
@@ -69,21 +69,21 @@ export default {
       let done = true
 
       uploadProgress.value = uploadProgress.value.map((progress) => {
-        if (progress.percent === 1 || progress.error === true) {
+        if (progress.percent === 1 || progress.error) {
           return progress
         }
 
         const percent = Math.min(1, progress.percent + Math.random() / 10)
         const error = percent < 1 && Math.random() > 0.95
 
-        if (error === false && percent < 1 && done === true) {
+        if (!error && percent < 1 && done) {
           done = false
         }
 
         return {
           ...progress,
           error,
-          color: error === true ? 'red-2' : 'green-2',
+          color: error ? 'red-2' : 'green-2',
           percent
         }
       })
@@ -138,7 +138,7 @@ export default {
           ...progress,
           error: false,
           color: 'green-2',
-          percent: allDone === true ? 0 : progress.percent
+          percent: allDone ? 0 : progress.percent
         }))
 
         updateUploadProgress()

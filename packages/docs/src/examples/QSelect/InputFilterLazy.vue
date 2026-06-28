@@ -67,8 +67,8 @@ export default {
               options.value = stringOptions
             } else {
               const needle = val.toLowerCase()
-              options.value = stringOptions.filter(
-                (v) => v.toLowerCase().indexOf(needle) > -1
+              options.value = stringOptions.filter((v) =>
+                v.toLowerCase().includes(needle)
               )
             }
           })

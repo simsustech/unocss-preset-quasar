@@ -38,8 +38,7 @@
         label="Material Symbols (Sharp)"
       />
       <q-toggle v-model="css['mdi-v7']" label="MDI v7" />
-      <q-toggle v-model="css['fontawesome-v6']" label="Fontawesome v6" />
-      <q-toggle v-model="css['fontawesome-v5']" label="Fontawesome v5" />
+      <q-toggle v-model="css['fontawesome-v7']" label="Fontawesome v7" />
       <q-toggle v-model="css['ionicons-v4']" label="Ionicons v4" />
       <q-toggle v-model="css['eva-icons']" label="Eva Icons" />
       <q-toggle v-model="css.themify" label="Themify" />
@@ -98,24 +97,28 @@
 
     <q-separator />
 
-    <doc-code class="relative-position" lang="js" :code="fileMainJs" />
+    <DocCode class="relative-position" lang="js" :code="fileMainJs" />
 
     <q-separator />
 
-    <doc-code class="relative-position" lang="js" :code="fileViteConfigJs" />
+    <DocCode class="relative-position" lang="js" :code="fileViteConfigJs" />
 
     <template v-if="useSassVariables">
       <q-separator />
-      <doc-code class="relative-position" :code="fileSassVariables" />
+      <DocCode
+        class="relative-position"
+        lang="sass"
+        :code="fileSassVariables"
+      />
     </template>
   </q-card>
 </template>
 
 <script setup>
-import { ref, reactive, computed, watch } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import languages from 'quasar/lang/index.json'
 
-import DocCode from 'src/components/DocCode.vue'
+import DocCode from '@/components/DocCode.vue'
 
 const extrasOptions = [
   'roboto-font',
@@ -128,9 +131,7 @@ const extrasOptions = [
   'material-symbols-rounded',
   'material-symbols-sharp',
   'mdi-v7',
-  'fontawesome-v5',
-  // must come after v5 if used together: https://fontawesome.com/v6/docs/web/setup/upgrade/#if-you-re-unable-to-remove-font-awesome-5
-  'fontawesome-v6',
+  'fontawesome-v7',
   'ionicons-v4',
   'eva-icons',
   'themify',
@@ -163,14 +164,12 @@ const iconSetOptions = [
   },
   { label: 'MDI v7 (webfont)', value: 'mdi-v7' },
   { label: 'MDI v7 (svg)', value: 'svg-mdi-v7' },
-  { label: 'Ionicons v6 (svg)', value: 'svg-ionicons-v6' },
-  { label: 'Ionicons v5 (svg)', value: 'svg-ionicons-v5' },
+  { label: 'Ionicons v8 (svg)', value: 'svg-ionicons-v8' },
+  { label: 'Ionicons v8 (svg)', value: 'svg-ionicons-v8' },
   { label: 'Ionicons v4 (webfont)', value: 'ionicons-v4' },
   { label: 'Ionicons v4 (svg)', value: 'svg-ionicons-v4' },
-  { label: 'Fontawesome v6 (webfont)', value: 'fontawesome-v6' },
-  { label: 'Fontawesome v6 (svg)', value: 'svg-fontawesome-v6' },
-  { label: 'Fontawesome v5 (webfont)', value: 'fontawesome-v5' },
-  { label: 'Fontawesome v5 (svg)', value: 'svg-fontawesome-v5' },
+  { label: 'Fontawesome v7 (webfont)', value: 'fontawesome-v7' },
+  { label: 'Fontawesome v7 (svg)', value: 'svg-fontawesome-v7' },
   { label: 'Eva Icons (webfont)', value: 'eva-icons' },
   { label: 'Eva Icons (svg)', value: 'svg-eva-icons' },
   { label: 'Themify (webfont)', value: 'themify' },
@@ -197,8 +196,7 @@ const css = reactive({
   'material-symbols-sharp': false,
 
   'mdi-v7': false,
-  'fontawesome-v6': false,
-  'fontawesome-v5': false,
+  'fontawesome-v7': false,
   'ionicons-v4': false,
   'eva-icons': false,
   themify: false,
@@ -211,7 +209,7 @@ const css = reactive({
 watch(
   () => css['roboto-font'],
   (val) => {
-    if (val === true) {
+    if (val) {
       css['roboto-font-latin-ext'] = false
     }
   }
@@ -220,7 +218,7 @@ watch(
 watch(
   () => css['roboto-font-latin-ext'],
   (val) => {
-    if (val === true) {
+    if (val) {
       css['roboto-font'] = false
     }
   }
@@ -234,32 +232,29 @@ const iconSet = ref('material-icons')
 
 const cssImport = computed(() => {
   const acc = extrasOptions
-    .filter((key) => css[key] === true)
+    .filter((key) => css[key])
     .map((key) => `import '@quasar/extras/${key}/${key}.css'`)
 
-  if (
-    iconSet.value !== 'material-icons' &&
-    iconSet.value.startsWith('svg-') === false
-  ) {
+  if (iconSet.value !== 'material-icons' && !iconSet.value.startsWith('svg-')) {
     const key = iconSet.value
     const importValue = `import '@quasar/extras/${key}/${key}.css'`
-    if (acc.includes(importValue) === false) {
+    if (!acc.includes(importValue)) {
       acc.push(`// ..required because of selected iconSet:\n${importValue}`)
     }
   }
 
   const libs =
-    acc.length > 0 ? `// Import icon libraries\n${acc.join('\n')}\n\n` : ''
+    acc.length !== 0 ? `// Import icon libraries\n${acc.join('\n')}\n\n` : ''
 
-  const animExample =
-    css.animate === true
-      ? `// A few examples for animations from Animate.css:
+  const animExample = css.animate
+    ? `// A few examples for animations from Animate.css:
 // import @quasar/extras/animate/fadeIn.css
 // import @quasar/extras/animate/fadeOut.css\n\n`
-      : ''
+    : ''
 
-  const quasarCssPath =
-    useSassVariables.value === true ? 'src/css/index.sass' : 'dist/quasar.css'
+  const quasarCssPath = useSassVariables.value
+    ? 'src/css/index.sass'
+    : 'dist/quasar.css'
 
   return `${libs}${animExample}// Import Quasar css
 import 'quasar/${quasarCssPath}'`
@@ -276,7 +271,7 @@ const jsImport = computed(() => {
     acc.push(`import quasarIconSet from 'quasar/icon-set/${iconSet.value}'`)
   }
 
-  return `${acc.length > 0 ? '\n' : ''}${acc.join('\n')}`
+  return `${acc.length !== 0 ? '\n' : ''}${acc.join('\n')}`
 })
 
 const configInstantiation = computed(() => {
@@ -290,7 +285,7 @@ const configInstantiation = computed(() => {
     str += '\n  iconSet: quasarIconSet,'
   }
 
-  if (cfgObject.value === true) {
+  if (cfgObject.value) {
     str += `\n  /*
   config: {
     brand: {
@@ -307,9 +302,9 @@ const configInstantiation = computed(() => {
   return `, {${str}\n}`
 })
 
-const fileMainJs = computed(() => {
-  return (
-    `// FILE: main.js
+const fileMainJs = computed(
+  () =>
+    `// main.js
 
 import { createApp } from 'vue'
 import { Quasar } from '` +
@@ -327,16 +322,12 @@ const myApp = createApp(App)
 myApp.use(Quasar${configInstantiation.value})
 
 // Assumes you have a <div id="app"></div> in your index.html
-myApp.mount('#app')
-`
-  )
-})
+myApp.mount('#app')`
+)
 
-const extraImports = computed(() => {
-  return useSassVariables.value === true
-    ? "import { fileURLToPath } from 'node:url'\n"
-    : ''
-})
+const extraImports = computed(() =>
+  useSassVariables.value ? "import { join } from 'node:path'\n" : ''
+)
 
 const vitePluginOptions = computed(() => {
   const acc = []
@@ -345,25 +336,22 @@ const vitePluginOptions = computed(() => {
     acc.push(`      autoImportComponentCase: '${autoImportCase.value}'`)
   }
 
-  if (useSassVariables.value === true) {
+  if (useSassVariables.value) {
     acc.push(
-      '      sassVariables: fileURLToPath(\n' +
-        "        new URL('./src/quasar-variables.sass', import.meta.url)\n" +
-        '      )'
+      "      sassVariables: join(import.meta.dirname, 'src/quasar-variables.sass')"
     )
   }
 
   return acc.length === 0 ? '' : `{\n${acc.join(',\n')}\n    }`
 })
 
-const fileViteConfigJs = computed(() => {
-  return `// FILE: vite.config.js
+const fileViteConfigJs = computed(
+  () => `// vite.config.js
 
 ${extraImports.value}import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue({
@@ -374,12 +362,11 @@ export default defineConfig({
     // https://github.com/quasarframework/quasar/blob/dev/vite-plugin/index.d.ts
     quasar(${vitePluginOptions.value})
   ]
-})
-`
-})
+})`
+)
 
-const fileSassVariables = computed(() => {
-  return `// FILE (create it): src/quasar-variables.sass
+const fileSassVariables = computed(
+  () => `// Create: src/quasar-variables.sass
 
 $primary   : #1976D2
 $secondary : #26A69A
@@ -390,7 +377,6 @@ $dark      : #1D1D1D
 $positive  : #21BA45
 $negative  : #C10015
 $info      : #31CCEC
-$warning   : #F2C037
-`
-})
+$warning   : #F2C037`
+)
 </script>

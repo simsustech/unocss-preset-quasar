@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const columns = [
   {
@@ -53,22 +53,23 @@ const columns = [
 ]
 
 const rows = [
+  // #region
   {
     name: 'Frozen Yogurt',
     calories: 159,
-    fat: 6.0,
+    fat: 6,
     carbs: 24
   },
   {
     name: 'Ice cream sandwich',
     calories: 237,
-    fat: 9.0,
+    fat: 9,
     carbs: 37
   },
   {
     name: 'Eclair',
     calories: 262,
-    fat: 16.0,
+    fat: 16,
     carbs: 23
   },
   {
@@ -80,13 +81,13 @@ const rows = [
   {
     name: 'Gingerbread',
     calories: 356,
-    fat: 16.0,
+    fat: 16,
     carbs: 49
   },
   {
     name: 'Jelly bean',
     calories: 375,
-    fat: 0.0,
+    fat: 0,
     carbs: 94
   },
   {
@@ -104,15 +105,16 @@ const rows = [
   {
     name: 'Donut',
     calories: 452,
-    fat: 25.0,
+    fat: 25,
     carbs: 51
   },
   {
     name: 'KitKat',
     calories: 518,
-    fat: 26.0,
+    fat: 26,
     carbs: 65
   }
+  // #endregion
 ]
 
 export default {
@@ -130,7 +132,7 @@ export default {
 
       columns,
 
-      records: computed(() => (hasData.value === true ? rows : []))
+      records: computed(() => (hasData.value ? rows : []))
     }
   }
 }

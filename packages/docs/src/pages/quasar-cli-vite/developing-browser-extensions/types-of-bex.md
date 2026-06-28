@@ -15,31 +15,16 @@ These all follow the same pattern, set up a route and configure the `manifest.js
 
 ```js routes.js:
 const routes = [
-  { path: '/options', component: () => import('pages/OptionsPage.vue') },
-  { path: '/popup', component: () => import('pages/PopupPage.vue') },
-  { path: '/devtools', component: () => import('pages/DevToolsPage.vue') }
+  { path: '/options', component: () => import('@/pages/OptionsPage.vue') },
+  { path: '/popup', component: () => import('@/pages/PopupPage.vue') },
+  { path: '/devtools', component: () => import('@/pages/DevToolsPage.vue') }
 ]
 ```
 
 You could configure your `manifest.json` file with the following so the options page is loaded from that route:
 
-#### manifest v2
-
-```json
-{
-  "manifest_version": 2,
-
-  "options_page": "www/index.html#/options", // Options Page
-  "browser_action": {
-    "default_popup": "www/index.html#/popup" // Popup Page
-  },
-  "devtools_page": "www/index.html#/devtools" // Dev Tools
-}
-```
-
-#### manifest v3
-
-```json
+```tabs /src-bex/manifest.json
+<<| json Manifest v3 |>>
 {
   "manifest_version": 3,
 
@@ -47,6 +32,16 @@ You could configure your `manifest.json` file with the following so the options 
     "default_popup": "www/index.html#/popup" // Popup Page
   },
   "options_page": "www/index.html#/options", // Options Page
+  "devtools_page": "www/index.html#/devtools" // Dev Tools
+}
+<<| json Manifest v2 |>>
+{
+  "manifest_version": 2,
+
+  "options_page": "www/index.html#/options", // Options Page
+  "browser_action": {
+    "default_popup": "www/index.html#/popup" // Popup Page
+  },
   "devtools_page": "www/index.html#/devtools" // Dev Tools
 }
 ```

@@ -1,5 +1,5 @@
 import { scroll } from 'quasar'
-import { watch, onMounted, onBeforeUnmount } from 'vue'
+import { onBeforeUnmount, onMounted, watch } from 'vue'
 
 const { setVerticalScrollPosition, getVerticalScrollPosition } = scroll
 
@@ -64,11 +64,10 @@ export default function injectScroll(store) {
 
   function scrollToCurrentAnchor(immediate) {
     const hash = window.location.hash
-    const el =
-      hash.length > 1 ? document.getElementById(hash.substring(1)) : null
+    const el = hash.length > 1 ? document.getElementById(hash.slice(1)) : null
 
     if (el !== null) {
-      if (immediate === true) {
+      if (immediate) {
         let anchorEl = el
         while (
           anchorEl.parentElement !== null &&
@@ -82,11 +81,11 @@ export default function injectScroll(store) {
 
         setTimeout(() => {
           document.body.classList.remove('q-scroll--lock')
-          anchorEl && anchorEl.classList.remove('q-scroll--anchor')
+          anchorEl?.classList.remove('q-scroll--anchor')
         }, 2000)
       }
 
-      scrollPage(el, immediate === true ? 0 : scrollDuration)
+      scrollPage(el, immediate ? 0 : scrollDuration)
     } else {
       preventTocUpdate = false
       store.setActiveToc()

@@ -6,7 +6,7 @@ keys: offset,style,height,width,css,ready
 
 ### Helping Tree-Shake
 
-You will notice all examples import different parts of Quasar. However, if you need only one specific util method, then you can use ES6 destructuring to help Tree Shaking embed only that method and not all around it.
+You will notice all examples import different parts of Quasar. However, if you need only one specific util method, then you can use destructuring to help Tree Shaking embed only that method and not all around it.
 
 Example with `dom` utils:
 

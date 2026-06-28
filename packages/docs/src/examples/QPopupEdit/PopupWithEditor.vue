@@ -89,26 +89,27 @@ const columns = [
 ]
 
 const rows = [
+  // #region
   {
     name: 'Frozen Yogurt',
     comment:
       "<p>It's cold but great and tastes different than normal ice cream, but it's great too!</p><p><strong>Have a taste!</strong></p>",
     calories: 159,
-    fat: 6.0
+    fat: 6
   },
   {
     name: 'Ice cream sandwich',
     comment:
       "<p>It's also cold but great!</p><p><strong>Have a taste!</strong></p>",
     calories: 237,
-    fat: 9.0
+    fat: 9
   },
   {
     name: 'Eclair',
     comment:
       "<p>It's not cold and also great!</p><p><strong>Have a taste!</strong></p>",
     calories: 262,
-    fat: 16.0
+    fat: 16
   },
   {
     name: 'Cupcake',
@@ -122,14 +123,14 @@ const rows = [
     comment:
       "<p>It's spicy and great!</p><p><strong>Have a taste!</strong></p>",
     calories: 356,
-    fat: 16.0
+    fat: 16
   },
   {
     name: 'Jelly bean',
     comment:
       "<p>It's neither cold or warm, but great!</p><p><strong>Have one or two or several, but not too many!</strong></p>",
     calories: 375,
-    fat: 0.0
+    fat: 0
   },
   {
     name: 'Lollipop',
@@ -150,15 +151,16 @@ const rows = [
     comment:
       "<p>It's an American classic glazed!</p><p><strong>Have one with coffee!</strong></p>",
     calories: 452,
-    fat: 25.0
+    fat: 25
   },
   {
     name: 'KitKat',
     comment:
       "<p>It's good with a break!</p><p><strong>Have a section to perfection!</strong></p>",
     calories: 518,
-    fat: 26.0
+    fat: 26
   }
+  // #endregion
 ]
 
 export default {

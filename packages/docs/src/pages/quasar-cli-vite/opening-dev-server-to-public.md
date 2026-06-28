@@ -13,32 +13,32 @@ When you've finished with your demonstration or testing, make sure to stop local
 
 ## Using Tunnelmole
 
-Tunnelmole will work on any machine with NodeJS 16+ installed and has no non-JavaScript dependencies.
+Tunnelmole will work on any machine with Node.js 16+ installed and has no non-JavaScript dependencies.
 
 First, install `tunnelmole` package globally:
 
 ```tabs
-<<| bash Yarn |>>
-$ yarn global add tunnelmole
-<<| bash NPM |>>
-$ npm install -g tunnelmole
 <<| bash PNPM |>>
-$ pnpm add -g tunnelmole
+pnpm add -g tunnelmole
+<<| bash Yarn |>>
+yarn global add tunnelmole
+<<| bash NPM |>>
+npm install -g tunnelmole
 <<| bash Bun |>>
-$ bun add -g tunnelmole
+bun add -g tunnelmole
 ```
 
 Then, assuming you are running quasar on port `80`, run the following:
 
 ```bash
-$ tmole 80
+tmole 80
 ```
 
 If your port is different to `80`, change `80` to your port.
 
 Here's the full command with output:
 
-```bash
+```
 $ tmole 80
 http://b8ootd-ip-157-211-195-182.tunnelmole.com is forwarding to localhost:80
 https://b8ootd-ip-157-211-195-182.tunnelmole.com is forwarding to localhost:80
@@ -47,10 +47,10 @@ https://b8ootd-ip-157-211-195-182.tunnelmole.com is forwarding to localhost:80
 If you are self hosting your own Tunnelmole service or you have a set an API key for the official service, you can run the following to use a custom subdomain (again, replace `80` with your port if it is different).
 
 ```bash
-$ tmole 80 as mysubdomain.tunnelmole.com
+tmole 80 as mysubdomain.tunnelmole.com
 ```
 
-Its also possible to launch tunnelmole from code if you add it as a dependency to your project (`yarn add --dev tunnelmole` or `npm i --save-dev tunnelmole` or pnpm/bun equivalents)
+Its also possible to launch tunnelmole from code if you add it as a dependency to your project (`yarn add -D tunnelmole` or `npm i -D tunnelmole` or pnpm/bun equivalents)
 
 First import tunnelmole. Both ES and CommonJS modules are supported.
 
@@ -79,14 +79,14 @@ const url = await tunnelmole({
 1. Assuming you have an SSH shell, you only need issue the following command (substituting your details)
 
 ```bash
-$ ssh -R 80:localhost:8080 ssh.localhost.run
+ssh -R 80:localhost:8080 ssh.localhost.run
 # In case your development server doesn't run on port 8080 you need to change the number to the correct port
 ```
 
 2. That's it, and you will now have a random subdomain based on your current system username assigned to you like so:
 
 ```bash
-$ ssh -R 80:localhost:8080 ssh.localhost.run
+ssh -R 80:localhost:8080 ssh.localhost.run
 # Connect to http://fakeusername-random4chars.localhost.run or https://fakeusername-random4chars.localhost.run
 # Press ctrl-c to quit.
 ```
@@ -98,22 +98,18 @@ It's not currently possible to request your own subdomain.
 1. Download and install ngrok [here](https://ngrok.com/download).
    (Please note that the ngrok executable file does not need to be placed in or run from inside your cordova folder. When on a mac it's best to place the ngrok executable file inside `/usr/local/bin` to be able to run it globally.)
 
-2. Start your Dev server
-
-```bash
-$ quasar dev
-```
+2. Start your Dev server: `quasar dev`
 
 3. Create your ngrok connection
 
 ```bash
-$ ngrok http 8080
+ngrok http 8080
 # In case your development server doesn't run on port 8080 you need to change the number to the correct port
 ```
 
 4. ngrok shows the url in the command line when it started.
 
-```bash
+```
 Tunnel Status                 online
 Version                       2.0/2.0
 Web Interface                 http://127.0.0.1:4040

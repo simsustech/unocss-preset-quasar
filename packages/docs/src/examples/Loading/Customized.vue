@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { useQuasar, QSpinnerFacebook } from 'quasar'
+import { QSpinnerFacebook, useQuasar } from 'quasar'
 import { onBeforeUnmount } from 'vue'
 
 export default {

@@ -5,31 +5,34 @@ scope:
   tree:
     l: src-electron
     c:
-      - l: icons
-        e: Icons of your app for all platforms
+      - l: electron-assets
+        e: Assets that can be referenced from electron files
         c:
-          - l: icon.icns
-            e: Icon file for Darwin (MacOS) platform
-          - l: icon.ico
-            e: Icon file for win32 (Windows) platform
-          - l: icon.png
-            e: Tray icon file for all platforms
+          - l: icons
+            e: Icons of your app for all platforms
+            c:
+              - l: icon.icns
+                e: Icon file for Darwin (MacOS) platform
+              - l: icon.ico
+                e: Icon file for win32 (Windows) platform
+              - l: icon.png
+                e: Tray icon file for all platforms
       - l: electron-preload.js
         e: '(or .ts) Electron preload script (injects Node.js stuff into renderer thread)'
       - l: electron-main.js
         e: '(or .ts) Main thread code'
-      - l: electron-env.d.ts
-        e: 'TypeScript only'
+      - l: package.json
+        e: 'helps install Electron only deps directly under /src-electron'
 ---
 
 Before we dive in to the actual development, we need to do some preparation work.
 
 ## Step 1: Add Quasar Electron Mode
 
-In order to develop/build a Quasar Electron app, we need to add the Electron mode to our Quasar project. What this does is that it yarn/npm/pnpm/bun installs some Electron packages and creates `/src-electron` folder.
+In order to develop/build a Quasar Electron app, we need to add the Electron mode to our Quasar project. What this does is that it pnpm/yarn/npm/bun installs some Electron packages and creates `/src-electron` folder.
 
 ```bash
-$ quasar mode add electron
+quasar mode add electron
 ```
 
 Every Electron app has two threads: the main thread (deals with the window and initialization code -- from the newly created folder `/src-electron`) and the renderer thread (which deals with the actual content of your app from `/src`).
@@ -61,13 +64,13 @@ At this point things should successfully install, but if not then you will need 
 If you want to jump right in and start developing, you can skip the previous step with "quasar mode" command and issue:
 
 ```bash
-$ quasar dev -m electron
+quasar dev -m electron
 
 # passing extra parameters and/or options to
 # underlying "electron" executable:
-$ quasar dev -m electron -- --no-sandbox --disable-setuid-sandbox
+quasar dev -m electron -- --no-sandbox --disable-setuid-sandbox
 # when on Windows and using Powershell:
-$ quasar dev -m electron '--' --no-sandbox --disable-setuid-sandbox
+quasar dev -m electron '--' --no-sandbox --disable-setuid-sandbox
 ```
 
 This will add Electron mode automatically, if it is missing.

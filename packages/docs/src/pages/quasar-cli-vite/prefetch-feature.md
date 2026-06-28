@@ -94,15 +94,13 @@ The hook is defined as a custom static function called `preFetch` on our route c
 Example below is when using Pinia:
 
 ```html Some .vue component used as route
-<template>
-  <div>{{ item.title }}</div>
-</template>
-
-<script>
-  import { useRoute } from 'vue-router'
-  import { useMyStore } from 'stores/myStore.js'
-
-  export default {
+<script setup>
+  /**
+   * The defineOptions is a macro.
+   * The options will be hoisted to module scope and cannot access local
+   * variables in <script setup> that are not literal constants.
+   */
+  defineOptions({
     // our hook here
     preFetch({
       store,
@@ -123,9 +121,42 @@ Example below is when using Pinia:
       // Example:
       const myStore = useMyStore() // useMyStore(store) for SSR
       return myStore.fetchItem(currentRoute.params.id) // assumes it is async
+    }
+  })
+
+  const myStore = useMyStore()
+  const $route = useRoute()
+
+  // display the item from store state.
+  const item = computed(() => myStore.items[$route.params.id])
+</script>
+```
+
+Alternatively, with Composition API and `<script>`:
+
+```html Some .vue component used as route
+<template>
+  <div>{{ item.title }}</div>
+</template>
+
+<script>
+  import { useRoute } from 'vue-router'
+  import { useMyStore } from '@/stores/myStore.js'
+
+  export default {
+    preFetch() {
+      console.log('Running preFetch')
     },
 
-    setup() {
+    setup({
+      store,
+      currentRoute,
+      previousRoute,
+      redirect,
+      ssrContext,
+      urlPath,
+      publicPath
+    }) {
       const myStore = useMyStore()
       const $route = useRoute()
 
@@ -135,23 +166,6 @@ Example below is when using Pinia:
       return { item }
     }
   }
-</script>
-```
-
-If you are using `<script setup>` (and Vue 3.3+):
-
-```html
-<script setup>
-  /**
-   * The defineOptions is a macro.
-   * The options will be hoisted to module scope and cannot access local
-   * variables in <script setup> that are not literal constants.
-   */
-  defineOptions({
-    preFetch() {
-      console.log('running preFetch')
-    }
-  })
 </script>
 ```
 
@@ -176,30 +190,88 @@ actions: {
 
 ### Redirecting Example
 
+::: warning
+Please be mindful when redirecting as you might configure the app to go into an infinite redirect loop.
+:::
+
+::: warning
+Please remember to return from the function immediately after calling `redirect()`.
+:::
+
 Below is an example of redirecting the user under some circumstances, like when they try to access a page that only an authenticated user should see.
 
 ```js
 // We assume here we already wrote the authentication logic
 // in one Pinia Store, so take as a high-level example only.
-import { useMyStore } from 'stores/myStore'
+import { useMyStore } from '@/stores/myStore'
 
 preFetch ({ store, redirect }) {
   const myStore = useMyStore() // useMyStore(store) for SSR
   if (!myStore.isAuthenticated) {
     redirect({ path: '/login' })
+    return
   }
 }
 ```
 
-By default, redirect occurs with a status response code of 302, but we can pass this status code as the second optional parameter when calling the function, like this:
+Here is the definition for it:
 
-```js
-redirect({ path: '/moved-permanently' }, 301)
+```ts
+readonly redirect: (
+  url: string | RouteLocationRaw,
+  /**
+   * HTTP status code to use for the redirection.
+   * Only used in SSR mode.
+   *
+   * @default 302
+   */
+  httpStatusCode?: HttpRedirectStatusCode
+) => void;
 ```
 
-If `redirect(false)` is called (supported only on client-side!), it aborts the current route navigation. Note that if you use it like this in `src/App.vue` it will halt the app bootup, which is undesirable.
+The `redirect()` method accepts a String (full URL) or a Vue Router location String or Object. On SSR it can receive a second parameter which should be a Number for any of the HTTP STATUS codes that redirect the browser (3xx ones).
 
-The `redirect()` method requires a Vue Router location Object.
+```js
+// Examples for redirect() with a Vue Router location:
+redirect('/1') // Vue Router location as String
+redirect({ path: '/1' }) // Vue Router location as Object
+
+// Example for redirect() with a URL:
+redirect('https://quasar.dev')
+```
+
+::: warning IMPORTANT!
+The Vue Router location (in String or Object form) does not refer to URL path (and hash), but to the actual Vue Router routes that you have defined.
+So **don't add the publicPath** to it and if you're using the Vue Router hash mode then don't add the hash to it.
+:::
+
+<br>Let's say that we have this Vue Router route defined:<br>
+
+```js
+{
+  path: '/one',
+  component: PageOne
+}
+```
+
+<br>Then **regardless of our publicPath** we can call `redirect()` like this:<br><br>
+
+```js
+// publicPath: /wiki; vueRouterMode: history
+redirect('/one') // good way
+redirect({ path: '/one' }) // good way
+redirect('/wiki/one') // WRONG!
+
+// publicPath: /wiki; vueRouterMode: hash
+redirect('/one') // good way
+redirect({ path: '/one' }) // good way
+redirect('/wiki/#/one') // WRONG!
+
+// no publicPath; vueRouterMode: hash
+redirect('/one') // good way
+redirect({ path: '/one' }) // good way
+redirect('/#/one') // WRONG!
+```
 
 ### Using preFetch to Initialize Pinia
 
@@ -211,7 +283,7 @@ The `preFetch` hook runs only once, when the app boots up, so you can use this o
 // example with a store named "myStore"
 // placed in /src/stores/myStore.js|ts
 
-import { useMyStore } from 'stores/myStore.js'
+import { useMyStore } from '@/stores/myStore.js'
 
 export default {
   // ...
@@ -225,7 +297,7 @@ export default {
 // example with a store named "myStore"
 // placed in /src/stores/myStore.js|ts
 
-import { useMyStore } from 'stores/myStore.js'
+import { useMyStore } from '@/stores/myStore.js'
 
 export default {
   // ...
@@ -251,8 +323,7 @@ There's also the possibility to use Quasar [Loading](/quasar-plugins/loading) pl
 ```js A route .vue component
 import { Loading } from 'quasar'
 
-export default {
-  // ...
+defineOptions({
   preFetch(
     {
       /* ... */
@@ -267,5 +338,5 @@ export default {
       Loading.hide()
     })
   }
-}
+})
 ```

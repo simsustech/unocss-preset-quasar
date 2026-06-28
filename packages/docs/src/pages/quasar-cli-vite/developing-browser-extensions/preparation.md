@@ -28,6 +28,10 @@ scope:
         e:
           (or .ts) Standard content script BEX file - auto injected via manifest.json (you can
           have multiple content scripts)
+      - l: package.json
+        e: 'helps install BEX only deps directly under /src-bex'
+      - l: bex-end.d.ts
+        e: 'TypeScript only'
 ---
 
 The difference between building a SPA, Mobile App, Electron App, BEX or SSR is simply determined by the "mode" parameter in "quasar dev" and "quasar build" commands.
@@ -37,13 +41,14 @@ The difference between building a SPA, Mobile App, Electron App, BEX or SSR is s
 In order to build a BEX, we first need to add the BEX mode to our Quasar project:
 
 ```bash
-$ quasar mode add bex
+quasar mode add bex
 ```
 
 If you want to jump right in and start developing, you can skip the "quasar mode" command and issue:
 
 ```bash
-$ quasar dev -m bex -T [chrome|firefox]
+quasar dev -m bex -T [chrome|firefox]
+# default target is "chrome" and -T can be ommitted
 ```
 
 This will add BEX mode automatically, if it is missing, by creating the `/src-bex` folder into your project.
@@ -51,10 +56,11 @@ This will add BEX mode automatically, if it is missing, by creating the `/src-be
 ::: tip
 The `src-bex` folder is just a standard browser extension folder so you are free to use it as you would any other browser extension project folder. Please refer to supported Browser Extension documentation to learn more.
 
-- [Firefox Browser Extension Documentation](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions)
 - [Google Chrome Browser Extension Documentation](https://developer.chrome.com/extensions)
+- [Firefox Browser Extension Documentation](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions)
 - **Other Chromium Based Browsers** - Refer to their specific documentation.
-  :::
+
+:::
 
 ## The Anatomy of "/src-bex"
 

@@ -10,24 +10,26 @@ Newer mobile browsers have the ability to specify a color for the addressbar, li
 
 - There isn't yet a Web standard for this so it won't work for all mobile browsers.
 - This applies when building a website only. For coloring top bar on a mobile app (built with Cordova mode), please refer to [cordova-plugin-statusbar](https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-statusbar/).
-  :::
+
+:::
 
 ![Mobile Addressbar Coloring](https://cdn.quasar.dev/img/mobile-address-bar-colors.jpg 'Mobile Addressbar Coloring')
 
 <DocApi file="AddressbarColor" />
 
-<DocInstallation plugins="AddressbarColor" />
+<DocInstall plugins="AddressbarColor" />
 
 ## Usage
 
-We create boot file to initialize its usage: `$ quasar new boot addressbar-color [--format ts]`. A file is created (`/src/boot/addressbar-color.js`). We edit it:
+We create boot file to initialize its usage: `quasar new boot addressbar-color [--format ts]`. A file is created (`/src/boot/addressbar-color.js`). We edit it:
 
 ```js /src/boot/addressbar-color.js
+import { defineBoot } from '#q-app'
 import { AddressbarColor } from 'quasar'
 
-export default () => {
+export default defineBoot(() => {
   AddressbarColor.set('#a2e3fa')
-}
+})
 ```
 
 We then have to tell quasar to use this boot file we just created. To do this we edit the boot section of the quasar config:

@@ -25,32 +25,27 @@ You will also be able to use the command line, so it will be almost identical to
 
 ::: tip Requirements:
 
-- Node 14+
-- Yarn v1 (strongly recommended), PNPM, NPM or Bun
-  :::
+- Node.js v22+
+- PNPM v11+ (recommended), Yarn v1 classic, NPM or Bun
+
+:::
 
 ```tabs
-<<| bash Yarn |>>
-$ yarn global add @quasar/cli
-$ yarn create quasar
-<<| bash NPM |>>
-$ npm i -g @quasar/cli
-$ npm init quasar@latest
 <<| bash PNPM |>>
-$ pnpm add -g @quasar/cli
-$ pnpm create quasar@latest
+pnpm add -g @quasar/cli
+pnpm create quasar@latest
+<<| bash Yarn |>>
+yarn global add @quasar/cli
+yarn create quasar
+<<| bash NPM |>>
+npm i -g @quasar/cli
+npm init quasar@latest
 <<| bash Bun |>>
-# experimental support
-$ bun install -g @quasar/cli
-$ bun create quasar@latest
+bun install -g @quasar/cli
+bun create quasar@latest
 ```
 
-Pick `Quasar CLI with Vite` if you want:
-
-- Faster dev server start
-- Faster hot updates
-- Faster build
-- Superior PWA, SSR and BEX Quasar modes (more features)
+Pick `App with Quasar CLI`.
 
 <q-btn icon-right="launch" no-wrap label="View Components" to="/components" />
 
@@ -58,57 +53,45 @@ Pick `Quasar CLI with Vite` if you want:
 
 ::: tip Requirements:
 
-- Node 12+ for Quasar CLI with Webpack, Node 14+ for Quasar CLI with Vite.
-- Yarn v1 (strongly recommended), PNPM, or NPM.
-  :::
+- Node.js v22+ for Quasar CLI.
+- PNPM v11+ (recommended), Yarn v1 classic, NPM or Bun.
+
+:::
 
 1. Let's create a Quasar app:
 
    ```tabs
-   <<| bash Yarn |>>
-   $ yarn create quasar
-   <<| bash NPM |>>
-   $ npm init quasar@latest
    <<| bash PNPM |>>
-   $ pnpm create quasar@latest
+   pnpm create quasar@latest
+   <<| bash Yarn |>>
+   yarn create quasar
+   <<| bash NPM |>>
+   npm init quasar@latest
    <<| bash Bun |>>
-   # experimental support
-   $ bun create quasar@latest
+   bun create quasar@latest
    ```
-
-   <br>
 
    ::: tip
    You may be presented with a confirmation to install the `create-quasar` package, press the enter key to confirm.
    :::
 
-2. Pick the `App with Quasar CLI` option then `Quasar v2`.
+2. Pick the `App with Quasar CLI` option.
 
-3. You will then be asked which Quasar App CLI you want. Do you prefer the Vite one or the Webpack one?
+3. Answer the rest of the questions and you're almost done.
 
-   ::: tip Tip: pick "Quasar CLI with Vite" if you want:
-   - Faster dev server start
-   - Faster hot updates
-   - Faster build
-   - Superior PWA, SSR and BEX Quasar modes (more features)
-     :::
-
-4. Answer the rest of the questions and you're almost done.
-
-5. Now, do you want to be able to run Quasar CLI commands directly (eg. `$ quasar dev/build`) or through yarn or npx (`$ yarn quasar dev/build` / `npx quasar dev/build`)?
+4. Now, do you want to be able to run Quasar CLI commands directly (eg. `quasar dev/build`) or through your package manager (`pnpm quasar dev/build` or `npx quasar dev/build`, etc)?
 
    We strongly recommend to pick the first choice and be able to run commands directly. Actually, you'll be able to do even more than just this (eg. "quasar upgrade" or "quasar serve" commands). For this, you'll need to globally install the `@quasar/cli` package:
 
    ```tabs
-   <<| bash Yarn |>>
-   $ yarn global add @quasar/cli
-   <<| bash NPM |>>
-   $ npm i -g @quasar/cli
    <<| bash PNPM |>>
-   $ pnpm add -g @quasar/cli
+   pnpm add -g @quasar/cli
+   <<| bash Yarn |>>
+   yarn global add @quasar/cli
+   <<| bash NPM |>>
+   npm i -g @quasar/cli
    <<| bash Bun |>>
-   # experimental support
-   $ bun install -g @quasar/cli
+   bun install -g @quasar/cli
    ```
 
    ::: tip
@@ -139,27 +122,26 @@ Pick `Quasar CLI with Vite` if you want:
    :::
 
    ::: tip WSL2
-   Microsoft's recommended [Nodejs development environment setup in WSL2](https://docs.microsoft.com/en-us/windows/nodejs/setup-on-wsl2).
+   Microsoft's recommended [Node.js development environment setup in WSL2](https://docs.microsoft.com/en-us/windows/nodejs/setup-on-wsl2).
 
    When using WSL2 (Windows Subsystem for Linux) [Microsoft recommends](https://docs.microsoft.com/en-us/windows/wsl/compare-versions#performance-across-os-file-systems) keeping files in the linux file system to maximize performance. Projects will build around 3X slower and HMR (Hot Module Reload) will not work without a hack if the project files are on the Windows mount instead of the local linux file system. This is also true in Docker for Windows based development environments.
    :::
 
 ## How Quasar CLI works
 
-Quasar CLI (`@quasar/cli`) works in tandem with either `@quasar/app-vite` or `@quasar/app-webpack`. The first one is optional (but **strongly recommended**) and allows you to run Quasar CLI commands directly and some other useful commands like `quasar upgrade` (upgrade Quasar packages seamlessly) or `quasar serve` (serve your distributable with an ad-hoc webserver). The second package is the heart of it (runs the important commands - dev, build, inspect, info, describe etc) and it gets installed locally into every Quasar project folder.
+Quasar CLI (`@quasar/cli`) works in tandem with `@quasar/app-vite`. The first one is optional (but **strongly recommended**) and allows you to run Quasar CLI commands directly and some other useful commands like `quasar upgrade` (upgrade Quasar packages seamlessly) or `quasar serve` (serve your distributable with an ad-hoc webserver). The second package is the heart of it (runs the important commands - dev, build, inspect, info, describe etc) and it gets installed locally into every Quasar project folder.
 
 #### Running without the global @quasar/cli
 
-However, should you want independence of the globally installed `@quasar/cli` package, you have the possibility to directly run the Quasar CLI commands. It is `@quasar/app-vite` or `@quasar/app-webpack` (which is specific to each project folder) that will run all the CLI commands.
+However, should you want independence of the globally installed `@quasar/cli` package, you have the possibility to directly run the Quasar CLI commands. It is `@quasar/app-vite` (which is specific to each project folder) that will run all the CLI commands.
 
 Here are the options:
 
-1. You can write npm scripts (in your `package.json`) to run Quasar commands.
+1. You can write package.json scripts to run Quasar commands.
 
-   Example of adding a few npm scripts into your `package.json`:
+   Example of adding a few package.json scripts:
 
-   ```js
-   // package.json
+   ```js /package.json
    "scripts": {
      "dev": "quasar dev",
      "build": "quasar build",
@@ -167,23 +149,49 @@ Here are the options:
    }
    ```
 
-   The above will allow you to run `$ yarn dev` or `$ yarn build` without the need of a globally installed `@quasar/cli`, should you wish to do so.
+   <br>
 
-2. Alternatively, you can directly run the Quasar CLI commands through Yarn:
+   The above will allow you to run the scripts without the need of a globally installed `@quasar/cli`, should you wish to do so:
 
-   ```bash
-   $ yarn quasar dev
-   $ yarn quasar inspect
+   ```tabs Running scripts
+   <<| bash PNPM |>>
+   pnpm run dev
+   pnpm run build
+   # ..etc
+   <<| bash Yarn |>>
+   yarn run dev
+   yarn run build
+   # ..etc
+   <<| bash NPM |>>
+   npm run dev
+   npm run build
+   # ..etc
+   <<| bash Bun |>>
+   bun run dev
+   bun run build
    # ..etc
    ```
 
    <br>
 
-3. Or use [npx](https://github.com/npm/npx):
+2. Alternatively, you can directly run the Quasar CLI commands through your package manager:
 
-   ```bash
-   $ npx quasar dev
-   $ npx quasar inspect
+   ```tabs
+   <<| bash PNPM |>>
+   pnpm quasar dev
+   pnpm quasar inspect
+   # ..etc
+   <<| bash Yarn |>>
+   yarn quasar dev
+   yarn quasar inspect
+   # ..etc
+   <<| bash NPM |>>
+   npx quasar dev
+   npx quasar inspect
+   # ..etc
+   <<| bash Bun |>>
+   bun quasar dev
+   bun quasar inspect
    # ..etc
    ```
 

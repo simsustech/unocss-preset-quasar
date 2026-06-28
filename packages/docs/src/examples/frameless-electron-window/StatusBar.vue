@@ -114,20 +114,20 @@
 // but this is only needed if we build same app with other Quasar Modes
 // as well (SPA/PWA/Cordova/SSR...)
 
+function minimize() {
+  window.myWindowAPI?.minimize()
+}
+
+function toggleMaximize() {
+  window.myWindowAPI?.toggleMaximize()
+}
+
+function closeApp() {
+  window.myWindowAPI?.close()
+}
+
 export default {
   setup() {
-    function minimize() {
-      window.myWindowAPI?.minimize()
-    }
-
-    function toggleMaximize() {
-      window.myWindowAPI?.toggleMaximize()
-    }
-
-    function closeApp() {
-      window.myWindowAPI?.close()
-    }
-
     return { minimize, toggleMaximize, closeApp }
   }
 }

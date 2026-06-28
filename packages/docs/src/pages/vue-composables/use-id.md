@@ -22,13 +22,11 @@ setup () {
 }
 ```
 
-```js
-function useId(
-  opts?: {
-    getValue?: () => string | null | undefined;
-    required?: boolean; // default: true
-  }
-): Ref<string | null>;
+```ts
+function useId(opts?: {
+  getValue?: () => string | null | undefined
+  required?: boolean // default: true
+}): Ref<string | null>
 ```
 
 ## Example
@@ -38,22 +36,16 @@ function useId(
   <div :id="id">Some component</div>
 </template>
 
-<script>
+<script setup>
   import { useId } from 'quasar'
 
-  export default {
-    props: {
-      for: String
-    },
+  const props = defineProps({
+    for: String
+  })
 
-    setup() {
-      const id = useId({
-        getValue: () => props.for,
-        required: true
-      })
-
-      return { id }
-    }
-  }
+  const id = useId({
+    getValue: () => props.for,
+    required: true
+  })
 </script>
 ```

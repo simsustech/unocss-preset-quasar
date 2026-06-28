@@ -26,6 +26,7 @@
         </div>
       </q-timeline-entry>
 
+      <!-- #region -->
       <q-timeline-entry
         title="Event Title"
         subtitle="February 21, 1986"
@@ -126,6 +127,7 @@
           culpa qui officia deserunt mollit anim id est laborum.
         </div>
       </q-timeline-entry>
+      <!-- #endregion -->
     </q-timeline>
   </div>
 </template>
@@ -139,13 +141,9 @@ export default {
     const $q = useQuasar()
 
     return {
-      layout: computed(() => {
-        return $q.screen.lt.sm
-          ? 'dense'
-          : $q.screen.lt.md
-            ? 'comfortable'
-            : 'loose'
-      })
+      layout: computed(() =>
+        $q.screen.lt.sm ? 'dense' : $q.screen.lt.md ? 'comfortable' : 'loose'
+      )
     }
   }
 }

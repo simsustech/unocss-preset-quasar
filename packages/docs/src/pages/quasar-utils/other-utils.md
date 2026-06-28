@@ -109,7 +109,7 @@ import { exportFile } from 'quasar'
 
 const status = exportFile('important.txt', 'some content')
 
-if (status === true) {
+if (status) {
   // browser allowed it
 } else {
   // browser denied it
@@ -125,7 +125,7 @@ const status = exportFile('file.csv', 'éà; ça; 12\nà@€; çï; 13', {
   mimeType: 'text/csv;charset=windows-1252;'
 })
 
-if (status === true) {
+if (status) {
   // browser allowed it
 } else {
   // browser denied it
@@ -466,7 +466,7 @@ Generate unique identifiers:
 import { uid } from 'quasar'
 
 let uid = uid()
-// Example: 501e7ae1-7e6f-b923-3e84-4e946bff31a8
+// Example: 84402c0e-7a8c-4784-b0b1-2e471e631645
 ```
 
 ## testPattern

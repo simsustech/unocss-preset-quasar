@@ -1,6 +1,6 @@
 import { h, ref } from 'vue'
-import { QBadge, QBtn, Notify, QBtnToggle } from 'quasar'
-import { copyToClipboard } from 'assets/page-utils.js'
+import { Notify, QBadge, QBtn, QBtnToggle } from 'quasar'
+import { copyToClipboard } from '@/assets/page-utils.js'
 import { mdiMinusBox, mdiPlusBox } from '@quasar/extras/mdi-v7'
 
 function copyPropName(propName) {
@@ -34,7 +34,7 @@ function getMethodParams(method, noRequired) {
     return ' ()'
   }
 
-  if (noRequired === true) {
+  if (noRequired) {
     return ` (${Object.keys(method.params).join(', ')})`
   }
 
@@ -84,8 +84,9 @@ function getDiv(col, propName, propValue, slot) {
 function getNameDiv(prop, label, level, suffix, prefix) {
   const child = []
 
-  prefix !== void 0 &&
+  if (prefix !== void 0) {
     child.push(h('div', { class: 'doc-api-entry__type q-mr-xs' }, prefix))
+  }
 
   child.push(
     h(QBadge, {
@@ -99,10 +100,11 @@ function getNameDiv(prop, label, level, suffix, prefix) {
   )
 
   const suffixLabel = `${suffix ? ` : ${suffix}` : ''}${prop.required ? ' - required!' : ''}`
-  suffixLabel !== '' &&
+  if (suffixLabel !== '') {
     child.push(h('div', { class: 'doc-api-entry__type q-ml-xs' }, suffixLabel))
+  }
 
-  prop.addedIn !== void 0 &&
+  if (prop.addedIn !== void 0) {
     child.push(
       h(QBadge, {
         class: 'q-ml-sm doc-api-entry__added-in',
@@ -110,6 +112,7 @@ function getNameDiv(prop, label, level, suffix, prefix) {
         label: prop.addedIn + '+'
       })
     )
+  }
 
   return h(
     'div',
@@ -119,7 +122,7 @@ function getNameDiv(prop, label, level, suffix, prefix) {
 }
 
 function getExpandable(openState, desc, isExpandable, key, getDetails) {
-  if (isExpandable === true) {
+  if (isExpandable) {
     const expanded = openState.value[key] === true
     const child = [
       h('div', { class: 'doc-api-entry__item col-xs-12 col-sm-12' }, [
@@ -130,9 +133,9 @@ function getExpandable(openState, desc, isExpandable, key, getDetails) {
             flat: true,
             size: '11px',
             padding: '1px',
-            icon: expanded === true ? mdiMinusBox : mdiPlusBox,
+            icon: expanded ? mdiMinusBox : mdiPlusBox,
             onClick: () => {
-              openState.value[key] = expanded === false
+              openState.value[key] = !expanded
             }
           })
         ]),
@@ -140,16 +143,16 @@ function getExpandable(openState, desc, isExpandable, key, getDetails) {
       ])
     ]
 
-    return expanded === true ? child.concat(getDetails()) : child
-  } else {
-    return [getDiv(12, 'Description', desc)]
+    return expanded ? [...child, ...getDetails()] : child
   }
+
+  return [getDiv(12, 'Description', desc)]
 }
 
 function getPropDetails(openState, masterKey, prop, level) {
   const details = []
 
-  if (prop.sync === true) {
+  if (prop.sync) {
     details.push(getDiv(3, 'Note', 'Required to be used with v-model!'))
   }
 
@@ -162,13 +165,13 @@ function getPropDetails(openState, masterKey, prop, level) {
         h(
           'div',
           { class: 'doc-api-entry--indent doc-api-entry__value' },
-          h('div', { class: 'doc-token' }, '' + prop.default)
+          h('div', { class: 'doc-token' }, String(prop.default))
         )
       )
     )
   }
 
-  if (prop.link === true) {
+  if (prop.link) {
     details.push(getDiv(6, 'External link', prop.link))
   }
 
@@ -181,7 +184,9 @@ function getPropDetails(openState, masterKey, prop, level) {
         h(
           'div',
           { class: 'doc-api-entry--indent doc-api-entry__value' },
-          prop.values.map((val) => h('div', { class: 'doc-token' }, '' + val))
+          prop.values.map((val) =>
+            h('div', { class: 'doc-token' }, String(val))
+          )
         )
       )
     )
@@ -271,7 +276,7 @@ function getPropDetails(openState, masterKey, prop, level) {
           'div',
           { class: 'doc-api-entry--indent doc-api-entry__value' },
           prop.examples.map((example) =>
-            h('div', { class: 'doc-token' }, '' + example)
+            h('div', { class: 'doc-token' }, String(example))
           )
         )
       )
@@ -307,7 +312,7 @@ function getProp(openState, masterKey, prop, propName, level, onlyChildren) {
 
     child.push(getNameDiv(prop, propName, level, suffix))
 
-    if (prop.reactive === true) {
+    if (prop.reactive) {
       child.push(getDiv(3, 'Reactive', 'yes'))
     }
   }
@@ -386,12 +391,14 @@ describe.events = (openState, events) => {
               )
             }
 
-            return getDiv(
-              12,
-              'Parameters',
-              void 0,
-              h('div', { class: 'doc-api-entry__subitem' }, params)
-            )
+            return [
+              getDiv(
+                12,
+                'Parameters',
+                void 0,
+                h('div', { class: 'doc-api-entry__subitem' }, params)
+              )
+            ]
           }
         )
       ])
@@ -474,29 +481,27 @@ describe.methods = (openState, methods) => {
   return child
 }
 
-describe.value = (openState, value) => {
-  return [
-    h(
-      'div',
-      { class: 'doc-api-entry row' },
-      [getDiv(12, 'Type', getStringType(value.type))].concat(
-        getProp(openState, 'value', value, void 0, -1, true)
-      )
+describe.value = (openState, value) => [
+  h(
+    'div',
+    { class: 'doc-api-entry row' },
+    // oxlint-disable-next-line unicorn/prefer-spread
+    [getDiv(12, 'Type', getStringType(value.type))].concat(
+      getProp(openState, 'value', value, void 0, -1, true)
     )
-  ]
-}
+  )
+]
 
-describe.arg = (openState, arg) => {
-  return [
-    h(
-      'div',
-      { class: 'doc-api-entry row' },
-      [getDiv(12, 'Type', getStringType(arg.type))].concat(
-        getProp(openState, 'arg', arg, void 0, -1, true)
-      )
+describe.arg = (openState, arg) => [
+  h(
+    'div',
+    { class: 'doc-api-entry row' },
+    // oxlint-disable-next-line unicorn/prefer-spread
+    [getDiv(12, 'Type', getStringType(arg.type))].concat(
+      getProp(openState, 'arg', arg, void 0, -1, true)
     )
-  ]
-}
+  )
+]
 
 describe.modifiers = (openState, modifiers) => {
   const child = []
@@ -516,17 +521,15 @@ describe.modifiers = (openState, modifiers) => {
   return child
 }
 
-describe.injection = (_, injection) => {
-  return [
-    h('div', { class: 'doc-api-entry row' }, [
-      getNameDiv(injection, injection, 0)
-    ])
-  ]
-}
+describe.injection = (_, injection) => [
+  h('div', { class: 'doc-api-entry row' }, [
+    getNameDiv(injection, injection, 0)
+  ])
+]
 
 function useConfigToggle(openState) {
   return {
-    enabled: openState.value.quasarConfOptions !== undefined,
+    enabled: openState.value.quasarConfOptions !== void 0,
     type: openState.value.quasarConfOptions ? 'uiConfig' : 'configFile',
     setType: (type) => {
       openState.value.quasarConfOptions = type === 'uiConfig'
@@ -536,11 +539,11 @@ function useConfigToggle(openState) {
 describe.quasarConfOptions = (openState, conf) => {
   const configToggle = useConfigToggle(openState)
 
-  if (configToggle.enabled === false) {
+  if (!configToggle.enabled) {
     const needsConfigToggle =
       conf.definition &&
       Object.values(conf.definition).some(
-        ({ configFileType }) => configFileType !== undefined
+        ({ configFileType }) => configFileType !== void 0
       )
     if (needsConfigToggle) {
       openState.value.quasarConfOptions = false

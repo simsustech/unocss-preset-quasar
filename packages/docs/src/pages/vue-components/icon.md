@@ -57,10 +57,9 @@ If you are using webfont-based icons, make sure that you [installed the icon lib
 | material-symbols-rounded  | sym*r*                                           | sym_r_thumb_up                           | Notice the underline character instead of dash or space                                                                                       |
 | material-symbols-sharp    | sym*s*                                           | sym_s_thumb_up                           | Notice the underline character instead of dash or space                                                                                       |
 | ionicons-v4               | ion-, ion-md-, ion-ios-, ion-logo-               | ion-heart, ion-logo-npm, ion-md-airplane | Use QIcon instead of `<ion-icon>` component; Logo icons require 'ion-logo-' prefix                                                            |
-| fontawesome-v6            | fa-[solid,regular,brands] fa-                    | "fa-solid fa-ambulance"                  | QIcon "name" property is same as "class" attribute value in Fontawesome docs examples (where they show `<i>` tags)                            |
-| fontawesome-v6 Pro        | fa-[solid,regular,brands,thin,light,duotone] fa- | "fa-solid fa-ambulance"                  | Note: a license must be purchased from Fontawesome for this functionality)                                                                    |
-| fontawesome-v5            | fa[s,r,l,d,b] fa-                                | "fas fa-ambulance"                       | QIcon "name" property is same as "class" attribute value in Fontawesome docs examples (where they show `<i>` tags)                            |
-| mdi-v7/v6/v5/v4/v3        | mdi-                                             | mdi-alert-circle-outline                 | Notice the use of dash characters; Use only one of mdi-v7, mdi-v6, mdi-v5, mdi-v4 or mdi-v3                                                   |
+| fontawesome-v7            | fa-[solid,regular,brands] fa-                    | "fa-solid fa-ambulance"                  | QIcon "name" property is same as "class" attribute value in Fontawesome docs examples (where they show `<i>` tags)                            |
+| fontawesome-v7 Pro        | fa-[solid,regular,brands,thin,light,duotone] fa- | "fa-solid fa-ambulance"                  | Note: a license must be purchased from Fontawesome for this functionality)                                                                    |
+| mdi-v7                    | mdi-                                             | mdi-alert-circle-outline                 | Notice the use of dash characters                                                                                                             |
 | eva-icons                 | eva-                                             | eva-shield-outline, eva-activity-outline | Notice the use of dash characters                                                                                                             |
 | themify                   | ti-                                              | ti-hand-point-up                         | Notice the use of dash characters                                                                                                             |
 | line-awesome              | la[s,r,l,d,b] la-                                | "las la-atom"                            | QIcon "name" property is same as "class" attribute value in Line Awesome docs examples (where they show `<i>` tags); **@quasar/extras v1.5+** |
@@ -123,9 +122,7 @@ The current disadvantage is that it is more tedious to use these icons than thei
 
 ### Svg usage
 
-Usage inside the `<template>`:
-
-```html
+```html A .vue file
 <template>
   <div>
     <q-icon :name="matMenu" />
@@ -133,63 +130,15 @@ Usage inside the `<template>`:
     <q-btn :icon="mdiAbTesting" />
   </div>
 </template>
-```
 
-Notice that we are using `:` to bind variables instead of plain values, it's important. We must make those variables available to the template. The way to do that depends on your Vue API preference:
-
-#### Composition API with "script setup"
-
-This is the most convenient way. Just importing the variables is enough to make them available to the template.
-
-```html
 <script setup>
   import { matMenu } from '@quasar/extras/material-icons'
   import { mdiAbTesting } from '@quasar/extras/mdi-v7'
-  import { fasFont } from '@quasar/extras/fontawesome-v5'
+  import { fasFont } from '@quasar/extras/fontawesome-v7'
 </script>
 ```
 
-#### Composition API without "script setup"
-
-```html
-<script>
-  import { matMenu } from '@quasar/extras/material-icons'
-  import { mdiAbTesting } from '@quasar/extras/mdi-v7'
-  import { fasFont } from '@quasar/extras/fontawesome-v5'
-
-  export default {
-    // ...
-    setup() {
-      return {
-        matMenu,
-        mdiAbTesting,
-        fasFont
-      }
-    }
-  }
-</script>
-```
-
-#### Options API
-
-Notice in the example below that we are injecting the icons through the `created()` hook instead of returning them from `data()`. That is because we want to avoid Vue from making them reactive. Since they are static values, making them reactive would introduce some unnecessary overhead. It would still work if we declare them in `data()`, but it would be less performant.
-
-```html
-<script>
-  import { matMenu } from '@quasar/extras/material-icons'
-  import { mdiAbTesting } from '@quasar/extras/mdi-v7'
-  import { fasFont } from '@quasar/extras/fontawesome-v5'
-
-  export default {
-    // ...
-    created() {
-      this.matMenu = matMenu
-      this.mdiAbTesting = mdiAbTesting
-      this.fasFont = fasFont
-    }
-  }
-</script>
-```
+Notice that we are using `:` to bind variables instead of plain values, it's important. We must make those variables available to the template. The way to do that depends on your Vue API preference:
 
 ::: tip
 If you are only using svg icons (and have configured a [Quasar Icon Set](/options/quasar-icon-sets)) then you don't need the webfont equivalent in your app at all.
@@ -205,10 +154,8 @@ If you are only using svg icons (and have configured a [Quasar Icon Set](/option
 | Material Symbols Sharp (Google)    | svg-material-symbols-sharp    | @quasar/extras/material-symbols-sharp    | @quasar/extras v1.14+  |
 | Material Symbols Round (Google)    | svg-material-symbols-rounded  | @quasar/extras/material-symbols-rounded  | @quasar/extras v1.14+  |
 | MDI (Material Design Icons) v3-v7  | svg-mdi-v7                    | @quasar/extras/mdi-v7 etc                | @quasar/extras v1.11+  |
-| Font Awesome v6                    | svg-fontawesome-v6            | @quasar/extras/fontawesome-v6            | @quasar/extras v1.13+  |
-| Font Awesome                       | svg-fontawesome-v5            | @quasar/extras/fontawesome-v5            |                        |
-| Ionicons v6                        | svg-ionicons-v6               | @quasar/extras/ionicons-v6               | @quasar/extras v1.12+  |
-| Ionicons v5                        | svg-ionicons-v5               | @quasar/extras/ionicons-v5               | @quasar/extras v1.7+   |
+| Font Awesome v7                    | svg-fontawesome-v7            | @quasar/extras/fontawesome-v7            | @quasar/extras v1.18+  |
+| Ionicons v8                        | svg-ionicons-v8               | @quasar/extras/ionicons-v8               | @quasar/extras v1.12+  |
 | Ionicons v4                        | svg-ionicons-v4               | @quasar/extras/ionicons-v4               |                        |
 | Eva Icons                          | svg-eva-icons                 | @quasar/extras/eva-icons                 |                        |
 | Themify Icons                      | svg-themify                   | @quasar/extras/themify                   |                        |
@@ -272,17 +219,17 @@ Svg icons are supplied by `@quasar/extras` (although you can supply [your own sv
 - Icon names are in camel-case and always begin with "fas", "fab", "fal" or "far" prefixes.
 - Go to [FontAwesome](https://fontawesome.com/icons), look for your desired icon, click on it. You'll get to its page. Below the icon name (as title), you will see something like `<i class="fas fa-flag"></i>`. This would translate to `fasFlag`. The prefix from the tag is important.
 - Note that we cannot supply the "Pro" version of the icons in svg format because of the license.
-- Import statement example: `import { fasFlag } from '@quasar/extras/fontawesome-v6'`.
+- Import statement example: `import { fasFlag } from '@quasar/extras/fontawesome-v7'`.
 - The Quasar SVG form is still using `fas`, `far` and `fab`, instead of the newer `fa-solid`, `fa-regular` and `fa-brands`.
 
 #### SVG Ionicons
 
 - Ionicons v4: Icon names are in camel-case and always begin with "ionMd" or "ionIos" prefixes.
-- Ionicons v5/v6: Icon names are in camel-case and always begin with "ion" prefix.
+- Ionicons v8: Icon names are in camel-case and always begin with "ion" prefix.
 - Ionicons v4: Go to [Ionicons v4](https://ionicons.com/v4/), look for your desired icon, click on it. At the bottom of the page there will appear a popup. Notice something like `<ion-icon name="square-outline"></ion-icon>`. Remember the name (eg. "square-outline"). Camel-case this name and prefix it with either "ionMd" (for material variant) or "ionIos" (for iOS variant).
 - Ionicons v5/v6: Go to [Ionicons v6](https://ionicons.com/), look for your desired icon, click on it. At the bottom of the page there will appear a popup. Notice something like `<ion-icon name="square-outline"></ion-icon>`. Remember the name (eg. "square-outline"). Prefix it with "ion" and camel-case the result (eg. "ionSquareOutline").
 - Ionicons v4: Import statement example: `import { ionMdSquareOutline } from '@quasar/extras/ionicons-v4'`.
-- Ionicons v5/v6: Import statement example: `import { ionSquareOutline } from '@quasar/extras/ionicons-v5'`.
+- Ionicons v8: Import statement example: `import { ionSquareOutline } from '@quasar/extras/ionicons-v8'`.
 
 #### SVG Eva Icons
 
@@ -425,9 +372,7 @@ Examples:
 
 This svg method allows you to store the SVG files as static assets and reference them.
 
-```html
-// File: /public/icons.svg
-
+```html /public/icons.svg
 <svg xmlns="http://www.w3.org/2000/svg">
   <symbol id="icon-1" viewBox="0 0 24 24">
     <path d="..."></path>
@@ -536,7 +481,7 @@ img:data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQV
 Should you want, you can customize the mapping of icon names. This can be done by providing a custom icon map function. There are several ways to provide one:
 
 - Set `IconSet.iconMapFn` in an entry file:
-  - In a boot file if using Quasar CLI (with Vite or Webpack)
+  - In a boot file if using Quasar CLI (with Vite)
   - In `main.js`/`main.ts`(_or similar_) if using Quasar Vite plugin
   - In any suitable file or script tag if using UMD
 - Set `$q.iconMapFn` in the root component, e.g. `App.vue`:
@@ -609,7 +554,7 @@ $q.iconMapFn = (iconName) => {
   // iconName is the content of QIcon "name" prop (or related icon prop of other Quasar components)
 
   // can be any logic you want, but for this example:
-  if (iconName.startsWith('app:') === true) {
+  if (iconName.startsWith('app:')) {
     // we strip the "app:" part
     const name = iconName.substring(4)
 
@@ -662,7 +607,7 @@ We should then add the newly created CSS file into our app:
 
   ```
   // in your main.js/main.ts
-  import 'src/css/my-app-icon.css'
+  import '@/css/my-app-icon.css'
 
   // or in the main css file
   @import url('./my-app-icon.css');

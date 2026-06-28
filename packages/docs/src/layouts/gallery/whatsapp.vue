@@ -180,7 +180,7 @@
 
 <script>
 import { useQuasar } from 'quasar'
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const conversations = [
   {
@@ -228,9 +228,9 @@ export default {
     const message = ref('')
     const currentConversationIndex = ref(0)
 
-    const currentConversation = computed(() => {
-      return conversations[currentConversationIndex.value]
-    })
+    const currentConversation = computed(
+      () => conversations[currentConversationIndex.value]
+    )
 
     const style = computed(() => ({
       height: $q.screen.height + 'px'

@@ -93,3 +93,9 @@ pnpm run build
 cd packages/dev # or cd packages/docs
 pnpm run dev
 ```
+
+## Adding new classes
+
+1. Add an UnoCSS rule
+2. Add the class to the fallback classes in the theme
+3. Add the class to the corresponding safelist

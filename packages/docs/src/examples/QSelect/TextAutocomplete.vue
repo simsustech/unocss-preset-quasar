@@ -28,11 +28,13 @@
 import { ref } from 'vue'
 
 const stringOptions = [
+  // #region
   'Google',
   'Facebook',
   'Twitter',
   'Apple',
   'Oracle'
+  // #endregion
 ].reduce((acc, opt) => {
   for (let i = 1; i <= 5; i++) {
     acc.push(opt + ' ' + i)
@@ -52,8 +54,8 @@ export default {
       filterFn(val, update, abort) {
         update(() => {
           const needle = val.toLocaleLowerCase()
-          options.value = stringOptions.filter(
-            (v) => v.toLocaleLowerCase().indexOf(needle) > -1
+          options.value = stringOptions.filter((v) =>
+            v.toLocaleLowerCase().includes(needle)
           )
         })
       },

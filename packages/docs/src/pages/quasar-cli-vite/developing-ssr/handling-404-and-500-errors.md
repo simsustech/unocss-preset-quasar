@@ -3,70 +3,81 @@ title: SSR Handling of 404 and 500 Errors
 desc: (@quasar/app-vite) Managing the common 404 and 500 HTTP errors in a Quasar server-side rendered app.
 ---
 
-The handling of the 404 & 500 errors on SSR is a bit different than on the other modes (like SPA). If you check out `/src-ssr/middlewares/render.js`, you will notice the following section:
+The handling of the 404 & 500 errors on SSR is a bit different than on the other modes (like SPA). If you check out the default `/src-ssr/middlewares/render.js`, you will notice that 404 & 500 errors are handled there, based on the outcome of the `render()` call (if it throws error or not).
+
+Here is an example with Express, but the same idea applies to any webserver you choose. The section below is written after catching the other possible requests (like for /public folder, the manifest.json and service worker, etc). This is where we render the page with Vue and Vue Router.
 
 ```js /src-ssr/middlewares/render.js
-import { defineSsrMiddleware } from '#q-app/wrappers'
+/**
+ * We try to render the page html with Vue.
+ * If all goes well, we have it and we use it.
+ */
+try {
+  const renderedHtml = await render(/* the ssrContext: */ { req, res })
+  res.send(renderedHtml)
+} catch (err) {
+  /**
+   * If the render() call threw an error, we have a few
+   * cases:
+   */
 
-// This middleware should execute as last one
-// since it captures everything and tries to
-// render the page with Vue
+  if (err?.routeNotFound) {
+    /**
+     * Hmm, Vue Router could not find the requested route
+     * and it does not have a "catch-all" route, so we
+     * essentially have a 404. We should handle it here.
+     */
 
-export default defineSsrMiddleware(({ app, resolve, render, serve }) => {
-  // we capture any other Express route and hand it
-  // over to Vue and Vue Router to render our page
-  app.get(resolve.urlPath('*'), (req, res) => {
-    res.setHeader('Content-Type', 'text/html')
+    // ...handle it
+    return
+  }
 
-    render(/* the ssrContext: */ { req, res })
-      .then((html) => {
-        // now let's send the rendered html to the client
-        res.send(html)
-      })
-      .catch((err) => {
-        // oops, we had an error while rendering the page
+  if (err?.redirectUrl) {
+    /**
+     * We were told to redirect to another URL, so use
+     * your webserver to do exactly that.
+     */
 
-        // we were told to redirect to another URL
-        if (err.url) {
-          if (err.code) {
-            res.redirect(err.code, err.url)
-          } else {
-            res.redirect(err.url)
-          }
-        } else if (err.code === 404) {
-          // hmm, Vue Router could not find the requested route
+    // ...handle it
+    return
+  }
 
-          // Should reach here only if no "catch-all" route
-          // is defined in /src/routes
-          res.status(404).send('404 | Page Not Found')
-        } else if (process.env.DEV) {
-          // well, we treat any other code as error;
-          // if we're in dev mode, then we can use Quasar CLI
-          // to display a nice error page that contains the stack
-          // and other useful information
+  /**
+   * If we reach this point, we essentially have
+   * a rendering error and we're in the 500 domain.
+   */
 
-          // serve.error is available on dev only
-          serve.error({ err, req, res })
-        } else {
-          // we're in production, so we should have another method
-          // to display something to the client when we encounter an error
-          // (for security reasons, it's not ok to display the same wealth
-          // of information as we do in development)
+  if (import.meta.env.QUASAR_DEV) {
+    /**
+     * Well, we treat any other code as error;
+     * if we're in dev mode, then we can use Quasar CLI
+     * to display a nice error page that contains the stack
+     * and other useful information
+     *
+     * Note that serve.devError is available on dev only
+     */
+    const { errorHeaders, errorHtml } = serve.devError({ err, req })
 
-          // Render Error Page on production or
-          // create a route (/src/routes) for an error page and redirect to it
-          res.status(500).send('500 | Internal Server Error')
+    // ...handle it
+    return
+  }
 
-          if (process.env.DEBUGGING) {
-            console.error(err.stack)
-          }
-        }
-      })
-  })
-})
+  /**
+   * If we reach this point, we're in production.
+   * Did we compile with debugging information?
+   */
+  if (import.meta.env.QUASAR_DEBUG) {
+    console.error(err instanceof Error ? err.stack : (err ?? 'Unknown error'))
+  }
+
+  /**
+   * Render Error Page on production or
+   * alternatively, create a route (/src/routes) for an error page and redirect to it
+   * (just make sure that route won't crash too, otherwise you'll end up in an infinite loop!)
+   */
+  // ...handle the 500 response
+}
 ```
-
-The section above is written after catching the other possible requests (like for /public folder, the manifest.json and service worker, etc). This is where we render the page with Vue and Vue Router.
 
 ## Things to be aware of
 
@@ -74,42 +85,30 @@ We'll discuss some architectural decisions that you need to be aware of. Choose 
 
 ### Error 404
 
-If you define an equivalent 404 route on your Vue Router `/src/router/routes.js` file (like below), then `if (err.code === 404) {` part from the example above will NEVER be `true` since Vue Router already handled it.
+If you define an equivalent 404 route on your Vue Router `/src/router/routes.js` file (like below), then the `if(err.routeNotFound)` part from the example above will NEVER be `true` since Vue Router already handled it.
 
 ```js
 // Example of route for catching 404 with Vue Router
-{ path: '/:catchAll(.*)*', component: () => import('pages/Error404.vue') }
+{ path: '/:catchAll(.*)*', component: () => import('@/pages/Error404.vue') }
 ```
 
 ### Error 500
 
-On the `/src-ssr/middlewares/render.js` example at the top of the page, notice that if the webserver encounters any rendering error, we send a simple string back to the client ('500 | Internal Server Error'). If you want to show a nice page instead, you could:
+On the `/src-ssr/middlewares/render.js` example at the top of the page, notice that we may end up with a 500 error in dev or production. For the dev part, we can use Quasar CLI's `serve.devError()` to generate a nice page to send back to the client. But for production, this feature is not available, and we can send back the http status code along with a string (some error to be displayed?).
+
+However, if we want to show a nice page instead, either create a function to return its html (just like serve.devError does), or even (and this is a bit dangerous) create a VueRouter route to handle it:
 
 1. Add a specific route in `/src/router/routes.js`, like:
 
 ```js
-{ path: 'error500', component: () => import('pages/Error500.vue') }
+{ path: 'error500', component: () => import('@/pages/Error500.vue') }
 ```
 
 2. Write the Vue component to handle this page. In this example, we create `/src/pages/Error500.vue`
-3. Then in `/src-ssr/middlewares/render.js`:
-
-```js
-if (err.url) { ... }
-else if (err.code === 404) { ... }
-else {
-  // We got a 500 error here;
-  // We redirect to our "error500" route newly defined at step #1.
-  res.redirect(resolve.urlPath('error500')) // keep account of publicPath though!
-}
-```
+3. Then in `/src-ssr/middlewares/render.js` redirect the client to this path.
 
 ::: danger
-The only caveat is that you need to be sure that while rendering '/error500' route you don't get another 500 error, which would put your app into an infinite loop!
+The only caveat in this case is that you may end up in an endless loop if this VueRouter route throws an erorr too! So be extremely carefull should you choose this path.
 :::
 
-A perfect approach to avoid this would simply be to directly return the HTML (as String) of the error 500 page from `/src-ssr/middlewares/render.js`:
-
-```js
-res.status(500).send(`<html>....</html>`)
-```
+The perfect approach to avoid this would simply be to directly return the HTML (as String) of the error 500 page from `/src-ssr/middlewares/render.js`

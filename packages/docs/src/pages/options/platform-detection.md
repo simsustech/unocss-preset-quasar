@@ -117,7 +117,7 @@ import { Platform } from 'quasar'
 
 // you need access to `ssrContext`
 function (ssrContext) {
-  const platform = process.env.SERVER
+  const platform = import.meta.env.QUASAR_SERVER
     ? Platform.parseSSR(ssrContext)
     : Platform // otherwise we're on client
 
@@ -125,6 +125,6 @@ function (ssrContext) {
 }
 ```
 
-The `ssrContext` is available in [@quasar/app-vite Boot File](/quasar-cli-vite/boot-files) or [@quasar/app-webpack Boot File](/quasar-cli-webpack/boot-files). And also in the [@quasar/app-vite preFetch](/quasar-cli-vite/prefetch-feature) or [@quasar/app-webpack preFetch](/quasar-cli-webpack/prefetch-feature) feature, where it is supplied as a parameter.
+The `ssrContext` is available in [@quasar/app-vite Boot File](/quasar-cli-vite/boot-files). And also in the [@quasar/app-vite preFetch](/quasar-cli-vite/prefetch-feature) feature, where it is supplied as a parameter.
 
 The reason for all this is that in a client-only app, every user will be using a fresh instance of the app in their browser. For server-side rendering we want the same: each request should have a fresh, isolated app instance so that there is no cross-request state pollution. So Platform needs to be bound to each request separately.

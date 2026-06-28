@@ -22,7 +22,8 @@ Please be aware of the following:
 - QForm hooks into QInput, QSelect or QField wrapped components
 - QInput, QSelect or QField wrapped components must use the internal validation (NOT the external one).
 - If you want to take advantage of the `reset` functionality, then be sure to also capture the `@reset` event on QForm and make its handler reset all of the wrapped components models.
-  :::
+
+:::
 
 <DocExample title="Basic" file="Basic" />
 

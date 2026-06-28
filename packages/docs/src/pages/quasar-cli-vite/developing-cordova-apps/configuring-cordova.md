@@ -24,21 +24,13 @@ For determining the values for each of the properties mentioned above, Quasar CL
 1. Looks in the `/quasar.config` file for a "cordova" Object. Does it have "version", "description" and/or "androidVersionCode"? If yes, it will use them.
 2. If not, then it looks into your `/package.json` for "cordovaId", "version" and "description" fields.
 
-```js /quasar.config file > cordova
+```ts /quasar.config file > cordova
 cordova: {
   /** If not present, will look for `package.json > version` */
   version?: string;
   /** If not present, will look for `package.json > description` */
   description?: string;
   androidVersionCode?: string;
-  /**
-   * Enable Xcode modern build even if after considering iOS-Cordova issues.
-   * You can enable it if you know what you are doing,
-   *  for example if you want to specify the build type in your “build.json”.
-   *
-   * @default false
-   */
-  noIosLegacyBuildFlag?: boolean;
 
   /**
    * Function to return the Cordova build command parameters that

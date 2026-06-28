@@ -11,7 +11,7 @@ But first, let's learn how we can configure the Electron build.
 
 ## quasar.config file
 
-```js /quasar.config file > sourceFiles
+```ts /quasar.config file > sourceFiles
 // should you wish to change default files
 // (notice no extension, so it resolves to both .js and .ts)
 sourceFiles: {
@@ -19,7 +19,7 @@ sourceFiles: {
 }
 ```
 
-```js /quasar.config file > electron
+```ts /quasar.config file > electron
 electron: {
   /**
    * The list of content scripts (js/ts) that you want embedded.
@@ -31,19 +31,35 @@ electron: {
   preloadScripts?: string[];
 
   /**
-   * Add/remove/change properties of production generated package.json
+   * Add/remove/change properties of Electron production generated package.json
+   *
+   * Can be async. Can directly modify the "pkgJson" parameter or
+   * return a new one that will be merged with the default one.
    */
-  extendPackageJson?: (pkg: { [index in string]: any }) => void;
+  extendElectronPackageJson?: (pkgJson: { [index in string]: any }) =>
+    | void
+    | { [index in string]: any }
+    | Promise<void | { [index in string]: any }>;
 
   /**
-   * Extend the Esbuild config that is used for the electron-main thread
+   * Extend the Rolldown config that is used for the electron-main thread.
+   *
+   * Can be async. Can directly modify the "config" parameter or
+   * return a new one that will be merged with the default one.
    */
-  extendElectronMainConf?: (config: EsbuildConfiguration) => void;
+  extendElectronMainConf?: (
+    config: RolldownOptions
+  ) => void | RolldownOptions | Promise<void | RolldownOptions>;
 
   /**
-   * Extend the Esbuild config that is used for the electron-preload thread
+   * Extend the Rolldown config that is used for the electron-preload thread.
+   *
+   * Can be async. Can directly modify the "config" parameter or
+   * return a new one that will be merged with the default one.
    */
-  extendElectronPreloadConf?: (config: EsbuildConfiguration) => void;
+  extendElectronPreloadConf?: (
+    config: RolldownOptions
+  ) => void | RolldownOptions | Promise<void | RolldownOptions>;
 
   /**
    * You have to choose to use either packager or builder.
@@ -82,7 +98,7 @@ electron: {
 
 The "packager" prop refers to [@electron/packager options](https://electron.github.io/packager/main/). The `dir` and `out` properties are overwritten by Quasar CLI to ensure the best results.
 
-The "builder" prop refers to [electron-builder options](https://www.electron.build/configuration/configuration).
+The "builder" prop refers to [electron-builder options](https://www.electron.build/configuration).
 
 Should you want to tamper with the "Renderer" thread (UI in /src) Vite config:
 
@@ -111,4 +127,4 @@ By default, all `dependencies` from your root `package.json` file get installed 
 
 This means that it will also include your UI-only deps, which are already bundled in the UI files (so it will duplicate them). From our CLI perspective, we don't have any generic way of telling whether a dependency is UI only or if it's used by the main/preload scripts, so we cannot reliably auto-remove them.
 
-However, you can do this by using quasar.conf > electron > extendPackageJson(pkg) and overwriting or tampering with the `dependencies` key from your `package.json` file. If you leave only the main & preload threads depdendencies then this will lead to a smaller production executable file.
+However, you can do this by using quasar.conf > electron > extendElectronPackageJson(pkgJson) and overwriting or tampering with the `dependencies` key from your `package.json` file. If you leave only the main & preload threads depdendencies then this will lead to a smaller production executable file.

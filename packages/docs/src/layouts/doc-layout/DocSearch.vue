@@ -47,8 +47,8 @@
 </template>
 
 <script setup>
-import { useQuasar } from 'quasar'
-import { computed, ref, watch, markRaw, onMounted, onBeforeUnmount } from 'vue'
+import { LoadingBar, useQuasar } from 'quasar'
+import { computed, markRaw, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import AppSearchResults from './search/SearchResults.vue'
@@ -73,11 +73,7 @@ const icon = computed(() =>
 )
 
 const keysLabel = computed(() =>
-  $q.platform.is.desktop === true
-    ? $q.platform.is.mac
-      ? '⌘K'
-      : 'Ctrl+K'
-    : null
+  $q.platform.is.desktop ? ($q.platform.is.mac ? '⌘K' : 'Ctrl+K') : null
 )
 
 let focusoutTimer
@@ -113,43 +109,45 @@ function resetSearch() {
   activeId.value = null
 }
 
-let requestId = 0,
-  fetchTimer
+let controller
+let fetchTimer
 
 function fetchQuery(val, onResult, onError) {
-  const localRequestId = requestId
-  clearTimeout(fetchTimer)
+  controller = new AbortController()
+  const { signal } = controller
 
   fetchTimer = setTimeout(() => {
-    if (localRequestId !== requestId) return
+    if (signal.aborted) return
 
-    const xhr = new XMLHttpRequest()
-    const data = JSON.stringify({
-      q: val,
-      limit: 15,
-      cropLength: 50,
-      attributesToCrop: ['content'],
-      attributesToHighlight: ['content']
-    })
-
-    xhr.addEventListener('load', function () {
-      localRequestId === requestId && onResult(JSON.parse(this.responseText))
-    })
-
-    xhr.addEventListener('error', () => {
-      localRequestId === requestId && onError()
-    })
-
-    xhr.open(
-      'POST',
-      `https://search.quasar.dev/indexes/${process.env.SEARCH_INDEX}/search`
+    LoadingBar.start()
+    fetch(
+      `https://search.quasar.dev/indexes/${import.meta.env.SEARCH_INDEX}/search`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${import.meta.env.VITE_SEARCH_API_KEY}`
+        },
+        body: JSON.stringify({
+          q: val,
+          limit: 15,
+          cropLength: 50,
+          attributesToCrop: ['content'],
+          attributesToHighlight: ['content']
+        })
+      }
     )
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader(
-      'Authorization',
-      'Bearer b7a6ea9a9978a4e4d994c1f9451210327f207441adbcf04a4aada3d17d829359'
-    )
-    xhr.send(data)
+      .then((res) => res.json())
+      .then((data) => {
+        if (!signal.aborted) onResult(data)
+      })
+      .catch(() => {
+        if (!signal.aborted) onError()
+      })
+      .finally(() => {
+        if (!signal.aborted) controller = null
+        LoadingBar.stop()
+      })
   }, 400)
 }
 
@@ -168,12 +166,12 @@ function parseContent(content) {
     content +
     (endsWithRE.test(content) ? '...' : '')
 
-  str.split(contentRE).forEach((str) => {
-    if (str === '') {
+  str.split(contentRE).forEach((entry) => {
+    if (entry === '') {
       inToken = true
-    } else if (str !== '<em>' && str !== '</em>') {
+    } else if (entry !== '<em>' && entry !== '</em>') {
       acc.push({
-        str,
+        str: entry,
         class: inToken ? 'app-search__result-token' : null
       })
       inToken = !inToken
@@ -197,13 +195,13 @@ function parseResults(hits) {
 
   hits.forEach((hit) => {
     // if we don't know how to display this API type then just abort
-    if (supportedHitTypes.includes(hit.type) === false) return
+    if (!supportedHitTypes.includes(hit.type)) return
 
     const entry = {
       page: hit.menu.join(' » '),
       section:
         [hit.l1, hit.l2, hit.l3, hit.l4, hit.l5, hit.l6]
-          .filter((e) => e)
+          .filter(Boolean)
           .join(' » ') || null,
       content: parseContent(hit._formatted.content),
 
@@ -233,16 +231,19 @@ function parseResults(hits) {
 
 function onKeydown(evt) {
   switch (evt.keyCode) {
-    case 27: // escape
+    case 27: {
+      // escape
       evt.preventDefault()
-      if (hasFocus.value === true) {
+      if (hasFocus.value) {
         closePopup()
       } else {
         resetSearch()
       }
       break
+    }
     case 38: // up
-    case 40: // down
+    case 40: {
+      // down
       evt.preventDefault()
       if (results.value !== null && results.value.ids !== void 0) {
         if (activeId.value === null) {
@@ -264,11 +265,13 @@ function onKeydown(evt) {
         }
       }
       break
-    case 13: // enter
+    }
+    case 13: {
+      // enter
       evt.preventDefault()
       evt.stopPropagation()
       if (results.value !== null) {
-        if (hasFocus.value === false) {
+        if (!hasFocus.value) {
           hasFocus.value = true
           return
         }
@@ -278,6 +281,7 @@ function onKeydown(evt) {
         }
       }
       break
+    }
   }
 }
 
@@ -292,7 +296,9 @@ function onResultError() {
 }
 
 watch(terms, (val) => {
-  requestId++
+  clearTimeout(fetchTimer)
+  controller?.abort()
+  controller = null
 
   if (!val) {
     resetSearch()

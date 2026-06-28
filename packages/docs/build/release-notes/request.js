@@ -1,12 +1,12 @@
 import { Octokit } from '@octokit/core'
 
-import md from './md.mjs'
+import md from './md.js'
 
 const gitFetch = new Octokit({ auth: process.env.TOKEN })
 const versionMatchRE = /([\w/\-@]+)[- ]v([\d.\-\w]+)/
 const ghLinkRE = /#([\d]+)/g
 
-export default async (packages, versionRE) => {
+export default async function releaseNotesRequest(packages, versionRE) {
   const packageNameList = Object.keys(packages)
 
   async function query(page) {
@@ -27,6 +27,7 @@ export default async (packages, versionRE) => {
         continue
       }
 
+      // oxlint-disable-next-line prefer-const
       let [, packageName, version] = matchesList
 
       if (!version) {
@@ -34,15 +35,13 @@ export default async (packages, versionRE) => {
         continue
       }
 
-      if (packageName === '@quasar/app') {
-        packageName = '@quasar/app-webpack'
-      } else if (packageNameList.includes(packageName) === false) {
+      if (!packageNameList.includes(packageName)) {
         continue
       }
 
       if (
         versionRE[packageName] !== void 0 &&
-        versionRE[packageName].test(version) === false
+        !versionRE[packageName].test(version)
       ) {
         continue
       }

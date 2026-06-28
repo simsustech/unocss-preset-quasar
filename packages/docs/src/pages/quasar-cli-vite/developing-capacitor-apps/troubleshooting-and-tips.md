@@ -43,33 +43,28 @@ Some newer Debian-based OS (e.g. ubuntu, elementary OS) might leave you with a `
 This could have two different reasons: Usually the paths aren't configured correctly. The first step is to verify if your paths are set correctly. This can be done by running the following commands:
 
 ```bash
-$ echo $ANDROID_HOME
-
+echo $ANDROID_HOME
 # or
-
-$ echo $ANDROID_SDK_ROOT
-
+echo $ANDROID_SDK_ROOT
 ```
 
 The expected output should be a path similar to this `$HOME/Android/Sdk`. After this run:
 
 ```bash
-$ ls -la $ANDROID_HOME
-
+ls -la $ANDROID_HOME
 # or
-
-$ ls -la $ANDROID_SDK_ROOT
+ls -la $ANDROID_SDK_ROOT
 ```
 
 To ensure the folder contains the SDK. The expected output should contain folders like 'tools', 'sources', 'platform-tools', etc.
 
 ```bash
-$ echo $PATH
+echo $PATH
 ```
 
 The output should contain each one entry for the Android SDK 'tools'-folder and 'platform-tools'-tools. This could look like this:
 
-```bash
+```
 /home/your_user/bin:/home/your_user/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/your_user/Android/Sdk/tools:/home/your_user/Android/Sdk/platform-tools
 ```
 

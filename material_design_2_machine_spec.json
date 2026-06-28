@@ -1,0 +1,331 @@
+{
+  "system_metadata": {
+    "specification_name": "Material Design 2 (M2) Complete Machine Specification Engine Data",
+    "specification_version": "2.0 (Legacy Baseline)",
+    "ecosystem_targets": [
+      "Vue.js / Vuetify",
+      "Angular Material",
+      "Web Components"
+    ],
+    "encoding_format": "JSON-Schema-Compliant AST",
+    "validation_engine_compatibility": "Automated Visual QA, Playwright Linter, Visual Regression Runners"
+  },
+  "accessibility_and_contrast_system": {
+    "contrast_verification_algorithms": {
+      "wcag_2_0_and_2_1": {
+        "aa_compliance_minimum": {
+          "normal_text_under_18pt_px_24": "4.5:1",
+          "large_text_over_18pt_or_14pt_bold": "3.0:1",
+          "ui_components_and_graphics": "3.0:1"
+        },
+        "aaa_compliance_maximum": {
+          "normal_text_under_18pt_px_24": "7.0:1",
+          "large_text_over_18pt_or_14pt_bold": "4.5:1"
+        }
+      }
+    },
+    "interactive_targets": {
+      "physical_boundary_minimum_px": {
+        "width": 48,
+        "height": 48
+      },
+      "inline_touch_targets": {
+        "description": "Elements must be separated by at least 8px of space to prevent overlap, making cumulative grid lines snap to 8dp boundaries."
+      },
+      "focus_ring_and_states": {
+        "description": "M2 focuses primarily on standard colored background overlays rather than dynamic physical clearing focus rings."
+      }
+    }
+  },
+  "grid_and_layout_engine": {
+    "baseline_grid": {
+      "mobile_tablet_desktop_dp_grid": 8,
+      "typography_alignment_dp_grid": 4
+    },
+    "viewport_breakpoint_array": {
+      "xs_small_handset": {
+        "width_range": "0px <= w < 600px",
+        "columns": 4,
+        "margins_px": 16,
+        "gutter_space_px": 16
+      },
+      "sm_medium_handset_tablet": {
+        "width_range": "600px <= w < 960px",
+        "columns": 8,
+        "margins_px": 24,
+        "gutter_space_px": 24
+      },
+      "md_large_tablet_desktop": {
+        "width_range": "960px <= w < 1280px",
+        "columns": 12,
+        "margins_px": 24,
+        "gutter_space_px": 24
+      },
+      "lg_large_desktop": {
+        "width_range": "1280px <= w < 1920px",
+        "columns": 12,
+        "margins_px": 24,
+        "gutter_space_px": 24
+      },
+      "xl_ultra_large_desktop": {
+        "width_range": "w >= 1920px",
+        "columns": 12,
+        "margins_px": 24,
+        "gutter_space_px": 24
+      }
+    }
+  },
+  "design_token_pipeline": {
+    "color_system_mechanics": {
+      "architecture": "Color Palette Hues (50-900) + Accent Scales (A100-A700)",
+      "elevation_strategy": "Semi-transparent white overlay sheets stacked over the base surface color to visually represent height in dark mode."
+    },
+    "core_semantic_palette_mapping": {
+      "primary": "Main brand expression color used across headers and key actions.",
+      "primary_variant": "Darker or lighter alternative of the primary brand color.",
+      "secondary": "Accent color for floating action components, selections, and highlights.",
+      "secondary_variant": "Alternative variant of the secondary accent color.",
+      "background": "The underlying base color behind scrollable application content.",
+      "surface": "The structural sheet color applied to cards, sheets, menus, and dialogs.",
+      "error": "The functional color reserved exclusively for validation failures.",
+      "on_primary": "High contrast color safe for text/icons placed over the primary color.",
+      "on_secondary": "High contrast color safe for text/icons placed over the secondary color.",
+      "on_background": "High contrast color safe for text/icons placed over the background color.",
+      "on_surface": "High contrast color safe for text/icons placed over the surface color.",
+      "on_error": "High contrast color safe for text/icons placed over the error color."
+    }
+  },
+  "typography_system_schema": {
+    "h1": {
+      "font_size_px": 96,
+      "letter_spacing_px": -1.5,
+      "font_weight": 300,
+      "text_transform": "none"
+    },
+    "h2": {
+      "font_size_px": 60,
+      "letter_spacing_px": -0.5,
+      "font_weight": 300,
+      "text_transform": "none"
+    },
+    "h3": {
+      "font_size_px": 48,
+      "letter_spacing_px": 0.0,
+      "font_weight": 400,
+      "text_transform": "none"
+    },
+    "h4": {
+      "font_size_px": 34,
+      "letter_spacing_px": 0.25,
+      "font_weight": 400,
+      "text_transform": "none"
+    },
+    "h5": {
+      "font_size_px": 24,
+      "letter_spacing_px": 0.0,
+      "font_weight": 400,
+      "text_transform": "none"
+    },
+    "h6": {
+      "font_size_px": 20,
+      "letter_spacing_px": 0.15,
+      "font_weight": 500,
+      "text_transform": "none"
+    },
+    "subtitle1": {
+      "font_size_px": 16,
+      "letter_spacing_px": 0.15,
+      "font_weight": 400,
+      "text_transform": "none"
+    },
+    "subtitle2": {
+      "font_size_px": 14,
+      "letter_spacing_px": 0.1,
+      "font_weight": 500,
+      "text_transform": "none"
+    },
+    "body1": {
+      "font_size_px": 16,
+      "letter_spacing_px": 0.5,
+      "font_weight": 400,
+      "text_transform": "none"
+    },
+    "body2": {
+      "font_size_px": 14,
+      "letter_spacing_px": 0.25,
+      "font_weight": 400,
+      "text_transform": "none"
+    },
+    "button": {
+      "font_size_px": 14,
+      "letter_spacing_px": 1.25,
+      "font_weight": 500,
+      "text_transform": "uppercase"
+    },
+    "caption": {
+      "font_size_px": 12,
+      "letter_spacing_px": 0.4,
+      "font_weight": 400,
+      "text_transform": "none"
+    },
+    "overline": {
+      "font_size_px": 10,
+      "letter_spacing_px": 1.5,
+      "font_weight": 400,
+      "text_transform": "uppercase"
+    }
+  },
+  "state_overlay_opacities": {
+    "hover": 0.04,
+    "focus": 0.12,
+    "selected": 0.08,
+    "activated": 0.12,
+    "pressed": 0.16,
+    "dragged": 0.08,
+    "disabled_container_alpha": 0.12,
+    "disabled_content_alpha": 0.38
+  },
+  "elevation_and_shadows_matrix": {
+    "description": "M2 maps physical layout hierarchy directly to standard CSS box-shadow depths.",
+    "elevation_levels_dp": {
+      "dialogs": 24,
+      "picker_menus": 24,
+      "nav_drawer": 16,
+      "right_sheet": 16,
+      "bottom_sheet": 16,
+      "fab_pressed": 12,
+      "sub_menus": 8,
+      "bottom_nav_bar": 8,
+      "top_app_bar": 4,
+      "buttons_pressed": 8,
+      "fab_resting": 6,
+      "cards_hover": 8,
+      "cards_resting": 2,
+      "buttons_resting": 2,
+      "switches_and_controls": 1,
+      "flat_layouts": 0
+    }
+  },
+  "core_component_design_specifications": {
+    "buttons": {
+      "contained_button": {
+        "height_px": 36,
+        "min_width_px": 64,
+        "border_radius_px": 4,
+        "elevation_resting": 2,
+        "elevation_pressed": 8,
+        "typography_token": "button",
+        "padding_left_right_px": 16
+      },
+      "outlined_button": {
+        "height_px": 36,
+        "min_width_px": 64,
+        "border_radius_px": 4,
+        "border_stroke_thickness_px": 1,
+        "border_color_mapping": "rgba(0, 0, 0, 0.12)",
+        "elevation_resting": 0,
+        "typography_token": "button"
+      },
+      "text_button": {
+        "height_px": 36,
+        "min_width_px": 64,
+        "border_radius_px": 4,
+        "padding_left_right_px": 8,
+        "elevation_resting": 0,
+        "typography_token": "button"
+      }
+    },
+    "text_fields": {
+      "filled_text_field": {
+        "height_px": 56,
+        "border_radius_px": "4px 4px 0px 0px",
+        "background_color_light": "rgba(0, 0, 0, 0.06)",
+        "bottom_line_thickness_resting_px": 1,
+        "bottom_line_thickness_focused_px": 2,
+        "bottom_line_color_focused": "primary"
+      },
+      "outlined_text_field": {
+        "height_px": 56,
+        "border_radius_px": 4,
+        "border_stroke_thickness_resting_px": 1,
+        "border_stroke_thickness_focused_px": 2,
+        "border_color_focused": "primary",
+        "background_color": "transparent"
+      }
+    },
+    "selection_controls": {
+      "chips": {
+        "height_px": 32,
+        "border_radius_px": 16,
+        "background_color_light": "rgba(0, 0, 0, 0.08)",
+        "typography_token": "body2"
+      },
+      "switches": {
+        "track_width_px": 36,
+        "track_height_px": 14,
+        "thumb_diameter_px": 20
+      },
+      "checkboxes_and_radios": {
+        "bounding_touch_target_px": 48,
+        "visual_graphic_box_size_px": 18
+      }
+    },
+    "floating_action_buttons": {
+      "default_fab": {
+        "dimensions_px": 56,
+        "border_radius_percentage": 50,
+        "elevation_resting": 6,
+        "elevation_pressed": 12
+      },
+      "mini_fab": {
+        "dimensions_px": 40,
+        "border_radius_percentage": 50,
+        "elevation_resting": 6,
+        "elevation_pressed": 12
+      },
+      "extended_fab": {
+        "height_px": 48,
+        "border_radius_px": 24,
+        "elevation_resting": 6,
+        "elevation_pressed": 12,
+        "padding_left_right_px": 20
+      }
+    },
+    "cards": {
+      "standard_card": {
+        "border_radius_px": 4,
+        "elevation_resting": 2,
+        "elevation_hover": 8
+      }
+    },
+    "navigation_components": {
+      "top_app_bar": {
+        "height_px": 64,
+        "elevation_resting": 4,
+        "title_typography_token": "h6"
+      },
+      "bottom_navigation_bar": {
+        "height_px": 56,
+        "elevation_resting": 8,
+        "label_typography_active": "caption",
+        "label_typography_inactive": "caption"
+      },
+      "navigation_drawer": {
+        "width_px": 256,
+        "elevation_resting": 16
+      }
+    },
+    "feedback_indicators": {
+      "snackbars": {
+        "min_height_px": 48,
+        "max_height_px": 80,
+        "border_radius_px": 4,
+        "background_color_light": "rgb(51, 51, 51)"
+      },
+      "dialogs": {
+        "border_radius_px": 4,
+        "elevation_resting": 24
+      }
+    }
+  }
+}

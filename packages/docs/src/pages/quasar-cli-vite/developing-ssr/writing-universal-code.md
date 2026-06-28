@@ -28,7 +28,7 @@ So, Quasar CLI creates a new root Vue instance with a new Router and Pinia insta
 Instead of directly creating a Router and Pinia instance, you'll be exposing a factory function that can be repeatedly executed to create fresh app instances for each request:
 
 ```js src/router/index.js
-import { defineRouter } from '#q-app/wrappers'
+import { defineRouter } from '#q-app'
 export default defineRouter((/* { store, ssrContext } */) => {
   const Router = new VueRouter({...})
   return Router
@@ -36,7 +36,7 @@ export default defineRouter((/* { store, ssrContext } */) => {
 ```
 
 ```js src/stores/index.js
-import { defineStore } from '#q-app/wrappers'
+import { defineStore } from '#q-app'
 import { createPinia } from 'pinia'
 
 /*

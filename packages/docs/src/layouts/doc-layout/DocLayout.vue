@@ -4,7 +4,7 @@
     view="hHh LpR fff"
     @scroll="docStore.onPageScroll"
   >
-    <doc-header />
+    <DocHeader />
 
     <q-page-container>
       <q-page :class="pageClass" key="q-page">
@@ -12,14 +12,14 @@
         <div v-else :class="pageContentClass" key="page-standard">
           <div class="doc-layout__menu-container row justify-center">
             <q-scroll-area class="doc-layout__menu q-ml-md">
-              <doc-page-menu />
+              <DocPageMenu />
             </q-scroll-area>
           </div>
           <router-view />
         </div>
 
         <div class="col" />
-        <doc-page-footer :fullscreen="isFullscreen" />
+        <DocPageFooter :fullscreen="isFullscreen" />
       </q-page>
     </q-page-container>
 
@@ -35,8 +35,8 @@
     </q-page-scroller>
 
     <q-no-ssr>
-      <doc-drawer-menu />
-      <doc-drawer-toc />
+      <DocDrawerMenu />
+      <DocDrawerToc />
     </q-no-ssr>
   </q-layout>
 </template>
@@ -57,8 +57,7 @@ const docStore = provideDocStore()
 
 const isFullscreen = computed(() => docStore.$route.meta.fullscreen === true)
 const pageClass = computed(
-  () =>
-    `doc-layout__page-el--${isFullscreen.value === true ? 'fullscreen' : 'standard'}`
+  () => `doc-layout__page-el--${isFullscreen.value ? 'fullscreen' : 'standard'}`
 )
 const pageContentClass = computed(
   () =>

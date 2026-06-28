@@ -6,13 +6,16 @@
  * See ./chunks.js for more info.
  */
 
+import { join } from 'node:path'
 import { readFileSync, writeFileSync } from 'node:fs'
 
-const manifestPath = new URL(
-  '../dist/quasar.dev/quasar.manifest.json',
-  import.meta.url
+console.log('Fixing SSR manifest...')
+
+const manifestPath = join(
+  import.meta.dirname,
+  '../dist/quasar.dev/quasar.manifest.json'
 )
-const manifestJson = JSON.parse(readFileSync(manifestPath, 'utf-8'))
+const manifestJson = JSON.parse(readFileSync(manifestPath, 'utf8'))
 
 for (const key in manifestJson) {
   manifestJson[key] = manifestJson[key].filter(

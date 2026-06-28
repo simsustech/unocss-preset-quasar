@@ -1,4 +1,4 @@
-// eslint-disable-next-line
+// oxlint-disable-next-line no-useless-escape
 const specialRE = /[\s·/_\\,:;\.\(\)\[\]]+/g
 const andRE = /&/g
 const nonWordRE = /[^\w-]+/g
@@ -14,5 +14,5 @@ export function slugify(str) {
 }
 
 export function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1)
+  return str.at(0).toUpperCase() + str.slice(1)
 }

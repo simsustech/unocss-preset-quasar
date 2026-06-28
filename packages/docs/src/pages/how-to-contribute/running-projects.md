@@ -23,9 +23,9 @@ If you are interested, read [The Role of the Project Maintainer](/how-to-contrib
 
 We can promise you that your Javascript and Vue.js skills will reach the stars!
 
-| Project        | Required Skills              | Links                                                                                                                                                  |
-| -------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Cordova mode   | Apache Cordova               | [app-vite](https://github.com/quasarframework/quasar/tree/dev/app-vite), [app-webpack](https://github.com/quasarframework/quasar/tree/dev/app-webpack) |
-| Capacitor mode | Capacitor                    | [app-vite](https://github.com/quasarframework/quasar/tree/dev/app-vite), [app-webpack](https://github.com/quasarframework/quasar/tree/dev/app-webpack) |
-| Electron mode  | Maintenance and enhancements | [app-vite](https://github.com/quasarframework/quasar/tree/dev/app-vite), [app-webpack](https://github.com/quasarframework/quasar/tree/dev/app-webpack) |
-| BEX            | Browser Extension            | [app-vite](https://github.com/quasarframework/quasar/tree/dev/app-vite), [app-webpack](https://github.com/quasarframework/quasar/tree/dev/app-webpack) |
+| Project        | Required Skills              | Links                                                                   |
+| -------------- | ---------------------------- | ----------------------------------------------------------------------- |
+| Cordova mode   | Apache Cordova               | [app-vite](https://github.com/quasarframework/quasar/tree/dev/app-vite) |
+| Capacitor mode | Capacitor                    | [app-vite](https://github.com/quasarframework/quasar/tree/dev/app-vite) |
+| Electron mode  | Maintenance and enhancements | [app-vite](https://github.com/quasarframework/quasar/tree/dev/app-vite) |
+| BEX            | Browser Extension            | [app-vite](https://github.com/quasarframework/quasar/tree/dev/app-vite) |

@@ -5,7 +5,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-dialog-plugin$/,
     ([, c], { theme }) =>
-      `min-w-[280px] [&_.q-card\\_\\_section_+_.q-card\\_\\_section]:(pt-0)
+      `min-w-[280px] [&_.q-card__section_+_.q-card__section]:(pt-0)
     `
   ],
 

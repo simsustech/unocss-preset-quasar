@@ -23,7 +23,7 @@
 
 <script setup>
 import SponsorTile from '../sponsors-and-backers/SponsorTile.vue'
-import { sponsors } from 'src/assets/sponsors.js'
+import { sponsors } from '@/assets/sponsors.js'
 </script>
 
 <style lang="sass">

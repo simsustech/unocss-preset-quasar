@@ -65,45 +65,36 @@ We see instructions on how to install this plugin. It's always a Cordova command
 
 ```bash
 # from /src-cordova:
-$ cordova plugin add cordova-plugin-battery-status
+cordova plugin add cordova-plugin-battery-status
 ```
 
 Now let's put this plugin to some good use. In one of your Quasar project's pages/layouts/components Vue file, we write:
 
-```html
-// some Vue file // remember this is simply an example; // only look at how we
-use the API described in the plugin's page; // the rest of things here are of no
-importance
+```html // some Vue file
+// remember this is simply an example // only look at how we use the API
+described in the plugin's page // the rest of things here are of no importance
 
 <template>
   <div>Battery status is: <strong>{{ batteryStatus }}</strong></div>
 </template>
 
-<script>
+<script setup>
   import { ref, onBeforeUnmount } from 'vue'
 
-  export default {
-    setup() {
-      const batteryStatus = ref('determining...')
+  const batteryStatus = ref('determining...')
 
-      function updateBatteryStatus(status) {
-        batteryStatus.value = `Level: ${status.level}, plugged: ${status.isPlugged}`
-      }
-
-      // we register the event like on plugin's doc page
-      window.addEventListener('batterystatus', updateBatteryStatus, false)
-
-      onBeforeUnmount(() => {
-        // we do some cleanup;
-        // we need to remove the event listener
-        window.removeEventListener('batterystatus', updateBatteryStatus, false)
-      })
-
-      return {
-        batteryStatus
-      }
-    }
+  function updateBatteryStatus(status) {
+    batteryStatus.value = `Level: ${status.level}, plugged: ${status.isPlugged}`
   }
+
+  // we register the event like on plugin's doc page
+  window.addEventListener('batterystatus', updateBatteryStatus, false)
+
+  onBeforeUnmount(() => {
+    // we do some cleanup;
+    // we need to remove the event listener
+    window.removeEventListener('batterystatus', updateBatteryStatus, false)
+  })
 </script>
 ```
 
@@ -117,7 +108,7 @@ We read the instructions on how to install this plugin. It's always a Cordova co
 
 ```bash
 # from /src-cordova:
-$ cordova plugin add cordova-plugin-camera
+cordova plugin add cordova-plugin-camera
 ```
 
 Now let's put this plugin to some good use. In one of your Quasar project's pages/layouts/components Vue file, we write:
@@ -135,36 +126,27 @@ importance
   </div>
 </template>
 
-<script>
+<script setup>
   import { useQuasar } from 'quasar'
   import { ref } from 'vue'
 
-  export default {
-    setup() {
-      const $q = useQuasar()
-      const imageSrc = ref('')
+  const $q = useQuasar()
+  const imageSrc = ref('')
 
-      function captureImage() {
-        navigator.camera.getPicture(
-          (data) => {
-            // on success
-            imageSrc.value = `data:image/jpeg;base64,${data}`
-          },
-          () => {
-            // on fail
-            $q.notify('Could not access device camera.')
-          },
-          {
-            // camera options
-          }
-        )
+  function captureImage() {
+    navigator.camera.getPicture(
+      (data) => {
+        // on success
+        imageSrc.value = `data:image/jpeg;base64,${data}`
+      },
+      () => {
+        // on fail
+        $q.notify('Could not access device camera.')
+      },
+      {
+        // camera options
       }
-
-      return {
-        imageSrc,
-        captureImage
-      }
-    }
+    )
   }
 </script>
 ```
@@ -179,7 +161,7 @@ Read the instructions on how to install this plugin on its cordova doc page. It'
 
 ```bash
 # from /src-cordova:
-$ cordova plugin add cordova-plugin-device
+cordova plugin add cordova-plugin-device
 ```
 
 Now let's put this plugin to some good use. If you need the information of your device when starting the application, you will have to capture the created event. In one of your Quasar project's pages/layouts/components Vue file, we write:
@@ -197,21 +179,13 @@ importance
   </div>
 </template>
 
-<script>
+<script setup>
   import { ref } from 'vue'
 
-  export default {
-    setup() {
-      const imei = ref(
-        window.device === void 0
-          ? 'Run this on a mobile/tablet device'
-          : window.device
-      )
-
-      return {
-        imei
-      }
-    }
-  }
+  const imei = ref(
+    window.device === void 0
+      ? 'Run this on a mobile/tablet device'
+      : window.device
+  )
 </script>
 ```

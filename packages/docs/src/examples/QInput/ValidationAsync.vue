@@ -31,7 +31,7 @@ export default {
       myRule(val) {
         // simulating a delay
 
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           setTimeout(() => {
             // call
             //  resolve(true)
@@ -40,7 +40,7 @@ export default {
             //     --> content is NOT valid, no error message
             //  resolve(error_message)
             //     --> content is NOT valid, we have error message
-            resolve(!!val || '* Required')
+            resolve(Boolean(val) || '* Required')
 
             // calling reject(...) will also mark the input
             // as having an error, but there will not be any

@@ -296,15 +296,14 @@ function emitChange() {
 
 onMounted(emitChange)
 
-const buttonClasses = computed(() => {
-  return (
+const buttonClasses = computed(
+  () =>
     'text-white ' +
     (props.index === props.selectedIndex ? 'bg-brand-primary' : 'bg-grey')
-  )
-})
+)
 
-const styles = computed(() => {
-  return (
+const styles = computed(() =>
+  (
     'overflow: auto;' +
     (props.child.height
       ? ' min-height: ' +
@@ -321,10 +320,10 @@ const styles = computed(() => {
         ';'
       : '')
   ).trim()
-})
+)
 
-const classes = computed(() => {
-  return (
+const classes = computed(() =>
+  (
     props.child.widthGroup +
     ' ' +
     (props.child.breakpointGroup === null ? '' : props.child.breakpointGroup) +
@@ -337,10 +336,10 @@ const classes = computed(() => {
     ' ' +
     (props.child.colGutterGroup === null ? '' : props.child.colGutterGroup)
   )
-    .replace(/,/g, ' ')
-    .replace(/  +/g, ' ')
+    .replaceAll(',', ' ')
+    .replaceAll(/  +/g, ' ')
     .trim()
-})
+)
 
 defineExpose({
   classes,

@@ -26,11 +26,11 @@ setup () {
 }
 ```
 
-```js
+```ts
 function useTimeout(): {
-  registerTimeout(fn: () => void, delay?: string | number): void;
-  removeTimeout(): void;
-};
+  registerTimeout(fn: () => void, delay?: string | number): void
+  removeTimeout(): void
+}
 ```
 
 ## Example

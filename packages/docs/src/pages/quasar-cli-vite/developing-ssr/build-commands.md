@@ -6,26 +6,26 @@ desc: (@quasar/app-vite) The Quasar CLI list of commands when developing or buil
 ## Developing
 
 ```bash
-$ quasar dev -m ssr
+quasar dev -m ssr
 
 # ..or the longer form:
-$ quasar dev --mode ssr
+quasar dev --mode ssr
 ```
 
 ## Building for Production
 
 ```bash
-$ quasar build -m ssr
+quasar build -m ssr
 
 # ..or the longer form:
-$ quasar build --mode ssr
+quasar build --mode ssr
 ```
 
 If you want a production build with debugging enabled:
 
 ```bash
-$ quasar build -m ssr -d
+quasar build -m ssr -d
 
 # ..or the longer form
-$ quasar build -m ssr --debug
+quasar build -m ssr --debug
 ```

@@ -60,7 +60,9 @@ export default {
     return {
       name,
       nameRef,
-      nameRules: [(val) => (val && val.length > 0) || 'Please type something'],
+      nameRules: [
+        (val) => (val && val.length !== 0) || 'Please type something'
+      ],
 
       age,
       ageRef,

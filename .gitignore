@@ -3,3 +3,8 @@
 /packages/**/dist
 /packages/**/components.d.ts
 ISSUES.md
+.context/
+.env
+.env.*
+.npmrc
+**/.pnpm-store
