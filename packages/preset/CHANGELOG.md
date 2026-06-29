@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.3.4
+
+### Patch Changes
+
+- a35f7e2: fix(preset): fix q-btn rounded
+
 ## 0.3.3
 
 ### Patch Changes
