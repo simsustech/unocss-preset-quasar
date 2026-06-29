@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.3.3
+
+### Patch Changes
+
+- 847f4dc: fix(preset): update safelist
+
 ## 0.3.2
 
 ### Patch Changes
