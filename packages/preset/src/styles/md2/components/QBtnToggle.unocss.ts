@@ -2,6 +2,8 @@ import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
 import { componentClass, staticClass, qe } from '../../_helpers.js'
 
+const groupStandard = `rounded-[3px] [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)]`
+
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [/^q-btn-toggle$/, staticClass(`relative`)],
 
@@ -9,9 +11,11 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn-group$/,
     componentClass(
       'q-btn-group',
-      `rounded-[3px] [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] align-middle [&_>_.q-btn-item]:([border-radius:inherit] self-stretch) [&_>_.q-btn-item:before]:([box-shadow:none]) [&_>_.q-btn-item_.q-badge--floating]:(right-0) [&_>_.q-btn-group]:([box-shadow:none]) [&_>_.q-btn-group:first-child_>_.q-btn:first-child]:([border-top-left-radius:inherit] [border-bottom-left-radius:inherit]) [&_>_.q-btn-group:last-child_>_.q-btn:last-child]:([border-top-right-radius:inherit] [border-bottom-right-radius:inherit]) [&_>_.q-btn-group:not(:first-child)_>_.q-btn:first-child:before]:([border-left:0]) [&_>_.q-btn-group:not(:last-child)_>_.q-btn:last-child:before]:([border-right:0]) [&_>_.q-btn-item:not(:last-child)]:(rounded-tr-none rounded-br-none) [&_>_.q-btn-item:not(:first-child)]:(rounded-tl-none rounded-bl-none) [&_>_.q-btn-item.q-btn--standard:before]:(z--1)`
+      `${groupStandard} align-middle [&_>_.q-btn-item]:([border-radius:inherit] self-stretch) [&_>_.q-btn-item:before]:([box-shadow:none]) [&_>_.q-btn-item_.q-badge--floating]:(right-0) [&_>_.q-btn-group]:([box-shadow:none]) [&_>_.q-btn-group:first-child_>_.q-btn:first-child]:([border-top-left-radius:inherit] [border-bottom-left-radius:inherit]) [&_>_.q-btn-group:last-child_>_.q-btn:last-child]:([border-top-right-radius:inherit] [border-bottom-right-radius:inherit]) [&_>_.q-btn-group:not(:first-child)_>_.q-btn:first-child:before]:([border-left:0]) [&_>_.q-btn-group:not(:last-child)_>_.q-btn:last-child:before]:([border-right:0]) [&_>_.q-btn-item:not(:last-child)]:(rounded-tr-none rounded-br-none) [&_>_.q-btn-item:not(:first-child)]:(rounded-tl-none rounded-bl-none) [&_>_.q-btn-item.q-btn--standard:before]:(z--1)`
     )
   ],
+
+  [/^q-btn-group--standard$/, staticClass(groupStandard)],
 
   [
     /^q-btn-group--push$/,
@@ -26,7 +30,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [/^q-btn-group--square$/, staticClass(`rounded-none`)],
 
-  [/^q-btn-group--flat$/, staticClass(`[box-shadow:none]`)],
+  [/^q-btn-group--flat$/, staticClass(`![box-shadow:none]`)],
 
   [
     /^q-btn-group--outline$/,
@@ -36,7 +40,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     )
   ],
 
-  [/^q-btn-group--unelevated$/, staticClass(`[box-shadow:none]`)],
+  [/^q-btn-group--unelevated$/, staticClass(`![box-shadow:none]`)],
 
   [/^q-btn-group--stretch$/, staticClass(`self-stretch rounded-none`)],
 

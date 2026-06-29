@@ -2,14 +2,12 @@ import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
 import { componentClass, staticClass, qe } from '../../_helpers.js'
 
+const stepperStandard = `[box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px]`
+
 const shortcuts: Shortcut<QuasarTheme>[] = [
-  [
-    /^q-stepper$/,
-    componentClass(
-      'q-stepper',
-      `[box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px] bg-[#fff]`
-    )
-  ],
+  [/^q-stepper$/, componentClass('q-stepper', `${stepperStandard} bg-[#fff]`)],
+
+  [/^q-stepper--standard$/, staticClass(stepperStandard)],
 
   [
     /^q-stepper__title$/,
@@ -140,7 +138,10 @@ _.q-stepper__tab:last-child]:(items-end) [&_.q-stepper__tab]:(px-[0] py-[24px]) 
 
   [/^q-stepper__nav$/, componentClass('q-stepper__nav', `pt-[24px]`)],
 
-  [/^q-stepper--flat$/, componentClass('q-stepper--flat', `[box-shadow:none]`)],
+  [
+    /^q-stepper--flat$/,
+    componentClass('q-stepper--flat', `![box-shadow:none]`)
+  ],
 
   [
     /^q-stepper--bordered$/,

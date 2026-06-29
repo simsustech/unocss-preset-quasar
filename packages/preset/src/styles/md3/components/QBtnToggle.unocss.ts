@@ -2,6 +2,8 @@ import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
 import { componentClass, staticClass, qe } from '../../_helpers.js'
 
+const groupStandard = `rounded-[28px] [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)]`
+
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [/^q-btn-toggle$/, staticClass(`relative`)],
 
@@ -10,8 +12,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentClass(
       'q-btn-group',
       `!flex-initial
-      rounded-[28px] 
-      [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] 
+      ${groupStandard}
       align-middle 
       [&_>_.q-btn]:(layer-components:bg-$light-surface-container layer-components:dark:bg-$dark-surface-container) 
       [&_>_.q-btn-item]:(text-$light-on-surface dark:text-$dark-on-surface self-stretch) 
@@ -29,6 +30,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     )
   ],
 
+  [/^q-btn-group--standard$/, staticClass(groupStandard)],
+
   [
     /^q-btn-group--push$/,
     componentClass(
@@ -42,7 +45,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [/^q-btn-group--square$/, staticClass(`rounded-none`)],
 
-  [/^q-btn-group--flat$/, staticClass(`[box-shadow:none]`)],
+  [/^q-btn-group--flat$/, staticClass(`![box-shadow:none]`)],
 
   [
     /^q-btn-group--outline$/,
@@ -52,7 +55,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     )
   ],
 
-  [/^q-btn-group--unelevated$/, staticClass(`[box-shadow:none]`)],
+  [/^q-btn-group--unelevated$/, staticClass(`![box-shadow:none]`)],
 
   [/^q-btn-group--stretch$/, staticClass(`self-stretch rounded-none`)],
 
