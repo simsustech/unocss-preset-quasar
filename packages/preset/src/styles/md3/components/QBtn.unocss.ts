@@ -30,7 +30,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentCtxClass(
       'q-btn--standard',
       ({ theme }) =>
-        `!rounded-[28px] layer-components:bg-$light-primary layer-components:dark:bg-$dark-primary layer-components:text-$light-on-primary layer-components:dark:text-$dark-on-primary
+        `rounded-[28px] layer-components:bg-$light-primary layer-components:dark:bg-$dark-primary layer-components:text-$light-on-primary layer-components:dark:text-$dark-on-primary
        [&:before]:([border-radius:inherit] shadow-md shadow-gray/14)`
     )
   ],
