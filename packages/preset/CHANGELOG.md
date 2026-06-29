@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.3.2
+
+### Patch Changes
+
+- 60f7e3b: fix: fix theme export
+
 ## 0.3.1
 
 ### Patch Changes
