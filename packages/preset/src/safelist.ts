@@ -120,6 +120,8 @@ const QSliderSafelist = [
   'q-slider__label--v-standard',
   'q-slider__label--v-switched',
   'q-slider__text-container',
+  'q-slider__text-container--h',
+  'q-slider__text-container--h-standard',
   'q-slider__text',
   'q-slider--no-value',
   'q-slider--focus',
@@ -127,7 +129,9 @@ const QSliderSafelist = [
   'q-slider--active',
   'q-slider--label',
   'q-slider--dark',
-  'q-slider--dense'
+  'q-slider--dense',
+  'q-slider--dense--h',
+  'q-slider--enabled'
 ]
 
 const QChipSafelist = [
@@ -154,9 +158,15 @@ const QRadioSafelist = [
   'q-radio__check',
   'q-radio__inner',
   'q-radio__inner--truthy',
+  'q-radio__inner--falsy',
   'q-radio--dark',
   'q-radio--dense',
   'q-radio__label'
+]
+
+const QInfiniteScrollSafelist = [
+  'q-infinite-scroll',
+  'q-infinite-scroll__loading'
 ]
 
 export const componentsSafelistMap: Partial<
@@ -184,9 +194,11 @@ export const componentsSafelistMap: Partial<
   ],
   QBar: ['q-bar', 'q-bar--standard', 'q-bar--dense', 'q-bar--dark'],
   QBreadcrumbs: [
+    'q-breadcrumbs',
     'q-breadcrumbs__el',
     'q-breadcrumbs__el-icon',
-    'q-breadcrumbs__el-icon--with-label'
+    'q-breadcrumbs__el-icon--with-label',
+    'q-breadcrumbs--last'
   ],
   QBtn: [
     'q-btn',
@@ -234,6 +246,8 @@ export const componentsSafelistMap: Partial<
     'q-card',
     'q-card--bordered',
     'q-card--dark',
+    'q-card--flat',
+    'q-card--square',
     'q-card__section',
     'q-card__section--vert',
     'q-card__section--horiz',
@@ -258,12 +272,15 @@ export const componentsSafelistMap: Partial<
     'q-carousel__navigation-inner',
     'q-carousel__navigation',
     'q-carousel__navigation-icon--inactive',
+    'q-carousel__navigation-icon',
+    'q-carousel__navigation--buttons',
     'q-carousel--navigation-top',
     'q-carousel--arrows-vertical',
     'q-carousel--navigation-bottom',
     'q-carousel--navigation-left',
     'q-carousel--arrows-horizontal',
-    'q-carousel--navigation-right'
+    'q-carousel--navigation-right',
+    'q-carousel--without-padding'
   ],
   QChatMessage: [
     'q-message-name',
@@ -279,7 +296,12 @@ export const componentsSafelistMap: Partial<
     'q-message-container--sent',
     'q-message-text--sent',
     'q-message-text-content--sent',
-    'q-message-text'
+    'q-message-text',
+    'q-message-container',
+    'q-message-name--received',
+    'q-message-received',
+    'q-message-sent',
+    'q-message-text-content'
   ],
   QCheckbox: QCheckboxSafelist,
   QChip: QChipSafelist,
@@ -287,7 +309,8 @@ export const componentsSafelistMap: Partial<
     'q-circular-progress',
     'q-circular-progress__svg',
     'q-circular-progress__text',
-    'q-circular-progress--indeterminate'
+    'q-circular-progress--indeterminate',
+    'q-circular-progress--determinate'
   ],
   QColor: [
     'q-color-picker',
@@ -313,7 +336,9 @@ export const componentsSafelistMap: Partial<
     'q-color-picker__palette-tab',
     'q-color-picker__palette-rows--editable',
     'q-color-picker__cube',
-    'q-color-picker--dark'
+    'q-color-picker--dark',
+    'q-color-picker--flat',
+    'q-color-picker--square'
   ],
   QDate: [
     'q-date',
@@ -356,7 +381,8 @@ export const componentsSafelistMap: Partial<
     'q-date--landscape-minimal',
     'q-date--dark',
     'q-date__arrow',
-    'q-date__months'
+    'q-date__months',
+    'q-date__calendar'
   ],
   QDialog: [
     'q-dialog__title',
@@ -372,7 +398,8 @@ export const componentsSafelistMap: Partial<
     'q-dialog__inner--fullwidth',
     'q-dialog__inner--fullheight',
     'q-dialog__backdrop',
-    'q-body--dialog'
+    'q-body--dialog',
+    'q-dialog--seamless'
   ],
   QEditor: [
     'q-editor',
@@ -383,7 +410,8 @@ export const componentsSafelistMap: Partial<
     'q-editor__link-input',
     'q-editor--flat',
     'q-editor--dense',
-    'q-editor--dark'
+    'q-editor--dark',
+    'q-editor--default'
   ],
   QExpansionItem: [
     'q-expansion-item__border',
@@ -423,7 +451,10 @@ export const componentsSafelistMap: Partial<
     'q-fab__actions--down',
     'q-fab__actions--opened',
     'q-fab--align-left',
-    'q-fab--align-right'
+    'q-fab--align-right',
+    'q-fab--align-center',
+    'q-fab--opened',
+    'q-fab__label'
   ],
   QField: [
     'q-field',
@@ -514,7 +545,9 @@ export const componentsSafelistMap: Partial<
     'q-item--dense',
     'q-list--dark',
     'q-item--dark',
-    'q-item--active'
+    'q-item--active',
+    'q-item--clickable',
+    'q-item__section'
   ],
   QKnob: [
     'q-knob',
@@ -576,7 +609,9 @@ export const componentsSafelistMap: Partial<
   QPullToRefresh: [
     'q-pull-to-refresh',
     'q-pull-to-refresh__puller',
-    'q-pull-to-refresh__puller--animating'
+    'q-pull-to-refresh__puller--animating',
+    'q-pull-to-refresh__content',
+    'q-pull-to-refresh__puller-container'
   ],
   QRadio: QRadioSafelist,
   QRange: QSliderSafelist,
@@ -588,7 +623,8 @@ export const componentsSafelistMap: Partial<
     'q-rating__icon--active',
     'q-rating__icon--exselected',
     'q-rating--no-dimming',
-    'q-rating--editable'
+    'q-rating--editable',
+    'q-rating--non-editable'
   ],
   QResponsive: [
     'q-responsive',
@@ -607,6 +643,7 @@ export const componentsSafelistMap: Partial<
     'q-scrollarea__thumb--invisible',
     'q-scrollarea__content',
     'q-scrollarea--dark',
+    'q-scrollarea__container',
     'relative-position'
   ],
   QSelect: [
@@ -621,7 +658,9 @@ export const componentsSafelistMap: Partial<
     'q-select__focus-target',
     'q-select__autocomplete-input',
     'q-select__dropdown-icon',
-    'q-select__dialog'
+    'q-select__dialog',
+    'q-select--single',
+    'q-select--without-chips'
   ],
   QSkeleton: [
     'q-skeleton',
@@ -648,7 +687,8 @@ export const componentsSafelistMap: Partial<
     'q-skeleton--anim-wave',
     'q-skeleton--anim-blink',
     'q-skeleton--anim-pop',
-    'q-skeleton--dark'
+    'q-skeleton--dark',
+    'q-skeleton--type-rect'
   ],
   QSlideItem: [
     'q-slide-item',
@@ -656,7 +696,8 @@ export const componentsSafelistMap: Partial<
     'q-slide-item__right',
     'q-slide-item__top',
     'q-slide-item__bottom',
-    'q-slide-item__content'
+    'q-slide-item__content',
+    'q-slide-item--dark'
   ],
   QSlider: QSliderSafelist,
   QSpace: ['q-space'],
@@ -695,6 +736,8 @@ export const componentsSafelistMap: Partial<
     'q-stepper--bordered',
     'q-stepper--horizontal',
     'q-stepper--vertical',
+    'q-stepper__content',
+    'q-stepper__step-content',
     'col-grow'
   ],
   QTabPanels: ['q-tab-panels', 'q-tab-panel'],
@@ -751,7 +794,8 @@ export const componentsSafelistMap: Partial<
     'q-tabs__offset',
     'q-tabs--horizontal',
     'q-tabs--vertical',
-    'q-tabs--dense'
+    'q-tabs--dense',
+    'q-tabs--mobile-without-arrows'
   ],
   QTime: [
     'q-time',
@@ -800,7 +844,9 @@ export const componentsSafelistMap: Partial<
     'q-time--readonly',
     'q-time--portrait',
     'q-time--landscape',
-    'q-time--dark'
+    'q-time--dark',
+    'q-time--flat',
+    'q-time__main'
   ],
   QTimeline: [
     'q-timeline',
@@ -819,7 +865,8 @@ export const componentsSafelistMap: Partial<
     'q-timeline--comfortable',
     'q-timeline--comfortable--right',
     'q-timeline--comfortable--left',
-    'q-timeline--loose'
+    'q-timeline--loose',
+    'q-timeline--dense'
   ],
   QToggle: [
     'q-toggle',
@@ -829,12 +876,14 @@ export const componentsSafelistMap: Partial<
     'q-toggle__inner',
     'q-toggle__inner--indet',
     'q-toggle__inner--truthy',
+    'q-toggle__inner--falsy',
     'q-toggle--dark',
     'q-toggle--dense'
   ],
   QToolbar: ['q-toolbar', 'q-toolbar--inset'],
   QToolbarTitle: ['q-toolbar__title'],
   QTooltip: ['q-tooltip--style', 'q-tooltip'],
+  QInfiniteScroll: QInfiniteScrollSafelist,
   QTree: [
     'q-tree',
     'q-tree__node',
@@ -1025,6 +1074,7 @@ const pluginSafelistMap: Partial<Record<keyof QuasarPlugins, string[]>> = {
     'q-btn__progress--dark',
     'q-spinner',
     'q-spinner-mat',
+    'q-notifications',
     'q-notifications__list',
     'q-notifications__list--center',
     'q-notifications__list--top',
@@ -1172,6 +1222,7 @@ const baseSafelist = [
   'items-end',
   'items-start',
   'items-stretch',
+  'items-between',
   'justify-between',
   'justify-center',
   'justify-end',
@@ -1199,12 +1250,17 @@ const baseSafelist = [
   'q-focusable',
   'q-gutter-x-sm',
   'q-gutter-xs',
+  'q-gutter-lg',
   'q-hoverable',
   'q-link',
   'q-link--focusable',
   'q-manual-focusable',
   'q-placeholder',
   'q-position-engine',
+  'q-layout-padding',
+  'q-ma-none',
+  'q-mr-sm',
+  'q-pa-none',
   'readonly',
   'relative-position',
   'rotate-180',
@@ -1213,6 +1269,7 @@ const baseSafelist = [
   'scroll',
   'scroll-x',
   'scroll-y',
+  'scroll--mobile',
   'self-center',
   'self-end',
   'self-start',
@@ -1224,8 +1281,10 @@ const baseSafelist = [
   'text-overline',
   'transparent',
   'wrap',
+  'z-fab',
   'z-max',
-  'z-top'
+  'z-top',
+  'body--light'
 ]
 
 export const generateSafelist = ({
