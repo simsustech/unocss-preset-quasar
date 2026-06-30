@@ -1828,9 +1828,11 @@ const setThemeColors = (themeColors: QuasarTheme['colors']) => {
   for (const [name, value] of Object.entries(themeColors.dark)) {
     setCssVar('dark-' + kebabize(name), value)
   }
-  setCssVar('q-primary', themeColors.light.primary)
-  setCssVar('q-secondary', themeColors.light.secondary)
-  setCssVar('q-accent', themeColors.light.tertiary)
+  for (const [name, value] of Object.entries(themeColors)) {
+    if (name === 'light' || name === 'dark') continue
+    if (typeof value !== 'string') continue
+    setCssVar(kebabize(name), value)
+  }
 }
 
 export { defaultTheme, generateTheme, setThemeColors }
