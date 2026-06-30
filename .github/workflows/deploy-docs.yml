@@ -35,7 +35,7 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --filter unocss-preset-quasar-docs...
+        run: pnpm install --filter unocss-preset-quasar-docs... --no-frozen-lockfile
 
       - name: Build docs
         run: pnpm --filter unocss-preset-quasar-docs run build
