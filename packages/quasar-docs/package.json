@@ -1,0 +1,41 @@
+{
+  "name": "quasar.dev",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Official Quasar Docs Website",
+  "author": "Razvan Stoenescu <razvan.stoenescu@gmail.com>",
+  "type": "module",
+  "scripts": {
+    "prepare:types": "quasar prepare --silent",
+    "dev": "quasar dev",
+    "dev:ssr": "quasar dev -m ssr",
+    "preview": "quasar clean && DOCS_PREVIEW=true quasar build -m ssr && cp src-ssr/pnpm-workspace.yaml dist/quasar.dev/ && pnpm i --dir dist/quasar.dev && du -sh dist/quasar.dev/client && du -sh dist/quasar.dev/server && node dist/quasar.dev",
+    "build": "quasar clean && node build/search.js && quasar build -m ssr --no-summary && du -sh dist/quasar.dev/client && node build/fix-ssr-manifest.js && cp src-ssr/pnpm-workspace.yaml dist/quasar.dev/ && pnpm i --dir dist/quasar.dev && node build/ssg.js && du -sh dist/quasar.dev/client && du -sh dist/quasar.dev/server && du -h dist/quasar.dev/client/service-worker.js",
+    "relnotes": "node build/release-notes/index.js",
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@quasar/extras": "^2.0.0",
+    "@shikijs/langs": "^4.1.0",
+    "@shikijs/transformers": "^4.1.0",
+    "quasar": "^2.20.0",
+    "shiki": "^4.1.0",
+    "vue": "^3.5.38",
+    "vue-router": "^5.1.0"
+  },
+  "devDependencies": {
+    "@quasar/app-vite": "^3.0.0-rc.3",
+    "@rolldown/pluginutils": "^1.0.1",
+    "fs-extra": "^11.3.5",
+    "gray-matter": "^4.0.3",
+    "markdown-ast": "^0.3.0",
+    "markdown-it": "^14.2.0",
+    "markdown-it-container": "^4.0.0",
+    "tinyglobby": "^0.2.17",
+    "toml": "^4.1.1",
+    "unocss": "66.7.0",
+    "unocss-preset-quasar": "workspace:*",
+    "workbox-build": "^7.4.1"
+  },
+  "productName": "quasar-docs"
+}

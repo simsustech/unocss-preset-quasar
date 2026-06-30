@@ -1,3 +1,4 @@
-/quasar.config.*.temporary.compiled*
-.env*
-/pnpm-lock.yaml
+node_modules
+dist
+.vitepress/cache
+.vitepress/dist
