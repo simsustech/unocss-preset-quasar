@@ -2,8 +2,8 @@
 layout: home
 
 hero:
-  name: "unocss-preset-quasar"
-  text: "Utility-first Quasar styling"
+  name: 'unocss-preset-quasar'
+  text: 'Utility-first Quasar styling'
   tagline: Drop Quasar's Sass bundle. Use UnoCSS utility classes instead. Material Design 3, Material Design 2, and Unstyled — all tree-shakeable.
   actions:
     - theme: brand
@@ -53,9 +53,9 @@ import UnoCSS from 'unocss/vite'
 export default defineConfig({
   vitePlugins: [
     UnoCSS({
-      presets: [QuasarPreset({ style: MaterialDesign3, plugins })],
-    }),
-  ],
+      presets: [QuasarPreset({ style: MaterialDesign3, plugins })]
+    })
+  ]
 })
 ```
 
@@ -94,7 +94,7 @@ import { QuasarPreset } from 'unocss-preset-quasar'
 import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
 import UnoCSS from 'unocss/vite'
 
-const plugins = ['Dark', 'Dialog', 'Notify', 'LoadingBar', /* ... */]
+const plugins = ['Dark', 'Dialog', 'Notify', 'LoadingBar' /* ... */]
 
 export default defineConfig((ctx) => ({
   vitePlugins: [
@@ -110,8 +110,8 @@ export default defineConfig((ctx) => ({
           )
         }
         return code
-      },
-    },
+      }
+    }
   ],
   extendViteConf(viteConf, { isClient }) {
     viteConf.plugins.push(
@@ -120,13 +120,13 @@ export default defineConfig((ctx) => ({
         presets: [
           QuasarPreset({
             style: MaterialDesign3,
-            plugins,
-          }),
-        ],
+            plugins
+          })
+        ]
       })
     )
   },
-  framework: { plugins },
+  framework: { plugins }
 }))
 ```
 

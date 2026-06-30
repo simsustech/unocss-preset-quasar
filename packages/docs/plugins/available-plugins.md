@@ -82,6 +82,6 @@ const plugins = [
   'Meta',
   'Platform',
   'Screen',
-  'SessionStorage',
+  'SessionStorage'
 ]
 ```

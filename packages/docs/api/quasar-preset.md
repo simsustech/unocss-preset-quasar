@@ -24,7 +24,7 @@ The design system. One of:
 import {
   MaterialDesign3,
   MaterialDesign2,
-  Unstyled,
+  Unstyled
 } from 'unocss-preset-quasar/styles'
 ```
 
@@ -66,9 +66,9 @@ UnoCSS({
     QuasarPreset({
       style: MaterialDesign3,
       sourceColor: '#6750A4',
-      plugins: ['Dark', 'Dialog', 'Notify', 'LoadingBar'],
-    }),
-  ],
+      plugins: ['Dark', 'Dialog', 'Notify', 'LoadingBar']
+    })
+  ]
 })
 ```
 
@@ -76,15 +76,15 @@ UnoCSS({
 
 Internally, `QuasarPreset()` configures:
 
-| Component | What |
-|-----------|------|
-| **Presets** | `@unocss/preset-wind3` (Wind4), `animated-unocss`, `presetIcons`, `presetWebFonts` |
-| **Theme** | Extended `QuasarTheme` with MD3 color generation |
-| **Preflights** | CSS reset, MD3 color variables, typography, transitions |
-| **Rules** | Mouse rules, helper rules, elevation rules, visibility rules |
-| **Shortcuts** | All component shortcuts from the selected style + core utilities |
-| **Variants** | Style-specific variants (dark mode, breakpoints) |
-| **Safelist** | Component classes, plugin classes, icon classes, color classes |
-| **Extractor** | Auto-detects Quasar components, transitions, colors, and icons |
-| **Transformers** | `transformerVariantGroup`, `transformerDirectives` |
-| **Layers** | `components` (-1), `default` (1), `utilities` (2) + optional body-class layer |
+| Component        | What                                                                               |
+| ---------------- | ---------------------------------------------------------------------------------- |
+| **Presets**      | `@unocss/preset-wind3` (Wind4), `animated-unocss`, `presetIcons`, `presetWebFonts` |
+| **Theme**        | Extended `QuasarTheme` with MD3 color generation                                   |
+| **Preflights**   | CSS reset, MD3 color variables, typography, transitions                            |
+| **Rules**        | Mouse rules, helper rules, elevation rules, visibility rules                       |
+| **Shortcuts**    | All component shortcuts from the selected style + core utilities                   |
+| **Variants**     | Style-specific variants (dark mode, breakpoints)                                   |
+| **Safelist**     | Component classes, plugin classes, icon classes, color classes                     |
+| **Extractor**    | Auto-detects Quasar components, transitions, colors, and icons                     |
+| **Transformers** | `transformerVariantGroup`, `transformerDirectives`                                 |
+| **Layers**       | `components` (-1), `default` (1), `utilities` (2) + optional body-class layer      |

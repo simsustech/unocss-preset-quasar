@@ -89,7 +89,7 @@ const plugins = [
   'LoadingBar',
   'BottomSheet',
   'Platform',
-  'Screen',
+  'Screen'
 ]
 
 export default defineConfig(async (ctx) => ({
@@ -100,19 +100,16 @@ export default defineConfig(async (ctx) => ({
   ],
 
   css: [
-    'app.scss', // your custom styles
+    'app.scss' // your custom styles
     // Note: do NOT include 'quasar/dist/quasar.sass'
   ],
 
-  extras: [
-    'roboto-font',
-    'material-icons',
-  ],
+  extras: ['roboto-font', 'material-icons'],
 
   build: {
     target: {
-      browser: ['es2022', 'firefox115', 'chrome115', 'safari16'],
-    },
+      browser: ['es2022', 'firefox115', 'chrome115', 'safari16']
+    }
   },
 
   vitePlugins: [
@@ -126,8 +123,8 @@ export default defineConfig(async (ctx) => ({
             `import 'virtual:uno.css'`
           )
         }
-      },
-    },
+      }
+    }
   ],
 
   extendViteConf(viteConf, { isClient }) {
@@ -137,14 +134,14 @@ export default defineConfig(async (ctx) => ({
         presets: [
           QuasarPreset({
             style: MaterialDesign3,
-            plugins,
-          }),
-        ],
+            plugins
+          })
+        ]
       })
     )
   },
 
-  framework: { plugins },
+  framework: { plugins }
 }))
 ```
 
@@ -166,6 +163,7 @@ body.body--dark .my-custom-element {
 ```
 
 Available variables include (for both `--light-*` and `--dark-*`):
+
 - `--*-primary`, `--*-on-primary`, `--*-primary-container`, `--*-on-primary-container`
 - `--*-secondary`, `--*-on-secondary`, `--*-secondary-container`, `--*-on-secondary-container`
 - `--*-tertiary`, `--*-on-tertiary`, `--*-tertiary-container`, `--*-on-tertiary-container`
@@ -180,6 +178,7 @@ Available variables include (for both `--light-*` and `--dark-*`):
 - `--*-surface-container`, `--*-surface-container-high`, `--*-surface-container-highest`
 
 Plus Quasar-specific:
+
 - `--q-primary`, `--q-secondary`, `--q-accent`
 - `--q-positive`, `--q-negative`, `--q-info`, `--q-warning`
 - `--q-dark`, `--q-dark-page`
@@ -210,9 +209,9 @@ import { defineConfig } from 'unocss'
 
 export default defineConfig({
   shortcuts: {
-    'my-btn': 'px-4 py-2 rounded bg-primary text-white',
+    'my-btn': 'px-4 py-2 rounded bg-primary text-white'
     // ... your custom shortcuts
-  },
+  }
 })
 ```
 
@@ -223,6 +222,7 @@ The preset's shortcuts, rules, and preflights are all set via the `presets` arra
 ### "Some component styles are missing"
 
 Check that:
+
 1. The **plugin list** in `QuasarPreset({ plugins })` matches `framework.plugins`
 2. You haven't forgotten any plugin (Dialog, Notify, LoadingBar are common omissions)
 3. The `quasar-strip-sass` plugin is `enforce: 'pre'` and runs before Vite

@@ -38,13 +38,13 @@ Levels 1–24 are available. Higher levels indicate higher z-axis position relat
 
 The `shadow-{N}` shortcut maps to approximate Tailwind/Wind shadow sizes:
 
-| Shortcut | Elevation range | Maps to |
-|----------|----------------|---------|
-| `shadow-1` to `shadow-3` | 1–3 | `shadow-sm` |
-| `shadow-4` to `shadow-8` | 4–8 | `shadow` |
-| `shadow-9` to `shadow-12` | 9–12 | `shadow-md` |
-| `shadow-13` to `shadow-18` | 13–18 | `shadow-lg` |
-| `shadow-19` to `shadow-24` | 19–24 | `shadow-xl` |
+| Shortcut                   | Elevation range | Maps to     |
+| -------------------------- | --------------- | ----------- |
+| `shadow-1` to `shadow-3`   | 1–3             | `shadow-sm` |
+| `shadow-4` to `shadow-8`   | 4–8             | `shadow`    |
+| `shadow-9` to `shadow-12`  | 9–12            | `shadow-md` |
+| `shadow-13` to `shadow-18` | 13–18           | `shadow-lg` |
+| `shadow-19` to `shadow-24` | 19–24           | `shadow-xl` |
 
 ## Z-Index Layers
 
@@ -63,15 +63,15 @@ The preset includes z-index shortcuts for Quasar's layer system:
 
 Layer values (from Quasar's z-index system):
 
-| Class | Value | Usage |
-|-------|-------|-------|
-| `z-fab` | 990 | Floating action button |
-| `z-side` | 1000 | Side panels |
-| `z-marginals` | 2000 | Header, footer |
-| `z-fullscreen` | 6000 | Fullscreen overlay |
-| `z-top` | 7000 | Top-level overlays |
-| `z-notify` | 9500 | Notification system |
-| `z-max` | 9998 | Maximum stacking |
+| Class          | Value | Usage                  |
+| -------------- | ----- | ---------------------- |
+| `z-fab`        | 990   | Floating action button |
+| `z-side`       | 1000  | Side panels            |
+| `z-marginals`  | 2000  | Header, footer         |
+| `z-fullscreen` | 6000  | Fullscreen overlay     |
+| `z-top`        | 7000  | Top-level overlays     |
+| `z-notify`     | 9500  | Notification system    |
+| `z-max`        | 9998  | Maximum stacking       |
 
 ## UnoCSS Fallback
 

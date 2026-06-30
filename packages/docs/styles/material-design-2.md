@@ -22,14 +22,14 @@ MD2 surfaces have less tonal variation between elevation levels compared to MD3.
 
 ## Component Differences from MD3
 
-| Component | MD3 | MD2 |
-|-----------|-----|-----|
-| QBtn | Pill shape (28px) | Square corners |
-| QBtn text | Normal case | Uppercase |
-| QCard | Surface container | Flat with optional shadow |
-| QDialog | 28px corners | Square corners |
-| QField (filled) | Surface variant bg | Grey background |
-| QFab | Rounded | Square-ish |
+| Component       | MD3                | MD2                       |
+| --------------- | ------------------ | ------------------------- |
+| QBtn            | Pill shape (28px)  | Square corners            |
+| QBtn text       | Normal case        | Uppercase                 |
+| QCard           | Surface container  | Flat with optional shadow |
+| QDialog         | 28px corners       | Square corners            |
+| QField (filled) | Surface variant bg | Grey background           |
+| QFab            | Rounded            | Square-ish                |
 
 ## Usage
 
@@ -38,7 +38,7 @@ import { MaterialDesign2 } from 'unocss-preset-quasar/styles'
 
 QuasarPreset({
   style: MaterialDesign2,
-  sourceColor: '#1976d2', // Still uses MD3 color generation
+  sourceColor: '#1976d2' // Still uses MD3 color generation
 })
 ```
 

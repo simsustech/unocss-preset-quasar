@@ -22,15 +22,15 @@ import { QuasarPreset } from 'unocss-preset-quasar'
 import {
   MaterialDesign3,
   MaterialDesign2,
-  Unstyled,
+  Unstyled
 } from 'unocss-preset-quasar/styles'
 
 UnoCSS({
   presets: [
     QuasarPreset({ style: MaterialDesign3, scoped: true }),
     QuasarPreset({ style: MaterialDesign2, scoped: true }),
-    QuasarPreset({ style: Unstyled, scoped: true }),
-  ],
+    QuasarPreset({ style: Unstyled, scoped: true })
+  ]
 })
 ```
 
@@ -63,8 +63,9 @@ Each shortcut gets tagged with a UnoCSS layer matching the body class:
 
 ```ts
 // Internally, shortcuts become:
-['q-btn', handlerFn, { layer: 'quasar-style-md3' }]  // MD3 preset
-['q-btn', handlerFn, { layer: 'quasar-style-md2' }]  // MD2 preset
+;['q-btn', handlerFn, { layer: 'quasar-style-md3' }][ // MD3 preset
+  ('q-btn', handlerFn, { layer: 'quasar-style-md2' })
+] // MD2 preset
 ```
 
 ### 2. Postprocess Wrapping
@@ -87,7 +88,7 @@ Preflight CSS selectors are wrapped too:
 ```css
 /* Scoped preflight */
 body.quasar-style-md3 body {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
 }
 ```
@@ -98,9 +99,9 @@ body.quasar-style-md3 body {
 
 ```css
 :root {
-  --light-primary: #6750A4;       /* Always available */
-  --light-on-primary: #FFFFFF;
-  --dark-primary: #D0BCFF;
+  --light-primary: #6750a4; /* Always available */
+  --light-on-primary: #ffffff;
+  --dark-primary: #d0bcff;
   /* ... */
 }
 ```
@@ -113,8 +114,8 @@ body.quasar-style-md3 body {
 
 ## Body Class Names
 
-| Style | Body Class |
-|-------|-----------|
-| `MaterialDesign3` | `quasar-style-md3` |
-| `MaterialDesign2` | `quasar-style-md2` |
-| `Unstyled` | `quasar-style-unstyled` |
+| Style             | Body Class              |
+| ----------------- | ----------------------- |
+| `MaterialDesign3` | `quasar-style-md3`      |
+| `MaterialDesign2` | `quasar-style-md2`      |
+| `Unstyled`        | `quasar-style-unstyled` |

@@ -11,7 +11,7 @@ MD3 generates a full tonal palette from a single `sourceColor`. The palette incl
 ```ts
 QuasarPreset({
   style: MaterialDesign3,
-  sourceColor: '#6750A4', // Purple theme
+  sourceColor: '#6750A4' // Purple theme
 })
 ```
 
@@ -30,6 +30,7 @@ surface-container-highest → highest elevation
 ### Shape System
 
 MD3 uses rounded corners with Material's shape scale:
+
 - Extra small: 4px (chips, small inputs)
 - Small: 8px (cards)
 - Medium: 12px (dialogs)
@@ -39,6 +40,7 @@ MD3 uses rounded corners with Material's shape scale:
 ### State Layers
 
 Interactive components apply state layers on hover, focus, and press:
+
 - Hover: 8% overlay
 - Focus: 12% overlay
 - Press: 12% overlay
@@ -46,6 +48,7 @@ Interactive components apply state layers on hover, focus, and press:
 ### Typography
 
 MD3 type scale with 5 font weights (Roboto 300–700):
+
 - Display: 6rem light (text-h1)
 - Headline: 3.75rem light (text-h2) to 1.25rem medium (text-h6)
 - Title: 1rem normal (text-subtitle1) to 0.875rem medium (text-subtitle2)
@@ -58,17 +61,18 @@ MD3 type scale with 5 font weights (Roboto 300–700):
 
 MD3 buttons use pill-shaped corners (28px border-radius). Variants:
 
-| Variant | Background | Border | Text |
-|---------|------------|--------|------|
-| Default (filled) | Primary container | None | On primary container |
-| Flat | Transparent | None | Primary |
-| Outline | Transparent | Outline | Primary |
-| Push | Primary | None | White |
-| Unelevated | Surface container highest | None | On surface |
+| Variant          | Background                | Border  | Text                 |
+| ---------------- | ------------------------- | ------- | -------------------- |
+| Default (filled) | Primary container         | None    | On primary container |
+| Flat             | Transparent               | None    | Primary              |
+| Outline          | Transparent               | Outline | Primary              |
+| Push             | Primary                   | None    | White                |
+| Unelevated       | Surface container highest | None    | On surface           |
 
 ### QCard
 
 MD3 cards use surface containers. Variants:
+
 - Default: surface container
 - Filled: surface container highest
 - Outlined: outline variant border
@@ -80,6 +84,7 @@ MD3 dialogs use surface container high with 28px corner radius and a scrim overl
 ### QField
 
 MD3 fields support four styles:
+
 - Filled: surface variant background, underline indicator
 - Outlined: outline border, no background
 - Standard: bottom border only

@@ -44,13 +44,14 @@ import { quasarPresetAliases } from 'unocss-preset-quasar/vite-aliases'
 export default defineConfig({
   vitrify: {
     dev: {
-      alias: quasarPresetAliases(),
-    },
-  },
+      alias: quasarPresetAliases()
+    }
+  }
 })
 ```
 
 `quasarPresetAliases()` returns alias records that map:
+
 - `unocss-preset-quasar` → `src/index.ts`
 - `unocss-preset-quasar/styles` → `src/styles/index.ts`
 - `unocss-preset-quasar/theme` → `src/theme.ts`
@@ -79,12 +80,19 @@ export const shortcuts: Shortcut<QuasarTheme>[] = [
   [/^q-component$/, 'relative flex items-center'],
 
   // Theme override support: consumers can override via theme.quasar.components
-  [/^q-component__child$/, componentClass('q-component__child', 'text-sm px-2')],
+  [
+    /^q-component__child$/,
+    componentClass('q-component__child', 'text-sm px-2')
+  ],
 
   // Context-dependent: fallback needs theme access
-  [/^q-component--dark$/, componentCtxClass('q-component--dark',
-    ({ theme }) => `bg-${theme.colors.dark.surface}`
-  )],
+  [
+    /^q-component--dark$/,
+    componentCtxClass(
+      'q-component--dark',
+      ({ theme }) => `bg-${theme.colors.dark.surface}`
+    )
+  ]
 ]
 ```
 
@@ -96,9 +104,9 @@ import { shortcuts as QComponentNameShortcuts } from './components/QComponentNam
 
 export default {
   shortcuts: [
-    ...QComponentNameShortcuts,
+    ...QComponentNameShortcuts
     // ... other components
-  ],
+  ]
 } satisfies QuasarStyle
 ```
 
@@ -106,11 +114,7 @@ export default {
 
 ```ts
 export const componentsSafelistMap = {
-  QComponentName: [
-    'q-component',
-    'q-component__child',
-    'q-component--dark',
-  ],
+  QComponentName: ['q-component', 'q-component__child', 'q-component--dark']
   // ...
 }
 ```
@@ -123,7 +127,7 @@ UnoCSS treats `_` as a space separator and `__` as a literal underscore. Quasar 
 
 ```ts
 // Without qe:
-`[&.q-btn\\_\\_content]:(flex items-center)`
+;`[&.q-btn\\_\\_content]:(flex items-center)`
 
 // With qe:
 qe`[&.${'q-btn__content'}]:(flex items-center)`
@@ -134,7 +138,10 @@ qe`[&.${'q-btn__content'}]:(flex items-center)`
 Shortcut handler that returns a theme override if configured, otherwise the fallback string:
 
 ```ts
-[/^q-avatar$/, componentClass('q-avatar', 'relative inline-block rounded-full')]
+;[
+  /^q-avatar$/,
+  componentClass('q-avatar', 'relative inline-block rounded-full')
+]
 ```
 
 ### `staticClass(classes)`
@@ -142,7 +149,7 @@ Shortcut handler that returns a theme override if configured, otherwise the fall
 Shortcut handler that always returns the same classes (no theme override):
 
 ```ts
-[/^q-card__section$/, staticClass('relative')]
+;[/^q-card__section$/, staticClass('relative')]
 ```
 
 ### `componentCtxClass(name, fallbackFn)`
@@ -150,7 +157,10 @@ Shortcut handler that always returns the same classes (no theme override):
 Like `componentClass` but the fallback is a function that receives the theme context:
 
 ```ts
-[/^q-fab$/, componentCtxClass('q-fab', ({ theme }) => `z-${theme.quasar.z.fab}`)]
+;[
+  /^q-fab$/,
+  componentCtxClass('q-fab', ({ theme }) => `z-${theme.quasar.z.fab}`)
+]
 ```
 
 ## Building

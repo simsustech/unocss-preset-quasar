@@ -84,7 +84,7 @@
 
 ### Patch Changes
 
-- feat(preset): increase q-dialog__title line height
+- feat(preset): increase q-dialog\_\_title line height
 
 ## 0.2.8
 
@@ -105,7 +105,7 @@
 ### Patch Changes
 
 - fix(preset): fix QDialog corner shape
-- fix(preset): fix QField__append icon
+- fix(preset): fix QField\_\_append icon
 - fix(preset): fix QEditor background color
 - fix(preset): fix QField
 
@@ -126,7 +126,7 @@
 ### Patch Changes
 
 - fix(preset): fix QDialog radio safelist
-- fix(preset): remove height from q-field__marginal
+- fix(preset): remove height from q-field\_\_marginal
 - fix(preset): fix flex col width
 - fix(preset): fix q-panel
 - fix(preset): fix QPagination

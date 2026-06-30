@@ -48,14 +48,14 @@ Directional padding:
 
 ## Spacing Scale
 
-| Size | Value |
-|------|-------|
-| `none` | 0 |
-| `xs` | 4px |
-| `sm` | 8px |
-| `md` | 16px |
-| `lg` | 24px |
-| `xl` | 48px |
+| Size   | Value |
+| ------ | ----- |
+| `none` | 0     |
+| `xs`   | 4px   |
+| `sm`   | 8px   |
+| `md`   | 16px  |
+| `lg`   | 24px  |
+| `xl`   | 48px  |
 
 ## UnoCSS Fallback
 

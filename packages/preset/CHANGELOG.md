@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.3.5
+
+### Patch Changes
+
+- 1d5dd58: chore: changeset
+
 ## 0.3.4
 
 ### Patch Changes

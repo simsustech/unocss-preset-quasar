@@ -17,22 +17,22 @@ export interface QuasarStyle {
 
 ## Properties
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `rules` | `Rule<QuasarTheme>[]` | UnoCSS rules — generate CSS property sets from patterns |
-| `variants` | `Variant<QuasarTheme>[]` | UnoCSS variants — dark mode, breakpoints, conditional styles |
-| `preflights` | `Preflight<QuasarTheme>[]` | Global CSS — resets, CSS variables, base styles |
-| `shortcuts` | `Shortcut<QuasarTheme>[]` | Component class mappings — regex patterns to utility strings |
-| `postprocess` | `Postprocessor[]` | Optional post-processing hooks for utility mutation |
-| `bodyClass` | `string` | CSS class for body-class scoping (e.g., `'quasar-style-md3'`) |
+| Property      | Type                       | Description                                                   |
+| ------------- | -------------------------- | ------------------------------------------------------------- |
+| `rules`       | `Rule<QuasarTheme>[]`      | UnoCSS rules — generate CSS property sets from patterns       |
+| `variants`    | `Variant<QuasarTheme>[]`   | UnoCSS variants — dark mode, breakpoints, conditional styles  |
+| `preflights`  | `Preflight<QuasarTheme>[]` | Global CSS — resets, CSS variables, base styles               |
+| `shortcuts`   | `Shortcut<QuasarTheme>[]`  | Component class mappings — regex patterns to utility strings  |
+| `postprocess` | `Postprocessor[]`          | Optional post-processing hooks for utility mutation           |
+| `bodyClass`   | `string`                   | CSS class for body-class scoping (e.g., `'quasar-style-md3'`) |
 
 ## Built-in Styles
 
 ```ts
 import {
-  MaterialDesign3,  // bodyClass: 'quasar-style-md3'
-  MaterialDesign2,  // bodyClass: 'quasar-style-md2'
-  Unstyled,         // bodyClass: 'quasar-style-unstyled'
+  MaterialDesign3, // bodyClass: 'quasar-style-md3'
+  MaterialDesign2, // bodyClass: 'quasar-style-md2'
+  Unstyled // bodyClass: 'quasar-style-unstyled'
 } from 'unocss-preset-quasar/styles'
 ```
 
@@ -62,11 +62,11 @@ const myStyle: QuasarStyle = {
         :root {
           --my-primary: #ff0000;
         }
-      `,
-    },
+      `
+    }
   ],
   shortcuts: [
-    [/^q-btn$/, 'px-4 py-2 rounded bg-[var(--my-primary)] text-white'],
-  ],
+    [/^q-btn$/, 'px-4 py-2 rounded bg-[var(--my-primary)] text-white']
+  ]
 }
 ```

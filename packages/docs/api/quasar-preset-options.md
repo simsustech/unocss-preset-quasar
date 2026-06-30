@@ -17,14 +17,14 @@ export interface QuasarPresetOptions extends PresetOptions {
 
 ## Properties
 
-| Property | Type | Required | Default | Description |
-|----------|------|----------|---------|-------------|
-| `style` | `QuasarStyle` | Yes | — | Design system (MD3, MD2, or Unstyled) |
-| `sourceColor` | `string` | No | `'#1976d2'` | Hex color driving MD3 palette generation |
-| `plugins` | `(keyof QuasarPlugins)[]` | No | `[]` | Quasar plugin names for safelist generation |
-| `iconSet` | `QuasarIconSet` | No | — | Icon set for safelist generation |
-| `presetWebFonts` | `WebFontsOptions` | No | `{ provider: 'bunny', fonts: { roboto: 'Roboto' } }` | Web font configuration |
-| `scoped` | `boolean` | No | `false` | Scope CSS to body class for multi-style builds |
+| Property         | Type                      | Required | Default                                              | Description                                    |
+| ---------------- | ------------------------- | -------- | ---------------------------------------------------- | ---------------------------------------------- |
+| `style`          | `QuasarStyle`             | Yes      | —                                                    | Design system (MD3, MD2, or Unstyled)          |
+| `sourceColor`    | `string`                  | No       | `'#1976d2'`                                          | Hex color driving MD3 palette generation       |
+| `plugins`        | `(keyof QuasarPlugins)[]` | No       | `[]`                                                 | Quasar plugin names for safelist generation    |
+| `iconSet`        | `QuasarIconSet`           | No       | —                                                    | Icon set for safelist generation               |
+| `presetWebFonts` | `WebFontsOptions`         | No       | `{ provider: 'bunny', fonts: { roboto: 'Roboto' } }` | Web font configuration                         |
+| `scoped`         | `boolean`                 | No       | `false`                                              | Scope CSS to body class for multi-style builds |
 
 ## PresetOptions (inherited)
 

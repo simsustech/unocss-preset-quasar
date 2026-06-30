@@ -10,19 +10,19 @@ export interface QuasarTheme {
     font: string
   }
   breakpoints: {
-    xs: string    // '0'
-    sm: string    // '600px'
-    md: string    // '1024px'
-    lg: string    // '1440px'
-    xl: string    // '1920px'
+    xs: string // '0'
+    sm: string // '600px'
+    md: string // '1024px'
+    lg: string // '1440px'
+    xl: string // '1920px'
   }
   shape: {
     corner: {
-      extraSmall: string   // '4px'
-      small: string        // '8px'
-      medium: string       // '12px'
-      large: string        // '16px'
-      extraLarge: string   // '28px'
+      extraSmall: string // '4px'
+      small: string // '8px'
+      medium: string // '12px'
+      large: string // '16px'
+      extraLarge: string // '28px'
     }
   }
   colors: {
@@ -41,31 +41,31 @@ export interface QuasarTheme {
   }
   quasar: {
     spaces: {
-      none: number   // 0
-      xs: number     // 1
-      sm: number     // 2
-      md: number     // 4
-      lg: number     // 6
-      xl: number     // 12
+      none: number // 0
+      xs: number // 1
+      sm: number // 2
+      md: number // 4
+      lg: number // 6
+      xl: number // 12
     }
     z: {
-      fab: number              // 990
-      side: number             // 1000
-      marginals: number        // 2000
-      'fixed-drawer': number   // 3000
-      fullscreen: number       // 6000
-      menu: number             // 6000
-      top: number              // 7000
-      tooltip: number          // 9000
-      notify: number           // 9500
-      max: number              // 9998
+      fab: number // 990
+      side: number // 1000
+      marginals: number // 2000
+      'fixed-drawer': number // 3000
+      fullscreen: number // 6000
+      menu: number // 6000
+      top: number // 7000
+      tooltip: number // 9000
+      notify: number // 9500
+      max: number // 9998
     }
     transition: {
-      duration: string   // '.3s'
-      easing: string     // 'cubic-bezier(0.215,0.61,0.355,1)'
+      duration: string // '.3s'
+      easing: string // 'cubic-bezier(0.215,0.61,0.355,1)'
     }
     components?: {
-      [className: string]: string  // Theme override map for component classes
+      [className: string]: string // Theme override map for component classes
     }
   }
 }
@@ -124,5 +124,9 @@ interface MaterialColorScheme {
 
 ```ts
 import type { QuasarTheme } from 'unocss-preset-quasar/theme'
-import { generateTheme, setThemeColors, defaultTheme } from 'unocss-preset-quasar/theme'
+import {
+  generateTheme,
+  setThemeColors,
+  defaultTheme
+} from 'unocss-preset-quasar/theme'
 ```

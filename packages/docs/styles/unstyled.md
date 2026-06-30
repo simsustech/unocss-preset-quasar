@@ -28,7 +28,7 @@ Unstyled provides the **minimum CSS** for Quasar components to function:
 import { Unstyled } from 'unocss-preset-quasar/styles'
 
 QuasarPreset({
-  style: Unstyled,
+  style: Unstyled
 })
 ```
 
@@ -48,8 +48,8 @@ export default defineConfig({
     // Override QBtn with your own style
     'q-btn': 'px-6 py-2 bg-blue-500 text-white rounded-lg font-medium',
     'q-card': 'bg-white rounded-xl shadow-lg p-6',
-    'q-dialog__inner': 'bg-white rounded-2xl shadow-2xl max-w-md w-full',
-  },
+    'q-dialog__inner': 'bg-white rounded-2xl shadow-2xl max-w-md w-full'
+  }
 })
 ```
 

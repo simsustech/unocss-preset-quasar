@@ -35,6 +35,7 @@ These are shortcuts that expand to light/dark pairs:
 ```
 
 Expands to:
+
 ```
 .bg-primary → bg-$light-primary dark:bg-$dark-primary
 ```
@@ -74,10 +75,11 @@ import { defineConfig } from 'unocss'
 
 export default defineConfig({
   shortcuts: {
-    'text-surface': 'text-[var(--light-on-surface)] dark:text-[var(--dark-on-surface)]',
+    'text-surface':
+      'text-[var(--light-on-surface)] dark:text-[var(--dark-on-surface)]',
     'bg-surface': 'bg-[var(--light-surface)] dark:bg-[var(--dark-surface)]',
     'text-on-primary-container':
-      'text-[var(--light-on-primary-container)] dark:text-[var(--dark-on-primary-container)]',
-  },
+      'text-[var(--light-on-primary-container)] dark:text-[var(--dark-on-primary-container)]'
+  }
 })
 ```

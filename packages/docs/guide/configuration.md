@@ -16,9 +16,9 @@ QuasarPreset({
   iconSet: mdiSet,
   presetWebFonts: {
     provider: 'bunny',
-    fonts: { roboto: 'Roboto' },
+    fonts: { roboto: 'Roboto' }
   },
-  scoped: false,
+  scoped: false
 })
 ```
 
@@ -28,9 +28,9 @@ The design system to use. Must be one of the exported style objects:
 
 ```ts
 import {
-  MaterialDesign3,  // MD3 (Material You)
-  MaterialDesign2,  // MD2 (classic Material)
-  Unstyled,         // structural only, no visual styling
+  MaterialDesign3, // MD3 (Material You)
+  MaterialDesign2, // MD2 (classic Material)
+  Unstyled // structural only, no visual styling
 } from 'unocss-preset-quasar/styles'
 ```
 
@@ -43,7 +43,7 @@ A hex color string that drives Material Design 3's dynamic color system. Changin
 ```ts
 QuasarPreset({
   style: MaterialDesign3,
-  sourceColor: '#6750A4', // Purple-based theme
+  sourceColor: '#6750A4' // Purple-based theme
 })
 ```
 
@@ -71,19 +71,19 @@ const plugins = [
   'Notify',
   'Platform',
   'Screen',
-  'SessionStorage',
+  'SessionStorage'
 ]
 ```
 
 Supported plugins and their safelisted components:
 
-| Plugin | Safelisted Classes |
-|--------|-------------------|
+| Plugin        | Safelisted Classes                                                                                                 |
+| ------------- | ------------------------------------------------------------------------------------------------------------------ |
 | `BottomSheet` | `q-bottom-sheet`, `q-bottom-sheet__avatar`, `q-bottom-sheet--list`, `q-bottom-sheet--grid`, `q-bottom-sheet__item` |
-| `Dialog` | `q-dialog-plugin`, `q-dialog__*`, `q-card__*`, `q-btn__*`, `q-field__*`, `q-radio__*` |
-| `LoadingBar` | `q-loading-bar`, `q-loading-bar--top`, `q-loading-bar--bottom`, `q-loading-bar--right`, `q-loading-bar--left` |
-| `Loading` | `q-loading`, `q-loading__backdrop`, `q-loading__box`, `q-loading__message` |
-| `Notify` | `q-notifications__*`, `q-notification__*`, `q-avatar__*`, `q-btn__*`, `q-icon`, `q-spinner` |
+| `Dialog`      | `q-dialog-plugin`, `q-dialog__*`, `q-card__*`, `q-btn__*`, `q-field__*`, `q-radio__*`                              |
+| `LoadingBar`  | `q-loading-bar`, `q-loading-bar--top`, `q-loading-bar--bottom`, `q-loading-bar--right`, `q-loading-bar--left`      |
+| `Loading`     | `q-loading`, `q-loading__backdrop`, `q-loading__box`, `q-loading__message`                                         |
+| `Notify`      | `q-notifications__*`, `q-notification__*`, `q-avatar__*`, `q-btn__*`, `q-icon`, `q-spinner`                        |
 
 ### `iconSet`
 
@@ -94,7 +94,7 @@ import { mdiSet } from 'quasar/icon-set'
 
 QuasarPreset({
   style: MaterialDesign3,
-  iconSet: mdiSet,
+  iconSet: mdiSet
 })
 ```
 
@@ -105,16 +105,17 @@ Configuration for `@unocss/preset-web-fonts`, which loads web fonts. Override th
 ```ts
 QuasarPreset({
   presetWebFonts: {
-    provider: 'google',  // or 'bunny' (default), 'fontshare', 'none'
+    provider: 'google', // or 'bunny' (default), 'fontshare', 'none'
     fonts: {
       roboto: 'Roboto:400,500,700',
-      mono: 'Fira Code',
-    },
-  },
+      mono: 'Fira Code'
+    }
+  }
 })
 ```
 
 **Default:**
+
 ```ts
 {
   provider: 'bunny',
@@ -134,17 +135,23 @@ UnoCSS({
   presets: [
     QuasarPreset({ style: MaterialDesign3, scoped: true }),
     QuasarPreset({ style: MaterialDesign2, scoped: true }),
-    QuasarPreset({ style: Unstyled, scoped: true }),
-  ],
+    QuasarPreset({ style: Unstyled, scoped: true })
+  ]
 })
 ```
 
 At runtime, toggle the body class to switch styles:
 
 ```html
-<body class="quasar-style-md3">  <!-- MD3 active -->
-<body class="quasar-style-md2">  <!-- MD2 active -->
-<body class="quasar-style-unstyled">  <!-- Unstyled active -->
+<body class="quasar-style-md3">
+  <!-- MD3 active -->
+  <body class="quasar-style-md2">
+    <!-- MD2 active -->
+    <body class="quasar-style-unstyled">
+      <!-- Unstyled active -->
+    </body>
+  </body>
+</body>
 ```
 
 **Default:** `false` (global CSS, no body-class prefix)
@@ -161,10 +168,21 @@ import { mdiSet } from 'quasar/icon-set'
 import UnoCSS from 'unocss/vite'
 
 const plugins = [
-  'AddressbarColor', 'AppFullscreen', 'AppVisibility',
-  'BottomSheet', 'Cookies', 'Dark', 'Dialog', 'Loading',
-  'LoadingBar', 'LocalStorage', 'Meta', 'Notify',
-  'Platform', 'Screen', 'SessionStorage',
+  'AddressbarColor',
+  'AppFullscreen',
+  'AppVisibility',
+  'BottomSheet',
+  'Cookies',
+  'Dark',
+  'Dialog',
+  'Loading',
+  'LoadingBar',
+  'LocalStorage',
+  'Meta',
+  'Notify',
+  'Platform',
+  'Screen',
+  'SessionStorage'
 ]
 
 export default defineConfig(async (ctx) => ({
@@ -180,8 +198,8 @@ export default defineConfig(async (ctx) => ({
           )
         }
         return code
-      },
-    },
+      }
+    }
   ],
   extendViteConf(viteConf, { isClient }) {
     viteConf.plugins.push(
@@ -192,12 +210,12 @@ export default defineConfig(async (ctx) => ({
             style: MaterialDesign3,
             sourceColor: '#6750A4',
             plugins,
-            iconSet: mdiSet,
-          }),
-        ],
+            iconSet: mdiSet
+          })
+        ]
       })
     )
   },
-  framework: { plugins },
+  framework: { plugins }
 }))
 ```

@@ -8,7 +8,8 @@ The default font is **Roboto** (loaded via Bunny CDN). The body preflight sets:
 
 ```css
 body {
-  font-family: "Roboto", "-apple-system", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family:
+    'Roboto', '-apple-system', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.5;
 }
@@ -21,9 +22,9 @@ QuasarPreset({
   presetWebFonts: {
     provider: 'google',
     fonts: {
-      roboto: 'Roboto:300,400,500,700',
-    },
-  },
+      roboto: 'Roboto:300,400,500,700'
+    }
+  }
 })
 ```
 
@@ -39,14 +40,14 @@ QuasarPreset({
 <span class="text-h6">Heading 6 style</span>
 ```
 
-| Class | Size | Weight | Line Height | Letter Spacing |
-|-------|------|--------|-------------|----------------|
-| `text-h1` | 6rem | 300 (light) | 6rem | -0.01562em |
-| `text-h2` | 3.75rem | 300 (light) | 3.75rem | -0.00833em |
-| `text-h3` | 3rem | 400 (normal) | 3.125rem | normal |
-| `text-h4` | 2.125rem | 400 (normal) | 2.5rem | 0.00735em |
-| `text-h5` | 1.5rem | 400 (normal) | 2rem | normal |
-| `text-h6` | 1.25rem | 500 (medium) | 2rem | 0.0125em |
+| Class     | Size     | Weight       | Line Height | Letter Spacing |
+| --------- | -------- | ------------ | ----------- | -------------- |
+| `text-h1` | 6rem     | 300 (light)  | 6rem        | -0.01562em     |
+| `text-h2` | 3.75rem  | 300 (light)  | 3.75rem     | -0.00833em     |
+| `text-h3` | 3rem     | 400 (normal) | 3.125rem    | normal         |
+| `text-h4` | 2.125rem | 400 (normal) | 2.5rem      | 0.00735em      |
+| `text-h5` | 1.5rem   | 400 (normal) | 2rem        | normal         |
+| `text-h6` | 1.25rem  | 500 (medium) | 2rem        | 0.0125em       |
 
 ## Body & Label Scale
 
@@ -59,14 +60,14 @@ QuasarPreset({
 <span class="text-caption">Caption text</span>
 ```
 
-| Class | Size | Weight | Line Height | Letter Spacing |
-|-------|------|--------|-------------|----------------|
-| `text-subtitle1` | 1rem | 400 | 1.75rem | 0.00937em |
-| `text-subtitle2` | 0.875rem | 500 | 1.375rem | 0.00714em |
-| `text-body1` | 1rem | 400 | 1.5rem | 0.03125em |
-| `text-body2` | 0.875rem | 400 | 1.25rem | 0.01786em |
-| `text-overline` | 0.75rem | 500 | 2rem | 0.16667em |
-| `text-caption` | 0.75rem | 400 | 1.25rem | 0.03333em |
+| Class            | Size     | Weight | Line Height | Letter Spacing |
+| ---------------- | -------- | ------ | ----------- | -------------- |
+| `text-subtitle1` | 1rem     | 400    | 1.75rem     | 0.00937em      |
+| `text-subtitle2` | 0.875rem | 500    | 1.375rem    | 0.00714em      |
+| `text-body1`     | 1rem     | 400    | 1.5rem      | 0.03125em      |
+| `text-body2`     | 0.875rem | 400    | 1.25rem     | 0.01786em      |
+| `text-overline`  | 0.75rem  | 500    | 2rem        | 0.16667em      |
+| `text-caption`   | 0.75rem  | 400    | 1.25rem     | 0.03333em      |
 
 ## Text Modifiers
 
@@ -104,6 +105,8 @@ The preflight styles HTML heading elements (`h1` through `h6`) with the matching
 All standard UnoCSS/Wind typography utilities work as well:
 
 ```html
-<span class="text-sm font-bold leading-tight tracking-wide">Wind utilities</span>
+<span class="text-sm font-bold leading-tight tracking-wide"
+  >Wind utilities</span
+>
 <span class="text-[14px] font-[500]">Arbitrary values</span>
 ```

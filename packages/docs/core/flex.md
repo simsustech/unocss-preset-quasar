@@ -70,13 +70,13 @@ The preset provides Quasar-compatible flex and grid utility classes. These are s
 
 Gutter spacing values from the theme:
 
-| Gutter | Value |
-|--------|-------|
-| `xs` / `none` | 4px |
-| `sm` | 8px |
-| `md` | 16px |
-| `lg` | 24px |
-| `xl` | 48px |
+| Gutter        | Value |
+| ------------- | ----- |
+| `xs` / `none` | 4px   |
+| `sm`          | 8px   |
+| `md`          | 16px  |
+| `lg`          | 24px  |
+| `xl`          | 48px  |
 
 ## UnoCSS Fallback
 

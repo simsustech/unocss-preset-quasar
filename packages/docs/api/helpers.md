@@ -10,13 +10,13 @@ Escapes BEM double-underscores for UnoCSS selector syntax. UnoCSS treats `_` as 
 import { qe } from 'path/to/_helpers'
 
 // Without qe (manual escaping):
-`[&.q-btn\\_\\_content]:(flex items-center)`
+;`[&.q-btn\\_\\_content]:(flex items-center)`
 
 // With qe (auto-escaped):
 qe`[&.${'q-btn__content'}]:(flex items-center)`
 
 // Also works as a plain function:
-qe('.q-btn__content--hidden')  // → '.q-btn\\_\\_content--hidden'
+qe('.q-btn__content--hidden') // → '.q-btn\\_\\_content--hidden'
 ```
 
 ## `componentClass(name, fallback)`
@@ -33,7 +33,10 @@ function componentClass(
 ): DynamicShortcutMatcher<QuasarTheme>
 
 // Usage
-[/^q-avatar$/, componentClass('q-avatar', 'relative inline-block rounded-full')]
+;[
+  /^q-avatar$/,
+  componentClass('q-avatar', 'relative inline-block rounded-full')
+]
 ```
 
 Checks `theme.quasar.components['q-avatar']` first. If the consumer has configured a theme override for that class, it's used. Otherwise, the fallback string is returned.
@@ -49,7 +52,7 @@ import { staticClass } from 'path/to/_helpers'
 function staticClass(classes: string): DynamicShortcutMatcher<QuasarTheme>
 
 // Usage
-[/^q-card__section$/, staticClass('relative')]
+;[/^q-card__section$/, staticClass('relative')]
 ```
 
 Equivalent to `([, c], { theme }) => 'relative'` but more concise.
@@ -68,9 +71,10 @@ function componentCtxClass(
 ): DynamicShortcutMatcher<QuasarTheme>
 
 // Usage
-[/^q-fab$/, componentCtxClass('q-fab',
-  ({ theme }) => `z-${theme.quasar.z.fab}`
-)]
+;[
+  /^q-fab$/,
+  componentCtxClass('q-fab', ({ theme }) => `z-${theme.quasar.z.fab}`)
+]
 ```
 
 ## Pattern

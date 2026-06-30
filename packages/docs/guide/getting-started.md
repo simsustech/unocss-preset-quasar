@@ -9,6 +9,7 @@ pnpm add unocss unocss-preset-quasar @iconify-json/mdi
 ```
 
 Required peer dependencies:
+
 - `quasar` ^2.19.3
 - `unocss` ^66.7.0
 
@@ -67,14 +68,14 @@ export default defineConfig((ctx) => ({
               'Notify',
               'LoadingBar',
               'Loading',
-              'BottomSheet',
+              'BottomSheet'
               // ... list every Quasar plugin your app uses
-            ],
-          }),
-        ],
+            ]
+          })
+        ]
       })
     )
-  },
+  }
 }))
 ```
 
@@ -92,9 +93,9 @@ import { transformerDirectives, transformerVariantGroup } from 'unocss'
 
 export default {
   transformers: [
-    transformerVariantGroup(),  // group variants: hover:(bg-red text-white)
-    transformerDirectives(),     // @apply directive
-  ],
+    transformerVariantGroup(), // group variants: hover:(bg-red text-white)
+    transformerDirectives() // @apply directive
+  ]
 }
 ```
 

@@ -8,7 +8,7 @@ Two CSS custom properties control all transitions:
 
 ```css
 :root {
-  --q-transition-duration: .3s;
+  --q-transition-duration: 0.3s;
   --q-transition-easing: cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 ```
@@ -29,33 +29,33 @@ Each transition comprises up to 6 classes: `enter-from`, `enter-active`, `enter-
 ### Slide Transitions
 
 ```html
-<q-dialog transition-show="slide-up" transition-hide="slide-down">
+<q-dialog transition-show="slide-up" transition-hide="slide-down"></q-dialog>
 ```
 
-| Transition | Direction | Properties |
-|------------|-----------|------------|
+| Transition    | Direction  | Properties                    |
+| ------------- | ---------- | ----------------------------- |
 | `slide-right` | Horizontal | `transform: translate3d(...)` |
-| `slide-left` | Horizontal | `transform: translate3d(...)` |
-| `slide-up` | Vertical | `transform: translate3d(...)` |
-| `slide-down` | Vertical | `transform: translate3d(...)` |
+| `slide-left`  | Horizontal | `transform: translate3d(...)` |
+| `slide-up`    | Vertical   | `transform: translate3d(...)` |
+| `slide-down`  | Vertical   | `transform: translate3d(...)` |
 
 ### Jump Transitions
 
 ```html
-<q-menu transition-show="jump-down" transition-hide="jump-up">
+<q-menu transition-show="jump-down" transition-hide="jump-up"></q-menu>
 ```
 
-| Transition | Direction | Properties |
-|------------|-----------|------------|
+| Transition   | Direction            | Properties              |
+| ------------ | -------------------- | ----------------------- |
 | `jump-right` | Horizontal + opacity | `transform` + `opacity` |
-| `jump-left` | Horizontal + opacity | `transform` + `opacity` |
-| `jump-up` | Vertical + opacity | `transform` + `opacity` |
-| `jump-down` | Vertical + opacity | `transform` + `opacity` |
+| `jump-left`  | Horizontal + opacity | `transform` + `opacity` |
+| `jump-up`    | Vertical + opacity   | `transform` + `opacity` |
+| `jump-down`  | Vertical + opacity   | `transform` + `opacity` |
 
 ### Fade Transition
 
 ```html
-<q-dialog transition-show="fade" transition-hide="fade">
+<q-dialog transition-show="fade" transition-hide="fade"></q-dialog>
 ```
 
 Simple opacity transition. `enter-from` and `leave-to` set `opacity: 0`.
@@ -63,7 +63,7 @@ Simple opacity transition. `enter-from` and `leave-to` set `opacity: 0`.
 ### Scale Transition
 
 ```html
-<q-dialog transition-show="scale" transition-hide="scale">
+<q-dialog transition-show="scale" transition-hide="scale"></q-dialog>
 ```
 
 Combines opacity and scale3d. `enter-from` starts at `scale3d(0,0,1)` with `opacity: 0`.
@@ -71,7 +71,7 @@ Combines opacity and scale3d. `enter-from` starts at `scale3d(0,0,1)` with `opac
 ### Rotate Transition
 
 ```html
-<q-dialog transition-show="rotate" transition-hide="rotate">
+<q-dialog transition-show="rotate" transition-hide="rotate"></q-dialog>
 ```
 
 Combines opacity, scale3d, and rotate3d with `preserve-3d` transform style.
@@ -79,15 +79,18 @@ Combines opacity, scale3d, and rotate3d with `preserve-3d` transform style.
 ### Flip Transitions
 
 ```html
-<q-carousel transition-show="flip-right" transition-hide="flip-left">
+<q-carousel
+  transition-show="flip-right"
+  transition-hide="flip-left"
+></q-carousel>
 ```
 
-| Transition | Axis |
-|------------|------|
-| `flip-right` | Y-axis rotate |
-| `flip-left` | Y-axis rotate (opposite) |
-| `flip-up` | X-axis rotate |
-| `flip-down` | X-axis rotate (opposite) |
+| Transition   | Axis                     |
+| ------------ | ------------------------ |
+| `flip-right` | Y-axis rotate            |
+| `flip-left`  | Y-axis rotate (opposite) |
+| `flip-up`    | X-axis rotate            |
+| `flip-down`  | X-axis rotate (opposite) |
 
 Flip transitions use `perspective(400px)` and `backface-visibility: hidden`.
 
@@ -105,6 +108,7 @@ q-transition--{name}-leave-to
 ```
 
 For example, `slide-up` generates:
+
 - `q-transition--slide-up-enter-active`
 - `q-transition--slide-up-enter-from`
 - `q-transition--slide-up-leave-active`
@@ -131,11 +135,8 @@ The preset's extractor automatically detects transition props in your templates 
 
 ```html
 <!-- These are auto-detected -->
-transition-show="scale"
-transition-hide="fade"
-transition="slide-up"
-transition-prev="flip-right"
-transition-next="flip-left"
+transition-show="scale" transition-hide="fade" transition="slide-up"
+transition-prev="flip-right" transition-next="flip-left"
 ```
 
 ## Custom Transitions
@@ -156,5 +157,5 @@ Or override per-element:
   transition-show="scale"
   transition-hide="fade"
   transition-duration="500"
->
+></q-dialog>
 ```

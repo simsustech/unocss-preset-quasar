@@ -19,11 +19,17 @@ function quasarPresetAliases(): Alias[]
 An array of Vite `Alias` objects:
 
 ```ts
-[
-  { find: /^unocss-preset-quasar$/,            replacement: '.../src/index.ts' },
-  { find: /^unocss-preset-quasar\/styles$/,    replacement: '.../src/styles/index.ts' },
-  { find: /^unocss-preset-quasar\/theme$/,     replacement: '.../src/theme.ts' },
-  { find: /^unocss-preset-quasar\/vite-aliases$/, replacement: '.../src/vite-aliases.ts' },
+;[
+  { find: /^unocss-preset-quasar$/, replacement: '.../src/index.ts' },
+  {
+    find: /^unocss-preset-quasar\/styles$/,
+    replacement: '.../src/styles/index.ts'
+  },
+  { find: /^unocss-preset-quasar\/theme$/, replacement: '.../src/theme.ts' },
+  {
+    find: /^unocss-preset-quasar\/vite-aliases$/,
+    replacement: '.../src/vite-aliases.ts'
+  }
 ]
 ```
 
@@ -37,9 +43,9 @@ import { quasarPresetAliases } from 'unocss-preset-quasar/vite-aliases'
 export default defineConfig({
   vitrify: {
     dev: {
-      alias: quasarPresetAliases(),
-    },
-  },
+      alias: quasarPresetAliases()
+    }
+  }
 })
 ```
 
