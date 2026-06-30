@@ -234,7 +234,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   ],
 
   [
-    /^q-field(--filled)?$/,
+    /^q-field--filled$/,
     mdComponent(
       'q-field--filled',
       `
