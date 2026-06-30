@@ -7,10 +7,6 @@ UnoCSS preset for Quasar Framework — utility-first, tree-shakeable component s
 
 📖 **[Full documentation](https://simsustech.github.io/unocss-preset-quasar/)**
 
-## Playground
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/unocss-preset-quasar)
-
 ## Installation
 
 ```bash
