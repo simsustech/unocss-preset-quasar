@@ -27,16 +27,16 @@
     "unocss-preset-quasar-monorepo": "link:"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.7",
-    "@commitlint/cli": "^20.1.0",
-    "@commitlint/config-conventional": "^20.0.0",
-    "@unocss/preset-wind3": "66.5.4",
+    "@changesets/cli": "^2.31.0",
+    "@commitlint/cli": "^21.2.0",
+    "@commitlint/config-conventional": "^21.2.0",
+    "@unocss/preset-wind4": "66.7.4",
     "changesets": "^1.0.2",
-    "git-conventional-commits": "^2.8.0",
+    "git-conventional-commits": "^2.9.0",
     "npm-run-all": "^4.1.5",
-    "oxfmt": "^0.51.0",
-    "oxlint": "^1.66.0",
-    "prettier": "^3.6.2",
+    "oxfmt": "^0.57.0",
+    "oxlint": "^1.72.0",
+    "prettier": "^3.9.4",
     "simple-git-hooks": "^2.13.1"
   },
   "simple-git-hooks": {

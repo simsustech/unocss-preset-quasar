@@ -6,6 +6,11 @@ minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - vue-router
   - '@quasar/*'
+  - '@fastify/middie@9.3.3'
+  - '@types/node@26.1.0'
+  - quasar@2.20.2
+  - toml@4.1.2
+  - vite@8.1.2
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true

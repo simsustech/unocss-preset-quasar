@@ -6,7 +6,7 @@ import {
   transformerDirectives,
   transformerVariantGroup
 } from 'unocss'
-import presetWind4 from '@unocss/preset-wind3'
+import presetWind4 from '@unocss/preset-wind4'
 import { generateTheme, QuasarTheme } from './theme.js'
 import { animatedUno } from 'animated-unocss'
 import { scopeStyle } from './styles/_scope.js'
@@ -86,9 +86,9 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
             light: '.body--light',
             dark: '.body--dark'
           }
-        }),
-        animatedUno(),
-        presetIcons({}),
+        }) as any,
+        animatedUno() as any,
+        presetIcons({}) as any,
         presetWebFonts(
           options?.presetWebFonts ?? {
             provider: 'bunny',
@@ -96,7 +96,7 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
               roboto: 'Roboto'
             }
           }
-        )
+        ) as any
       ],
       name: rawStyle.bodyClass || 'quasar',
       safelist: generateSafelist(options ?? {}),

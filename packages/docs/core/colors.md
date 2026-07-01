@@ -53,7 +53,7 @@ The preset includes the full Material Design 19-color palette with 14 shades eac
 
 ## Color Utility Classes (from UnoCSS/Wind)
 
-The preset inherits all color utilities from `@unocss/preset-wind3` (Wind4). This includes:
+The preset inherits all color utilities from `@unocss/preset-wind4`. This includes:
 
 ```html
 <div class="text-red-500 bg-blue-100">Tailwind-style colors</div>
