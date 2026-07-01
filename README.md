@@ -66,7 +66,7 @@ const quasarPlugins = [
   'Notify',
   'Platform',
   'Screen',
-  'SessionStorage',
+  'SessionStorage'
 ]
 
 export default defineConfig((ctx) => ({
@@ -83,16 +83,16 @@ export default defineConfig((ctx) => ({
         presets: [
           QuasarPreset({
             style: MaterialDesign3,
-            plugins: quasarPlugins,
-          }),
-        ],
+            plugins: quasarPlugins
+          })
+        ]
       })
     )
   },
 
   framework: {
-    plugins: quasarPlugins,
-  },
+    plugins: quasarPlugins
+  }
 }))
 ```
 
@@ -106,9 +106,9 @@ See [`packages/quasar-docs/quasar.config.js`](./packages/quasar-docs/quasar.conf
 
 ```js
 import {
-  MaterialDesign3,  // MD3 (Material You) — default, recommended
-  MaterialDesign2,  // MD2 (classic Material)
-  Unstyled,         // structural only, no visual styling
+  MaterialDesign3, // MD3 (Material You) — default, recommended
+  MaterialDesign2, // MD2 (classic Material)
+  Unstyled // structural only, no visual styling
 } from 'unocss-preset-quasar/styles'
 
 QuasarPreset({ style: MaterialDesign3 })
@@ -121,23 +121,23 @@ Change the entire MD3 palette with one color:
 ```js
 QuasarPreset({
   style: MaterialDesign3,
-  sourceColor: '#6750A4', // Purple theme
+  sourceColor: '#6750A4' // Purple theme
 })
 ```
 
 ## What's Included
 
-| Feature | Description |
-|---------|-------------|
-| **70+ components** | QBtn, QCard, QDialog, QTable, QTree, QDate, QTime, and more |
-| **MD3 color system** | Dynamic tonal palette from a single source color |
-| **Dark mode** | Light/dark themes via CSS custom properties |
-| **24 elevation levels** | Material Design elevation 1–24 |
-| **Transitions** | slide, fade, scale, rotate, jump, flip |
-| **Typography** | Full MD3 type scale (h1–h6, subtitle, body, caption, overline) |
-| **Quasar plugins** | Dialog, Notify, Loading, LoadingBar, BottomSheet |
-| **Scoped mode** | Bundle multiple styles in one build, switch at runtime |
-| **Tree-shakeable** | Only the utilities you use are included in the final CSS |
+| Feature                 | Description                                                    |
+| ----------------------- | -------------------------------------------------------------- |
+| **70+ components**      | QBtn, QCard, QDialog, QTable, QTree, QDate, QTime, and more    |
+| **MD3 color system**    | Dynamic tonal palette from a single source color               |
+| **Dark mode**           | Light/dark themes via CSS custom properties                    |
+| **24 elevation levels** | Material Design elevation 1–24                                 |
+| **Transitions**         | slide, fade, scale, rotate, jump, flip                         |
+| **Typography**          | Full MD3 type scale (h1–h6, subtitle, body, caption, overline) |
+| **Quasar plugins**      | Dialog, Notify, Loading, LoadingBar, BottomSheet               |
+| **Scoped mode**         | Bundle multiple styles in one build, switch at runtime         |
+| **Tree-shakeable**      | Only the utilities you use are included in the final CSS       |
 
 ## Development
 

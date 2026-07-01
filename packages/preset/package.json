@@ -65,6 +65,7 @@
     "@unocss/preset-uno": "^66.7.0",
     "@unocss/preset-web-fonts": "66.7.0",
     "@unocss/preset-wind": "^66.7.0",
+    "@unocss/preset-wind3": "66.5.4",
     "animated-unocss": "^0.0.6",
     "unocss": "66.7.0"
   },

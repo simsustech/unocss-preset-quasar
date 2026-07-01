@@ -38,7 +38,13 @@ body:not(.q-body--layout-animate) .q-layout--prevent-focus {
   visibility: hidden;
 }
 .q-body--drawer-toggle {
-  overflow-x: hidden !important;
+  overflow: hidden !important;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
 }
 @media (max-width: 599.98px) {
   .q-layout-padding {
