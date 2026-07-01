@@ -1,5 +1,12 @@
 # unocss-preset-quasar
 
+## 0.3.6
+
+### Patch Changes
+
+- 1cae035: fix: add type assertions for sub-presets to resolve UnoCSS 66.7.4 strict generic variance; upgrade @unocss/preset-wind3 to @unocss/preset-wind4
+- 24cc16b: fix: add html,body height:100% overflow:hidden to QLayout preflights to eliminate unwanted scrollbar
+
 ## 0.3.5
 
 ### Patch Changes
