@@ -10,6 +10,7 @@ import presetWind4 from '@unocss/preset-wind4'
 import { generateTheme, QuasarTheme } from './theme.js'
 import { animatedUno } from 'animated-unocss'
 import { scopeStyle } from './styles/_scope.js'
+import { Postprocessor, UtilObject } from '@unocss/core'
 
 import { type QuasarIconSet, type QuasarPlugins } from 'quasar'
 
@@ -70,6 +71,42 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
         ? scopeStyle(rawStyle, rawStyle.bodyClass)
         : rawStyle
 
+    /**
+     * Postprocessor that undoes `--` → `var(--)` mangling of Quasar BEM
+     * class-name modifiers inside bracket-variant selectors.
+     *
+     * UnoCSS preset-wind4's `variantVariables` handler passes bracket
+     * selectors such as `[&_.q-btn--flat]` through `h.bracket()`, which
+     * interprets `--flat` as a CSS variable reference and converts it to
+     * `var(--flat)`. The resulting class selector `.q-btnvar(--flat)` is
+     * invalid CSS and causes lightningcss to fail.
+     *
+     * This postprocessor runs on every util's selector and replaces
+     * `var(--xxx)` with `--xxx` when it is immediately preceded by a word
+     * character. The regex uses `[^)]+` (anything except closing paren) to
+     * handle cases where `cssVarsRE` matches across dots, spaces, and
+     * other characters (e.g. `--dark.q-field--highlighted .q-field__input`).
+     *
+     * The replacement is run in a loop to handle edge cases where multiple
+     * `var()` wrappings or nesting are present.
+     */
+    const fixBemVarMangling: Postprocessor = (util: UtilObject) => {
+      if (util.selector) {
+        let prev: string
+        do {
+          prev = util.selector
+          // Pass 1: flatten nested var(var(--xxx)-rest) → var(--xxx-rest)
+          util.selector = util.selector.replace(
+            /(\w)var\(var\((--[^)]+)\)/g,
+            '$1var($2'
+          )
+          // Pass 2: strip remaining var(--xxx) → --xxx
+          util.selector = util.selector.replace(/(\w)var\((--[^)]+)\)/g, '$1$2')
+        } while (util.selector !== prev)
+      }
+      return util
+    }
+
     const layers: Record<string, number> = {
       components: -1,
       default: 1,
@@ -104,7 +141,9 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
       rules: coreRules.concat(style.rules),
       variants: style.variants,
       shortcuts: coreShortcuts.concat(style.shortcuts),
-      postprocess: style.postprocess,
+      postprocess: style.postprocess
+        ? style.postprocess.concat(fixBemVarMangling)
+        : [fixBemVarMangling],
       extendTheme: (themeArg: QuasarTheme) => {
         return {
           ...themeArg,
