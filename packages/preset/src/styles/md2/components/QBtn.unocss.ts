@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn$/,
     componentClass(
       'q-btn',
-      `inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle text-[14px] leading-[1.715em] no-underline uppercase [color:inherit] bg-transparent font-medium text-center w-auto min-h-[36px] cursor-default px-[16px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit])`
+      `inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle text-[14px] leading-[1.715em] no-underline uppercase [color:inherit] bg-transparent font-medium text-center w-auto min-h-[36px] min-w-[64px] rounded-[4px] cursor-default px-[16px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit])`
     )
   ],
   [
@@ -57,7 +57,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn--flat$/,
     componentClass(
       'q-btn--flat',
-      qe`[&:before]:([box-shadow:none]) [&_.q-btn__progress-indicator]:(opacity-20 bg-current)`
+      qe`px-[8px] [&:before]:([box-shadow:none]) [&_.q-btn__progress-indicator]:(opacity-20 bg-current)`
     )
   ],
 
@@ -78,7 +78,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn--fab$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--fab'] ??
-      `[&_.q-icon]:(text-[24px]) [&_.q-icon]:(m-auto)`
+      `[&_.q-icon]:(text-[24px]) [&_.q-icon]:(m-auto) min-h-[56px] min-w-[56px] rounded-[50%]`
     // min-h-[56px] min-w-[56px] p-[16px] pb-0
   ],
 
@@ -86,7 +86,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn--fab-mini$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--fab-mini'] ??
-      `[&_.q-icon]:(text-[24px]) p-[8px] pb-0`
+      `[&_.q-icon]:(text-[24px]) p-[8px] pb-0 min-h-[40px] min-w-[40px] rounded-[50%]`
     // min-h-[40px] min-w-[40px]
   ],
 

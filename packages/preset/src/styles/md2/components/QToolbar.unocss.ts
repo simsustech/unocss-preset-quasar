@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-toolbar$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-toolbar'] ??
-      `relative px-[12px] py-[0] min-h-[50px] [&_.q-avatar]:(text-[38px])
+      `relative px-[12px] py-[0] min-h-[64px] [&_.q-avatar]:(text-[38px])
       `
     // w-full
   ],

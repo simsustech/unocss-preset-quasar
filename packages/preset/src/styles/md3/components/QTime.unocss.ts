@@ -110,7 +110,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__clock-center$/,
     componentClass(
       'q-time__clock-center',
-      `h-[6px] w-[6px] m-auto rounded-[50%] min-h-[0] bg-current`
+      `h-[6px] w-[6px] m-auto rounded-[50%] min-h-[0] bg-current absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`
     )
   ],
 

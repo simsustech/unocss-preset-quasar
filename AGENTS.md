@@ -62,6 +62,11 @@ and `dumpDiagnostics()` for CSS variable dumps alongside them. Tests
 use URL query parameters to configure component props (e.g.
 `/q-toggle?style=md3&dense=true&modelValue=true`).
 
+## Core principle: test, don't guess
+
+Never theorize about CSS behavior — always run the tests and check actual output.
+If something looks wrong, run the Playwright test, inspect the screenshot, or check
+the diagnostics JSON dump before touching CSS. Guessing wastes time on phantom fixes.
 ## MD2/MD3 spec verification
 
 The authoritative specifications are `material_design_3_machine_spec.json` and
