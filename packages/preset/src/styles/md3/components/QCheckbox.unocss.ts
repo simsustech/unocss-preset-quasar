@@ -89,8 +89,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       'q-checkbox--dark',
       qe`[&_.q-checkbox__inner]:(text-[rgba(255,_255,_255,_0.7)])
        [&_.q-checkbox__inner:before]:(!opacity-[0.32])
-       [&_.q-checkbox__inner--truthy]:((text-$light-primary dark:text-$dark-primary))
-       [&_.q-checkbox__inner--indet]:((text-$light-primary dark:text-$dark-primary))`
+       [&_.q-checkbox__inner--truthy]:(text-$light-primary dark:text-$dark-primary)
+       [&_.q-checkbox__inner--indet]:(text-$light-primary dark:text-$dark-primary)`
     )
   ],
 
