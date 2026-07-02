@@ -32,7 +32,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-badge--outline$/,
     componentClass(
       'q-badge--outline',
-      `bg-transparent border-[1px] border-solid border-[currentColor]`
+      `bg-transparent [border-width:1px] border-solid border-[currentColor]`
     )
   ],
 

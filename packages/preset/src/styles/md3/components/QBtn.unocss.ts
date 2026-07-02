@@ -13,7 +13,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentCtxClass(
       'q-btn',
       ({ theme }) =>
-        `layer-components:bg-$light-primary layer-components:dark:bg-$dark-primary layer-components:text-$light-on-primary layer-components:dark:text-$dark-on-primary inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle text-[14px] leading-[1.715em] no-underline font-medium text-center w-auto min-h-40px cursor-default px-[16px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit])`
+        `bg-$light-primary dark:bg-$dark-primary text-$light-on-primary dark:text-$dark-on-primary inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle text-[14px] leading-[1.715em] no-underline font-medium text-center w-auto min-h-40px cursor-default px-[16px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit])`
     )
   ],
   [
@@ -30,14 +30,12 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentCtxClass(
       'q-btn--standard',
       ({ theme }) =>
-        `rounded-[28px] layer-components:bg-$light-primary layer-components:dark:bg-$dark-primary layer-components:text-$light-on-primary layer-components:dark:text-$dark-on-primary
+        `bg-$light-primary [&.q-btn--standard.q-btn--rectangle]:(rounded-[28px]) dark:bg-$dark-primary text-$light-on-primary dark:text-$dark-on-primary
        [&:before]:([border-radius:inherit] shadow-md shadow-gray/14)`
     )
   ],
 
   [/^q-btn--no-uppercase$/, staticClass(`normal-case`)],
-
-  [/^q-btn--rectangle$/, staticClass(`rounded-[3px]`)],
 
   [
     /^q-btn--outline$/,
@@ -45,9 +43,9 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       'q-btn--outline',
       ({
         theme
-      }) => qe`!bg-transparent layer-components:text-$light-primary layer-components:dark:text-$dark-primary
-       [&:before]:(shadow-none border-[1px] border-solid border-[currentColor]) 
-       [&_.q-btn__progress-indicator]:(opacity-20 bg-current)`
+      }) => qe`rounded-[28px] !bg-transparent text-$light-primary dark:text-$dark-primary
+        [&:before]:(shadow-none [border-width:1px] border-solid border-[currentColor]) 
+        [&_.q-btn__progress-indicator]:(opacity-20 bg-current)`
     )
   ],
 
@@ -78,8 +76,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       'q-btn--flat',
       ({
         theme
-      }) => qe`!bg-transparent layer-components:text-$light-primary layer-components:dark:text-$dark-primary
-      [&:before]:([box-shadow:none]) 
+      }) => qe`rounded-[28px] !bg-transparent text-$light-primary dark:text-$dark-primary
+        [&:before]:([box-shadow:none]) 
       [&_.q-btn__progress-indicator]:(opacity-20 bg-current)`
     )
   ],
@@ -105,8 +103,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn--fab$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--fab'] ??
-      `layer-components:bg-$light-primary-container layer-components:dark:bg-$dark-primary-container layer-components:text-$light-on-surface layer-components:dark:text-$dark-on-surface
-       w-56px h-56px !rounded-$shape-corner-large
+      `bg-$light-primary-container dark:bg-$dark-primary-container text-$light-on-surface dark:text-$dark-on-surface
+        w-56px h-56px !rounded-$shape-corner-large
        z-${theme.quasar.z.fab}
        [&_.q-icon]:(text-[24px]) [&_.q-icon]:(m-auto)`
   ],
@@ -115,8 +113,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn--fab-mini$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--fab-mini'] ??
-      `layer-components:bg-$light-primary-container layer-components:dark:bg-$dark-primary-container layer-components:text-$light-on-surface layer-components:dark:text-$dark-on-surface
-      w-40px h-40px !rounded-$shape-corner-medium
+      `bg-$light-primary-container dark:bg-$dark-primary-container text-$light-on-surface dark:text-$dark-on-surface
+       w-40px h-40px !rounded-$shape-corner-medium
       [&_.q-icon]:(text-[24px]) [&_.q-icon]:(m-auto)`
   ],
 

@@ -92,7 +92,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-list--bordered$/,
     componentClass(
       'q-list--bordered',
-      `border-[1px] border-solid border-[rgba(0,0,0,0.12)]`
+      `[border-width:1px] border-solid border-[rgba(0,0,0,0.12)]`
     )
   ],
 

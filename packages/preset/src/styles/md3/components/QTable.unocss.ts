@@ -147,7 +147,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-table--bordered$/,
     componentClass(
       'q-table--bordered',
-      `border-[1px] border-solid border-$light-outline-variant dark:border-$dark-outline-variant`
+      `[border-width:1px] border-solid border-$light-outline-variant dark:border-$dark-outline-variant`
     )
   ],
 

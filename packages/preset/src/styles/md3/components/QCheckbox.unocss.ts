@@ -29,7 +29,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-checkbox__bg$/,
     componentClass(
       'q-checkbox__bg',
-      `ml--2px mt--2px select-none top-1/4 left-1/4 w-1/2 h-1/2 border-[2px] border-solid border-[currentColor] rounded-[2px] [transition:background_0.22s_cubic-bezier(0,_0,_0.2,_1)_0ms]`
+      `ml--2px mt--2px select-none top-1/4 left-1/4 w-1/2 h-1/2 [border-width:2px] border-solid border-[currentColor] rounded-[2px] [transition:background_0.22s_cubic-bezier(0,_0,_0.2,_1)_0ms]`
     )
   ],
 
@@ -43,7 +43,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-checkbox__truthy$/,
     componentClass(
       'q-checkbox__truthy',
-      `stroke-current stroke-[3.12px] stroke-offset-[29.78334] stroke-dash-[29.78334]`
+      `stroke-current [stroke-width:3.12px] [stroke-dashoffset:29.78334] [stroke-dasharray:29.78334]`
     )
   ],
 
@@ -59,7 +59,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-checkbox__inner$/,
     componentClass(
       'q-checkbox__inner',
-      `mr-2px text-[40px] w-[1em] min-w-[1em] h-[1em] outline-[0] rounded-[50%] layer-components:text-[rgba(0,_0,_0,_0.54)]`
+      `mr-2px text-[40px] w-[1em] min-w-[1em] h-[1em] outline-[0] rounded-[50%] text-[rgba(0,_0,_0,_0.54)]`
     )
   ],
 
@@ -69,7 +69,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       'q-checkbox__inner--truthy',
       qe`text-$light-primary dark:text-$dark-primary
       [&_.q-checkbox__bg]:(bg-current)
-      [&_path]:(stroke-offset-none [transition:stroke-dashoffset_0.18s_cubic-bezier(0.4,_0,_0.6,_1)_0ms])`
+      [&_path]:([stroke-dashoffset:0] [transition:stroke-dashoffset_0.18s_cubic-bezier(0.4,_0,_0.6,_1)_0ms])`
     )
   ],
 
@@ -87,10 +87,10 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-checkbox--dark$/,
     componentClass(
       'q-checkbox--dark',
-      qe`[&_.q-checkbox__inner]:(layer-components:text-[rgba(255,_255,_255,_0.7)])
+      qe`[&_.q-checkbox__inner]:(text-[rgba(255,_255,_255,_0.7)])
        [&_.q-checkbox__inner:before]:(!opacity-[0.32])
-       [&_.q-checkbox__inner--truthy]:(layer-components:(text-$light-primary dark:text-$dark-primary))
-       [&_.q-checkbox__inner--indet]:(layer-components:(text-$light-primary dark:text-$dark-primary))`
+       [&_.q-checkbox__inner--truthy]:((text-$light-primary dark:text-$dark-primary))
+       [&_.q-checkbox__inner--indet]:((text-$light-primary dark:text-$dark-primary))`
     )
   ],
 

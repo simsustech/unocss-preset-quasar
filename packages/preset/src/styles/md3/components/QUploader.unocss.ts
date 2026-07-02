@@ -15,7 +15,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-uploader--bordered$/,
     componentClass(
       'q-uploader--bordered',
-      `border-[1px] border-solid border-[rgba(0,0,0,0.12)]`
+      `[border-width:1px] border-solid border-[rgba(0,0,0,0.12)]`
     )
   ],
 
@@ -31,7 +31,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-uploader__file$/,
     componentClass(
       'q-uploader__file',
-      qe`[&:before]:(content-[''] [border-top-left-radius:inherit] [border-top-right-radius:inherit] absolute top-[0] right-[0] bottom-[0] left-[0] pointer-events-none bg-current opacity-[0.04]) rounded-tl-[4px] rounded-br-[0] rounded-tr-[4px] rounded-bl-[0] border-[1px] border-solid border-[rgba(0,0,0,0.12)] [&_.q-circular-progress]:(text-[24px]) [&_+_.q-uploader__file]:(mt-[8px])`
+      qe`[&:before]:(content-[''] [border-top-left-radius:inherit] [border-top-right-radius:inherit] absolute top-[0] right-[0] bottom-[0] left-[0] pointer-events-none bg-current opacity-[0.04]) rounded-tl-[4px] rounded-br-[0] rounded-tr-[4px] rounded-bl-[0] [border-width:1px] border-solid border-[rgba(0,0,0,0.12)] [&_.q-circular-progress]:(text-[24px]) [&_+_.q-uploader__file]:(mt-[8px])`
     )
   ],
 

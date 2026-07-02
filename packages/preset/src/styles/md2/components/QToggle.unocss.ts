@@ -47,7 +47,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-toggle__thumb$/,
     componentClass(
       'q-toggle__thumb',
-      `top-[0.25em] left-[0.25em] w-[0.5em] h-[0.5em] [transition:left_0.22s_cubic-bezier(0.4,_0,_0.2,_1)] select-none z-0 [&:after]:(content-[''] absolute top-[0] right-[0] bottom-[0] left-[0] rounded-[50%] bg-[#fff] [box-shadow:0_3px_1px_-2px_rgba(0,_0,_0,_0.2),_0_2px_2px_0_rgba(0,_0,_0,_0.14),_0_1px_5px_0_rgba(0,_0,_0,_0.12)]) [&_.q-icon]:(layer-components:text-[0.3em] min-w-[1em] layer-components:text-[#000] opacity-[0.54])`
+      `top-[0.25em] left-[0.25em] w-[0.5em] h-[0.5em] [transition:left_0.22s_cubic-bezier(0.4,_0,_0.2,_1)] select-none z-0 [&:after]:(content-[''] absolute top-[0] right-[0] bottom-[0] left-[0] rounded-[50%] bg-[#fff] [box-shadow:0_3px_1px_-2px_rgba(0,_0,_0,_0.2),_0_2px_2px_0_rgba(0,_0,_0,_0.14),_0_1px_5px_0_rgba(0,_0,_0,_0.12)]) [&_.q-icon]:(text-[0.3em] min-w-[1em] text-[#000] opacity-[0.54])`
     )
   ],
 
@@ -71,7 +71,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-toggle__inner--truthy$/,
     componentClass(
       'q-toggle__inner--truthy',
-      qe`layer-components:text-primary [&_.q-toggle__track]:(opacity-[0.54]) [&_.q-toggle__thumb]:(left-[0.65em]) [&_.q-toggle__thumb:after]:(bg-current) [&_.q-toggle__thumb_.q-icon]:(layer-components:text-[#fff] opacity-100)`
+      qe`text-primary [&_.q-toggle__track]:(opacity-[0.54]) [&_.q-toggle__thumb]:(left-[0.65em]) [&_.q-toggle__thumb:after]:(bg-current) [&_.q-toggle__thumb_.q-icon]:(text-[#fff] opacity-100)`
     )
   ],
 
@@ -80,7 +80,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-toggle--dark'] ??
       qe`[&_.q-toggle__inner--truthy]:() [&_.q-toggle__thumb:after]:([box-shadow:none]) [&_.q-toggle__thumb:before]:(!opacity-[0.32])`
-    // [&_.q-toggle__inner]:(layer-components:text-[#fff])
+    // [&_.q-toggle__inner]:(text-[#fff])
   ],
 
   [

@@ -31,7 +31,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     )
   ],
 
-  [/^q-img__image--loaded$/, staticClass(`!opacity-100`)],
+  [/^q-img__image--loaded$/, staticClass(`opacity-100`)],
 
   [
     /^q-img__content$/,

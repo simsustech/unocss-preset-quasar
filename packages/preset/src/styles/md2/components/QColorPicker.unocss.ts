@@ -15,7 +15,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-color-picker--bordered$/,
     componentClass(
       'q-color-picker--bordered',
-      `border-[1px] border-solid border-[rgba(0,0,0,0.12)]`
+      `[border-width:1px] border-solid border-[rgba(0,0,0,0.12)]`
     )
   ],
 
@@ -141,7 +141,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-color-picker__tune-tab$/,
     componentClass(
       'q-color-picker__tune-tab',
-      `[&_.q-slider]:(ml-[18px] mr-[18px]) [&_input]:(text-[11px] border-[1px] border-solid border-[#e0e0e0] rounded-[4px] w-[3.5em])`
+      `[&_.q-slider]:(ml-[18px] mr-[18px]) [&_input]:(text-[11px] [border-width:1px] border-solid border-[#e0e0e0] rounded-[4px] w-[3.5em])`
     )
   ],
 
@@ -167,7 +167,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-color-picker--dark$/,
     componentClass(
       'q-color-picker--dark',
-      qe`[box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] [&_.q-color-picker__tune-tab_input]:(border-[1px] border-solid border-[rgba(255,255,255,0.3)]) [&_.q-slider__thumb]:(text-[#fafafa])`
+      qe`[box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] [&_.q-color-picker__tune-tab_input]:([border-width:1px] border-solid border-[rgba(255,255,255,0.3)]) [&_.q-slider__thumb]:(text-[#fafafa])`
     )
   ]
 ]

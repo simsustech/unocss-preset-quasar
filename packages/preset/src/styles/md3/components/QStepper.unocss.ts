@@ -173,7 +173,7 @@ _.q-stepper__tab:last-child]:(items-end) [&_.q-stepper__tab]:(px-[0] py-[24px]) 
     /^q-stepper--bordered$/,
     componentClass(
       'q-stepper--bordered',
-      `border-[1px] border-solid border-[rgba(0,0,0,0.12)]`
+      `[border-width:1px] border-solid border-[rgba(0,0,0,0.12)]`
     )
   ],
 

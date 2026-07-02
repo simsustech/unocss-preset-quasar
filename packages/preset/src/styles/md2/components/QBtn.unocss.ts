@@ -28,8 +28,6 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [/^q-btn--no-uppercase$/, staticClass(`normal-case`)],
 
-  [/^q-btn--rectangle$/, staticClass(`rounded-[3px]`)],
-
   [
     /^q-btn--outline$/,
     componentClass(

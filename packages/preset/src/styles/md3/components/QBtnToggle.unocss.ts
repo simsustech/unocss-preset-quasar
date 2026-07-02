@@ -14,7 +14,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       `!flex-initial
       ${groupStandard}
       align-middle 
-      [&_>_.q-btn]:(layer-components:bg-$light-surface-container layer-components:dark:bg-$dark-surface-container) 
+      [&_>_.q-btn]:(bg-$light-surface-container dark:bg-$dark-surface-container) 
       [&_>_.q-btn-item]:(text-$light-on-surface dark:text-$dark-on-surface self-stretch) 
       [&_>_.q-btn-item.bg-primary]:(!bg-$light-primary !text-$light-on-primary dark:!bg-$dark-primary dark:!text-$dark-on-primary)
       [&_>_.q-btn-item:before]:([box-shadow:none]) 

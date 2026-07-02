@@ -248,7 +248,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       'q-field--outlined',
       `[&_.q-field\\_\\_control]:(px-[12px] py-[0])
 	[&_.q-field\\_\\_control:before]:([transition:border-color_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
-	[&_.q-field\\_\\_control:after]:([height:inherit] border-[2px] border-solid border-transparent [transition:border-color_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
+	[&_.q-field\\_\\_control:after]:([height:inherit] [border-width:2px] border-solid border-transparent [transition:border-color_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
 	[&_.q-field\\_\\_native:-webkit-autofill]:(mt-px mb-px) 
 	[&_.q-field\\_\\_input:-webkit-autofill]:(mt-px mb-px) 
 	[&.q-field--highlighted_.q-field\\_\\_control:after]:(border-current border-2 [transform:scale3d(1,_1,_1)])`

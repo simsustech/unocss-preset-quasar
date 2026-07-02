@@ -108,7 +108,12 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
     }
 
     const layers: Record<string, number> = {
-      components: -1,
+      '0-reset': -200,
+      '1-modifier': -5,
+      '2-base': -3,
+      '3-components': -2,
+      '4-state': -1,
+
       default: 1,
       utilities: 2
     }
@@ -119,6 +124,7 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
     return {
       presets: [
         presetWind4({
+          preflights: { reset: false },
           dark: {
             light: '.body--light',
             dark: '.body--dark'
@@ -154,7 +160,7 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
           }
         }
       },
-      outputToCssLayers: true,
+      outputToCssLayers: false,
       layers,
       extractors: [
         {

@@ -43,7 +43,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-chip--outline$/,
     componentClass(
       'q-chip--outline',
-      `!bg-transparent border-[1px] border-solid border-[currentColor]`
+      `!bg-transparent [border-width:1px] border-solid border-[currentColor]`
     )
   ],
 

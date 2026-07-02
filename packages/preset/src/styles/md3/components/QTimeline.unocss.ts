@@ -38,7 +38,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-timeline__dot$/,
     componentClass(
       'q-timeline__dot',
-      `absolute top-[0] bottom-[0] w-[15px] [&:before]:(content-[''] bg-current block absolute) [&:after]:(content-[''] bg-current block absolute) [&:before]:(border-[1px] border-solid border-[transparent] rounded-[100%] h-[15px] w-[15px] top-[4px] left-[0] [transition:background_0.3s_ease-in-out,_border_0.3s_ease-in-out]) [&:after]:(w-[3px] opacity-40 top-[24px] bottom-[0] left-[6px]) [&_.q-icon]:(absolute top-[0] left-[0] right-[0] text-[16px] h-[38px] leading-[38px] w-full text-[#fff]) [&_.q-icon_>_svg]:(w-[1em] h-[1em]) [&_.q-icon_>_img]:(w-[1em] h-[1em])`
+      `absolute top-[0] bottom-[0] w-[15px] [&:before]:(content-[''] bg-current block absolute) [&:after]:(content-[''] bg-current block absolute) [&:before]:([border-width:1px] border-solid border-[transparent] rounded-[100%] h-[15px] w-[15px] top-[4px] left-[0] [transition:background_0.3s_ease-in-out,_border_0.3s_ease-in-out]) [&:after]:(w-[3px] opacity-40 top-[24px] bottom-[0] left-[6px]) [&_.q-icon]:(absolute top-[0] left-[0] right-[0] text-[16px] h-[38px] leading-[38px] w-full text-[#fff]) [&_.q-icon_>_svg]:(w-[1em] h-[1em]) [&_.q-icon_>_img]:(w-[1em] h-[1em])`
     )
   ],
 

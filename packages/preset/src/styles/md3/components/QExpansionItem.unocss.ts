@@ -30,7 +30,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-expansion-item--popup$/,
     componentClass(
       'q-expansion-item--popup',
-      qe`[transition:padding_0.5s] [&_>_.q-expansion-item__container]:(border-[1px] border-solid border-[rgba(0,0,0,0.12)]) [&_>_.q-expansion-item__container_>_.q-separator]:(hidden)`
+      qe`[transition:padding_0.5s] [&_>_.q-expansion-item__container]:([border-width:1px] border-solid border-[rgba(0,0,0,0.12)]) [&_>_.q-expansion-item__container_>_.q-separator]:(hidden)`
     )
   ],
 
