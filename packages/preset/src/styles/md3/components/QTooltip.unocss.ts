@@ -12,6 +12,14 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       ({ theme }) =>
         `!flex !items-center text-[12px] leading-[16px] bg-$light-inverse-surface dark:bg-$dark-inverse-surface text-$light-inverse-on-surface dark:text-$dark-inverse-on-surface rounded-$shape-corner-small normal-case font-normal pointer-events-none`
     )
+  ],
+  [
+    /^q-tooltip$/,
+    componentCtxClass(
+      'q-tooltip',
+      ({ theme }) =>
+        `z-${theme.quasar.z['tooltip']} !fixed overflow-visible px-[10px] py-[6px] max-w-[95vw]`
+    )
   ]
 ]
 
