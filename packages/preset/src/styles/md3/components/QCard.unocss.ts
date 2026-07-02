@@ -34,7 +34,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-card--bordered$/,
     componentClass(
       'q-card--bordered',
-      `border-1px border-solid border-black/12`
+      `border-1px border-solid border-$light-outline-variant dark:border-$dark-outline-variant`
     )
   ],
 

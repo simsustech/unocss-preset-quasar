@@ -44,7 +44,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       ({
         theme
       }) => qe`rounded-[28px] !bg-transparent text-$light-primary dark:text-$dark-primary
-        [&:before]:(shadow-none [border-width:1px] border-solid border-[currentColor]) 
+        [&:before]:(shadow-none [border-width:1px] border-solid border-$light-outline dark:border-$dark-outline)
         [&_.q-btn__progress-indicator]:(opacity-20 bg-current)`
     )
   ],

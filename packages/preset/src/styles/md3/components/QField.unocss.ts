@@ -138,7 +138,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field__native$/,
     mdComponent(
       'q-field__native',
-      `font-normal leading-[28px] tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] border-none rounded-none bg-transparent text-black/87 px-0 w-full min-w-0 !outline-none select-auto 
+      `text-[16px] font-normal leading-[24px] tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] border-none rounded-none bg-transparent text-black/87 px-0 w-full min-w-0 !outline-none select-auto
   [&:focus-visible]:(!outline-none)
   [&textarea:focus]:(outline-none)
   [&input:focus]:(outline-none)
