@@ -86,20 +86,20 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__clock$/,
     componentClass(
       'q-time__clock',
-      `p-[24px] w-[calc(100%-48px)] h-[calc(100%-48px)] max-w-full max-h-full text-[14px]`
+      `p-[24px] w-full h-full max-w-full max-h-full text-[14px]`
     )
   ],
 
   [
     /^q-time__clock-circle$/,
-    componentClass('q-time__clock-circle', `relative`)
+    componentClass('q-time__clock-circle', `flex items-center justify-center relative`)
   ],
 
   [
     /^q-time__clock-center$/,
     componentClass(
       'q-time__clock-center',
-      `h-[6px] w-[6px] m-auto rounded-[50%] min-h-[0] bg-current absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`
+      `h-[6px] w-[6px] m-auto rounded-[50%] min-h-[0] bg-current`
     )
   ],
 
