@@ -130,37 +130,37 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-notification--top-left-enter-from$/,
     ([, c], { theme }) =>
-      `opacity-0 -translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(-50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--top-left-leave-to$/,
     ([, c], { theme }) =>
-      `opacity-0 -translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(-50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--top-enter-from$/,
     ([, c], { theme }) =>
-      `opacity-0 -translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(-50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--top-leave-to$/,
     ([, c], { theme }) =>
-      `opacity-0 -translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(-50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--top-right-enter-from$/,
     ([, c], { theme }) =>
-      `opacity-0 -translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(-50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--top-right-leave-to$/,
     ([, c], { theme }) =>
-      `opacity-0 -translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(-50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
@@ -202,37 +202,37 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-notification--bottom-left-enter-from$/,
     ([, c], { theme }) =>
-      `opacity-0 translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--bottom-left-leave-to$/,
     ([, c], { theme }) =>
-      `opacity-0 translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--bottom-enter-from$/,
     ([, c], { theme }) =>
-      `opacity-0 translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--bottom-leave-to$/,
     ([, c], { theme }) =>
-      `opacity-0 translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--bottom-right-enter-from$/,
     ([, c], { theme }) =>
-      `opacity-0 translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--bottom-right-leave-to$/,
     ([, c], { theme }) =>
-      `opacity-0 translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [

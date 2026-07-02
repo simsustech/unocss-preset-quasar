@@ -8,7 +8,7 @@ import {
 } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
-  [/^q-footer--hidden$/, staticClass(`translate-y-[110%]`)],
+  [/^q-footer--hidden$/, staticClass(`[transform:translateY(110%)]`)],
 
   [
     /^q-footer$/,

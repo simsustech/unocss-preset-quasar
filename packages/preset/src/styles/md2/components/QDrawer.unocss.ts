@@ -30,7 +30,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentCtxClass(
       'q-drawer--left',
       ({ theme }) =>
-        qe`left-[0] -translate-x-full [&.q-drawer--bordered]:([border-right:1px_solid_rgba(0,_0,_0,_0.12)]) [&_.q-layout__shadow]:(left-[10px] -right-[10px]) [&_.q-layout__shadow:after]:(right-[10px])`
+        qe`left-[0] [transform:translateX(-100%)] [&.q-drawer--bordered]:([border-right:1px_solid_rgba(0,_0,_0,_0.12)]) [&_.q-layout__shadow]:(left-[10px] -right-[10px]) [&_.q-layout__shadow:after]:(right-[10px])`
     )
   ],
 
@@ -39,7 +39,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentCtxClass(
       'q-drawer--right',
       ({ theme }) =>
-        qe`right-[0] translate-x-full [&.q-drawer--bordered]:([border-left:1px_solid_rgba(0,_0,_0,_0.12)]) [&_.q-layout__shadow]:(-left-[10px]) [&_.q-layout__shadow:after]:(left-[10px])`
+        qe`right-[0] [transform:translateX(100%)] [&.q-drawer--bordered]:([border-left:1px_solid_rgba(0,_0,_0,_0.12)]) [&_.q-layout__shadow]:(-left-[10px]) [&_.q-layout__shadow:after]:(left-[10px])`
     )
   ],
 

@@ -52,7 +52,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-fab__label--external-left$/,
     componentClass(
       'q-fab__label--external-left',
-      `top-2/4 -left-[12px] -translate-x-full -translate-y-1/2`
+      `top-2/4 -left-[12px] [transform:translateX(-100%)] [transform:translateY(-50%)]`
     )
   ],
 
@@ -60,7 +60,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-fab__label--external-right$/,
     componentClass(
       'q-fab__label--external-right',
-      `top-2/4 -right-[12px] translate-x-full -translate-y-1/2`
+      `top-2/4 -right-[12px] [transform:translateX(100%)] [transform:translateY(-50%)]`
     )
   ],
 
@@ -68,7 +68,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-fab__label--external-bottom$/,
     componentClass(
       'q-fab__label--external-bottom',
-      `-bottom-[12px] left-2/4 -translate-x-1/2 translate-y-full`
+      `-bottom-[12px] left-2/4 [transform:translateX(-50%)] translate-y-full`
     )
   ],
 
@@ -76,7 +76,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-fab__label--external-top$/,
     componentClass(
       'q-fab__label--external-top',
-      `-top-[12px] left-2/4 -translate-x-1/2 -translate-y-full`
+      `-top-[12px] left-2/4 [transform:translateX(-50%)] -translate-y-full`
     )
   ],
 
@@ -151,7 +151,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-fab__actions--up$/,
     componentClass(
       'q-fab__actions--up',
-      `origin-[50%_100%] scale-[0.4] translate-y-[62px] w-[56px] bottom-full mb-[9px] flex-col-reverse left-2/4 -ml-[28px]`
+      `origin-[50%_100%] scale-[0.4] [transform:translateY(62px)] w-[56px] bottom-full mb-[9px] flex-col-reverse left-2/4 -ml-[28px]`
     )
   ],
 
@@ -159,7 +159,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-fab__actions--down$/,
     componentClass(
       'q-fab__actions--down',
-      `origin-[50%_0] scale-[0.4] -translate-y-[62px] w-[56px] top-full mt-[9px] flex-col left-2/4 -ml-[28px]`
+      `origin-[50%_0] scale-[0.4] [transform:translateY(-62px)] w-[56px] top-full mt-[9px] flex-col left-2/4 -ml-[28px]`
     )
   ],
 
@@ -167,7 +167,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-fab__actions--opened$/,
     componentClass(
       'q-fab__actions--opened',
-      `opacity-100 scale-100 translate-x-[0.1px] translate-y-[0] pointer-events-all`
+      `opacity-100 scale-100 [transform:translateX(0.1px)] [transform:translateY(0)] pointer-events-all`
     )
   ],
 

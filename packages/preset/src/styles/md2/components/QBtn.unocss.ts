@@ -105,7 +105,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn__progress-indicator$/,
     componentClass(
       'q-btn__progress-indicator',
-      `-translate-x-full bg-[rgba(255,_255,_255,_0.25)]`
+      `[transform:translateX(-100%)] bg-[rgba(255,_255,_255,_0.25)]`
     )
   ],
 

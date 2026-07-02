@@ -150,7 +150,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       qe`min-h-[72px] [&.q-stepper__header--alternative-labels
 _.q-stepper__tab]:(min-h-[72px]) [&.q-stepper__header--alternative-labels
 _.q-stepper__tab:first-child]:(items-start) [&.q-stepper__header--alternative-labels
-_.q-stepper__tab:last-child]:(items-end) [&_.q-stepper__tab]:(px-[0] py-[24px]) [&_.q-stepper__tab:first-child_.q-stepper__dot]:(translate-x-[24px]) [&_.q-stepper__tab:last-child_.q-stepper__dot]:(-translate-x-[24px]) [&_.q-stepper__dot]:(m-0) [&_.q-stepper__label]:(hidden)`
+_.q-stepper__tab:last-child]:(items-end) [&_.q-stepper__tab]:(px-[0] py-[24px]) [&_.q-stepper__tab:first-child_.q-stepper__dot]:([transform:translateX(24px)]) [&_.q-stepper__tab:last-child_.q-stepper__dot]:(-[transform:translateX(24px)]) [&_.q-stepper__dot]:(m-0) [&_.q-stepper__label]:(hidden)`
     )
   ],
 

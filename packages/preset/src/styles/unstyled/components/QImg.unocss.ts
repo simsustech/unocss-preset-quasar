@@ -15,7 +15,13 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [/^q-img__container$/, staticClass(`text-[0]`)],
 
-  [/^q-img__image$/, componentClass('q-img__image', `w-full h-full opacity-0`)],
+  [
+    /^q-img__image$/,
+    componentClass(
+      'q-img__image',
+      `[border-radius:inherit] w-full h-full opacity-0`
+    )
+  ],
 
   [
     /^q-img__image--with-transition$/,
@@ -25,7 +31,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     )
   ],
 
-  [/^q-img__image--loaded$/, staticClass(`opacity-100`)],
+  [/^q-img__image--loaded$/, staticClass(`!opacity-100`)],
 
   [
     /^q-img__content$/,

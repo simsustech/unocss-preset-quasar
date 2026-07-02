@@ -83,7 +83,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field__bottom--animated$/,
     componentClass(
       'q-field__bottom--animated',
-      `translate-y-full left-[0] right-[0] bottom-[0]`
+      `[transform:translateY(100%)] left-[0] right-[0] bottom-[0]`
     )
   ],
 
@@ -136,13 +136,13 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       'q-field__native',
       qe`font-normal leading-[28px] tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] border-none rounded-none bg-transparent text-black/87 dark:text-white outline-none px-[0] w-full min-w-[0] !outline-none select-auto 
 	[&:-webkit-autofill]:() 
-	[&:-webkit-autofill_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&[type='color']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&[type='date']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&[type='datetime-local']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&[type='month']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&[type='time']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&[type='week']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
+	[&:-webkit-autofill_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&[type='color']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&[type='date']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&[type='datetime-local']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&[type='month']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&[type='time']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&[type='week']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
 	[&:invalid]:([box-shadow:none]) 
 	[&[type='file']]:(leading-[1em])`
     )
@@ -170,13 +170,13 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       'q-field__input',
       qe`font-normal leading-[28px] tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] border-none rounded-none bg-transparent text-black/87 dark:text-white outline-none px-[0] py-[6px] w-full min-w-[0] !outline-none select-auto 
 	[&:-webkit-autofill]:() 
-	[&:-webkit-autofill_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&[type='color']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&[type='date']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&[type='datetime-local']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&[type='month']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&[type='time']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&[type='week']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
+	[&:-webkit-autofill_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&[type='color']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&[type='date']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&[type='datetime-local']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&[type='month']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&[type='time']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&[type='week']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
 	[&:invalid]:([box-shadow:none]) p-0 h-[0] min-h-[24px] leading-[24px]`
     )
   ],
@@ -359,21 +359,21 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 	[&_.q-field__append]:() 
 	[&_.q-field__append_+_.q-field__append]:(pl-[2px]) 
 	[&_.q-field__marginal_.q-avatar]:(text-[24px]) 
-	[&.q-field--float_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&_.q-field__native:-webkit-autofill_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&_.q-field__input:-webkit-autofill_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&_.q-field__native[type='color']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&_.q-field__native[type='date']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&_.q-field__native[type='datetime-local']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&_.q-field__native[type='month']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&_.q-field__native[type='time']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&_.q-field__native[type='week']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&_.q-field__input[type='color']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&_.q-field__input[type='date']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&_.q-field__input[type='datetime-local']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&_.q-field__input[type='month']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&_.q-field__input[type='time']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75]) 
-	[&_.q-field__input[type='week']_+_.q-field__label]:(-translate-y-[40%] scale-[0.75])`
+	[&.q-field--float_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&_.q-field__native:-webkit-autofill_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&_.q-field__input:-webkit-autofill_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&_.q-field__native[type='color']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&_.q-field__native[type='date']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&_.q-field__native[type='datetime-local']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&_.q-field__native[type='month']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&_.q-field__native[type='time']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&_.q-field__native[type='week']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&_.q-field__input[type='color']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&_.q-field__input[type='date']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&_.q-field__input[type='datetime-local']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&_.q-field__input[type='month']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&_.q-field__input[type='time']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75]) 
+	[&_.q-field__input[type='week']_+_.q-field__label]:([transform:translateY(-40%)] scale-[0.75])`
     )
   ],
 

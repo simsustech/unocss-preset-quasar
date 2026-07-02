@@ -12,7 +12,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-drawer$/,
     componentCtxClass(
       'q-drawer',
-      ({ theme }) => `absolute top-[0] bottom-[0] z-${theme.quasar.z['side']}`
+      ({ theme }) =>
+        `absolute top-[0] bottom-[0] bg-$light-surface-container-low dark:bg-$dark-surface-container-low z-${theme.quasar.z['side']}`
     )
   ],
 
@@ -29,7 +30,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentCtxClass(
       'q-drawer--left',
       ({ theme }) =>
-        `left-[0] -translate-x-full [&_.q-layout__shadow]:(left-[10px] -right-[10px]) [&_.q-layout__shadow:after]:(right-[10px])`
+        `left-[0] [transform:translateX(-100%)] [&_.q-layout__shadow]:(left-[10px] -right-[10px]) [&_.q-layout__shadow:after]:(right-[10px])`
     )
   ],
 
@@ -38,7 +39,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentCtxClass(
       'q-drawer--right',
       ({ theme }) =>
-        `right-[0] translate-x-full [&_.q-layout__shadow]:(-left-[10px]) [&_.q-layout__shadow:after]:(left-[10px])`
+        `right-[0] [transform:translateX(100%)] [&_.q-layout__shadow]:(-left-[10px]) [&_.q-layout__shadow:after]:(left-[10px])`
     )
   ],
 

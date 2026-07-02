@@ -3,7 +3,7 @@ import type { QuasarTheme } from '../../../theme.js'
 import { componentClass, staticClass, qe } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
-  [/^q-header--hidden$/, staticClass(`-translate-y-[110%]`)],
+  [/^q-header--hidden$/, staticClass(`[transform:translateY(-110%)]`)],
 
   [
     /^q-header$/,

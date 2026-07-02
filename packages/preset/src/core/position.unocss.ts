@@ -13,7 +13,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^fixed-center$/,
     ([, c], { theme }) =>
-      `fixed top-2/4 left-2/4 -translate-x-1/2 -translate-y-1/2`
+      `fixed top-2/4 left-2/4 [transform:translate(-50%,-50%)]`
   ],
 
   [/^fixed-bottom$/, ([, c], { theme }) => `fixed right-0 bottom-0 left-0`],
@@ -40,7 +40,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^absolute-center$/,
     ([, c], { theme }) =>
-      `absolute top-2/4 left-2/4 -translate-x-1/2 -translate-y-1/2`
+      `absolute top-2/4 left-2/4 [transform:translate(-50%,-50%)]`
   ],
 
   [
