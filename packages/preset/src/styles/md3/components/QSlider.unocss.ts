@@ -39,7 +39,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__track$/,
     componentClass(
       'q-slider__track',
-      `bg-$light-secondary-container/10 dark:bg-$dark-secondary-container/10 rounded-[4px] [width:inherit] [height:inherit] text-$light-primary dark:text-$dark-primary`
+      `bg-$light-secondary-container/30 dark:bg-$dark-secondary-container/30 rounded-[4px] [width:inherit] [height:inherit] text-$light-primary dark:text-$dark-primary`
     )
   ],
 
@@ -47,7 +47,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__inner$/,
     componentClass(
       'q-slider__inner',
-      `bg-$light-secondary-container/10 dark:bg-$dark-secondary-container/10 [border-radius:inherit] w-full h-full`
+      `bg-$light-secondary-container/30 dark:bg-$dark-secondary-container/30 [border-radius:inherit] w-full h-full`
     )
   ],
 

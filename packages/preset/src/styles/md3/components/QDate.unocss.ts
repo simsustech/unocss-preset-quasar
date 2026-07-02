@@ -23,7 +23,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date__header$/,
     componentClass(
       'q-date__header',
-      `[border-top-left-radius:inherit] p-[12px]`
+      `bg-$light-primary dark:bg-$dark-surface-container-high text-$light-on-primary dark:text-$dark-on-surface [border-top-left-radius:inherit] p-[12px]`
     )
   ],
 

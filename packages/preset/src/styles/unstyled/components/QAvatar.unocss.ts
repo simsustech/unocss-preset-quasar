@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-avatar$/,
     componentClass(
       'q-avatar',
-      qe`relative align-middle inline-block h-[1em] w-[1em] [&_img:not(.q-icon):not(.q-img__image)]:([height:inherit] [width:inherit])`
+      qe`relative align-middle inline-flex items-center justify-center h-[1em] w-[1em] [&_img:not(.q-icon):not(.q-img__image)]:([height:inherit] [width:inherit])`
     )
   ],
 

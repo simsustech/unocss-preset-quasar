@@ -24,7 +24,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__header$/,
     componentClass(
       'q-time__header',
-      `[border-top-left-radius:inherit] text-$light-on-surface dark:text-$dark-on-surface p-[16px] font-light`
+      `[border-top-left-radius:inherit] bg-$light-primary dark:bg-$dark-surface-container-high text-$light-on-primary dark:text-$dark-on-primary p-[16px] font-light`
     )
   ],
 
