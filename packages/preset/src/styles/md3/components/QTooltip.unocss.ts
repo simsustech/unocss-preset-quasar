@@ -18,7 +18,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentCtxClass(
       'q-tooltip',
       ({ theme }) =>
-        `z-${theme.quasar.z['tooltip']} !fixed overflow-visible px-[10px] py-[6px] h-[24px] leading-none max-w-[95vw]`
+        `z-${theme.quasar.z['tooltip']} !fixed overflow-visible px-[10px] py-[6px] leading-none max-w-[95vw]`
     )
   ]
 ]
