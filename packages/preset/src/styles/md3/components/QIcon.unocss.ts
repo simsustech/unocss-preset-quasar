@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     (
       [, c],
       { theme }
-    ) => `lh-1 w-1em h-1em shrink-0 tracking-normal normal-case whitespace-nowrap break-normal 
+    ) => `relative lh-1 w-1em h-1em shrink-0 tracking-normal normal-case whitespace-nowrap break-normal 
   text-center relative box-content fill-current
   [&>svg]:(h-full w-full)
   [&>img]:(h-full w-full)
