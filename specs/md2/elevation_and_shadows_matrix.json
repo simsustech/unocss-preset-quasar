@@ -1,0 +1,21 @@
+{
+  "description": "M2 maps physical layout hierarchy directly to standard CSS box-shadow depths.",
+  "elevation_levels_dp": {
+    "dialogs": 24,
+    "picker_menus": 24,
+    "nav_drawer": 16,
+    "right_sheet": 16,
+    "bottom_sheet": 16,
+    "fab_pressed": 12,
+    "sub_menus": 8,
+    "bottom_nav_bar": 8,
+    "top_app_bar": 4,
+    "buttons_pressed": 8,
+    "fab_resting": 6,
+    "cards_hover": 8,
+    "cards_resting": 2,
+    "buttons_resting": 2,
+    "switches_and_controls": 1,
+    "flat_layouts": 0
+  }
+}

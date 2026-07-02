@@ -39,7 +39,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-toggle__track$/,
     componentClass(
       'q-toggle__track',
-      `h-[0.35em] max-w-32px rounded-[0.175em] opacity-[0.38] bg-current`
+      `h-[0.35em] max-w-[36px] rounded-[0.175em] opacity-[0.38] bg-current`
     )
   ],
 

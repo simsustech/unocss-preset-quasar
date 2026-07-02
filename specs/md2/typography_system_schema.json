@@ -1,0 +1,80 @@
+{
+  "h1": {
+    "font_size_px": 96,
+    "letter_spacing_px": -1.5,
+    "font_weight": 300,
+    "text_transform": "none"
+  },
+  "h2": {
+    "font_size_px": 60,
+    "letter_spacing_px": -0.5,
+    "font_weight": 300,
+    "text_transform": "none"
+  },
+  "h3": {
+    "font_size_px": 48,
+    "letter_spacing_px": 0,
+    "font_weight": 400,
+    "text_transform": "none"
+  },
+  "h4": {
+    "font_size_px": 34,
+    "letter_spacing_px": 0.25,
+    "font_weight": 400,
+    "text_transform": "none"
+  },
+  "h5": {
+    "font_size_px": 24,
+    "letter_spacing_px": 0,
+    "font_weight": 400,
+    "text_transform": "none"
+  },
+  "h6": {
+    "font_size_px": 20,
+    "letter_spacing_px": 0.15,
+    "font_weight": 500,
+    "text_transform": "none"
+  },
+  "subtitle1": {
+    "font_size_px": 16,
+    "letter_spacing_px": 0.15,
+    "font_weight": 400,
+    "text_transform": "none"
+  },
+  "subtitle2": {
+    "font_size_px": 14,
+    "letter_spacing_px": 0.1,
+    "font_weight": 500,
+    "text_transform": "none"
+  },
+  "body1": {
+    "font_size_px": 16,
+    "letter_spacing_px": 0.5,
+    "font_weight": 400,
+    "text_transform": "none"
+  },
+  "body2": {
+    "font_size_px": 14,
+    "letter_spacing_px": 0.25,
+    "font_weight": 400,
+    "text_transform": "none"
+  },
+  "button": {
+    "font_size_px": 14,
+    "letter_spacing_px": 1.25,
+    "font_weight": 500,
+    "text_transform": "uppercase"
+  },
+  "caption": {
+    "font_size_px": 12,
+    "letter_spacing_px": 0.4,
+    "font_weight": 400,
+    "text_transform": "none"
+  },
+  "overline": {
+    "font_size_px": 10,
+    "letter_spacing_px": 1.5,
+    "font_weight": 400,
+    "text_transform": "uppercase"
+  }
+}

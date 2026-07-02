@@ -1,0 +1,10 @@
+{
+  "hover": 0.04,
+  "focus": 0.12,
+  "selected": 0.08,
+  "activated": 0.12,
+  "pressed": 0.16,
+  "dragged": 0.08,
+  "disabled_container_alpha": 0.12,
+  "disabled_content_alpha": 0.38
+}

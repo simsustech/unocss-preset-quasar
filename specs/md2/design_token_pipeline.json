@@ -1,0 +1,20 @@
+{
+  "color_system_mechanics": {
+    "architecture": "Color Palette Hues (50-900) + Accent Scales (A100-A700)",
+    "elevation_strategy": "Semi-transparent white overlay sheets stacked over the base surface color to visually represent height in dark mode."
+  },
+  "core_semantic_palette_mapping": {
+    "primary": "Main brand expression color used across headers and key actions.",
+    "primary_variant": "Darker or lighter alternative of the primary brand color.",
+    "secondary": "Accent color for floating action components, selections, and highlights.",
+    "secondary_variant": "Alternative variant of the secondary accent color.",
+    "background": "The underlying base color behind scrollable application content.",
+    "surface": "The structural sheet color applied to cards, sheets, menus, and dialogs.",
+    "error": "The functional color reserved exclusively for validation failures.",
+    "on_primary": "High contrast color safe for text/icons placed over the primary color.",
+    "on_secondary": "High contrast color safe for text/icons placed over the secondary color.",
+    "on_background": "High contrast color safe for text/icons placed over the background color.",
+    "on_surface": "High contrast color safe for text/icons placed over the surface color.",
+    "on_error": "High contrast color safe for text/icons placed over the error color."
+  }
+}
