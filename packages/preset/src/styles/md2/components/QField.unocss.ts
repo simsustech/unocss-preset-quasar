@@ -218,7 +218,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field--float$/,
     componentClass(
       'q-field--float',
-      qe`[&_.q-field__label]:(max-w-[133%] -translate-y-[40%] scale-[0.75] [transition:transform_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_max-width_0.396s_cubic-bezier(0.4,_0,_0.2,_1)])`
+      qe`[&_.q-field__label]:(max-w-[133%] [transform:translateY(-40%)_scale(0.75)] [transition:transform_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_max-width_0.396s_cubic-bezier(0.4,_0,_0.2,_1)])`
     )
   ],
 

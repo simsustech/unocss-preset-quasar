@@ -223,7 +223,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field--float$/,
     mdComponent(
       'q-field--float',
-      `[&_.q-field\\_\\_label]:(max-w-[133%] -translate-y-[40%] scale-[0.75] [transition:transform_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_max-width_0.396s_cubic-bezier(0.4,_0,_0.2,_1)])`
+      `[&_.q-field\\_\\_label]:(max-w-[133%] [transform:translateY(-40%)_scale(0.75)] [transition:transform_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_max-width_0.396s_cubic-bezier(0.4,_0,_0.2,_1)])`
     )
   ],
 
