@@ -22,7 +22,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-badge--floating$/,
     componentClass(
       'q-badge--floating',
-      `absolute -top-[4px] -right-[3px] [cursor:inherit]`
+      `absolute -top-[4px] -right-[3px] [cursor:inherit] z-10`
     )
   ],
 
