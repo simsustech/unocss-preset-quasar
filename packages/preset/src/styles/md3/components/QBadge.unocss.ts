@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-badge$/,
     componentClass(
       'q-badge',
-      `[--un-icon:initial] [mask-image:none] [-webkit-mask-image:none] text-[#fff] bg-primary px-[6px] py-[0] rounded-[4px] text-[12px] leading-none h-[16px] font-normal align-baseline`
+      `[--un-icon:initial] text-[#fff] bg-primary px-[6px] py-[0] rounded-[4px] text-[12px] leading-none h-[16px] font-normal align-baseline`
     )
   ],
 
