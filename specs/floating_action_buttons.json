@@ -1,0 +1,28 @@
+{
+  "small_fab": {
+    "footprint_width_px": 40,
+    "footprint_height_px": 40,
+    "corner_shape_token": "md.sys.shape.corner.medium",
+    "elevation_layer": "level_3"
+  },
+  "standard_fab": {
+    "footprint_width_px": 56,
+    "footprint_height_px": 56,
+    "corner_shape_token": "md.sys.shape.corner.large",
+    "elevation_layer": "level_3"
+  },
+  "large_fab": {
+    "footprint_width_px": 96,
+    "footprint_height_px": 96,
+    "corner_shape_token": "md.sys.shape.corner.extra-large",
+    "elevation_layer": "level_3"
+  },
+  "extended_fab": {
+    "vertical_footprint_thickness_px": 56,
+    "horizontal_footprint_width": "variable_length",
+    "corner_shape_token": "md.sys.shape.corner.large",
+    "elevation_layer": "level_3",
+    "inner_label_typography_style": "label-large",
+    "inside_padding_gap_space_px": 16
+  }
+}

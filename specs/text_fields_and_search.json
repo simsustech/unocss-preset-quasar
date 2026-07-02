@@ -1,0 +1,34 @@
+{
+  "filled_text_field": {
+    "vertical_thickness_px": 56,
+    "corner_shape_token": "md.sys.shape.corner.extra-small",
+    "corner_application_rules": "top_left_and_top_right_only_bottom_flat_0px",
+    "background_color_token": "md.sys.color.surface-container-highest",
+    "bottom_status_line_indicator_thickness_baseline_px": 1,
+    "bottom_status_line_indicator_thickness_focus_px": 2,
+    "bottom_status_line_color_token_focus": "md.sys.color.primary",
+    "typography": {
+      "input_text_style": "body-large",
+      "floating_description_label_style": "body-small"
+    }
+  },
+  "outlined_text_field": {
+    "vertical_thickness_px": 56,
+    "corner_shape_token": "md.sys.shape.corner.extra-small",
+    "corner_application_rules": "applied_to_all_four_vertices",
+    "background_color_token": "transparent",
+    "outer_frame_stroke_thickness_baseline_px": 1,
+    "outer_frame_stroke_thickness_focus_px": 2,
+    "outer_frame_color_token_focus": "md.sys.color.primary",
+    "typography": {
+      "input_text_style": "body-large",
+      "floating_description_label_style": "body-small"
+    }
+  },
+  "search_bar_chassis": {
+    "structural_vertical_clearance_px": 56,
+    "corner_shape_token": "md.sys.shape.corner.full",
+    "base_color_mapping_token": "md.sys.color.surface-container-high",
+    "left_margin_clearance_spacing_px": 16
+  }
+}

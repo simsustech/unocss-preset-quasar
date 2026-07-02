@@ -1,0 +1,23 @@
+{
+  "navigation_bottom_bar": {
+    "absolute_structural_layout_clearance_thickness_px": 80,
+    "base_color_theme_token": "md.sys.color.surface-container",
+    "elevation_footprint": "level_0",
+    "active_layout_indicator_pill_width_px": 64,
+    "active_layout_indicator_pill_height_px": 32,
+    "active_layout_indicator_color_token": "md.sys.color.secondary-container",
+    "label_typography_style": "label-medium"
+  },
+  "navigation_rail_panel": {
+    "fixed_sidebar_clearance_framework_width_px": {
+      "min": 72,
+      "max": 80
+    },
+    "vertical_alignment_positioning": "left_margin_orientation"
+  },
+  "navigation_drawer_module": {
+    "structural_container_framework_column_width_px": 360,
+    "trailing_exterior_corner_borders_shape_token": "md.sys.shape.corner.large",
+    "background_assignment_token": "md.sys.color.surface-container-low"
+  }
+}

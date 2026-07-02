@@ -241,8 +241,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     mdComponent(
       'q-field--filled',
       `
-      [&_>_.q-field\\_\\_inner_>_.q-field\\_\\_control]:(bg-$light-surface-container-highest text-$light-on-surface-variant
-       dark:bg-$dark-surface-container-highest dark:text-$dark-on-surface-variant px-[16px] py-[0] bg-black/5 rounded-$shape-corner-extra-small) 
+      [&_>_.q-field\_\_inner_>_.q-field\_\_control]:(bg-$light-surface-container-highest text-$light-on-surface-variant
+       dark:bg-$dark-surface-container-highest dark:text-$dark-on-surface-variant px-[16px] py-[0] bg-black/5 rounded-tl-[4px] rounded-tr-[4px] rounded-bl-[0px] rounded-br-[0px])
       [&_.q-field\\_\\_control:before]:(bg-black/5 [border-bottom:1px_solid_rgba(0,_0,_0,_0.42)] opacity-0 [transition:opacity_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_background_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
       [&_.q-field\\_\\_control:hover:before]:(opacity-100) 
       [&_.q-field\\_\\_control:after]:(h-[2px] top-auto origin-[center_bottom] [transform:scale3d(0,_1,_1)] bg-current [transition:transform_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 

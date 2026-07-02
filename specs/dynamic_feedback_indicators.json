@@ -1,0 +1,20 @@
+{
+  "progress_gauges_linear_and_circular": {
+    "master_track_trace_color_token": "md.sys.color.surface-container-highest",
+    "dynamic_progress_accent_color_token": "md.sys.color.primary"
+  },
+  "system_tooltips": {
+    "clear_visual_height_dimension_constraint_px": 24,
+    "corner_shape_token": "md.sys.shape.corner.small",
+    "surface_allocation_token": "md.sys.color.inverse-surface",
+    "text_styling_mapping": "body-small",
+    "text_color_token": "md.sys.color.inverse-on-surface"
+  },
+  "feedback_snackbars": {
+    "absolute_layout_alignment_footprint_height_constraint_min_px": 48,
+    "absolute_layout_alignment_footprint_height_constraint_max_double_line_px": 68,
+    "base_background_token": "md.sys.color.inverse-surface",
+    "action_interaction_targets_label_text_color_token": "md.sys.color.inverse-primary",
+    "corner_shape_token": "md.sys.shape.corner.extra-small"
+  }
+}

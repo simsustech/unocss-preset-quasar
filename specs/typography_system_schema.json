@@ -1,0 +1,107 @@
+{
+  "display-large": {
+    "font_size_px": 57,
+    "line_height_px": 64,
+    "font_weight_base": 400,
+    "font_weight_emphasized": 700,
+    "letter_spacing_px": -0.25
+  },
+  "display-medium": {
+    "font_size_px": 45,
+    "line_height_px": 52,
+    "font_weight_base": 400,
+    "font_weight_emphasized": 700,
+    "letter_spacing_px": 0
+  },
+  "display-small": {
+    "font_size_px": 36,
+    "line_height_px": 44,
+    "font_weight_base": 400,
+    "font_weight_emphasized": 700,
+    "letter_spacing_px": 0
+  },
+  "headline-large": {
+    "font_size_px": 32,
+    "line_height_px": 40,
+    "font_weight_base": 400,
+    "font_weight_emphasized": 700,
+    "letter_spacing_px": 0
+  },
+  "headline-medium": {
+    "font_size_px": 28,
+    "line_height_px": 36,
+    "font_weight_base": 400,
+    "font_weight_emphasized": 700,
+    "letter_spacing_px": 0
+  },
+  "headline-small": {
+    "font_size_px": 24,
+    "line_height_px": 32,
+    "font_weight_base": 400,
+    "font_weight_emphasized": 700,
+    "letter_spacing_px": 0
+  },
+  "title-large": {
+    "font_size_px": 22,
+    "line_height_px": 28,
+    "font_weight_base": 400,
+    "font_weight_emphasized": 700,
+    "letter_spacing_px": 0
+  },
+  "title-medium": {
+    "font_size_px": 16,
+    "line_height_px": 24,
+    "font_weight_base": 500,
+    "font_weight_emphasized": 700,
+    "letter_spacing_px": 0.15
+  },
+  "title-small": {
+    "font_size_px": 14,
+    "line_height_px": 20,
+    "font_weight_base": 500,
+    "font_weight_emphasized": 700,
+    "letter_spacing_px": 0.1
+  },
+  "body-large": {
+    "font_size_px": 16,
+    "line_height_px": 24,
+    "font_weight_base": 400,
+    "font_weight_emphasized": 700,
+    "letter_spacing_px": 0.5
+  },
+  "body-medium": {
+    "font_size_px": 14,
+    "line_height_px": 20,
+    "font_weight_base": 400,
+    "font_weight_emphasized": 700,
+    "letter_spacing_px": 0.25
+  },
+  "body-small": {
+    "font_size_px": 12,
+    "line_height_px": 16,
+    "font_weight_base": 400,
+    "font_weight_emphasized": 700,
+    "letter_spacing_px": 0.4
+  },
+  "label-large": {
+    "font_size_px": 14,
+    "line_height_px": 20,
+    "font_weight_base": 500,
+    "font_weight_emphasized": 700,
+    "letter_spacing_px": 0.1
+  },
+  "label-medium": {
+    "font_size_px": 12,
+    "line_height_px": 16,
+    "font_weight_base": 500,
+    "font_weight_emphasized": 700,
+    "letter_spacing_px": 0.5
+  },
+  "label-small": {
+    "font_size_px": 11,
+    "line_height_px": 16,
+    "font_weight_base": 500,
+    "font_weight_emphasized": 700,
+    "letter_spacing_px": 0.5
+  }
+}

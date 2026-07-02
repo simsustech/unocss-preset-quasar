@@ -41,7 +41,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-toggle__inner$/,
     componentClass(
       'q-toggle__inner',
-      `relative [font-size:34px] h-[1em] w-[1.625em] [padding:0]`
+      `relative [font-size:32px] h-[1em] w-[1.625em] [padding:0]`
     )
   ],
 

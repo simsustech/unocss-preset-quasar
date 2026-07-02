@@ -13,7 +13,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentCtxClass(
       'q-btn',
       ({ theme }) =>
-        `bg-$light-primary dark:bg-$dark-primary text-$light-on-primary dark:text-$dark-on-primary inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle text-[14px] leading-[1.715em] no-underline font-medium text-center w-auto min-h-40px cursor-default px-[16px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit])`
+        `bg-$light-primary dark:bg-$dark-primary text-$light-on-primary dark:text-$dark-on-primary inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle text-[14px] leading-[1.715em] no-underline font-medium text-center w-auto min-h-40px cursor-default px-[24px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit])`
     )
   ],
   [
@@ -76,7 +76,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       'q-btn--flat',
       ({
         theme
-      }) => qe`rounded-[28px] !bg-transparent text-$light-primary dark:text-$dark-primary
+      }) => qe`rounded-[28px] !bg-transparent text-$light-primary dark:text-$dark-primary px-[12px]
         [&:before]:([box-shadow:none]) 
       [&_.q-btn__progress-indicator]:(opacity-20 bg-current)`
     )

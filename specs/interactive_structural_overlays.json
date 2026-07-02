@@ -1,0 +1,22 @@
+{
+  "hover": {
+    "state_layer_opacity": 0.08,
+    "type": "tint_injection"
+  },
+  "focus": {
+    "state_layer_opacity": 0.12,
+    "type": "tint_injection"
+  },
+  "pressed": {
+    "state_layer_opacity": 0.12,
+    "type": "tint_injection"
+  },
+  "dragged": {
+    "state_layer_opacity": 0.16,
+    "type": "tint_injection"
+  },
+  "disabled_global_law": {
+    "all_element_bodies_alpha": 0.12,
+    "inner_typography_blocks_alpha": 0.38
+  }
+}
