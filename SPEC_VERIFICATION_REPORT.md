@@ -1,52 +1,54 @@
-# MD3 Spec Verification Report
+# MD2 / MD3 Spec Verification Report
 
 **Date**: 2026-07-01
-**Spec version**: `material_design_3_machine_spec.json` v2026.1
+**Specs**: `material_design_3_machine_spec.json` v2026.1, `material_design_2_machine_spec.json`
 **Test harness**: `~/Projects/quasar-testing-harness` — Playwright + diagnostics dumps
 **Result**: ✅ All 318 tests pass, zero unmatched utilities
 
-## Summary
-
-Verified all 69 component spec files against the Material Design 3 machine specification.
-Ten discrepancies were found and fixed across two rounds.
-
-### Round 1 fixes (4)
+## MD3 fixes (10 discrepancies)
 | # | Component | Spec value | Was | Now |
 |---|-----------|-----------|-----|-----|
 | 1 | QBtn padding | 24px filled | 16px | 24px base, 12px flat |
-| 2 | QToggle track | 52×32px | font-size 34px | 32px (×1.625=52, ×1=32) |
-| 3 | QCheckbox shape | 18×18px | font-size 40px | 36px (bg=18px via w-1/2) |
-| 4 | QField filled | Corner top-only | all 4 sides | top-only 4px |
+| 2 | QToggle track | 52×32px | font-size 34px | 32px |
+| 3 | QCheckbox shape | 18×18px | font-size 40px | 36px |
+| 4 | QField filled corners | top-only | all sides | top-only 4px |
+| 5 | QBtn outline border | outline token | currentColor | outline token |
+| 6 | QField input text | 16px/24px body-large | 14px/28px | 16px/24px |
+| 7 | QCard bordered | outline-variant | black/12 | outline-variant |
+| 8 | QDrawer trailing corner | 16px all drawers | mobile-only | all drawers |
+| 9 | QDialog dims | 280–560px, pad 24, corner 28 | missing | added |
+| 10 | QLinearProgress track | surface-container-highest | opacity-40 | token-based |
 
-### Round 2 fixes (6 — from background agent review)
+## MD2 fixes (3 discrepancies)
 | # | Component | Spec value | Was | Now |
 |---|-----------|-----------|-----|-----|
-| 5 | QBtn outline | Border outline token | currentColor | outline token |
-| 6 | QField input | body-large 16px/24px | 14px/28px | 16px/24px |
-| 7 | QCard bordered | Border outline-variant | black/12 | outline-variant |
-| 8 | QDrawer | Corner 16px trailing | mobile-only | all drawers |
-| 9 | QDialog | min/max 280/560, pad 24, corner 28 | missing | added |
-| 10 | QLinearProgress | Track surface-container-highest | opacity-40 | token-based |
+| 1 | QBtn height | 36px | min-h-40px | min-h-[36px] |
+| 2 | QToggle track | 36px width | max-w-32px | max-w-[36px] |
+| 3 | QChip height | 32px | h-[2em]=28px | h-[32px] |
 
-## Component conformance
+## Component conformance summary
+| Component | MD3 ✅ | MD2 ✅ | Notes |
+|-----------|--------|--------|-------|
+| QBtn | ✅ | ✅ | Heights differ: 40px vs 36px per respective specs |
+| QToggle | ✅ | ✅ | Track: 52×32px vs 36×14px |
+| QCheckbox | ✅ | — | Inner shape: 18×18px both specs |
+| QChip | ✅ | ✅ | Corner: 8px MD3, 16px MD2 |
+| QCard | ✅ | — | Corner: 16px MD3, 4px MD2 |
+| QField | ✅ | — | Input text: 16px MD3, 14px MD2 |
+| QDialog | ✅ | — | Corner: 28px MD3, 4px MD2 |
+| QDrawer | ✅ | — | Width: 360px MD3, 256px MD2 |
+| QFab | — | — | 56px standard both specs |
+| QTooltip | ✅ | — | 24px height both specs |
+| QLinearProgress | ✅ | — | Track: surface-container-highest |
 
-### ✅ Fully compliant (no changes)
-QChip (32px, 8px corner, 12px pad, label-large), QTooltip (24px, 8px corner, inverse-surface, body-small),
-QToggle (52×32px track), QCheckbox (18×18px shape), QTab indicator (32px pill, secondary-container)
-
-### 🔧 Fixed (this session)
-QBtn (padding, outline border), QFrame (input font-size, filled corners), QCard (bordered),
-QDrawer (trailing corner), QDialog (dimensions), QLinearProgress (track color)
-
-### ⚠️ Intentional deviations
-| Component | Issue | Rationale |
-|-----------|-------|-----------|
-| QBtn corner | 28px not `full` (Infinity) | 28px is the Quasar convention; true pill-like `rounded-full` on text buttons looks wrong |
-| QCheckbox tap zone | 36px inner, not 48px | Tap zone handled by `.q-checkbox` wrapper from Quasar core; inner controls visual size |
-| QCard filled bg | surface-container-highest vs surface-container | Visual distinction from elevated card; one step higher is intentional |
-| QBtn tonal | Not implemented | No `q-btn--tonal` class in Quasar; maps to standard with secondary-container via context |
-| QFab large | Not implemented | Large FAB (96×96) is uncommon; can add if needed |
-| QDialog padding | 24px on wrapper, 16px on inner card | Dialog wraps QCard which has its own padding |
+## Intentional deviations
+| Item | Detail | Rationale |
+|------|--------|-----------|
+| QBtn corner (MD3) | 28px not `full` (Infinity) | Quasar convention |
+| QCheckbox tap zone (MD3) | 36px inner not 48px | Tap zone handled by `.q-checkbox` wrapper |
+| QCard filled bg (MD3) | highest vs container | Visual distinction from elevated |
+| QBtn tonal (MD3) | Not implemented | No Quasar class; maps to standard |
+| QFab large (MD3) | Not implemented | Uncommon; can add if needed |
 
 ## Test coverage
 | Category | Count |

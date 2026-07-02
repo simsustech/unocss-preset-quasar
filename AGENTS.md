@@ -62,7 +62,12 @@ and `dumpDiagnostics()` for CSS variable dumps alongside them. Tests
 use URL query parameters to configure component props (e.g.
 `/q-toggle?style=md3&dense=true&modelValue=true`).
 
-## MD3 spec verification
+## MD2/MD3 spec verification
+
+The authoritative specifications are `material_design_3_machine_spec.json` and
+`material_design_2_machine_spec.json` — Quasar SASS is reference only. Each spec has
+been split into per-category files under `specs/` (MD3) and `specs/md2/` (MD2) for
+efficient targeted reads.
 
 The authoritative specification is `material_design_3_machine_spec.json` — Quasar SASS
 is reference only. The spec has been split into per-category files under `specs/` for
