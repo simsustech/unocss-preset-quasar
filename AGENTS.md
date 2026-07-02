@@ -62,6 +62,46 @@ and `dumpDiagnostics()` for CSS variable dumps alongside them. Tests
 use URL query parameters to configure component props (e.g.
 `/q-toggle?style=md3&dense=true&modelValue=true`).
 
+## MD3 spec verification
+
+The authoritative specification is `material_design_3_machine_spec.json` — Quasar SASS
+is reference only. The spec has been split into per-category files under `specs/` for
+efficient targeted reads.
+
+### Verification procedure
+
+1. **Read the spec** — open the relevant `specs/<category>.json` for the component
+   you're validating.
+2. **Map shape tokens** to pixel values:
+   - `none`: 0, `extra-small`: 4px, `small`: 8px, `medium`: 12px, `large`: 16px,
+     `extra-large`: 28px, `full`: Infinity
+3. **Compare spec values against the UnoCSS file** at
+   `packages/preset/src/styles/md3/components/<Component>.unocss.ts`.
+4. **For Quasar's em-based components** (QToggle, QCheckbox), the `font-size` on
+   the inner element is the scaling base: `height: 1em` means the rendered height
+   equals `font-size`, `width: 1.625em` means width = `font-size × 1.625`. Derive
+   the correct `font-size` by dividing the spec dimension by the em factor.
+5. **Run Playwright tests with diagnostics** from the test harness at
+   `~/Projects/quasar-testing-harness`:
+   ```bash
+   npx playwright test tests/components/<Component>.spec.ts --reporter=list
+   ```
+   Tests use `dumpDiagnostics()` to capture CSS computed values and verify them
+   against spec expectations.
+6. **Update test expectations** if spec corrections change CSS output values.
+
+### Shape token reference
+
+| Token | CSS var | Pixels |
+|-------|---------|--------|
+| `md.sys.shape.corner.none` | `$shape-corner-none` | 0 |
+| `md.sys.shape.corner.extra-small` | `$shape-corner-extra-small` | 4px |
+| `md.sys.shape.corner.small` | `$shape-corner-small` | 8px |
+| `md.sys.shape.corner.medium` | `$shape-corner-medium` | 12px |
+| `md.sys.shape.corner.large` | `$shape-corner-large` | 16px |
+| `md.sys.shape.corner.extra-large` | `$shape-corner-extra-large` | 28px |
+| `md.sys.shape.corner.full` | — | Infinity |
+
 ## SigMap context
 
 SigMap generates a compact signature map of the codebase for AI
