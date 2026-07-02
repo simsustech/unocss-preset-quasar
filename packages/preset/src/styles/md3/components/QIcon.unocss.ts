@@ -7,13 +7,9 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     (
       [, c],
       { theme }
-    ) => `overflow-visible relative inline-flex lh-1 w-1em h-1em shrink-0 tracking-normal normal-case whitespace-nowrap break-normal 
-  text-center relative box-content fill-current
-  [&>svg]:(h-full w-full)
-  [&>img]:(h-full w-full)
-  [&:before]:(w-full h-full flex! items-center justify-center)
-  [&:after]:(w-full h-full flex! items-center justify-center)
-  select-none cursor-inherit text-inherit inline-flex items-center justify-center v-middle
+    ) => `relative inline-flex lh-1 w-1em h-1em shrink-0 tracking-normal normal-case whitespace-nowrap break-normal 
+  overflow-visible
+  select-none cursor-inherit text-inherit items-center justify-center v-middle
   `
   ],
   [
