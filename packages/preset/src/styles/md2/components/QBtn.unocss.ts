@@ -78,7 +78,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn--fab$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--fab'] ??
-      `[&_.q-icon]:(text-[24px])  min-h-[56px] min-w-[56px] rounded-[50%]`
+      `[&_.q-icon]:(text-[24px])  min-h-[56px] min-w-[56px] p-0 rounded-[50%]`
     // min-h-[56px] min-w-[56px] p-[16px] pb-0
   ],
 
@@ -86,7 +86,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn--fab-mini$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--fab-mini'] ??
-      `[&_.q-icon]:(text-[24px]) p-[8px] pb-0 min-h-[40px] min-w-[40px] rounded-[50%]`
+      `[&_.q-icon]:(text-[24px]) p-[8px] pb-0 min-h-[40px] min-w-[40px] p-0 rounded-[50%]`
     // min-h-[40px] min-w-[40px]
   ],
 
