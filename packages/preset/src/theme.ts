@@ -372,6 +372,9 @@ export interface QuasarTheme {
     'blue-grey-14': '#455a64'
   }
   quasar: {
+
+
+    bodyClass?: string
     components?: {
       'q-icon'?: string
       'q-panel'?: string
@@ -1616,6 +1619,8 @@ const defaultTheme: QuasarTheme = {
     'blue-grey-14': '#455a64'
   },
   quasar: {
+
+
     spaces: {
       none: 0,
       xs: 1,

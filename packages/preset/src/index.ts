@@ -151,12 +151,14 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
         ? style.postprocess.concat(fixBemVarMangling)
         : [fixBemVarMangling],
       extendTheme: (themeArg: QuasarTheme) => {
+        rawStyle.bodyClass && ((theme as any).quasar.bodyClass = rawStyle.bodyClass)
         return {
           ...themeArg,
           ...theme,
           colors: {
             ...themeArg.colors,
-            ...theme.colors
+            ...theme.colors,
+          quasar: { ...themeArg.quasar, ...theme.quasar, bodyClass: (rawStyle as any).bodyClass }
           }
         }
       },
