@@ -3,7 +3,7 @@ import type { QuasarTheme } from '../../../theme.js'
 import { componentClass, staticClass, qe } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
-  [/^q-slide-item$/, staticClass(`relative bg-[white]`)],
+  [/^q-slide-item$/, staticClass(`relative bg-$light-surface dark:bg-$dark-surface`)],
 
   [
     /^q-slide-item__left$/,
