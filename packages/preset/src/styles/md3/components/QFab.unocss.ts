@@ -36,7 +36,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-fab__label--external$/,
     componentClass(
       'q-fab__label--external',
-      `absolute px-[8px] py-[0] [transition:opacity_0.18s_cubic-bezier(0.65,_0.815,_0.735,_0.395)]`
+      `absolute bg-transparent px-[8px] py-[0] [transition:opacity_0.18s_cubic-bezier(0.65,_0.815,_0.735,_0.395)]`
     )
   ],
 
