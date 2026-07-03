@@ -89,7 +89,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-editor--dark$/,
     componentClass(
       'q-editor--dark',
-      qe`border-color-white border-op-28
+      qe`bg-$dark-surface-container text-$dark-on-surface border-color-white border-op-28
       [&_.q-editor__content_hr]:(border-color-white border-op-28)
       [&_.q-editor__toolbar]:(border-color-white border-op-28)
       [&_.q-editor__toolbar-group+.q-editor__toolbar-group:before]:(border-color-white border-op-28)

@@ -282,7 +282,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date--dark$/,
     componentClass(
       'q-date--dark',
-      `[box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] border-[rgba(255,_255,_255,_0.28)]`
+      `bg-$dark-surface-container text-$dark-on-surface [box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] border-[rgba(255,_255,_255,_0.28)]`
     )
   ]
 ]

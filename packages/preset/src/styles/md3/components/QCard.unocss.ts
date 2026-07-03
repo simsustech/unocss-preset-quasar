@@ -42,7 +42,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-card--dark$/,
     componentClass(
       'q-card--dark',
-      `border-white/28 shadow-[0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)]`
+      `bg-$dark-surface-container text-$dark-on-surface border-white/28 shadow-[0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)]`
     )
   ],
 

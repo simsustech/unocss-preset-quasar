@@ -167,7 +167,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-color-picker--dark$/,
     componentClass(
       'q-color-picker--dark',
-      qe`[box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] [&_.q-color-picker__tune-tab_input]:([border-width:1px] border-solid border-[rgba(255,255,255,0.3)]) [&_.q-slider__thumb]:(text-[#fafafa])`
+      qe`bg-$dark-surface-container text-$dark-on-surface [box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] [&_.q-color-picker__tune-tab_input]:([border-width:1px] border-solid border-[rgba(255,255,255,0.3)]) [&_.q-slider__thumb]:(text-[#fafafa])`
     )
   ]
 ]

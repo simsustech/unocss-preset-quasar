@@ -36,7 +36,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-chip--dark$/,
-    componentClass('q-chip--dark', qe`[&_.q-chip__icon]:([color:inherit])`)
+    componentClass('q-chip--dark', qe`bg-$dark-surface-container text-$dark-on-surface [&_.q-chip__icon]:([color:inherit])`)
   ],
 
   [

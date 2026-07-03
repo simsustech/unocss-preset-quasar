@@ -34,7 +34,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     [&_.q-btn]:(text-8px)`
     )
   ],
-  [/^q-bar--dark$/, staticClass(`bg-white/20`)]
+  [/^q-bar--dark$/, staticClass(`bg-$dark-surface-container text-$dark-on-surface`)]
 ]
 
 export { shortcuts }
