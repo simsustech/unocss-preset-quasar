@@ -142,7 +142,6 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
         ) as any
       ],
       name: rawStyle.bodyClass || 'quasar',
-      layer: rawStyle.bodyClass,
       safelist: generateSafelist(options ?? {}),
       preflights: corePreflights.concat(style.preflights),
       rules: coreRules.concat(style.rules),

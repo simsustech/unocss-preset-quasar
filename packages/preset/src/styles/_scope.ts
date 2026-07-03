@@ -264,8 +264,6 @@ export function scopeStyle(style: QuasarStyle, bodyClass: string): QuasarStyle {
   )
   const taggedShortcuts = tagShortcutsWithLayer(style.shortcuts, bodyClass)
   const postprocess = (util: UtilObject): UtilObject => {
-    // Scope ALL utilities to this preset's body class.
-    // util.layer doesn't reliably propagate from shortcuts to expanded utilities.
     // Skip preflights — they're handled by `wrapPreWithBodyClass`.
     if (util.layer === 'preflights') return util
     // Only wrap utilities that originated from THIS preset. With the
