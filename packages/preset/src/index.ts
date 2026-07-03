@@ -160,7 +160,7 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
           }
         }
       },
-      outputToCssLayers: true,
+      outputToCssLayers: false,
       layers,
       extractors: [
         {
