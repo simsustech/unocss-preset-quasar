@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-bar$/,
     componentClass(
       'q-bar',
-      `bg-black/20
+      `bg-$dark-surface/20
     [&>.q-icon]:(ml-2px)
     [&>div]:(ml-8px)
     [&>div+.q-icon]:(ml-8px)

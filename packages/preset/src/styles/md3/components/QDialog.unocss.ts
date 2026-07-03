@@ -136,7 +136,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-dialog__backdrop$/,
     componentClass(
       'q-dialog__backdrop',
-      `-z-1 pointer-events-all outline-0 bg-black bg-op-32
+      `-z-1 pointer-events-all outline-0 bg-$dark-surface/32
     `
     )
   ],

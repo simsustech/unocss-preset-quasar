@@ -8,7 +8,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     (
       [, c],
       { theme }
-    ) => `border-solid border border-1px border-op-12 border-color-black border-rd-4px bg-white
+    ) => `border-solid border border-1px border-op-12 border-color-black border-rd-4px bg-$light-surface
     [&>div:first-child]:(rounded-tl-[inherit] rounded-tr-[inherit])
     [&_.q_btn]:(m-4px)
     `
