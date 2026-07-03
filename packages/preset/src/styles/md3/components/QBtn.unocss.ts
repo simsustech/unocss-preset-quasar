@@ -114,7 +114,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--fab-mini'] ??
       `bg-$light-primary-container dark:bg-$dark-primary-container text-$light-on-surface dark:text-$dark-on-surface
-       flex-row flex-row items-center justify-center w-40px h-40px !rounded-$shape-corner-medium
+       flex-row items-center justify-center w-40px h-40px !rounded-$shape-corner-medium
       [&_.q-icon]:(text-[24px]) `
   ],
 
