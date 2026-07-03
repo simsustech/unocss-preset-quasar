@@ -154,8 +154,10 @@ function wrapShortcutSelector(
   bodyClass: string
 ): string | undefined {
   if (!selector) return selector
+  // Strip any existing body-class prefixes, then add ours
+  const stripped = selector.replace(/body\.quasar-style-[a-z0-9-]+\s*/g, '')
   const guard = `body.${bodyClass} `
-  if (selector.includes(guard)) return selector
+  if (stripped.includes(guard)) return guard + stripped
   // Skip selectors that already carry ANY body-class guard from a
   // sibling style's postprocess. This prevents double-wrapping when
   // multiple QuasarPreset instances each contribute their own
@@ -163,7 +165,6 @@ function wrapShortcutSelector(
   // guard by looking for `body.quasar-style-` at any selector-group
   // boundary — that's the namespace the playground uses for all
   // three styles' body classes.
-  if (/\bbody\.quasar-style-[a-z0-9-]+\s/.test(selector)) return selector
   // Pseudo-only selectors (e.g. a `[&::before]` expansion that lost
   // its parent, or a leading pseudo) cannot be scoped by themselves —
   // they need a real class. Skip them; the browser will treat them
@@ -264,14 +265,7 @@ export function scopeStyle(style: QuasarStyle, bodyClass: string): QuasarStyle {
   )
   const taggedShortcuts = tagShortcutsWithLayer(style.shortcuts, bodyClass)
   const postprocess = (util: UtilObject): UtilObject => {
-    // Skip preflights — they're handled by `wrapPreWithBodyClass`.
     if (util.layer === 'preflights') return util
-    // Only wrap utilities that originated from THIS preset. With the
-    // per-style layer tag applied above, `util.layer` is the body
-    // class of the preset whose shortcut produced the util. Sibling
-    // presets' utilities have a different layer and pass through
-    // untouched, so each preset's CSS carries the correct prefix.
-    if (util.layer !== bodyClass) return util
     const next = wrapShortcutSelector(util.selector, bodyClass)
     if (!next || next === util.selector) return util
     return { ...util, selector: next }
