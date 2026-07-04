@@ -23,7 +23,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__track-container--h$/,
     componentClass(
       'q-slider__track-container--h',
-      qe`w-full px-[0] py-[12px] [&_.q-slider__selection]:(will-change-width will-change-left)`
+      qe`w-full px-[0] [padding-block:var(--q-space-md)] [&_.q-slider__selection]:(will-change-width will-change-left)`
     )
   ],
 
@@ -31,7 +31,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__track-container--v$/,
     componentClass(
       'q-slider__track-container--v',
-      qe`h-full px-[12px] py-[0] [&_.q-slider__selection]:(will-change-height will-change-top)`
+      qe`h-full [padding-inline:var(--q-space-md)] py-[0] [&_.q-slider__selection]:(will-change-height will-change-top)`
     )
   ],
 
@@ -39,7 +39,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__track$/,
     componentClass(
       'q-slider__track',
-      `bg-$light-secondary-container/30 dark:bg-$dark-secondary-container/30 rounded-[4px] [width:inherit] [height:inherit] text-$light-primary dark:text-$dark-primary`
+      `[background-color:var(--q-secondary-container)]/30 dark:[background-color:var(--q-secondary-container)]/30 [border-radius:var(--q-radius-xs)] [width:inherit] [height:inherit] [color:var(--q-primary)] dark:[color:var(--q-primary)]`
     )
   ],
 
@@ -47,7 +47,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__inner$/,
     componentClass(
       'q-slider__inner',
-      `bg-$light-secondary-container/30 dark:bg-$dark-secondary-container/30 [border-radius:inherit] w-full h-full`
+      `[background-color:var(--q-secondary-container)]/30 dark:[background-color:var(--q-secondary-container)]/30 [border-radius:inherit] w-full h-full`
     )
   ],
 
@@ -174,7 +174,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__focus-ring$/,
     componentClass(
       'q-slider__focus-ring',
-      `rounded-[50%] opacity-0 [transition:transform_266.67ms_ease-out,_opacity_266.67ms_ease-out,_background-color_266.67ms_ease-out] delay-[140ms]`
+      `[border-radius:var(--q-radius-circle)] opacity-0 [transition:transform_266.67ms_ease-out,_opacity_266.67ms_ease-out,_background-color_266.67ms_ease-out] delay-[140ms]`
     )
   ],
 
@@ -252,11 +252,11 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__text-container$/,
     componentClass(
       'q-slider__text-container',
-      `min-h-[25px] px-[8px] py-[2px] rounded-[4px] bg-current relative text-center`
+      `min-h-[25px] [padding-inline:var(--q-space-sm)] py-[2px] [border-radius:var(--q-radius-xs)] bg-current relative text-center`
     )
   ],
 
-  [/^q-slider__text$/, staticClass(`text-[#fff] text-[12px]`)],
+  [/^q-slider__text$/, staticClass(`text-[#fff] [font-size:var(--q-font-sm)]`)],
 
   [
     /^q-slider--no-value$/,

@@ -3,7 +3,12 @@ import type { QuasarTheme } from '../../../theme.js'
 import { componentClass, staticClass, qe } from '../../_helpers.js'
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
-  [/^q-popup-edit$/, staticClass(`px-[16px] py-[8px]`)],
+  [
+    /^q-popup-edit$/,
+    staticClass(
+      `[padding-inline:var(--q-space-lg)] [padding-block:var(--q-space-sm)]`
+    )
+  ],
 
   [
     /^q-popup-edit__buttons$/,

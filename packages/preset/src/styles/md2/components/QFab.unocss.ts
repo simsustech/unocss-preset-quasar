@@ -12,9 +12,9 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     // [&_>_.q-btn]:(w-full)
   ],
 
-  [/^q-fab--form-rounded$/, staticClass(`rounded-[28px]`)],
+  [/^q-fab--form-rounded$/, staticClass(`[border-radius:var(--q-radius-xl)]`)],
 
-  [/^q-fab--form-square$/, staticClass(`rounded-[4px]`)],
+  [/^q-fab--form-square$/, staticClass(`[border-radius:var(--q-radius-sm)]`)],
 
   [
     /^q-fab__icon$/,
@@ -135,7 +135,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-fab__actions--right$/,
     componentClass(
       'q-fab__actions--right',
-      `origin-[0_50%] scale-[0.4] -translate-x-[62px] h-[56px] left-full ml-[9px]`
+      `origin-[0_50%] scale-[0.4] -translate-x-[62px] [height:var(--q-size-lg)] left-full ml-[9px]`
     )
   ],
 
@@ -143,7 +143,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-fab__actions--left$/,
     componentClass(
       'q-fab__actions--left',
-      `origin-[100%_50%] scale-[0.4] translate-x-[62px] h-[56px] right-full mr-[9px] flex-row-reverse`
+      `origin-[100%_50%] scale-[0.4] translate-x-[62px] [height:var(--q-size-lg)] right-full mr-[9px] flex-row-reverse`
     )
   ],
 

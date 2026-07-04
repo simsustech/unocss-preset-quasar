@@ -26,7 +26,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-circular-progress$/,
     componentClass(
       'q-circular-progress',
-      `text-$light-primary dark:text-$dark-primary inline-block relative align-middle w-[1em] h-[1em] leading-none`
+      `[color:var(--q-primary)] dark:[color:var(--q-primary)] inline-block relative align-middle w-[1em] h-[1em] leading-none`
     )
   ],
 

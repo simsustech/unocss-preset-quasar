@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tab$/,
     componentClass(
       'q-tab',
-      `px-[16px] py-[0] min-h-[48px] [transition:color_0.3s,_background-color_0.3s] whitespace-nowrap [color:inherit] no-underline
+      `[padding-inline:var(--q-space-lg)] py-[0] min-h-[48px] [transition:color_0.3s,_background-color_0.3s] whitespace-nowrap [color:inherit] no-underline
       [&_.q-badge]:(top-[3px] -right-[12px])
       [&_>_.q-focus-helper]:(!absolute !h-[calc(80%)] !w-[calc(80%)] !top-[calc(10%)] !left-[calc(10%)] !rounded-$shape-corner-large)
       `
@@ -22,7 +22,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tab__content$/,
     componentClass(
       'q-tab__content',
-      `[height:inherit] relative z-1 px-[0] py-[4px] min-w-[40px] [&_.q-chip--floating]:(top-[0] -right-[16px])`
+      `[height:inherit] relative z-1 px-[0] [padding-block:var(--q-space-xs)] min-w-[40px] [&_.q-chip--floating]:(top-[0] -right-[16px])`
     )
   ],
 
@@ -41,14 +41,17 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-tab__label$/,
-    componentClass('q-tab__label', `text-[14px] leading-[1.715em] font-medium`)
+    componentClass(
+      'q-tab__label',
+      `[font-size:var(--q-font-md)] leading-[1.715em] font-medium`
+    )
   ],
 
   [
     /^q-tab__alert$/,
     componentClass(
       'q-tab__alert',
-      `absolute top-[7px] -right-[9px] h-[10px] w-[10px] rounded-[50%] bg-current`
+      `absolute top-[7px] -right-[9px] h-[10px] w-[10px] [border-radius:var(--q-radius-circle)] bg-current`
     )
   ],
 
@@ -64,7 +67,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tab__indicator$/,
     componentClass(
       'q-tab__indicator',
-      `opacity-0 absolute w-56px h-32px min-h-[unset] rounded-2xl bg-$light-secondary-container dark:bg-$dark-secondary-container left-[calc(50%-28px)] top-[0.5em]`
+      `opacity-0 absolute w-56px h-32px min-h-[unset] rounded-2xl [background-color:var(--q-secondary-container)] dark:[background-color:var(--q-secondary-container)] left-[calc(50%-28px)] top-[0.5em]`
     )
   ],
 
@@ -72,7 +75,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tab--active$/,
     componentClass(
       'q-tab--active',
-      qe`text-$light-primary dark:text-$dark-primary [&_.q-tab__indicator]:(opacity-100)`
+      qe`[color:var(--q-primary)] dark:[color:var(--q-primary)] [&_.q-tab__indicator]:(opacity-100)`
     )
   ],
 
@@ -148,7 +151,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       [&_.q-tabs__arrow]:(w-full h-[36px] text-center) 
       [&_.q-tabs__arrow--left]:(top-[0] left-[0] right-[0]) 
       [&_.q-tabs__arrow--right]:(left-[0] right-[0] bottom-[0]) 
-      [&_.q-tab]:(px-[8px] py-[0]) 
+      [&_.q-tab]:([padding-inline:var(--q-space-sm)] py-[0]) 
       [&_.q-tab__indicator]:(h-[unset] w-2px min-h-100%)
       [&_.q-tabs--not-scrollable_.q-tabs__content]:(h-full) 
       [&_.q-tabs--dense_.q-tab__content]:(min-w-[24px])`

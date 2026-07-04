@@ -67,6 +67,7 @@ use URL query parameters to configure component props (e.g.
 Never theorize about CSS behavior — always run the tests and check actual output.
 If something looks wrong, run the Playwright test, inspect the screenshot, or check
 the diagnostics JSON dump before touching CSS. Guessing wastes time on phantom fixes.
+
 ## MD2/MD3 spec verification
 
 The authoritative specifications are `material_design_3_machine_spec.json` and
@@ -102,15 +103,15 @@ efficient targeted reads.
 
 ### Shape token reference
 
-| Token | CSS var | Pixels |
-|-------|---------|--------|
-| `md.sys.shape.corner.none` | `$shape-corner-none` | 0 |
-| `md.sys.shape.corner.extra-small` | `$shape-corner-extra-small` | 4px |
-| `md.sys.shape.corner.small` | `$shape-corner-small` | 8px |
-| `md.sys.shape.corner.medium` | `$shape-corner-medium` | 12px |
-| `md.sys.shape.corner.large` | `$shape-corner-large` | 16px |
-| `md.sys.shape.corner.extra-large` | `$shape-corner-extra-large` | 28px |
-| `md.sys.shape.corner.full` | — | Infinity |
+| Token                             | CSS var                     | Pixels   |
+| --------------------------------- | --------------------------- | -------- |
+| `md.sys.shape.corner.none`        | `$shape-corner-none`        | 0        |
+| `md.sys.shape.corner.extra-small` | `$shape-corner-extra-small` | 4px      |
+| `md.sys.shape.corner.small`       | `$shape-corner-small`       | 8px      |
+| `md.sys.shape.corner.medium`      | `$shape-corner-medium`      | 12px     |
+| `md.sys.shape.corner.large`       | `$shape-corner-large`       | 16px     |
+| `md.sys.shape.corner.extra-large` | `$shape-corner-extra-large` | 28px     |
+| `md.sys.shape.corner.full`        | —                           | Infinity |
 
 ## SigMap context
 

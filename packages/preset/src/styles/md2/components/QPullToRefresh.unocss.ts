@@ -9,7 +9,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-pull-to-refresh__puller$/,
     componentClass(
       'q-pull-to-refresh__puller',
-      `!flex-initial rounded-[50%] w-[40px] h-[40px] bg-[#fff] [box-shadow:0_0_4px_0_rgba(0,_0,_0,_0.3)] text-primary`
+      `!flex-initial [border-radius:var(--q-radius-circle)] w-[40px] [height:var(--q-size-md)] bg-[#fff] [box-shadow:0_0_4px_0_rgba(0,_0,_0,_0.3)] text-primary`
     )
   ],
 

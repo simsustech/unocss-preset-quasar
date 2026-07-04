@@ -2,7 +2,7 @@ import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
 import { componentClass, staticClass, qe } from '../../_helpers.js'
 
-const groupStandard = `rounded-[28px] [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)]`
+const groupStandard = `[border-radius:var(--q-radius-xl)] [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)]`
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [/^q-btn-toggle$/, staticClass(`relative`)],
@@ -14,13 +14,13 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       `!flex-initial
       ${groupStandard}
       align-middle 
-      [&_>_.q-btn]:(bg-$light-surface-container dark:bg-$dark-surface-container) 
-      [&_>_.q-btn-item]:(text-$light-on-surface dark:text-$dark-on-surface self-stretch) 
-      [&_>_.q-btn-item.bg-primary]:(!bg-$light-primary !text-$light-on-primary dark:!bg-$dark-primary dark:!text-$dark-on-primary)
+      [&_>_.q-btn]:([background-color:var(--q-surface-container)] dark:[background-color:var(--q-surface-container)]) 
+      [&_>_.q-btn-item]:([color:var(--q-on-surface)] dark:[color:var(--q-on-surface)] self-stretch) 
+      [&_>_.q-btn-item.bg-primary]:(![background-color:var(--q-primary)] ![color:var(--q-on-primary)] dark:![background-color:var(--q-primary)] dark:![color:var(--q-on-primary)])
       [&_>_.q-btn-item:before]:([box-shadow:none]) 
       [&_>_.q-btn-item_.q-badge--floating]:(right-0) 
       [&_>_.q-btn-group]:([box-shadow:none]) 
-      [&_>_.q-btn-group:first-child_>_.q-btn--active]:(!bg-$light-secondary-container dark:!bg-$dark-secondary-container) 
+      [&_>_.q-btn-group:first-child_>_.q-btn--active]:(![background-color:var(--q-secondary-container)] dark:![background-color:var(--q-secondary-container)]) 
       [&_>_.q-btn-group:first-child_>_.q-btn:first-child]:([border-top-left-radius:inherit] [border-bottom-left-radius:inherit]) 
       [&_>_.q-btn-group:not(:first-child)_>_.q-btn:first-child]:(border-rd-l-0) 
       [&_>_.q-btn-group:not(:last-child)_>_.q-btn:last-child:before]:([border-right:0]) 
@@ -41,7 +41,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     )
   ],
 
-  [/^q-btn-group--rounded$/, staticClass(`rounded-[28px]`)],
+  [/^q-btn-group--rounded$/, staticClass(`[border-radius:var(--q-radius-xl)]`)],
 
   [/^q-btn-group--square$/, staticClass(`rounded-none`)],
 

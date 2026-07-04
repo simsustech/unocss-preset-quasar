@@ -8,7 +8,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     (
       [, c],
       { theme }
-    ) => `border-solid border border-1px border-op-12 border-color-black border-rd-4px bg-$light-surface
+    ) => `border-solid border border-1px border-op-12 border-color-black border-rd-4px [background-color:var(--q-surface)]
     [&>div:first-child]:(rounded-tl-[inherit] rounded-tr-[inherit])
     [&_.q_btn]:(m-4px)
     `
@@ -28,7 +28,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       [, c],
       { theme }
     ) => `outline-0 p-10px min-h-10em border-b-inherit border-b-inherit overflow-auto max-w-full
-      bg-$light-surface-container-highest text-$light-on-surface-variant dark:bg-$dark-surface-container-highest dark:text-$dark-on-surface-variant
+      [background-color:var(--q-surface-container-highest)] [color:var(--q-on-surface-variant)] dark:[background-color:var(--q-surface-container-highest)] dark:[color:var(--q-on-surface-variant)]
       [&_pre]:(whitespace-pre-wrap)
       [&_hr]:(border-none outline-0 m-1px h-1px bg-black bg-op-12)
       [&:empty:not(:focus):before]:(content-[attr(placeholder)] op-70)
@@ -89,7 +89,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-editor--dark$/,
     componentClass(
       'q-editor--dark',
-      qe`bg-$dark-surface-container text-$dark-on-surface border-color-white border-op-28
+      qe`[background-color:var(--q-surface-container)] [color:var(--q-on-surface)] border-color-white border-op-28
       [&_.q-editor__content_hr]:(border-color-white border-op-28)
       [&_.q-editor__toolbar]:(border-color-white border-op-28)
       [&_.q-editor__toolbar-group+.q-editor__toolbar-group:before]:(border-color-white border-op-28)

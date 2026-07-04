@@ -26,7 +26,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     )
   ],
 
-  [/^q-btn-group--rounded$/, staticClass(`rounded-[28px]`)],
+  [/^q-btn-group--rounded$/, staticClass(`[border-radius:var(--q-radius-xl)]`)],
 
   [/^q-btn-group--square$/, staticClass(`rounded-none`)],
 

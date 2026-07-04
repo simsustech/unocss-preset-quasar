@@ -12,9 +12,9 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     // [&_>_.q-btn]:(w-full)
   ],
 
-  [/^q-fab--form-rounded$/, staticClass(`rounded-[28px]`)],
+  [/^q-fab--form-rounded$/, staticClass(`[border-radius:var(--q-radius-xl)]`)],
 
-  [/^q-fab--form-square$/, staticClass(`rounded-[4px]`)],
+  [/^q-fab--form-square$/, staticClass(`[border-radius:var(--q-radius-xs)]`)],
 
   [
     /^q-fab__icon$/,
@@ -36,7 +36,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-fab__label--external$/,
     componentClass(
       'q-fab__label--external',
-      `absolute bg-transparent px-[8px] py-[0] [transition:opacity_0.18s_cubic-bezier(0.65,_0.815,_0.735,_0.395)]`
+      `absolute bg-transparent [padding-inline:var(--q-space-sm)] py-[0] [transition:opacity_0.18s_cubic-bezier(0.65,_0.815,_0.735,_0.395)]`
     )
   ],
 

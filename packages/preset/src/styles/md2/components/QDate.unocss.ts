@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date$/,
     componentClass(
       'q-date',
-      `inline-flex [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px] bg-[#fff] w-[290px] min-w-[290px] max-w-full`
+      `inline-flex [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] [border-radius:var(--q-radius-sm)] bg-[#fff] w-[290px] min-w-[290px] max-w-full`
     )
   ],
 
@@ -23,7 +23,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date__header$/,
     componentClass(
       'q-date__header',
-      `[border-top-left-radius:inherit] text-[#fff] p-[16px] bg-primary`
+      `[border-top-left-radius:inherit] text-[#fff] p-[var(--q-space-lg)] bg-primary`
     )
   ],
 
@@ -50,7 +50,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date__header-subtitle$/,
     componentClass(
       'q-date__header-subtitle',
-      `text-[14px] leading-[1.75] tracking-[0.00938em]`
+      `[font-size:var(--q-font-md)] leading-[1.75] tracking-[0.00938em]`
     )
   ],
 
@@ -65,7 +65,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-date__view$/,
     ([, c], { theme }) =>
-      theme.quasar?.components?.['q-date__view'] ?? `min-h-[290px] p-[16px]`
+      theme.quasar?.components?.['q-date__view'] ?? `min-h-[290px] p-[var(--q-space-lg)]`
     // h-full w-full
   ],
 
@@ -81,7 +81,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date__calendar-weekdays$/,
     componentClass(
       'q-date__calendar-weekdays',
-      `h-[12.5%] [&_>_div]:(opacity-[0.38] text-[12px])`
+      `h-[12.5%] [&_>_div]:(opacity-[0.38] [font-size:var(--q-font-sm)])`
     )
   ],
 
@@ -89,7 +89,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date__calendar-item$/,
     componentClass(
       'q-date__calendar-item',
-      `inline-flex items-center justify-center align-middle !w-[14.285%] !h-[12.5%] relative [&:after]:(content-empty absolute pointer-events-none top-px right-0 bottom-px left-0 border-dashed border-transparent border) [&_>_div]:(w-[30px] h-[30px] rounded-[50%]) [&_button]:(w-[30px] h-[30px] rounded-[50%]) [&_>_div]:(leading-[30px] text-center) [&_>_button]:(leading-[22px])`
+      `inline-flex items-center justify-center align-middle !w-[14.285%] !h-[12.5%] relative [&:after]:(content-empty absolute pointer-events-none top-px right-0 bottom-px left-0 border-dashed border-transparent border) [&_>_div]:(w-[30px] h-[30px] [border-radius:var(--q-radius-circle)]) [&_button]:(w-[30px] h-[30px] [border-radius:var(--q-radius-circle)]) [&_>_div]:(leading-[30px] text-center) [&_>_button]:(leading-[22px])`
     )
   ],
 

@@ -50,8 +50,7 @@ Import and register the preset with UnoCSS inside `extendViteConf`:
 
 ```ts
 // quasar.config.js
-import { QuasarPreset } from 'unocss-preset-quasar'
-import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
+import { QuasarPreset, Md3Tokens } from 'unocss-preset-quasar'
 import UnoCSS from 'unocss/vite'
 
 export default defineConfig((ctx) => ({
@@ -61,7 +60,7 @@ export default defineConfig((ctx) => ({
         enforce: 'pre',
         presets: [
           QuasarPreset({
-            style: MaterialDesign3,
+            tokens: Md3Tokens, // ← one call, all components + MD3 design values
             plugins: [
               'Dark',
               'Dialog',
@@ -69,7 +68,6 @@ export default defineConfig((ctx) => ({
               'LoadingBar',
               'Loading',
               'BottomSheet'
-              // ... list every Quasar plugin your app uses
             ]
           })
         ]
@@ -78,6 +76,18 @@ export default defineConfig((ctx) => ({
   }
 }))
 ```
+
+Available token bundles: `Md3Tokens`, `Md2Tokens`, `UnstyledTokens`. Custom overrides:
+
+````ts
+import { Md3Tokens } from 'unocss-preset-quasar'
+
+const myTokens = {
+  ...Md3Tokens,
+  shape: { ...Md3Tokens.shape, radiusXl: '8px' },  // square buttons
+}
+
+QuasarPreset({ tokens: myTokens })
 
 ::: warning Plugin List
 You **must** list every Quasar plugin your app uses. The preset generates a safelist of CSS classes for plugin-generated UI (dialogs, notifications, loading bars). Missing plugins → missing styles for those components at runtime.
@@ -97,7 +107,7 @@ export default {
     transformerDirectives() // @apply directive
   ]
 }
-```
+````
 
 These are **already included** in the preset, so you only need this if you want them in a separate UnoCSS config file.
 

@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-color-picker$/,
     componentClass(
       'q-color-picker',
-      qe`overflow-hidden bg-[#fff] max-w-[350px] align-top min-w-[180px] rounded-[4px] [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] [&_.q-tab]:(!p-0) [&_input]:([color:inherit] bg-transparent outline-[0] text-center) [&_.q-tabs]:(overflow-hidden) [&_.q-tab--active]:([box-shadow:0_0_14px_3px_rgba(0,_0,_0,_0.2)]) [&_.q-tab--active_.q-focus-helper]:(hidden) [&_.q-tab__indicator]:(hidden) [&_.q-tab-panels]:([background:inherit])`
+      qe`overflow-hidden bg-[#fff] max-w-[350px] align-top min-w-[180px] [border-radius:var(--q-radius-xs)] [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] [&_.q-tab]:(!p-0) [&_input]:([color:inherit] bg-transparent outline-[0] text-center) [&_.q-tabs]:(overflow-hidden) [&_.q-tab--active]:([box-shadow:0_0_14px_3px_rgba(0,_0,_0,_0.2)]) [&_.q-tab--active_.q-focus-helper]:(hidden) [&_.q-tab__indicator]:(hidden) [&_.q-tab-panels]:([background:inherit])`
     )
   ],
 
@@ -109,7 +109,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-color-picker__spectrum-circle$/,
     componentClass(
       'q-color-picker__spectrum-circle',
-      `w-[10px] h-[10px] [box-shadow:0_0_0_1.5px_#fff,_inset_0_0_1px_1px_rgba(0,_0,_0,_0.3),_0_0_1px_2px_rgba(0,_0,_0,_0.4)] rounded-[50%] -translate-x-[5px] -translate-y-[5px]`
+      `w-[10px] h-[10px] [box-shadow:0_0_0_1.5px_#fff,_inset_0_0_1px_1px_rgba(0,_0,_0,_0.3),_0_0_1px_2px_rgba(0,_0,_0,_0.4)] [border-radius:var(--q-radius-circle)] -translate-x-[5px] -translate-y-[5px]`
     )
   ],
 
@@ -133,7 +133,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-color-picker__sliders$/,
     componentClass(
       'q-color-picker__sliders',
-      qe`px-[16px] py-[0] [&_.q-slider__thumb]:(text-[#424242]) [&_.q-slider__thumb_path]:(stroke-[2px] fill-[transparent]) [&_.q-slider--active_path]:(stroke-[3px])`
+      qe`[padding-inline:var(--q-space-lg)] py-[0] [&_.q-slider__thumb]:(text-[#424242]) [&_.q-slider__thumb_path]:(stroke-[2px] fill-[transparent]) [&_.q-slider--active_path]:(stroke-[3px])`
     )
   ],
 
@@ -141,7 +141,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-color-picker__tune-tab$/,
     componentClass(
       'q-color-picker__tune-tab',
-      `[&_.q-slider]:(ml-[18px] mr-[18px]) [&_input]:(text-[11px] [border-width:1px] border-solid border-[#e0e0e0] rounded-[4px] w-[3.5em])`
+      `[&_.q-slider]:(ml-[18px] mr-[18px]) [&_input]:([font-size:var(--q-font-xs)] [border-width:1px] border-solid border-[#e0e0e0] [border-radius:var(--q-radius-xs)] w-[3.5em])`
     )
   ],
 
@@ -167,7 +167,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-color-picker--dark$/,
     componentClass(
       'q-color-picker--dark',
-      qe`bg-$dark-surface-container text-$dark-on-surface [box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] [&_.q-color-picker__tune-tab_input]:([border-width:1px] border-solid border-[rgba(255,255,255,0.3)]) [&_.q-slider__thumb]:(text-[#fafafa])`
+      qe`[background-color:var(--q-surface-container)] [color:var(--q-on-surface)] [box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] [&_.q-color-picker__tune-tab_input]:([border-width:1px] border-solid border-[rgba(255,255,255,0.3)]) [&_.q-slider__thumb]:(text-[#fafafa])`
     )
   ]
 ]

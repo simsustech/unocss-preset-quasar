@@ -65,7 +65,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-radio__inner$/,
     componentClass(
       'q-radio__inner',
-      `text-[40px] w-[1em] min-w-[1em] h-[1em] outline-[0] rounded-[50%] text-[rgba(0,_0,_0,_0.54)]`
+      `text-[40px] w-[1em] min-w-[1em] h-[1em] outline-[0] [border-radius:var(--q-radius-circle)] text-[rgba(0,_0,_0,_0.54)]`
     )
   ],
 

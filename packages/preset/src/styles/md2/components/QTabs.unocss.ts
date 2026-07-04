@@ -21,7 +21,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tab__content$/,
     componentClass(
       'q-tab__content',
-      `[height:inherit] z-2 px-[0] py-[4px] min-w-[40px] [&_.q-chip--floating]:(top-[0] -right-[16px])`
+      `[height:inherit] z-2 px-[0] [padding-block:var(--q-space-xs)] [min-width:var(--q-size-md)] [&_.q-chip--floating]:(top-[0] -right-[16px])`
     )
   ],
 
@@ -40,14 +40,14 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-tab__label$/,
-    componentClass('q-tab__label', `text-[14px] leading-[1.715em] font-medium`)
+    componentClass('q-tab__label', `[font-size:var(--q-font-md)] [line-height:var(--q-font-lead)] font-medium`)
   ],
 
   [
     /^q-tab__alert$/,
     componentClass(
       'q-tab__alert',
-      `absolute top-[7px] -right-[9px] h-[10px] w-[10px] rounded-[50%] bg-current`
+      `absolute top-[7px] -right-[9px] h-[10px] w-[10px] [border-radius:var(--q-radius-circle)] bg-current`
     )
   ],
 

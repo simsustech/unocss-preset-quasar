@@ -96,7 +96,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-layout__section--marginal$/,
     componentClass(
       'q-layout__section--marginal',
-      `text-[#fff] bg-$light-surface-container-low dark:bg-$dark-surface-container-low text-$light-on-surface dark:text-$dark-on-surface`
+      `text-[#fff] [background-color:var(--q-surface-container-low)] dark:[background-color:var(--q-surface-container-low)] [color:var(--q-on-surface)] dark:[color:var(--q-on-surface)]`
     )
   ]
 ]

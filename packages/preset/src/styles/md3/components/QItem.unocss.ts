@@ -7,8 +7,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-item$/,
     componentClass(
       'q-item',
-      qe`min-h-[28px] px-[16px] py-[8px] [color:inherit] [transition:color_0.3s,_background-color_0.3s] [&_>_.q-item__section--thumbnail:first-child]:(-ml-[16px]) [&_>_.q-focus-helper_+_.q-item__section--thumbnail]:(-ml-[16px]) [&_>_.q-item__section--thumbnail:last-of-type]:(-mr-[16px]) relative
-    [&.q-router-link--active]:(text-$light-primary dark:text-$dark-primary)`
+      qe`min-h-[28px] [padding-inline:var(--q-space-lg)] [padding-block:var(--q-space-sm)] [color:inherit] [transition:color_0.3s,_background-color_0.3s] [&_>_.q-item__section--thumbnail:first-child]:(-ml-[16px]) [&_>_.q-focus-helper_+_.q-item__section--thumbnail]:(-ml-[16px]) [&_>_.q-item__section--thumbnail:last-of-type]:(-mr-[16px]) relative
+    [&.q-router-link--active]:([color:var(--q-primary)] dark:[color:var(--q-primary)])`
     )
   ],
 
@@ -76,7 +76,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-list--padding$/,
     componentClass(
       'q-list--padding',
-      qe`[&_.q-item__label--header]:(pt-[8px]) px-[0] py-[8px]`
+      qe`[&_.q-item__label--header]:(pt-[8px]) px-[0] [padding-block:var(--q-space-sm)]`
     )
   ],
 
@@ -112,11 +112,14 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-list--dense$/,
     componentClass(
       'q-list--dense',
-      `[&_>_.q-item]:(min-h-[28px] px-[16px] py-[2px])`
+      `[&_>_.q-item]:(min-h-[28px] [padding-inline:var(--q-space-lg)] py-[2px])`
     )
   ],
 
-  [/^q-item--dense$/, staticClass(`min-h-[28px] px-[16px] py-[2px]`)],
+  [
+    /^q-item--dense$/,
+    staticClass(`min-h-[28px] [padding-inline:var(--q-space-lg)] py-[2px]`)
+  ],
 
   [
     /^q-list--dark$/,
@@ -138,7 +141,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-item--active$/,
-    staticClass(`text-$light-primary dark:text-$dark-primary`)
+    staticClass(`[color:var(--q-primary)] dark:[color:var(--q-primary)]`)
   ]
 ]
 

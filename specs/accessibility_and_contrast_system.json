@@ -5,10 +5,7 @@
         "text_size_threshold_pt": 18,
         "text_size_threshold_px": 24,
         "minimum_contrast_ratio": "7.0:1",
-        "target_elements": [
-          "standard_text",
-          "essential_ui_glyphs"
-        ]
+        "target_elements": ["standard_text", "essential_ui_glyphs"]
       },
       "aa_compliance": {
         "text_size_under_18pt": {
@@ -40,10 +37,7 @@
     "focus_ring_parameters": {
       "stroke_width_px": 2,
       "clearance_offset_px": 2,
-      "color_mapping_tokens": [
-        "md.sys.color.outline",
-        "md.sys.color.primary"
-      ]
+      "color_mapping_tokens": ["md.sys.color.outline", "md.sys.color.primary"]
     }
   }
 }

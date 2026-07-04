@@ -13,7 +13,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentCtxClass(
       'q-drawer',
       ({ theme }) =>
-        `absolute top-[0] bottom-[0] bg-$light-surface-container-low dark:bg-$dark-surface-container-low z-${theme.quasar.z['side']} rounded-e-$shape-corner-large`
+        `absolute top-[0] bottom-[0] [background-color:var(--q-surface-container-low)] dark:[background-color:var(--q-surface-container-low)] z-${theme.quasar.z['side']} rounded-e-$shape-corner-large`
     )
   ],
 
@@ -120,8 +120,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       [&_>_.q-scrollarea]:(px-0)
       [&_>_.q-list]:(px-12px)
       [&_.q-list_.q-item]:(border-rd-32px)
-      [&_.q-list_>_.q-router-link--active]:(text-$light-primary dark:text-$dark-primary)
-      [&_.q-list_.q-router-link--active]:(bg-$light-secondary-container dark:bg-$dark-secondary-container)
+      [&_.q-list_>_.q-router-link--active]:([color:var(--q-primary)] dark:[color:var(--q-primary)])
+      [&_.q-list_.q-router-link--active]:([background-color:var(--q-secondary-container)] dark:[background-color:var(--q-secondary-container)])
       `
     )
   ]

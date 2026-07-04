@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-uploader$/,
     componentClass(
       'q-uploader',
-      `[box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px] align-top bg-[#fff] relative w-[320px] max-h-[320px]`
+      `[box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] [border-radius:var(--q-radius-xs)] align-top bg-[#fff] relative w-[320px] max-h-[320px]`
     )
   ],
 
@@ -89,7 +89,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-uploader__file-header$/,
     componentClass(
       'q-uploader__file-header',
-      `relative px-[8px] py-[4px] [border-top-left-radius:inherit] [border-top-right-radius:inherit]`
+      `relative [padding-inline:var(--q-space-sm)] [padding-block:var(--q-space-xs)] [border-top-left-radius:inherit] [border-top-right-radius:inherit]`
     )
   ],
 
@@ -101,13 +101,16 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-uploader__title$/,
     componentClass(
       'q-uploader__title',
-      `text-[14px] font-bold leading-[1.285714]`
+      `[font-size:var(--q-font-md)] font-bold leading-[1.285714]`
     )
   ],
 
   [
     /^q-uploader__subtitle$/,
-    componentClass('q-uploader__subtitle', `text-[12px] leading-normal`)
+    componentClass(
+      'q-uploader__subtitle',
+      `[font-size:var(--q-font-sm)] leading-normal`
+    )
   ],
 
   [

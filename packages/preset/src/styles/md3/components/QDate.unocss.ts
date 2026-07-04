@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date$/,
     componentClass(
       'q-date',
-      `bg-$light-surface-container-high dark:bg-$dark-surface-container-high inline-flex [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px] bg-[#fff] w-[290px] min-w-[290px] max-w-full`
+      `[background-color:var(--q-surface-container-high)] dark:[background-color:var(--q-surface-container-high)] inline-flex [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] [border-radius:var(--q-radius-xs)] bg-[#fff] w-[290px] min-w-[290px] max-w-full`
     )
   ],
 
@@ -23,11 +23,14 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date__header$/,
     componentClass(
       'q-date__header',
-      `bg-$light-primary dark:bg-$dark-surface-container-high text-$light-on-primary dark:text-$dark-on-surface [border-top-left-radius:inherit] p-[12px]`
+      `[background-color:var(--q-primary)] dark:[background-color:var(--q-surface-container-high)] [color:var(--q-on-primary)] dark:[color:var(--q-on-surface)] [border-top-left-radius:inherit] p-[12px]`
     )
   ],
 
-  [/^q-date__actions$/, staticClass(`pt-[0] px-[16px] pb-[16px]`)],
+  [
+    /^q-date__actions$/,
+    staticClass(`pt-[0] [padding-inline:var(--q-space-lg)] pb-[16px]`)
+  ],
 
   [
     /^q-date__content$/,
@@ -53,7 +56,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date__header-subtitle$/,
     componentClass(
       'q-date__header-subtitle',
-      `text-[14px] leading-[1.75] tracking-[0.00938em] mb--16px`
+      `[font-size:var(--q-font-md)] leading-[1.75] tracking-[0.00938em] mb--16px`
     )
   ],
 
@@ -78,7 +81,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       'q-date__navigation',
       `h-[12.5%]
       [&_>_div:first-child]:(w-[8%] min-w-[24px] justify-end) [&_>_div:last-child]:(w-[8%] min-w-[24px] justify-start)
-      [&_.q-btn]:(text-$light-on-surface dark:text-$dark-on-surface)`
+      [&_.q-btn]:([color:var(--q-on-surface)] dark:[color:var(--q-on-surface)])`
     )
   ],
 
@@ -86,7 +89,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date__calendar-weekdays$/,
     componentClass(
       'q-date__calendar-weekdays',
-      `h-[12.5%] [&_>_div]:(opacity-[0.38] text-[12px])`
+      `h-[12.5%] [&_>_div]:(opacity-[0.38] [font-size:var(--q-font-sm)])`
     )
   ],
 
@@ -94,7 +97,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date__calendar-item$/,
     componentClass(
       'q-date__calendar-item',
-      `inline-flex items-center justify-center align-middle !w-[14.285%] !h-[12.5%] relative [&:after]:(content-empty absolute pointer-events-none top-px right-0 bottom-px left-0 border-dashed border-transparent border) [&_>_div]:(w-[30px] h-[30px] rounded-[50%]) [&_button]:(w-[30px] h-[30px] rounded-[50%]) [&_>_div]:(leading-[30px] text-center) [&_>_button]:(leading-[22px])`
+      `inline-flex items-center justify-center align-middle !w-[14.285%] !h-[12.5%] relative [&:after]:(content-empty absolute pointer-events-none top-px right-0 bottom-px left-0 border-dashed border-transparent border) [&_>_div]:(w-[30px] h-[30px] [border-radius:var(--q-radius-circle)]) [&_button]:(w-[30px] h-[30px] [border-radius:var(--q-radius-circle)]) [&_>_div]:(leading-[30px] text-center) [&_>_button]:(leading-[22px])`
     )
   ],
 
@@ -106,8 +109,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date__calendar-item--in$/,
     componentClass(
       'q-date__calendar-item--in',
-      `[&_.q-btn]:(text-$light-on-primary dark:text-$dark-on-primary bg-$light-primary dark:bg-$dark-primary)
-       [&_.q-btn--flat]:(text-$light-on-surface dark:text-$dark-on-surface)`
+      `[&_.q-btn]:([color:var(--q-on-primary)] dark:[color:var(--q-on-primary)] [background-color:var(--q-primary)] dark:[background-color:var(--q-primary)])
+       [&_.q-btn--flat]:([color:var(--q-on-surface)] dark:[color:var(--q-on-surface)])`
     )
   ],
 
@@ -185,7 +188,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date__event$/,
     componentClass(
       'q-date__event',
-      `absolute bottom-[2px] left-2/4 h-[5px] w-[8px] rounded-[5px] [transform:translate3d(-50%,_0,_0)] bg-$light-primary dark:bg-$dark-primary`
+      `absolute bottom-[2px] left-2/4 h-[5px] w-[8px] rounded-[5px] [transform:translate3d(-50%,_0,_0)] [background-color:var(--q-primary)] dark:[background-color:var(--q-primary)]`
     )
   ],
 
@@ -196,7 +199,10 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-date__years-content$/,
-    componentClass('q-date__years-content', `px-[8px] py-[0] gap-y-0.5em`)
+    componentClass(
+      'q-date__years-content',
+      `[padding-inline:var(--q-space-sm)] py-[0] gap-y-0.5em`
+    )
   ],
 
   [
@@ -204,8 +210,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentClass(
       'q-date__years-item',
       `flex-[0_0_33.3333%]
-        [&_.q-btn]:(h-30px w-60px text-$light-on-primary dark:text-$dark-on-primary bg-$light-primary dark:bg-$dark-primary)
-       [&_.q-btn--flat]:(h-30px w-60px text-$light-on-surface dark:text-$dark-on-surface)`
+        [&_.q-btn]:(h-30px w-60px [color:var(--q-on-primary)] dark:[color:var(--q-on-primary)] [background-color:var(--q-primary)] dark:[background-color:var(--q-primary)])
+       [&_.q-btn--flat]:(h-30px w-60px [color:var(--q-on-surface)] dark:[color:var(--q-on-surface)])`
     )
   ],
 
@@ -225,8 +231,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentClass(
       'q-date__months-item',
       `flex-[0_0_33.3333%]
-          [&_.q-btn]:(text-$light-on-primary dark:text-$dark-on-primary bg-$light-primary dark:bg-$dark-primary)
-       [&_.q-btn--flat]:(text-$light-on-surface dark:text-$dark-on-surface)`
+          [&_.q-btn]:([color:var(--q-on-primary)] dark:[color:var(--q-on-primary)] [background-color:var(--q-primary)] dark:[background-color:var(--q-primary)])
+       [&_.q-btn--flat]:([color:var(--q-on-surface)] dark:[color:var(--q-on-surface)])`
     )
   ],
 
@@ -282,7 +288,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date--dark$/,
     componentClass(
       'q-date--dark',
-      `bg-$dark-surface-container text-$dark-on-surface [box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] border-[rgba(255,_255,_255,_0.28)]`
+      `[background-color:var(--q-surface-container)] [color:var(--q-on-surface)] [box-shadow:0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)] border-[rgba(255,_255,_255,_0.28)]`
     )
   ]
 ]
