@@ -22,7 +22,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-toggle__track$/,
     componentClass(
       'q-toggle__track',
-      `relative outline-solid outline-2px [outline-color:var(--q-outline)] dark:[outline-color:var(--q-outline)] !rounded-full h-[1em] w-[1.625em] [background-color:var(--q-surface-container)] dark:[background-color:var(--q-surface-container)]`
+`[outline:var(--q-toggle-track-outline)] [border-radius:var(--q-toggle-track-border-radius)] [height:var(--q-toggle-track-height)] [width:var(--q-toggle-inner-width)] [background-color:var(--q-toggle-track-bg)] [opacity:var(--q-toggle-track-opacity)]`
     )
   ],
 
@@ -41,7 +41,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-toggle__inner$/,
     componentClass(
       'q-toggle__inner',
-      `relative [font-size:32px] h-[1em] w-[1.625em] [padding:0]`
+      `relative [font-size:var(--q-toggle-font-size)] h-[1em] [width:var(--q-toggle-inner-width)] [padding:0]`
     )
   ],
 
@@ -75,7 +75,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-toggle--dense$/,
     componentClass(
       'q-toggle--dense',
-      qe`[&_.q-toggle__inner]:([font-size:28px] h-[1em] w-[1.625em] min-w-[1.625em] px-[0] py-[0])`
+      qe`[&_.q-toggle__inner]:([font-size:var(--q-toggle-dense-font-size)] h-[1em] w-[1.625em] min-w-[1.625em] px-[0] py-[0])`
     )
   ]
 ]
