@@ -2,11 +2,10 @@
 
 ## Dev server / background processes
 
-This CommandCode session runs as a `node` process (the `cmd` binary
-renamed itself to `node` in `/proc/.../status`). Any dev server or
+This Pi agent session runs within the coding harness. Any dev server or
 long-running background process spawned from a shell command is a child
-of this process tree. Killing it naively (e.g. `kill_shell` on its
-parent, or signals that propagate up) will terminate this session.
+of this process tree. Killing it naively (e.g. killing its parent PID,
+or signals that propagate up) will terminate this session.
 
 RULE: never kill the session process, and never rely on parent-shell
 termination to stop a background process.
@@ -148,3 +147,22 @@ you add new source directories, update `srcDirs` and regenerate.
 For the quasar-testing-harness playground, SigMap runs in **monorepo mode** —
 each package (`app/`, `api/`, `tools/`) gets its own `CLAUDE.md`.
 The root `CLAUDE.md` has the creation-workflow block from `--init`.
+
+## Learned patterns (CSS/preset architecture)
+
+### CSS architecture
+
+- **Keep `getCSS` minimal** — prefer UnoCSS rules or shortcuts over inline `getCSS` functions for defining component CSS.
+- **Style-specific CSS belongs in that style's preflights**, not in core — core is only for CSS that is truly universal across all styles (e.g. CSS reset, electron drag).
+- **For CSS that needs style-scoping**, use/extend the `scopeStyle` abstraction rather than hardcoding body-class selectors inline in `getCSS` template strings — keeps the scoping logic centralized and reusable.
+- **The preset should apply its own bodyClass to `<body>` automatically** at initialization — consumers should not need to manually `document.body.classList.add(...)` for scoped CSS to match.
+- **For `::before` pseudo-element hover overlays**: use semi-transparent opacity tints (e.g. `$light-on-surface/3`) rather than solid surface container colors — the `::before` is absolutely positioned covering the cell, so a solid color fully obscures text underneath.
+
+### Component conventions
+
+- **QBtn**: `color` prop sets the **background** (`bg-<color>` class), `textColor` sets the **text color** (`text-<color>` class). They are independent — when only `color` is set, Quasar auto-pairs a contrasting text color (e.g. `color=primary` → `text-white`).
+- **`quasar` is the single source of truth for prop types** — import from `'quasar'` (e.g. `QBtnProps` from `'quasar'`), do NOT hand-regenerate or create local subset types.
+
+### Build tool rules
+
+- **Vitrify is a general-purpose build tool** — do not modify its plugin source (e.g. `packages/vitrify/src/node/plugins/quasar/index.ts`) as a workaround for a single app's configuration. Keep optimizations in the app config instead.
