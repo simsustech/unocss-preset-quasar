@@ -45,7 +45,6 @@ import { shortcuts as QBtnDropdownShortcuts } from './components/QBtnDropdown.un
 import { shortcuts as QBtnToggleShortcuts } from './components/QBtnToggle.unocss.js'
 import { shortcuts as QTabsShortcuts } from './components/QTabs.unocss.js'
 import { shortcuts as QDateShortcuts } from './components/QDate.unocss.js'
-import { preflights as UnstyledResetPreflights } from './components/_reset.unocss.js'
 
 /**
  * Minimal structural styles for Quasar components. Provides just
@@ -77,8 +76,7 @@ const style: QuasarStyle = {
     QFieldPreflights,
     QSpinnerPreflights,
     QDialogPreflights,
-    QSelectPreflights,
-    UnstyledResetPreflights
+    QSelectPreflights
   ),
   shortcuts: ([] as Shortcut<QuasarTheme>[]).concat(
     QLayoutShortcuts,

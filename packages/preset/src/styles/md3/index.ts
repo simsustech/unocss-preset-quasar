@@ -132,6 +132,7 @@ const style: QuasarStyle = {
   variants: [],
   preflights: ([] as Preflight<QuasarTheme>[]).concat(
     QBreadcrumbsPreflights,
+    QCheckboxPreflights,
     QChipPreflights,
     QCircularProgressPreflights,
     QDialogPreflights,

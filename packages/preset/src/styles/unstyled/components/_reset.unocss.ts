@@ -75,8 +75,8 @@ const preflights: Preflight<QuasarTheme>[] = [
 .q-intersection,
 .q-no-ssr,
 .q-virtual-scroll {
-  background: none;
-  color: inherit;
+  background: none !important;
+  color: inherit !important;
 }`
   }
 ]
