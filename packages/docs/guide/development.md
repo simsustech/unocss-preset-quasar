@@ -35,7 +35,7 @@ packages/preset/
 
 ## Vite Aliases for HMR
 
-When developing the preset alongside a Quasar app (e.g., in the `quasar-dev` playground), you can map imports to the TypeScript source files so changes are picked up without rebuilding:
+When developing the preset alongside a Quasar app (e.g., in the `quasar-testing-harness` playground), you can map imports to the TypeScript source files so changes are picked up without rebuilding:
 
 ```ts
 // vitrify.config.ts (or vite.config.ts)

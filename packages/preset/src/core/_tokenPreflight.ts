@@ -91,7 +91,10 @@ const DEFAULTS: Record<string, string> = {
   toggleTrackOpacity: '1',
   toggleTrackBorderRadius: '0',
   toggleTrackHeight: 'auto',
-  toggleInnerWidth: 'auto'
+  toggleInnerWidth: 'auto',
+  // Position-engine runtime variables (set dynamically by Quasar at runtime)
+  peTop: '0px',
+  peLeft: '0px'
 }
 
 /** Emit CSS custom properties for one style block, filling defaults */

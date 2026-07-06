@@ -54,9 +54,9 @@ If a dev server appears to already be running, check ports
 ## Testing
 
 Do NOT create spec/test files inside the unocss-preset-quasar repo.
-The quasar-dev workspace at `~/Projects/quasar-dev` is the testing
+The quasar-testing-harness workspace at `~/Projects/quasar-testing-harness` is the testing
 harness. Add component test scenarios to the existing Playwright spec
-files under `~/Projects/quasar-dev/tests/components/`. Each Quasar
+files under `~/Projects/quasar-testing-harness/tests/components/`. Each Quasar
 component gets its own `.spec.ts` — use `shot()` to capture screenshots
 and `dumpDiagnostics()` for CSS variable dumps alongside them. Tests
 use URL query parameters to configure component props (e.g.
@@ -145,6 +145,6 @@ context. The output is written to `CLAUDE.md` (and
 is scanned in this repo (per taste: `packages/dev` is outdated). If
 you add new source directories, update `srcDirs` and regenerate.
 
-For the quasar-dev playground, SigMap runs in **monorepo mode** —
+For the quasar-testing-harness playground, SigMap runs in **monorepo mode** —
 each package (`app/`, `api/`, `tools/`) gets its own `CLAUDE.md`.
 The root `CLAUDE.md` has the creation-workflow block from `--init`.

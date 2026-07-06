@@ -55,7 +55,7 @@ const srcDir = resolveSrcDir()
  *
  * Usage:
  * ```ts
- * // quasar-dev/packages/app/vitrify.config.ts
+ * // quasar-testing-harness/packages/app/vitrify.config.ts
  * import { quasarPresetAliases } from 'unocss-preset-quasar/vite-aliases'
  *
  * export default defineConfig({

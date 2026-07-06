@@ -2,7 +2,7 @@
 
 ## Goal
 
-Add a global style switcher in the playground (`quasar-dev`) that lets the
+Add a global style switcher in the playground (`quasar-testing-harness`) that lets the
 user pick between `MaterialDesign2`, `MaterialDesign3`, and `Unstyled` at
 runtime. The selection is persisted in the URL via `?style=md3` and shared
 across navigation. All three styles' rules are bundled into a single
@@ -119,7 +119,7 @@ MD3, MD2, Unstyled. Selecting one calls `setStyle`.
 - `packages/preset/src/styles/md3/index.ts` — set `bodyClass: 'quasar-style-md3'`.
 - `packages/preset/src/styles/unstyled/index.ts` — set `bodyClass: 'quasar-style-unstyled'`.
 
-### `quasar-dev`
+### `quasar-testing-harness`
 
 - `packages/app/src/composables/useStyle.ts` — new composable.
 - `packages/app/src/layouts/MainLayout.vue` — add top bar + style dropdown.
@@ -130,7 +130,7 @@ MD3, MD2, Unstyled. Selecting one calls `setStyle`.
 ## Verification
 
 1. `pnpm --filter unocss-preset-quasar build` succeeds.
-2. `pnpm --filter @quasar-dev/app dev` starts and serves the playground.
+2. `pnpm --filter @quasar-testing-harness/app dev` starts and serves the playground.
 3. Default load: `<body>` has `quasar-style-md3`, MD3 visuals are
    applied.
 4. Switch to MD2: visuals change (different paddings, colors, no
