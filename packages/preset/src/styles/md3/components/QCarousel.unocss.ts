@@ -7,13 +7,16 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-carousel$/,
     componentClass(
       'q-carousel',
-      qe`[background-color:var(--q-surface)] h-[400px] [&_.q-carousel--padding]:(p-[16px]) [&_.q-carousel__thumbnail]:(m-[2px] h-[50px] w-auto inline-block cursor-pointer [border-width:1px] border-solid border-[transparent] [border-radius:var(--q-radius-xs)] align-middle opacity-70 [transition:opacity_0.3s]) [&_.q-carousel__thumbnail:hover]:(opacity-100) [&_.q-carousel__thumbnail--active]:(opacity-100) [&_.q-carousel__thumbnail--active]:(border-current cursor-default)`
+      qe`bg-$light-surface h-[400px] [&_.q-carousel--padding]:(p-[16px]) [&_.q-carousel__thumbnail]:(m-[2px] h-[50px] w-auto inline-block cursor-pointer [border-width:1px] border-solid border-[transparent] rounded-[4px] align-middle opacity-70 [transition:opacity_0.3s]) [&_.q-carousel__thumbnail:hover]:(opacity-100) [&_.q-carousel__thumbnail--active]:(opacity-100) [&_.q-carousel__thumbnail--active]:(border-current cursor-default)`
     )
   ],
 
   [
     /^q-carousel__slide$/,
-    componentClass('q-carousel__slide', `min-h-full bg-cover bg-[50%] p-[16px]`)
+    componentClass(
+      'q-carousel__slide',
+      `h-[400px] bg-cover bg-no-repeat bg-[50%]`
+    )
   ],
 
   [/^q-carousel__slides-container$/, staticClass(`h-full`)],

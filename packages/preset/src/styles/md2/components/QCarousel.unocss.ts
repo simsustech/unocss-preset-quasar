@@ -7,13 +7,13 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-carousel$/,
     componentClass(
       'q-carousel',
-      qe`bg-[#fff] h-[400px] [&_.q-carousel--padding]:(p-[var(--q-space-lg)]) [&_.q-carousel__thumbnail]:(m-[2px] h-[50px] w-auto inline-block cursor-pointer [border-width:1px] border-solid border-[transparent] [border-radius:var(--q-radius-sm)] align-middle opacity-70 [transition:opacity_0.3s]) [&_.q-carousel__thumbnail:hover]:(opacity-100) [&_.q-carousel__thumbnail--active]:(opacity-100) [&_.q-carousel__thumbnail--active]:(border-current cursor-default)`
+      qe`bg-[#fff] h-[400px] [&_.q-carousel--padding]:(p-[16px]) [&_.q-carousel__thumbnail]:(m-[2px] h-[50px] w-auto inline-block cursor-pointer [border-width:1px] border-solid border-[transparent] rounded-[4px] align-middle opacity-70 [transition:opacity_0.3s]) [&_.q-carousel__thumbnail:hover]:(opacity-100) [&_.q-carousel__thumbnail--active]:(opacity-100) [&_.q-carousel__thumbnail--active]:(border-current cursor-default)`
     )
   ],
 
   [
     /^q-carousel__slide$/,
-    componentClass('q-carousel__slide', `min-h-full bg-cover bg-[50%] p-[var(--q-space-lg)]`)
+    componentClass('q-carousel__slide', `min-h-full bg-cover bg-[50%] p-[16px]`)
   ],
 
   [/^q-carousel__slides-container$/, staticClass(`h-full`)],
@@ -32,7 +32,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-carousel__prev-arrow--horizontal$/,
     componentClass(
       'q-carousel__prev-arrow--horizontal',
-      `top-[var(--q-space-lg)] bottom-[16px] left-[16px]`
+      `top-[16px] bottom-[16px] left-[16px]`
     )
   ],
 
@@ -40,7 +40,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-carousel__next-arrow--horizontal$/,
     componentClass(
       'q-carousel__next-arrow--horizontal',
-      `top-[var(--q-space-lg)] bottom-[16px] right-[16px]`
+      `top-[16px] bottom-[16px] right-[16px]`
     )
   ],
 
@@ -48,7 +48,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-carousel__prev-arrow--vertical$/,
     componentClass(
       'q-carousel__prev-arrow--vertical',
-      `left-[16px] right-[16px] top-[var(--q-space-lg)]`
+      `left-[16px] right-[16px] top-[16px]`
     )
   ],
 
@@ -64,7 +64,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-carousel__navigation--top$/,
     componentClass(
       'q-carousel__navigation--top',
-      `left-[16px] right-[16px] overflow-x-auto overflow-y-hidden top-[var(--q-space-lg)]`
+      `left-[16px] right-[16px] overflow-x-auto overflow-y-hidden top-[16px]`
     )
   ],
 
@@ -80,7 +80,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-carousel__navigation--left$/,
     componentClass(
       'q-carousel__navigation--left',
-      qe`top-[var(--q-space-lg)] bottom-[16px] overflow-x-hidden overflow-y-auto [&_>_.q-carousel__navigation-inner]:(flex-col) left-[16px]`
+      qe`top-[16px] bottom-[16px] overflow-x-hidden overflow-y-auto [&_>_.q-carousel__navigation-inner]:(flex-col) left-[16px]`
     )
   ],
 
@@ -88,7 +88,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-carousel__navigation--right$/,
     componentClass(
       'q-carousel__navigation--right',
-      qe`top-[var(--q-space-lg)] bottom-[16px] overflow-x-hidden overflow-y-auto [&_>_.q-carousel__navigation-inner]:(flex-col) right-[16px]`
+      qe`top-[16px] bottom-[16px] overflow-x-hidden overflow-y-auto [&_>_.q-carousel__navigation-inner]:(flex-col) right-[16px]`
     )
   ],
 
