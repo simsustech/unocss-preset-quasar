@@ -1,13 +1,21 @@
 import type { Preflight } from '@unocss/core'
 import type { QuasarTheme } from '../theme.js'
-import { tokens as defaultTokens, type DesignTokens, type TokenBlock } from './_tokens.js'
+import {
+  tokens as defaultTokens,
+  type DesignTokens,
+  type TokenBlock
+} from './_tokens.js'
 
 export function mergeTokens(user?: Partial<DesignTokens>): DesignTokens {
   if (!user) return defaultTokens
   const deep = (target: any, source: any): any => {
     const out = { ...target }
     for (const key of Object.keys(source))
-      if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key]))
+      if (
+        source[key] &&
+        typeof source[key] === 'object' &&
+        !Array.isArray(source[key])
+      )
         out[key] = deep(target[key] || {}, source[key])
       else out[key] = source[key]
     return out
@@ -45,15 +53,30 @@ const DEFAULTS: Record<string, string> = {
   darkInverseSurface: 'transparent',
   darkTertiaryContainer: 'transparent',
   // Shape defaults → 0 = no radius
-  radiusXs: '0', radiusSm: '0', radiusMd: '0',
-  radiusLg: '0', radiusXl: '0',
-  radiusFull: '0', radiusCircle: '0',
+  radiusXs: '0',
+  radiusSm: '0',
+  radiusMd: '0',
+  radiusLg: '0',
+  radiusXl: '0',
+  radiusFull: '0',
+  radiusCircle: '0',
   // Sizing defaults → 0 = no size (element collapses without other styles)
-  spaceXs: '0', spaceSm: '0', spaceMd: '0', spaceLg: '0', spaceXl: '0',
-  sizeIcon: '0', sizeSm: '0', sizeMd: '0', sizeLg: '0',
+  spaceXs: '0',
+  spaceSm: '0',
+  spaceMd: '0',
+  spaceLg: '0',
+  spaceXl: '0',
+  sizeIcon: '0',
+  sizeSm: '0',
+  sizeMd: '0',
+  sizeLg: '0',
   // Type defaults → inherit/preserve natural rendering
-  fontXs: 'inherit', fontSm: 'inherit', fontMd: 'inherit',
-  fontLg: 'inherit', fontXl: 'inherit', fontLead: 'inherit',
+  fontXs: 'inherit',
+  fontSm: 'inherit',
+  fontMd: 'inherit',
+  fontLg: 'inherit',
+  fontXl: 'inherit',
+  fontLead: 'inherit',
   hoverOpacity: '0',
   linearProgressSpeed: '0s',
   paginationGutterChild: '0',
@@ -68,13 +91,19 @@ const DEFAULTS: Record<string, string> = {
   toggleTrackOpacity: '1',
   toggleTrackBorderRadius: '0',
   toggleTrackHeight: 'auto',
-  toggleInnerWidth: 'auto',
+  toggleInnerWidth: 'auto'
 }
 
 /** Emit CSS custom properties for one style block, filling defaults */
 const emit = (bodyClass: string, block: TokenBlock): string => {
   const lines: string[] = []
-  const all = { ...DEFAULTS, ...block.color, ...block.shape, ...block.sizing, ...block.type }
+  const all = {
+    ...DEFAULTS,
+    ...block.color,
+    ...block.shape,
+    ...block.sizing,
+    ...block.type
+  }
   for (const [key, val] of Object.entries(all))
     lines.push(`  --q-${kebab(key)}: ${val};`)
   return `body.${bodyClass} {\n${lines.join('\n')}\n}`
@@ -88,7 +117,9 @@ const emitDark = (bodyClass: string, block: TokenBlock): string => {
   return `body.body--dark.${bodyClass} {\n${lines.join('\n')}\n}`
 }
 
-export function createTokenPreflight(tokens: DesignTokens): Preflight<QuasarTheme> {
+export function createTokenPreflight(
+  tokens: DesignTokens
+): Preflight<QuasarTheme> {
   return {
     getCSS: () => `
 /* ===== Quasar Design Tokens ===== */
