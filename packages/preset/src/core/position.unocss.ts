@@ -75,7 +75,11 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [/^on-right$/, ([, c], { theme }) => `ml-[12px]`],
 
-  [/^q-position-engine$/, ([, c], { theme }) => `!mt-0 !ml-0`],
+  [
+    /^q-position-engine$/,
+    ([, c], { theme }) =>
+      `!mt-[var(--q-pe-top,0px)] !ml-[var(--q-pe-left,0px)] [will-change:auto]`
+  ],
 
   [/^relative-position$/, ([, c], { theme }) => `relative`]
 ]

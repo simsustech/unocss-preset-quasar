@@ -13,7 +13,10 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-carousel__slide$/,
-    componentClass('q-carousel__slide', `min-h-full bg-cover bg-[50%] p-[16px]`)
+    componentClass(
+      'q-carousel__slide',
+      `h-[400px] bg-cover bg-no-repeat bg-[50%]`
+    )
   ],
 
   [/^q-carousel__slides-container$/, staticClass(`h-full`)],

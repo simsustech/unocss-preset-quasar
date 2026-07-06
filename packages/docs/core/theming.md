@@ -20,7 +20,67 @@ The `sourceColor` is fed through Google's Material Color Utilities to compute:
 - **Dark scheme**: the same palette adjusted for dark backgrounds (higher contrast ratios, brighter tones)
 - **Surface elevations**: `surface-dim`, `surface-bright`, and 5 container levels (`lowest` through `highest`)
 
+## Design Token System
+
+The preset emits a full design token system as `--q-*` CSS custom properties, scoped by body class for per-style isolation. Component shortcuts reference these tokens — change the body class, and every component's appearance updates without reloading CSS.
+
+### Token Structure
+
+Tokens are organized into four categories, emitted as `--q-{category}-{name}`:
+
+| Category   | Prefix                    | Examples                                                             |
+| ---------- | ------------------------- | -------------------------------------------------------------------- |
+| **Color**  | `--q-`                    | `--q-primary`, `--q-on-primary`, `--q-surface`, `--q-outline`        |
+| **Shape**  | `--q-radius-`             | `--q-radius-xs` (4px), `--q-radius-sm` (8px), `--q-radius-xl` (28px) |
+| **Sizing** | `--q-space-`, `--q-size-` | `--q-space-md` (12px), `--q-size-icon` (24px)                        |
+| **Type**   | `--q-font-`               | `--q-font-md` (14px), `--q-font-lead` (1.715em)                      |
+
+### Body-Class Scoping
+
+Tokens are emitted for three body classes, enabling multi-style builds:
+
+```css
+body.quasar-style-md3 {
+  --q-primary: var(--light-primary);
+  --q-on-primary: var(--light-on-primary);
+  --q-radius-xl: 28px;
+  --q-font-md: 14px;
+  /* ...all tokens */
+}
+
+body.quasar-style-md2 {
+  --q-primary: var(--light-primary);
+  --q-radius-xl: 28px;
+  --q-font-md: 14px;
+  /* ...MD2-specific values */
+}
+
+body.quasar-style-unstyled {
+  --q-primary: transparent;
+  --q-on-primary: inherit;
+  --q-radius-xl: 0;
+  --q-font-md: inherit;
+  /* ...all values set to transparent/0/inherit/none */
+}
+```
+
+Add the corresponding class to `<body>` to switch styles at runtime. The component shortcuts (which reference `var(--q-primary)`, `var(--q-radius-xl)`, etc.) automatically pick up the active style's values.
+
+### Per-Style Defaults
+
+Each style defines its own token values:
+
+| Style        | Colors                             | Shapes                   | Typography                |
+| ------------ | ---------------------------------- | ------------------------ | ------------------------- |
+| **MD3**      | `var(--light-*)` / `var(--dark-*)` | MD3 shape scale (4-28px) | MD3 type scale (11-20px)  |
+| **MD2**      | `var(--light-*)` / `var(--dark-*)` | Quasar defaults (3-28px) | Quasar defaults (12-18px) |
+| **Unstyled** | `transparent` / `inherit`          | All `0`                  | All `inherit`             |
+
+When loading in Unstyled mode, every `--q-*` color resolves to `transparent` or `inherit` — no theme colors leak through. Components render with their structural CSS only.
+
 ## CSS Custom Properties
+
+All raw Material Design 3 colors are also emitted as CSS custom properties on `:root`:
 
 All colors are emitted as CSS custom properties on `:root`:
 

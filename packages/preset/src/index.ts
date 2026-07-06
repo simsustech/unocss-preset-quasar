@@ -11,6 +11,8 @@ import { generateTheme, QuasarTheme } from './theme.js'
 import { animatedUno } from 'animated-unocss'
 import { scopeStyle } from './styles/_scope.js'
 import { Postprocessor, UtilObject } from '@unocss/core'
+import { createTokenPreflight, mergeTokens } from './core/_tokenPreflight.js'
+import { tokens as defaultTokens } from './core/_tokens.js'
 
 import { type QuasarIconSet, type QuasarPlugins } from 'quasar'
 
@@ -23,26 +25,38 @@ import {
 import { WebFontsOptions } from '@unocss/preset-web-fonts'
 import { generateSafelist, componentsSafelistMap } from './safelist.js'
 
-export interface QuasarPresetOptions extends PresetOptions {
+/**
+ * A complete style package: design token values bundled with
+ * component shortcuts and preflights.
+ *
+ * Import pre-built packages:
+ *   import { Md3Tokens, Md2Tokens, UnstyledTokens } from 'unocss-preset-quasar'
+ *
+ * Or create a custom one:
+ *   const myTokens = { ...Md3Tokens, shape: { ...Md3Tokens.shape, radiusXl: '0' } }
+ */
+export interface QuasarTokenBundle {
+  /** Design token values (colors, shapes, sizes, typography) */
+  color: Record<string, string>
+  shape: Record<string, string>
+  sizing: Record<string, string>
+  type: Record<string, string>
+  /** The QuasarStyle that provides shortcuts and preflights for this style */
   style: QuasarStyle
+}
+
+export interface QuasarPresetOptions extends PresetOptions {
+  /**
+   * The complete style package — token values + shortcuts + preflights.
+   *
+   *   import { Md3Tokens } from 'unocss-preset-quasar'
+   *   QuasarPreset({ tokens: Md3Tokens })
+   */
+  tokens?: QuasarTokenBundle
   sourceColor?: string
   plugins?: (keyof QuasarPlugins)[]
   iconSet?: QuasarIconSet
   presetWebFonts?: WebFontsOptions
-  /**
-   * Scope all CSS to a per-style body class (`quasar-style-md3` etc.).
-   *
-   * When `true`, every selector gets prefixed with `body.quasar-style-*`
-   * so it only matches when `<body>` carries that class. This lets you
-   * register multiple `QuasarPreset` instances (one per style) in a
-   * single UnoCSS build and switch at runtime by toggling the body class.
-   *
-   * When `false` (default), CSS is emitted as clean global selectors —
-   * no body-class prefix, no runtime class needed. Use this when you
-   * only have one style and don't need runtime switching.
-   *
-   * @default false
-   */
   scoped?: boolean
 }
 
@@ -62,8 +76,18 @@ const toPascalCase = (text: string) => {
 
 export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
   (options) => {
-    const rawStyle = options?.style ?? MaterialDesign3
+    // Resolve style: tokens.style > options.style > default MD3
+    const tokenBundle = options?.tokens
+    const rawStyle = tokenBundle?.style ?? MaterialDesign3
     const theme = generateTheme(options?.sourceColor ?? '#1976d2')
+
+    // Merge user token values with defaults (tokenBundle IS the user-provided tokens)
+    const mergedTokens = mergeTokens(
+      tokenBundle ? ({ md3: tokenBundle } as any) : undefined
+    )
+
+    // Generate the CSS variable preflight from merged tokens
+    const tokenPreflight = createTokenPreflight(mergedTokens)
 
     const scoped = options?.scoped === true
     const style =
@@ -71,36 +95,15 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
         ? scopeStyle(rawStyle, rawStyle.bodyClass)
         : rawStyle
 
-    /**
-     * Postprocessor that undoes `--` → `var(--)` mangling of Quasar BEM
-     * class-name modifiers inside bracket-variant selectors.
-     *
-     * UnoCSS preset-wind4's `variantVariables` handler passes bracket
-     * selectors such as `[&_.q-btn--flat]` through `h.bracket()`, which
-     * interprets `--flat` as a CSS variable reference and converts it to
-     * `var(--flat)`. The resulting class selector `.q-btnvar(--flat)` is
-     * invalid CSS and causes lightningcss to fail.
-     *
-     * This postprocessor runs on every util's selector and replaces
-     * `var(--xxx)` with `--xxx` when it is immediately preceded by a word
-     * character. The regex uses `[^)]+` (anything except closing paren) to
-     * handle cases where `cssVarsRE` matches across dots, spaces, and
-     * other characters (e.g. `--dark.q-field--highlighted .q-field__input`).
-     *
-     * The replacement is run in a loop to handle edge cases where multiple
-     * `var()` wrappings or nesting are present.
-     */
     const fixBemVarMangling: Postprocessor = (util: UtilObject) => {
       if (util.selector) {
         let prev: string
         do {
           prev = util.selector
-          // Pass 1: flatten nested var(var(--xxx)-rest) → var(--xxx-rest)
           util.selector = util.selector.replace(
             /(\w)var\(var\((--[^)]+)\)/g,
             '$1var($2'
           )
-          // Pass 2: strip remaining var(--xxx) → --xxx
           util.selector = util.selector.replace(/(\w)var\((--[^)]+)\)/g, '$1$2')
         } while (util.selector !== prev)
       }
@@ -113,7 +116,6 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
       '2-base': -3,
       '3-components': -2,
       '4-state': -1,
-
       default: 1,
       utilities: 2
     }
@@ -143,7 +145,7 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
       ],
       name: rawStyle.bodyClass || 'quasar',
       safelist: generateSafelist(options ?? {}),
-      preflights: corePreflights.concat(style.preflights),
+      preflights: [tokenPreflight].concat(corePreflights, style.preflights),
       rules: coreRules.concat(style.rules),
       variants: style.variants,
       shortcuts: coreShortcuts.concat(style.shortcuts),
@@ -166,7 +168,6 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
         {
           name: 'quasar-extractor',
           order: 0,
-
           extract({ code }) {
             const kebabMatch = code.matchAll(/q-(\w)([\w-]*)/g)
             const pascalMatch = code.matchAll(/Q([A-Z][a-z0-9]+)+/g)
@@ -174,13 +175,11 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
               /(transition|transition-show|transition-hide|transition-prev|transition-next)="(\S*)"/g
             )
             const colorMatch = code.matchAll(/color[=|:]"(.*?)"/g)
-
             const themeColorMatch = code.matchAll(
               new RegExp(`(${Object.keys(theme.colors).join('|')})`, 'g')
             )
             const iconMatch = code.matchAll(/(?:icon|name)[=|:]"(.*?)"/g)
             const mdiMatch = code.matchAll(/["'`]i-mdi-([a-z0-9-]+)["'`]/g)
-
             const pascalComponentsMatch: string[] = []
             const matches: string[] = []
 
@@ -212,7 +211,6 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
             for (const match of themeColorMatch) {
               colorClasses.push(`text-${match[1]}`, `bg-${match[1]}`)
             }
-
             const iconClasses: string[] = []
             for (const match of iconMatch) {
               iconClasses.push(`i-mdi-${match[1]}`)
@@ -220,7 +218,6 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
             for (const match of mdiMatch) {
               iconClasses.push(`i-mdi-${match[1]}`)
             }
-
             const classes: string[] = []
             const componentClasses = [
               ...matches,
@@ -249,3 +246,8 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
     }
   }
 )
+
+// Re-export token bundles for convenience
+export { Md3Tokens } from './core/_tokens.md3.js'
+export { Md2Tokens } from './core/_tokens.md2.js'
+export { UnstyledTokens } from './core/_tokens.unstyled.js'

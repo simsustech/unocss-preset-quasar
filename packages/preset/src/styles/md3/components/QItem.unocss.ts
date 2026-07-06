@@ -16,7 +16,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-item__section--side$/,
     componentClass(
       'q-item__section--side',
-      `!flex-initial text-[#757575] items-start pr-[16px] w-auto [&_>_.q-icon]:(text-[24px]) [&_>_.q-avatar]:(text-[40px])`
+      `!flex-initial [color:var(--q-on-surface-variant)] items-start pr-[16px] w-auto [&_>_.q-icon]:(text-[24px]) [&_>_.q-avatar]:(text-[40px])`
     )
   ],
 
@@ -48,19 +48,25 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-item__label--overline$/,
-    componentClass('q-item__label--overline', `text-[rgba(0,_0,_0,_0.7)]`)
+    componentClass(
+      'q-item__label--overline',
+      `[color:var(--q-on-surface-variant)]`
+    )
   ],
 
   [
     /^q-item__label--caption$/,
-    componentClass('q-item__label--caption', `text-[rgba(0,_0,_0,_0.54)]`)
+    componentClass(
+      'q-item__label--caption',
+      `[color:var(--q-on-surface-variant)]`
+    )
   ],
 
   [
     /^q-item__label--header$/,
     componentClass(
       'q-item__label--header',
-      `text-[#757575] p-[16px] text-[0.875rem] leading-5 tracking-[0.01786em]`
+      `[color:var(--q-on-surface-variant)] p-[16px] text-[0.875rem] leading-5 tracking-[0.01786em]`
     )
   ],
 

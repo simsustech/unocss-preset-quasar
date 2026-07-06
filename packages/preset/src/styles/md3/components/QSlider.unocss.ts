@@ -63,7 +63,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__markers$/,
     componentClass(
       'q-slider__markers',
-      `text-[rgba(0,_0,_0,_0.3)] [border-radius:inherit] w-full h-full [&:after]:(content-empty absolute bg-current)`
+      `[color:var(--q-on-surface-variant)] [border-radius:inherit] w-full h-full [&:after]:(content-empty absolute bg-current)`
     )
   ],
 

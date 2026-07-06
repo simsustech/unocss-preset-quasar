@@ -159,7 +159,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-date--portrait-standard$/,
     staticClass(
-      `[&_.q-date__content]:(h-[calc(100%-36px)]) [&_.q-date__header]:(h-[52px]) [&_.q-date__header-title]:(items-center h-[30px])`
+      `[&_.q-date__content]:(h-[calc(100%-86px)]) [&_.q-date__header]:(h-[86px]) [&_.q-date__header-title]:(items-center h-[30px])`
     )
   ],
 

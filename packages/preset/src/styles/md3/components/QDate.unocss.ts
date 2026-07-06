@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date$/,
     componentClass(
       'q-date',
-      `bg-$light-surface-container-high dark:bg-$dark-surface-container-high inline-flex [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px] bg-[#fff] w-[290px] min-w-[290px] max-w-full`
+      `bg-$light-surface-container-high dark:bg-$dark-surface-container-high inline-flex [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px] w-[290px] min-w-[290px] max-w-full`
     )
   ],
 
@@ -53,7 +53,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date__header-subtitle$/,
     componentClass(
       'q-date__header-subtitle',
-      `text-[14px] leading-[1.75] tracking-[0.00938em] mb--16px`
+      `text-[14px] leading-[1.75] tracking-[0.00938em]`
     )
   ],
 
@@ -61,7 +61,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date__header-title-label$/,
     componentClass(
       'q-date__header-title-label',
-      `pt-54px text-[24px] leading-[1.2] tracking-[0.00735em]`
+      `text-[24px] leading-[1.2] tracking-[0.00735em]`
     )
   ],
 
@@ -244,8 +244,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date--portrait-standard$/,
     componentClass(
       'q-date--portrait-standard',
-      qe`[&_.q-date__content]:(h-[calc(100%-36px)]) 
-       [&_.q-date__header]:([border-top-right-radius:inherit] h-[52px])
+      qe`[&_.q-date__content]:(h-[calc(100%-86px)]) 
+       [&_.q-date__header]:([border-top-right-radius:inherit] h-[86px])
        [&_.q-date__header-title]:(items-center h-[30px])`
     )
   ],

@@ -20,7 +20,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree$/,
     componentClass(
       'q-tree',
-      qe`relative text-[#9e9e9e] [&_>_.q-tree__node]:(p-0) [&_>_.q-tree__node:after]:(hidden) [&_>_.q-tree__node>_.q-tree__node-header:before]:(hidden) [&_>_.q-tree__node--child>_.q-tree__node-header]:(pl-[24px])`
+      qe`relative [color:var(--q-on-surface-variant)] [&_>_.q-tree__node]:(p-0) [&_>_.q-tree__node:after]:(hidden) [&_>_.q-tree__node>_.q-tree__node-header:before]:(hidden) [&_>_.q-tree__node--child>_.q-tree__node-header]:(pl-[24px])`
     )
   ],
 
@@ -72,7 +72,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree__node-header-content$/,
     componentClass(
       'q-tree__node-header-content',
-      `text-[#000] [transition:color_0.3s] [&_.q-icon]:(text-21px) [&_.q-avatar]:(text-[28px] rounded-[50%] w-[28px] h-[28px])`
+      `[color:var(--q-on-surface)] [transition:color_0.3s] [&_.q-icon]:(text-21px) [&_.q-avatar]:(text-[28px] rounded-[50%] w-[28px] h-[28px])`
     )
   ],
 
@@ -80,7 +80,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree__node--selected$/,
     componentClass(
       'q-tree__node--selected',
-      qe`[&_.q-tree__node--selected_.q-tree__node-header-content]:(text-[#9e9e9e])`
+      qe`[&_.q-tree__node--selected_.q-tree__node-header-content]:([color:var(--q-on-surface-variant)])`
     )
   ],
 
@@ -120,7 +120,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree--dark$/,
     componentClass(
       'q-tree--dark',
-      qe`[&_.q-tree__node-header-content]:(text-[#fff])`
+      qe`[&_.q-tree__node-header-content]:([color:var(--q-on-surface)])`
     )
   ],
 

@@ -46,7 +46,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field__marginal$/,
     mdComponent(
       'q-field__marginal',
-      `text-black/54 text-[24px] 
+      `[color:var(--q-on-surface-variant)] text-[24px] 
 	[&_>_*_+_*]:(ml-[2px]) 
 	[&_.q-avatar]:(text-[32px])`
     )
@@ -79,7 +79,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field__bottom$/,
     mdComponent(
       'q-field__bottom',
-      `text-[12px] min-h-[20px] leading-none bg-transparent text-black/54 mt-4px px-[12px] pb-[0] [backface-visibility:hidden]`
+      `text-[12px] min-h-[20px] leading-none bg-transparent [color:var(--q-on-surface-variant)] mt-4px px-[12px] pb-[0] [backface-visibility:hidden]`
     )
   ],
 
@@ -138,7 +138,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field__native$/,
     mdComponent(
       'q-field__native',
-      `text-[16px] font-normal leading-[24px] tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] border-none rounded-none bg-transparent text-black/87 px-0 w-full min-w-0 !outline-none select-auto
+      `text-[16px] font-normal leading-[24px] tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] border-none rounded-none bg-transparent [color:var(--q-on-surface)] dark:[color:#fff] px-0 w-full min-w-0 !outline-none select-auto
   [&:focus-visible]:(!outline-none)
   [&textarea:focus]:(outline-none)
   [&input:focus]:(outline-none)
@@ -158,7 +158,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field__prefix$/,
     mdComponent(
       'q-field__prefix',
-      `font-normal leading-[28px] tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] border-none rounded-none bg-transparent text-black/87 outline-none px-[0] py-[6px] [transition:opacity_0.36s_cubic-bezier(0.4,_0,_0.2,_1)] whitespace-nowrap pr-[4px]`
+      `font-normal leading-[28px] tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] border-none rounded-none bg-transparent [color:var(--q-on-surface)] dark:[color:#fff] outline-none px-[0] py-[6px] [transition:opacity_0.36s_cubic-bezier(0.4,_0,_0.2,_1)] whitespace-nowrap pr-[4px]`
     )
   ],
 
@@ -166,7 +166,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field__suffix$/,
     mdComponent(
       'q-field__suffix',
-      `font-normal leading-[28px] tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] border-none rounded-none bg-transparent text-black/87 outline-none px-[0] py-[6px] [transition:opacity_0.36s_cubic-bezier(0.4,_0,_0.2,_1)] whitespace-nowrap pl-[4px]`
+      `font-normal leading-[28px] tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] border-none rounded-none bg-transparent [color:var(--q-on-surface)] dark:[color:#fff] outline-none px-[0] py-[6px] [transition:opacity_0.36s_cubic-bezier(0.4,_0,_0.2,_1)] whitespace-nowrap pl-[4px]`
     )
   ],
 
@@ -174,7 +174,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field__input$/,
     mdComponent(
       'q-field__input',
-      `font-normal leading-[28px] tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] border-none rounded-none bg-transparent text-black/87 outline-none px-[0] py-[6px] w-full min-w-[0] !outline-none select-auto 
+      `font-normal leading-[28px] tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] border-none rounded-none bg-transparent [color:var(--q-on-surface)] dark:[color:#fff] outline-none px-[0] py-[6px] w-full min-w-[0] !outline-none select-auto 
 	[&:-webkit-autofill_+_.q-field\\_\\_label]:([transform:translateY(-40%)] scale-[0.75]) 
 	[&[type='color']_+_.q-field\\_\\_label]:([transform:translateY(-40%)] scale-[0.75]) 
 	[&[type='date']_+_.q-field\\_\\_label]:([transform:translateY(-40%)] scale-[0.75]) 
@@ -215,7 +215,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field__label$/,
     mdComponent(
       'q-field__label',
-      `left-[0] top-[18px] max-w-full text-black/60 text-[16px] leading-tight font-normal tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] origin-[left_top] [transition:transform_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_max-width_0.324s_cubic-bezier(0.4,_0,_0.2,_1)] [backface-visibility:hidden]`
+      `left-[0] top-[18px] max-w-full [color:var(--q-on-surface-variant)] text-[16px] leading-tight font-normal tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] origin-[left_top] [transition:transform_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_max-width_0.324s_cubic-bezier(0.4,_0,_0.2,_1)] [backface-visibility:hidden]`
     )
   ],
 

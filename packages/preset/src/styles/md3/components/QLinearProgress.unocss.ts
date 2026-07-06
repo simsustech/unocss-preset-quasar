@@ -44,7 +44,10 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-linear-progress__track$/,
-    componentClass('q-linear-progress__track', `origin-[0_0] bg-$light-surface-container-highest dark:bg-$dark-surface-container-highest`)
+    componentClass(
+      'q-linear-progress__track',
+      `origin-[0_0] bg-$light-surface-container-highest dark:bg-$dark-surface-container-highest`
+    )
   ],
 
   [

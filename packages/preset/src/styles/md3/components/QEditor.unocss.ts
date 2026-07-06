@@ -30,7 +30,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     ) => `outline-0 p-10px min-h-10em border-b-inherit border-b-inherit overflow-auto max-w-full
       bg-$light-surface-container-highest text-$light-on-surface-variant dark:bg-$dark-surface-container-highest dark:text-$dark-on-surface-variant
       [&_pre]:(whitespace-pre-wrap)
-      [&_hr]:(border-none outline-0 m-1px h-1px bg-black bg-op-12)
+      [&_hr]:(border-none outline-0 m-1px h-1px bg-black/12 dark:bg-white/12)
       [&:empty:not(:focus):before]:(content-[attr(placeholder)] op-70)
     `
   ],
@@ -39,7 +39,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     (
       [, c],
       { theme }
-    ) => `border-b-solid border-b-color-black border-b-op-12 border-b-1px
+    ) => `border-b-solid border-black/12 dark:border-white/12 border-b-1px
     min-h-32px
     `
   ],
@@ -56,7 +56,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentClass(
       'q-editor__toolbar-group',
       qe`relative mx-4px my-0
-    [&+.q-editor__toolbar-group:before]:(content-empty absolute left--4px top-4px bottom-4px w-1px bg-black bg-op-12)
+    [&+.q-editor__toolbar-group:before]:(content-empty absolute left--4px top-4px bottom-4px w-1px bg-black/12 dark:bg-white/12)
     `
     )
   ],

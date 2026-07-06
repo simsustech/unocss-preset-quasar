@@ -50,7 +50,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-stepper__tab$/,
     componentClass(
       'q-stepper__tab',
-      `px-[24px] py-[8px] text-[14px] text-[#9e9e9e] flex-row`
+      `px-[24px] py-[8px] text-[14px] [color:var(--q-on-surface-variant)] flex-row`
     )
   ],
 

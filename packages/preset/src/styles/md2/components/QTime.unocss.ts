@@ -92,7 +92,10 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-time__clock-circle$/,
-    componentClass('q-time__clock-circle', `flex items-center justify-center relative`)
+    componentClass(
+      'q-time__clock-circle',
+      `flex items-center justify-center relative`
+    )
   ],
 
   [
