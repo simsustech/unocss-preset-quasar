@@ -31,7 +31,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field$/,
     componentClass(
       'q-field',
-      `[font-size:var(--q-font-md)] 
+      `text-[14px] 
 	[&_::-ms-clear]:(hidden) 
 	[&_::-ms-reveal]:(hidden)`
     )
@@ -75,7 +75,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field__bottom$/,
     componentClass(
       'q-field__bottom',
-      `[font-size:var(--q-font-sm)] min-h-[20px] leading-none text-black/54 dark:text-white/70 mt--12px [padding-inline:var(--q-space-md)] pb-[0] [backface-visibility:hidden]`
+      `text-[12px] min-h-[20px] leading-none text-black/54 dark:text-white/70 mt--12px px-[12px] pb-[0] [backface-visibility:hidden]`
     )
   ],
 
@@ -104,7 +104,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentClass(
       'q-field--item-aligned',
       qe`px-[16px] py-[8px] 
-	[&_.q-field__before]:([min-width:var(--q-size-lg)])`
+	[&_.q-field__before]:(min-w-[56px])`
     )
   ],
 
@@ -114,7 +114,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field__control$/,
     componentClass(
       'q-field__control',
-      `[height:var(--q-size-lg)] max-w-full outline-none text-primary
+      `h-[56px] max-w-full outline-none text-primary
 	[&:before]:(content-empty top-[0] right-[0] bottom-[0] left-[0] pointer-events-none absolute border-rd-inherit) 
 	[&:after]:(content-empty top-[0] right-[0] bottom-[0] left-[0] pointer-events-none absolute)`
     )
@@ -210,7 +210,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field__label$/,
     componentClass(
       'q-field__label',
-      `left-[0] top-[18px] max-w-full text-black/60 dark:text-white/70 [font-size:var(--q-font-lg)] leading-tight font-normal tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] origin-[left_top] [transition:transform_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_max-width_0.324s_cubic-bezier(0.4,_0,_0.2,_1)] [backface-visibility:hidden]`
+      `left-[0] top-[18px] max-w-full text-black/60 dark:text-white/70 text-[16px] leading-tight font-normal tracking-[0.00937em] [text-decoration:inherit] [text-transform:inherit] origin-[left_top] [transition:transform_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_max-width_0.324s_cubic-bezier(0.4,_0,_0.2,_1)] [backface-visibility:hidden]`
     )
   ],
 
@@ -235,7 +235,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field--filled$/,
     componentClass(
       'q-field--filled',
-      qe`[&_.q-field__control]:([padding-inline:var(--q-space-md)] py-[0] bg-black/5 rounded-tl-[4px] rounded-br-[0] rounded-tr-[4px] rounded-bl-[0]) 
+      qe`[&_.q-field__control]:(px-[12px] py-[0] bg-black/5 rounded-tl-[4px] rounded-br-[0] rounded-tr-[4px] rounded-bl-[0]) 
 	[&_.q-field__control:before]:(bg-black/5 [border-bottom:1px_solid_rgba(0,_0,_0,_0.42)] opacity-0 [transition:opacity_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_background_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
 	[&_.q-field__control:hover:before]:(opacity-100) 
 	[&_.q-field__control:after]:(h-[2px] top-auto origin-[center_bottom] [transform:scale3d(0,_1,_1)] bg-current [transition:transform_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
@@ -253,13 +253,13 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field--outlined$/,
     componentClass(
       'q-field--outlined',
-      qe`[&_.q-field__control]:([border-radius:var(--q-radius-sm)] [padding-inline:var(--q-space-md)] py-[0]) 
+      qe`[&_.q-field__control]:(rounded-[4px] px-[12px] py-[0]) 
 	[&_.q-field__control:before]:([border-width:1px] border-solid border-black/24 [transition:border-color_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
 	[&_.q-field__control:hover:before]:(border-black) 
 	[&_.q-field__control:after]:([height:inherit] [border-radius:inherit] [border-width:2px] border-solid border-transparent [transition:border-color_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
 	[&_.q-field__native:-webkit-autofill]:(mt-px mb-px) 
 	[&_.q-field__input:-webkit-autofill]:(mt-px mb-px) 
-	[&.q-field--rounded_.q-field__control]:([border-radius:var(--q-radius-xl)]) 
+	[&.q-field--rounded_.q-field__control]:(rounded-[28px]) 
 	[&.q-field--highlighted_.q-field__control:hover:before]:(border-transparent) 
 	[&.q-field--highlighted_.q-field__control:after]:(border-current border-2 [transform:scale3d(1,_1,_1)]) 
 	[&.q-field--readonly_.q-field__control:before]:(border-dashed)`
@@ -300,10 +300,10 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field--standout$/,
     componentClass(
       'q-field--standout',
-      qe`[&_.q-field__control]:([padding-inline:var(--q-space-md)] py-[0] bg-black/5 [border-radius:var(--q-radius-sm)] [transition:box-shadow_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_background-color_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
+      qe`[&_.q-field__control]:(px-[12px] py-[0] bg-black/5 rounded-[4px] [transition:box-shadow_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_background-color_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
 	[&_.q-field__control:before]:(bg-black/7 opacity-0 [transition:opacity_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_background_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
 	[&_.q-field__control:hover:before]:(opacity-100) 
-	[&.q-field--rounded_.q-field__control]:([border-radius:var(--q-radius-xl)]) 
+	[&.q-field--rounded_.q-field__control]:(rounded-[28px]) 
 	[&.q-field--highlighted_.q-field__control]:([box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] bg-white) 
 	[&.q-field--highlighted_.q-field__native]:(text-white) 
 	[&.q-field--highlighted_.q-field__prefix]:(text-white) 
@@ -349,10 +349,10 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       'q-field--dense',
       qe`[&_.q-field--with-bottom]:(pb-[19px]) 
 	[&_.q-field__shadow]:(top-[0]) 
-	[&_.q-field__control]:([height:var(--q-size-md)]) 
-	[&_.q-field__marginal]:([height:var(--q-size-md)]) 
-	[&_.q-field__bottom]:([font-size:var(--q-font-xs)]) 
-	[&_.q-field__label]:([font-size:var(--q-font-md)] top-[10px]) 
+	[&_.q-field__control]:(h-[40px]) 
+	[&_.q-field__marginal]:(h-[40px]) 
+	[&_.q-field__bottom]:(text-[11px]) 
+	[&_.q-field__label]:(text-[14px] top-[10px]) 
 	[&_.q-field__before]:() 
 	[&_.q-field__prepend]:() 
 	[&_.q-field__after]:() 
@@ -409,8 +409,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field--auto-height$/,
     staticClass(qe`
 	[&_.q-field__control]:(h-auto)
-	[&_.q-field__control]:(min-[height:var(--q-size-lg)])
-	[&_.q-field__native]:(min-[height:var(--q-size-lg)])
+	[&_.q-field__control]:(min-h-[56px])
+	[&_.q-field__native]:(min-h-[56px])
 	[&_.q-field__native]:(items-center)
 	[&_.q-field__control-container]:(pt-0)
 	[&_.q-field__native]:(leading-[18px])
@@ -422,8 +422,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 	[&.q-field--labeled_.q-field__prefix]:(pt-0)
 	[&.q-field--labeled_.q-field__suffix]:(pt-0)
 	[&.q-field--labeled_.q-field__native]:(min-h-[24px])
-	[&.q-field--dense_.q-field__control]:(min-[height:var(--q-size-md)])
-	[&.q-field--dense_.q-field__native]:(min-[height:var(--q-size-md)])
+	[&.q-field--dense_.q-field__control]:(min-h-[40px])
+	[&.q-field--dense_.q-field__native]:(min-h-[40px])
 	[&.q-field--dense.q-field--labeled_.q-field__control-container]:(pt-10px)
 	[&.q-field--dense.q-field--labeled_.q-field__shadow]:(top-[14px])    
 	[&.q-field--dense.q-field--labeled_.q-field__native]:(min-h-[24px])`)
