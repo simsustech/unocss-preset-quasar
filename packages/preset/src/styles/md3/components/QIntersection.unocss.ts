@@ -1,8 +1,9 @@
-import type { Rule, UserShortcuts } from '@unocss/core'
+import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
-  [/^q-intersection$/, ([, c], { theme }) => `relative`]
+import { staticClass } from '../../_helpers.js'
+const shortcuts: Shortcut<QuasarTheme>[] = [
+  [/^q-intersection$/, staticClass(`relative`)]
 ]
 
 export { shortcuts }

@@ -1,0 +1,45 @@
+{
+  "viewport_breakpoint_array": {
+    "compact_mobile": {
+      "width_range": "w < 600px",
+      "columns": 4,
+      "margins_px": 16,
+      "gutter_space_px": 16
+    },
+    "medium_fold_tablet": {
+      "width_range": "600px <= w < 840px",
+      "columns": 8,
+      "margins_px": 24,
+      "gutter_space_px": 24
+    },
+    "expanded_tablet_pc": {
+      "width_range": "840px <= w < 1200px",
+      "columns": 12,
+      "margins_px": 24,
+      "gutter_space_px": 24,
+      "is_dynamic_margin_supported": true
+    },
+    "large_wide_desktop": {
+      "width_range": "1200px <= w < 1600px",
+      "columns": 12,
+      "margins_px": 24,
+      "gutter_space_px": 24,
+      "is_dynamic_margin_supported": true
+    },
+    "extra_large_ultra": {
+      "width_range": "w >= 1600px",
+      "columns": 12,
+      "margins_px": "centered_max_layout_bounds",
+      "gutter_space_px": 24
+    }
+  },
+  "adaptive_region_roles": {
+    "agnostic_panels": {
+      "behavior": "scale_down_to_temporary_overlay_under_840px"
+    },
+    "adaptive_stretch_logic": {
+      "horizontal_scaling": "fluid_percentage_via_flex_grow_1",
+      "inner_padding_structures": "explicitly_fixed_pixel_limits"
+    }
+  }
+}

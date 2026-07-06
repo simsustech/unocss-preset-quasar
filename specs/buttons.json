@@ -1,0 +1,38 @@
+{
+  "filled_button": {
+    "height_px": 40,
+    "inner_margin_spacing_left_right_px": 24,
+    "icon_padding_left_px": 16,
+    "icon_padding_right_px": 24,
+    "corner_shape_token": "md.sys.shape.corner.full",
+    "background_color_token": "md.sys.color.primary",
+    "content_color_token": "md.sys.color.on-primary"
+  },
+  "elevated_button": {
+    "height_px": 40,
+    "corner_shape_token": "md.sys.shape.corner.full",
+    "background_color_token": "md.sys.color.surface-container-low",
+    "elevation_resting": "level_1",
+    "elevation_hover": "level_2"
+  },
+  "tonal_button": {
+    "height_px": 40,
+    "corner_shape_token": "md.sys.shape.corner.full",
+    "background_color_token": "md.sys.color.secondary-container",
+    "content_color_token": "md.sys.color.on-secondary-container"
+  },
+  "outlined_button": {
+    "height_px": 40,
+    "corner_shape_token": "md.sys.shape.corner.full",
+    "border_stroke_thickness_px": 1,
+    "border_color_token": "md.sys.color.outline",
+    "background_color_token": "transparent"
+  },
+  "text_button": {
+    "height_px": 40,
+    "corner_shape_token": "md.sys.shape.corner.full",
+    "inner_margin_padding_left_right_px": 12,
+    "background_color_token": "transparent",
+    "content_color_token": "md.sys.color.primary"
+  }
+}

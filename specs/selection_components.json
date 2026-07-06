@@ -1,0 +1,22 @@
+{
+  "chips": {
+    "sizing_height_px": 32,
+    "corner_shape_token": "md.sys.shape.corner.small",
+    "inside_perimeter_padding_offset_px": 12,
+    "frame_outline_mapping_token": "md.sys.color.outline",
+    "label_typography_style": "label-large"
+  },
+  "switches": {
+    "chassis_width_px": 52,
+    "chassis_height_px": 32,
+    "internal_slider_thumb_diameter_resting_px": 16,
+    "internal_slider_thumb_diameter_active_px": 24
+  },
+  "checkboxes_and_radios": {
+    "outer_interaction_tap_zone_width_px": 48,
+    "outer_interaction_tap_zone_height_px": 48,
+    "centered_geometric_shape_area_width_px": 18,
+    "centered_geometric_shape_area_height_px": 18,
+    "active_core_color_assignment_token": "md.sys.color.primary"
+  }
+}

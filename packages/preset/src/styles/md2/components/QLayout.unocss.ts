@@ -1,9 +1,10 @@
-import type { Preflight, Rule, UserShortcuts } from '@unocss/core'
+import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
+import { componentClass, staticClass, qe } from '../../_helpers.js'
 
 const preflights: Preflight<QuasarTheme>[] = [
   {
-    getCSS: ({ theme }) => `
+    getCSS: ({ theme }) => qe`
 body.q-ios-padding .q-layout--standard .q-header > .q-toolbar:nth-child(1),
 body.q-ios-padding .q-layout--standard .q-header > .q-tabs:nth-child(1) .q-tabs__content,
 body.q-ios-padding .q-layout--standard .q-drawer--top-padding .q-drawer__content {
@@ -37,7 +38,13 @@ body:not(.q-body--layout-animate) .q-layout--prevent-focus {
   visibility: hidden;
 }
 .q-body--drawer-toggle {
-  overflow-x: hidden !important;
+  overflow: hidden !important;
+}
+
+
+html,
+body {
+  height: 100%;
 }
 @media (max-width: 599.98px) {
   .q-layout-padding {
@@ -66,29 +73,29 @@ body.platform-ios .q-layout--containerized {
   }
 ]
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
-  [/^q-layout$/, ([, c], { theme }) => `w-full outline-0 relative`],
+const shortcuts: Shortcut<QuasarTheme>[] = [
+  [/^q-layout$/, staticClass(`w-full outline-0 relative`)],
 
   [
     /^q-layout-container$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-layout-container'] ??
+    componentClass(
+      'q-layout-container',
       `relative w-full h-full [&_.q-layout]:(min-h-full) [&_>_div]:([transform:translate3d(0,_0,_0)]) [&_>_div_>_div]:(min-h-[0] max-h-full)`
+    )
   ],
 
   [
     /^q-layout__shadow$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-layout__shadow'] ??
+    componentClass(
+      'q-layout__shadow',
       `w-full 
       [&:after]:(content-empty absolute top-[0] right-[0] bottom-[0] left-[0] [box-shadow:0_0_10px_2px_rgba(0,_0,_0,_0.2),_0_0px_10px_rgba(0,_0,_0,_0.24)])`
+    )
   ],
 
   [
     /^q-layout__section--marginal$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-layout__section--marginal'] ??
-      `text-[#fff] bg-primary`
+    componentClass('q-layout__section--marginal', `text-[#fff] bg-primary`)
   ]
 ]
 

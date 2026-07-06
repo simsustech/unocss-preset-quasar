@@ -1,0 +1,9 @@
+import type { Shortcut } from '@unocss/core'
+import type { QuasarTheme } from '../../../theme.js'
+
+const shortcuts: Shortcut<QuasarTheme>[] = [
+  [/^q-panel$/, ([, c], { theme }) => `h-full w-full [&>div]:(h-full w-full)`],
+  [/^q-panel-parent$/, ([, c], { theme }) => `overflow-hidden relative`]
+]
+
+export { shortcuts }

@@ -18,12 +18,8 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { setDefaultPropsMd3 } from 'vitrify/unocss/quasar/styles'
-import { QBtn, QInput, QBtnDropdown } from 'quasar'
+import { useQuasar } from 'quasar'
 
-setDefaultPropsMd3({
-  QBtn,
-  QBtnDropdown,
-  QInput
-})
+const $q = useQuasar()
+// $q.dark.set(true)
 </script>

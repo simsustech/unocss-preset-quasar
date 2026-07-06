@@ -1,0 +1,146 @@
+{
+  "primitive_reference_scale": {
+    "color_system": "HCT (Hue-Chroma-Tone)",
+    "tonal_indices": [
+      0,
+      4,
+      10,
+      20,
+      22,
+      24,
+      30,
+      40,
+      50,
+      60,
+      70,
+      80,
+      87,
+      90,
+      92,
+      94,
+      95,
+      96,
+      98,
+      99,
+      100
+    ]
+  },
+  "system_semantic_token_mapping": {
+    "md.sys.color.primary": {
+      "light": "Tone 40",
+      "dark": "Tone 80"
+    },
+    "md.sys.color.on-primary": {
+      "light": "Tone 100",
+      "dark": "Tone 20"
+    },
+    "md.sys.color.primary-container": {
+      "light": "Tone 90",
+      "dark": "Tone 30"
+    },
+    "md.sys.color.on-primary-container": {
+      "light": "Tone 10",
+      "dark": "Tone 90"
+    },
+    "md.sys.color.secondary": {
+      "light": "Tone 40",
+      "dark": "Tone 80"
+    },
+    "md.sys.color.on-secondary": {
+      "light": "Tone 100",
+      "dark": "Tone 20"
+    },
+    "md.sys.color.secondary-container": {
+      "light": "Tone 90",
+      "dark": "Tone 30"
+    },
+    "md.sys.color.on-secondary-container": {
+      "light": "Tone 10",
+      "dark": "Tone 90"
+    },
+    "md.sys.color.tertiary": {
+      "light": "Tone 40",
+      "dark": "Tone 80"
+    },
+    "md.sys.color.on-tertiary": {
+      "light": "Tone 100",
+      "dark": "Tone 20"
+    },
+    "md.sys.color.tertiary-container": {
+      "light": "Tone 90",
+      "dark": "Tone 30"
+    },
+    "md.sys.color.on-tertiary-container": {
+      "light": "Tone 10",
+      "dark": "Tone 90"
+    },
+    "md.sys.color.error": {
+      "light": "Tone 40",
+      "dark": "Tone 80"
+    },
+    "md.sys.color.on-error": {
+      "light": "Tone 100",
+      "dark": "Tone 20"
+    },
+    "md.sys.color.error-container": {
+      "light": "Tone 90",
+      "dark": "Tone 30"
+    },
+    "md.sys.color.on-error-container": {
+      "light": "Tone 10",
+      "dark": "Tone 90"
+    },
+    "md.sys.color.surface": {
+      "light": "Tone 98",
+      "dark": "Tone 6"
+    },
+    "md.sys.color.on-surface": {
+      "light": "Tone 10",
+      "dark": "Tone 90"
+    },
+    "md.sys.color.surface-variant": {
+      "light": "Tone 90",
+      "dark": "Tone 30"
+    },
+    "md.sys.color.on-surface-variant": {
+      "light": "Tone 30",
+      "dark": "Tone 80"
+    },
+    "md.sys.color.surface-dim": {
+      "light": "Tone 90",
+      "dark": "Tone 6"
+    },
+    "md.sys.color.surface-bright": {
+      "light": "Tone 98",
+      "dark": "Tone 24"
+    },
+    "md.sys.color.surface-container-lowest": {
+      "light": "Tone 100",
+      "dark": "Tone 4"
+    },
+    "md.sys.color.surface-container-low": {
+      "light": "Tone 96",
+      "dark": "Tone 10"
+    },
+    "md.sys.color.surface-container": {
+      "light": "Tone 94",
+      "dark": "Tone 12"
+    },
+    "md.sys.color.surface-container-high": {
+      "light": "Tone 92",
+      "dark": "Tone 17"
+    },
+    "md.sys.color.surface-container-highest": {
+      "light": "Tone 90",
+      "dark": "Tone 22"
+    },
+    "md.sys.color.outline": {
+      "light": "Tone 50",
+      "dark": "Tone 60"
+    },
+    "md.sys.color.outline-variant": {
+      "light": "Tone 80",
+      "dark": "Tone 30"
+    }
+  }
+}

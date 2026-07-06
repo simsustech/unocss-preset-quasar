@@ -1,0 +1,21 @@
+{
+  "elevated_card": {
+    "corner_shape_token": "md.sys.shape.corner.large",
+    "background_layer_mapping_token": "md.sys.color.surface-container-low",
+    "elevation_resting": "level_1",
+    "elevation_hover": "level_2"
+  },
+  "filled_card": {
+    "corner_shape_token": "md.sys.shape.corner.large",
+    "background_layer_mapping_token": "md.sys.color.surface-container",
+    "elevation_resting": "level_0"
+  },
+  "outlined_card": {
+    "corner_shape_token": "md.sys.shape.corner.large",
+    "background_layer_mapping_token": "md.sys.color.surface",
+    "boundary_perimeter_stroke_thickness_px": 1,
+    "boundary_perimeter_stroke_style": "solid",
+    "boundary_perimeter_color_token": "md.sys.color.outline-variant",
+    "elevation_resting": "level_0"
+  }
+}

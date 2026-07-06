@@ -1,4 +1,4 @@
-import type { Rule, UserShortcuts } from '@unocss/core'
+import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../theme.js'
 
 const cols = 12
@@ -13,7 +13,9 @@ const colGutter = {
   xl: 12
 } as const
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
+const sizes = ['none', 'xs', 'sm', 'md', 'lg', 'xl']
+
+const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^row$/,
     ([, c], { theme }) =>
@@ -25,18 +27,26 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
       `flex flex-col flex-wrap flex-auto [&.reverse]:(flex-col-reverse)`
   ],
   [
-    /^col(?:-)?(none|xs|sm|md|lg|xl)?(?:-)?([2-9]|1[0-2]?)?$/,
+    /^col(?:-)?(none|xs|sm|md|lg|xl|all|auto|grow)?(?:-)?([2-9]|1[0-2]?)?$/,
     ([, size, nr], { theme }) => {
+      const classes = ['max-w-full']
       if (size && nr) {
-        return `${size}:basis-${nr}/12)`
+        classes.push(`${size}:basis-${nr}/12)`)
       } else if (nr) {
-        return `basis-${nr}/12`
-      } else if (size) {
-        return `${size}:basis-auto ${size}:grow`
+        classes.push(`basis-${nr}/12`)
+      } else if (size === 'all') {
+        classes.push('basis-12/12')
+      } else if (size === 'auto') {
+        classes.push('basis-auto')
+      } else if (sizes.includes(size)) {
+        classes.push(`${size}:basis-auto ${size}:grow`)
+      } else if (size === 'grow' || size === void 0) {
+        classes.push('grow')
       }
-      return `grow`
+      return classes.join(' ')
     }
   ],
+
   [
     /^q-col-gutter-(none|xs|sm|md|lg|xl)$/,
     ([, size], { theme }) =>
@@ -69,15 +79,15 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     ([, size], { theme }) =>
       `ml--${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}
       mt--${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}
-      [&_>_*]:(mr-${
+      [&_>_*]:(ml-${
         colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']
-      } mb-${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']})`
+      } mt-${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']})`
   ],
   [
     /^q-gutter-x-(none|xs|sm|md|lg|xl)$/,
     ([, size], { theme }) =>
       `ml--${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}
-        [&_>_*]:(mr-${
+        [&_>_*]:(ml-${
           colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']
         })`
   ],
@@ -85,7 +95,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     /^q-gutter-y-(none|xs|sm|md|lg|xl)$/,
     ([, size], { theme }) =>
       `mt--${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}
-        [&_>_*]:(mb-${
+        [&_>_*]:(mt-${
           colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']
         })`
   ],

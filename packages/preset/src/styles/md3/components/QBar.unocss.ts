@@ -1,12 +1,13 @@
-import type { Rule, UserShortcuts } from '@unocss/core'
+import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
+import { componentClass, staticClass } from '../../_helpers.js'
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
+const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-bar$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-bar'] ??
-      `bg-black/20
+    componentClass(
+      'q-bar',
+      `bg-$dark-surface/20
     [&>.q-icon]:(ml-2px)
     [&>div]:(ml-8px)
     [&>div+.q-icon]:(ml-8px)
@@ -14,23 +15,26 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
     [&>.q-icon:first-child]:(ml-0)
     [&>.q-btn:first-child]:(ml-0)
     [&>div:first-child]:(ml-0)`
+    )
   ],
   [
     /^q-bar--standard$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-bar--standard'] ??
+    componentClass(
+      'q-bar--standard',
       `px-12px py-0 h-32px text-18px
     [&>div]:(text-16px)
     [&_.q-btn]:(text-11px)`
+    )
   ],
   [
     /^q-bar--dense$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-bar--dense'] ??
+    componentClass(
+      'q-bar--dense',
       `px-8px py-0 h-24px text-14px
     [&_.q-btn]:(text-8px)`
+    )
   ],
-  [/^q-bar--dark$/, ([, c], { theme }) => `bg-white/20`]
+  [/^q-bar--dark$/, staticClass(`bg-$dark-surface-container text-$dark-on-surface`)]
 ]
 
 export { shortcuts }

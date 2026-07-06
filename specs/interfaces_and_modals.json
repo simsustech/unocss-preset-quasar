@@ -1,0 +1,18 @@
+{
+  "dialog_windows": {
+    "minimum_width_px": 280,
+    "maximum_width_px": 560,
+    "corner_shape_token": "md.sys.shape.corner.extra-large",
+    "background_layer_assignment_token": "md.sys.color.surface-container-high",
+    "outer_ambient_shadow_mapping": "level_3",
+    "inner_safety_margins_padding_px": 24
+  },
+  "standard_bottom_sheets": {
+    "width": "variable_viewport_fluid",
+    "sheet_rim_top_corners_shape_token": "md.sys.shape.corner.extra-large",
+    "sheet_rim_bottom_corners_shape_px": 0,
+    "structural_pull_handle_node_width_px": 32,
+    "structural_pull_handle_node_height_px": 4,
+    "background_layer_allocation_token": "md.sys.color.surface-container-high"
+  }
+}

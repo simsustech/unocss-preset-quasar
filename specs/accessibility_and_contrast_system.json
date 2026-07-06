@@ -1,0 +1,49 @@
+{
+  "contrast_verification_algorithms": {
+    "wcag_2_2": {
+      "aaa_compliance": {
+        "text_size_threshold_pt": 18,
+        "text_size_threshold_px": 24,
+        "minimum_contrast_ratio": "7.0:1",
+        "target_elements": [
+          "standard_text",
+          "essential_ui_glyphs"
+        ]
+      },
+      "aa_compliance": {
+        "text_size_under_18pt": {
+          "minimum_contrast_ratio": "4.5:1"
+        },
+        "large_text_criteria": {
+          "bold_minimum_pt": 14,
+          "bold_minimum_px": 18.5,
+          "regular_minimum_pt": 18,
+          "regular_minimum_px": 24,
+          "minimum_contrast_ratio": "3.0:1"
+        }
+      }
+    },
+    "apca_perceptual_contrast": {
+      "body_text_target": "Lcd 75",
+      "display_headline_large_text_target": "Lcd 60"
+    }
+  },
+  "interactive_targets": {
+    "physical_boundary_minimum_px": {
+      "width": 48,
+      "height": 48
+    },
+    "inline_density_exception": {
+      "minimum_separation_margin_px": 8,
+      "minimum_visual_area_px": 32
+    },
+    "focus_ring_parameters": {
+      "stroke_width_px": 2,
+      "clearance_offset_px": 2,
+      "color_mapping_tokens": [
+        "md.sys.color.outline",
+        "md.sys.color.primary"
+      ]
+    }
+  }
+}

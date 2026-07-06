@@ -1,0 +1,46 @@
+{
+  "spatial_structural_shape_library_radius_px": {
+    "md.sys.shape.corner.none": 0,
+    "md.sys.shape.corner.extra-small": 4,
+    "md.sys.shape.corner.small": 8,
+    "md.sys.shape.corner.medium": 12,
+    "md.sys.shape.corner.large": 16,
+    "md.sys.shape.corner.extra-large": 28,
+    "md.sys.shape.corner.full": "Infinity"
+  },
+  "absolute_shadow_vectors": {
+    "level_0": {
+      "shadow_properties": "empty"
+    },
+    "level_1": {
+      "blur_px": 3,
+      "y_offset_px": 1,
+      "spread_px": 0,
+      "opacity_ambient": 0.2
+    },
+    "level_2": {
+      "blur_px": 6,
+      "y_offset_px": 2,
+      "spread_px": 0,
+      "opacity_ambient": 0.2
+    },
+    "level_3": {
+      "blur_px": 10,
+      "y_offset_px": 4,
+      "spread_px": 0,
+      "opacity_ambient": 0.3
+    },
+    "level_4": {
+      "blur_px": 14,
+      "y_offset_px": 6,
+      "spread_px": 0,
+      "opacity_ambient": 0.3
+    },
+    "level_5": {
+      "blur_px": 20,
+      "y_offset_px": 8,
+      "spread_px": 0,
+      "opacity_ambient": 0.3
+    }
+  }
+}

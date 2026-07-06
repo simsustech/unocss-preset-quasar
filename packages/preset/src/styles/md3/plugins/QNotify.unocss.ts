@@ -1,4 +1,4 @@
-import type { Preflight, UserShortcuts } from '@unocss/core'
+import type { Preflight, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
 
 const preflighs: Preflight<QuasarTheme>[] = [
@@ -39,7 +39,7 @@ body.q-ios-padding .q-notifications__list--center, body.q-ios-padding .q-notific
   }
 ]
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
+const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-notifications__list$/,
     ([, c], { theme }) =>
@@ -55,7 +55,7 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
   [
     /^q-notification$/,
     ([, c], { theme }) =>
-      `[box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px] inline-flex mt-[10px] mx-[10px] mb-[0] [transition:transform_1s,_opacity_1s] flex-shrink-0 max-w-[95vw] bg-[#323232] text-[#fff] text-[14px]
+      `[box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-$shape-corner-extra-small inline-flex mt-[10px] mx-[10px] mb-[0] [transition:transform_1s,_opacity_1s] flex-shrink-0 max-w-[95vw] bg-$light-inverse-surface dark:bg-$dark-inverse-surface text-$light-inverse-on-surface dark:text-$dark-inverse-on-surface text-[14px]
       sm:max-w-65vw z-${theme.quasar.z['notify']} pointer-events-all`
   ],
 
@@ -118,49 +118,49 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
   [
     /^q-notification--standard$/,
     ([, c], { theme }) =>
-      `px-[16px] py-[0] min-h-[48px] [&_.q-notification\\_\\_actions]:(pl-[8px] pr-[0] py-[6px] -mr-[8px])`
+      `px-[16px] py-[0] min-h-[48px] [&_.q-notification__actions]:(pl-[8px] pr-[0] py-[6px] -mr-[8px])`
   ],
 
   [
     /^q-notification--multi-line$/,
     ([, c], { theme }) =>
-      `min-h-[68px] px-[16px] py-[8px] [&_.q-notification\\_\\_badge--top-left]:(-top-[15px]) [&_.q-notification\\_\\_badge--top-right]:(-top-[15px]) [&_.q-notification\\_\\_badge--bottom-left]:(-bottom-[15px]) [&_.q-notification\\_\\_badge--bottom-right]:(-bottom-[15px]) [&_.q-notification\\_\\_progress]:(-bottom-[8px]) [&_.q-notification\\_\\_actions]:(p-0) [&_.q-notification\\_\\_actions--with-media]:(pl-[25px])`
+      `min-h-[68px] px-[16px] py-[8px] [&_.q-notification__badge--top-left]:(-top-[15px]) [&_.q-notification__badge--top-right]:(-top-[15px]) [&_.q-notification__badge--bottom-left]:(-bottom-[15px]) [&_.q-notification__badge--bottom-right]:(-bottom-[15px]) [&_.q-notification__progress]:(-bottom-[8px]) [&_.q-notification__actions]:(p-0) [&_.q-notification__actions--with-media]:(pl-[25px])`
   ],
 
   [
     /^q-notification--top-left-enter-from$/,
     ([, c], { theme }) =>
-      `opacity-0 -translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(-50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--top-left-leave-to$/,
     ([, c], { theme }) =>
-      `opacity-0 -translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(-50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--top-enter-from$/,
     ([, c], { theme }) =>
-      `opacity-0 -translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(-50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--top-leave-to$/,
     ([, c], { theme }) =>
-      `opacity-0 -translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(-50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--top-right-enter-from$/,
     ([, c], { theme }) =>
-      `opacity-0 -translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(-50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--top-right-leave-to$/,
     ([, c], { theme }) =>
-      `opacity-0 -translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(-50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
@@ -202,37 +202,37 @@ const shortcuts: UserShortcuts<QuasarTheme> = [
   [
     /^q-notification--bottom-left-enter-from$/,
     ([, c], { theme }) =>
-      `opacity-0 translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--bottom-left-leave-to$/,
     ([, c], { theme }) =>
-      `opacity-0 translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--bottom-enter-from$/,
     ([, c], { theme }) =>
-      `opacity-0 translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--bottom-leave-to$/,
     ([, c], { theme }) =>
-      `opacity-0 translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--bottom-right-enter-from$/,
     ([, c], { theme }) =>
-      `opacity-0 translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [
     /^q-notification--bottom-right-leave-to$/,
     ([, c], { theme }) =>
-      `opacity-0 translate-y-[50px] z-${theme.quasar.z['notify'] - 1}`
+      `opacity-0 [transform:translateY(50px)] z-${theme.quasar.z['notify'] - 1}`
   ],
 
   [

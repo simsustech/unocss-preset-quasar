@@ -1,72 +1,95 @@
 {
   "name": "unocss-preset-quasar",
-  "version": "0.0.1",
-  "license": "MIT",
-  "author": "Stefan van Herwijnen",
+  "version": "0.3.7",
   "description": "UnoCSS preset for Quasar Framework",
-  "type": "module",
-  "types": "./dist/types/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/index.js"
-    },
-    "./styles": {
-      "types": "./dist/types/styles/index.d.ts",
-      "import": "./dist/styles/index.js"
-    }
-  },
-  "engines": {
-    "node": ">=20.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/simsustech/unocss-preset-quasar.git",
-    "directory": "packages/vitrify"
-  },
+  "keywords": [
+    "material-design",
+    "md3",
+    "preset",
+    "quasar",
+    "unocss"
+  ],
+  "homepage": "https://github.com/simsustech/unocss-preset-quasar/tree/main/#readme",
   "bugs": {
     "url": "https://github.com/simsustech/unocss-preset-quasar/issues"
   },
-  "homepage": "https://github.com/simsustech/unocss-preset-quasar/tree/main/#readme",
-  "scripts": {
-    "build": "tsc",
-    "test": "vitest test/"
-  },
-  "dependencies": {
-    "@unocss/core": "^66.0.0",
-    "@unocss/preset-uno": "^66.0.0",
-    "@unocss/preset-web-fonts": "66.1.0-beta.8",
-    "@unocss/preset-wind": "^66.0.0",
-    "animated-unocss": "^0.0.6",
-    "material-dynamic-colors": "^1.1.2",
-    "unocss": "66.1.0-beta.8"
-  },
-  "devDependencies": {
-    "@iconify-json/mdi": "^1.2.3",
-    "@quasar/extras": "^1.16.17",
-    "@quasar/quasar-ui-qmarkdown": "^2.0.5",
-    "@quasar/quasar-ui-qmediaplayer": "^2.0.0-beta.0",
-    "@types/node": "^22.13.17",
-    "@unocss/preset-icons": "^66.0.0",
-    "@unocss/preset-mini": "66.1.0-beta.8",
-    "quasar": "^2.18.1",
-    "typescript": "^5.8.2"
-  },
-  "peerDependencies": {
-    "quasar": "^2.17.7"
-  },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
+  "license": "MIT",
+  "author": "Stefan van Herwijnen",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simsustech/unocss-preset-quasar.git",
+    "directory": "packages/preset"
   },
   "files": [
     "dist",
     "src",
     "!dist/**/*.test.js"
   ],
-  "keywords": [
-    "vite",
-    "full stack",
-    "fastify"
-  ]
+  "type": "module",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles": {
+      "source": "./src/styles/index.ts",
+      "types": "./dist/types/styles/index.d.ts",
+      "import": "./dist/styles/index.js"
+    },
+    "./theme": {
+      "source": "./src/theme.ts",
+      "types": "./dist/types/theme.d.ts",
+      "import": "./dist/theme.js"
+    },
+    "./vite-aliases": {
+      "source": "./src/vite-aliases.ts",
+      "types": "./dist/types/vite-aliases.d.ts",
+      "import": "./dist/vite-aliases.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "oxlint src",
+    "lint:fix": "oxlint src --fix",
+    "test": "vitest test/"
+  },
+  "dependencies": {
+    "@poupe/material-color-utilities": "^0.4.1",
+    "@unocss/core": "^66.7.4",
+    "@unocss/preset-uno": "^66.7.4",
+    "@unocss/preset-web-fonts": "66.7.4",
+    "@unocss/preset-wind": "^66.7.4",
+    "@unocss/preset-wind4": "66.7.4",
+    "animated-unocss": "^0.0.6",
+    "unocss": "66.7.4"
+  },
+  "devDependencies": {
+    "@iconify-json/mdi": "^1.2.3",
+    "@quasar/extras": "^2.0.1",
+    "@quasar/quasar-ui-qmarkdown": "^2.0.5",
+    "@quasar/quasar-ui-qmediaplayer": "^3.0.0-rc.1",
+    "@types/node": "^26.1.0",
+    "@unocss/preset-icons": "^66.7.4",
+    "@unocss/preset-mini": "66.7.4",
+    "quasar": "^2.20.2",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
+  },
+  "peerDependencies": {
+    "quasar": "^2.20.2"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
 }

@@ -1,4 +1,4 @@
-import type { Preflight, Rule, UserShortcuts } from '@unocss/core'
+import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../theme.js'
 
 const preflights: Preflight<QuasarTheme>[] = [
@@ -11,8 +11,8 @@ body.body--dark {
   }
 ]
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
-  [/^q-dark$/, ([, c], { theme }) => `text-white bg-dark`]
+const shortcuts: Shortcut<QuasarTheme>[] = [
+  [/^q-dark$/, ([, c], { theme }) => `text-$dark-on-surface bg-$dark-surface`]
 ]
 
 export { preflights, shortcuts }

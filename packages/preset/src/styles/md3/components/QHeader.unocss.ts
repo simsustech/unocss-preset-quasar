@@ -1,21 +1,24 @@
-import type { Rule, UserShortcuts } from '@unocss/core'
+import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
+import { componentClass, staticClass, qe } from '../../_helpers.js'
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
-  [/^q-header--hidden$/, ([, c], { theme }) => `-translate-y-[110%]`],
+const shortcuts: Shortcut<QuasarTheme>[] = [
+  [/^q-header--hidden$/, staticClass(`[transform:translateY(-110%)]`)],
 
   [
     /^q-header--bordered$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-header--bordered'] ??
+    componentClass(
+      'q-header--bordered',
       `[border-bottom:1px_solid_rgba(0,_0,_0,_0.12)]`
+    )
   ],
 
   [
     /^q-header$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-header'] ??
-      `z-2000 [&_.q-layout\\_\\_shadow]:(-bottom-10px) [&_.q-layout\\_\\_shadow:after]:(bottom-10px)`
+      qe`z-2000 [&_.q-layout__shadow]:(-bottom-10px) [&_.q-layout__shadow:after]:(bottom-10px)
+      [&_.q-toolbar__title]:(flex-grow-1000)`
     // relative
   ]
 ]

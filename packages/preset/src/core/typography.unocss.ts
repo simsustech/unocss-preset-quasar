@@ -1,13 +1,11 @@
-import type { Preflight, Rule, UserShortcuts } from '@unocss/core'
+import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../theme.js'
 
 const preflights: Preflight<QuasarTheme>[] = [
   {
     getCSS: ({ theme }) => `
 body {
-  min-width: 100px;
-  min-height: 100%;
-  font-family: ${theme.typography.fontFamily};
+  font-family: ${theme.typography.font};
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
@@ -83,7 +81,7 @@ sup {
   }
 ]
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
+const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^text-h1$/,
     ([, c], { theme }) =>

@@ -17,8 +17,7 @@
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list>
-        <q-item-label header> Essential Links </q-item-label>
+      <q-list class="q-pt-lg">
         <q-item to="/">
           <q-item-section>
             <q-item-label>Home</q-item-label>
@@ -26,6 +25,7 @@
         </q-item>
         <q-item
           v-for="component in components"
+          :key="component"
           :to="`/components/${component}`"
         >
           <q-item-section>
@@ -51,7 +51,7 @@ import { matMenu } from '@quasar/extras/material-icons'
 const componentRoutes = import.meta.glob('../pages/components/*.vue')
 
 const components = Object.keys(componentRoutes).map((name) => {
-  const path = name.split('/').at(-1)!.split('.').at(0)?.toLowerCase()
+  const path = name.split('/').at(-1)!.split('Page.').at(0)
 
   return path
 })

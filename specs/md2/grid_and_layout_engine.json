@@ -1,0 +1,38 @@
+{
+  "baseline_grid": {
+    "mobile_tablet_desktop_dp_grid": 8,
+    "typography_alignment_dp_grid": 4
+  },
+  "viewport_breakpoint_array": {
+    "xs_small_handset": {
+      "width_range": "0px <= w < 600px",
+      "columns": 4,
+      "margins_px": 16,
+      "gutter_space_px": 16
+    },
+    "sm_medium_handset_tablet": {
+      "width_range": "600px <= w < 960px",
+      "columns": 8,
+      "margins_px": 24,
+      "gutter_space_px": 24
+    },
+    "md_large_tablet_desktop": {
+      "width_range": "960px <= w < 1280px",
+      "columns": 12,
+      "margins_px": 24,
+      "gutter_space_px": 24
+    },
+    "lg_large_desktop": {
+      "width_range": "1280px <= w < 1920px",
+      "columns": 12,
+      "margins_px": 24,
+      "gutter_space_px": 24
+    },
+    "xl_ultra_large_desktop": {
+      "width_range": "w >= 1920px",
+      "columns": 12,
+      "margins_px": 24,
+      "gutter_space_px": 24
+    }
+  }
+}

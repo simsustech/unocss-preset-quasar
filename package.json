@@ -4,41 +4,41 @@
   "workspaces": [
     "packages/*"
   ],
-  "engines": {
-    "node": ">=20.0.0"
-  },
   "scripts": {
     "build": "run-s build:preset",
     "build:preset": "cd packages/preset && pnpm run build",
-    "format:check": "prettier --check .",
-    "format:write": "prettier --write .",
+    "format:check": "oxfmt --check .",
+    "format:write": "oxfmt --write .",
     "changeset": "changeset",
     "version": "changeset version",
     "publish": "changeset publish",
-    "lint": "eslint packages/*/src/",
-    "lint:fix": "eslint packages/*/src/ --fix",
+    "lint:preset": "cd packages/preset && pnpm run lint",
+    "lint:dev": "cd packages/preset && pnpm run lint",
+    "lint:docs": "cd packages/docs && pnpm run lint",
+    "lint": "run-s lint:preset lint:dev",
+    "lint:preset:fix": "cd packages/preset && pnpm run lint:fix",
+    "lint:dev:fix": "cd packages/preset && pnpm run lint:fix",
+    "lint:docs:fix": "cd packages/docs && pnpm run lint:fix",
+    "lint:fix": "run-s lint:preset:fix lint:dev:fix",
     "test:preset": "cd packages/preset && pnpm run test",
     "test": "run-s test:preset"
   },
+  "dependencies": {
+    "unocss-preset-quasar-monorepo": "link:"
+  },
   "devDependencies": {
-    "@changesets/cli": "^2.27.12",
-    "@commitlint/cli": "^19.7.1",
-    "@commitlint/config-conventional": "^19.7.1",
-    "@typescript-eslint/eslint-plugin": "^8.23.0",
-    "@typescript-eslint/parser": "^8.23.0",
+    "@changesets/cli": "^2.31.0",
+    "@commitlint/cli": "^21.2.0",
+    "@commitlint/config-conventional": "^21.2.0",
+    "@unocss/preset-wind4": "66.7.4",
     "changesets": "^1.0.2",
-    "eslint": "^9.19.0",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-define-config": "^2.1.0",
-    "eslint-import-resolver-typescript": "^3.7.0",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^5.2.3",
-    "git-conventional-commits": "^2.7.1",
+    "conventional-changelog-conventionalcommits": "^9.3.1",
+    "git-conventional-commits": "^2.9.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.4.2",
-    "simple-git-hooks": "^2.11.1",
-    "typescript-eslint": "^8.23.0"
+    "oxfmt": "^0.57.0",
+    "oxlint": "^1.72.0",
+    "prettier": "^3.9.4",
+    "simple-git-hooks": "^2.13.1"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm run lint && pnpm run format:check",
@@ -49,10 +49,13 @@
       "prettier --write --ignore-unknown"
     ],
     "packages/*/{src,types}/**/*.ts": [
-      "eslint --ext .ts"
+      "oxlint --ext .ts"
     ],
     "packages/**/*.d.ts": [
-      "eslint --ext .ts"
+      "oxlint --ext .ts"
     ]
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

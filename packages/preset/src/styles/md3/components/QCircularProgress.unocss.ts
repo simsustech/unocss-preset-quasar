@@ -1,5 +1,6 @@
-import type { Preflight, Rule, UserShortcuts } from '@unocss/core'
+import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
+import { componentClass, staticClass, qe } from '../../_helpers.js'
 
 const preflights: Preflight<QuasarTheme>[] = [
   {
@@ -20,23 +21,25 @@ const preflights: Preflight<QuasarTheme>[] = [
 }`
   }
 ]
-const shortcuts: UserShortcuts<QuasarTheme> = [
+const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-circular-progress$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-circular-progress'] ??
-      `inline-block relative align-middle w-[1em] h-[1em] leading-none`
+    componentClass(
+      'q-circular-progress',
+      `text-$light-primary dark:text-$dark-primary inline-block relative align-middle w-[1em] h-[1em] leading-none`
+    )
   ],
 
-  [/^q-circular-progress__svg$/, ([, c], { theme }) => `w-full h-full`],
+  [/^q-circular-progress__svg$/, staticClass(`w-full h-full`)],
 
-  [/^q-circular-progress__text$/, ([, c], { theme }) => `text-[0.25em]`],
+  [/^q-circular-progress__text$/, staticClass(`text-[0.25em]`)],
 
   [
     /^q-circular-progress--indeterminate$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-circular-progress--indeterminate'] ??
-      `[&_.q-circular-progress\\_\\_svg]:(origin-[50%_50%] animate-[q-spin_2s_linear_infinite]) [&_.q-circular-progress\\_\\_circle]:(animate-[q-circular-progress-circle_1.5s_ease-in-out_infinite])`
+    componentClass(
+      'q-circular-progress--indeterminate',
+      qe`[&_.q-circular-progress__svg]:(origin-[50%_50%] animate-[q-spin_2s_linear_infinite]) [&_.q-circular-progress__circle]:(animate-[q-circular-progress-circle_1.5s_ease-in-out_infinite])`
+    )
   ]
 ]
 

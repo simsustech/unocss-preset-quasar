@@ -1,9 +1,58 @@
-import { type IMaterialDynamicColorsThemeColor } from 'material-dynamic-colors/src/cdn/interfaces'
-import materialDynamicColors from 'material-dynamic-colors'
+import {
+  argbFromHex,
+  hexFromArgb,
+  themeFromSourceColor
+} from '@poupe/material-color-utilities'
+
+interface MaterialColorScheme {
+  primary: string
+  onPrimary: string
+  primaryContainer: string
+  onPrimaryContainer: string
+  secondary: string
+  onSecondary: string
+  secondaryContainer: string
+  onSecondaryContainer: string
+  tertiary: string
+  onTertiary: string
+  tertiaryContainer: string
+  onTertiaryContainer: string
+  error: string
+  onError: string
+  errorContainer: string
+  onErrorContainer: string
+
+  background: string
+  onBackground: string
+  surface: string
+  onSurface: string
+  surfaceVariant: string
+  onSurfaceVariant: string
+
+  outline: string
+  outlineVariant: string
+  shadow: string
+  scrim: string
+  inverseSurface: string
+  inverseOnSurface: string
+
+  inversePrimary: string
+
+  surfaceDim: string
+  surfaceBright: string
+  surfaceContainerLowest: string
+
+  surfaceContainerLow: string
+
+  surfaceContainer: string
+  surfaceContainerHigh: string
+
+  surfaceContainerHighest: string
+}
 
 export interface QuasarTheme {
   typography: {
-    fontFamily: string
+    font: string
   }
   breakpoints: {
     xs: string
@@ -12,9 +61,18 @@ export interface QuasarTheme {
     lg: string
     xl: string
   }
+  shape: {
+    corner: {
+      extraSmall: string
+      small: string
+      medium: string
+      large: string
+      extraLarge: string
+    }
+  }
   colors: {
-    light: IMaterialDynamicColorsThemeColor
-    dark: IMaterialDynamicColorsThemeColor
+    light: MaterialColorScheme
+    dark: MaterialColorScheme
     primary: string
     secondary: string
     accent: string
@@ -27,7 +85,7 @@ export interface QuasarTheme {
     'dark-page': string
     // dark: string
 
-    red: string
+    // red: string
     'red-1': string
     'red-2': string
     'red-3': string
@@ -42,7 +100,7 @@ export interface QuasarTheme {
     'red-12': string
     'red-13': string
     'red-14': string
-    pink: string
+    // pink: string
     'pink-1': string
     'pink-2': string
     'pink-3': string
@@ -57,7 +115,7 @@ export interface QuasarTheme {
     'pink-12': string
     'pink-13': string
     'pink-14': string
-    purple: string
+    // purple: string
     'purple-1': string
     'purple-2': string
     'purple-3': string
@@ -87,7 +145,7 @@ export interface QuasarTheme {
     'deep-purple-12': string
     'deep-purple-13': string
     'deep-purple-14': string
-    indigo: string
+    // indigo: string
     'indigo-1': string
     'indigo-2': string
     'indigo-3': string
@@ -102,7 +160,7 @@ export interface QuasarTheme {
     'indigo-12': string
     'indigo-13': string
     'indigo-14': string
-    blue: string
+    // blue: string
     'blue-1': string
     'blue-2': string
     'blue-3': string
@@ -132,7 +190,7 @@ export interface QuasarTheme {
     'light-blue-12': string
     'light-blue-13': string
     'light-blue-14': string
-    cyan: string
+    // cyan: string
     'cyan-1': string
     'cyan-2': string
     'cyan-3': string
@@ -147,7 +205,7 @@ export interface QuasarTheme {
     'cyan-12': string
     'cyan-13': string
     'cyan-14': string
-    teal: string
+    // teal: string
     'teal-1': string
     'teal-2': string
     'teal-3': string
@@ -162,7 +220,7 @@ export interface QuasarTheme {
     'teal-12': string
     'teal-13': string
     'teal-14': string
-    green: string
+    // green: string
     'green-1': string
     'green-2': string
     'green-3': string
@@ -192,7 +250,7 @@ export interface QuasarTheme {
     'light-green-12': string
     'light-green-13': string
     'light-green-14': string
-    lime: string
+    // lime: string
     'lime-1': string
     'lime-2': string
     'lime-3': string
@@ -207,7 +265,7 @@ export interface QuasarTheme {
     'lime-12': string
     'lime-13': string
     'lime-14': string
-    yellow: string
+    // yellow: string
     'yellow-1': string
     'yellow-2': string
     'yellow-3': string
@@ -222,7 +280,7 @@ export interface QuasarTheme {
     'yellow-12': string
     'yellow-13': string
     'yellow-14': string
-    amber: string
+    // amber: string
     'amber-1': string
     'amber-2': string
     'amber-3': string
@@ -237,7 +295,7 @@ export interface QuasarTheme {
     'amber-12': string
     'amber-13': string
     'amber-14': string
-    orange: string
+    // orange: string
     'orange-1': string
     'orange-2': string
     'orange-3': string
@@ -267,7 +325,7 @@ export interface QuasarTheme {
     'deep-orange-12': string
     'deep-orange-13': string
     'deep-orange-14': string
-    brown: string
+    // brown: string
     'brown-1': string
     'brown-2': string
     'brown-3': string
@@ -282,7 +340,7 @@ export interface QuasarTheme {
     'brown-12': string
     'brown-13': string
     'brown-14': string
-    grey: string
+    // grey: string
     'grey-1': string
     'grey-2': string
     'grey-3': string
@@ -334,6 +392,7 @@ export interface QuasarTheme {
       'q-badge--outline'?: string
       'q-badge--rounded'?: string
       'q-banner'?: string
+      'q-banner__content'?: string
       'q-banner--top-padding'?: string
       'q-banner__avatar'?: string
       'q-banner__actions'?: string
@@ -380,6 +439,7 @@ export interface QuasarTheme {
       'q-btn-group--spread'?: string
       'q-btn-toggle'?: string
       'q-card'?: string
+      'q-card--filled'?: string
       'q-card--bordered'?: string
       'q-card--dark'?: string
       'q-card__section'?: string
@@ -425,6 +485,7 @@ export interface QuasarTheme {
       'q-message-text-content--sent'?: string
       'q-message-text'?: string
       'q-checkbox'?: string
+      'q-checkbox__label'?: string
       'q-checkbox__native'?: string
       'q-checkbox__bg'?: string
       'q-checkbox__icon-container'?: string
@@ -681,6 +742,7 @@ export interface QuasarTheme {
       'q-drawer__backdrop'?: string
       'q-drawer__opener'?: string
       'q-page'?: string
+      'q-page-sticky'?: string
       'q-page-sticky--shrink'?: string
       'q-body--layout-animate'?: string
       'q-body--drawer-toggle'?: string
@@ -856,6 +918,7 @@ export interface QuasarTheme {
       'q-splitter__before'?: string
       'q-splitter__after'?: string
       'q-stepper'?: string
+      'q-stepper__label'?: string
       'q-stepper__title'?: string
       'q-stepper__caption'?: string
       'q-stepper__dot'?: string
@@ -1158,8 +1221,7 @@ export interface QuasarTheme {
 
 const defaultTheme: QuasarTheme = {
   typography: {
-    fontFamily:
-      '"Roboto", "-apple-system", "Helvetica Neue", Helvetica, Arial, sans-serif'
+    font: '"Roboto", "-apple-system", "Helvetica Neue", Helvetica, Arial, sans-serif'
   },
   breakpoints: {
     xs: '0',
@@ -1168,86 +1230,96 @@ const defaultTheme: QuasarTheme = {
     lg: '1440px',
     xl: '1920px'
   },
+  shape: {
+    corner: {
+      extraSmall: '4px',
+      small: '8px',
+      medium: '12px',
+      large: '16px',
+      extraLarge: '28px'
+    }
+  },
   colors: {
     light: {
-      primary: '#6d4ea1',
+      primary: '#684fa4',
       onPrimary: '#ffffff',
-      primaryContainer: '#ebdcff',
-      onPrimaryContainer: '#270058',
-      secondary: '#635b70',
+      primaryContainer: '#e9ddff',
+      onPrimaryContainer: '#23005c',
+      secondary: '#625b70',
       onSecondary: '#ffffff',
-      secondaryContainer: '#eadef7',
-      onSecondaryContainer: '#1f182a',
-      tertiary: '#7f525d',
+      secondaryContainer: '#e8def8',
+      onSecondaryContainer: '#1e192b',
+      tertiary: '#7e525f',
       onTertiary: '#ffffff',
-      tertiaryContainer: '#ffd9e0',
-      onTertiaryContainer: '#32101a',
+      tertiaryContainer: '#ffd9e2',
+      onTertiaryContainer: '#31101d',
       error: '#ba1a1a',
       onError: '#ffffff',
       errorContainer: '#ffdad6',
       onErrorContainer: '#410002',
       background: '#fffbff',
-      onBackground: '#1d1b1e',
-      surface: '#fef8fc',
-      onSurface: '#1d1b1e',
-      surfaceVariant: '#e8e0eb',
+      onBackground: '#1c1b1e',
+      surface: '#fffbff',
+      onSurface: '#1c1b1e',
+      surfaceVariant: '#e7e0eb',
       onSurfaceVariant: '#49454e',
       outline: '#7a757f',
-      outlineVariant: '#cbc4cf',
+      outlineVariant: '#cac4cf',
       shadow: '#000000',
       scrim: '#000000',
       inverseSurface: '#323033',
       inverseOnSurface: '#f5eff4',
-      inversePrimary: '#d5bbff',
-      surfaceDim: '#ded8dd',
-      surfaceBright: '#fef8fc',
-      surfaceContainerLowest: '#ffffff',
-      surfaceContainerLow: '#f8f2f7',
-      surfaceContainer: '#f2ecf1',
-      surfaceContainerHigh: '#ece6eb',
-      surfaceContainerHighest: '#e6e1e6'
+      inversePrimary: '#d0bcff',
+      surfaceDim: '#141316',
+      surfaceBright: '#3a383c',
+      surfaceContainerLowest: '#0f0e11',
+      surfaceContainerLow: '#1c1b1e',
+      surfaceContainer: '#211f22',
+      surfaceContainerHigh: '#2b292d',
+      surfaceContainerHighest: '#363438'
     },
     dark: {
-      primary: '#d5bbff',
-      onPrimary: '#3d1c70',
-      primaryContainer: '#543588',
-      onPrimaryContainer: '#ebdcff',
-      secondary: '#cdc2db',
-      onSecondary: '#342d40',
-      secondaryContainer: '#4b4357',
-      onSecondaryContainer: '#eadef7',
-      tertiary: '#f1b7c4',
-      onTertiary: '#4a252f',
-      tertiaryContainer: '#643b45',
-      onTertiaryContainer: '#ffd9e0',
+      primary: '#d0bcff',
+      onPrimary: '#391e72',
+      primaryContainer: '#50378a',
+      onPrimaryContainer: '#e9ddff',
+      secondary: '#ccc2db',
+      onSecondary: '#332d41',
+      secondaryContainer: '#4a4458',
+      onSecondaryContainer: '#e8def8',
+      tertiary: '#efb8c7',
+      onTertiary: '#4a2531',
+      tertiaryContainer: '#633b48',
+      onTertiaryContainer: '#ffd9e2',
       error: '#ffb4ab',
       onError: '#690005',
       errorContainer: '#93000a',
       onErrorContainer: '#ffb4ab',
-      background: '#1d1b1e',
+      background: '#1c1b1e',
       onBackground: '#e6e1e6',
-      surface: '#141316',
+      surface: '#1c1b1e',
       onSurface: '#e6e1e6',
       surfaceVariant: '#49454e',
-      onSurfaceVariant: '#cbc4cf',
-      outline: '#948e99',
+      onSurfaceVariant: '#cac4cf',
+      outline: '#948f99',
       outlineVariant: '#49454e',
       shadow: '#000000',
       scrim: '#000000',
       inverseSurface: '#e6e1e6',
       inverseOnSurface: '#323033',
-      inversePrimary: '#6d4ea1',
-      surfaceDim: '#141316',
-      surfaceBright: '#3b383c',
-      surfaceContainerLowest: '#0f0e11',
-      surfaceContainerLow: '#1d1b1e',
-      surfaceContainer: '#211f22',
-      surfaceContainerHigh: '#2b292d',
-      surfaceContainerHighest: '#363438'
+      inversePrimary: '#684fa4',
+      surfaceDim: '#ddd8dd',
+      surfaceBright: '#fdf8fd',
+      surfaceContainerLowest: '#ffffff',
+      surfaceContainerLow: '#f7f2f7',
+      surfaceContainer: '#f2ecf1',
+      surfaceContainerHigh: '#ece7eb',
+      surfaceContainerHighest: '#e6e1e6'
     },
-    primary: '#1976d2',
-    secondary: '#26A69A',
-    accent: '#9C27B0',
+
+    primary: '#684fa4',
+    secondary: '#625b70',
+    accent: '#7e525f',
 
     positive: '#21BA45',
     negative: '#C10015',
@@ -1257,7 +1329,7 @@ const defaultTheme: QuasarTheme = {
     'dark-page': '#121212',
     // dark: '#1d1d1d',
 
-    red: '#f44336',
+    // red: '#f44336',
     'red-1': '#ffebee',
     'red-2': '#ffcdd2',
     'red-3': '#ef9a9a',
@@ -1272,7 +1344,7 @@ const defaultTheme: QuasarTheme = {
     'red-12': '#ff5252',
     'red-13': '#ff1744',
     'red-14': '#d50000',
-    pink: '#e91e63',
+    // pink: '#e91e63',
     'pink-1': '#fce4ec',
     'pink-2': '#f8bbd0',
     'pink-3': '#f48fb1',
@@ -1287,7 +1359,7 @@ const defaultTheme: QuasarTheme = {
     'pink-12': '#ff4081',
     'pink-13': '#f50057',
     'pink-14': '#c51162',
-    purple: '#9c27b0',
+    // purple: '#9c27b0',
     'purple-1': '#f3e5f5',
     'purple-2': '#e1bee7',
     'purple-3': '#ce93d8',
@@ -1317,7 +1389,7 @@ const defaultTheme: QuasarTheme = {
     'deep-purple-12': '#7c4dff',
     'deep-purple-13': '#651fff',
     'deep-purple-14': '#6200ea',
-    indigo: '#3f51b5',
+    // indigo: '#3f51b5',
     'indigo-1': '#e8eaf6',
     'indigo-2': '#c5cae9',
     'indigo-3': '#9fa8da',
@@ -1332,7 +1404,7 @@ const defaultTheme: QuasarTheme = {
     'indigo-12': '#536dfe',
     'indigo-13': '#3d5afe',
     'indigo-14': '#304ffe',
-    blue: '#2196f3',
+    // blue: '#2196f3',
     'blue-1': '#e3f2fd',
     'blue-2': '#bbdefb',
     'blue-3': '#90caf9',
@@ -1362,7 +1434,7 @@ const defaultTheme: QuasarTheme = {
     'light-blue-12': '#40c4ff',
     'light-blue-13': '#00b0ff',
     'light-blue-14': '#0091ea',
-    cyan: '#00bcd4',
+    // cyan: '#00bcd4',
     'cyan-1': '#e0f7fa',
     'cyan-2': '#b2ebf2',
     'cyan-3': '#80deea',
@@ -1377,7 +1449,7 @@ const defaultTheme: QuasarTheme = {
     'cyan-12': '#18ffff',
     'cyan-13': '#00e5ff',
     'cyan-14': '#00b8d4',
-    teal: '#009688',
+    // teal: '#009688',
     'teal-1': '#e0f2f1',
     'teal-2': '#b2dfdb',
     'teal-3': '#80cbc4',
@@ -1392,7 +1464,7 @@ const defaultTheme: QuasarTheme = {
     'teal-12': '#64ffda',
     'teal-13': '#1de9b6',
     'teal-14': '#00bfa5',
-    green: '#4caf50',
+    // green: '#4caf50',
     'green-1': '#e8f5e9',
     'green-2': '#c8e6c9',
     'green-3': '#a5d6a7',
@@ -1422,7 +1494,7 @@ const defaultTheme: QuasarTheme = {
     'light-green-12': '#b2ff59',
     'light-green-13': '#76ff03',
     'light-green-14': '#64dd17',
-    lime: '#cddc39',
+    // lime: '#cddc39',
     'lime-1': '#f9fbe7',
     'lime-2': '#f0f4c3',
     'lime-3': '#e6ee9c',
@@ -1437,7 +1509,7 @@ const defaultTheme: QuasarTheme = {
     'lime-12': '#eeff41',
     'lime-13': '#c6ff00',
     'lime-14': '#aeea00',
-    yellow: '#ffeb3b',
+    // yellow: '#ffeb3b',
     'yellow-1': '#fffde7',
     'yellow-2': '#fff9c4',
     'yellow-3': '#fff59d',
@@ -1452,7 +1524,7 @@ const defaultTheme: QuasarTheme = {
     'yellow-12': '#ffff00',
     'yellow-13': '#ffea00',
     'yellow-14': '#ffd600',
-    amber: '#ffc107',
+    // amber: '#ffc107',
     'amber-1': '#fff8e1',
     'amber-2': '#ffecb3',
     'amber-3': '#ffe082',
@@ -1467,7 +1539,7 @@ const defaultTheme: QuasarTheme = {
     'amber-12': '#ffd740',
     'amber-13': '#ffc400',
     'amber-14': '#ffab00',
-    orange: '#ff9800',
+    // orange: '#ff9800',
     'orange-1': '#fff3e0',
     'orange-2': '#ffe0b2',
     'orange-3': '#ffcc80',
@@ -1497,7 +1569,7 @@ const defaultTheme: QuasarTheme = {
     'deep-orange-12': '#ff6e40',
     'deep-orange-13': '#ff3d00',
     'deep-orange-14': '#dd2c00',
-    brown: '#795548',
+    // brown: '#795548',
     'brown-1': '#efebe9',
     'brown-2': '#d7ccc8',
     'brown-3': '#bcaaa4',
@@ -1512,7 +1584,7 @@ const defaultTheme: QuasarTheme = {
     'brown-12': '#bcaaa4',
     'brown-13': '#8d6e63',
     'brown-14': '#5d4037',
-    grey: '#9e9e9e',
+    // grey: '#9e9e9e',
     'grey-1': '#fafafa',
     'grey-2': '#f5f5f5',
     'grey-3': '#eeeeee',
@@ -1571,25 +1643,196 @@ const defaultTheme: QuasarTheme = {
   }
 }
 
-export const generateTheme = async (
-  primaryColor?: string
-): Promise<QuasarTheme> => {
-  if (!primaryColor) primaryColor = '#CEB8F1'
-  const colors = await materialDynamicColors(primaryColor)
+const generateTheme = (sourceColor: string = '#806cb0'): QuasarTheme => {
+  const materialTheme = themeFromSourceColor(argbFromHex(sourceColor))
 
   return {
     ...defaultTheme,
     colors: {
       ...defaultTheme.colors,
-      light: colors.light,
-      dark: colors.dark,
-      primary: colors.light.primary,
-      secondary: colors.light.secondary,
-      accent: colors.light.tertiary,
+      light: {
+        primary: hexFromArgb(materialTheme.schemes.light.primary),
+        onPrimary: hexFromArgb(materialTheme.schemes.light.onPrimary),
+        primaryContainer: hexFromArgb(
+          materialTheme.schemes.light.primaryContainer
+        ),
+        onPrimaryContainer: hexFromArgb(
+          materialTheme.schemes.light.onPrimaryContainer
+        ),
+        secondary: hexFromArgb(materialTheme.schemes.light.secondary),
+        onSecondary: hexFromArgb(materialTheme.schemes.light.onSecondary),
+        secondaryContainer: hexFromArgb(
+          materialTheme.schemes.light.secondaryContainer
+        ),
+        onSecondaryContainer: hexFromArgb(
+          materialTheme.schemes.light.onSecondaryContainer
+        ),
+        tertiary: hexFromArgb(materialTheme.schemes.light.tertiary),
+        onTertiary: hexFromArgb(materialTheme.schemes.light.onTertiary),
+        tertiaryContainer: hexFromArgb(
+          materialTheme.schemes.light.tertiaryContainer
+        ),
+        onTertiaryContainer: hexFromArgb(
+          materialTheme.schemes.light.onTertiaryContainer
+        ),
+        error: hexFromArgb(materialTheme.schemes.light.error),
+        onError: hexFromArgb(materialTheme.schemes.light.onError),
+        errorContainer: hexFromArgb(materialTheme.schemes.light.errorContainer),
+        onErrorContainer: hexFromArgb(
+          materialTheme.schemes.light.onErrorContainer
+        ),
+        background: hexFromArgb(materialTheme.schemes.light.background),
+        onBackground: hexFromArgb(materialTheme.schemes.light.onBackground),
+        surface: hexFromArgb(materialTheme.schemes.light.surface),
+        onSurface: hexFromArgb(materialTheme.schemes.light.onSurface),
+        surfaceVariant: hexFromArgb(materialTheme.schemes.light.surfaceVariant),
+        onSurfaceVariant: hexFromArgb(
+          materialTheme.schemes.light.onSurfaceVariant
+        ),
+        outline: hexFromArgb(materialTheme.schemes.light.outline),
+        outlineVariant: hexFromArgb(materialTheme.schemes.light.outlineVariant),
+        shadow: hexFromArgb(materialTheme.schemes.light.shadow),
+        scrim: hexFromArgb(materialTheme.schemes.light.scrim),
+        inverseSurface: hexFromArgb(materialTheme.schemes.light.inverseSurface),
+        inverseOnSurface: hexFromArgb(
+          materialTheme.schemes.light.inverseOnSurface
+        ),
+        inversePrimary: hexFromArgb(materialTheme.schemes.light.inversePrimary),
 
-      'dark-page': colors.dark.surfaceContainer
+        surfaceDim: hexFromArgb(materialTheme.palettes.neutral.tone(87)),
+        surfaceBright: hexFromArgb(materialTheme.palettes.neutral.tone(98)),
+        surfaceContainerLowest: hexFromArgb(
+          materialTheme.palettes.neutral.tone(100)
+        ),
+        surfaceContainerLow: hexFromArgb(
+          materialTheme.palettes.neutral.tone(96)
+        ),
+        surfaceContainer: hexFromArgb(materialTheme.palettes.neutral.tone(94)),
+        surfaceContainerHigh: hexFromArgb(
+          materialTheme.palettes.neutral.tone(92)
+        ),
+        surfaceContainerHighest: hexFromArgb(
+          materialTheme.palettes.neutral.tone(90)
+        )
+      },
+      dark: {
+        primary: hexFromArgb(materialTheme.schemes.dark.primary),
+        onPrimary: hexFromArgb(materialTheme.schemes.dark.onPrimary),
+        primaryContainer: hexFromArgb(
+          materialTheme.schemes.dark.primaryContainer
+        ),
+        onPrimaryContainer: hexFromArgb(
+          materialTheme.schemes.dark.onPrimaryContainer
+        ),
+        secondary: hexFromArgb(materialTheme.schemes.dark.secondary),
+        onSecondary: hexFromArgb(materialTheme.schemes.dark.onSecondary),
+        secondaryContainer: hexFromArgb(
+          materialTheme.schemes.dark.secondaryContainer
+        ),
+        onSecondaryContainer: hexFromArgb(
+          materialTheme.schemes.dark.onSecondaryContainer
+        ),
+        tertiary: hexFromArgb(materialTheme.schemes.dark.tertiary),
+        onTertiary: hexFromArgb(materialTheme.schemes.dark.onTertiary),
+        tertiaryContainer: hexFromArgb(
+          materialTheme.schemes.dark.tertiaryContainer
+        ),
+        onTertiaryContainer: hexFromArgb(
+          materialTheme.schemes.dark.onTertiaryContainer
+        ),
+        error: hexFromArgb(materialTheme.schemes.dark.error),
+        onError: hexFromArgb(materialTheme.schemes.dark.onError),
+        errorContainer: hexFromArgb(materialTheme.schemes.dark.errorContainer),
+        onErrorContainer: hexFromArgb(
+          materialTheme.schemes.dark.onErrorContainer
+        ),
+        background: hexFromArgb(materialTheme.schemes.dark.background),
+        onBackground: hexFromArgb(materialTheme.schemes.dark.onBackground),
+        surface: hexFromArgb(materialTheme.schemes.dark.surface),
+        onSurface: hexFromArgb(materialTheme.schemes.dark.onSurface),
+        surfaceVariant: hexFromArgb(materialTheme.schemes.dark.surfaceVariant),
+        onSurfaceVariant: hexFromArgb(
+          materialTheme.schemes.dark.onSurfaceVariant
+        ),
+        outline: hexFromArgb(materialTheme.schemes.dark.outline),
+        outlineVariant: hexFromArgb(materialTheme.schemes.dark.outlineVariant),
+        shadow: hexFromArgb(materialTheme.schemes.dark.shadow),
+        scrim: hexFromArgb(materialTheme.schemes.dark.scrim),
+        inverseSurface: hexFromArgb(materialTheme.schemes.dark.inverseSurface),
+        inverseOnSurface: hexFromArgb(
+          materialTheme.schemes.dark.inverseOnSurface
+        ),
+        inversePrimary: hexFromArgb(materialTheme.schemes.dark.inversePrimary),
+
+        surfaceDim: hexFromArgb(materialTheme.palettes.neutral.tone(6)),
+        surfaceBright: hexFromArgb(materialTheme.palettes.neutral.tone(24)),
+        surfaceContainerLowest: hexFromArgb(
+          materialTheme.palettes.neutral.tone(4)
+        ),
+        surfaceContainerLow: hexFromArgb(
+          materialTheme.palettes.neutral.tone(10)
+        ),
+        surfaceContainer: hexFromArgb(materialTheme.palettes.neutral.tone(12)),
+        surfaceContainerHigh: hexFromArgb(
+          materialTheme.palettes.neutral.tone(17)
+        ),
+        surfaceContainerHighest: hexFromArgb(
+          materialTheme.palettes.neutral.tone(22)
+        )
+      },
+      primary: hexFromArgb(materialTheme.schemes.light.primary),
+      secondary: hexFromArgb(materialTheme.schemes.light.secondary),
+      accent: hexFromArgb(materialTheme.schemes.light.tertiary),
+
+      'dark-page': hexFromArgb(materialTheme.schemes.dark.surface)
     }
   }
 }
 
-export { defaultTheme }
+// https://github.com/quasarframework/quasar/blob/dev/ui/src/utils/css-var/set-css-var.js
+/**
+ *
+ * Do not use on server.
+ * @param name CSS variable name in kebap case
+ * @param value Variable value
+ * @param element Optional
+ */
+const setCssVar = (name: string, value: string, element = document.body) => {
+  if (typeof name !== 'string') {
+    throw new TypeError('Expected a string as name')
+  }
+  if (typeof value !== 'string') {
+    throw new TypeError('Expected a string as value')
+  }
+  if (!(element instanceof Element)) {
+    throw new TypeError('Expected a DOM element')
+  }
+
+  element.style.setProperty(`--${name}`, value)
+}
+
+const kebabize = (str: string) =>
+  str.replace(
+    /[A-Z]+(?![a-z])|[A-Z]/g,
+    ($, ofs) => (ofs ? '-' : '') + $.toLowerCase()
+  )
+
+/**
+ * Do not use on server.
+ * @param theme unocss-preset-quasar theme
+ */
+const setThemeColors = (themeColors: QuasarTheme['colors']) => {
+  for (const [name, value] of Object.entries(themeColors.light)) {
+    setCssVar('light-' + kebabize(name), value)
+  }
+  for (const [name, value] of Object.entries(themeColors.dark)) {
+    setCssVar('dark-' + kebabize(name), value)
+  }
+  for (const [name, value] of Object.entries(themeColors)) {
+    if (name === 'light' || name === 'dark') continue
+    if (typeof value !== 'string') continue
+    setCssVar(kebabize(name), value)
+  }
+}
+
+export { defaultTheme, generateTheme, setThemeColors }

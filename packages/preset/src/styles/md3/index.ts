@@ -1,10 +1,10 @@
-import { type Preflight, type Rule, type UserShortcuts } from 'unocss'
+import { type Preflight, type Rule, type Shortcut } from 'unocss'
 import { type QuasarTheme } from '../../theme.js'
 
 import { shortcuts as QIconShortcuts } from './components/QIcon.unocss.js'
 import { shortcuts as QAjaxBarShortcuts } from './components/QAjaxBar.unocss.js'
 import { shortcuts as QBtnShortcuts } from './components/QBtn.unocss.js'
-import { shortcuts as PanelShortcuts } from './composables/panel.unocss.js'
+import { shortcuts as PanelShortcuts } from '../shared/composables/panel.unocss.js'
 import { shortcuts as QAvatarShortcuts } from './components/QAvatar.unocss.js'
 import { shortcuts as QBadgeShortcuts } from './components/QBadge.unocss.js'
 import { shortcuts as QBannerShortcuts } from './components/QBanner.unocss.js'
@@ -14,7 +14,6 @@ import {
   shortcuts as QBreadcrumbsShortcuts
 } from './components/QBreadcrumbs.unocss.js'
 import { shortcuts as QBtnDropdownShortcuts } from './components/QBtnDropdown.unocss.js'
-import { shortcuts as QBtnGroupShortcuts } from './components/QBtnGroup.unocss.js'
 import { shortcuts as QBtnToggleShortcuts } from './components/QBtnToggle.unocss.js'
 import { shortcuts as QCardShortcuts } from './components/QCard.unocss.js'
 import { shortcuts as QCarouselShortcuts } from './components/QCarousel.unocss.js'
@@ -115,12 +114,12 @@ import { shortcuts as QUploaderShortcuts } from './components/QUploader.unocss.j
 import { shortcuts as QVideoShortcuts } from './components/QVideo.unocss.js'
 import { shortcuts as QVirtualScrollShortcuts } from './components/QVirtualScroll.unocss.js'
 
-import { shortcuts as QMorphShortcuts } from './directives/QMorph.unocss.js'
-import { shortcuts as QRippleShortcuts } from './directives/QRipple.unocss.js'
+import { shortcuts as QMorphShortcuts } from '../shared/directives/QMorph.unocss.js'
+import { shortcuts as QRippleShortcuts } from '../shared/directives/QRipple.unocss.js'
 
-import { shortcuts as QBottomSheetShortcuts } from './plugins/QBottomSheet.unocss.js'
+import { shortcuts as QBottomSheetShortcuts } from '../shared/plugins/QBottomSheet.unocss.js'
 import { shortcuts as QDialogPluginShortcuts } from './plugins/QDialogPlugin.unocss.js'
-import { shortcuts as QLoadingShortcuts } from './plugins/QLoading.unocss.js'
+import { shortcuts as QLoadingShortcuts } from '../shared/plugins/QLoading.unocss.js'
 import { shortcuts as QNotifyShortcuts } from './plugins/QNotify.unocss.js'
 
 import { shortcuts as QHeaderShortcuts } from './components/QHeader.unocss.js'
@@ -128,8 +127,8 @@ import { shortcuts as QFooterShortcuts } from './components/QFooter.unocss.js'
 import { shortcuts as QDrawerShortcuts } from './components/QDrawer.unocss.js'
 import { QuasarStyle } from '../index.js'
 
-import { QBtn as QuasarButton } from 'quasar'
 const style: QuasarStyle = {
+  bodyClass: 'quasar-style-md3',
   variants: [],
   preflights: ([] as Preflight<QuasarTheme>[]).concat(
     QBreadcrumbsPreflights,
@@ -149,7 +148,7 @@ const style: QuasarStyle = {
     QTreePreflights
   ),
   rules: ([] as Rule<QuasarTheme>[]).concat(),
-  shortcuts: ([] as UserShortcuts<QuasarTheme>[]).concat(
+  shortcuts: ([] as Shortcut<QuasarTheme>[]).concat(
     QIconShortcuts,
     QAjaxBarShortcuts,
     QAvatarShortcuts,
@@ -159,7 +158,6 @@ const style: QuasarStyle = {
     QBarShortcuts,
     QBtnShortcuts,
     QBtnDropdownShortcuts,
-    QBtnGroupShortcuts,
     QBtnToggleShortcuts,
     QCardShortcuts,
     QCarouselShortcuts,
@@ -229,29 +227,6 @@ const style: QuasarStyle = {
     QFooterShortcuts,
     QDrawerShortcuts
   )
-}
-
-export const setDefaultProps = ({
-  QBtn,
-  QBtnDropdown,
-  QInput
-}: {
-  QBtn: any
-  QBtnDropdown: any
-  QInput: any
-}) => {
-  QBtn.props.rounded = {
-    type: QBtn.props.rounded,
-    default: true
-  }
-  QBtnDropdown.props.rounded = {
-    type: QBtnDropdown.props.rounded,
-    default: true
-  }
-  QInput.props.filled = {
-    type: QInput.props.filled,
-    default: true
-  }
 }
 
 export default style

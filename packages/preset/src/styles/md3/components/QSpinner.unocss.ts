@@ -1,5 +1,6 @@
-import type { Preflight, Rule, UserShortcuts } from '@unocss/core'
+import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
+import { componentClass, staticClass } from '../../_helpers.js'
 
 const preflights: Preflight<QuasarTheme>[] = [
   {
@@ -38,14 +39,15 @@ const preflights: Preflight<QuasarTheme>[] = [
   }
 ]
 
-const shortcuts: UserShortcuts<QuasarTheme> = [
-  [/^q-spinner$/, ([, c], { theme }) => `align-middle`],
+const shortcuts: Shortcut<QuasarTheme>[] = [
+  [/^q-spinner$/, staticClass(`align-middle`)],
 
   [
     /^q-spinner-mat$/,
-    ([, c], { theme }) =>
-      theme.quasar?.components?.['q-spinner-mat'] ??
+    componentClass(
+      'q-spinner-mat',
       `animate-[q-spin_2s_linear_infinite] origin-[center_center] [&_.path]:(animate-[q-mat-dash_1.5s_ease-in-out_infinite])`
+    )
   ]
 ]
 
