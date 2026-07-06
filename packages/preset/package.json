@@ -1,6 +1,6 @@
 {
   "name": "unocss-preset-quasar",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "UnoCSS preset for Quasar Framework",
   "keywords": [
     "material-design",
@@ -71,18 +71,18 @@
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.2.3",
-    "@quasar/extras": "^2.0.1",
-    "@quasar/quasar-ui-qmarkdown": "^2.0.5",
-    "@quasar/quasar-ui-qmediaplayer": "^3.0.0-rc.1",
+    "@quasar/extras": "^2.0.2",
+    "@quasar/quasar-ui-qmarkdown": "^3.0.0",
+    "@quasar/quasar-ui-qmediaplayer": "^3.0.0",
     "@types/node": "^26.1.0",
     "@unocss/preset-icons": "^66.7.4",
     "@unocss/preset-mini": "66.7.4",
-    "quasar": "^2.20.2",
+    "quasar": "^2.21.1",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.9"
+    "vitest": "^4.1.10"
   },
   "peerDependencies": {
-    "quasar": "^2.20.2"
+    "quasar": "^2.21.1"
   },
   "peerDependenciesMeta": {
     "vite": {

@@ -11,6 +11,15 @@ minimumReleaseAgeExclude:
   - quasar@2.20.2
   - toml@4.1.2
   - vite@8.1.2
+  - '@vitest/expect@4.1.10'
+  - '@vitest/mocker@4.1.10'
+  - '@vitest/pretty-format@4.1.10'
+  - '@vitest/runner@4.1.10'
+  - '@vitest/snapshot@4.1.10'
+  - '@vitest/spy@4.1.10'
+  - '@vitest/utils@4.1.10'
+  - quasar@2.21.1
+  - vitest@4.1.10
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true

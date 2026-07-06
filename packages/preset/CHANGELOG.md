@@ -1,5 +1,32 @@
 # unocss-preset-quasar
 
+## 0.3.8
+
+### Patch Changes
+
+- 814c7bd: fix: replace UnoCSS shorthand translate utilities with explicit [transform:...] arbitrary values to prevent specificity conflicts when other transform properties (scale, origin) are present
+
+  fix: remove opacity-0 from q-img\_\_image base class and use !important on q-img\_\_image--loaded to ensure loaded images display correctly
+
+  fix: remove overflow:hidden from html,body in QLayout preflights to restore page scrollability
+
+  fix: add unstyled QDrawer background color tokens
+
+- 6f6cc78: wind4 compatibility upgrade
+
+  - Replace beasties normalize with modern reset in @layer 0-reset
+  - Disable wind4 base reset (`preflights: { reset: false }`)
+  - Fix `border-[Npx]` → `[border-width:Npx]` across 38 occurrences
+  - Remove `q-btn--rectangle` shortcut from MD3 (rounded by default)
+  - Increase QBtn standard specificity via `.q-btn--standard.q-btn--rectangle`
+  - Fix checkbox `stroke-dashoffset` and `stroke-width` for wind4
+  - Fix `q-dark` shortcut CSS variable references
+  - QField: control-container flex-grow, standard padding, append icon color
+  - QIcon: `text-inherit` for parent color override
+  - QTab indicator: centered pill with `secondary-container` bg
+  - QBtn flat/outline: add `rounded-[28px]`
+  - Layer config: `0-reset`, `1-modifier`, `2-base`, `3-components`, `4-state`
+
 ## 0.3.7
 
 ### Patch Changes
