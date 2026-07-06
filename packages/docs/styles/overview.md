@@ -2,6 +2,12 @@
 
 The preset supports three design systems, each implemented as a `QuasarStyle` object. Choose one or combine them with scoped mode.
 
+## Design Tokens
+
+Each style defines a set of CSS custom properties (`--q-*` tokens) scoped to its body class. Component shortcuts reference these tokens via `var(--q-primary)`, `var(--q-radius-xl)`, etc. — switch the body class and every component's appearance updates without reloading CSS.
+
+In Unstyled mode, all tokens resolve to neutral values (`transparent`, `inherit`, `0`, `none`), so no theme colors or shapes leak through. See the [Token System reference](/core/theming#design-token-system) for the complete token catalog.
+
 ## Architecture
 
 ```
@@ -50,7 +56,7 @@ import { MaterialDesign2 } from 'unocss-preset-quasar/styles'
 
 ### `Unstyled`
 
-Structural-only styles. Components have positioning, flex, and box-model properties but **no colors, typography, borders, or visual styling**. Use this as a clean foundation for custom design systems.
+Structural-only styles. All design tokens resolve to neutral values (`transparent`, `inherit`, `0`). Components have positioning, flex, and box-model properties but **no colors, typography, borders, or visual styling**. Use this as a clean foundation for custom design systems.
 
 ```ts
 import { Unstyled } from 'unocss-preset-quasar/styles'
@@ -62,28 +68,26 @@ import { Unstyled } from 'unocss-preset-quasar/styles'
 
 All three styles provide shortcuts for 70+ Quasar components:
 
-| Category       | Components                                                                                                        |
-| -------------- | ----------------------------------------------------------------------------------------------------------------- |
-| **Layout**     | QLayout, QHeader, QFooter, QDrawer, QPage, QPageContainer, QPageSticky, QPageScroller                             |
-| **Buttons**    | QBtn, QBtnDropdown, QBtnGroup, QBtnToggle, QFab                                                                   |
-| **Forms**      | QField, QInput, QSelect, QCheckbox, QRadio, QToggle, QSlider, QRange, QFile, QForm, QEditor, QColor, QDate, QTime |
-| **Data**       | QTable, QMarkupTable, QTree, QPagination                                                                          |
-| **Navigation** | QTabs, QTab, QRouteTab, QTabPanels, QTabPanel, QStepper, QBreadcrumbs                                             |
-| **Overlays**   | QDialog, QMenu, QTooltip, QPopupEdit, QBottomSheet                                                                |
-| **Content**    | QCard, QList, QItem, QSeparator, QAvatar, QBadge, QChip, QBanner, QBar, QToolbar                                  |
-| **Media**      | QImg, QVideo, QCarousel, QParallax, QResponsive, QIntersection                                                    |
-| **Feedback**   | QAjaxBar, QLinearProgress, QCircularProgress, QKnob, QRating, QSpinner, QSkeleton, QInnerLoading, QLoading        |
-| **Scroll**     | QScrollArea, QVirtualScroll, QPullToRefresh, QInfiniteScroll                                                      |
-| **Misc**       | QIcon, QSpace, QSlideItem, QTimeline, QSplitter, QUploader, QChatMessage, QExpansionItem                          |
+| Category | Components |
+| **Layout** | QLayout, QHeader, QFooter, QDrawer, QPage, QPageContainer, QPageSticky, QPageScroller |
+| **Buttons** | QBtn, QBtnDropdown, QBtnGroup, QBtnToggle, QFab |
+| **Forms** | QField, QInput, QSelect, QCheckbox, QRadio, QToggle, QSlider, QRange, QFile, QForm, QEditor, QColor, QDate, QTime |
+| **Data** | QTable, QMarkupTable, QTree, QPagination |
+| **Navigation** | QTabs, QTab, QRouteTab, QTabPanels, QTabPanel, QStepper, QBreadcrumbs |
+| **Overlays** | QDialog, QMenu, QTooltip, QPopupEdit, QBottomSheet |
+| **Content** | QCard, QList, QItem, QSeparator, QAvatar, QBadge, QChip, QBanner, QBar, QToolbar |
+| **Media** | QImg, QVideo, QCarousel, QParallax, QResponsive, QIntersection |
+| **Feedback** | QAjaxBar, QLinearProgress, QCircularProgress, QKnob, QRating, QSpinner, QSkeleton, QInnerLoading, QLoading |
+| **Scroll** | QScrollArea, QVirtualScroll, QPullToRefresh, QInfiniteScroll |
+| **Misc** | QIcon, QSpace, QSlideItem, QTimeline, QSplitter, QUploader, QChatMessage, QExpansionItem |
 
 ## Style Comparison
 
-| Feature            | MD3                | MD2              | Unstyled |
-| ------------------ | ------------------ | ---------------- | -------- |
-| Colors             | Full MD3 palette   | Full MD2 palette | None     |
-| Elevation          | Tonal surfaces     | Box shadows      | None     |
-| Shape              | Rounded (28px FAB) | Square           | None     |
-| Typography         | MD3 type scale     | MD2 type scale   | None     |
-| Button text        | Normal case        | Uppercase        | None     |
-| Surface containers | 5 levels           | Flat             | None     |
-| State layers       | Hover/focus/press  | None             | None     |
+| Feature | MD3 | MD2 | Unstyled |
+| Colors | Full MD3 palette | Full MD2 palette | None |
+| Elevation | Tonal surfaces | Box shadows | None |
+| Shape | Rounded (28px FAB) | Square | None |
+| Typography | MD3 type scale | MD2 type scale | None |
+| Button text | Normal case | Uppercase | None |
+| Surface containers | 5 levels | Flat | None |
+| State layers | Hover/focus/press | None | None |

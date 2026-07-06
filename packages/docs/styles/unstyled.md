@@ -2,6 +2,23 @@
 
 The Unstyled style provides **structural-only** component styles. No colors, no typography, no borders — just the positioning, flex, and box-model properties needed for components to render correctly.
 
+## How It Works
+
+When the `quasar-style-unstyled` body class is active, all design tokens resolve to neutral values:
+
+```css
+body.quasar-style-unstyled {
+  --q-primary: transparent;
+  --q-on-primary: inherit;
+  --q-radius-xl: 0;
+  --q-font-md: inherit;
+  --q-surface: transparent;
+  /* ...all tokens set to transparent/0/inherit/none */
+}
+```
+
+Component shortcuts reference these tokens (`var(--q-primary)`, `var(--q-radius-xl)`, etc.), so when the unstyled body class is active, every color becomes transparent, every radius becomes zero, and every font size inherits from the parent. No theme values leak through — components render with their structural CSS only.
+
 ## What's Included
 
 Unstyled provides the **minimum CSS** for Quasar components to function:

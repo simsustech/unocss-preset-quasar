@@ -8,3 +8,4 @@ ISSUES.md
 .env.*
 .npmrc
 **/.pnpm-store
+test-results/
