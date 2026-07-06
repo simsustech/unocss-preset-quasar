@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn$/,
     componentClass(
       'q-btn',
-      `inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle [font-size:var(--q-font-md)] [line-height:var(--q-font-lead)] no-underline uppercase [color:inherit] bg-transparent font-medium text-center w-auto overflow-visible min-h-[36px] [min-width:var(--q-size-lg)] ![border-radius:var(--q-radius-sm)] cursor-default px-[16px] [padding-block:var(--q-space-xs)] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit])`
+      `inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle text-[14px] leading-[1.715em] no-underline uppercase [color:inherit] bg-transparent font-medium text-center w-auto overflow-visible min-h-[36px] min-w-[64px] !rounded-[4px] cursor-default px-[16px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit])`
     )
   ],
   [
@@ -44,11 +44,11 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     )
   ],
 
-  [/^q-btn--rounded$/, staticClass(`[border-radius:var(--q-radius-xl)]`)],
+  [/^q-btn--rounded$/, staticClass(`rounded-[28px]`)],
 
   [
     /^q-btn--round$/,
-    componentClass('q-btn--round', `[border-radius:var(--q-radius-circle)] p-0 min-w-[3em] min-h-[3em]`)
+    componentClass('q-btn--round', `rounded-[50%] p-0 min-w-[3em] min-h-[3em]`)
   ],
 
   [/^q-btn--square$/, staticClass(`rounded-none`)],
@@ -78,16 +78,16 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn--fab$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--fab'] ??
-      `[&_.q-icon]:(text-[24px])  min-[height:var(--q-size-lg)] [min-width:var(--q-size-lg)] p-0 [border-radius:var(--q-radius-circle)]`
-    // min-[height:var(--q-size-lg)] [min-width:var(--q-size-lg)] p-[var(--q-space-lg)] pb-0
+      `[&_.q-icon]:(text-[24px])  min-h-[56px] min-w-[56px] p-0 rounded-[50%]`
+    // min-h-[56px] min-w-[56px] p-[16px] pb-0
   ],
 
   [
     /^q-btn--fab-mini$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--fab-mini'] ??
-      `[&_.q-icon]:(text-[24px]) p-[8px] pb-0 min-[height:var(--q-size-md)] [min-width:var(--q-size-md)] p-0 [border-radius:var(--q-radius-circle)]`
-    // min-[height:var(--q-size-md)] [min-width:var(--q-size-md)]
+      `[&_.q-icon]:(text-[24px]) p-[8px] pb-0 min-h-[40px] min-w-[40px] p-0 rounded-[50%]`
+    // min-h-[40px] min-w-[40px]
   ],
 
   [/^q-btn__content$/, staticClass(`[transition:opacity_0.3s] z-0`)],

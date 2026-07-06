@@ -44,7 +44,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree__node-header$/,
     componentClass(
       'q-tree__node-header',
-      `[&:before]:(content-empty absolute -top-[3px] bottom-2/4 w-[31px] -left-[35px] border-l-current border-b-current) p-[4px] mt-[3px] [border-radius:var(--q-radius-sm)] outline-[0]`
+      `[&:before]:(content-empty absolute -top-[3px] bottom-2/4 w-[31px] -left-[35px] border-l-current border-b-current) p-[4px] mt-[3px] rounded-[4px] outline-[0]`
     )
   ],
 
@@ -72,7 +72,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree__node-header-content$/,
     componentClass(
       'q-tree__node-header-content',
-      `text-[#000] [transition:color_0.3s] [&_.q-icon]:(text-21px) [&_.q-avatar]:(text-[28px] [border-radius:var(--q-radius-circle)] w-[28px] h-[28px])`
+      `text-[#000] [transition:color_0.3s] [&_.q-icon]:(text-21px) [&_.q-avatar]:(text-[28px] rounded-[50%] w-[28px] h-[28px])`
     )
   ],
 
@@ -92,7 +92,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree__avatar$/,
     componentClass(
       'q-tree__avatar',
-      `text-[28px] [border-radius:var(--q-radius-circle)] w-[28px] h-[28px]`
+      `text-[28px] rounded-[50%] w-[28px] h-[28px]`
     )
   ],
 
@@ -100,13 +100,13 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree__arrow$/,
     componentClass(
       'q-tree__arrow',
-      `[font-size:var(--q-font-lg)] mr-[4px] [transition:transform_0.3s]`
+      `text-[16px] mr-[4px] [transition:transform_0.3s]`
     )
   ],
 
   [
     /^q-tree__spinner$/,
-    componentClass('q-tree__spinner', `[font-size:var(--q-font-lg)] mr-[4px]`)
+    componentClass('q-tree__spinner', `text-[16px] mr-[4px]`)
   ],
 
   [

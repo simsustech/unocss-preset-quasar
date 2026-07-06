@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-bar$/,
     componentClass(
       'q-bar',
-      `[background-color:var(--q-surface)]/20
+      `bg-$dark-surface/20
     [&>.q-icon]:(ml-2px)
     [&>div]:(ml-8px)
     [&>div+.q-icon]:(ml-8px)
@@ -36,9 +36,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   ],
   [
     /^q-bar--dark$/,
-    staticClass(
-      `[background-color:var(--q-surface-container)] [color:var(--q-on-surface)]`
-    )
+    staticClass(`bg-$dark-surface-container text-$dark-on-surface`)
   ]
 ]
 

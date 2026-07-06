@@ -59,7 +59,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-checkbox__inner$/,
     componentClass(
       'q-checkbox__inner',
-      `mr-2px text-[36px] w-[1em] min-w-[1em] h-[1em] outline-[0] [border-radius:var(--q-radius-circle)] text-[rgba(0,_0,_0,_0.54)]`
+      `mr-2px text-[36px] w-[1em] min-w-[1em] h-[1em] outline-[0] rounded-[50%] [color:var(--q-on-surface-variant)]`
     )
   ],
 
@@ -67,7 +67,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-checkbox__inner--truthy$/,
     componentClass(
       'q-checkbox__inner--truthy',
-      qe`[color:var(--q-primary)] dark:[color:var(--q-primary)]
+      qe`text-$light-primary dark:text-$dark-primary
       [&_.q-checkbox__bg]:(bg-current)
       [&_path]:([stroke-dashoffset:0] [transition:stroke-dashoffset_0.18s_cubic-bezier(0.4,_0,_0.6,_1)_0ms])`
     )
@@ -77,7 +77,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-checkbox__inner--indet$/,
     componentClass(
       'q-checkbox__inner--indet',
-      qe`[color:var(--q-primary)] dark:[color:var(--q-primary)]
+      qe`text-$light-primary dark:text-$dark-primary
       [&_q-checkbox__bg]:(bg-current)
       [&_q-checkbox__indet]:(rotate-[0] scale-100 [transition:transform_0.22s_cubic-bezier(0,_0,_0.2,_1)_0ms])`
     )
@@ -89,8 +89,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       'q-checkbox--dark',
       qe`[&_.q-checkbox__inner]:(text-[rgba(255,_255,_255,_0.7)])
        [&_.q-checkbox__inner:before]:(!opacity-[0.32])
-       [&_.q-checkbox__inner--truthy]:([color:var(--q-primary)] dark:[color:var(--q-primary)])
-       [&_.q-checkbox__inner--indet]:([color:var(--q-primary)] dark:[color:var(--q-primary)])`
+       [&_.q-checkbox__inner--truthy]:(text-$light-primary dark:text-$dark-primary)
+       [&_.q-checkbox__inner--indet]:(text-$light-primary dark:text-$dark-primary)`
     )
   ],
 

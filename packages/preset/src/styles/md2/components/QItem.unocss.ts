@@ -24,7 +24,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-item__section--avatar$/,
     componentClass(
       'q-item__section--avatar',
-      `!flex-initial [color:inherit] [min-width:var(--q-size-lg)]`
+      `!flex-initial [color:inherit] min-w-[56px]`
     )
   ],
 
@@ -32,7 +32,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-item__section--thumbnail$/,
     componentClass(
       'q-item__section--thumbnail',
-      `!flex-initial [&_img]:(w-[100px] [height:var(--q-size-lg)])`
+      `!flex-initial [&_img]:(w-[100px] h-[56px])`
     )
   ],
 
@@ -60,7 +60,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-item__label--header$/,
     componentClass(
       'q-item__label--header',
-      `text-[#757575] p-[var(--q-space-lg)] text-[0.875rem] leading-5 tracking-[0.01786em]`
+      `text-[#757575] p-[16px] text-[0.875rem] leading-5 tracking-[0.01786em]`
     )
   ],
 

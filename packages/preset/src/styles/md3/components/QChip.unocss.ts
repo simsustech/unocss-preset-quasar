@@ -21,10 +21,10 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentClass(
       'q-chip',
       `!flex-initial align-middle rounded-$shape-corner-small outline-[0] relative h-[32px] max-w-full m-[4px] 
-      outline-solid outline-1px [outline-color:var(--q-outline)] dark:[outline-color:var(--q-outline)]
-      [background-color:var(--q-surface-container-low)] dark:[background-color:var(--q-secondary-container)]
-      [color:var(--q-on-surface-variant)] dark:[color:var(--q-on-secondary-container)]
-      [font-size:var(--q-font-md)] leading-[20px] font-500 [padding-inline:var(--q-space-md)] py-[0]
+      outline-solid outline-1px outline-$light-outline dark:outline-$dark-outline
+      bg-$light-surface-container-low dark:bg-$dark-secondary-container
+      text-$light-on-surface-variant dark:text-$dark-on-secondary-container
+      text-[14px] leading-[20px] font-500 px-[12px] py-[0]
       [&_.q-avatar]:(text-[2em] -ml-[0.45em] mr-[0.2em] rounded-tl-[3px] rounded-br-[0] rounded-tr-[0] rounded-bl-[3px])`
     )
   ],
@@ -38,7 +38,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-chip--dark$/,
     componentClass(
       'q-chip--dark',
-      qe`[background-color:var(--q-surface-container)] [color:var(--q-on-surface)] [&_.q-chip__icon]:([color:inherit])`
+      qe`bg-$dark-surface-container text-$dark-on-surface [&_.q-chip__icon]:([color:inherit])`
     )
   ],
 
@@ -59,7 +59,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-chip__icon$/,
     componentClass(
       'q-chip__icon',
-      `[color:var(--q-primary)] dark:[color:var(--q-primary)] text-[1.40625em] -m-[0.2em]`
+      `text-$light-primary dark:text-$dark-primary text-[1.40625em] -m-[0.2em]`
     )
   ],
 

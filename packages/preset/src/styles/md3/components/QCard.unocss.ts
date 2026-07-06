@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-card$/,
     componentClass(
       'q-card',
-      `p-16px rounded-$shape-corner-large align-top relative [background-color:var(--q-surface-container-low)] dark:[background-color:var(--q-surface-container-low)] shadow-sm
+      `p-16px rounded-$shape-corner-large align-top relative bg-$light-surface-container-low dark:bg-$dark-surface-container-low shadow-sm
       [&_>_div:not(.q--avoid-card-border)]:(rounded-tl-none rounded-tr-none rounded-bl-none rounded-br-none)
       [&_>_img:not(.q--avoid-card-border)]:(rounded-tl-none rounded-tr-none rounded-bl-none rounded-br-none)
       [&_>_div:nth-child(1_of_:not(.q--avoid-card-border))]:([border-top:0] [border-top-left-radius:inherit] [border-top-right-radius:inherit])
@@ -16,7 +16,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       [&_>_img:nth-last-child(1_of_:not(.q--avoid-card-border))]:([border-bottom:0] [border-bottom-left-radius:inherit] [border-bottom-right-radius:inherit])
       [&_>_div:not(.q--avoid-card-border)]:([border-left:0] [border-right:0] shadow-none)
       [&_>_img]:(block w-full max-w-full border-[0])
-      [&:not(.disabled):focus]:(bg-$light-secondary dark:[background-color:var(--q-dark-secondary)])
+      [&:not(.disabled):focus]:(bg-$light-secondary dark:bg-$dark-secondary)
       [&:not(.disabled):hover]:(shadow-md)
       [&.disabled]:(op-38)`
     )
@@ -26,7 +26,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-card--filled$/,
     componentClass(
       'q-card--filled',
-      `[background-color:var(--q-surface-container-highest)] dark:[background-color:var(--q-surface-container-highest)] shadow-none`
+      `bg-$light-surface-container-highest dark:bg-$dark-surface-container-highest shadow-none`
     )
   ],
 
@@ -34,7 +34,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-card--bordered$/,
     componentClass(
       'q-card--bordered',
-      `border-1px border-solid border-$light-outline-variant dark:border-$light-outline-variant`
+      `border-1px border-solid border-$light-outline-variant dark:border-$dark-outline-variant`
     )
   ],
 
@@ -42,7 +42,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-card--dark$/,
     componentClass(
       'q-card--dark',
-      `[background-color:var(--q-surface-container)] [color:var(--q-on-surface)] border-white/28 shadow-[0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)]`
+      `bg-$dark-surface-container text-$dark-on-surface border-white/28 shadow-[0_1px_5px_rgba(255,_255,_255,_0.2),_0_2px_2px_rgba(255,_255,_255,_0.14),_0_3px_1px_-2px_rgba(255,_255,_255,_0.12)]`
     )
   ],
 

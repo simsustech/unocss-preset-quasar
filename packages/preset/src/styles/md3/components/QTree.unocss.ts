@@ -20,7 +20,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree$/,
     componentClass(
       'q-tree',
-      qe`relative text-[#9e9e9e] [&_>_.q-tree__node]:(p-0) [&_>_.q-tree__node:after]:(hidden) [&_>_.q-tree__node>_.q-tree__node-header:before]:(hidden) [&_>_.q-tree__node--child>_.q-tree__node-header]:(pl-[24px])`
+      qe`relative [color:var(--q-on-surface-variant)] [&_>_.q-tree__node]:(p-0) [&_>_.q-tree__node:after]:(hidden) [&_>_.q-tree__node>_.q-tree__node-header:before]:(hidden) [&_>_.q-tree__node--child>_.q-tree__node-header]:(pl-[24px])`
     )
   ],
 
@@ -44,7 +44,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree__node-header$/,
     componentClass(
       'q-tree__node-header',
-      `[&:before]:(content-empty absolute -top-[3px] bottom-2/4 w-[31px] -left-[35px] border-l-current border-b-current) p-[4px] mt-[3px] [border-radius:var(--q-radius-xs)] outline-[0]`
+      `[&:before]:(content-empty absolute -top-[3px] bottom-2/4 w-[31px] -left-[35px] border-l-current border-b-current) p-[4px] mt-[3px] rounded-[4px] outline-[0]`
     )
   ],
 
@@ -72,7 +72,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree__node-header-content$/,
     componentClass(
       'q-tree__node-header-content',
-      `text-[#000] [transition:color_0.3s] [&_.q-icon]:(text-21px) [&_.q-avatar]:(text-[28px] [border-radius:var(--q-radius-circle)] w-[28px] h-[28px])`
+      `[color:var(--q-on-surface)] [transition:color_0.3s] [&_.q-icon]:(text-21px) [&_.q-avatar]:(text-[28px] rounded-[50%] w-[28px] h-[28px])`
     )
   ],
 
@@ -80,7 +80,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree__node--selected$/,
     componentClass(
       'q-tree__node--selected',
-      qe`[&_.q-tree__node--selected_.q-tree__node-header-content]:(text-[#9e9e9e])`
+      qe`[&_.q-tree__node--selected_.q-tree__node-header-content]:([color:var(--q-on-surface-variant)])`
     )
   ],
 
@@ -92,7 +92,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree__avatar$/,
     componentClass(
       'q-tree__avatar',
-      `text-[28px] [border-radius:var(--q-radius-circle)] w-[28px] h-[28px]`
+      `text-[28px] rounded-[50%] w-[28px] h-[28px]`
     )
   ],
 
@@ -100,13 +100,13 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree__arrow$/,
     componentClass(
       'q-tree__arrow',
-      `[font-size:var(--q-font-lg)] mr-[4px] [transition:transform_0.3s]`
+      `text-[16px] mr-[4px] [transition:transform_0.3s]`
     )
   ],
 
   [
     /^q-tree__spinner$/,
-    componentClass('q-tree__spinner', `[font-size:var(--q-font-lg)] mr-[4px]`)
+    componentClass('q-tree__spinner', `text-[16px] mr-[4px]`)
   ],
 
   [
@@ -120,7 +120,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree--dark$/,
     componentClass(
       'q-tree--dark',
-      qe`[&_.q-tree__node-header-content]:(text-[#fff])`
+      qe`[&_.q-tree__node-header-content]:([color:var(--q-on-surface)])`
     )
   ],
 

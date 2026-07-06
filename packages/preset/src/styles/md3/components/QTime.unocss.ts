@@ -7,8 +7,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time$/,
     componentClass(
       'q-time',
-      qe`[background-color:var(--q-surface-container-high)] dark:[background-color:var(--q-surface-container-high)]
-      [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] [border-radius:var(--q-radius-xs)] outline-[0] w-[290px] min-w-[290px] max-w-full [&.disabled_.q-time__header-ampm]:(pointer-events-none) [&.disabled_.q-time__content]:(pointer-events-none)`
+      qe`bg-$light-surface-container-high dark:bg-$dark-surface-container-high
+      [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px] outline-[0] w-[290px] min-w-[290px] max-w-full [&.disabled_.q-time__header-ampm]:(pointer-events-none) [&.disabled_.q-time__content]:(pointer-events-none)`
     )
   ],
 
@@ -24,16 +24,13 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__header$/,
     componentClass(
       'q-time__header',
-      `[border-top-left-radius:inherit] [background-color:var(--q-primary)] dark:[background-color:var(--q-surface-container-high)] [color:var(--q-primary)] dark:[color:var(--q-primary)] p-[16px] font-light`
+      `[border-top-left-radius:inherit] bg-$light-primary dark:bg-$dark-surface-container-high text-$light-on-primary dark:text-$dark-on-primary p-[16px] font-light`
     )
   ],
 
   [
     /^q-time__actions$/,
-    componentClass(
-      'q-time__actions',
-      `pt-[0] [padding-inline:var(--q-space-lg)] pb-[16px]`
-    )
+    componentClass('q-time__actions', `pt-[0] px-[16px] pb-[16px]`)
   ],
 
   [
@@ -50,8 +47,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentClass(
       'q-time__link',
       `p-6px
-        [background-color:var(--q-surface-container-highest)] dark:[background-color:var(--q-surface-container-highest)]
-        [color:var(--q-on-surface)] dark:[color:var(--q-on-surface)]
+        bg-$light-surface-container-highest dark:bg-$dark-surface-container-highest
+        text-$light-on-surface dark:text-$dark-on-surface
       opacity-[0.56] outline-[0] [transition:opacity_0.3s_ease-out] [&:hover]:(opacity-100) [&:focus]:(opacity-100)`
     )
   ],
@@ -61,7 +58,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentClass(
       'q-time__link--active',
       `
-            [color:var(--q-on-primary-container)] dark:[color:var(--q-on-primary-container)] [background-color:var(--q-primary-container)] dark:[background-color:var(--q-primary-container)]
+            text-$light-on-primary-container dark:text-$dark-on-primary-container bg-$light-primary-container dark:bg-$dark-primary-container
     opacity-100`
     )
   ],
@@ -70,8 +67,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__header-ampm$/,
     componentClass(
       'q-time__header-ampm',
-      qe`[font-size:var(--q-font-lg)] tracking-widest !flex-initial
-      [&_.q-time__link--active]:(bg-$light-tertiary-container dark:[background-color:var(--q-dark-tertiary-container)])`
+      qe`text-[16px] tracking-widest !flex-initial
+      [&_.q-time__link--active]:(bg-$light-tertiary-container dark:bg-$dark-tertiary-container)`
     )
   ],
 
@@ -92,7 +89,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__container-child$/,
     componentClass(
       'q-time__container-child',
-      `[border-radius:var(--q-radius-circle)] [background-color:var(--q-surface-container-highest)] dark:[background-color:var(--q-surface-container-highest)]`
+      `rounded-[50%] bg-$light-surface-container-highest dark:bg-$dark-surface-container-highest`
     )
   ],
 
@@ -100,7 +97,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__clock$/,
     componentClass(
       'q-time__clock',
-      `p-[24px] w-full h-full max-w-full max-h-full [font-size:var(--q-font-md)]`
+      `p-[24px] w-full h-full max-w-full max-h-full text-[14px]`
     )
   ],
 
@@ -116,7 +113,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__clock-center$/,
     componentClass(
       'q-time__clock-center',
-      `h-[6px] w-[6px] m-auto [border-radius:var(--q-radius-circle)] min-h-[0] bg-current`
+      `h-[6px] w-[6px] m-auto rounded-[50%] min-h-[0] bg-current`
     )
   ],
 
@@ -124,7 +121,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__clock-pointer$/,
     componentClass(
       'q-time__clock-pointer',
-      `[color:var(--q-primary)] dark:[color:var(--q-primary)] w-[2px] h-1/2 origin-[0_0] min-h-[0] absolute left-2/4 right-[0] bottom-[0] bg-current -translate-x-1/2 [&:before]:(content-[''] absolute left-2/4 [border-radius:var(--q-radius-circle)] bg-current -translate-x-1/2) [&:after]:(content-[''] absolute left-2/4 [border-radius:var(--q-radius-circle)] bg-current -translate-x-1/2) 
+      `text-$light-primary dark:text-$dark-primary w-[2px] h-1/2 origin-[0_0] min-h-[0] absolute left-2/4 right-[0] bottom-[0] bg-current -translate-x-1/2 [&:before]:(content-[''] absolute left-2/4 rounded-[50%] bg-current -translate-x-1/2) [&:after]:(content-[''] absolute left-2/4 rounded-[50%] bg-current -translate-x-1/2) 
       [&:before]:(-bottom-[4px] w-[8px] h-[8px])
       [&:after]:(-top-[3px] h-[6px] w-[6px])`
     )
@@ -134,7 +131,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__clock-position$/,
     componentClass(
       'q-time__clock-position',
-      `absolute min-h-[32px] w-[32px] h-[32px] [font-size:var(--q-font-sm)] leading-[32px] m-0 p-0 -translate-x-1/2 -translate-y-1/2 [border-radius:var(--q-radius-circle)]`
+      `absolute min-h-[32px] w-[32px] h-[32px] text-[12px] leading-[32px] m-0 p-0 -translate-x-1/2 -translate-y-1/2 rounded-[50%]`
     )
   ],
 
@@ -147,7 +144,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__clock-position--active$/,
     componentClass(
       'q-time__clock-position--active',
-      `[background-color:var(--q-primary)] dark:[background-color:var(--q-primary)] [color:var(--q-primary)] dark:[color:var(--q-primary)]`
+      `bg-$light-primary dark:bg-$dark-primary text-$light-on-primary dark:text-$dark-on-primary`
     )
   ],
 
@@ -275,7 +272,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__now-button$/,
     componentClass(
       'q-time__now-button',
-      `[color:var(--q-on-surface)] dark:[color:var(--q-on-surface)] top-[12px] right-[12px]`
+      `text-$light-on-surface dark:text-$dark-on-surface top-[12px] right-[12px]`
     )
   ],
 

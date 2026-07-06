@@ -20,7 +20,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-table$/,
     componentClass(
       'q-table',
-      qe`w-full max-w-full border-separate [border-spacing:0] [&_thead_tr]:(h-[48px]) [&_tbody_td]:(h-[48px]) [&_th]:(font-medium [font-size:var(--q-font-sm)] select-none) [&_th.sortable]:(cursor-pointer) [&_th.sortable:hover_.q-table__sort-icon]:(opacity-[0.64]) [&_th.sorted_.q-table__sort-icon]:(!opacity-[0.86]) [&_th.sort-desc_.q-table__sort-icon]:(rotate-180) [&_th]:(px-[16px] py-[7px] [background-color:inherit]) [&_td]:(px-[16px] py-[7px] [background-color:inherit]) [&_thead]:(border-solid border-0) [&_td]:(border-solid border-0) [&_th]:(border-solid border-0) [&_tbody_td]:(text-[13px]) [&_thead]:(border-[rgba(0,_0,_0,_0.12)]) [&_tr]:(border-[rgba(0,_0,_0,_0.12)]) [&_th]:(border-[rgba(0,_0,_0,_0.12)]) [&_td]:(border-[rgba(0,_0,_0,_0.12)]) [&_tbody_td]:(relative) [&_tbody_td:before]:(absolute top-[0] left-[0] right-[0] bottom-[0] pointer-events-none) [&_tbody_td:after]:(absolute top-[0] left-[0] right-[0] bottom-[0] pointer-events-none) [&_tbody_td:before]:(bg-[rgba(0,_0,_0,_0.03)]) [&_tbody_td:after]:(bg-[rgba(0,_0,_0,_0.06)]) [&_tbody_tr.selected_td:after]:(content-['']) [&_.q-virtual-scroll__padding_tr]:(!h-[0]) [&_.q-virtual-scroll__padding_td]:(!p-0)`
+      qe`w-full max-w-full border-separate [border-spacing:0] [&_thead_tr]:(h-[48px]) [&_tbody_td]:(h-[48px]) [&_th]:(font-medium text-[12px] select-none) [&_th.sortable]:(cursor-pointer) [&_th.sortable:hover_.q-table__sort-icon]:(opacity-[0.64]) [&_th.sorted_.q-table__sort-icon]:(!opacity-[0.86]) [&_th.sort-desc_.q-table__sort-icon]:(rotate-180) [&_th]:(px-[16px] py-[7px] [background-color:inherit]) [&_td]:(px-[16px] py-[7px] [background-color:inherit]) [&_thead]:(border-solid border-0) [&_td]:(border-solid border-0) [&_th]:(border-solid border-0) [&_tbody_td]:(text-[13px]) [&_thead]:(border-[rgba(0,_0,_0,_0.12)]) [&_tr]:(border-[rgba(0,_0,_0,_0.12)]) [&_th]:(border-[rgba(0,_0,_0,_0.12)]) [&_td]:(border-[rgba(0,_0,_0,_0.12)]) [&_tbody_td]:(relative) [&_tbody_td:before]:(absolute top-[0] left-[0] right-[0] bottom-[0] pointer-events-none) [&_tbody_td:after]:(absolute top-[0] left-[0] right-[0] bottom-[0] pointer-events-none) [&_tbody_td:before]:(bg-[rgba(0,_0,_0,_0.03)]) [&_tbody_td:after]:(bg-[rgba(0,_0,_0,_0.06)]) [&_tbody_tr.selected_td:after]:(content-['']) [&_.q-virtual-scroll__padding_tr]:(!h-[0]) [&_.q-virtual-scroll__padding_td]:(!p-0)`
     )
   ],
 
@@ -28,7 +28,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-table__card$/,
     componentClass(
       'q-table__card',
-      qe`text-[#000] bg-[#fff] [border-radius:var(--q-radius-sm)] [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] [&_.q-table__middle]:(flex-auto) [&_.q-table__top]:(flex-[0_0_auto]) [&_.q-table__bottom]:(flex-[0_0_auto])`
+      qe`text-[#000] bg-[#fff] rounded-[4px] [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] [&_.q-table__middle]:(flex-auto) [&_.q-table__top]:(flex-[0_0_auto]) [&_.q-table__bottom]:(flex-[0_0_auto])`
     )
   ],
 
@@ -52,7 +52,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-table__title$/,
     componentClass(
       'q-table__title',
-      `[font-size:var(--q-font-xl)] tracking-[0.005em] font-normal`
+      `text-[20px] tracking-[0.005em] font-normal`
     )
   ],
 
@@ -75,7 +75,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-table__bottom$/,
     componentClass(
       'q-table__bottom',
-      qe`min-h-[50px] pl-[16px] pr-[14px] [padding-block:var(--q-space-xs)] [font-size:var(--q-font-sm)] [&_.q-table__control]:(min-h-[24px]) [border-top:1px_solid_rgba(0,_0,_0,_0.12)]`
+      qe`min-h-[50px] pl-[16px] pr-[14px] py-[4px] text-[12px] [&_.q-table__control]:(min-h-[24px]) [border-top:1px_solid_rgba(0,_0,_0,_0.12)]`
     )
   ],
 
@@ -167,7 +167,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-table--grid$/,
     componentClass(
       'q-table--grid',
-      qe`[box-shadow:none] [border-radius:var(--q-radius-sm)] [&_.q-table__top]:(pb-[4px]) [&_.q-table__middle]:(min-h-[2px] mb-[4px]) [&_.q-table__middle_thead]:(!border-0) [&_.q-table__middle_thead_th]:(!border-0) [&_.q-table__linear-progress]:(bottom-[0]) [&_.q-table__bottom]:([border-top:0]) [&_.q-table__grid-content]:(flex-auto) [&.fullscreen]:([background:inherit])`
+      qe`[box-shadow:none] rounded-[4px] [&_.q-table__top]:(pb-[4px]) [&_.q-table__middle]:(min-h-[2px] mb-[4px]) [&_.q-table__middle_thead]:(!border-0) [&_.q-table__middle_thead_th]:(!border-0) [&_.q-table__linear-progress]:(bottom-[0]) [&_.q-table__bottom]:([border-top:0]) [&_.q-table__grid-content]:(flex-auto) [&.fullscreen]:([background:inherit])`
     )
   ],
 
@@ -191,7 +191,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-table__grid-item-title$/,
     componentClass(
       'q-table__grid-item-title',
-      `opacity-[0.54] font-medium [font-size:var(--q-font-sm)]`
+      `opacity-[0.54] font-medium text-[12px]`
     )
   ],
 
@@ -241,7 +241,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-table--dense$/,
     componentClass(
       'q-table--dense',
-      qe`[&_.q-table__top]:(px-[16px] py-[6px]) [&_.q-table__bottom]:(min-h-[33px]) [&_.q-table__sort-icon]:(text-[110%]) [&_.q-table_th]:(px-[8px] [padding-block:var(--q-space-xs)]) [&_.q-table_td]:(px-[8px] [padding-block:var(--q-space-xs)]) [&_.q-table_thead_tr]:(h-[28px]) [&_.q-table_tbody_tr]:(h-[28px]) [&_.q-table_tbody_td]:(h-[28px]) [&_.q-table_th:first-child]:(pl-[16px]) [&_.q-table_td:first-child]:(pl-[16px]) [&_.q-table_th:last-child]:(pr-[16px]) [&_.q-table_td:last-child]:(pr-[16px]) [&_.q-table__bottom-item]:(mr-[8px]) [&_.q-table__select_.q-field__control]:(min-h-[24px] p-0) [&_.q-table__select_.q-field__native]:(min-h-[24px] p-0) [&_.q-table__select_.q-field__marginal]:(h-[24px])`
+      qe`[&_.q-table__top]:(px-[16px] py-[6px]) [&_.q-table__bottom]:(min-h-[33px]) [&_.q-table__sort-icon]:(text-[110%]) [&_.q-table_th]:(px-[8px] py-[4px]) [&_.q-table_td]:(px-[8px] py-[4px]) [&_.q-table_thead_tr]:(h-[28px]) [&_.q-table_tbody_tr]:(h-[28px]) [&_.q-table_tbody_td]:(h-[28px]) [&_.q-table_th:first-child]:(pl-[16px]) [&_.q-table_td:first-child]:(pl-[16px]) [&_.q-table_th:last-child]:(pr-[16px]) [&_.q-table_td:last-child]:(pr-[16px]) [&_.q-table__bottom-item]:(mr-[8px]) [&_.q-table__select_.q-field__control]:(min-h-[24px] p-0) [&_.q-table__select_.q-field__native]:(min-h-[24px] p-0) [&_.q-table__select_.q-field__marginal]:(h-[24px])`
     )
   ]
 ]

@@ -37,7 +37,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-img__content$/,
     componentClass(
       'q-img__content',
-      `[border-radius:inherit] pointer-events-none [&_>_div]:(pointer-events-all absolute p-[var(--q-space-lg)] text-[#fff] bg-[rgba(0,_0,_0,_0.47)])`
+      `[border-radius:inherit] pointer-events-none [&_>_div]:(pointer-events-all absolute p-[16px] text-[#fff] bg-[rgba(0,_0,_0,_0.47)])`
     )
   ],
 

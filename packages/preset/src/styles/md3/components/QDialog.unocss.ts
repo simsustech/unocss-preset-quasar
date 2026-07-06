@@ -52,7 +52,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       'q-dialog__inner',
       qe`outline-0
       [&>div]:(pointer-events-all overflow-auto rounded-$shape-corner-extra-large min-w-[280px] max-w-[560px] p-[24px])
-      [&>.q-card]:([background-color:var(--q-surface-container-high)] dark:[background-color:var(--q-surface-container-high)] shadow-md)
+      [&>.q-card]:(bg-$light-surface-container-high dark:bg-$dark-surface-container-high shadow-md)
       [&>.q-card>.q-card__actions_.q-btn--rectangle]:(min-w-64px)
     `
     )
@@ -136,7 +136,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-dialog__backdrop$/,
     componentClass(
       'q-dialog__backdrop',
-      `-z-1 pointer-events-all outline-0 [background-color:var(--q-surface)]/32
+      `-z-1 pointer-events-all outline-0 bg-$dark-surface/32
     `
     )
   ],

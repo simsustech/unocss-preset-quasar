@@ -2,7 +2,7 @@ import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
 import { componentClass, staticClass, qe } from '../../_helpers.js'
 
-const stepperStandard = `[box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] [border-radius:var(--q-radius-sm)]`
+const stepperStandard = `[box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px]`
 
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [/^q-stepper$/, componentClass('q-stepper', `${stepperStandard} bg-[#fff]`)],
@@ -13,20 +13,20 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-stepper__title$/,
     componentClass(
       'q-stepper__title',
-      `[font-size:var(--q-font-md)] leading-[1.285714] tracking-[0.1px]`
+      `text-[14px] leading-[1.285714] tracking-[0.1px]`
     )
   ],
 
   [
     /^q-stepper__caption$/,
-    componentClass('q-stepper__caption', `[font-size:var(--q-font-sm)] leading-[1.16667]`)
+    componentClass('q-stepper__caption', `text-[12px] leading-[1.16667]`)
   ],
 
   [
     /^q-stepper__dot$/,
     componentClass(
       'q-stepper__dot',
-      `!flex-initial mr-[8px] [font-size:var(--q-font-md)] w-[24px] min-w-[24px] h-[24px] [border-radius:var(--q-radius-circle)] bg-current [&_span]:(text-[#fff])`
+      `!flex-initial mr-[8px] text-[14px] w-[24px] min-w-[24px] h-[24px] rounded-[50%] bg-current [&_span]:(text-[#fff])`
     )
   ],
 
@@ -34,7 +34,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-stepper__tab$/,
     componentClass(
       'q-stepper__tab',
-      `[padding-inline:var(--q-space-xl)] py-[8px] [font-size:var(--q-font-md)] text-[#9e9e9e] flex-row`
+      `px-[24px] py-[8px] text-[14px] text-[#9e9e9e] flex-row`
     )
   ],
 
@@ -155,7 +155,7 @@ _.q-stepper__tab:last-child]:(items-end) [&_.q-stepper__tab]:(px-[0] py-[24px]) 
     /^q-stepper--horizontal$/,
     componentClass(
       'q-stepper--horizontal',
-      qe`[&_.q-stepper__step-inner]:(p-[24px]) [&_.q-stepper__tab:first-child]:([border-top-left-radius:inherit]) [&_.q-stepper__tab:last-child]:([border-top-right-radius:inherit]) [&_.q-stepper__tab:first-child_.q-stepper__dot:before]:(hidden) [&_.q-stepper__tab:last-child_.q-stepper__label:after]:(hidden) [&_.q-stepper__tab:last-child_.q-stepper__dot:after]:(hidden) [&_.q-stepper__tab]:(overflow-hidden) [&_.q-stepper__line]:(contain-layout) [&_.q-stepper__line:before]:(absolute top-2/4 h-px w-screen bg-[rgba(0,_0,_0,_0.12)]) [&_.q-stepper__line:after]:(absolute top-2/4 h-px w-screen bg-[rgba(0,_0,_0,_0.12)]) [&_.q-stepper__label:after]:(content-[''] left-full ml-[8px]) [&_.q-stepper__dot:after]:(content-[''] left-full ml-[8px]) [&_.q-stepper__dot:before]:(content-[''] right-full mr-[8px]) [&_>_.q-stepper__nav]:(pt-[0] [padding-inline:var(--q-space-xl)] pb-[24px])`
+      qe`[&_.q-stepper__step-inner]:(p-[24px]) [&_.q-stepper__tab:first-child]:([border-top-left-radius:inherit]) [&_.q-stepper__tab:last-child]:([border-top-right-radius:inherit]) [&_.q-stepper__tab:first-child_.q-stepper__dot:before]:(hidden) [&_.q-stepper__tab:last-child_.q-stepper__label:after]:(hidden) [&_.q-stepper__tab:last-child_.q-stepper__dot:after]:(hidden) [&_.q-stepper__tab]:(overflow-hidden) [&_.q-stepper__line]:(contain-layout) [&_.q-stepper__line:before]:(absolute top-2/4 h-px w-screen bg-[rgba(0,_0,_0,_0.12)]) [&_.q-stepper__line:after]:(absolute top-2/4 h-px w-screen bg-[rgba(0,_0,_0,_0.12)]) [&_.q-stepper__label:after]:(content-[''] left-full ml-[8px]) [&_.q-stepper__dot:after]:(content-[''] left-full ml-[8px]) [&_.q-stepper__dot:before]:(content-[''] right-full mr-[8px]) [&_>_.q-stepper__nav]:(pt-[0] px-[24px] pb-[24px])`
     )
   ],
 
@@ -163,7 +163,7 @@ _.q-stepper__tab:last-child]:(items-end) [&_.q-stepper__tab]:(px-[0] py-[24px]) 
     /^q-stepper--vertical$/,
     componentClass(
       'q-stepper--vertical',
-      qe`px-[0] py-[16px] [&_.q-stepper__tab]:([padding-inline:var(--q-space-xl)] py-[12px]) [&_.q-stepper__title]:(leading-[18px]) [&_.q-stepper__step-inner]:(pt-[0] pr-[24px] pb-[32px] pl-[60px]) [&_>_.q-stepper__nav]:(pt-[24px] [padding-inline:var(--q-space-xl)] pb-[0]) [&_.q-stepper__step]:(overflow-hidden) [&_.q-stepper__dot]:(mr-[12px]) [&_.q-stepper__dot:before]:(content-[''] absolute left-2/4 w-px h-[99999px] bg-[rgba(0,_0,_0,_0.12)]) [&_.q-stepper__dot:after]:(content-[''] absolute left-2/4 w-px h-[99999px] bg-[rgba(0,_0,_0,_0.12)]) [&_.q-stepper__dot:before]:(bottom-full mb-[8px]) [&_.q-stepper__dot:after]:(top-full mt-[8px]) [&_.q-stepper__step:first-child_.q-stepper__dot:before]:(hidden) [&_.q-stepper__step:last-child_.q-stepper__dot:after]:(hidden) [&_.q-stepper__step:last-child_.q-stepper__step-inner]:(pb-[8px])`
+      qe`px-[0] py-[16px] [&_.q-stepper__tab]:(px-[24px] py-[12px]) [&_.q-stepper__title]:(leading-[18px]) [&_.q-stepper__step-inner]:(pt-[0] pr-[24px] pb-[32px] pl-[60px]) [&_>_.q-stepper__nav]:(pt-[24px] px-[24px] pb-[0]) [&_.q-stepper__step]:(overflow-hidden) [&_.q-stepper__dot]:(mr-[12px]) [&_.q-stepper__dot:before]:(content-[''] absolute left-2/4 w-px h-[99999px] bg-[rgba(0,_0,_0,_0.12)]) [&_.q-stepper__dot:after]:(content-[''] absolute left-2/4 w-px h-[99999px] bg-[rgba(0,_0,_0,_0.12)]) [&_.q-stepper__dot:before]:(bottom-full mb-[8px]) [&_.q-stepper__dot:after]:(top-full mt-[8px]) [&_.q-stepper__step:first-child_.q-stepper__dot:before]:(hidden) [&_.q-stepper__step:last-child_.q-stepper__dot:after]:(hidden) [&_.q-stepper__step:last-child_.q-stepper__step-inner]:(pb-[8px])`
     )
   ]
 ]

@@ -13,8 +13,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       'q-menu',
       ({
         theme
-      }) => `[background-color:var(--q-surface-container)] dark:[background-color:var(--q-surface-container)] [color:var(--q-on-surface)] dark:[color:var(--q-on-surface)]
-      !fixed inline-block max-w-[95vw] max-h-[65vh] [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] [border-radius:var(--q-radius-xs)] overflow-y-auto overflow-x-hidden outline-0 z-${theme.quasar.z['menu']}`
+      }) => `bg-$light-surface-container dark:bg-$dark-surface-container text-$light-on-surface dark:text-$dark-on-surface
+      !fixed inline-block max-w-[95vw] max-h-[65vh] [box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px] overflow-y-auto overflow-x-hidden outline-0 z-${theme.quasar.z['menu']}`
     )
   ],
 

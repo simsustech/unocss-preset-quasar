@@ -20,7 +20,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-chip$/,
     componentClass(
       'q-chip',
-      `!flex-initial align-middle [border-radius:var(--q-radius-lg)] outline-[0] relative h-[32px] max-w-full m-[4px] bg-[#e0e0e0] text-[rgba(0,_0,_0,_0.87)] [font-size:var(--q-font-md)] px-[0.9em] py-[0.5em] [&_.q-avatar]:(text-[2em] -ml-[0.45em] mr-[0.2em] [border-radius:var(--q-radius-lg)])`
+      `!flex-initial align-middle rounded-[16px] outline-[0] relative h-[32px] max-w-full m-[4px] bg-[#e0e0e0] text-[rgba(0,_0,_0,_0.87)] text-[14px] px-[0.9em] py-[0.5em] [&_.q-avatar]:(text-[2em] -ml-[0.45em] mr-[0.2em] rounded-[16px])`
     )
   ],
 
@@ -76,7 +76,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-chip--dense$/,
     componentClass(
       'q-chip--dense',
-      qe`[border-radius:var(--q-radius-md)] px-[0.4em] py-[0] h-[1.5em] [&_.q-avatar]:(text-[1.5em] -ml-[0.27em] mr-[0.1em] [border-radius:var(--q-radius-md)]) [&_.q-chip__icon]:(text-[1.25em]) [&_.q-chip__icon--left]:(mr-[0.195em]) [&_.q-chip__icon--remove]:(-mr-[0.25em])`
+      qe`rounded-[12px] px-[0.4em] py-[0] h-[1.5em] [&_.q-avatar]:(text-[1.5em] -ml-[0.27em] mr-[0.1em] rounded-[12px]) [&_.q-chip__icon]:(text-[1.25em]) [&_.q-chip__icon--left]:(mr-[0.195em]) [&_.q-chip__icon--remove]:(-mr-[0.25em])`
     )
   ],
 
@@ -84,7 +84,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-chip--square$/,
     componentClass(
       'q-chip--square',
-      `[border-radius:var(--q-radius-sm)] [&_.q-avatar]:(rounded-tl-[3px] rounded-br-[0] rounded-tr-[0] rounded-bl-[3px])`
+      `rounded-[4px] [&_.q-avatar]:(rounded-tl-[3px] rounded-br-[0] rounded-tr-[0] rounded-bl-[3px])`
     )
   ]
 ]

@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time$/,
     componentClass(
       'q-time',
-      qe`[box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] [border-radius:var(--q-radius-sm)] bg-[#fff] outline-[0] w-[290px] min-w-[290px] max-w-full [&.disabled_.q-time__header-ampm]:(pointer-events-none) [&.disabled_.q-time__content]:(pointer-events-none)`
+      qe`[box-shadow:0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px] bg-[#fff] outline-[0] w-[290px] min-w-[290px] max-w-full [&.disabled_.q-time__header-ampm]:(pointer-events-none) [&.disabled_.q-time__content]:(pointer-events-none)`
     )
   ],
 
@@ -23,7 +23,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__header$/,
     componentClass(
       'q-time__header',
-      `[border-top-left-radius:inherit] text-[#fff] p-[var(--q-space-lg)] font-light bg-primary`
+      `[border-top-left-radius:inherit] text-[#fff] p-[16px] font-light bg-primary`
     )
   ],
 
@@ -57,7 +57,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__header-ampm$/,
     componentClass(
       'q-time__header-ampm',
-      `[font-size:var(--q-font-lg)] tracking-widest !flex-initial`
+      `text-[16px] tracking-widest !flex-initial`
     )
   ],
 
@@ -65,20 +65,20 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__content$/,
     componentClass(
       'q-time__content',
-      `p-[var(--q-space-lg)] [&:before]:(content-[''] block pb-[100%])`
+      `p-[16px] [&:before]:(content-[''] block pb-[100%])`
     )
   ],
 
   [
     /^q-time__container-parent$/,
-    componentClass('q-time__container-parent', `p-[var(--q-space-lg)]`)
+    componentClass('q-time__container-parent', `p-[16px]`)
   ],
 
   [
     /^q-time__container-child$/,
     componentClass(
       'q-time__container-child',
-      `[border-radius:var(--q-radius-circle)] bg-[rgba(0,_0,_0,_0.12)]`
+      `rounded-[50%] bg-[rgba(0,_0,_0,_0.12)]`
     )
   ],
 
@@ -86,7 +86,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__clock$/,
     componentClass(
       'q-time__clock',
-      `p-[24px] w-full h-full max-w-full max-h-full [font-size:var(--q-font-md)]`
+      `p-[24px] w-full h-full max-w-full max-h-full text-[14px]`
     )
   ],
 
@@ -102,7 +102,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__clock-center$/,
     componentClass(
       'q-time__clock-center',
-      `h-[6px] w-[6px] m-auto [border-radius:var(--q-radius-circle)] min-h-[0] bg-current`
+      `h-[6px] w-[6px] m-auto rounded-[50%] min-h-[0] bg-current`
     )
   ],
 
@@ -110,7 +110,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__clock-pointer$/,
     componentClass(
       'q-time__clock-pointer',
-      `w-[2px] h-1/2 origin-[0_0] min-h-[0] absolute left-2/4 right-[0] bottom-[0] bg-current -translate-x-1/2 [&:before]:(content-[''] absolute left-2/4 [border-radius:var(--q-radius-circle)] bg-current -translate-x-1/2) [&:after]:(content-[''] absolute left-2/4 [border-radius:var(--q-radius-circle)] bg-current -translate-x-1/2) [&:before]:(-bottom-[4px] w-[8px] h-[8px]) [&:after]:(-top-[3px] h-[6px] w-[6px])`
+      `w-[2px] h-1/2 origin-[0_0] min-h-[0] absolute left-2/4 right-[0] bottom-[0] bg-current -translate-x-1/2 [&:before]:(content-[''] absolute left-2/4 rounded-[50%] bg-current -translate-x-1/2) [&:after]:(content-[''] absolute left-2/4 rounded-[50%] bg-current -translate-x-1/2) [&:before]:(-bottom-[4px] w-[8px] h-[8px]) [&:after]:(-top-[3px] h-[6px] w-[6px])`
     )
   ],
 
@@ -118,7 +118,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__clock-position$/,
     componentClass(
       'q-time__clock-position',
-      `absolute min-h-[32px] w-[32px] h-[32px] [font-size:var(--q-font-sm)] leading-[32px] m-0 p-0 -translate-x-1/2 -translate-y-1/2 [border-radius:var(--q-radius-circle)]`
+      `absolute min-h-[32px] w-[32px] h-[32px] text-[12px] leading-[32px] m-0 p-0 -translate-x-1/2 -translate-y-1/2 rounded-[50%]`
     )
   ],
 

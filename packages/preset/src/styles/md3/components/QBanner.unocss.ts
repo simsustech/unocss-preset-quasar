@@ -5,10 +5,7 @@ import { componentClass, staticClass, qe } from '../../_helpers.js'
 const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-banner$/,
-    componentClass(
-      'q-banner',
-      `min-h-[54px] [padding-inline:var(--q-space-lg)] [padding-block:var(--q-space-sm)] bg-transparent`
-    )
+    componentClass('q-banner', `min-h-[54px] px-[16px] py-[8px] bg-transparent`)
   ],
 
   [/^q-banner--top-padding$/, staticClass(`pt-[14px]`)],

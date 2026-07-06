@@ -25,7 +25,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-message-avatar$/,
     componentClass(
       'q-message-avatar',
-      `[border-radius:var(--q-radius-circle)] w-[48px] h-[48px] min-w-[48px]`
+      `rounded-[50%] w-[48px] h-[48px] min-w-[48px]`
     )
   ],
 

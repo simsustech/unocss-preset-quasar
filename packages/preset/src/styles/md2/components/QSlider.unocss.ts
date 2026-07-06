@@ -31,7 +31,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__track-container--v$/,
     componentClass(
       'q-slider__track-container--v',
-      qe`h-full [padding-inline:var(--q-space-md)] py-[0] [&_.q-slider__selection]:(will-change-height will-change-top)`
+      qe`h-full px-[12px] py-[0] [&_.q-slider__selection]:(will-change-height will-change-top)`
     )
   ],
 
@@ -39,7 +39,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__track$/,
     componentClass(
       'q-slider__track',
-      `bg-[rgba(0,_0,_0,_0.1)] [border-radius:var(--q-radius-sm)] [width:inherit] [height:inherit] text-primary`
+      `bg-[rgba(0,_0,_0,_0.1)] rounded-[4px] [width:inherit] [height:inherit] text-primary`
     )
   ],
 
@@ -174,7 +174,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__focus-ring$/,
     componentClass(
       'q-slider__focus-ring',
-      `[border-radius:var(--q-radius-circle)] opacity-0 [transition:transform_266.67ms_ease-out,_opacity_266.67ms_ease-out,_background-color_266.67ms_ease-out] delay-[140ms]`
+      `rounded-[50%] opacity-0 [transition:transform_266.67ms_ease-out,_opacity_266.67ms_ease-out,_background-color_266.67ms_ease-out] delay-[140ms]`
     )
   ],
 
@@ -252,11 +252,11 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__text-container$/,
     componentClass(
       'q-slider__text-container',
-      `min-h-[25px] px-[8px] py-[2px] [border-radius:var(--q-radius-sm)] bg-current relative text-center`
+      `min-h-[25px] px-[8px] py-[2px] rounded-[4px] bg-current relative text-center`
     )
   ],
 
-  [/^q-slider__text$/, staticClass(`text-[#fff] [font-size:var(--q-font-sm)]`)],
+  [/^q-slider__text$/, staticClass(`text-[#fff] text-[12px]`)],
 
   [
     /^q-slider--no-value$/,

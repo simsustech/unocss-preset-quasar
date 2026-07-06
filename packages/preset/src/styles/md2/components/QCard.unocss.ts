@@ -7,7 +7,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-card$/,
     componentClass(
       'q-card',
-      `shadow-[0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] [border-radius:var(--q-radius-sm)] align-top bg-[#fff] relative
+      `shadow-[0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)] rounded-[4px] align-top bg-[#fff] relative
       [&_>_div:not(.q--avoid-card-border)]:(rounded-tl-none rounded-tr-none rounded-bl-none rounded-br-none)
       [&_>_img:not(.q--avoid-card-border)]:(rounded-tl-none rounded-tr-none rounded-bl-none rounded-br-none)
       [&_>_div:nth-child(1_of_:not(.q--avoid-card-border))]:([border-top:0] [border-top-left-radius:inherit] [border-top-right-radius:inherit])
@@ -37,7 +37,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [/^q-card__section$/, staticClass(`relative`)],
 
-  [/^q-card__section--vert$/, staticClass(`p-[var(--q-space-lg)]`)],
+  [/^q-card__section--vert$/, staticClass(`p-[16px]`)],
 
   [
     /^q-card__section--horiz$/,
