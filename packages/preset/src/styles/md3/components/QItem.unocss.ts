@@ -7,8 +7,16 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-item$/,
     componentClass(
       'q-item',
-      qe`min-h-[28px] px-[16px] py-[8px] [color:inherit] [transition:color_0.3s,_background-color_0.3s] [&_>_.q-item__section--thumbnail:first-child]:(-ml-[16px]) [&_>_.q-focus-helper_+_.q-item__section--thumbnail]:(-ml-[16px]) [&_>_.q-item__section--thumbnail:last-of-type]:(-mr-[16px]) relative
+      qe`flex flex-nowrap min-h-[28px] px-[16px] py-[8px] [color:inherit] [transition:color_0.3s,_background-color_0.3s] [&_>_.q-item__section--thumbnail:first-child]:(-ml-[16px]) [&_>_.q-focus-helper_+_.q-item__section--thumbnail]:(-ml-[16px]) [&_>_.q-item__section--thumbnail:last-of-type]:(-mr-[16px]) relative
     [&.q-router-link--active]:(text-$light-primary dark:text-$dark-primary)`
+    )
+  ],
+
+  [
+    /^q-item__section$/,
+    componentClass(
+      'q-item__section',
+      `flex flex-col flex-nowrap [align-items:stretch] text-center min-w-[0]`
     )
   ],
 
