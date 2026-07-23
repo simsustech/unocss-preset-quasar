@@ -31,7 +31,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field$/,
     componentClass(
       'q-field',
-      `text-[14px] 
+      `text-[14px] w-full
 	[&_::-ms-clear]:(hidden) 
 	[&_::-ms-reveal]:(hidden)`
     )
