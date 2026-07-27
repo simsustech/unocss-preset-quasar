@@ -74,7 +74,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       [&_+_.q-message-text]:(mt-[3px])
       [&:last-child]:(min-h-[48px])
       [&:last-child_.q-message-stamp]:(block)
-      [&:last-child:before]:(content-empty absolute bottom-0 w-[0] h-[0])`
+      [&:last-child:before]:( absolute bottom-0 w-[0] h-[0])`
     )
   ]
 ]

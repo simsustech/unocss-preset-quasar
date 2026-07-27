@@ -63,7 +63,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__markers$/,
     componentClass(
       'q-slider__markers',
-      `[color:var(--q-on-surface-variant)] [border-radius:inherit] w-full h-full [&:after]:(content-empty absolute bg-current)`
+      `[color:var(--q-on-surface-variant)] [border-radius:inherit] w-full h-full [&_.q-slider__marker-end-cap]:(absolute bg-current)`
     )
   ],
 
@@ -71,7 +71,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__markers--h$/,
     componentClass(
       'q-slider__markers--h',
-      `bg-[repeating-linear-gradient(_to_right,_currentColor,_currentColor_2px,_rgba(255,_255,_255,_0)_0,_rgba(255,_255,_255,_0)_)] [&:after]:(h-full w-[2px] top-0 right-0)`
+      `bg-[repeating-linear-gradient(_to_right,_currentColor,_currentColor_2px,_rgba(255,_255,_255,_0)_0,_rgba(255,_255,_255,_0)_)] [&_.q-slider__marker-end-cap]:(h-full w-[2px] top-0 right-0)`
     )
   ],
 
@@ -79,7 +79,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__markers--v$/,
     componentClass(
       'q-slider__markers--v',
-      `bg-[repeating-linear-gradient(_to_bottom,_currentColor,_currentColor_2px,_rgba(255,_255,_255,_0)_0,_rgba(255,_255,_255,_0)_)] [&:after]:(w-full h-[2px] left-0 bottom-0)`
+      `bg-[repeating-linear-gradient(_to_bottom,_currentColor,_currentColor_2px,_rgba(255,_255,_255,_0)_0,_rgba(255,_255,_255,_0)_)] [&_.q-slider__marker-end-cap]:(w-full h-[2px] left-0 bottom-0)`
     )
   ],
 
@@ -182,7 +182,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__pin$/,
     componentClass(
       'q-slider__pin',
-      `opacity-0 whitespace-nowrap [transition:opacity_0.28s_ease-out] delay-[140ms] [&:before]:(content-empty w-[0] h-[0] absolute)`
+      `opacity-0 whitespace-nowrap [transition:opacity_0.28s_ease-out] delay-[140ms] [&_.q-slider__pin-arrow]:(w-[0] h-[0] absolute)`
     )
   ],
 
@@ -190,7 +190,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__pin--h$/,
     componentClass(
       'q-slider__pin--h',
-      `[&:before]:([border-left:6px_solid_transparent] [border-right:6px_solid_transparent] left-2/4 -translate-x-1/2)`
+      `[&_.q-slider__pin-arrow]:([border-left:6px_solid_transparent] [border-right:6px_solid_transparent] left-2/4 -translate-x-1/2)`
     )
   ],
 
@@ -198,7 +198,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__pin--h-standard$/,
     componentClass(
       'q-slider__pin--h-standard',
-      `bottom-full [&:before]:(bottom-[2px] [border-top:6px_solid_currentColor])`
+      `bottom-full [&_.q-slider__pin-arrow]:(bottom-[2px] [border-top:6px_solid_currentColor])`
     )
   ],
 
@@ -206,7 +206,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__pin--h-switched$/,
     componentClass(
       'q-slider__pin--h-switched',
-      `top-full [&:before]:(top-[2px] [border-bottom:6px_solid_currentColor])`
+      `top-full [&_.q-slider__pin-arrow]:(top-[2px] [border-bottom:6px_solid_currentColor])`
     )
   ],
 
@@ -214,7 +214,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__pin--v$/,
     componentClass(
       'q-slider__pin--v',
-      `top-0 [&:before]:(top-2/4 -translate-y-1/2 [border-top:6px_solid_transparent] [border-bottom:6px_solid_transparent])`
+      `top-0 [&_.q-slider__pin-arrow]:(top-2/4 -translate-y-1/2 [border-top:6px_solid_transparent] [border-bottom:6px_solid_transparent])`
     )
   ],
 
@@ -222,7 +222,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__pin--v-standard$/,
     componentClass(
       'q-slider__pin--v-standard',
-      `left-full [&:before]:(left-[2px] [border-right:6px_solid_currentColor])`
+      `left-full [&_.q-slider__pin-arrow]:(left-[2px] [border-right:6px_solid_currentColor])`
     )
   ],
 
@@ -230,7 +230,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-slider__pin--v-switched$/,
     componentClass(
       'q-slider__pin--v-switched',
-      `right-full [&:before]:(right-[2px] [border-left:6px_solid_currentColor])`
+      `right-full [&_.q-slider__pin-arrow]:(right-[2px] [border-left:6px_solid_currentColor])`
     )
   ],
 

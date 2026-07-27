@@ -58,7 +58,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-date__calendar-item$/,
     componentClass(
       'q-date__calendar-item',
-      `inline-flex items-center justify-center align-middle !w-[14.285%] !h-[12.5%] relative [&:after]:(content-empty absolute pointer-events-none top-px right-0 bottom-px left-0 border-dashed border-transparent border) [&_>_div]:(w-[30px] h-[30px]) [&_button]:(w-[30px] h-[30px]) [&_>_div]:(leading-[30px] text-center) [&_>_button]:(leading-[22px])`
+      `inline-flex items-center justify-center align-middle !w-[14.285%] !h-[12.5%] relative [&:focus-visible]:(outline-1px dashed outline-current outline-offset-0) [&_>_div]:(w-[30px] h-[30px]) [&_button]:(w-[30px] h-[30px]) [&_>_div]:(leading-[30px] text-center) [&_>_button]:(leading-[22px])`
     )
   ],
 
@@ -71,21 +71,21 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-date__range$/,
     staticClass(
-      `[&:before]:(content-empty absolute top-px bottom-px left-0 right-0 opacity-30) [&:nth-child(7n-6):before]:(rounded-tl-none rounded-bl-none) [&:nth-child(7n):before]:(rounded-tr-none rounded-br-none)`
+      `[&_.q-date__range-fill]:(absolute top-px bottom-px left-0 right-0 opacity-30) [&:nth-child(7n-6)_.q-date__range-fill]:(rounded-tl-none rounded-bl-none) [&:nth-child(7n)_.q-date__range-fill]:(rounded-tr-none rounded-br-none)`
     )
   ],
 
   [
     /^q-date__range-from$/,
     staticClass(
-      `[&:before]:(content-empty absolute top-px bottom-px left-0 right-0 opacity-30) [&:nth-child(7n-6):before]:(rounded-tl-none rounded-bl-none) [&:nth-child(7n):before]:(rounded-tr-none rounded-br-none) [&:before]:(left-2/4)`
+      `[&_.q-date__range-fill]:(absolute top-px bottom-px left-0 right-0 opacity-30) [&:nth-child(7n-6)_.q-date__range-fill]:(rounded-tl-none rounded-bl-none) [&:nth-child(7n)_.q-date__range-fill]:(rounded-tr-none rounded-br-none) [&_.q-date__range-fill]:(left-2/4)`
     )
   ],
 
   [
     /^q-date__range-to$/,
     staticClass(
-      `[&:before]:(content-empty absolute top-px bottom-px left-0 right-0 opacity-30) [&:nth-child(7n-6):before]:(rounded-tl-none rounded-bl-none) [&:nth-child(7n):before]:(rounded-tr-none rounded-br-none) [&:before]:(right-2/4)`
+      `[&_.q-date__range-fill]:(absolute top-px bottom-px left-0 right-0 opacity-30) [&:nth-child(7n-6)_.q-date__range-fill]:(rounded-tl-none rounded-bl-none) [&:nth-child(7n)_.q-date__range-fill]:(rounded-tr-none rounded-br-none) [&_.q-date__range-fill]:(right-2/4)`
     )
   ],
 
@@ -98,19 +98,19 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-date__edit-range-from$/,
-    staticClass(`[&:after]:(left-[4px] border-r-0)`)
+    staticClass(`[&_.q-date__range-fill]:(left-[4px] border-r-0)`)
   ],
 
   [
     /^q-date__edit-range-from-to$/,
     staticClass(
-      `[&:after]:(left-[4px] border-r-transparent) [&:after]:(right-[4px] border-l-transparent)`
+      `[&_.q-date__range-fill]:(left-[4px] border-r-transparent) [&_.q-date__range-fill]:(right-[4px] border-l-transparent)`
     )
   ],
 
   [
     /^q-date__edit-range-to$/,
-    staticClass(`[&:after]:(right-[4px] border-l-transparent)`)
+    staticClass(`[&_.q-date__range-fill]:(right-[4px] border-l-transparent)`)
   ],
 
   [

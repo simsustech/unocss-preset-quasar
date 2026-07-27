@@ -28,7 +28,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree__node$/,
     componentClass(
       'q-tree__node',
-      `pt-[0] pr-[0] pb-[3px] pl-[22px] [&:after]:(content-empty absolute -top-[3px] bottom-[0] w-[2px] right-auto -left-[13px] border-l-current) [&:last-child:after]:(hidden)`
+      `pt-[0] pr-[0] pb-[3px] pl-[22px] [&_.q-tree__connector]:(absolute -top-[3px] bottom-[0] w-[2px] right-auto -left-[13px] border-l-current) [&:last-child_.q-tree__connector]:(hidden)`
     )
   ],
 
@@ -44,7 +44,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree__node-header$/,
     componentClass(
       'q-tree__node-header',
-      `[&:before]:(content-empty absolute -top-[3px] bottom-2/4 w-[31px] -left-[35px] border-l-current border-b-current) p-[4px] mt-[3px] rounded-[4px] outline-[0]`
+      `[&_.q-tree__connector--l]:(absolute -top-[3px] bottom-2/4 w-[31px] -left-[35px] border-l-current border-b-current) p-[4px] mt-[3px] rounded-[4px] outline-[0]`
     )
   ],
 
@@ -59,7 +59,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tree__node--parent$/,
     componentClass(
       'q-tree__node--parent',
-      qe`pl-[2px] [&>_.q-tree__node-header:before]:(w-[15px] -left-[15px]) [&>_.q-tree__node-collapsible>_.q-tree__node-body]:(pt-[5px] pr-[0] pb-[8px] pl-[27px]) [&>_.q-tree__node-collapsible>_.q-tree__node-body:after]:(content-empty absolute top-[0] w-[2px] h-full right-auto left-[12px] border-l-current bottom-[50px])`
+      qe`pl-[2px] [&>_.q-tree__node-header:before]:(w-[15px] -left-[15px]) [&>_.q-tree__node-collapsible>_.q-tree__node-body]:(pt-[5px] pr-[0] pb-[8px] pl-[27px]) [&>_.q-tree__node-collapsible>_.q-tree__node-body:after]:( absolute top-[0] w-[2px] h-full right-auto left-[12px] border-l-current bottom-[50px])`
     )
   ],
 

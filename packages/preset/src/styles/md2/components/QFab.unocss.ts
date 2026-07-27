@@ -111,7 +111,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-fab__icon-holder$/,
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-fab__icon-holder'] ??
-      `[&:before]:(content-empty)`
+      `min-w-[24px] min-h-[24px] relative`
     // min-w-[24px] min-h-[24px] relative
   ],
 

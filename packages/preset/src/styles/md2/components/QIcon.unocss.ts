@@ -11,8 +11,6 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   text-center relative box-content fill-current
   [&>svg]:(h-full w-full)
   [&>img]:(h-full w-full)
-  [&:before]:(w-full h-full flex! items-center justify-center)
-  [&:after]:(w-full h-full flex! items-center justify-center)
   select-none cursor-inherit text-inherit inline-flex items-center justify-center v-middle
   `
   ],

@@ -115,8 +115,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentClass(
       'q-field__control',
       `h-[56px] max-w-full outline-none text-primary
-	[&:before]:(content-empty top-[0] right-[0] bottom-[0] left-[0] pointer-events-none absolute border-rd-inherit) 
-	[&:after]:(content-empty top-[0] right-[0] bottom-[0] left-[0] pointer-events-none absolute)`
+	[&_.q-field__overlay]:(top-[0] right-[0] bottom-[0] left-[0] pointer-events-none absolute border-rd-inherit)`
     )
   ],
 

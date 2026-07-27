@@ -89,7 +89,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentClass(
       'q-layout__shadow',
       `w-full 
-      [&:after]:(content-empty absolute top-[0] right-[0] bottom-[0] left-[0] [box-shadow:0_0_10px_2px_rgba(0,_0,_0,_0.2),_0_0px_10px_rgba(0,_0,_0,_0.24)])`
+      [&_.q-layout__shadow-inner]:(absolute top-[0] right-[0] bottom-[0] left-[0] [box-shadow:0_0_10px_2px_rgba(0,_0,_0,_0.2),_0_0px_10px_rgba(0,_0,_0,_0.24)])`
     )
   ],
 

@@ -74,10 +74,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
 
   [
     /^q-time__content$/,
-    componentClass(
-      'q-time__content',
-      `p-[16px] [&:before]:(content-[''] block pb-[100%])`
-    )
+    componentClass('q-time__content', `p-[16px] aspect-ratio-1`)
   ],
 
   [
@@ -121,9 +118,9 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-time__clock-pointer$/,
     componentClass(
       'q-time__clock-pointer',
-      `text-$light-primary dark:text-$dark-primary w-[2px] h-1/2 origin-[0_0] min-h-[0] absolute left-2/4 right-[0] bottom-[0] bg-current -translate-x-1/2 [&:before]:(content-[''] absolute left-2/4 rounded-[50%] bg-current -translate-x-1/2) [&:after]:(content-[''] absolute left-2/4 rounded-[50%] bg-current -translate-x-1/2) 
-      [&:before]:(-bottom-[4px] w-[8px] h-[8px])
-      [&:after]:(-top-[3px] h-[6px] w-[6px])`
+      `text-$light-primary dark:text-$dark-primary w-[2px] h-1/2 origin-[0_0] min-h-[0] absolute left-2/4 right-[0] bottom-[0] bg-current -translate-x-1/2 [&_.q-time__clock-pointer-bottom]:(absolute left-2/4 rounded-[50%] bg-current -translate-x-1/2) [&_.q-time__clock-pointer-top]:(absolute left-2/4 rounded-[50%] bg-current -translate-x-1/2) 
+      [&_.q-time__clock-pointer-bottom]:(-bottom-[4px] w-[8px] h-[8px])
+      [&_.q-time__clock-pointer-top]:(-top-[3px] h-[6px] w-[6px])`
     )
   ],
 

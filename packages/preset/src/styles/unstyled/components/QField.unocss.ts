@@ -34,8 +34,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field$/,
     mdComponent(
       'q-field',
-      `[&_::-ms-clear]:(hidden) 
-	[&_::-ms-reveal]:(hidden)`
+      `w-full [&_::-ms-clear]:(hidden) [&_::-ms-reveal]:(hidden)`
     )
   ],
 
@@ -114,8 +113,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     mdComponent(
       'q-field__control',
       `h-[56px] max-w-full outline-none
-	[&:before]:(content-empty top-[0] right-[0] bottom-[0] left-[0] pointer-events-none absolute) 
-	[&:after]:(content-empty top-[0] right-[0] bottom-[0] left-[0] pointer-events-none absolute)`
+	[&_.q-field__overlay]:(top-[0] right-[0] bottom-[0] left-[0] pointer-events-none absolute)`
     )
   ],
 

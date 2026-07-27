@@ -7,14 +7,14 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn$/,
     componentClass(
       'q-btn',
-      `inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle text-[14px] leading-[1.715em] no-underline uppercase [color:inherit] bg-transparent font-medium text-center w-auto overflow-visible min-h-[36px] min-w-[64px] !rounded-[4px] cursor-default px-[16px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit])`
+      `inline-flex flex-col font-medium items-stretch relative outline-0 border-0 align-middle text-[14px] leading-[1.715em] no-underline uppercase [color:inherit] bg-transparent font-medium text-center w-auto overflow-visible min-h-[36px] min-w-[64px] !rounded-[4px] cursor-default px-[16px] py-[4px] min-h-[2.572em] [&_.q-icon]:(text-[1.715em]) [&_.q-spinner]:(text-[1.715em]) [&.disabled]:(!opacity-70) [&_.q-btn__overlay]:( block absolute left-[0] right-[0] top-[0] bottom-[0] [border-radius:inherit])`
     )
   ],
   [
     /^q-btn--actionable$/,
     componentClass(
       'q-btn--actionable',
-      `cursor-pointer [&.q-btn--standard:before]:([transition:box-shadow_0.3s_cubic-bezier(0.25,_0.8,_0.5,_1)]) [&.q-btn--standard:active:before]:([box-shadow:0_3px_5px_-1px_rgba(0,_0,_0,_0.2),_0_5px_8px_rgba(0,_0,_0,_0.14),_0_1px_14px_rgba(0,_0,_0,_0.12)]) [&.q-btn--standard.q-btn--active:before]:([shadow-lg shadow-gray/14)`
+      `cursor-pointer [&.q-btn--standard_.q-btn__overlay]:([transition:box-shadow_0.3s_cubic-bezier(0.25,_0.8,_0.5,_1)]) [&.q-btn--standard:active_.q-btn__overlay]:([box-shadow:0_3px_5px_-1px_rgba(0,_0,_0,_0.2),_0_5px_8px_rgba(0,_0,_0,_0.14),_0_1px_14px_rgba(0,_0,_0,_0.12)]) [&.q-btn--standard.q-btn--active_.q-btn__overlay]:([shadow-lg shadow-gray/14)`
     )
   ],
 
@@ -22,7 +22,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn--standard$/,
     componentClass(
       'q-btn--standard',
-      `[&:before]:([border-radius:inherit] shadow-[0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)])`
+      `[&_.q-btn__overlay]:([border-radius:inherit] shadow-[0_1px_5px_rgba(0,_0,_0,_0.2),_0_2px_2px_rgba(0,_0,_0,_0.14),_0_3px_1px_-2px_rgba(0,_0,_0,_0.12)])`
     )
   ],
 
@@ -32,7 +32,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn--outline$/,
     componentClass(
       'q-btn--outline',
-      qe`!bg-transparent [&:before]:(border-[1px] border-solid border-[currentColor]) [&:before]:([box-shadow:none]) [&_.q-btn__progress-indicator]:(opacity-20 bg-current)`
+      qe`!bg-transparent [&_.q-btn__overlay]:(border-[1px] border-solid border-[currentColor] [box-shadow:none]) [&_.q-btn__progress-indicator]:(opacity-20 bg-current)`
     )
   ],
 
@@ -40,7 +40,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn--push$/,
     componentClass(
       'q-btn--push',
-      `rounded-[7px] [&:before]:([border-bottom:3px_solid_rgba(0,_0,_0,_0.15)]) [&.q-btn--actionable]:([transition:transform_0.3s_cubic-bezier(0.25,_0.8,_0.5,_1)]) [&.q-btn--actionable:before]:([transition:border-width_0.3s_cubic-bezier(0.25,_0.8,_0.5,_1)]) [&.q-btn--actionable:active]:(translate-y-[2px]) [&.q-btn--actionable.q-btn--active]:(translate-y-[2px]) [&.q-btn--actionable:active:before]:(border-b-[0]) [&.q-btn--actionable.q-btn--active:before]:(border-b-[0])`
+      `rounded-[7px] [&_.q-btn__overlay]:([border-bottom:3px_solid_rgba(0,_0,_0,_0.15)]) [&.q-btn--actionable]:([transition:transform_0.3s_cubic-bezier(0.25,_0.8,_0.5,_1)]) [&.q-btn--actionable_.q-btn__overlay]:([transition:border-width_0.3s_cubic-bezier(0.25,_0.8,_0.5,_1)]) [&.q-btn--actionable:active]:(translate-y-[2px]) [&.q-btn--actionable.q-btn--active]:(translate-y-[2px]) [&.q-btn--actionable:active_.q-btn__overlay]:(border-b-[0]) [&.q-btn--actionable.q-btn--active_.q-btn__overlay]:(border-b-[0])`
     )
   ],
 
@@ -57,13 +57,16 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-btn--flat$/,
     componentClass(
       'q-btn--flat',
-      qe`px-[8px] [&:before]:([box-shadow:none]) [&_.q-btn__progress-indicator]:(opacity-20 bg-current)`
+      qe`px-[8px] [&_.q-btn__overlay]:([box-shadow:none]) [&_.q-btn__progress-indicator]:(opacity-20 bg-current)`
     )
   ],
 
   [
     /^q-btn--unelevated$/,
-    componentClass('q-btn--unelevated', `[&:before]:([box-shadow:none])`)
+    componentClass(
+      'q-btn--unelevated',
+      `[&_.q-btn__overlay]:([box-shadow:none])`
+    )
   ],
 
   [

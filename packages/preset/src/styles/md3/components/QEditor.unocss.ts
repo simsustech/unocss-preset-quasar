@@ -56,7 +56,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentClass(
       'q-editor__toolbar-group',
       qe`relative mx-4px my-0
-    [&+.q-editor__toolbar-group:before]:(content-empty absolute left--4px top-4px bottom-4px w-1px bg-black/12 dark:bg-white/12)
+    [&+.q-editor__toolbar-group:before]:( absolute left--4px top-4px bottom-4px w-1px bg-black/12 dark:bg-white/12)
     `
     )
   ],

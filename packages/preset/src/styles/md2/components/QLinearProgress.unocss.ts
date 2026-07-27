@@ -80,7 +80,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-linear-progress__model--indeterminate$/,
     componentClass(
       'q-linear-progress__model--indeterminate',
-      `transition-none [&:before]:(bg-current content-empty absolute top-0 right-0 bottom-0 left-0 origin-[0_0]) [&:after]:(bg-current content-empty absolute top-0 right-0 bottom-0 left-0 origin-[0_0]) [&:before]:(animate-[q-linear-progress--indeterminate_2.1s_cubic-bezier(0.65,_0.815,_0.735,_0.395)_infinite]) [&:after]:([transform:translate3d(-101%,_0,_0)_scale3d(1,_1,_1)] animate-[q-linear-progress--indeterminate-short_2.1s_cubic-bezier(0.165,_0.84,_0.44,_1)_infinite] [animation-delay:1.15s])`
+      `transition-none [&_.q-linear-progress__model-bar--1]:(bg-current absolute top-0 right-0 bottom-0 left-0 origin-[0_0] animate-[q-linear-progress--indeterminate_2.1s_cubic-bezier(0.65,_0.815,_0.735,_0.395)_infinite]) [&_.q-linear-progress__model-bar--2]:(bg-current absolute top-0 right-0 bottom-0 left-0 origin-[0_0] [transform:translate3d(-101%,_0,_0)_scale3d(1,_1,_1)] animate-[q-linear-progress--indeterminate-short_2.1s_cubic-bezier(0.165,_0.84,_0.44,_1)_infinite] [animation-delay:1.15s])`
     )
   ],
 
@@ -88,7 +88,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-linear-progress__model--query$/,
     componentClass(
       'q-linear-progress__model--query',
-      `transition-none [&:before]:(bg-current content-empty absolute top-0 right-0 bottom-0 left-0 origin-[0_0]) [&:after]:(bg-current content-empty absolute top-0 right-0 bottom-0 left-0 origin-[0_0]) [&:before]:(animate-[q-linear-progress--indeterminate_2.1s_cubic-bezier(0.65,_0.815,_0.735,_0.395)_infinite]) [&:after]:([transform:translate3d(-101%,_0,_0)_scale3d(1,_1,_1)] animate-[q-linear-progress--indeterminate-short_2.1s_cubic-bezier(0.165,_0.84,_0.44,_1)_infinite] [animation-delay:1.15s])`
+      `transition-none [&_.q-linear-progress__model-bar--1]:(bg-current absolute top-0 right-0 bottom-0 left-0 origin-[0_0] animate-[q-linear-progress--indeterminate_2.1s_cubic-bezier(0.65,_0.815,_0.735,_0.395)_infinite]) [&_.q-linear-progress__model-bar--2]:(bg-current absolute top-0 right-0 bottom-0 left-0 origin-[0_0] [transform:translate3d(-101%,_0,_0)_scale3d(1,_1,_1)] animate-[q-linear-progress--indeterminate-short_2.1s_cubic-bezier(0.165,_0.84,_0.44,_1)_infinite] [animation-delay:1.15s])`
     )
   ],
 

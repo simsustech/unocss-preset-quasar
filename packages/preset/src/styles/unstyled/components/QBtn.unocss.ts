@@ -13,7 +13,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     componentCtxClass(
       'q-btn',
       ({ theme }) =>
-        `inline-flex flex-col items-stretch relative outline-0 align-middle text-center w-auto min-h-40px cursor-default px-[16px] py-[4px] min-h-[2.572em] [&.disabled]:(!opacity-70) [&:before]:(content-empty block absolute left-[0] right-[0] top-[0] bottom-[0])`
+        `inline-flex flex-col items-stretch relative outline-0 align-middle text-center w-auto min-h-40px cursor-default px-[16px] py-[4px] min-h-[2.572em] [&.disabled]:(!opacity-70) [&_.q-btn__overlay]:( block absolute left-[0] right-[0] top-[0] bottom-[0])`
     )
   ],
   [
