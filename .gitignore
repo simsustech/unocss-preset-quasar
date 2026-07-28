@@ -9,5 +9,4 @@ ISSUES.md
 .npmrc
 **/.pnpm-store
 test-results/
-.changeset/
 CHANGELOG.md
