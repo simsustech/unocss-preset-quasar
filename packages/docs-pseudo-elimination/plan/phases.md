@@ -112,20 +112,20 @@ Replace all `[&:before]`/`[&:after]` atoms with utility classes on real selector
 
 ## Phase 4: Native HTML Swaps (Weeks 4-6)
 
-| Component         | Native Replacement                       | Effort | Status   |
-| ----------------- | ---------------------------------------- | ------ | -------- |
-| QDialog           | `<dialog>`                               | High   | Pending  |
-| QMenu             | `<menu>` + popover API                   | Medium | Pending  |
-| QTooltip          | `popover` attribute                      | Medium | Pending  |
-| QExpansionItem    | `<details>` + `<summary>`                | Low    | Pending  |
-| QToggle           | `<input type=checkbox>` + `accent-color` | Low    | **Done** |
-| QCheckbox         | `<input type=checkbox>` + `accent-color` | Low    | **Done** |
-| QRadio            | `<input type=radio>` + `accent-color`    | Low    | **Done** |
-| QSlider           | `<input type=range>`                     | Medium | Pending  |
-| QKnob             | `<input type=range>` circular            | Medium | Pending  |
-| QLinearProgress   | `<progress>`                             | Low    | **Done** |
-| QCircularProgress | `<progress>` + conic-gradient            | Medium | Pending  |
-| QSelect (plain)   | `<select>`                               | Low    | Pending  |
+| Component         | Native Replacement                         | Effort | Status                          |
+| ----------------- | ------------------------------------------ | ------ | ------------------------------- |
+| QDialog           | `<dialog>`                                 | High   | Pending                         |
+| QMenu             | `<menu>` + popover API                     | Medium | Pending                         |
+| QTooltip          | `popover` attribute                        | Medium | Pending                         |
+| QExpansionItem    | `<details>` + `<summary>`                  | Low    | Pending                         |
+| QToggle           | `<input type=checkbox>` + `accent-color`   | Low    | **Done**                        |
+| QCheckbox         | `<input type=checkbox>` + `accent-color`   | Low    | **Done**                        |
+| QRadio            | `<input type=radio>` + `accent-color`      | Low    | **Done**                        |
+| QSlider           | `<input type=range>`                       | Medium | Pending                         |
+| QKnob             | `<input type=range>` circular              | Medium | Pending                         |
+| QLinearProgress   | `<progress>`                               | Low    | **Done**                        |
+| QCircularProgress | `<progress>` + conic-gradient            | Medium | **Done**                        |
+| QSelect (plain)   | `<select>`                                 | Low    | Pending                         |
 
 ### Phase 4 Pattern (QLinearProgress PoC)
 
@@ -167,6 +167,42 @@ Native `<progress>` does not support indeterminate animation natively across
 all browsers, but rendering without a `value` attribute triggers the browser's
 own indeterminate animation. We rely on that for now and disable the
 `transition` property in the `--motion` variant.
+
+### QRadio / QCheckbox / QToggle (accent-color swap)
+
+These three components share `use-checkbox.js`. The swap replaces custom SVG
+visuals with a visible native `<input>` themed via `accent-color: currentColor`.
+The host element becomes a `<label>`, and the Quasar class API (`--truthy`,
+`--falsy`, `--dark`, `--dense`, `color`, `keepColor`, `disable`, `dense`)
+is preserved through class hooks.
+
+```sass
+// The native input is sized to fill the host, with the browser's
+// native radio/checkbox visual driven by accent-color.
+.q-radio__native, .q-checkbox__native, .q-toggle__native
+  appearance: none  (toggle only, for role=switch styling)
+  accent-color: currentColor
+```
+
+### Phase 4 Status (5 of 12 done)
+
+Five components are committed; seven remain deferred because the native swap
+involves significant feature loss or architectural changes:
+
+- **QSlider / QKnob**: `<input type=range>` doesn't support markers, labels,
+  pins, vertical orientation, or circular rendering.
+- **QDialog**: `<dialog>` changes stacking context and breaks Quasar's
+  portal-based overlay system.
+- **QMenu / QTooltip**: `popover` API has limited browser support (Chrome 114+)
+  and lacks anchor positioning in Firefox/Safari.
+- **QExpansionItem**: `<details>` can't contain QItem header layouts.
+- **QCircularProgress**: ~~done in commit `2a8c9770c` (Quasar fork).
+  Native `<progress>` element with `conic-gradient` background sized by
+  `--q-circular-progress-pct`. Indeterminate mode rotates the gradient via
+  `@keyframes`. Browser-vendor pseudo-elements suppress the native linear-fill
+  default.~~
+- **QSelect**: Plain `<select>` loses filtering, multi-select, chips, and
+  option templating.
 
 ### Validation
 
