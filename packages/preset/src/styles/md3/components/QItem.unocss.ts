@@ -16,7 +16,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-item__section$/,
     componentClass(
       'q-item__section',
-      `flex flex-col flex-nowrap [align-items:stretch] text-center min-w-[0]`
+      `flex flex-col flex-nowrap [align-items:stretch min-w-[0]`
     )
   ],
 
@@ -101,7 +101,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       qe`w-auto min-w-[0] max-w-full flex-[10000_1_0%]
       [&:has(>:last-child:nth-child(2))]:(min-h-36px)
       [&:has(>:last-child:nth-child(3))]:(min-h-44px)
-      [&_+_.q-item__section--main]:(ml-[8px]) 
+      [&_+_.q-item__section--main]:(ml-[8px])
       [&_~_.q-item__section--side]:(items-end pr-0 pl-[16px])`
     )
   ],
@@ -136,8 +136,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-list--dark$/,
     componentClass(
       'q-list--dark',
-      qe`text-[#fff] border-[rgba(255,_255,_255,_0.28)] 
-      [&_.q-item__section--side:not(.q-item__section--avatar)]:(text-[rgba(255,_255,_255,_0.7)]) 
+      qe`text-[#fff] border-[rgba(255,_255,_255,_0.28)]
+      [&_.q-item__section--side:not(.q-item__section--avatar)]:(text-[rgba(255,_255,_255,_0.7)])
       [&_.q-item__label--header]:(text-[rgba(255,_255,_255,_0.64)]) [&_.q-item__label--overline]:(text-[rgba(255,_255,_255,_0.8)]) [&_.q-item__label--caption]:(text-[rgba(255,_255,_255,_0.8)])`
     )
   ],
