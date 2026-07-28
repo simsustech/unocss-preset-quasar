@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.4.2
+
+### Patch Changes
+
+- ba08a4e: fix: remove text-center from q-item__section
+
 ## 0.4.1
 
 ### Patch Changes
