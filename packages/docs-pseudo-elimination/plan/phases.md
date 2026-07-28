@@ -112,20 +112,20 @@ Replace all `[&:before]`/`[&:after]` atoms with utility classes on real selector
 
 ## Phase 4: Native HTML Swaps (Weeks 4-6)
 
-| Component         | Native Replacement                         | Effort | Status                          |
-| ----------------- | ------------------------------------------ | ------ | ------------------------------- |
-| QDialog           | `<dialog>`                                 | High   | Pending                         |
-| QMenu             | `<menu>` + popover API                     | Medium | Pending                         |
-| QTooltip          | `popover` attribute                        | Medium | Pending                         |
-| QExpansionItem    | `<details>` + `<summary>`                  | Low    | Pending                         |
-| QToggle           | `<input type=checkbox>` + `accent-color`   | Low    | **Done**                        |
-| QCheckbox         | `<input type=checkbox>` + `accent-color`   | Low    | **Done**                        |
-| QRadio            | `<input type=radio>` + `accent-color`      | Low    | **Done**                        |
-| QSlider           | `<input type=range>`                       | Medium | Pending                         |
-| QKnob             | `<input type=range>` circular              | Medium | Pending                         |
-| QLinearProgress   | `<progress>`                               | Low    | **Done**                        |
-| QCircularProgress | `<progress>` + conic-gradient            | Medium | **Done**                        |
-| QSelect (plain)   | `<select>`                                 | Low    | Pending                         |
+| Component         | Native Replacement                       | Effort | Status      |
+| ----------------- | ---------------------------------------- | ------ | ----------- |
+| QDialog           | `<dialog>`                               | High   | **Partial** |
+| QMenu             | `<menu>` + popover API                   | Medium | Pending     |
+| QTooltip          | `popover` attribute                      | Medium | Pending     |
+| QExpansionItem    | `<details>` + `<summary>`                | Low    | Pending     |
+| QToggle           | `<input type=checkbox>` + `accent-color` | Low    | **Done**    |
+| QCheckbox         | `<input type=checkbox>` + `accent-color` | Low    | **Done**    |
+| QRadio            | `<input type=radio>` + `accent-color`    | Low    | **Done**    |
+| QSlider           | `<input type=range>`                     | Medium | **Partial** |
+| QKnob             | `<input type=range>` circular            | Medium | Pending     |
+| QLinearProgress   | `<progress>`                             | Low    | **Done**    |
+| QCircularProgress | `<progress>` + conic-gradient            | Medium | **Done**    |
+| QSelect (plain)   | `<select>`                               | Low    | Pending     |
 
 ### Phase 4 Pattern (QLinearProgress PoC)
 
@@ -184,15 +184,22 @@ is preserved through class hooks.
   accent-color: currentColor
 ```
 
-### Phase 4 Status (5 of 12 done)
+### Phase 4 Status (7 of 12 done or partial)
 
-Five components are committed; seven remain deferred because the native swap
-involves significant feature loss or architectural changes:
+Seven components are committed; five remain pending. Two are marked as
+"Partial" because they adopt the native element tag but preserve Quasar's
+custom visuals:
 
 - **QSlider / QKnob**: `<input type=range>` doesn't support markers, labels,
-  pins, vertical orientation, or circular rendering.
+  pins, vertical orientation, or circular rendering. QSlider is marked
+  **Partial** (commit `e80a7de07`) — a hidden native `<input type=range>` is
+  added inside the slider host for native keyboard accessibility (arrow keys,
+  home/end, page up/down) while custom mouse/touch handling is preserved.
 - **QDialog**: `<dialog>` changes stacking context and breaks Quasar's
-  portal-based overlay system.
+  portal-based overlay system. QDialog is marked **Partial** (commit
+  `e80a7de07`) — renders `<dialog>` instead of `<div role="dialog">` and
+  adds `::backdrop` styling. Quasar still uses a custom backdrop div for
+  portal rendering.
 - **QMenu / QTooltip**: `popover` API has limited browser support (Chrome 114+)
   and lacks anchor positioning in Firefox/Safari.
 - **QExpansionItem**: `<details>` can't contain QItem header layouts.
