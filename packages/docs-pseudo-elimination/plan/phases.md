@@ -115,8 +115,8 @@ Replace all `[&:before]`/`[&:after]` atoms with utility classes on real selector
 | Component         | Native Replacement                       | Effort | Status      |
 | ----------------- | ---------------------------------------- | ------ | ----------- |
 | QDialog           | `<dialog>`                               | High   | **Partial** |
-| QMenu             | `<menu>` + popover API                   | Medium | Pending     |
-| QTooltip          | `popover` attribute                      | Medium | Pending     |
+| QMenu             | `<menu>` + popover API                   | Medium | **Partial** |
+| QTooltip          | `popover` attribute                      | Medium | **Partial** |
 | QExpansionItem    | `<details>` + `<summary>`                | Low    | Pending     |
 | QToggle           | `<input type=checkbox>` + `accent-color` | Low    | **Done**    |
 | QCheckbox         | `<input type=checkbox>` + `accent-color` | Low    | **Done**    |
