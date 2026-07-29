@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <rect width="300" height="300" fill="#f5f5f5"/>
+  <text x="150" y="150" text-anchor="middle" font-family="system-ui" font-size="18" fill="#999">QKnob Focus</text>
+</svg>

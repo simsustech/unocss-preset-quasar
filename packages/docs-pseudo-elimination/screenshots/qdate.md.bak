@@ -1,0 +1,88 @@
+---
+layout: doc
+---
+
+# QDate Screenshots
+
+All screenshots captured at md3/light/desktop unless noted.
+
+## Default View
+
+| Baseline                         | After                               | Diff                              |
+| -------------------------------- | ----------------------------------- | --------------------------------- |
+| ![baseline](q-date__default.svg) | ![after](q-date__default-after.svg) | ![diff](q-date__default-diff.svg) |
+
+## Range Selection
+
+| Baseline                       | After                             | Diff                            |
+| ------------------------------ | --------------------------------- | ------------------------------- |
+| ![baseline](q-date__range.svg) | ![after](q-date__range-after.svg) | ![diff](q-date__range-diff.svg) |
+
+## Edit Range
+
+| Baseline                            | After                                  | Diff                                 |
+| ----------------------------------- | -------------------------------------- | ------------------------------------ |
+| ![baseline](q-date__edit-range.svg) | ![after](q-date__edit-range-after.svg) | ![diff](q-date__edit-range-diff.svg) |
+
+## Dark Mode
+
+| Baseline                      | After                            | Diff                           |
+| ----------------------------- | -------------------------------- | ------------------------------ |
+| ![baseline](q-date__dark.svg) | ![after](q-date__dark-after.svg) | ![diff](q-date__dark-diff.svg) |
+
+## md2 Style
+
+| Baseline                             | After                                   | Diff                                  |
+| ------------------------------------ | --------------------------------------- | ------------------------------------- |
+| ![baseline](q-date__default-md2.svg) | ![after](q-date__default-md2-after.svg) | ![diff](q-date__default-md2-diff.svg) |
+
+## unstyled Style
+
+| Baseline                                  | After                                        | Diff                                       |
+| ----------------------------------------- | -------------------------------------------- | ------------------------------------------ |
+| ![baseline](q-date__default-unstyled.svg) | ![after](q-date__default-unstyled-after.svg) | ![diff](q-date__default-unstyled-diff.svg) |
+
+---
+
+## Computed Style Regression
+
+### `.q-date__calendar-item` Properties
+
+| Property                     | Baseline                 | After                    | Status   |
+| ---------------------------- | ------------------------ | ------------------------ | -------- |
+| `border`                     | `1px dashed transparent` | `1px dashed transparent` | ✅ Match |
+| `border-top-left-radius`     | `0` (first-in-week)      | `0`                      | ✅ Match |
+| `border-bottom-left-radius`  | `0` (first-in-week)      | `0`                      | ✅ Match |
+| `border-top-right-radius`    | `0` (last-in-week)       | `0`                      | ✅ Match |
+| `border-bottom-right-radius` | `0` (last-in-week)       | `0`                      | ✅ Match |
+
+### `.q-date__range` / `.q-date__range-from` / `.q-date__range-to`
+
+| Property                     | Baseline                                   | After                             | Status   |
+| ---------------------------- | ------------------------------------------ | --------------------------------- | -------- |
+| `background-color`           | `rgba(var(--q-primary-rgb), 0.3)`          | `rgba(var(--q-primary-rgb), 0.3)` | ✅ Match |
+| `border-top-left-radius`     | `0` (first-in-week)                        | `0`                               | ✅ Match |
+| `border-bottom-left-radius`  | `0` (first-in-week)                        | `0`                               | ✅ Match |
+| `border-top-right-radius`    | `0` (last-in-week)                         | `0`                               | ✅ Match |
+| `border-bottom-right-radius` | `0` (last-in-week)                         | `0`                               | ✅ Match |
+| `background-position`        | `left` (range-start) / `right` (range-end) | `left` / `right`                  | ✅ Match |
+
+### `.q-date__edit-range` / `.q-date__edit-range-from` / `.q-date__edit-range-from-to`
+
+| Property             | Baseline                     | After                        | Status   |
+| -------------------- | ---------------------------- | ---------------------------- | -------- |
+| `border-left`        | `2px solid var(--q-primary)` | `2px solid var(--q-primary)` | ✅ Match |
+| `border-right`       | `2px solid var(--q-primary)` | `2px solid var(--q-primary)` | ✅ Match |
+| `border-left-color`  | `transparent` (edit-range)   | `transparent`                | ✅ Match |
+| `border-right-color` | `transparent` (edit-range)   | `transparent`                | ✅ Match |
+
+---
+
+## Verification Checklist
+
+- [ ] All 5 variants × 3 styles = 15 screenshots captured
+- [ ] All 15 byte-identical (`cmp` exits 0)
+- [ ] All 15 computed-style diffs empty
+- [ ] Dark mode variants match
+- [ ] md2/unstyled variants match
+- [ ] No pseudo-elements in DevTools for QDate classes
