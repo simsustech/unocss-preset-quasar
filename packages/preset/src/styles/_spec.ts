@@ -20,26 +20,33 @@
  */
 
 import type { StyleSpec } from '../spec/types.js'
+import { getStyleSpec } from '../spec/index.js'
 
-// Shim type for the spec tree — any node is either a leaf (string | number)
-// or a nested object.
-type SpecNode = string | number | Record<string, SpecNode>
+interface SpecNodeMap {
+  [key: string]: SpecNode
+}
+type SpecNode = string | number | SpecNodeMap
 
 /**
  * Create a scoped spec-resolver for one style.
  *
- * @param spec - The StyleSpec to bind.
+ * Accepts either a StyleSpec object or a string name ('md3', 'md2', 'unstyled')
+ * which is resolved via the spec registry.
+ *
+ * @param spec - The StyleSpec to bind or a style name string.
  * @returns An `s()` function that resolves dotted paths against the spec.
  */
-export function bindSpec(spec: StyleSpec) {
+export function bindSpec(spec: StyleSpec | string): SpecResolver {
+  if (typeof spec === 'string') {
+    spec = getStyleSpec(spec)
+  }
+
   const cache = new Map<string, string>()
 
   function resolve(path: string): string {
     const cached = cache.get(path)
     if (cached !== undefined) return cached
 
-    // Try darkTokens prefix first (e.g. "darkTokens.color.primary")
-    // then tokens prefix ("color.primary"), then full path ("tokens.color.primary")
     let value: string | undefined
 
     if (path.startsWith('darkTokens.')) {
@@ -48,7 +55,6 @@ export function bindSpec(spec: StyleSpec) {
     }
 
     if (value === undefined) {
-      // Try direct path (e.g. "color.primary")
       value = resolveFromObj(
         spec.tokens as unknown as Record<string, SpecNode>,
         path
@@ -56,7 +62,6 @@ export function bindSpec(spec: StyleSpec) {
     }
 
     if (value === undefined) {
-      // Try with "tokens." prefix
       value = resolveFromObj(
         { tokens: spec.tokens } as Record<string, SpecNode>,
         path
@@ -64,7 +69,6 @@ export function bindSpec(spec: StyleSpec) {
     }
 
     if (value === undefined) {
-      // Try elevation/sizing/motion on the spec root
       value = resolveFromObj(spec as unknown as Record<string, SpecNode>, path)
     }
 
@@ -84,7 +88,6 @@ export function bindSpec(spec: StyleSpec) {
     strings: TemplateStringsArray | string,
     ...values: unknown[]
   ): string {
-    // Tagged template with no substitutions: s`color.primary`
     if (Array.isArray(strings) && 'raw' in strings) {
       let result = ''
       for (let i = 0; i < strings.length; i++) {
@@ -95,7 +98,7 @@ export function bindSpec(spec: StyleSpec) {
       }
       return resolve(result)
     }
-    // String call: s('color.primary')
+
     if (typeof strings === 'string') return resolve(strings)
     return 'inherit'
   }

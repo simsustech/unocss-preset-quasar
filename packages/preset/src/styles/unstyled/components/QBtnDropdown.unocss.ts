@@ -1,28 +1,7 @@
-import type { Rule, Shortcut } from '@unocss/core'
+import type { Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
-import { componentClass, staticClass, qe } from '../../_helpers.js'
+import { makeQBtnDropdownShortcuts } from '../../shared/components/QBtnDropdown.unocss.js'
+import { bindSpec } from '../../_spec.js'
 
-const shortcuts: Shortcut<QuasarTheme>[] = [
-  [
-    /^q-btn-dropdown--split$/,
-    ([, c], { theme }) => qe`[&_.q-btn-dropdown__arrow-container]:(px-4px py-0)
-    `
-  ],
-  [
-    /^q-btn-dropdown--simple$/,
-    componentClass(
-      'q-btn-dropdown--simple',
-      qe`[&+.q-btn-dropdown__arrow]:(ml-8px)`
-    )
-  ],
-  [
-    /^q-btn-dropdown__arrow$/,
-    componentClass(
-      'q-btn-dropdown__arrow',
-      `transition-property-transform transition-duration-280`
-    )
-  ],
-  [/^q-btn-dropdown--current$/, staticClass(`grow-1`)]
-]
-
-export { shortcuts }
+const s = bindSpec('unstyled')
+export const shortcuts = makeQBtnDropdownShortcuts(s)
