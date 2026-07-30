@@ -45,8 +45,12 @@
     },
     "./vite-aliases": {
       "source": "./src/vite-aliases.ts",
-      "types": "./dist/types/vite-aliases.d.ts",
-      "import": "./dist/vite-aliases.js"
+      "types": "./dist/types/vite-aliases.d.ts"
+    },
+    "./spec": {
+      "source": "./src/spec/index.ts",
+      "types": "./dist/types/spec/index.d.ts",
+      "import": "./dist/spec/index.js"
     }
   },
   "publishConfig": {
