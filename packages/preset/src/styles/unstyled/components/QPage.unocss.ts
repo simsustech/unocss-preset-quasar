@@ -1,7 +1,9 @@
-import type { Shortcut } from '@unocss/core'
+import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
-import { makeQPageShortcuts } from '../../shared/components/QPage.unocss.js'
-import { bindSpec } from '../../_spec.js'
+import { staticClass } from '../../_helpers.js'
 
-const s = bindSpec('unstyled')
-export const shortcuts = makeQPageShortcuts(s)
+const shortcuts: Shortcut<QuasarTheme>[] = [
+  [/^q-page$/, staticClass(`relative`)]
+]
+
+export { shortcuts }

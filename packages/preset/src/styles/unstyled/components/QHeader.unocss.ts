@@ -1,7 +1,17 @@
-import type { Shortcut } from '@unocss/core'
+import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
-import { makeQHeaderShortcuts } from '../../shared/components/QHeader.unocss.js'
-import { bindSpec } from '../../_spec.js'
+import { componentClass, staticClass, qe } from '../../_helpers.js'
 
-const s = bindSpec('unstyled')
-export const shortcuts = makeQHeaderShortcuts(s)
+const shortcuts: Shortcut<QuasarTheme>[] = [
+  [/^q-header--hidden$/, staticClass(`[transform:translateY(-110%)]`)],
+
+  [
+    /^q-header$/,
+    ([, c], { theme }) =>
+      theme.quasar?.components?.['q-header'] ??
+      qe`z-2000 [&_.q-layout__shadow]:(-bottom-10px) [&_.q-layout__shadow:after]:(bottom-10px)
+      [&_.q-toolbar__title]:(flex-grow-1000)`
+  ]
+]
+
+export { shortcuts }

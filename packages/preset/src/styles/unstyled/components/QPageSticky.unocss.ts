@@ -1,7 +1,16 @@
-import type { Shortcut } from '@unocss/core'
+import type { Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
-import { makeQPageStickyShortcuts } from '../../shared/components/QPageSticky.unocss.js'
-import { bindSpec } from '../../_spec.js'
+import { componentClass, staticClass } from '../../_helpers.js'
 
-const s = bindSpec('unstyled')
-export const shortcuts = makeQPageStickyShortcuts(s)
+const shortcuts: Shortcut<QuasarTheme>[] = [
+  [/^q-page-sticky$/, componentClass('q-page-sticky', ``)],
+  [
+    /^q-page-sticky--shrink$/,
+    componentClass(
+      'q-page-sticky--shrink',
+      `pointer-events-none [&_>_div]:(inline-block pointer-events-auto)`
+    )
+  ]
+]
+
+export { shortcuts }
