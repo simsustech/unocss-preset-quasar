@@ -54,7 +54,7 @@ extendViteConf(viteConf, { isClient }) {
       enforce: 'pre',
       presets: [
         QuasarPreset({
-          style: MaterialDesign3,
+          styles: QuasarStyleEntries,
           plugins: ['Dark', 'Dialog', 'Notify', /* ... */],
         }),
       ],
@@ -78,7 +78,7 @@ framework: {
 ```ts
 import { defineConfig } from 'quasar'
 import { QuasarPreset } from 'unocss-preset-quasar'
-import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
+import { QuasarStyleEntries } from 'unocss-preset-quasar/styles'
 import UnoCSS from 'unocss/vite'
 
 const plugins = [
@@ -133,7 +133,7 @@ export default defineConfig(async (ctx) => ({
         enforce: 'pre',
         presets: [
           QuasarPreset({
-            style: MaterialDesign3,
+            styles: QuasarStyleEntries,
             plugins
           })
         ]

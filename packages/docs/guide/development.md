@@ -20,16 +20,15 @@ packages/preset/
 │   │   ├── position.unocss.ts
 │   │   ├── size.unocss.ts
 │   │   └── ...
-│   └── styles/               # Design system styles
-│       ├── index.ts          # QuasarStyle interface + exports
-│       ├── _helpers.ts       # qe(), componentClass(), staticClass()
-│       ├── _scope.ts         # wrapPreWithBodyClass(), scopeStyle()
-│       ├── md3/              # Material Design 3 shortcuts
-│       │   ├── index.ts
-│       │   ├── components/   # ~70 component files
-│       │   └── plugins/      # Plugin-specific styles
-│       ├── md2/              # Material Design 2 shortcuts
-│       └── unstyled/         # Unstyled (structural only)
+│   └── styles/               # Component tree + style entries
+│       ├── index.ts          # QuasarStyle + QuasarStyleEntry + setStyle
+│       ├── shared/           # THE shared component tree (~70 components)
+│       │   ├── index.ts      # Base tree assembly
+│       │   ├── components/   # Component shortcuts (var-driven via --q-*)
+│       │   ├── plugins/      # Plugin-specific styles
+│       │   ├── directives/   # Directive styles
+│       │   └── composables/  # Shared composable styles
+│       └── _helpers.ts       # qe(), componentClass(), staticClass()
 └── dist/                     # Compiled output (tsc)
 ```
 
@@ -99,7 +98,7 @@ export const shortcuts: Shortcut<QuasarTheme>[] = [
 3. **Register the shortcuts** in the style's index.ts:
 
 ```ts
-// packages/preset/src/styles/md3/index.ts
+// packages/preset/src/styles/shared/index.ts
 import { shortcuts as QComponentNameShortcuts } from './components/QComponentName.unocss.js'
 
 export default {

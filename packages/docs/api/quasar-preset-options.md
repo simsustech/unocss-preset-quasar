@@ -5,26 +5,22 @@ Options interface for `QuasarPreset()`.
 ## Definition
 
 ```ts
-export interface QuasarPresetOptions extends PresetOptions {
-  style: QuasarStyle
+  styles?: QuasarStyleEntry[]
   sourceColor?: string
   plugins?: (keyof QuasarPlugins)[]
   iconSet?: QuasarIconSet
   presetWebFonts?: WebFontsOptions
-  scoped?: boolean
+}
 }
 ```
 
 ## Properties
 
-| Property         | Type                      | Required | Default                                              | Description                                    |
-| ---------------- | ------------------------- | -------- | ---------------------------------------------------- | ---------------------------------------------- |
-| `style`          | `QuasarStyle`             | Yes      | —                                                    | Design system (MD3, MD2, or Unstyled)          |
-| `sourceColor`    | `string`                  | No       | `'#1976d2'`                                          | Hex color driving MD3 palette generation       |
-| `plugins`        | `(keyof QuasarPlugins)[]` | No       | `[]`                                                 | Quasar plugin names for safelist generation    |
-| `iconSet`        | `QuasarIconSet`           | No       | —                                                    | Icon set for safelist generation               |
-| `presetWebFonts` | `WebFontsOptions`         | No       | `{ provider: 'bunny', fonts: { roboto: 'Roboto' } }` | Web font configuration                         |
-| `scoped`         | `boolean`                 | No       | `false`                                              | Scope CSS to body class for multi-style builds |
+| `styles` | `QuasarStyleEntry[]` | No | `QuasarStyleEntries` (md3, md2, unstyled) | Named token entries; each emits a `body.quasar-style-{name}` CSS-variable block |
+| `sourceColor` | `string` | No | `'#1976d2'` | Hex color driving MD3 palette generation |
+| `plugins` | `(keyof QuasarPlugins)[]` | No | `[]` | Quasar plugin names for safelist generation |
+| `iconSet` | `QuasarIconSet` | No | — | Icon set for safelist generation |
+| `presetWebFonts` | `WebFontsOptions` | No | `{ provider: 'bunny', fonts: { roboto: 'Roboto' } }` | Web font configuration |
 
 ## PresetOptions (inherited)
 

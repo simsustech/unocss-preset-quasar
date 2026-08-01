@@ -34,19 +34,19 @@ MD2 surfaces have less tonal variation between elevation levels compared to MD3.
 ## Usage
 
 ```ts
-import { MaterialDesign2 } from 'unocss-preset-quasar/styles'
+import { Md2StyleEntry } from 'unocss-preset-quasar/styles'
 
 QuasarPreset({
-  style: MaterialDesign2,
+  styles: [Md2StyleEntry],
   sourceColor: '#1976d2' // Still uses MD3 color generation
 })
 ```
 
-Even though MD2 uses the classic aesthetic, it still benefits from the MD3 color generation system. The `sourceColor` generates the same tonal palette, but components apply it differently.
+Even though MD2 uses the classic aesthetic, it still benefits from the MD3 color generation system. The `sourceColor` generates the same tonal palette, but components apply it differently. To keep both styles switchable at runtime, pass `QuasarStyleEntries` and call `setStyle('md2')`.
 
 ## Files
 
-MD2 component shortcuts are in `packages/preset/src/styles/md2/components/` — one file per component.
+MD2 component tokens are in `packages/preset/src/core/_tokens.ts` — the `md2` block.
 
 ## When to Use MD2
 

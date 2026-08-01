@@ -3,8 +3,11 @@ import type { QuasarTheme } from '../theme.js'
 import {
   tokens as defaultTokens,
   type DesignTokens,
+  type QuasarStyleEntry,
   type TokenBlock
 } from './_tokens.js'
+
+export type { QuasarStyleEntry } from './_tokens.js'
 
 export function mergeTokens(user?: Partial<DesignTokens>): DesignTokens {
   if (!user) return defaultTokens
@@ -92,6 +95,33 @@ const DEFAULTS: Record<string, string> = {
   toggleTrackBorderRadius: '0',
   toggleTrackHeight: 'auto',
   toggleInnerWidth: 'auto',
+  // QBtn
+  btnBg: 'transparent',
+  btnColor: 'inherit',
+  btnTextTransform: 'none',
+  btnRadius: '0',
+  btnMinWidth: 'auto',
+  btnPaddingX: '0',
+  btnFontSize: '14px',
+  btnLineHeight: '1.715em',
+  btnShadow: 'none',
+  btnPressedShadow: 'none',
+  btnPressedShadowLg: 'none',
+  btnOutlineColor: 'inherit',
+  btnOutlineBorder: 'currentColor',
+  btnFlatColor: 'inherit',
+  btnFlatPaddingX: '0',
+  btnPushRadius: '0',
+  btnPushBorderBottom: 'none',
+  btnRoundedRadius: '0',
+  btnRoundRadius: '0',
+  btnSquareRadius: '0',
+  btnDensePadding: '0.175em',
+  fabBg: 'transparent',
+  fabColor: 'inherit',
+  fabRadius: '0',
+  fabSize: '56px',
+  fabMiniSize: '40px',
   // Position-engine runtime variables (set dynamically by Quasar at runtime)
   peTop: '0px',
   peLeft: '0px'
@@ -105,37 +135,49 @@ const emit = (bodyClass: string, block: TokenBlock): string => {
     ...block.color,
     ...block.shape,
     ...block.sizing,
-    ...block.type
+    ...block.type,
+    ...block.component
   }
   for (const [key, val] of Object.entries(all))
     lines.push(`  --q-${kebab(key)}: ${val};`)
   return `body.${bodyClass} {\n${lines.join('\n')}\n}`
 }
 
-/** Emit dark overrides: swap --light- → --dark- for color keys */
+/** Emit dark overrides: swap --light- → --dark- for color/component keys */
 const emitDark = (bodyClass: string, block: TokenBlock): string => {
   const lines: string[] = []
-  for (const [key, val] of Object.entries(block.color))
+  const all = {
+    ...block.color,
+    ...block.component
+  }
+  for (const [key, val] of Object.entries(all))
     lines.push(`  --q-${kebab(key)}: ${val.replace(/--light-/g, '--dark-')};`)
   return `body.body--dark.${bodyClass} {\n${lines.join('\n')}\n}`
 }
 
-export function createTokenPreflight(
-  tokens: DesignTokens
-): Preflight<QuasarTheme> {
+/**
+ * Token preflight. Reads the style entries from the UnoCSS theme
+ * (`theme.quasar.tokens`, injected by the preset's `extendTheme`) so
+ * users can override token values with plain UnoCSS theme config.
+ *
+ * Emits one `body.quasar-style-{name}` CSS-variable block per entry plus
+ * `.body--dark` overrides. Switching the body class swaps styles at
+ * runtime; shortcuts reference the `--q-*` vars.
+ */
+export function createTokenPreflight(): Preflight<QuasarTheme> {
   return {
-    getCSS: () => `
-/* ===== Quasar Design Tokens ===== */
-
-${emit('quasar-style-md3', tokens.md3)}
-
-${emit('quasar-style-md2', tokens.md2)}
-
-${emit('quasar-style-unstyled', tokens.unstyled)}
-
-/* ===== Dark mode overrides ===== */
-${emitDark('quasar-style-md3', tokens.md3)}
-
-${emitDark('quasar-style-md2', tokens.md2)}`
+    getCSS: ({ theme }) => {
+      const entries = (
+        theme.quasar as { tokens?: QuasarStyleEntry[] } | undefined
+      )?.tokens
+      if (!entries?.length) return ''
+      const parts: string[] = ['/* ===== Quasar Design Tokens ===== */']
+      for (const entry of entries)
+        parts.push(emit(`quasar-style-${entry.name}`, entry.tokens))
+      parts.push('/* ===== Dark mode overrides ===== */')
+      for (const entry of entries)
+        parts.push(emitDark(`quasar-style-${entry.name}`, entry.tokens))
+      return parts.join('\n\n')
+    }
   }
 }

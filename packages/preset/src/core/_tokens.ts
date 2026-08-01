@@ -77,8 +77,41 @@ export interface TokenBlock {
     toggleTrackHeight: string
     toggleInnerWidth: string
   }
+  /**
+   * Component tokens — `--q-{component}-{property}`. One shared shortcut
+   * set references these vars; each style entry supplies the values
+   * (e.g. `--q-btn-radius` = 28px for md3, 4px for md2).
+   */
+  component: {
+    // QBtn
+    btnBg: string
+    btnColor: string
+    btnTextTransform: string
+    btnRadius: string
+    btnMinWidth: string
+    btnPaddingX: string
+    btnFontSize: string
+    btnLineHeight: string
+    btnShadow: string
+    btnPressedShadow: string
+    btnPressedShadowLg: string
+    btnOutlineColor: string
+    btnOutlineBorder: string
+    btnFlatColor: string
+    btnFlatPaddingX: string
+    btnPushRadius: string
+    btnPushBorderBottom: string
+    btnRoundedRadius: string
+    btnRoundRadius: string
+    btnSquareRadius: string
+    btnDensePadding: string
+    fabBg: string
+    fabColor: string
+    fabRadius: string
+    fabSize: string
+    fabMiniSize: string
+  }
 }
-
 export interface DesignTokens {
   md3: TokenBlock
   md2: TokenBlock
@@ -87,6 +120,15 @@ export interface DesignTokens {
     md3: Pick<TokenBlock['color'], 'primary' | 'onPrimary'>
     md2: Pick<TokenBlock['color'], 'primary' | 'onPrimary'>
   }
+}
+
+/**
+ * A style entry: one named token spec. The name becomes the body class
+ * (`quasar-style-{name}`) that activates the block at runtime.
+ */
+export interface QuasarStyleEntry {
+  name: string
+  tokens: TokenBlock
 }
 
 const extra = {
@@ -158,6 +200,37 @@ export const tokens: DesignTokens = {
       toggleTrackBorderRadius: 'var(--q-radius-full)',
       toggleTrackHeight: '1em',
       toggleInnerWidth: '1.625em'
+    },
+    component: {
+      btnBg: 'var(--light-primary)',
+      btnColor: 'var(--light-on-primary)',
+      btnTextTransform: 'none',
+      btnRadius: 'var(--q-radius-xl)',
+      btnMinWidth: 'auto',
+      btnPaddingX: '24px',
+      btnShadow:
+        '0 4px 6px -1px rgb(156 163 175 / 0.14), 0 2px 4px -2px rgb(156 163 175 / 0.14)',
+      btnPressedShadow:
+        '0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 5px 8px rgba(0, 0, 0, 0.14), 0 1px 14px rgba(0, 0, 0, 0.12)',
+      btnOutlineColor: 'var(--light-primary)',
+      btnOutlineBorder: 'var(--light-outline)',
+      btnFlatColor: 'var(--light-primary)',
+      btnFlatPaddingX: '12px',
+      btnPushRadius: '7px',
+      btnPushBorderBottom: '3px solid rgba(0, 0, 0, 0.15)',
+      btnRoundedRadius: 'var(--q-radius-xl)',
+      btnRoundRadius: '50%',
+      btnSquareRadius: '0',
+      btnDensePadding: '0.175em',
+      btnFontSize: '14px',
+      btnLineHeight: '1.715em',
+      btnPressedShadowLg:
+        '0 10px 15px -3px rgb(156 163 175 / 0.14), 0 4px 6px -4px rgb(156 163 175 / 0.14)',
+      fabBg: 'var(--light-primary-container)',
+      fabColor: 'var(--light-on-surface)',
+      fabRadius: 'var(--q-radius-lg)',
+      fabSize: '56px',
+      fabMiniSize: '40px'
     }
   },
   md2: {
@@ -217,6 +290,37 @@ export const tokens: DesignTokens = {
       toggleTrackBorderRadius: '0.175em',
       toggleTrackHeight: '0.35em',
       toggleInnerWidth: '1.4em'
+    },
+    component: {
+      btnBg: 'var(--light-primary)',
+      btnColor: 'var(--light-on-primary)',
+      btnTextTransform: 'uppercase',
+      btnRadius: 'var(--q-radius-sm)',
+      btnMinWidth: '64px',
+      btnPaddingX: '16px',
+      btnShadow:
+        '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)',
+      btnPressedShadow:
+        '0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 5px 8px rgba(0, 0, 0, 0.14), 0 1px 14px rgba(0, 0, 0, 0.12)',
+      btnOutlineColor: 'currentColor',
+      btnOutlineBorder: 'currentColor',
+      btnFlatColor: 'currentColor',
+      btnFlatPaddingX: '8px',
+      btnPushRadius: '7px',
+      btnPushBorderBottom: '3px solid rgba(0, 0, 0, 0.15)',
+      btnRoundedRadius: '28px',
+      btnRoundRadius: '50%',
+      btnSquareRadius: '0',
+      btnDensePadding: '0.285em',
+      btnFontSize: '14px',
+      btnLineHeight: '1.715em',
+      btnPressedShadowLg:
+        '0 10px 15px -3px rgb(156 163 175 / 0.14), 0 4px 6px -4px rgb(156 163 175 / 0.14)',
+      fabBg: 'transparent',
+      fabColor: 'inherit',
+      fabRadius: '50%',
+      fabSize: '56px',
+      fabMiniSize: '40px'
     }
   },
   unstyled: {
@@ -283,6 +387,34 @@ export const tokens: DesignTokens = {
       toggleTrackBorderRadius: 'var(--q-radius-full)',
       toggleTrackHeight: '1em',
       toggleInnerWidth: '1.625em'
+    },
+    component: {
+      btnBg: 'transparent',
+      btnColor: 'inherit',
+      btnTextTransform: 'none',
+      btnRadius: '0',
+      btnMinWidth: 'auto',
+      btnPaddingX: '16px',
+      btnShadow: 'none',
+      btnPressedShadow: 'none',
+      btnOutlineColor: 'inherit',
+      btnOutlineBorder: 'currentColor',
+      btnFlatColor: 'inherit',
+      btnFlatPaddingX: '16px',
+      btnPushRadius: '0',
+      btnPushBorderBottom: 'none',
+      btnRoundedRadius: '0',
+      btnRoundRadius: '0',
+      btnSquareRadius: '0',
+      btnDensePadding: '0.175em',
+      btnFontSize: 'inherit',
+      btnLineHeight: 'inherit',
+      btnPressedShadowLg: 'none',
+      fabBg: 'transparent',
+      fabColor: 'inherit',
+      fabRadius: '0',
+      fabSize: '56px',
+      fabMiniSize: '40px'
     }
   },
   dark: {

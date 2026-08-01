@@ -3,6 +3,7 @@ import {
   hexFromArgb,
   themeFromSourceColor
 } from '@poupe/material-color-utilities'
+import type { QuasarStyleEntry } from './core/_tokens.js'
 
 interface MaterialColorScheme {
   primary: string
@@ -372,6 +373,7 @@ export interface QuasarTheme {
     'blue-grey-14': '#455a64'
   }
   quasar: {
+    tokens?: QuasarStyleEntry[]
     components?: {
       'q-icon'?: string
       'q-panel'?: string

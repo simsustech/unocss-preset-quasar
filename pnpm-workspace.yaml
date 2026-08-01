@@ -8,7 +8,7 @@ minimumReleaseAgeExclude:
   - '@quasar/*'
   - '@fastify/middie@9.3.3'
   - '@types/node@26.1.0'
-  - quasar@2.20.2
+  - quasar@2.20.2 || 2.21.1
   - toml@4.1.2
   - vite@8.1.2
   - '@vitest/expect@4.1.10'
@@ -18,8 +18,17 @@ minimumReleaseAgeExclude:
   - '@vitest/snapshot@4.1.10'
   - '@vitest/spy@4.1.10'
   - '@vitest/utils@4.1.10'
-  - quasar@2.21.1
   - vitest@4.1.10
+  - '@shikijs/core@4.4.1'
+  - '@shikijs/engine-javascript@4.4.1'
+  - '@shikijs/engine-oniguruma@4.4.1'
+  - '@shikijs/langs@4.4.1'
+  - '@shikijs/primitive@4.4.1'
+  - '@shikijs/themes@4.4.1'
+  - '@shikijs/transformers@4.4.1'
+  - '@shikijs/types@4.4.1'
+  - markdown-it@15.0.0
+  - shiki@4.4.1
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true

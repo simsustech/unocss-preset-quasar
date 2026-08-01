@@ -6,35 +6,51 @@ The `QuasarPreset()` function accepts a single options object of type `QuasarPre
 
 ```ts
 import { QuasarPreset } from 'unocss-preset-quasar'
-import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
+import { QuasarStyleEntries } from 'unocss-preset-quasar/styles'
 import { mdiSet } from 'quasar/icon-set'
 
 QuasarPreset({
-  style: MaterialDesign3,
+  styles: QuasarStyleEntries,
   sourceColor: '#1976d2',
   plugins: ['Dark', 'Dialog', 'Notify'],
   iconSet: mdiSet,
   presetWebFonts: {
     provider: 'bunny',
     fonts: { roboto: 'Roboto' }
-  },
-  scoped: false
+  }
 })
+```
+
+### `styles`
+
+Style entries — one named token spec per style. The preset registers **one** shared component tree; each entry emits a `body.quasar-style-{name}` CSS-variable block, so styles switch at runtime by swapping the body class (see `setStyle`).
+
+```ts
+import {
+  Md3StyleEntry, // MD3 (Material You)
+  Md2StyleEntry, // MD2 (classic Material)
+  UnstyledStyleEntry, // structural only, no visual styling
+  QuasarStyleEntries // all three, bundled
+} from 'unocss-preset-quasar/styles'
+```
+
+Each entry is `{ name, tokens }`. Custom styles override individual tokens of a built-in entry.
+
 ```
 
 ### `style` (required)
 
 The design system to use. Must be one of the exported style objects:
 
-```ts
 import {
-  MaterialDesign3, // MD3 (Material You)
-  MaterialDesign2, // MD2 (classic Material)
-  Unstyled // structural only, no visual styling
+  Md3StyleEntry, // MD3 (Material You)
+  Md2StyleEntry, // MD2 (classic Material)
+  UnstyledStyleEntry, // structural only, no visual styling
+  QuasarStyleEntries // all three, bundled
 } from 'unocss-preset-quasar/styles'
 ```
 
-Each style provides its own set of component shortcuts, preflights, and variants.
+Each entry is `{ name, tokens }`. Custom styles override individual tokens of a built-in entry.
 
 ### `sourceColor`
 
@@ -42,7 +58,7 @@ A hex color string that drives Material Design 3's dynamic color system. Changin
 
 ```ts
 QuasarPreset({
-  style: MaterialDesign3,
+  styles: QuasarStyleEntries,
   sourceColor: '#6750A4' // Purple-based theme
 })
 ```
@@ -93,7 +109,7 @@ A Quasar icon set object (e.g., `mdiSet` from `quasar/icon-set`). The preset ext
 import { mdiSet } from 'quasar/icon-set'
 
 QuasarPreset({
-  style: MaterialDesign3,
+  styles: QuasarStyleEntries,
   iconSet: mdiSet
 })
 ```
@@ -125,19 +141,28 @@ QuasarPreset({
 }
 ```
 
-### `scoped`
+### Runtime style switching
 
-When `true`, all component CSS is scoped to a body class (`body.quasar-style-*`). This lets you register **multiple** `QuasarPreset` instances in the same UnoCSS build and switch styles at runtime.
+Every style entry emits a `body.quasar-style-{name}` CSS-variable block. Because the component tree is shared, you register **one** `QuasarPreset` and switch styles at runtime by swapping the body class — no multiple presets, no duplicate CSS.
 
 ```ts
-// Register all three styles in one build
-UnoCSS({
-  presets: [
-    QuasarPreset({ style: MaterialDesign3, scoped: true }),
-    QuasarPreset({ style: MaterialDesign2, scoped: true }),
-    QuasarPreset({ style: Unstyled, scoped: true })
-  ]
-})
+import { setStyle } from 'unocss-preset-quasar/styles'
+
+// One preset with all entries
+QuasarPreset({ styles: QuasarStyleEntries })
+
+// Later, at runtime
+setStyle('md3') // Material You
+setStyle('md2') // classic Material
+setStyle('unstyled') // structural only
+```
+
+Or toggle the body class directly:
+
+```html
+<body class="quasar-style-md3">
+  <!-- MD3 active -->
+</body>
 ```
 
 At runtime, toggle the body class to switch styles:
@@ -163,8 +188,7 @@ See [Scoped Mode](/styles/scoping) for details.
 ```ts
 // quasar.config.js
 import { QuasarPreset } from 'unocss-preset-quasar'
-import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
-import { mdiSet } from 'quasar/icon-set'
+import { QuasarStyleEntries } from 'unocss-preset-quasar/styles'
 import UnoCSS from 'unocss/vite'
 
 const plugins = [
@@ -207,8 +231,7 @@ export default defineConfig(async (ctx) => ({
         enforce: 'pre',
         presets: [
           QuasarPreset({
-            style: MaterialDesign3,
-            sourceColor: '#6750A4',
+            styles: QuasarStyleEntries,
             plugins,
             iconSet: mdiSet
           })

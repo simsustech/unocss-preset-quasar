@@ -30,8 +30,8 @@ features:
     title: Quasar Plugin Support
     details: Notify, Dialog, Loading, LoadingBar, BottomSheet — all plugin-generated UI gets safelisted so styles are never missing.
   - icon: 🛠️
-    title: Scoped Multi-Style Mode
-    details: Bundle MD3, MD2, and Unstyled in one build. Switch at runtime by toggling a body class. Each style's CSS scoped to its own selector.
+    title: Runtime Style Switching
+    details: One preset, all styles. Token entries emit body-class-scoped CSS variables, so switching MD3 → MD2 → Unstyled is a runtime class swap with zero reload.
   - icon: 📦
     title: Tree-Shakeable
     details: UnoCSS scans your templates and only generates CSS for the classes you use. No dead code, no unused component styles.
@@ -47,13 +47,13 @@ features:
 ```ts
 // quasar.config.js — replace quasar.sass with virtual:uno.css
 import { QuasarPreset } from 'unocss-preset-quasar'
-import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
+import { QuasarStyleEntries } from 'unocss-preset-quasar/styles'
 import UnoCSS from 'unocss/vite'
 
 export default defineConfig({
   vitePlugins: [
     UnoCSS({
-      presets: [QuasarPreset({ style: MaterialDesign3, plugins })]
+      presets: [QuasarPreset({ styles: QuasarStyleEntries, plugins })]
     })
   ]
 })
@@ -91,7 +91,7 @@ Then configure your Quasar project's `quasar.config.js`:
 
 ```ts
 import { QuasarPreset } from 'unocss-preset-quasar'
-import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
+import { QuasarStyleEntries } from 'unocss-preset-quasar/styles'
 import UnoCSS from 'unocss/vite'
 
 const plugins = ['Dark', 'Dialog', 'Notify', 'LoadingBar' /* ... */]
@@ -119,7 +119,7 @@ export default defineConfig((ctx) => ({
         enforce: 'pre',
         presets: [
           QuasarPreset({
-            style: MaterialDesign3,
+            styles: QuasarStyleEntries,
             plugins
           })
         ]

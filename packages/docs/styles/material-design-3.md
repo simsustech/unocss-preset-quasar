@@ -9,8 +9,10 @@ The Material Design 3 style implements Google's latest Material You design speci
 MD3 generates a full tonal palette from a single `sourceColor`. The palette includes light and dark variants of primary, secondary, tertiary, error, and surface colors with multiple container levels.
 
 ```ts
+import { Md3StyleEntry } from 'unocss-preset-quasar/styles'
+
 QuasarPreset({
-  style: MaterialDesign3,
+  styles: [Md3StyleEntry],
   sourceColor: '#6750A4' // Purple theme
 })
 ```

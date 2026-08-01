@@ -23,7 +23,9 @@ Each style is a complete set of component styles. MD3 and MD2 share common helpe
 
 ## Available Styles
 
-### `MaterialDesign3` (MD3 / Material You)
+Styles are token entries on one shared component tree. Each entry's tokens are emitted as a `body.quasar-style-{name}` CSS-variable block; the shared shortcuts resolve against whatever block is active. Switch styles at runtime with `setStyle(name)`.
+
+### `Md3StyleEntry` (MD3 / Material You)
 
 The default and recommended style. Implements Google's Material Design 3 specification with:
 
@@ -34,12 +36,12 @@ The default and recommended style. Implements Google's Material Design 3 specifi
 - Rounded corners with pill-shaped elements
 
 ```ts
-import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
+import { Md3StyleEntry } from 'unocss-preset-quasar/styles'
 ```
 
 **Body class:** `quasar-style-md3`
 
-### `MaterialDesign2` (MD2 / Classic Material)
+### `Md2StyleEntry` (MD2 / Classic Material)
 
 The classic Material Design aesthetic. Features:
 
@@ -49,17 +51,17 @@ The classic Material Design aesthetic. Features:
 - Higher contrast surfaces
 
 ```ts
-import { MaterialDesign2 } from 'unocss-preset-quasar/styles'
+import { Md2StyleEntry } from 'unocss-preset-quasar/styles'
 ```
 
 **Body class:** `quasar-style-md2`
 
-### `Unstyled`
+### `UnstyledStyleEntry`
 
 Structural-only styles. All design tokens resolve to neutral values (`transparent`, `inherit`, `0`). Components have positioning, flex, and box-model properties but **no colors, typography, borders, or visual styling**. Use this as a clean foundation for custom design systems.
 
 ```ts
-import { Unstyled } from 'unocss-preset-quasar/styles'
+import { UnstyledStyleEntry } from 'unocss-preset-quasar/styles'
 ```
 
 **Body class:** `quasar-style-unstyled`

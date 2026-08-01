@@ -50,7 +50,8 @@ Import and register the preset with UnoCSS inside `extendViteConf`:
 
 ```ts
 // quasar.config.js
-import { QuasarPreset, Md3Tokens } from 'unocss-preset-quasar'
+import { QuasarPreset } from 'unocss-preset-quasar'
+import { QuasarStyleEntries } from 'unocss-preset-quasar/styles'
 import UnoCSS from 'unocss/vite'
 
 export default defineConfig((ctx) => ({
@@ -60,7 +61,7 @@ export default defineConfig((ctx) => ({
         enforce: 'pre',
         presets: [
           QuasarPreset({
-            tokens: Md3Tokens, // ← one call, all components + MD3 design values
+            styles: QuasarStyleEntries, // one preset, all styles switchable at runtime
             plugins: [
               'Dark',
               'Dialog',
@@ -77,17 +78,28 @@ export default defineConfig((ctx) => ({
 }))
 ```
 
-Available token bundles: `Md3Tokens`, `Md2Tokens`, `UnstyledTokens`. Custom overrides:
+The preset ships one shared component tree; styles are just token entries. The built-in entries are `Md3StyleEntry`, `Md2StyleEntry`, `UnstyledStyleEntry`, all bundled in `QuasarStyleEntries`. Each entry emits a `body.quasar-style-{name}` CSS-variable block, so you switch styles at runtime by swapping the body class:
+
+```ts
+import { setStyle } from 'unocss-preset-quasar/styles'
+
+setStyle('md2') // swaps the active CSS-variable block, no reload
+```
+
+Custom token overrides:
 
 ````ts
-import { Md3Tokens } from 'unocss-preset-quasar'
+import { Md3StyleEntry } from 'unocss-preset-quasar/styles'
 
-const myTokens = {
-  ...Md3Tokens,
-  shape: { ...Md3Tokens.shape, radiusXl: '8px' },  // square buttons
+const myStyle = {
+  name: 'md3',
+  tokens: {
+    ...Md3StyleEntry.tokens,
+    shape: { ...Md3StyleEntry.tokens.shape, radiusXl: '8px' } // square buttons
+  }
 }
 
-QuasarPreset({ tokens: myTokens })
+QuasarPreset({ styles: [myStyle] })
 
 ::: warning Plugin List
 You **must** list every Quasar plugin your app uses. The preset generates a safelist of CSS classes for plugin-generated UI (dialogs, notifications, loading bars). Missing plugins → missing styles for those components at runtime.

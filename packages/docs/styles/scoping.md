@@ -1,42 +1,53 @@
-# Scoped Mode
+# Runtime Style Switching
 
-Scoped mode lets you register **multiple** `QuasarPreset` instances in a single UnoCSS build and switch between styles at runtime by toggling a body class.
+One `QuasarPreset` registers the shared component tree. Each style entry (`styles` option) emits a `body.quasar-style-{name}` CSS-variable block, so switching styles at runtime is just a body-class swap — no multiple presets, no duplicate CSS, no reload.
 
-## Why Scoped Mode?
+## Why a Single Preset?
 
-Normally, registering multiple presets with the same component shortcuts causes collisions — the last registered style wins. Scoped mode solves this by:
+The old approach registered one preset per style and scoped each style's CSS to its own body class. That tripled CSS output and risked shortcut collisions. Because the component tree is now **shared** and styles are pure token values, a single preset can emit all style blocks cheaply:
 
-1. **Tagging** each style's shortcuts with a per-style UnoCSS layer name (the body class)
-2. **Post-processing** utilities to wrap selectors with `body.<bodyClass> `
-3. **Wrapping** preflight CSS with the same body-class guard
+```css
+/* One shared tree, N variable blocks */
+body.quasar-style-md3 {
+  --q-btn-radius: var(--q-radius-xl);
+}
+body.quasar-style-md2 {
+  --q-btn-radius: var(--q-radius-sm);
+}
+body.quasar-style-unstyled {
+  --q-btn-radius: 0;
+}
 
-The result: MD3's `.q-btn` becomes `body.quasar-style-md3 .q-btn`, MD2's `.q-btn` becomes `body.quasar-style-md2 .q-btn`, and only the matching one applies at runtime.
+.q-btn {
+  border-radius: var(--q-btn-radius);
+}
+```
 
-## Enabling Scoped Mode
-
-Set `scoped: true` on each `QuasarPreset` call:
+## Enabling All Styles
 
 ```ts
 import UnoCSS from 'unocss/vite'
 import { QuasarPreset } from 'unocss-preset-quasar'
-import {
-  MaterialDesign3,
-  MaterialDesign2,
-  Unstyled
-} from 'unocss-preset-quasar/styles'
+import { QuasarStyleEntries } from 'unocss-preset-quasar/styles'
 
 UnoCSS({
-  presets: [
-    QuasarPreset({ style: MaterialDesign3, scoped: true }),
-    QuasarPreset({ style: MaterialDesign2, scoped: true }),
-    QuasarPreset({ style: Unstyled, scoped: true })
-  ]
+  presets: [QuasarPreset({ styles: QuasarStyleEntries })]
 })
 ```
 
 ## Switching Styles at Runtime
 
-Toggle the body class:
+Use the `setStyle` helper:
+
+```ts
+import { setStyle } from 'unocss-preset-quasar/styles'
+
+setStyle('md3') // Material You
+setStyle('md2') // classic Material
+setStyle('unstyled') // structural only
+```
+
+Or toggle the body class directly:
 
 ```html
 <body class="quasar-style-md3">
@@ -47,75 +58,18 @@ Toggle the body class:
 ```ts
 // Switch to MD2
 document.body.className = 'quasar-style-md2'
-
-// Switch to MD3
-document.body.className = 'quasar-style-md3'
-
-// Switch to Unstyled
-document.body.className = 'quasar-style-unstyled'
 ```
 
 ## How It Works
 
-### 1. Shortcut Layer Tagging
-
-Each shortcut gets tagged with a UnoCSS layer matching the body class:
-
-```ts
-// Internally, shortcuts become:
-;['q-btn', handlerFn, { layer: 'quasar-style-md3' }][ // MD3 preset
-  ('q-btn', handlerFn, { layer: 'quasar-style-md2' })
-] // MD2 preset
-```
-
-### 2. Postprocess Wrapping
-
-A postprocess hook wraps each utility's selector:
-
-```
-// Before (collision):
-.q-btn { ... }     // MD3 and MD2 both emit this
-
-// After (scoped):
-body.quasar-style-md3 .q-btn { ... }    // Only MD3's
-body.quasar-style-md2 .q-btn { ... }    // Only MD2's
-```
-
-### 3. Preflight Guarding
-
-Preflight CSS selectors are wrapped too:
-
-```css
-/* Scoped preflight */
-body.quasar-style-md3 body {
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px;
-}
-```
-
-### 4. Theme Tokens Stay Global
-
-`:root` CSS custom property declarations are **not** scoped — they remain global so all styles can access theme variables:
-
-```css
-:root {
-  --light-primary: #6750a4; /* Always available */
-  --light-on-primary: #ffffff;
-  --dark-primary: #d0bcff;
-  /* ... */
-}
-```
-
-## Performance Considerations
-
-- **CSS size**: Scoped mode roughly **triples** the CSS output (each style gets its own body-class-prefixed copy). This is fine for a playground or dev tool but wasteful for production.
-- **Runtime**: The browser evaluates three sets of selectors but only one matches. Unused selectors are just dead CSS — they don't cause repaints.
-- **Recommendation**: Use scoped mode for **playgrounds, dev tools, and style explorers**. In production, register only the style you need (default `scoped: false`).
+1. **Shared shortcuts** reference `var(--q-*)` tokens, e.g. `border-radius: var(--q-btn-radius)`.
+2. **Token preflight** reads `theme.quasar.tokens` (injected by the preset's `extendTheme`) and emits one CSS-variable block per entry under `body.quasar-style-{name}`.
+3. **Dark mode** blocks (`body.body--dark.quasar-style-{name}`) swap `--light-*` refs to `--dark-*` automatically.
 
 ## Body Class Names
 
-| Style             | Body Class              |
-| ----------------- | ----------------------- |
-| `MaterialDesign3` | `quasar-style-md3`      |
-| `MaterialDesign2` | `quasar-style-md2`      |
-| `Unstyled`        | `quasar-style-unstyled` |
+| Entry                | Body Class              |
+| -------------------- | ----------------------- |
+| `Md3StyleEntry`      | `quasar-style-md3`      |
+| `Md2StyleEntry`      | `quasar-style-md2`      |
+| `UnstyledStyleEntry` | `quasar-style-unstyled` |

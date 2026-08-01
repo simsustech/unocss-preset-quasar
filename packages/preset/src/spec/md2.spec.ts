@@ -136,7 +136,7 @@ const spec: StyleSpec = {
       surfaceContainerHigh: 'var(--dark-surface-container-high)',
       surfaceContainerHighest: 'var(--dark-surface-container-highest)'
     } as Record<string, string>
-  } as Partial<StyleSpec['tokens']>,
+  } as unknown as Partial<StyleSpec['tokens']>,
 
   /* ─── Layout ─────────────────────────────────────────────────── */
 

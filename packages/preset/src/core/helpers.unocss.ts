@@ -19,9 +19,12 @@ img.responsive {
   },
   {
     // When the Unstyled style is active, strip background/color from Quasar
-    // component root elements. Without this, core utility shortcuts like
-    // `bg-primary` (which QBtn applies internally when color="primary") would
-    // leak through and give components a themed appearance even in Unstyled mode.
+    // component root elements. There is no Quasar CSS/SASS when using the
+    // preset — but components still apply preset utility shortcuts internally
+    // (e.g. QBtn with color="positive" applies `bg-positive`, which resolves
+    // to the theme color via :root --q-positive). Those named colors are not
+    // tokenized, so without this they would leak through and give components a
+    // themed appearance even in Unstyled mode.
     getCSS: () => `
 body.quasar-style-unstyled .q-btn,
 body.quasar-style-unstyled .q-card,

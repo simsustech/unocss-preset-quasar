@@ -8,7 +8,7 @@ When you pass a `plugins` array to `QuasarPreset()`, the preset generates a safe
 
 ```ts
 QuasarPreset({
-  style: MaterialDesign3,
+  styles: QuasarStyleEntries,
   plugins: ['Dialog', 'Notify', 'Loading', 'LoadingBar', 'BottomSheet']
 })
 ```

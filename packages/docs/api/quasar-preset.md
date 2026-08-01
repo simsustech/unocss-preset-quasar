@@ -22,11 +22,14 @@ The design system. One of:
 
 ```ts
 import {
-  MaterialDesign3,
-  MaterialDesign2,
-  Unstyled
+  Md3StyleEntry,
+  Md2StyleEntry,
+  UnstyledStyleEntry,
+  QuasarStyleEntries
 } from 'unocss-preset-quasar/styles'
 ```
+
+Each entry is a `{ name, tokens }` object; the preset registers one shared component tree and emits a `body.quasar-style-{name}` CSS-variable block per entry.
 
 Each is a `QuasarStyle` object containing rules, variants, preflights, and shortcuts for its design system.
 
@@ -46,9 +49,9 @@ A Quasar icon set object (e.g., `mdiSet` from `quasar/icon-set`). Icon names are
 
 Configuration for `@unocss/preset-web-fonts`. Default loads Roboto from Bunny CDN.
 
-### `options.scoped`
+### `options.styles`
 
-When `true`, component CSS is scoped to a body class. Enables multi-style builds.
+Style entries (default: `QuasarStyleEntries` — md3, md2, unstyled). Switch styles at runtime with `setStyle(name)` or by toggling the body class.
 
 ## Returns
 
@@ -58,16 +61,18 @@ An UnoCSS `Preset<QuasarTheme>` object. Pass it to `UnoCSS()` plugin's `presets`
 
 ```ts
 import { QuasarPreset } from 'unocss-preset-quasar'
-import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
+import { QuasarStyleEntries } from 'unocss-preset-quasar/styles'
 import UnoCSS from 'unocss/vite'
 
 UnoCSS({
   presets: [
     QuasarPreset({
-      style: MaterialDesign3,
+      styles: QuasarStyleEntries,
       sourceColor: '#6750A4',
       plugins: ['Dark', 'Dialog', 'Notify', 'LoadingBar']
     })
+  ]
+})
   ]
 })
 ```

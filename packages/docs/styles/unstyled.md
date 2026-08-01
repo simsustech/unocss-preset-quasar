@@ -42,10 +42,10 @@ Unstyled provides the **minimum CSS** for Quasar components to function:
 ## Usage
 
 ```ts
-import { Unstyled } from 'unocss-preset-quasar/styles'
+import { UnstyledStyleEntry } from 'unocss-preset-quasar/styles'
 
 QuasarPreset({
-  style: Unstyled
+  styles: [UnstyledStyleEntry]
 })
 ```
 
@@ -78,4 +78,4 @@ QAvatar, QBadge, QBtn, QBtnDropdown, QBtnToggle, QCard, QChip, QDate, QDrawer, Q
 
 ## Files
 
-Unstyled component shortcuts are in `packages/preset/src/styles/unstyled/components/`.
+Unstyled component tokens are in `packages/preset/src/core/_tokens.ts` — the `unstyled` block.

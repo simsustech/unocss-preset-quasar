@@ -9,14 +9,16 @@ import {
 import presetWind4 from '@unocss/preset-wind4'
 import { generateTheme, QuasarTheme } from './theme.js'
 import { animatedUno } from 'animated-unocss'
-import { scopeStyle } from './styles/_scope.js'
 import { Postprocessor, UtilObject } from '@unocss/core'
-import { createTokenPreflight, mergeTokens } from './core/_tokenPreflight.js'
-import { tokens as defaultTokens } from './core/_tokens.js'
+import {
+  createTokenPreflight,
+  type QuasarStyleEntry
+} from './core/_tokenPreflight.js'
 
 import { type QuasarIconSet, type QuasarPlugins } from 'quasar'
 
-import { MaterialDesign3, type QuasarStyle } from './styles/index.js'
+import { QuasarStyleEntries, type QuasarStyle } from './styles/index.js'
+import baseStyle from './styles/shared/index.js'
 import {
   preflights as corePreflights,
   rules as coreRules,
@@ -25,39 +27,22 @@ import {
 import { WebFontsOptions } from '@unocss/preset-web-fonts'
 import { generateSafelist, componentsSafelistMap } from './safelist.js'
 
-/**
- * A complete style package: design token values bundled with
- * component shortcuts and preflights.
- *
- * Import pre-built packages:
- *   import { Md3Tokens, Md2Tokens, UnstyledTokens } from 'unocss-preset-quasar'
- *
- * Or create a custom one:
- *   const myTokens = { ...Md3Tokens, shape: { ...Md3Tokens.shape, radiusXl: '0' } }
- */
-export interface QuasarTokenBundle {
-  /** Design token values (colors, shapes, sizes, typography) */
-  color: Record<string, string>
-  shape: Record<string, string>
-  sizing: Record<string, string>
-  type: Record<string, string>
-  /** The QuasarStyle that provides shortcuts and preflights for this style */
-  style: QuasarStyle
-}
-
 export interface QuasarPresetOptions extends PresetOptions {
   /**
-   * The complete style package — token values + shortcuts + preflights.
+   * Style entries — one named token spec per style. Each entry's tokens
+   * are emitted as a `body.quasar-style-{name}` CSS-variable block, so
+   * switching the body class swaps styles at runtime with one preset.
    *
-   *   import { Md3Tokens } from 'unocss-preset-quasar'
-   *   QuasarPreset({ tokens: Md3Tokens })
+   *   import { QuasarStyleEntries } from 'unocss-preset-quasar/styles'
+   *   QuasarPreset({ styles: QuasarStyleEntries })
+   *
+   * Defaults to all built-in entries (md3, md2, unstyled).
    */
-  tokens?: QuasarTokenBundle
+  styles?: QuasarStyleEntry[]
   sourceColor?: string
   plugins?: (keyof QuasarPlugins)[]
   iconSet?: QuasarIconSet
   presetWebFonts?: WebFontsOptions
-  scoped?: boolean
 }
 
 const toKebabCase = (str: string) =>
@@ -76,24 +61,17 @@ const toPascalCase = (text: string) => {
 
 export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
   (options) => {
-    // Resolve style: tokens.style > options.style > default MD3
-    const tokenBundle = options?.tokens
-    const rawStyle = tokenBundle?.style ?? MaterialDesign3
+    // The shared base tree is the ONLY component tree. Style differences
+    // are pure token values; entries select which token block is active.
+    const styleEntries: QuasarStyleEntry[] = options?.styles?.length
+      ? options.styles
+      : QuasarStyleEntries
+    const rawStyle: QuasarStyle = baseStyle
     const theme = generateTheme(options?.sourceColor ?? '#1976d2')
 
-    // Merge user token values with defaults (tokenBundle IS the user-provided tokens)
-    const mergedTokens = mergeTokens(
-      tokenBundle ? ({ md3: tokenBundle } as any) : undefined
-    )
-
-    // Generate the CSS variable preflight from merged tokens
-    const tokenPreflight = createTokenPreflight(mergedTokens)
-
-    const scoped = options?.scoped === true
-    const style =
-      scoped && rawStyle.bodyClass
-        ? scopeStyle(rawStyle, rawStyle.bodyClass)
-        : rawStyle
+    // Token preflight reads `theme.quasar.tokens` (injected in extendTheme),
+    // so style values are plain UnoCSS theme config.
+    const tokenPreflight = createTokenPreflight()
 
     const fixBemVarMangling: Postprocessor = (util: UtilObject) => {
       if (util.selector) {
@@ -119,9 +97,6 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
       default: 1,
       utilities: 2
     }
-    if (scoped && style.bodyClass) {
-      layers[style.bodyClass] = -1
-    }
 
     return {
       presets: [
@@ -143,14 +118,14 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
           }
         ) as any
       ],
-      name: rawStyle.bodyClass || 'quasar',
+      name: 'quasar',
       safelist: generateSafelist(options ?? {}),
-      preflights: [tokenPreflight].concat(corePreflights, style.preflights),
-      rules: coreRules.concat(style.rules),
-      variants: style.variants,
-      shortcuts: coreShortcuts.concat(style.shortcuts),
-      postprocess: style.postprocess
-        ? style.postprocess.concat(fixBemVarMangling)
+      preflights: [tokenPreflight].concat(corePreflights, rawStyle.preflights),
+      rules: coreRules.concat(rawStyle.rules),
+      variants: rawStyle.variants,
+      shortcuts: coreShortcuts.concat(rawStyle.shortcuts),
+      postprocess: rawStyle.postprocess
+        ? rawStyle.postprocess.concat(fixBemVarMangling)
         : [fixBemVarMangling],
       extendTheme: (themeArg: QuasarTheme) => {
         return {
@@ -159,6 +134,11 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
           colors: {
             ...themeArg.colors,
             ...theme.colors
+          },
+          quasar: {
+            ...theme.quasar,
+            ...themeArg.quasar,
+            tokens: styleEntries
           }
         }
       },
@@ -246,8 +226,3 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
     }
   }
 )
-
-// Re-export token bundles for convenience
-export { Md3Tokens } from './core/_tokens.md3.js'
-export { Md2Tokens } from './core/_tokens.md2.js'
-export { UnstyledTokens } from './core/_tokens.unstyled.js'

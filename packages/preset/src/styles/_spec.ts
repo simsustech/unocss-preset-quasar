@@ -37,9 +37,8 @@ type SpecNode = string | number | SpecNodeMap
  * @returns An `s()` function that resolves dotted paths against the spec.
  */
 export function bindSpec(spec: StyleSpec | string): SpecResolver {
-  if (typeof spec === 'string') {
-    spec = getStyleSpec(spec)
-  }
+  const resolved: StyleSpec =
+    typeof spec === 'string' ? getStyleSpec(spec) : spec
 
   const cache = new Map<string, string>()
 
@@ -51,25 +50,31 @@ export function bindSpec(spec: StyleSpec | string): SpecResolver {
 
     if (path.startsWith('darkTokens.')) {
       const rest = path.slice('darkTokens.'.length)
-      value = resolveFromObj(spec.darkTokens as Record<string, SpecNode>, rest)
+      value = resolveFromObj(
+        resolved.darkTokens as unknown as Record<string, SpecNode>,
+        rest
+      )
     }
 
     if (value === undefined) {
       value = resolveFromObj(
-        spec.tokens as unknown as Record<string, SpecNode>,
+        resolved.tokens as unknown as Record<string, SpecNode>,
         path
       )
     }
 
     if (value === undefined) {
       value = resolveFromObj(
-        { tokens: spec.tokens } as Record<string, SpecNode>,
+        { tokens: resolved.tokens } as unknown as Record<string, SpecNode>,
         path
       )
     }
 
     if (value === undefined) {
-      value = resolveFromObj(spec as unknown as Record<string, SpecNode>, path)
+      value = resolveFromObj(
+        resolved as unknown as Record<string, SpecNode>,
+        path
+      )
     }
 
     const result = value ?? 'inherit'
@@ -128,4 +133,7 @@ function resolveFromObj(
   return String(current)
 }
 
-export type SpecResolver = ReturnType<typeof bindSpec>
+export type SpecResolver = (
+  strings: TemplateStringsArray | string,
+  ...values: unknown[]
+) => string
