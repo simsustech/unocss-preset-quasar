@@ -66,7 +66,7 @@ Only use these aliases in **dev mode**. In production, consumers should use the 
 
 To add style shortcuts for a new Quasar component:
 
-1. **Create the shortcut file**: `packages/preset/src/styles/<style>/components/QComponentName.unocss.ts`
+1. **Create the shortcut file**: `packages/preset/src/styles/shared/components/QComponentName.unocss.ts`
 
 2. **Define shortcuts** using the helper utilities:
 

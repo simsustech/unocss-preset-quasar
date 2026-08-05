@@ -1,6 +1,6 @@
 # Style System Overview
 
-The preset supports three design systems, each implemented as a `QuasarStyle` object. Choose one or combine them with scoped mode.
+The preset supports three design systems, each implemented as a token entry (`QuasarStyleEntry`). Register one or all of them and switch at runtime via the body class.
 
 ## Design Tokens
 
@@ -19,7 +19,7 @@ QuasarStyle
 └── postprocess?: Postprocessor[] — Optional post-processing hooks
 ```
 
-Each style is a complete set of component styles. MD3 and MD2 share common helpers (`_helpers.ts`) and some shared plugin/directive/composable styles.
+The preset registers **one** `QuasarStyle` — the shared component tree, with shortcuts defined once in `styles/shared/`. The style entries (`QuasarStyleEntry`) are pure token specs `{ name, tokens }`, bundled in `QuasarStyleEntries`. Each entry's tokens are emitted as a `body.quasar-style-{name}` CSS-variable block; the shared shortcuts resolve against whichever block is active. See [Runtime Style Switching](/styles/scoping) for the mechanism.
 
 ## Available Styles
 

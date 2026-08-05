@@ -36,22 +36,6 @@ import {
 
 Each entry is `{ name, tokens }`. Custom styles override individual tokens of a built-in entry.
 
-```
-
-### `style` (required)
-
-The design system to use. Must be one of the exported style objects:
-
-import {
-  Md3StyleEntry, // MD3 (Material You)
-  Md2StyleEntry, // MD2 (classic Material)
-  UnstyledStyleEntry, // structural only, no visual styling
-  QuasarStyleEntries // all three, bundled
-} from 'unocss-preset-quasar/styles'
-```
-
-Each entry is `{ name, tokens }`. Custom styles override individual tokens of a built-in entry.
-
 ### `sourceColor`
 
 A hex color string that drives Material Design 3's dynamic color system. Changing this value regenerates the entire MD3 tonal palette — primary, secondary, tertiary, error, and all surface/container colors for both light and dark themes.
@@ -165,23 +149,14 @@ Or toggle the body class directly:
 </body>
 ```
 
-At runtime, toggle the body class to switch styles:
-
-```html
-<body class="quasar-style-md3">
-  <!-- MD3 active -->
-  <body class="quasar-style-md2">
-    <!-- MD2 active -->
-    <body class="quasar-style-unstyled">
-      <!-- Unstyled active -->
-    </body>
-  </body>
-</body>
+```ts
+// Switch to MD2 at runtime
+document.body.classList.toggle('quasar-style-md2')
 ```
 
-**Default:** `false` (global CSS, no body-class prefix)
+Both approaches switch the active CSS-variable block instantly — no reload. The body class is the single runtime switch.
 
-See [Scoped Mode](/styles/scoping) for details.
+See [Runtime Style Switching](/styles/scoping) for the full explanation of the body-class mechanism.
 
 ## Full Example
 

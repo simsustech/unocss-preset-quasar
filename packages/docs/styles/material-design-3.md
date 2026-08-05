@@ -92,6 +92,4 @@ MD3 fields support four styles:
 - Standard: bottom border only
 - Standout: elevated surface
 
-## Files
-
-MD3 component shortcuts are in `packages/preset/src/styles/md3/components/` — one file per component (~70 files), plus plugin-specific styles in `md3/plugins/`.
+MD3 component tokens are in `packages/preset/src/core/_tokens.ts` — the `md3` block. Component shortcuts live in the shared tree under `packages/preset/src/styles/shared/components/`.
