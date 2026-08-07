@@ -59,7 +59,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-drawer--mini$/,
     componentCtxClass(
       'q-drawer--mini',
-      ({ theme }) => qe`rounded-none
+      ({ theme }) => qe`!rounded-none
       [&_>_.q-drawer__content]:(!py-9px)
       [&_>_.q-drawer__content_>_*]:(!px-4px)
       [&_.q-mini-drawer-hide]:(hidden) [&_.q-expansion-item__content]:(hidden)

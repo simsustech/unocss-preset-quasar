@@ -49,6 +49,20 @@ export const QuasarStyleEntries: QuasarStyleEntry[] = [
   Md2StyleEntry,
   UnstyledStyleEntry
 ]
+// ---------------------------------------------------------------------------
+// Backward-compatibility aliases for the 0.4.x API names. 0.5.0 kept the
+// `Md3StyleEntry` / `Md2StyleEntry` / `UnstyledStyleEntry` names and the
+// `styles` array option; these aliases let old configs (`QuasarPreset({ style:
+// MaterialDesign3 })`, `import { MaterialDesign3 } from 'unocss-preset-quasar/styles'`)
+// keep working.
+// ---------------------------------------------------------------------------
+
+/** @deprecated use `Md3StyleEntry` (or `MaterialDesign3` kept for 0.4.x compat) */
+export const MaterialDesign3: QuasarStyleEntry = Md3StyleEntry
+/** @deprecated use `Md2StyleEntry` (or `MaterialDesign2` kept for 0.4.x compat) */
+export const MaterialDesign2: QuasarStyleEntry = Md2StyleEntry
+/** @deprecated use `UnstyledStyleEntry` (or `Unstyled` kept for 0.4.x compat) */
+export const Unstyled: QuasarStyleEntry = UnstyledStyleEntry
 
 /**
  * Runtime style switcher. Removes every `quasar-style-*` body class and

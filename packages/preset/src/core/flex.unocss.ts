@@ -77,27 +77,18 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^q-gutter-(none|xs|sm|md|lg|xl)$/,
     ([, size], { theme }) =>
-      `ml--${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}
-      mt--${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}
-      [&_>_*]:(ml-${
-        colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']
-      } mt-${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']})`
+      `gap-x-${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}
+      space-y-${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}`
   ],
   [
     /^q-gutter-x-(none|xs|sm|md|lg|xl)$/,
     ([, size], { theme }) =>
-      `ml--${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}
-        [&_>_*]:(ml-${
-          colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']
-        })`
+      `gap-x-${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}`
   ],
   [
     /^q-gutter-y-(none|xs|sm|md|lg|xl)$/,
     ([, size], { theme }) =>
-      `mt--${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}
-        [&_>_*]:(mt-${
-          colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']
-        })`
+      `space-y-${colGutter[size as 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl']}`
   ],
   [/^wrap$/, ([, size], { theme }) => `flex-wrap`],
   [/^no-wrap$/, ([, size], { theme }) => `flex-nowrap`],

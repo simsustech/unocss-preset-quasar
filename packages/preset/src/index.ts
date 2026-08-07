@@ -29,9 +29,12 @@ import { generateSafelist, componentsSafelistMap } from './safelist.js'
 
 export interface QuasarPresetOptions extends PresetOptions {
   /**
-   * Style entries — one named token spec per style. Each entry's tokens
-   * are emitted as a `body.quasar-style-{name}` CSS-variable block, so
-   * switching the body class swaps styles at runtime with one preset.
+   * Style entries — one named token spec per style. The FIRST entry is the
+   * default style: its tokens are emitted globally on `:root` (plus
+   * `body.body--dark` dark overrides), so it applies out of the box with
+   * zero config and no body class. Every entry's tokens are also emitted
+   * as a scoped `body.quasar-style-{name}` CSS-variable block, so switching
+   * the body class (`setStyle`) swaps styles at runtime with one preset.
    *
    *   import { QuasarStyleEntries } from 'unocss-preset-quasar/styles'
    *   QuasarPreset({ styles: QuasarStyleEntries })
@@ -39,6 +42,14 @@ export interface QuasarPresetOptions extends PresetOptions {
    * Defaults to all built-in entries (md3, md2, unstyled).
    */
   styles?: QuasarStyleEntry[]
+  /**
+   * Legacy (0.4.x) option: a single style entry. Ignored when `styles` is
+   * provided; equivalent to `styles: [style]`. As the first (only) entry it
+   * is the default style and applies globally without a body class.
+   *
+   * @deprecated use `styles` instead
+   */
+  style?: QuasarStyleEntry
   sourceColor?: string
   plugins?: (keyof QuasarPlugins)[]
   iconSet?: QuasarIconSet
@@ -65,7 +76,9 @@ export const QuasarPreset = definePreset<QuasarPresetOptions, QuasarTheme>(
     // are pure token values; entries select which token block is active.
     const styleEntries: QuasarStyleEntry[] = options?.styles?.length
       ? options.styles
-      : QuasarStyleEntries
+      : options?.style
+        ? [options.style]
+        : QuasarStyleEntries
     const rawStyle: QuasarStyle = baseStyle
     const theme = generateTheme(options?.sourceColor ?? '#1976d2')
 

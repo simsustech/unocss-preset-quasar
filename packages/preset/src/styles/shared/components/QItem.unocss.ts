@@ -16,7 +16,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-item__section$/,
     componentClass(
       'q-item__section',
-      `flex flex-col flex-nowrap [align-items:stretch min-w-[0]`
+      `flex flex-col flex-nowrap [align-items:stretch] min-w-[0]`
     )
   ],
 
