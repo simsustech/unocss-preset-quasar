@@ -4,16 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  unocss-preset-quasar-monorepo: 'link:'
-
 importers:
 
   .:
-    dependencies:
-      unocss-preset-quasar-monorepo:
-        specifier: 'link:'
-        version: 'link:'
     devDependencies:
       '@changesets/cli':
         specifier: ^2.31.1

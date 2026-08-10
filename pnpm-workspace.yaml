@@ -35,4 +35,3 @@ allowBuilds:
   simple-git-hooks: true
   unrs-resolver: true
 overrides:
-  unocss-preset-quasar-monorepo: 'link:'

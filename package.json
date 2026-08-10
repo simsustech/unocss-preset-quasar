@@ -23,9 +23,7 @@
     "test:preset": "cd packages/preset && pnpm run test",
     "test": "run-s test:preset"
   },
-  "dependencies": {
-    "unocss-preset-quasar-monorepo": "link:"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@changesets/cli": "^2.31.1",
     "@commitlint/cli": "^21.2.1",
