@@ -15,5 +15,4 @@
 - Component tokens (e.g. `btnRadius`, `btnBg`, `btnTextTransform`) are emitted per style block;
   md2 vs md3 vs unstyled differences are expressed as token values, not duplicate trees.
 - Elevation utilities now also accept Quasar's native `q-elevation-N` class names (in addition
-  to `elevation-N`), and `text-overline` emits `text-transform: uppercase` like Quasar's own
-  typography helper.
+  to `elevation-N`).

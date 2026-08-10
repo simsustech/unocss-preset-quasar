@@ -145,7 +145,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
   [
     /^text-overline$/,
     ([, c], { theme }) =>
-      `text-[0.75rem] font-medium leading-8 tracking-[0.16667em] uppercase`
+      `text-[0.75rem] font-medium leading-8 tracking-[0.16667em]`
   ],
 
   [
