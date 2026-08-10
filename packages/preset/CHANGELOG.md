@@ -4,6 +4,40 @@
 
 ### Minor Changes
 
+- bdcc114: **Breaking: single shared component tree driven by CSS-variable tokens; runtime style switching.**
+
+  - Remove per-style component trees (`md3/`, `md2/`, `unstyled/`). A style is now only a token
+    stylespec: `{ name, tokens }` (see `QuasarStyleEntry`). One shared `styles/shared/` tree is
+    the base for all styles; `md3`/`md2`/`unstyled` are pure token entries.
+  - Drop `tokens`/`scoped` preset options and `bodyClass` scoping. The preset option is now
+    `styles?: QuasarStyleEntry[]`; tokens live under `theme.quasar.tokens`.
+  - Add `setStyle(name)` / `getActiveStyle()` exports from `unocss-preset-quasar/styles` for
+    runtime CSS-variable swapping (body-class switch). Dark mode still uses the `--light-*` →
+    `--dark-*` token swap via `body--dark`.
+  - Component tokens (e.g. `btnRadius`, `btnBg`, `btnTextTransform`) are emitted per style block;
+    md2 vs md3 vs unstyled differences are expressed as token values, not duplicate trees.
+  - Elevation utilities now also accept Quasar's native `q-elevation-N` class names (in addition
+    to `elevation-N`), and `text-overline` emits `text-transform: uppercase` like Quasar's own
+    typography helper.
+
+### Patch Changes
+
+- 0f8fb72: **Default style applies out of the box — no `body.quasar-style-*` class required.**
+
+  The first style entry is now also emitted unscoped on `:root` (with `body.body--dark`
+  dark overrides), so the default style applies with zero config and no JS —
+  `var(--q-*)` tokens resolve without any body class.
+
+  - Every entry — including the default — keeps its scoped `body.quasar-style-{name}`
+    block, so `setStyle()` runtime switching still works and scoped selectors
+    outrank the `:root` default in the cascade.
+  - Color palette tokens (`--light-*`, `--dark-*`) were already unscoped; this makes
+    shape/size/component tokens behave the same way.
+
+## 0.5.0
+
+### Minor Changes
+
 - 6c46a60: feat(spec): introduce StyleSpec as single source of truth
 
   - Add `StyleSpec` schema with token, component, accessibility, and layout sections
