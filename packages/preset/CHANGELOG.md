@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.5.1
+
+### Patch Changes
+
+- fix: `text-overline` no longer applies `text-transform: uppercase`
+
 ## 0.5.0
 
 ### Minor Changes
