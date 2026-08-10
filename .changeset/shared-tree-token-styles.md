@@ -1,5 +1,5 @@
 ---
-'unocss-preset-quasar': major
+'unocss-preset-quasar': minor
 ---
 
 **Breaking: single shared component tree driven by CSS-variable tokens; runtime style switching.**
