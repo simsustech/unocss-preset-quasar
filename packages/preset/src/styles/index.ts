@@ -32,29 +32,42 @@ export interface QuasarStyle {
  */
 
 /** Built-in Material Design 3 style entry */
-export const Md3StyleEntry: QuasarStyleEntry = {
+export const MaterialDesign3: QuasarStyleEntry = {
   name: 'md3',
   tokens: defaultTokens.md3
 }
 
 /** Built-in Material Design 2 style entry */
-export const Md2StyleEntry: QuasarStyleEntry = {
+export const MaterialDesign2: QuasarStyleEntry = {
   name: 'md2',
   tokens: defaultTokens.md2
 }
 
 /** Built-in unstyled entry */
-export const UnstyledStyleEntry: QuasarStyleEntry = {
+export const Unstyled: QuasarStyleEntry = {
   name: 'unstyled',
   tokens: defaultTokens.unstyled
 }
 
 /** All built-in style entries, ready for `QuasarPreset({ styles })` */
 export const QuasarStyleEntries: QuasarStyleEntry[] = [
-  Md3StyleEntry,
-  Md2StyleEntry,
-  UnstyledStyleEntry
+  MaterialDesign3,
+  MaterialDesign2,
+  Unstyled
 ]
+
+// ---------------------------------------------------------------------------
+// Backward-compatibility aliases for the 0.5.0–0.5.2 names (`Md3StyleEntry`
+// etc.). The canonical names are the `MaterialDesign*` / `Unstyled` ones;
+// these aliases let configs written against 0.5.x keep working.
+// ---------------------------------------------------------------------------
+
+/** @deprecated use `MaterialDesign3` */
+export const Md3StyleEntry: QuasarStyleEntry = MaterialDesign3
+/** @deprecated use `MaterialDesign2` */
+export const Md2StyleEntry: QuasarStyleEntry = MaterialDesign2
+/** @deprecated use `Unstyled` */
+export const UnstyledStyleEntry: QuasarStyleEntry = Unstyled
 
 /**
  * Runtime style switcher. Removes every `quasar-style-*` body class and

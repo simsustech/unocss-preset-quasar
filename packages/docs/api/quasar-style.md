@@ -30,9 +30,9 @@ Styles are token entries, not trees:
 
 ```ts
 import {
-  Md3StyleEntry, // name: 'md3' — Material You
-  Md2StyleEntry, // name: 'md2' — classic Material
-  UnstyledStyleEntry, // name: 'unstyled' — structural only
+  MaterialDesign3, // name: 'md3' — Material You
+  MaterialDesign2, // name: 'md2' — classic Material
+  Unstyled, // name: 'unstyled' — structural only
   QuasarStyleEntries // all three
 } from 'unocss-preset-quasar/styles'
 ```

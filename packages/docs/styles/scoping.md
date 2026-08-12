@@ -68,8 +68,8 @@ document.body.className = 'quasar-style-md2'
 
 ## Body Class Names
 
-| Entry                | Body Class              |
-| -------------------- | ----------------------- |
-| `Md3StyleEntry`      | `quasar-style-md3`      |
-| `Md2StyleEntry`      | `quasar-style-md2`      |
-| `UnstyledStyleEntry` | `quasar-style-unstyled` |
+| Entry             | Body Class              |
+| ----------------- | ----------------------- |
+| `MaterialDesign3` | `quasar-style-md3`      |
+| `MaterialDesign2` | `quasar-style-md2`      |
+| `Unstyled`        | `quasar-style-unstyled` |

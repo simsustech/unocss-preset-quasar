@@ -6,10 +6,10 @@ The preset generates a complete Material Design 3 color system using [@poupe/mat
 
 ```ts
 import { QuasarPreset } from 'unocss-preset-quasar'
-import { Md3StyleEntry } from 'unocss-preset-quasar/styles'
+import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
 
 QuasarPreset({
-  styles: [Md3StyleEntry],
+  styles: [MaterialDesign3],
   sourceColor: '#6750A4' // ← this one color generates everything
 })
 ```

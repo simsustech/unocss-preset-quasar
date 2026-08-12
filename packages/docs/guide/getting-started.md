@@ -78,7 +78,7 @@ export default defineConfig((ctx) => ({
 }))
 ```
 
-The preset ships one shared component tree; styles are just token entries. The built-in entries are `Md3StyleEntry`, `Md2StyleEntry`, `UnstyledStyleEntry`, all bundled in `QuasarStyleEntries`. Each entry emits a `body.quasar-style-{name}` CSS-variable block, so you switch styles at runtime by swapping the body class:
+The preset ships one shared component tree; styles are just token entries. The built-in entries are `MaterialDesign3`, `MaterialDesign2`, `Unstyled`, all bundled in `QuasarStyleEntries`. Each entry emits a `body.quasar-style-{name}` CSS-variable block, so you switch styles at runtime by swapping the body class:
 
 ```ts
 import { setStyle } from 'unocss-preset-quasar/styles'
@@ -89,13 +89,13 @@ setStyle('md2') // swaps the active CSS-variable block, no reload
 Custom token overrides:
 
 ````ts
-import { Md3StyleEntry } from 'unocss-preset-quasar/styles'
+import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
 
 const myStyle = {
   name: 'md3',
   tokens: {
-    ...Md3StyleEntry.tokens,
-    shape: { ...Md3StyleEntry.tokens.shape, radiusXl: '8px' } // square buttons
+    ...MaterialDesign3.tokens,
+    shape: { ...MaterialDesign3.tokens.shape, radiusXl: '8px' } // square buttons
   }
 }
 

@@ -34,10 +34,10 @@ MD2 surfaces have less tonal variation between elevation levels compared to MD3.
 ## Usage
 
 ```ts
-import { Md2StyleEntry } from 'unocss-preset-quasar/styles'
+import { MaterialDesign2 } from 'unocss-preset-quasar/styles'
 
 QuasarPreset({
-  styles: [Md2StyleEntry],
+  styles: [MaterialDesign2],
   sourceColor: '#1976d2' // Still uses MD3 color generation
 })
 ```

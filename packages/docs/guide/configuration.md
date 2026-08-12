@@ -27,9 +27,9 @@ Style entries — one named token spec per style. The preset registers **one** s
 
 ```ts
 import {
-  Md3StyleEntry, // MD3 (Material You)
-  Md2StyleEntry, // MD2 (classic Material)
-  UnstyledStyleEntry, // structural only, no visual styling
+  MaterialDesign3, // MD3 (Material You)
+  MaterialDesign2, // MD2 (classic Material)
+  Unstyled, // structural only, no visual styling
   QuasarStyleEntries // all three, bundled
 } from 'unocss-preset-quasar/styles'
 ```

@@ -103,9 +103,9 @@ Styles are **token values**, not parallel shortcut trees. The preset ships three
 
 ```js
 import {
-  Md3StyleEntry, // Material You (recommended)
-  Md2StyleEntry, // Material Design 2
-  UnstyledStyleEntry // structural only, no visual styling
+  MaterialDesign3, // Material You (recommended)
+  MaterialDesign2, // Material Design 2
+  Unstyled // structural only, no visual styling
 } from 'unocss-preset-quasar/styles'
 ```
 
@@ -113,7 +113,7 @@ By default `QuasarPreset()` registers **all three** — switching happens at run
 
 ```js
 QuasarPreset({
-  styles: [Md3StyleEntry, Md2StyleEntry] // omit unstyled
+  styles: [MaterialDesign3, MaterialDesign2] // omit unstyled
 })
 ```
 
@@ -239,8 +239,8 @@ import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
 QuasarPreset({ style: MaterialDesign3 })
 
 // NEW
-import { Md3StyleEntry } from 'unocss-preset-quasar/styles'
-QuasarPreset({ styles: [Md3StyleEntry] })
+import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
+QuasarPreset({ styles: [MaterialDesign3] })
 // or just register all three and switch at runtime:
 // QuasarPreset()
 ```

@@ -42,10 +42,10 @@ Unstyled provides the **minimum CSS** for Quasar components to function:
 ## Usage
 
 ```ts
-import { UnstyledStyleEntry } from 'unocss-preset-quasar/styles'
+import { Unstyled } from 'unocss-preset-quasar/styles'
 
 QuasarPreset({
-  styles: [UnstyledStyleEntry]
+  styles: [Unstyled]
 })
 ```
 
