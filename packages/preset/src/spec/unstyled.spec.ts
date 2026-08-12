@@ -57,7 +57,8 @@ const spec: StyleSpec = {
       cornerMedium: '0',
       cornerLarge: '0',
       cornerExtraLarge: '0',
-      cornerFull: '0'
+      cornerFull: '9999px', // Quasar's unstyled QToggle keeps its pill track
+      cornerCircle: '0'
     },
 
     typography: {
@@ -111,6 +112,66 @@ const spec: StyleSpec = {
       easingStandard: 'inherit',
       easingDecelerate: 'inherit',
       easingAccelerate: 'inherit'
+    },
+
+    /* ─── Runtime fonts ──────────────────────────────────────────── */
+
+    /** Emitted as `--q-font-*`; separate from the shorthand `typography` strings */
+    fonts: {
+      fontXs: 'inherit',
+      fontSm: 'inherit',
+      fontMd: 'inherit',
+      fontLg: 'inherit',
+      fontXl: 'inherit',
+      fontLead: 'inherit'
+    },
+
+    /* ─── Component tokens ──────────────────────────────────────── */
+
+    /** Per-style component values, emitted as `--q-{component}-{property}` */
+    component: {
+      linearProgressSpeed: '0s',
+      paginationGutterChild: '0',
+      paginationGutterParent: '0',
+      virtualScrollItemHeight: 'auto',
+      virtualScrollItemWidth: 'auto',
+      // QToggle
+      toggleFontSize: '32px',
+      toggleDenseFontSize: '28px',
+      toggleTrackBg: 'transparent',
+      toggleTrackOutline: 'none',
+      toggleTrackOpacity: '1',
+      toggleTrackBorderRadius: 'var(--q-radius-full)',
+      toggleTrackHeight: '1em',
+      toggleInnerWidth: '1.625em',
+      // QBtn
+      btnBg: 'transparent',
+      btnColor: 'inherit',
+      btnTextTransform: 'none',
+      btnRadius: '0',
+      btnMinWidth: 'auto',
+      btnPaddingX: '16px',
+      btnShadow: 'none',
+      btnPressedShadow: 'none',
+      btnOutlineColor: 'inherit',
+      btnOutlineBorder: 'currentColor',
+      btnFlatColor: 'inherit',
+      btnFlatPaddingX: '16px',
+      btnPushRadius: '0',
+      btnPushBorderBottom: 'none',
+      btnRoundedRadius: '0',
+      btnRoundRadius: '0',
+      btnSquareRadius: '0',
+      btnDensePadding: '0.175em',
+      btnFontSize: 'inherit',
+      btnLineHeight: 'inherit',
+      btnPressedShadowLg: 'none',
+      // QFab
+      fabBg: 'transparent',
+      fabColor: 'inherit',
+      fabRadius: '0',
+      fabSize: '56px',
+      fabMiniSize: '40px'
     }
   },
 

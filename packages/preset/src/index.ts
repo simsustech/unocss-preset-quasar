@@ -1,21 +1,21 @@
 import {
   definePreset,
   presetIcons,
-  PresetOptions,
+  type PresetOptions,
   presetWebFonts,
   transformerDirectives,
   transformerVariantGroup
 } from 'unocss'
 import presetWind4 from '@unocss/preset-wind4'
-import { generateTheme, QuasarTheme } from './theme.js'
+import { generateTheme, type QuasarTheme } from './theme.js'
 import { animatedUno } from 'animated-unocss'
-import { Postprocessor, UtilObject } from '@unocss/core'
+import type { Postprocessor, UtilObject } from '@unocss/core'
 import {
   createTokenPreflight,
   type QuasarStyleEntry
 } from './core/_tokenPreflight.js'
 
-import { type QuasarIconSet, type QuasarPlugins } from 'quasar'
+import type { QuasarIconSet, QuasarPlugins } from 'quasar'
 
 import { QuasarStyleEntries, type QuasarStyle } from './styles/index.js'
 import baseStyle from './styles/shared/index.js'
@@ -24,7 +24,7 @@ import {
   rules as coreRules,
   shortcuts as coreShortcuts
 } from './core/index.js'
-import { WebFontsOptions } from '@unocss/preset-web-fonts'
+import type { WebFontsOptions } from '@unocss/preset-web-fonts'
 import { generateSafelist, componentsSafelistMap } from './safelist.js'
 
 export interface QuasarPresetOptions extends PresetOptions {
@@ -43,11 +43,9 @@ export interface QuasarPresetOptions extends PresetOptions {
    */
   styles?: QuasarStyleEntry[]
   /**
-   * Legacy (0.4.x) option: a single style entry. Ignored when `styles` is
-   * provided; equivalent to `styles: [style]`. As the first (only) entry it
-   * is the default style and applies globally without a body class.
-   *
-   * @deprecated use `styles` instead
+   * A single style entry — shorthand for `styles: [style]`. As the first
+   * (only) entry it is the default style and applies globally without a
+   * body class. When both are given, `styles` wins.
    */
   style?: QuasarStyleEntry
   sourceColor?: string

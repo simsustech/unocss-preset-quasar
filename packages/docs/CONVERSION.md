@@ -7,8 +7,10 @@
 > **Superseded (2026-07-29)**: the per-style component trees described here
 > (`src/styles/{md3,md2,unstyled}/`) were later removed entirely. There is now
 > ONE shared tree (`src/styles/shared/`) whose shortcuts reference `--q-*` CSS
-> variables; style differences are pure token values in `src/core/_tokens.ts`
-> (`md3`/`md2`/`unstyled` blocks), emitted as `body.quasar-style-{name}` blocks
+> variables; style differences are pure token values in the StyleSpecs
+> (`src/spec/md3.spec.ts`/`md2.spec.ts`/`unstyled.spec.ts`), from which the
+> runtime `--q-*` blocks are derived (`src/core/_tokenDerive.ts`) and emitted
+> as `body.quasar-style-{name}` blocks
 > by the token preflight. This document is kept as a historical record of the
 > spec-driven conversion itself.
 

@@ -78,4 +78,4 @@ QAvatar, QBadge, QBtn, QBtnDropdown, QBtnToggle, QCard, QChip, QDate, QDrawer, Q
 
 ## Files
 
-Unstyled component tokens are in `packages/preset/src/core/_tokens.ts` — the `unstyled` block.
+Unstyled component tokens live in the StyleSpec — `packages/preset/src/spec/unstyled.spec.ts` (`tokens.component`); the runtime `--q-*` tokens are derived from it in `packages/preset/src/core/_tokenDerive.ts`.

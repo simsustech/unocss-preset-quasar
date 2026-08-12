@@ -92,4 +92,4 @@ MD3 fields support four styles:
 - Standard: bottom border only
 - Standout: elevated surface
 
-MD3 component tokens are in `packages/preset/src/core/_tokens.ts` — the `md3` block. Component shortcuts live in the shared tree under `packages/preset/src/styles/shared/components/`.
+MD3 component tokens live in the StyleSpec — `packages/preset/src/spec/md3.spec.ts` (`tokens.component`), and the runtime `--q-*` tokens are derived from it in `packages/preset/src/core/_tokenDerive.ts`. Component shortcuts live in the shared tree under `packages/preset/src/styles/shared/components/`.

@@ -53,7 +53,10 @@ export interface ShapeTokens {
   cornerMedium: string
   cornerLarge: string
   cornerExtraLarge: string
+  /** Fully-rounded (pill) corner — machine-spec `corner.full` (Infinity → 9999px) */
   cornerFull: string
+  /** Circular corner (50%) — e.g. round buttons, FABs */
+  cornerCircle?: string
 }
 
 export interface TypographyTokens {
@@ -108,6 +111,75 @@ export interface MotionTokens {
   easingStandard: string
   easingDecelerate: string
   easingAccelerate: string
+}
+
+/* ─── Runtime font tokens ─────────────────────────────────────── */
+
+/**
+ * Plain font sizes used by Quasar's em-based typography utilities.
+ * Separate from `typography` (machine-spec shorthand strings) because
+ * the runtime emits these as `--q-font-*` variables.
+ */
+export interface FontsTokens {
+  fontXs: string
+  fontSm: string
+  fontMd: string
+  fontLg: string
+  fontXl: string
+  fontLead: string
+}
+
+/* ─── Component tokens ────────────────────────────────────────── */
+
+/**
+ * Per-style component tokens — emitted as `--q-{component}-{property}`.
+ * One shared shortcut set references these vars; each style supplies
+ * the values (e.g. `btnRadius` = 28px for md3, 4px for md2).
+ */
+export interface ComponentTokens {
+  // QToggle
+  toggleFontSize: string
+  toggleDenseFontSize: string
+  toggleTrackBg: string
+  toggleTrackOutline: string
+  toggleTrackOpacity: string
+  toggleTrackBorderRadius: string
+  toggleTrackHeight: string
+  toggleInnerWidth: string
+  // QBtn
+  btnBg: string
+  btnColor: string
+  btnTextTransform: string
+  btnRadius: string
+  btnMinWidth: string
+  btnPaddingX: string
+  btnFontSize: string
+  btnLineHeight: string
+  btnShadow: string
+  btnPressedShadow: string
+  btnPressedShadowLg: string
+  btnOutlineColor: string
+  btnOutlineBorder: string
+  btnFlatColor: string
+  btnFlatPaddingX: string
+  btnPushRadius: string
+  btnPushBorderBottom: string
+  btnRoundedRadius: string
+  btnRoundRadius: string
+  btnSquareRadius: string
+  btnDensePadding: string
+  // QFab
+  fabBg: string
+  fabColor: string
+  fabRadius: string
+  fabSize: string
+  fabMiniSize: string
+  // Misc
+  linearProgressSpeed: string
+  paginationGutterChild: string
+  paginationGutterParent: string
+  virtualScrollItemHeight: string
+  virtualScrollItemWidth: string
 }
 
 /* ─── Component specs ───────────────────────────────────────── */
@@ -234,6 +306,10 @@ export interface StyleSpec {
     elevation: ElevationTokens
     sizing: SizingTokens
     motion: MotionTokens
+    /** Runtime font sizes (`--q-font-*`) — optional, built-in styles provide them */
+    fonts?: FontsTokens
+    /** Per-style component tokens (`--q-{component}-{property}`) — optional, built-ins provide them */
+    component?: ComponentTokens
   }
 
   /** Dark-mode token overrides (partial — inherits light tokens) */

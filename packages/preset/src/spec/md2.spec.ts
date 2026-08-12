@@ -59,7 +59,8 @@ const spec: StyleSpec = {
       cornerMedium: '7px',
       cornerLarge: '16px',
       cornerExtraLarge: '28px',
-      cornerFull: '50%'
+      cornerFull: '9999px',
+      cornerCircle: '50%'
     },
 
     typography: {
@@ -113,6 +114,69 @@ const spec: StyleSpec = {
       easingStandard: 'cubic-bezier(0.4, 0, 0.2, 1)',
       easingDecelerate: 'cubic-bezier(0, 0, 0.2, 1)',
       easingAccelerate: 'cubic-bezier(0.4, 0, 1, 1)'
+    },
+
+    /* ─── Runtime fonts ──────────────────────────────────────────── */
+
+    /** Emitted as `--q-font-*`; separate from the shorthand `typography` strings */
+    fonts: {
+      fontXs: '12px',
+      fontSm: '12px',
+      fontMd: '14px',
+      fontLg: '14px',
+      fontXl: '18px',
+      fontLead: '1.715em'
+    },
+
+    /* ─── Component tokens ──────────────────────────────────────── */
+
+    /** Per-style component values, emitted as `--q-{component}-{property}` */
+    component: {
+      linearProgressSpeed: '0.3s',
+      paginationGutterChild: '4px',
+      paginationGutterParent: '4px',
+      virtualScrollItemHeight: '48px',
+      virtualScrollItemWidth: '100%',
+      // QToggle
+      toggleFontSize: '40px',
+      toggleDenseFontSize: '28px',
+      toggleTrackBg: 'currentColor',
+      toggleTrackOutline: 'none',
+      toggleTrackOpacity: '0.38',
+      toggleTrackBorderRadius: '0.175em',
+      toggleTrackHeight: '0.35em',
+      toggleInnerWidth: '1.4em',
+      // QBtn
+      btnBg: 'var(--light-primary)',
+      btnColor: 'var(--light-on-primary)',
+      btnTextTransform: 'uppercase',
+      btnRadius: 'var(--q-radius-sm)',
+      btnMinWidth: '64px',
+      btnPaddingX: '16px',
+      btnShadow:
+        '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)',
+      btnPressedShadow:
+        '0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 5px 8px rgba(0, 0, 0, 0.14), 0 1px 14px rgba(0, 0, 0, 0.12)',
+      btnOutlineColor: 'currentColor',
+      btnOutlineBorder: 'currentColor',
+      btnFlatColor: 'currentColor',
+      btnFlatPaddingX: '8px',
+      btnPushRadius: '7px',
+      btnPushBorderBottom: '3px solid rgba(0, 0, 0, 0.15)',
+      btnRoundedRadius: '28px',
+      btnRoundRadius: '50%',
+      btnSquareRadius: '0',
+      btnDensePadding: '0.285em',
+      btnFontSize: '14px',
+      btnLineHeight: '1.715em',
+      btnPressedShadowLg:
+        '0 10px 15px -3px rgb(156 163 175 / 0.14), 0 4px 6px -4px rgb(156 163 175 / 0.14)',
+      // QFab
+      fabBg: 'transparent',
+      fabColor: 'inherit',
+      fabRadius: '50%',
+      fabSize: '56px',
+      fabMiniSize: '40px'
     }
   },
 
@@ -134,7 +198,8 @@ const spec: StyleSpec = {
       surfaceContainer: 'var(--dark-surface-container)',
       surfaceContainerLow: 'var(--dark-surface-container-low)',
       surfaceContainerHigh: 'var(--dark-surface-container-high)',
-      surfaceContainerHighest: 'var(--dark-surface-container-highest)'
+      surfaceContainerHighest: 'var(--dark-surface-container-highest)',
+      tertiaryContainer: 'var(--dark-tertiary-container)'
     } as Record<string, string>
   } as unknown as Partial<StyleSpec['tokens']>,
 

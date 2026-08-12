@@ -46,7 +46,7 @@ Even though MD2 uses the classic aesthetic, it still benefits from the MD3 color
 
 ## Files
 
-MD2 component tokens are in `packages/preset/src/core/_tokens.ts` — the `md2` block.
+MD2 component tokens live in the StyleSpec — `packages/preset/src/spec/md2.spec.ts` (`tokens.component`); the runtime `--q-*` tokens are derived from it in `packages/preset/src/core/_tokenDerive.ts`.
 
 ## When to Use MD2
 
