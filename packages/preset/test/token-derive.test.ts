@@ -103,7 +103,10 @@ const EXPECTED_MD3 = {
     fabColor: 'var(--light-on-surface)',
     fabRadius: 'var(--q-radius-lg)',
     fabSize: '56px',
-    fabMiniSize: '40px'
+    fabMiniSize: '40px',
+    tabIndicatorHeight: '40%',
+    tabIndicatorRadius: 'var(--q-radius-full)',
+    tabIndicatorBg: 'var(--light-secondary-container)'
   }
 }
 
@@ -202,7 +205,10 @@ const EXPECTED_MD2 = {
     fabColor: 'inherit',
     fabRadius: '50%',
     fabSize: '56px',
-    fabMiniSize: '40px'
+    fabMiniSize: '40px',
+    tabIndicatorHeight: '2px',
+    tabIndicatorRadius: '0',
+    tabIndicatorBg: 'currentColor'
   }
 }
 
@@ -297,7 +303,10 @@ const EXPECTED_UNSTYLED = {
     fabColor: 'inherit',
     fabRadius: '0',
     fabSize: '56px',
-    fabMiniSize: '40px'
+    fabMiniSize: '40px',
+    tabIndicatorHeight: '2px',
+    tabIndicatorRadius: '0',
+    tabIndicatorBg: 'currentColor'
   }
 }
 

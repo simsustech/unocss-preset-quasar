@@ -99,6 +99,10 @@ export const DEFAULTS: Record<string, string> = {
   fabRadius: '0',
   fabSize: '56px',
   fabMiniSize: '40px',
+  // QTab
+  tabIndicatorHeight: '2px',
+  tabIndicatorRadius: '0',
+  tabIndicatorBg: 'currentColor',
   // Position-engine runtime variables (set dynamically by Quasar at runtime)
   peTop: '0px',
   peLeft: '0px'

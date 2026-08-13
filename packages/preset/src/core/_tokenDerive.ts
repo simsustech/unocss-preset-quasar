@@ -117,7 +117,10 @@ const COMPONENT_KEYS = [
   'fabColor',
   'fabRadius',
   'fabSize',
-  'fabMiniSize'
+  'fabMiniSize',
+  'tabIndicatorHeight',
+  'tabIndicatorRadius',
+  'tabIndicatorBg'
 ] as const
 
 /**

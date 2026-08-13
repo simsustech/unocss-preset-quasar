@@ -176,7 +176,11 @@ const spec: StyleSpec = {
       fabColor: 'var(--light-on-surface)',
       fabRadius: 'var(--q-radius-lg)',
       fabSize: '56px',
-      fabMiniSize: '40px'
+      fabMiniSize: '40px',
+      // QTab
+      tabIndicatorHeight: '40%',
+      tabIndicatorRadius: 'var(--q-radius-full)',
+      tabIndicatorBg: 'var(--light-secondary-container)'
     }
   },
 

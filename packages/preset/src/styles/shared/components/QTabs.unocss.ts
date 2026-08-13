@@ -64,7 +64,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-tab__indicator$/,
     componentClass(
       'q-tab__indicator',
-      `opacity-0 absolute w-56px h-32px min-h-[unset] rounded-2xl bg-$light-secondary-container dark:bg-$dark-secondary-container left-[calc(50%-28px)] top-[0.5em]`
+      `opacity-0 absolute h-$q-tab-indicator-height min-h-[unset] rounded-$q-tab-indicator-radius bg-$q-tab-indicator-bg`
     )
   ],
 
@@ -149,7 +149,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
       [&_.q-tabs__arrow--left]:(top-[0] left-[0] right-[0]) 
       [&_.q-tabs__arrow--right]:(left-[0] right-[0] bottom-[0]) 
       [&_.q-tab]:(px-[8px] py-[0]) 
-      [&_.q-tab__indicator]:(h-[unset] w-2px min-h-100%)
+      [&_.q-tab__indicator]:(h-[unset] w-2px min-h-100% rounded-none)
       [&_.q-tabs--not-scrollable_.q-tabs__content]:(h-full) 
       [&_.q-tabs--dense_.q-tab__content]:(min-w-[24px])`
     )

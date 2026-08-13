@@ -114,6 +114,10 @@ export interface TokenBlock {
     fabRadius: string
     fabSize: string
     fabMiniSize: string
+    // QTab
+    tabIndicatorHeight: string
+    tabIndicatorRadius: string
+    tabIndicatorBg: string
   }
 }
 

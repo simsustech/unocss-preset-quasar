@@ -176,7 +176,11 @@ const spec: StyleSpec = {
       fabColor: 'inherit',
       fabRadius: '50%',
       fabSize: '56px',
-      fabMiniSize: '40px'
+      fabMiniSize: '40px',
+      // QTab
+      tabIndicatorHeight: '2px',
+      tabIndicatorRadius: '0',
+      tabIndicatorBg: 'currentColor'
     }
   },
 

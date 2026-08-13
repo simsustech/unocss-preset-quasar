@@ -174,6 +174,10 @@ export interface ComponentTokens {
   fabRadius: string
   fabSize: string
   fabMiniSize: string
+  // QTab
+  tabIndicatorHeight: string
+  tabIndicatorRadius: string
+  tabIndicatorBg: string
   // Misc
   linearProgressSpeed: string
   paginationGutterChild: string
