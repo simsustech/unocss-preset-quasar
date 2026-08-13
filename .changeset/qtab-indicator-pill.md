@@ -1,5 +1,5 @@
 ---
-'unocss-preset-quasar': minor
+'unocss-preset-quasar': patch
 ---
 
 Fix `q-tab__indicator` to span the parent QTab width
