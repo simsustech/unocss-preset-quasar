@@ -1230,6 +1230,7 @@ const baseSafelist = [
   'no-border',
   'no-border-radius',
   'no-outline',
+  'all-pointer-events',
   'no-pointer-events',
   'no-pointer-events--children',
   'no-shadow',
