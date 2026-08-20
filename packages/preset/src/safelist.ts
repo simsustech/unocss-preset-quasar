@@ -1177,8 +1177,8 @@ const colorSafelist = [
   'text-deep-orange',
   'bg-brown',
   'text-brown',
-  'bg-grey',
-  'text-grey',
+  'bg-gray',
+  'text-gray',
   'bg-blue-grey',
   'text-blue-grey'
 ]

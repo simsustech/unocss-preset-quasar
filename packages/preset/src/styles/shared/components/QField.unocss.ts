@@ -2,6 +2,7 @@ import type { Preflight, Rule, Shortcut } from '@unocss/core'
 import type { QuasarTheme } from '../../../theme.js'
 import {
   componentClass as mdComponent,
+  qe,
   staticClass as mdStatic
 } from '../../_helpers.js'
 
@@ -240,8 +241,8 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     /^q-field--filled$/,
     mdComponent(
       'q-field--filled',
-      `
-      [&_>_.q-field\_\_inner_>_.q-field\_\_control]:(bg-$light-surface-container-highest text-$light-on-surface-variant
+      qe`
+[&_>_.q-field__inner_>_.q-field__control]:(bg-$light-surface-container-highest text-$light-on-surface-variant
        dark:bg-$dark-surface-container-highest dark:text-$dark-on-surface-variant px-[16px] py-[0] bg-black/5 rounded-tl-[4px] rounded-tr-[4px] rounded-bl-[0px] rounded-br-[0px])
       [&_.q-field\\_\\_control:before]:(bg-black/5 [border-bottom:1px_solid_rgba(0,_0,_0,_0.42)] opacity-0 [transition:opacity_0.36s_cubic-bezier(0.4,_0,_0.2,_1),_background_0.36s_cubic-bezier(0.4,_0,_0.2,_1)]) 
       [&_.q-field\\_\\_control:hover:before]:(opacity-100) 
