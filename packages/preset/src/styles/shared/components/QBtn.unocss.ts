@@ -87,7 +87,7 @@ const shortcuts: Shortcut<QuasarTheme>[] = [
     ([, c], { theme }) =>
       theme.quasar?.components?.['q-btn--fab'] ??
       `bg-$q-fab-bg text-$q-fab-color
-        flex-row items-center justify-center min-w-$q-fab-size h-$q-fab-size p-0 rounded-$q-fab-radius
+        flex-row items-center justify-center min-w-$q-fab-size h-$q-fab-size p-0 !rounded-$q-fab-radius
        z-${theme.quasar.z.fab}
        [&_.q-icon]:(text-[24px]) `
   ],
