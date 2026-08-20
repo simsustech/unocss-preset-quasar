@@ -7,6 +7,16 @@ export type { QuasarStyleEntry } from './_tokens.js'
 
 const kebab = (s: string) => s.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)
 
+/**
+ * Sizing tokens that must NOT be emitted as CSS vars: Quasar's Screen plugin
+ * reads its breakpoints from `--q-size-sm/md/lg/xl` on `body`
+ * (getComputedStyle(document.body)), and emitting the `sizeSm/Md/Lg` tokens
+ * (24/40/56px) here would override the real breakpoint values (600/1024/1440px)
+ * and break `$q.screen`. No shortcut consumes these vars, so skipping them is
+ * safe.
+ */
+const SCREEN_BREAKPOINT_COLLISIONS = new Set(['sizeSm', 'sizeMd', 'sizeLg'])
+
 /** Emit CSS custom properties for one style block under a selector, filling defaults */
 const emitBlock = (selector: string, block: TokenBlock): string => {
   const lines: string[] = []
@@ -18,8 +28,10 @@ const emitBlock = (selector: string, block: TokenBlock): string => {
     ...block.type,
     ...block.component
   }
-  for (const [key, val] of Object.entries(all))
+  for (const [key, val] of Object.entries(all)) {
+    if (SCREEN_BREAKPOINT_COLLISIONS.has(key)) continue
     lines.push(`  --q-${kebab(key)}: ${val};`)
+  }
   return `${selector} {\n${lines.join('\n')}\n}`
 }
 
@@ -35,8 +47,14 @@ const emitDarkBlock = (selector: string, block: TokenBlock): string => {
   return `${selector} {\n${lines.join('\n')}\n}`
 }
 
-/** Emit the default style globally on `:root` — works with no body class */
-const emitDefault = (block: TokenBlock): string => emitBlock(':root', block)
+/**
+ * Emit the default style on `body` — works with no body class. Scoped on
+ * `body` (not `:root`) so token values that reference `--light-*`/`--dark-*`
+ * resolve against the BODY's custom properties, where runtime theme
+ * overrides (`setThemeColors`) are applied. On `:root` those references
+ * would resolve against the build-time values and ignore runtime changes.
+ */
+const emitDefault = (block: TokenBlock): string => emitBlock('body', block)
 
 /** Emit the default style's dark overrides on `body.body--dark` */
 const emitDarkDefault = (block: TokenBlock): string =>
