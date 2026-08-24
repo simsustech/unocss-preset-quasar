@@ -1,5 +1,11 @@
 # unocss-preset-quasar
 
+## 0.5.6
+
+### Patch Changes
+
+- d0a2fcc: chore: update dependencies
+
 ## 0.5.5
 
 ### Patch Changes
