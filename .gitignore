@@ -10,3 +10,4 @@ ISSUES.md
 **/.pnpm-store
 test-results/
 CHANGELOG.md
+.worktrees

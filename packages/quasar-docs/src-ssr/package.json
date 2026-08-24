@@ -6,6 +6,6 @@
   "type": "module",
   "dependencies": {
     "@hono/node-server": "^2.1.1",
-    "hono": "^4.13.3"
+    "hono": "^4.13.4"
   }
 }

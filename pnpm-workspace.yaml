@@ -52,6 +52,7 @@ minimumReleaseAgeExclude:
   - '@unocss/vite@66.8.0'
   - fastify@5.12.1
   - unocss@66.8.0
+  - vitrify@0.27.1
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true

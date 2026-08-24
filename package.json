@@ -28,7 +28,7 @@
     "@changesets/cli": "^3.0.1",
     "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.2",
-    "@unocss/preset-wind4": "66.8.0",
+    "@unocss/preset-wind4": "66.8.1",
     "changesets": "^1.0.2",
     "conventional-changelog-conventionalcommits": "^10.4.0",
     "git-conventional-commits": "^2.9.0",

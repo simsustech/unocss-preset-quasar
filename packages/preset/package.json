@@ -75,13 +75,13 @@
   },
   "dependencies": {
     "@poupe/material-color-utilities": "^0.4.1",
-    "@unocss/core": "^66.8.0",
-    "@unocss/preset-uno": "^66.8.0",
-    "@unocss/preset-web-fonts": "66.8.0",
-    "@unocss/preset-wind": "^66.8.0",
-    "@unocss/preset-wind4": "66.8.0",
+    "@unocss/core": "^66.8.1",
+    "@unocss/preset-uno": "^66.8.1",
+    "@unocss/preset-web-fonts": "66.8.1",
+    "@unocss/preset-wind": "^66.8.1",
+    "@unocss/preset-wind4": "66.8.1",
     "animated-unocss": "^0.0.6",
-    "unocss": "66.8.0"
+    "unocss": "66.8.1"
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.2.3",
@@ -89,14 +89,14 @@
     "@quasar/quasar-ui-qmarkdown": "^4.2.1",
     "@quasar/quasar-ui-qmediaplayer": "^3.0.1",
     "@types/node": "^26.2.0",
-    "@unocss/preset-icons": "^66.8.0",
-    "@unocss/preset-mini": "66.8.0",
-    "quasar": "^2.25.1",
+    "@unocss/preset-icons": "^66.8.1",
+    "@unocss/preset-mini": "66.8.1",
+    "quasar": "^2.26.0",
     "typescript": "^7.0.2",
     "vitest": "^4.1.11"
   },
   "peerDependencies": {
-    "quasar": "^2.25.1"
+    "quasar": "^2.26.0"
   },
   "peerDependenciesMeta": {
     "vite": {
