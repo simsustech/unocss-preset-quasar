@@ -1,31 +1,31 @@
 import type { Rule } from '@unocss/core'
 
 export const qBtnRules: Rule[] = [
-  // Base
+  // Base — ported from quasar.css .q-btn block (MD2 baseline)
+  // Token values resolve to MD3 via body.quasar-style-md3 overrides
   [
     /^q-btn$/,
     () => ({
       display: 'inline-flex',
-      'align-items': 'center',
-      'justify-content': 'center',
-      'border-radius': 'var(--q-btn-radius)',
-      background: 'var(--q-btn-bg)',
-      color: 'var(--q-btn-color)',
+      'flex-direction': 'column',
+      'align-items': 'stretch',
+      position: 'relative',
+      outline: 0,
+      border: 0,
+      'vertical-align': 'middle',
       'font-size': 'var(--q-btn-font-size)',
       'line-height': 'var(--q-btn-line-height)',
-      'min-width': 'var(--q-btn-min-width)',
-      'padding-inline': 'var(--q-btn-padding-x)',
+      'text-decoration': 'none',
+      color: 'inherit',
+      background: 'transparent',
+      'font-weight': 500,
       'text-transform': 'var(--q-btn-text-transform)',
-      'box-shadow': 'var(--q-btn-shadow)',
-      border: 'none',
-      cursor: 'pointer',
-      transition: 'box-shadow var(--q-duration-short) var(--q-easing-standard)',
-      outline: 'none',
-      position: 'relative',
-      overflow: 'visible',
       'text-align': 'center',
-      'white-space': 'nowrap',
-      'user-select': 'none'
+      width: 'auto',
+      height: 'auto',
+      cursor: 'default',
+      padding: '4px var(--q-btn-padding-x)',
+      'min-height': '2.572em'
     })
   ],
   // Actionable variant
@@ -33,6 +33,13 @@ export const qBtnRules: Rule[] = [
     /^q-btn--actionable$/,
     () => ({
       cursor: 'pointer'
+    })
+  ],
+  // No-uppercase variant
+  [
+    /^q-btn--no-uppercase$/,
+    () => ({
+      'text-transform': 'none'
     })
   ],
   // Standard variant
