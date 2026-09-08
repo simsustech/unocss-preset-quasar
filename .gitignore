@@ -1,0 +1,14 @@
+/node_modules
+/packages/**/node_modules
+/packages/**/dist
+/packages/**/components.d.ts
+ISSUES.md
+.context/
+.env
+.env.*
+.npmrc
+**/.pnpm-store
+test-results/
+CHANGELOG.md
+.worktrees
+.pi/

@@ -1,0 +1,16 @@
+{
+  "name": "unocss-preset-quasar-docs",
+  "version": "0.3.4",
+  "private": true,
+  "description": "Documentation for unocss-preset-quasar",
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview",
+    "lint": "oxlint .vitepress"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.4"
+  }
+}

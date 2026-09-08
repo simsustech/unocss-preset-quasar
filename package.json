@@ -1,0 +1,57 @@
+{
+  "name": "unocss-preset-quasar-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "run-s build:preset",
+    "build:preset": "cd packages/preset && pnpm run build",
+    "format:check": "oxfmt --check .",
+    "format:write": "oxfmt --write .",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "publish": "changeset publish",
+    "lint:preset": "cd packages/preset && pnpm run lint",
+    "lint:docs": "cd packages/docs && pnpm run lint",
+    "lint": "run-s lint:preset lint:docs",
+    "lint:preset:fix": "cd packages/preset && pnpm run lint:fix",
+    "lint:docs:fix": "cd packages/docs && pnpm run lint:fix",
+    "lint:fix": "run-s lint:preset:fix lint:docs:fix",
+    "test:preset": "cd packages/preset && pnpm run test",
+    "test": "run-s test:preset"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@changesets/cli": "^3.0.1",
+    "@commitlint/cli": "^21.2.2",
+    "@commitlint/config-conventional": "^21.2.2",
+    "@unocss/preset-wind4": "66.8.1",
+    "changesets": "^1.0.2",
+    "conventional-changelog-conventionalcommits": "^10.4.0",
+    "git-conventional-commits": "^2.9.0",
+    "npm-run-all": "^4.1.5",
+    "oxfmt": "^0.64.0",
+    "oxlint": "^1.79.0",
+    "prettier": "^3.9.6",
+    "simple-git-hooks": "^2.13.1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm run lint && pnpm run format:check",
+    "commit-msg": "pnpm exec commitlint --edit $1"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write --ignore-unknown"
+    ],
+    "packages/*/{src,types}/**/*.ts": [
+      "oxlint --ext .ts"
+    ],
+    "packages/**/*.d.ts": [
+      "oxlint --ext .ts"
+    ]
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

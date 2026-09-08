@@ -1,0 +1,60 @@
+packages:
+  - 'packages/*'
+
+minimumReleaseAge: 1440
+
+minimumReleaseAgeExclude:
+  - vue-router
+  - '@quasar/*'
+  - '@fastify/middie@9.3.3'
+  - '@types/node@26.1.0'
+  - quasar@2.20.2 || 2.21.1 || 2.25.1
+  - toml@4.1.2
+  - vite@8.1.2 || 8.2.2
+  - '@vitest/expect@4.1.10'
+  - '@vitest/mocker@4.1.10'
+  - '@vitest/pretty-format@4.1.10'
+  - '@vitest/runner@4.1.10'
+  - '@vitest/snapshot@4.1.10'
+  - '@vitest/spy@4.1.10'
+  - '@vitest/utils@4.1.10'
+  - vitest@4.1.10
+  - '@shikijs/core@4.4.1'
+  - '@shikijs/engine-javascript@4.4.1'
+  - '@shikijs/engine-oniguruma@4.4.1'
+  - '@shikijs/langs@4.4.1'
+  - '@shikijs/primitive@4.4.1'
+  - '@shikijs/themes@4.4.1'
+  - '@shikijs/transformers@4.4.1'
+  - '@shikijs/types@4.4.1'
+  - markdown-it@15.0.0
+  - shiki@4.4.1
+  - '@unocss/cli@66.8.0'
+  - '@unocss/config@66.8.0'
+  - '@unocss/core@66.8.0'
+  - '@unocss/extractor-arbitrary-variants@66.8.0'
+  - '@unocss/inspector@66.8.0'
+  - '@unocss/preset-attributify@66.8.0'
+  - '@unocss/preset-icons@66.8.0'
+  - '@unocss/preset-mini@66.8.0'
+  - '@unocss/preset-tagify@66.8.0'
+  - '@unocss/preset-typography@66.8.0'
+  - '@unocss/preset-uno@66.8.0'
+  - '@unocss/preset-web-fonts@66.8.0'
+  - '@unocss/preset-wind3@66.8.0'
+  - '@unocss/preset-wind4@66.8.0'
+  - '@unocss/preset-wind@66.8.0'
+  - '@unocss/rule-utils@66.8.0'
+  - '@unocss/transformer-attributify-jsx@66.8.0'
+  - '@unocss/transformer-compile-class@66.8.0'
+  - '@unocss/transformer-directives@66.8.0'
+  - '@unocss/transformer-variant-group@66.8.0'
+  - '@unocss/vite@66.8.0'
+  - fastify@5.12.1
+  - unocss@66.8.0
+  - vitrify@0.27.1
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  simple-git-hooks: true
+  unrs-resolver: true

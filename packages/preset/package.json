@@ -1,0 +1,109 @@
+{
+  "name": "unocss-preset-quasar",
+  "version": "0.5.7",
+  "description": "UnoCSS preset for Quasar Framework",
+  "keywords": [
+    "material-design",
+    "md3",
+    "preset",
+    "quasar",
+    "unocss"
+  ],
+  "homepage": "https://github.com/simsustech/unocss-preset-quasar/tree/main/#readme",
+  "bugs": {
+    "url": "https://github.com/simsustech/unocss-preset-quasar/issues"
+  },
+  "license": "MIT",
+  "author": "Stefan van Herwijnen",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simsustech/unocss-preset-quasar.git",
+    "directory": "packages/preset"
+  },
+  "files": [
+    "dist",
+    "src",
+    "!dist/**/*.test.js"
+  ],
+  "type": "module",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./styles": {
+      "source": "./src/styles/index.ts",
+      "types": "./dist/types/styles/index.d.ts",
+      "import": "./dist/styles/index.js",
+      "require": "./dist/styles/index.js",
+      "default": "./dist/styles/index.js"
+    },
+    "./theme": {
+      "source": "./src/theme.ts",
+      "types": "./dist/types/theme.d.ts",
+      "import": "./dist/theme.js",
+      "require": "./dist/theme.js",
+      "default": "./dist/theme.js"
+    },
+    "./vite-aliases": {
+      "source": "./src/vite-aliases.ts",
+      "types": "./dist/types/vite-aliases.d.ts",
+      "require": "./dist/vite-aliases.js",
+      "default": "./dist/vite-aliases.js"
+    },
+    "./spec": {
+      "source": "./src/spec/index.ts",
+      "types": "./dist/types/spec/index.d.ts",
+      "import": "./dist/spec/index.js",
+      "require": "./dist/spec/index.js",
+      "default": "./dist/spec/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "oxlint src",
+    "lint:fix": "oxlint src --fix",
+    "test": "vitest test/"
+  },
+  "dependencies": {
+    "@poupe/material-color-utilities": "^0.4.1",
+    "@unocss/core": "^66.10.0",
+    "@unocss/preset-uno": "^66.10.0",
+    "@unocss/preset-web-fonts": "66.10.0",
+    "@unocss/preset-wind": "^66.10.0",
+    "@unocss/preset-wind4": "66.10.0",
+    "animated-unocss": "^0.0.6",
+    "unocss": "66.10.0"
+  },
+  "devDependencies": {
+    "@iconify-json/mdi": "^1.2.3",
+    "@quasar/extras": "^2.0.4",
+    "@quasar/quasar-ui-qmarkdown": "^4.2.1",
+    "@quasar/quasar-ui-qmediaplayer": "^3.0.1",
+    "@types/node": "^26.5.0",
+    "@unocss/preset-icons": "^66.10.0",
+    "@unocss/preset-mini": "66.10.0",
+    "quasar": "^2.30.1",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.0"
+  },
+  "peerDependencies": {
+    "quasar": "^2.26.0"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
