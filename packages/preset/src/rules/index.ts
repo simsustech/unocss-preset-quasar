@@ -1,5 +1,6 @@
 import type { Rule } from '@unocss/core'
 import type { ComponentRule } from './types.js'
+import { gridRules } from './grid.js'
 import { qBadgeRules } from './q-badge.js'
 import { qAvatarRules } from './q-avatar.js'
 import { qChipRules } from './q-chip.js'
@@ -74,6 +75,9 @@ import { qVideoRules } from './q-video.js'
  */
 export function getAllRules(): Rule[] {
   const rules: Rule[] = [
+    // Grid system (row/col/gutter) — foundation, comes first
+    ...gridRules,
+
     // M1 — simple / high-value
     ...qBadgeRules,
     ...qAvatarRules,
