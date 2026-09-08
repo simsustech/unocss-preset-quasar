@@ -7,6 +7,229 @@
  */
 
 export const quasarSafelist: string[] = [
+  // ============================================================
+  // Utility classes (from rules/grid.ts, rules/spacing.ts, etc.)
+  // ============================================================
+
+  // --- Grid system ---
+  'row',
+  'column',
+  'row-reverse',
+  'column-reverse',
+  'col',
+  'col-auto',
+  'col-grow',
+  ...Array.from({ length: 12 }, (_, i) => `col-${i + 1}`),
+  'wrap',
+  'no-wrap',
+  'reverse-wrap',
+  'flex-center',
+  'order-first',
+  'order-last',
+  'order-none',
+
+  // --- Gutters ---
+  ...['none', 'xs', 'sm', 'md', 'lg', 'xl'].flatMap((size) => [
+    `q-gutter-${size}`,
+    `q-gutter-x-${size}`,
+    `q-gutter-y-${size}`,
+    `q-col-gutter-${size}`,
+    `q-col-gutter-x-${size}`,
+    `q-col-gutter-y-${size}`
+  ]),
+
+  // --- Spacing ---
+  ...['none', 'xs', 'sm', 'md', 'lg', 'xl'].flatMap((size) => [
+    ...['a', 't', 'b', 'l', 'r', 'x', 'y'].map((side) => `q-p${side}-${size}`),
+    ...['a', 't', 'b', 'l', 'r', 'x', 'y'].map((side) => `q-m${side}-${size}`)
+  ]),
+  'q-ml-auto',
+  'q-mr-auto',
+  'q-mt-auto',
+  'q-mb-auto',
+  'q-mx-auto',
+  'q-my-auto',
+
+  // --- Fit / Full / Window ---
+  'fit',
+  'full-width',
+  'full-height',
+  'window-width',
+  'window-height',
+
+  // --- Position ---
+  'fixed-full',
+  'fixed-center',
+  'fixed-top',
+  'fixed-bottom',
+  'fixed-left',
+  'fixed-right',
+  'fixed-top-left',
+  'fixed-top-right',
+  'fixed-bottom-left',
+  'fixed-bottom-right',
+  'absolute-full',
+  'absolute-center',
+  'absolute-top',
+  'absolute-bottom',
+  'absolute-left',
+  'absolute-right',
+  'absolute-top-left',
+  'absolute-top-right',
+  'absolute-bottom-left',
+  'absolute-bottom-right',
+  'fullscreen',
+  'relative-position',
+
+  // --- Visibility ---
+  'no-margin',
+  'no-padding',
+  'no-border',
+  'no-border-radius',
+  'no-box-shadow',
+  'no-outline',
+  'ellipsis',
+  'ellipsis-2-lines',
+  'ellipsis-3-lines',
+  'disabled',
+  'readonly',
+  'transparent',
+  'invisible',
+  'overflow-hidden-y',
+
+  // --- Elevation ---
+  'shadow-none',
+  'no-shadow',
+  ...Array.from({ length: 5 }, (_, i) => `elevation-${i + 1}`),
+  ...Array.from({ length: 5 }, (_, i) => `q-elevation-${i + 1}`),
+
+  // --- Z-index ---
+  'z-marginals',
+  'z-notify',
+  'z-fullscreen',
+  'z-inherit',
+  'z-top',
+  'z-max',
+
+  // --- Colors (text/bg) ---
+  // Quasar colors
+  ...[
+    'primary',
+    'secondary',
+    'accent',
+    'positive',
+    'negative',
+    'info',
+    'warning',
+    'dark',
+    'dark-page',
+    'light',
+    'white',
+    'black'
+  ].flatMap((name) => [`text-${name}`, `bg-${name}`]),
+  // MD3 color roles
+  ...[
+    'on-primary',
+    'primary-container',
+    'on-primary-container',
+    'on-secondary',
+    'secondary-container',
+    'on-secondary-container',
+    'tertiary',
+    'on-tertiary',
+    'tertiary-container',
+    'on-tertiary-container',
+    'error',
+    'on-error',
+    'error-container',
+    'on-error-container',
+    'background',
+    'on-background',
+    'surface',
+    'on-surface',
+    'surface-variant',
+    'on-surface-variant',
+    'surface-dim',
+    'surface-bright',
+    'surface-container-lowest',
+    'surface-container-low',
+    'surface-container',
+    'surface-container-high',
+    'surface-container-highest',
+    'outline',
+    'outline-variant',
+    'inverse-surface',
+    'inverse-on-surface',
+    'inverse-primary',
+    'shadow',
+    'scrim'
+  ].flatMap((name) => [`text-${name}`, `bg-${name}`]),
+
+  // --- Orientation ---
+  'flip-horizontal',
+  'flip-vertical',
+
+  // --- Touch ---
+  'q-touch',
+  'q-touch-x',
+  'q-touch-y',
+
+  // --- Mouse ---
+  'pointer-events-all',
+  'no-pointer-events',
+  'non-selectable',
+  'scroll',
+  'scroll-x',
+  'scroll-y',
+  'no-scroll',
+  'cursor-inherit',
+  'cursor-pointer',
+
+  // --- Typography ---
+  ...['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].map((n) => `text-${n}`),
+  ...['subtitle1', 'subtitle2', 'body1', 'body2', 'overline', 'caption'].map(
+    (n) => `text-${n}`
+  ),
+  'text-uppercase',
+  'text-lowercase',
+  'text-capitalize',
+  'text-center',
+  'text-left',
+  'text-right',
+  'text-justify',
+  'text-italic',
+  'text-bold',
+  'text-no-wrap',
+  'text-strike',
+  ...['thin', 'light', 'regular', 'medium', 'bold', 'bolder'].map(
+    (w) => `text-weight-${w}`
+  ),
+
+  // --- Helpers ---
+  'rounded-borders',
+  'border-radius-inherit',
+  'no-transition',
+  'transition-0',
+  'glossy',
+  'q-link',
+  'q-body--fullscreen-mixin',
+  'q-body--prevent-scroll',
+  'q-body--force-scrollbar-x',
+  'q-body--force-scrollbar-y',
+  'q-no-input-spinner',
+
+  // --- Focusable helpers ---
+  'q-focus-helper',
+  'q-focusable',
+  'q-hoverable',
+  'q-manual-focusable',
+
+  // --- Dark mode ---
+  'q-dark',
+
+  // ============================================================
+  // Component class names (runtime-added by Quasar)
+  // ============================================================
   // M1 — simple / high-value
   'q-badge',
   'q-badge--floating',
