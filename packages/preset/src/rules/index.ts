@@ -4,6 +4,7 @@ import { gridRules } from './grid.js'
 import { spacingRules } from './spacing.js'
 import { positionRules } from './position.js'
 import { visibilityRules } from './visibility.js'
+import { elevationRuleList } from './elevation.js'
 import { qBadgeRules } from './q-badge.js'
 import { qAvatarRules } from './q-avatar.js'
 import { qChipRules } from './q-chip.js'
@@ -83,6 +84,9 @@ export function getAllRules(): Rule[] {
     ...spacingRules,
     ...positionRules,
     ...visibilityRules,
+    ...elevationRuleList,
+
+    // M1 — simple / high-value
 
     // M1 — simple / high-value
 
