@@ -14,7 +14,7 @@ jobs:
     if: github.repository == 'simsustech/unocss-preset-quasar'
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 

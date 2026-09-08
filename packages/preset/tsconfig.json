@@ -15,7 +15,6 @@
     "declarationDir": "dist/types",
     "rootDir": "./src",
     "paths": {}
-    // "typeRoots": ["./"]
   },
   "include": ["src"]
 }
