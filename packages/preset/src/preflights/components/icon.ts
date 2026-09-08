@@ -1,0 +1,61 @@
+import type { Preflight } from '@unocss/core'
+
+/**
+ * icon component styles — auto-generated from quasar.css.
+ * Contains all .q-icon selector blocks (variants, states, pseudo-elements).
+ */
+export const iconComponentPreflight: Preflight = {
+  getCSS: () => `.q-icon {
+  line-height: 1;
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  text-align: center;
+  position: relative;
+  box-sizing: content-box;
+  fill: currentColor;
+}
+
+.q-icon:before, .q-icon:after {
+  width: 100%;
+  height: 100%;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.q-icon > svg,
+.q-icon > img {
+  width: 100%;
+  height: 100%;
+}
+
+.q-icon > div {
+  box-sizing: border-box;
+}
+
+.q-icon,
+.material-icons,
+.material-icons-outlined,
+.material-icons-round,
+.material-icons-sharp,
+.material-symbols-outlined,
+.material-symbols-rounded,
+.material-symbols-sharp {
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: inherit;
+  font-size: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+`
+}
