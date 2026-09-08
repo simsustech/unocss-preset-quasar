@@ -20,6 +20,7 @@ import { mousePreflight } from './preflights/mouse.js'
 import { typographyPreflight } from './preflights/typography.js'
 import { helpersPreflight } from './preflights/helpers.js'
 import { qBtnPreflight } from './preflights/q-btn.js'
+import * as componentPreflights from './preflights/components/index.js'
 
 export interface QuasarPresetOptions {
   style?: QuasarStyleEntry
@@ -56,6 +57,7 @@ export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
       typographyPreflight,
       helpersPreflight,
       qBtnPreflight,
+      ...Object.values(componentPreflights),
       createTokenPreflight({ colors, defaultStyle, styles: allStyles })
     ],
     rules: getAllRules(),
