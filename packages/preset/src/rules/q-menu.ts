@@ -5,12 +5,24 @@ export const qMenuRules: Rule[] = [
     /^q-menu$/,
     () => ({
       position: 'absolute',
-      'z-index': '10000',
+      'z-index': 9500,
       'min-width': '100px',
       'background-color': 'var(--q-surface)',
       'border-radius': 'var(--q-radius-md)',
       'box-shadow': 'var(--q-elevation-3)',
       overflow: 'hidden'
+    })
+  ],
+  [
+    /^q-menu--square$/,
+    () => ({
+      'border-radius': '0'
+    })
+  ],
+  [
+    /^q-menu--dark$/,
+    () => ({
+      'background-color': 'var(--q-surface-variant)'
     })
   ]
 ]

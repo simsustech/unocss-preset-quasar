@@ -9,7 +9,7 @@ export const qDialogRules: Rule[] = [
       display: 'flex',
       'align-items': 'center',
       'justify-content': 'center',
-      'z-index': '1000'
+      'z-index': 6000
     })
   ],
   [
@@ -17,7 +17,7 @@ export const qDialogRules: Rule[] = [
     () => ({
       position: 'absolute',
       inset: '0',
-      'background-color': 'rgba(0,0,0,0.5)'
+      'background-color': 'rgba(0, 0, 0, 0.5)'
     })
   ],
   [
@@ -39,6 +39,62 @@ export const qDialogRules: Rule[] = [
       'max-width': '100vw',
       'max-height': '100vh',
       'border-radius': '0'
+    })
+  ],
+  [
+    /^q-dialog__inner--bottom$/,
+    () => ({
+      'align-self': 'flex-end'
+    })
+  ],
+  [
+    /^q-dialog__inner--top$/,
+    () => ({
+      'align-self': 'flex-start'
+    })
+  ],
+  [
+    /^q-dialog__inner--left$/,
+    () => ({
+      'justify-self': 'flex-start'
+    })
+  ],
+  [
+    /^q-dialog__inner--right$/,
+    () => ({
+      'justify-self': 'flex-end'
+    })
+  ],
+  [
+    /^q-dialog__inner--center$/,
+    () => ({
+      'align-self': 'center'
+    })
+  ],
+  [
+    /^q-dialog__inner--full$/,
+    () => ({
+      'max-width': '100vw',
+      'max-height': '100vh',
+      'border-radius': '0'
+    })
+  ],
+  [
+    /^q-dialog--modal$/,
+    () => ({
+      // Modal dialog
+    })
+  ],
+  [
+    /^q-dialog--seamless$/,
+    () => ({
+      // Seamless dialog
+    })
+  ],
+  [
+    /^q-dialog--inner$/,
+    () => ({
+      // Inner dialog
     })
   ]
 ]
