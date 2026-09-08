@@ -8,7 +8,8 @@ export const qCardRules: Rule[] = [
       'flex-direction': 'column',
       'border-radius': 'var(--q-radius-md)',
       'background-color': 'var(--q-surface)',
-      'box-shadow': 'var(--q-elevation-1)'
+      'box-shadow': 'var(--q-elevation-1)',
+      position: 'relative'
     })
   ],
   [
@@ -18,15 +19,28 @@ export const qCardRules: Rule[] = [
     })
   ],
   [
+    /^q-card--horizontal$/,
+    () => ({
+      'flex-direction': 'row'
+    })
+  ],
+  [
     /^q-card__section$/,
     () => ({
-      padding: '16px'
+      padding: 'var(--q-space-md)'
     })
   ],
   [
     /^q-card__section--vertical$/,
     () => ({
-      padding: '8px 16px'
+      padding: 'var(--q-space-sm) var(--q-space-md)'
+    })
+  ],
+  [
+    /^q-card__section--img$/,
+    () => ({
+      display: 'block',
+      'object-fit': 'cover'
     })
   ],
   [
@@ -34,8 +48,40 @@ export const qCardRules: Rule[] = [
     () => ({
       display: 'flex',
       'align-items': 'center',
-      gap: '8px',
-      padding: '8px 16px'
+      gap: 'var(--q-space-sm)',
+      padding: 'var(--q-space-sm) var(--q-space-md)'
     })
-  ]
+  ],
+  [
+    /^q-card__actions--horizontal$/,
+    () => ({
+      'flex-direction': 'row'
+    })
+  ],
+  [
+    /^q-card__actions--vertical$/,
+    () => ({
+      'flex-direction': 'column'
+    })
+  ],
+  [/^q-card__actions--align-start$/, () => ({ justifyContent: 'flex-start' })],
+  [/^q-card__actions--align-center$/, () => ({ justifyContent: 'center' })],
+  [/^q-card__actions--align-end$/, () => ({ justifyContent: 'flex-end' })],
+  [
+    /^q-card__actions--align-between$/,
+    () => ({ justifyContent: 'space-between' })
+  ],
+  [
+    /^q-card__actions--align-around$/,
+    () => ({ justifyContent: 'space-around' })
+  ],
+  [
+    /^q-card__actions--align-evenly$/,
+    () => ({ justifyContent: 'space-evenly' })
+  ],
+  [/^q-card__actions--items-start$/, () => ({ alignItems: 'flex-start' })],
+  [/^q-card__actions--items-center$/, () => ({ alignItems: 'center' })],
+  [/^q-card__actions--items-end$/, () => ({ alignItems: 'flex-end' })],
+  [/^q-card__actions--items-stretch$/, () => ({ alignItems: 'stretch' })],
+  [/^q-card__actions--items-baseline$/, () => ({ alignItems: 'baseline' })]
 ]

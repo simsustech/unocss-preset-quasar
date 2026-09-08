@@ -59,10 +59,119 @@ export const qFieldRules: Rule[] = [
     })
   ],
   [
-    /^q-field__error$/,
+    /^q-field--filled$/,
     () => ({
-      color: 'var(--q-error)',
-      'font-size': '0.75em'
+      'background-color': 'var(--q-surface-container-highest)'
+    })
+  ],
+  [
+    /^q-field--outlined$/,
+    () => ({
+      'background-color': 'transparent',
+      border: '1px solid var(--q-outline)'
+    })
+  ],
+  [
+    /^q-field--standard$/,
+    () => ({
+      'background-color': 'var(--q-surface-container-highest)'
+    })
+  ],
+  [
+    /^q-field--dark$/,
+    () => ({
+      'background-color': 'var(--q-surface-variant)'
+    })
+  ],
+  [
+    /^q-field--dense$/,
+    () => ({
+      'min-height': '32px'
+    })
+  ],
+  [
+    /^q-field--labeled$/,
+    () => ({
+      // Label is positioned absolutely, no extra styles needed
+    })
+  ],
+  [
+    /^q-field--float$/,
+    () => ({
+      // Floating label state handled by label variant
+    })
+  ],
+  [
+    /^q-field--focused$/,
+    () => ({
+      // Focus state handled by focus-helper
+    })
+  ],
+  [
+    /^q-field--error$/,
+    () => ({
+      color: 'var(--q-error)'
+    })
+  ],
+  [
+    /^q-field--disabled$/,
+    () => ({
+      opacity: '0.6',
+      cursor: 'not-allowed'
+    })
+  ],
+  [
+    /^q-field--readonly$/,
+    () => ({
+      // Read-only state
+    })
+  ],
+  [
+    /^q-field--auto-height$/,
+    () => ({
+      'min-height': 'auto'
+    })
+  ],
+  [
+    /^q-field--item-aligned$/,
+    () => ({
+      'align-items': 'center'
+    })
+  ],
+  [
+    /^q-field--with-bottom$/,
+    () => ({
+      // Bottom section visible
+    })
+  ],
+  [
+    /^q-field--hide-bottom-space$/,
+    () => ({
+      // Bottom section hidden
+    })
+  ],
+  [
+    /^q-field--borderless$/,
+    () => ({
+      border: 'none'
+    })
+  ],
+  [
+    /^q-field--rounded$/,
+    () => ({
+      'border-radius': 'var(--q-radius-xl)'
+    })
+  ],
+  [
+    /^q-field--square$/,
+    () => ({
+      'border-radius': '0'
+    })
+  ],
+  [
+    /^q-field--standout$/,
+    () => ({
+      'background-color': 'var(--q-surface-container-highest)'
     })
   ]
 ]
