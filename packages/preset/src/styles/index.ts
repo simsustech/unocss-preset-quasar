@@ -29,7 +29,14 @@ export const Unstyled: QuasarStyleEntry = {
       cornerLarge: '0',
       cornerExtraLarge: '0',
       cornerFull: '0',
-      cornerCircle: '0'
+      cornerCircle: '0',
+      radiusXs: '0',
+      radiusSm: '0',
+      radiusMd: '0',
+      radiusLg: '0',
+      radiusXl: '0',
+      radiusFull: '0',
+      radiusCircle: '0'
     },
     typography: {
       fontFamily: 'inherit',

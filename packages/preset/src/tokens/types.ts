@@ -46,6 +46,14 @@ export interface ShapeTokens {
   cornerExtraLarge: string
   cornerFull: string
   cornerCircle: string
+  // Radius aliases (used by rules)
+  radiusXs: string
+  radiusSm: string
+  radiusMd: string
+  radiusLg: string
+  radiusXl: string
+  radiusFull: string
+  radiusCircle: string
 }
 
 export interface TypographyTokens {

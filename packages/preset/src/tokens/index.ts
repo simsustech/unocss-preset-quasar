@@ -15,7 +15,15 @@ export const md3Style: StyleEntry = {
       cornerLarge: '16px',
       cornerExtraLarge: '28px',
       cornerFull: '9999px',
-      cornerCircle: '50%'
+      cornerCircle: '50%',
+      // Radius aliases
+      radiusXs: '4px',
+      radiusSm: '8px',
+      radiusMd: '12px',
+      radiusLg: '16px',
+      radiusXl: '28px',
+      radiusFull: '9999px',
+      radiusCircle: '50%'
     },
     typography: {
       fontFamily: 'Roboto, sans-serif',
@@ -127,7 +135,15 @@ export const md2Style: StyleEntry = {
       cornerLarge: '16px',
       cornerExtraLarge: '28px',
       cornerFull: '9999px',
-      cornerCircle: '50%'
+      cornerCircle: '50%',
+      // Radius aliases (MD2 values)
+      radiusXs: '3px',
+      radiusSm: '4px',
+      radiusMd: '7px',
+      radiusLg: '16px',
+      radiusXl: '28px',
+      radiusFull: '9999px',
+      radiusCircle: '50%'
     },
     typography: {
       fontFamily: 'Roboto, sans-serif',
