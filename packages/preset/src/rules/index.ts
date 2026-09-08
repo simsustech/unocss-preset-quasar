@@ -6,6 +6,7 @@ import { positionRules } from './position.js'
 import { visibilityRules } from './visibility.js'
 import { elevationRuleList } from './elevation.js'
 import { colorRules } from './colors.js'
+import { darkRules } from './dark.js'
 import { qBadgeRules } from './q-badge.js'
 import { qAvatarRules } from './q-avatar.js'
 import { qChipRules } from './q-chip.js'
@@ -87,6 +88,9 @@ export function getAllRules(): Rule[] {
     ...visibilityRules,
     ...elevationRuleList,
     ...colorRules,
+    ...darkRules,
+
+    // M1 — simple / high-value
 
     // M1 — simple / high-value
 

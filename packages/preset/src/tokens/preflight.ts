@@ -32,6 +32,10 @@ export function createTokenPreflight(params: {
       }
       // 4. Dark overrides: ONLY color tokens (shape/typography/etc are same in dark)
       parts.push(renderColorDarkBlock('body.body--dark', params.colors.dark))
+      // 4b. Dark tokens on :root (for .q-dark utility to reference)
+      parts.push(
+        renderColorBlock(':root', params.colors.dark, undefined, '-dark')
+      )
       for (const style of params.styles) {
         // Per-style dark: only if style has color overrides (it doesn't — colors are shared)
         // This block is for completeness; colors are shared so no per-style dark overrides needed
@@ -45,14 +49,17 @@ export function createTokenPreflight(params: {
 function renderColorBlock(
   selector: string,
   colors: TokenBlock['color'],
-  quasar: ColorBlock['quasar']
+  quasar?: ColorBlock['quasar'],
+  suffix = ''
 ): string {
   const lines: string[] = []
   for (const [key, value] of Object.entries(colors)) {
-    lines.push(`  --q-${kebab(key)}: ${value};`)
+    lines.push(`  --q${suffix}-${kebab(key)}: ${value};`)
   }
-  for (const [key, value] of Object.entries(quasar)) {
-    lines.push(`  --q-${key}: ${value};`)
+  if (quasar) {
+    for (const [key, value] of Object.entries(quasar)) {
+      lines.push(`  --q${suffix}-${key}: ${value};`)
+    }
   }
   return `${selector} {\n${lines.join('\n')}\n}`
 }
