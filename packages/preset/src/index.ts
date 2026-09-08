@@ -12,6 +12,7 @@ import { createTokenPreflight } from './tokens/preflight.js'
 import { builtinStyles } from './tokens/index.js'
 import { getAllRules } from './rules/index.js'
 import type { QuasarStyleEntry } from './styles/index.js'
+import { quasarSafelist } from './safelist.js'
 
 export interface QuasarPresetOptions {
   style?: QuasarStyleEntry
@@ -44,6 +45,7 @@ export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
       createTokenPreflight({ colors, defaultStyle, styles: allStyles })
     ],
     rules: getAllRules(),
+    safelist: quasarSafelist,
     transformers: [transformerVariantGroup(), transformerDirectives()]
   }
 })
