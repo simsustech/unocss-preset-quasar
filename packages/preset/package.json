@@ -41,26 +41,6 @@
       "import": "./dist/styles/index.js",
       "require": "./dist/styles/index.js",
       "default": "./dist/styles/index.js"
-    },
-    "./theme": {
-      "source": "./src/theme.ts",
-      "types": "./dist/types/theme.d.ts",
-      "import": "./dist/theme.js",
-      "require": "./dist/theme.js",
-      "default": "./dist/theme.js"
-    },
-    "./vite-aliases": {
-      "source": "./src/vite-aliases.ts",
-      "types": "./dist/types/vite-aliases.d.ts",
-      "require": "./dist/vite-aliases.js",
-      "default": "./dist/vite-aliases.js"
-    },
-    "./spec": {
-      "source": "./src/spec/index.ts",
-      "types": "./dist/types/spec/index.d.ts",
-      "import": "./dist/spec/index.js",
-      "require": "./dist/spec/index.js",
-      "default": "./dist/spec/index.js"
     }
   },
   "publishConfig": {
