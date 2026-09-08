@@ -7,6 +7,12 @@ import { visibilityRules } from './visibility.js'
 import { elevationRuleList } from './elevation.js'
 import { colorRules } from './colors.js'
 import { darkRules } from './dark.js'
+import { orientationRules } from './orientation.js'
+import { touchRules } from './touch.js'
+import { mouseRules } from './mouse.js'
+import { typographyRules } from './typography.js'
+import { transitionsRules } from './transitions.js'
+import { helpersRules } from './helpers.js'
 import { qBadgeRules } from './q-badge.js'
 import { qAvatarRules } from './q-avatar.js'
 import { qChipRules } from './q-chip.js'
@@ -89,6 +95,14 @@ export function getAllRules(): Rule[] {
     ...elevationRuleList,
     ...colorRules,
     ...darkRules,
+    ...orientationRules,
+    ...touchRules,
+    ...mouseRules,
+    ...typographyRules,
+    ...transitionsRules,
+    ...helpersRules,
+
+    // M1 — simple / high-value
 
     // M1 — simple / high-value
 

@@ -15,6 +15,10 @@ import type { QuasarStyleEntry } from './styles/index.js'
 import { quasarSafelist } from './safelist.js'
 import { resetPreflight } from './preflights/reset.js'
 import { visibilityPreflight } from './preflights/visibility.js'
+import { shapePreflight } from './preflights/shape.js'
+import { mousePreflight } from './preflights/mouse.js'
+import { typographyPreflight } from './preflights/typography.js'
+import { helpersPreflight } from './preflights/helpers.js'
 
 export interface QuasarPresetOptions {
   style?: QuasarStyleEntry
@@ -46,6 +50,10 @@ export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
     preflights: [
       resetPreflight,
       visibilityPreflight,
+      shapePreflight,
+      mousePreflight,
+      typographyPreflight,
+      helpersPreflight,
       createTokenPreflight({ colors, defaultStyle, styles: allStyles })
     ],
     rules: getAllRules(),
