@@ -13,6 +13,7 @@ import { builtinStyles } from './tokens/index.js'
 import { getAllRules } from './rules/index.js'
 import type { QuasarStyleEntry } from './styles/index.js'
 import { quasarSafelist } from './safelist.js'
+import { resetPreflight } from './preflights/reset.js'
 
 export interface QuasarPresetOptions {
   style?: QuasarStyleEntry
@@ -42,6 +43,7 @@ export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
       )
     ],
     preflights: [
+      resetPreflight,
       createTokenPreflight({ colors, defaultStyle, styles: allStyles })
     ],
     rules: getAllRules(),
