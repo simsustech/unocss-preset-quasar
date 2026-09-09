@@ -1,0 +1,481 @@
+import type { Rule } from '@unocss/core'
+
+export const dateRules = [
+  [
+    /^q-date$/,
+    () => ({
+      display: 'flex',
+      'flex-direction': 'column',
+      'max-width': '300px',
+      'background-color': 'var(--q-surface)',
+      'border-radius': 'var(--q-radius-md)'
+    })
+  ],
+  [
+    /^q-date__header$/,
+    () => ({
+      display: 'flex',
+      'align-items': 'center',
+      'justify-content': 'space-between',
+      padding: '8px 16px'
+    })
+  ],
+  [
+    /^q-date__calendar$/,
+    () => ({
+      display: 'grid',
+      'grid-template-columns': 'repeat(7, 1fr)',
+      gap: '2px',
+      padding: '8px'
+    })
+  ],
+  [
+    /^q-date__day$/,
+    () => ({
+      display: 'flex',
+      'align-items': 'center',
+      'justify-content': 'center',
+      'aspect-ratio': '1',
+      'border-radius': '50%',
+      cursor: 'pointer'
+    })
+  ],
+  [
+    /^q-date__day--selected$/,
+    () => ({
+      'background-color': 'var(--q-primary)',
+      color: 'var(--q-on-primary)'
+    })
+  ],
+  [
+    /^q-date__day--today$/,
+    () => ({
+      border: '1px solid var(--q-primary)'
+    })
+  ],
+  [
+    /^q-date__calendar-item$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (_sel) => `.q-date__calendar-item:after`,
+        content: '""',
+        position: 'absolute',
+        'pointer-events': 'none',
+        top: '1px',
+        right: '0',
+        bottom: '1px',
+        left: '0',
+        'border-style': 'dashed',
+        'border-color': 'transparent',
+        'border-width': '1px'
+      }
+    }
+  ],
+  [
+    /^q-date__range$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (_sel) =>
+          `.q-date__range:before, .q-date__range-from:before, .q-date__range-to:before`,
+        content: '""',
+        'background-color': 'currentColor',
+        position: 'absolute',
+        top: '1px',
+        bottom: '1px',
+        left: '0',
+        right: '0',
+        opacity: '0.3'
+      }
+    }
+  ],
+  [
+    /^q-date__range$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (_sel) =>
+          `.q-date__range:nth-child(7n-6):before, .q-date__range-from:nth-child(7n-6):before, .q-date__range-to:nth-child(7n-6):before`,
+        'border-top-left-radius': '0',
+        'border-bottom-left-radius': '0'
+      }
+    }
+  ],
+  [
+    /^q-date__range$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (_sel) =>
+          `.q-date__range:nth-child(7n):before, .q-date__range-from:nth-child(7n):before, .q-date__range-to:nth-child(7n):before`,
+        'border-top-right-radius': '0',
+        'border-bottom-right-radius': '0'
+      }
+    }
+  ],
+  [
+    /^q-date__range-from$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (_sel) => `.q-date__range-from:before`,
+        left: '50%'
+      }
+    }
+  ],
+  [
+    /^q-date__range-to$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (_sel) => `.q-date__range-to:before`,
+        right: '50%'
+      }
+    }
+  ],
+  [
+    /^q-date__edit-range$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (_sel) => `.q-date__edit-range:after`,
+        'border-color': 'currentColor transparent'
+      }
+    }
+  ],
+  [
+    /^q-date__edit-range$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (_sel) =>
+          `.q-date__edit-range:nth-child(7n-6):after`,
+        'border-top-left-radius': '0',
+        'border-bottom-left-radius': '0'
+      }
+    }
+  ],
+  [
+    /^q-date__edit-range$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (_sel) => `.q-date__edit-range:nth-child(7n):after`,
+        'border-top-right-radius': '0',
+        'border-bottom-right-radius': '0'
+      }
+    }
+  ],
+  [
+    /^q-date__edit-range-from$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (_sel) =>
+          `.q-date__edit-range-from:after, .q-date__edit-range-from-to:after`,
+        left: '4px',
+        'border-left-color': 'currentColor',
+        'border-top-color': 'currentColor',
+        'border-bottom-color': 'currentColor',
+        'border-top-left-radius': '28px',
+        'border-bottom-left-radius': '28px'
+      }
+    }
+  ],
+  [
+    /^q-date__edit-range-to$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (_sel) =>
+          `.q-date__edit-range-to:after, .q-date__edit-range-from-to:after`,
+        right: '4px',
+        'border-right-color': 'currentColor',
+        'border-top-color': 'currentColor',
+        'border-bottom-color': 'currentColor',
+        'border-top-right-radius': '28px',
+        'border-bottom-right-radius': '28px'
+      }
+    }
+  ][
+    (/^q-date--bordered$/,
+    function* () {
+      yield { border: '1px solid rgba(0, 0, 0, 0.12)' }
+    })
+  ],
+  [
+    /^q-date__actions$/,
+    function* () {
+      yield { padding: '0 16px 16px' }
+    }
+  ],
+  [
+    /^q-date__content$/,
+    function* (_, { symbols }) {
+      yield { outline: '0' }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-btn`,
+        fontWeight: 'normal'
+      }
+    }
+  ],
+  [
+    /^q-date__main$/,
+    function* () {
+      yield { outline: '0' }
+    }
+  ],
+  [
+    /^q-date__header-link$/,
+    function* (_, { symbols }) {
+      yield {
+        opacity: '0.64',
+        outline: '0',
+        transition: 'opacity 0.3s ease-out'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}:hover`,
+        opacity: '1'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}:focus`,
+        opacity: '1'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}:focus-visible`,
+        opacity: '1',
+        outline: '2px solid currentColor',
+        outlineOffset: '2px'
+      }
+    }
+  ],
+  [
+    /^q-date__header-link--active$/,
+    function* () {
+      yield { opacity: '1' }
+    }
+  ],
+  [
+    /^q-date__header-subtitle$/,
+    function* () {
+      yield {
+        fontSize: '14px',
+        lineHeight: '1.75',
+        letterSpacing: '0.00938em'
+      }
+    }
+  ],
+  [
+    /^q-date__header-title-label$/,
+    function* () {
+      yield {
+        fontSize: '24px',
+        lineHeight: '1.2',
+        letterSpacing: '0.00735em'
+      }
+    }
+  ],
+  [
+    /^q-date__view$/,
+    function* () {
+      yield {
+        height: '100%',
+        width: '100%',
+        minHeight: '290px',
+        padding: '16px'
+      }
+    }
+  ],
+  [
+    /^q-date__navigation$/,
+    function* (_, { symbols }) {
+      yield { height: '12.5%' }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > div:first-child`,
+        width: '8%',
+        minWidth: '24px',
+        justifyContent: 'flex-end'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > div:last-child`,
+        width: '8%',
+        minWidth: '24px',
+        justifyContent: 'flex-start'
+      }
+    }
+  ],
+  [
+    /^q-date__calendar-weekdays$/,
+    function* (_, { symbols }) {
+      yield { height: '12.5%' }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > div`,
+        opacity: '0.38',
+        fontSize: '12px'
+      }
+    }
+  ],
+  [
+    /^q-date__calendar-item--out$/,
+    function* () {
+      yield { opacity: '0.18' }
+    }
+  ],
+  [
+    /^q-date__calendar-item--fill$/,
+    function* () {
+      yield { visibility: 'hidden' }
+    }
+  ],
+  [
+    /^q-date__calendar-days-container$/,
+    function* () {
+      yield { height: '75%', minHeight: '192px' }
+    }
+  ],
+  [
+    /^q-date__calendar-days$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `${sel} > div`,
+        height: '16.66% !important'
+      }
+    }
+  ],
+  [
+    /^q-date__event$/,
+    function* () {
+      yield {
+        position: 'absolute',
+        bottom: '2px',
+        left: '50%',
+        height: '5px',
+        width: '8px',
+        borderRadius: '5px',
+        backgroundColor: 'var(--q-secondary)',
+        transform: 'translate3d(-50%, 0, 0)'
+      }
+    }
+  ],
+  [
+    /^q-date__today$/,
+    function* () {
+      yield { boxShadow: '0 0 1px 0 currentColor' }
+    }
+  ],
+  [
+    /^q-date__years-content$/,
+    function* () {
+      yield { padding: '0 8px' }
+    }
+  ],
+  [
+    /^q-date__years-item$/,
+    function* () {
+      yield { flex: '0 0 33.3333%' }
+    }
+  ],
+  [
+    /^q-date__months-item$/,
+    function* () {
+      yield { flex: '0 0 33.3333%' }
+    }
+  ],
+  [
+    /^q-date--readonly$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-date__header`,
+        pointerEvents: 'none'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-date__content`,
+        pointerEvents: 'none'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-date__navigation`,
+        display: 'none'
+      }
+    }
+  ],
+  [
+    /^q-date--portrait$/,
+    function* () {
+      yield { flexDirection: 'column' }
+    }
+  ],
+  [
+    /^q-date--portrait-standard$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-date__content`,
+        height: 'calc(100% - 86px)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-date__header`,
+        borderTopRightRadius: 'inherit',
+        height: '86px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-date__header-title`,
+        alignItems: 'center',
+        height: '30px'
+      }
+    }
+  ],
+  [
+    /^q-date--portrait-minimal$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-date__content`,
+        height: '100%'
+      }
+    }
+  ],
+  [
+    /^q-date--landscape$/,
+    function* (_, { symbols }) {
+      yield {
+        flexDirection: 'row',
+        alignItems: 'stretch',
+        minWidth: '420px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > div`,
+        display: 'flex',
+        flexDirection: 'column'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-date__content`,
+        height: '100%'
+      }
+    }
+  ],
+  [
+    /^q-date--landscape-standard$/,
+    function* (_, { symbols }) {
+      yield { minWidth: '420px' }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-date__header`,
+        borderBottomLeftRadius: 'inherit',
+        minWidth: '110px',
+        width: '110px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-date__header-title`,
+        flexDirection: 'column'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-date__header-today`,
+        marginTop: '12px',
+        marginLeft: '-8px'
+      }
+    }
+  ],
+  [
+    /^q-date--landscape-minimal$/,
+    function* () {
+      yield { width: '310px' }
+    }
+  ],
+  [
+    /^q-date--dark$/,
+    function* () {
+      yield {
+        boxShadow:
+          '0 1px 5px rgba(255, 255, 255, 0.2), 0 2px 2px rgba(255, 255, 255, 0.14), 0 3px 1px -2px rgba(255, 255, 255, 0.12)',
+        borderColor: 'rgba(255, 255, 255, 0.28)'
+      }
+    }
+  ]
+] as Rule[]

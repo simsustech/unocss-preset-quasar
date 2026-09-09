@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { elevationRuleList } from '../src/rules/elevation.js'
+import { elevationRuleList } from '../src/core/elevation/rules.js'
 
 function matchRule(
   selector: string

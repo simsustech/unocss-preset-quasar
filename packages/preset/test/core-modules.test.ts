@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { orientationRules } from '../src/rules/orientation.js'
-import { touchRules } from '../src/rules/touch.js'
-import { mouseRules } from '../src/rules/mouse.js'
-import { typographyRules } from '../src/rules/typography.js'
-import { transitionsRules } from '../src/rules/transitions.js'
-import { helpersRules } from '../src/rules/helpers.js'
+import { orientationRules } from '../src/core/orientation/rules.js'
+import { touchRules } from '../src/core/touch/rules.js'
+import { mouseRules } from '../src/core/mouse/rules.js'
+import { typographyRules } from '../src/core/typography/rules.js'
+import { transitionsRules } from '../src/core/transitions/rules.js'
+import { helpersRules } from '../src/core/helpers/rules.js'
 
 /** Helper: find a rule by its regex test and invoke the matcher */
 function matchRule(

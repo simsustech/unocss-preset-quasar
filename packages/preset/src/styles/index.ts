@@ -1,5 +1,5 @@
-import type { StyleEntry } from '../tokens/index.js'
-import { md3Style, md2Style } from '../tokens/index.js'
+import type { StyleEntry } from '../theme/index.js'
+import { md3Style, md2Style } from '../theme/index.js'
 
 export interface QuasarStyleEntry {
   name: string
@@ -129,7 +129,30 @@ export const Unstyled: QuasarStyleEntry = {
       paginationGutterChild: '0',
       paginationGutterParent: '0',
       virtualScrollItemHeight: '0',
-      virtualScrollItemWidth: '0'
+      virtualScrollItemWidth: '0',
+      // New tokens for hardcoded value conversion
+      btnPaddingY: '0',
+      btnMinHeight: 'auto',
+      btnFontWeight: 400,
+      btnContentGap: '0',
+      btnIconFontSize: 'inherit',
+      btnIconLineHeight: 'inherit',
+      fieldMinHeight: 'auto',
+      fieldBorderWidth: '0',
+      fieldPaddingX: '0',
+      fieldPaddingY: '0',
+      itemMinHeight: 'auto',
+      itemGap: '0',
+      itemDenseMinHeight: 'auto',
+      badgeFontWeight: 400,
+      chipMinHeight: 'auto',
+      // Additional tokens for remaining components
+      bannerMinHeight: 'auto',
+      toolbarMinHeight: 'auto',
+      toolbarFontSize: 'inherit',
+      stepperFontSize: 'inherit',
+      captionFontSize: 'inherit',
+      avatarFontSize: 'inherit'
     }
   }
 }

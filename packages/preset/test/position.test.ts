@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { positionRules } from '../src/rules/position.js'
+import { positionRules } from '../src/core/position/rules.js'
 
 function matchRule(
   selector: string

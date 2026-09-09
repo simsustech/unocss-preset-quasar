@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { spacingRules } from '../src/rules/spacing.js'
+import { spacingRules } from '../src/core/spacing/rules.js'
 
 function matchRule(
   selector: string

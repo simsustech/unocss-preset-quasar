@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { visibilityRules } from '../src/rules/visibility.js'
+import { visibilityRules } from '../src/core/visibility/rules.js'
 
 function matchRule(
   selector: string

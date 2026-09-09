@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
-import { colorRules } from '../src/rules/colors.js'
+import { colorRules } from '../src/core/colors/rules.js'
 
+// pi-lens-ignore: rule-id
 function matchRule(selector: string): Record<string, string> | undefined {
   for (const entry of colorRules) {
     const regex = entry[0]
@@ -10,7 +11,14 @@ function matchRule(selector: string): Record<string, string> | undefined {
       regex.test(selector) &&
       typeof matcher === 'function'
     ) {
-      return matcher() as Record<string, string>
+      const result = matcher([selector], {
+        symbols: { selector: (s: string) => s }
+      } as any) as any
+      if (result && typeof result.next === 'function') {
+        const yielded = [...result]
+        if (yielded.length > 0) return yielded[0] as Record<string, string>
+      }
+      return result as Record<string, string>
     }
   }
   return undefined

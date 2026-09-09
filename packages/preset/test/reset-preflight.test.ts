@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { resetPreflight } from '../src/preflights/reset.js'
+import { resetPreflight } from '../src/core/reset/preflights.js'
 
 // resetPreflight.getCSS ignores its context argument (it's a static reset),
 // so we pass an empty object cast to satisfy the type.

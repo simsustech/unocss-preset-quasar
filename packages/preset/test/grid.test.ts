@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { gridRules } from '../src/rules/grid.js'
+import { gridRules } from '../src/core/grid/rules.js'
 
 /** Helper: find a rule by its regex test and invoke the matcher */
 function matchRule(selector: string): Record<string, string> | undefined {

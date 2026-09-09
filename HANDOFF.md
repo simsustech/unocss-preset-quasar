@@ -1,55 +1,136 @@
-# Handoff — unocss-preset-quasar Rewrite
+# Handoff — Pseudo-element Migration Plan
 
-**Date**: 2026-09-08
-**Branch**: `preset-rewrite` (orphan, clean history) at `/home/stefan/Projects/unocss-preset-quasar/.worktrees/rules`
-**Harness branch**: `rules` at `/home/stefan/Projects/quasar-testing-harness`
+**Date**: 2026-09-09
+**Branch**: `preset-rewrite` at `/home/stefan/Projects/unocss-preset-quasar/.worktrees/rules`
+**Plan**: `~/.pi/plans/2026-09-08-fix-pseudo-elements.md`
+**Harness**: `/home/stefan/Projects/quasar-testing-harness` (branch `rules`)
 
-## What was accomplished
+## Goal
 
-1. **Clean slate** (Phase 0): Orphan branch created, old src/test/dev/quasar-docs removed, version bumped 0.5.5 → 0.5.5.
-2. **Token system** (Phase 1): `tokens/types.ts`, `tokens/colors.ts` (MD3 color generation via `@poupe/material-color-utilities`), `tokens/preflight.ts` (CSS custom properties emitter), `tokens/index.ts` (md3Style, md2Style, builtinStyles).
-3. **Foundation** (Phase 2): `rules/types.ts`, `rules/index.ts`, `styles/index.ts` (MaterialDesign3, MaterialDesign2, Unstyled, setStyle, getActiveStyle), `index.ts` (QuasarPreset factory).
-4. **Package config** (Phase 3): Removed `./theme`, `./vite-aliases`, `./spec` exports.
-5. **Harness cleanup** (Phase 4-6): Deleted 101 old test files, updated vitrify.config.ts, linked preset via `file:` path.
-6. **Component rules** (Phase 7): 68 component rule files created using multi-selector `Rule[]` pattern. Added `safelist.ts` with all component class names.
-7. **Tests** (Phase 8-9): 67 component tests + 6 style-switcher tests + 5 token tests = 78 total. All pass.
+Port ALL pseudo-element styles (`:before`, `:after`) from `quasar.css` and the preflight system into the preset's rule system using the `symbols.selector` pattern. After this plan, no component should need a preflight for pseudo-element styles.
 
-## Current state — KNOWN ISSUES
+The `symbols.selector` API (in `@unocss/core@66.x`) lets a rule matcher return an object with `[symbols.selector]: sel =>`${sel}:after`` to apply declarations to a pseudo-element selector — no raw CSS strings needed.
 
-### Critical: Components render as thin lines / unstyled
+## What was done this session
 
-**Symptom**: Navigating to `http://127.0.0.1:3002/q-btn?style=md3` shows the button as a thin line, not a properly styled Quasar button.
+### 1. Dependency fix (BLOCKER resolved)
 
-**Root cause analysis** (from debug output):
+**Problem**: `@unocss/core` resolved to **0.51.8** (no `symbols.selector`), even though `package.json` declared `^66.10.1`. Root cause: `animated-unocss@0.0.6` (abandoned, never imported, not installed) pulled in `@unocss/preset-mini@0.51.8` → `@unocss/core@0.51.8`.
 
-- The CSS rules ARE being applied (display: flex, background-color: rgb(103, 80, 164) from --q-primary)
-- BUT the button appears collapsed — likely missing padding, min-height, or the text content isn't visible
-- The `q-btn` element has classes: `q-btn q-btn-item non-selectable no-outline q-btn--standard q-btn--rectangle q-btn--actionable q-focusable q-hoverable`
+**Fix**: Removed `"animated-unocss": "^0.0.6"` from `packages/preset/package.json` dependencies. Ran `pnpm install --no-frozen-lockfile`.
 
-**Likely causes**:
+**Result**: `@unocss/core` now resolves to **66.10.1** (confirmed via `require.resolve`). `symbols.selector` is available.
 
-1. **Missing base styles**: The old Quasar CSS provided extensive base styles (padding, min-height, font-size, etc.) that my rules don't fully replicate. My rules set `var(--q-btn-*)` custom properties but the actual CSS declarations may be incomplete.
-2. **CSS custom property resolution**: The `var(--q-btn-bg)` references may not be resolving correctly if the preflight isn't emitting them on the right selectors.
-3. **Missing Quasar base CSS**: The old implementation included Quasar's base CSS (dist/quasar.css) which provided resets and base styles. The new implementation relies entirely on UnoCSS rules.
+**Files changed**:
 
-### What needs to be done
+- `packages/preset/package.json` — removed `animated-unocss` line
+- `pnpm-lock.yaml` — regenerated (animated-unocss + its 0.51.8 transitive deps removed)
 
-1. **Debug the CSS output**: Inspect the actual generated CSS for `.q-btn` to see what declarations are being applied vs. what's missing.
-2. **Compare with old implementation**: Look at the old `packages/preset/src/styles/shared/components/QBtn.unocss.ts` to see what styles were previously applied.
-3. **Add missing base styles**: Ensure all necessary base styles (padding, min-height, font-size, line-height, etc.) are included in the rules.
-4. **Verify CSS custom property resolution**: Check that `--q-btn-*` variables are being emitted on `:root` and resolving correctly.
-5. **Test all 68 components**: Currently only QBadge and QBtn have been visually verified. All components need visual verification.
+### 2. Pre-flight findings (plan has gaps)
+
+Running `/implement` against the plan surfaced these issues:
+
+| Issue                              | Detail                                                                                                                                                                                                                                              |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `rules/q-tab.ts` missing           | File doesn't exist. But investigation shows q-tab has **zero** pseudo-elements in quasar.css (the only `q-tab--inactive:before` is scoped to `.q-color-picker__header-content-dark`). Nothing to migrate. Plan step 14 is a misread.                |
+| `rules/q-focus-helper.ts` missing  | File doesn't exist. q-focus-helper pseudo-elements are all scoped under `body.desktop` (desktop-only feature query) — that's a variant/media wrapper, not a pure pseudo-element. Doesn't fit `symbols.selector` cleanly. Plan step 16 is a misread. |
+| `q-toggle.ts` dirty                | Has uncommitted changes from a prior attempt. Uses **raw CSS string returns** (`.q-toggle__thumb:after { ... }` as a template literal), NOT the `symbols.selector` pattern the plan requires. Step 1 is incomplete and must be redone correctly.    |
+| Untracked `preflights/q-toggle.ts` | Redundant preflight created alongside the rule file. Must be deleted — the plan's whole point is "rules, not preflights".                                                                                                                           |
+
+### 3. Current working tree state
+
+```
+ M package.json
+ M packages/preset/package.json
+ M packages/preset/src/rules/q-toggle.ts
+ M pnpm-lock.yaml
+ M pnpm-workspace.yaml
+?? packages/preset/src/preflights/q-toggle.ts
+```
+
+## How to continue
+
+### Immediate next steps
+
+1. **Wait for `pnpm install` to finish** (was still running when this was written). Verify with `node -e "console.log(require.resolve('@unocss/core', {paths:['packages/preset']}))"` → should end in `66.10.1`.
+
+2. **Rewrite `q-toggle.ts` correctly** (plan step 1, the reference implementation):
+   - Use `import { symbols } from 'unocss'`
+   - For `q-toggle__thumb:after` (the thumb circle with box-shadow), return an object with `[symbols.selector]: sel =>`${sel}:after`` alongside the declaration properties
+   - For `q-toggle__thumb:before` (empty, z-index layering), same pattern
+   - For `q-toggle__inner--truthy .q-toggle__thumb:after` (background currentColor), use `[symbols.selector]` on the deepest class match
+   - Return arrays of declaration objects where a base class has multiple pseudo-elements
+   - **Delete `preflights/q-toggle.ts`** when the rule is correct
+
+3. **Decide on q-tab and q-focus-helper** (plan steps 14 and 16):
+   - **q-tab**: no pseudo-elements exist. Either skip step 14 entirely, or create `rules/q-tab.ts` with base styles only (no pseudo-elements) if the goal is "rules not preflights" generally.
+   - **q-focus-helper**: pseudo-elements are `body.desktop`-scoped. Either handle via a variant (not `symbols.selector`), or leave in preflight. Recommend: leave in preflight, skip step 16.
+
+4. **Continue with steps 2–13, 15, 17–20** per the plan's `(f)` entries. Each step:
+   - Add `[symbols.selector]` entries to the relevant rule file
+   - Extract pseudo-element declarations from `quasar.css` (source of truth at `node_modules/.pnpm/quasar@2.31.0/node_modules/quasar/dist/quasar.css`)
+   - Run `(d2)`: `pnpm --filter unocss-preset-quasar test` + `cd ~/Projects/quasar-testing-harness && pnpm test`
+
+5. **Step 21**: Create `tests/pseudo-elements.spec.ts` E2E spec for q-btn, q-toggle, q-checkbox, q-radio using `getComputedStyle(el, ':after')`.
+
+### Pattern reference (from plan section b)
+
+```ts
+import { symbols } from 'unocss'
+
+// Single pseudo-element
+;[
+  /^q-toggle__thumb$/,
+  () => ({
+    [symbols.selector]: (sel) => `${sel}:after`,
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    borderRadius: '50%',
+    background: '#fff',
+    boxShadow: '0 3px 1px -2px rgba(0, 0, 0, 0.2), ...'
+  })
+][
+  // Multiple pseudo-elements on same base class — return array
+  (/^q-btn$/,
+  () => [
+    {/* base styles */},
+    {
+      [symbols.selector]: (sel) => `${sel}:before`,
+      content: '""',
+      position: 'absolute',
+      inset: 0,
+      borderRadius: 'inherit',
+      boxShadow: 'var(--q-elevation-1)'
+    }
+  ])
+][
+  // Variant class with pseudo-element
+  (/^q-btn--standard$/,
+  () => [
+    { background: 'var(--q-btn-bg)', color: 'var(--q-btn-color)' },
+    {
+      [symbols.selector]: (sel) => `${sel}:before`,
+      transition: 'box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.5, 1)'
+    }
+  ])
+]
+```
 
 ## Key files
 
-- **Preset entry**: `packages/preset/src/index.ts`
-- **Token definitions**: `packages/preset/src/tokens/index.ts` (md3Style, md2Style)
-- **Preflight (CSS output)**: `packages/preset/src/tokens/preflight.ts`
-- **Safelist**: `packages/preset/src/safelist.ts`
-- **QBtn rules**: `packages/preset/src/rules/q-btn.ts`
-- **Aggregator**: `packages/preset/src/rules/index.ts`
-- **Harness config**: `~/Projects/quasar-testing-harness/packages/app/vitrify.config.ts`
-- **Test helpers**: `~/Projects/quasar-testing-harness/tests/helpers.ts`
+| File                                             | Role                                                             |
+| ------------------------------------------------ | ---------------------------------------------------------------- |
+| `packages/preset/src/rules/q-toggle.ts`          | Step 1 reference implementation (currently dirty, needs rewrite) |
+| `packages/preset/src/rules/q-btn.ts`             | Step 2 — most complex, many variant pseudo-elements              |
+| `packages/preset/src/rules/index.ts`             | Rule aggregator (all rule files exported here)                   |
+| `packages/preset/src/safelist.ts`                | Component class safelist                                         |
+| `packages/preset/src/preflights/components/*.ts` | Existing preflights (pseudo-elements migrate OUT of these)       |
+| `packages/preset/src/preflights/q-toggle.ts`     | **DELETE** — redundant with q-toggle rule                        |
+| `quasar.css`                                     | Source of truth for pseudo-element declarations                  |
 
 ## How to run
 
@@ -62,11 +143,11 @@ pnpm build:preset
 cd /home/stefan/Projects/quasar-testing-harness
 pnpm install
 
-# Run tests
-pnpm test                          # full suite (78 tests)
-pnpm test rewrite-comprehensive   # component tests only
-pnpm test rewrite-style-switcher  # style switcher tests
-pnpm test rewrite-tokens          # token emission tests
+# Run unit tests
+pnpm --filter unocss-preset-quasar test
+
+# Run E2E tests
+cd ~/Projects/quasar-testing-harness && pnpm test
 
 # Start dev server for visual inspection
 cd packages/app && pnpm dev
@@ -75,15 +156,12 @@ cd packages/app && pnpm dev
 
 ## Deviations from plan
 
-1. **Added `safelist.ts`** — required for UnoCSS to match runtime-added classes (not mentioned in plan)
-2. **Used `Rule` not `RuleObject`** — @unocss/core@66 rename
-3. **Dropped `{ name: '...' }` meta objects** — not valid RuleMeta fields
-4. **Computed surfaceContainer tokens via HCT** — library doesn't expose them
-5. **Batched Phase 7 into 2 commits** — vs 79 individual commits in plan
+1. **Removed `animated-unocss` dep** — it was the root cause of `@unocss/core@0.51.8` resolution, blocking `symbols.selector`. Not in plan but required.
+2. **q-tab.ts and q-focus-helper.ts don't exist as rule files** — plan assumes they do. Investigation shows neither has migratable pseudo-elements in the `symbols.selector` pattern. Steps 14 and 16 need re-scoping or skipping.
+3. **q-toggle.ts dirty state** — prior attempt used raw CSS strings, not `symbols.selector`. Must be rewritten to match plan's `(f)` entry.
 
-## Next steps
+## Open questions for next session
 
-1. Fix the thin-line rendering issue for QBtn and all other components
-2. Visually verify all 68 components using Playwright screenshots
-3. Compare CSS output with old implementation to identify missing styles
-4. Consider whether to include Quasar's base CSS or replicate all base styles in rules
+1. q-tab: skip (no pseudo-elements) or create base-only rule file?
+2. q-focus-helper: leave in preflight (body.desktop variant doesn't fit pattern) or handle via variant API?
+3. Commit policy: commit the dep fix + lockfile regeneration separately before starting the pseudo-element steps?

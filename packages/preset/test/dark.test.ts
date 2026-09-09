@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { darkRules } from '../src/rules/dark.js'
+import { darkRules } from '../src/core/dark/rules.js'
 
 function matchRule(selector: string): Record<string, string> | undefined {
   for (const entry of darkRules) {

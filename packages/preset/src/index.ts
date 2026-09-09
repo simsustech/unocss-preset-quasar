@@ -7,20 +7,28 @@ import {
 } from 'unocss'
 import type { WebFontsOptions } from '@unocss/preset-web-fonts'
 import presetWind4 from '@unocss/preset-wind4'
-import { generateColorTokens } from './tokens/colors.js'
-import { createTokenPreflight } from './tokens/preflight.js'
-import { builtinStyles } from './tokens/index.js'
-import { getAllRules } from './rules/index.js'
+import { generateColorTokens } from './theme/colors.js'
+import { createTokenPreflight } from './theme/preflight.js'
+import { builtinStyles } from './theme/index.js'
 import type { QuasarStyleEntry } from './styles/index.js'
 import { quasarSafelist } from './safelist.js'
-import { resetPreflight } from './preflights/reset.js'
-import { visibilityPreflight } from './preflights/visibility.js'
-import { shapePreflight } from './preflights/shape.js'
-import { mousePreflight } from './preflights/mouse.js'
-import { typographyPreflight } from './preflights/typography.js'
-import { helpersPreflight } from './preflights/helpers.js'
-import { qBtnPreflight } from './preflights/q-btn.js'
-import * as componentPreflights from './preflights/components/index.js'
+import * as componentModules from './components/index.js'
+import * as coreModules from './core/index.js'
+
+const pickBySuffix = (
+  mod: Record<string, unknown>,
+  suffix: string
+): unknown[] =>
+  Object.entries(mod)
+    .filter(([key]) => key.endsWith(suffix))
+    .flatMap(([, value]) => (Array.isArray(value) ? value : [value]))
+
+const coreRules = pickBySuffix(coreModules, 'Rules')
+const componentRules = pickBySuffix(componentModules, 'Rules')
+const corePreflights = pickBySuffix(coreModules, 'Preflights')
+const componentPreflights = pickBySuffix(componentModules, 'Preflights')
+const coreShortcuts = pickBySuffix(coreModules, 'Shortcuts')
+const componentShortcuts = pickBySuffix(componentModules, 'Shortcuts')
 
 export interface QuasarPresetOptions {
   style?: QuasarStyleEntry
@@ -50,17 +58,12 @@ export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
       )
     ],
     preflights: [
-      resetPreflight,
-      visibilityPreflight,
-      shapePreflight,
-      mousePreflight,
-      typographyPreflight,
-      helpersPreflight,
-      qBtnPreflight,
-      ...Object.values(componentPreflights),
+      ...corePreflights,
+      ...componentPreflights,
       createTokenPreflight({ colors, defaultStyle, styles: allStyles })
     ],
-    rules: getAllRules(),
+    rules: [...coreRules, ...componentRules],
+    shortcuts: [...coreShortcuts, ...componentShortcuts],
     safelist: quasarSafelist,
     transformers: [transformerVariantGroup(), transformerDirectives()]
   }
