@@ -9,6 +9,24 @@ export const qSkeletonRules: Rule[] = [
     })
   ],
   [
+    /^q-skeleton--dark$/,
+    () => ({
+      background: 'var(--q-surface-variant)'
+    })
+  ],
+  [
+    /^q-skeleton--anim$/,
+    () => ({
+      animation: 'q-skeleton-blink 1.5s infinite'
+    })
+  ],
+  [
+    /^q-skeleton--bordered$/,
+    () => ({
+      border: '1px solid var(--q-outline-variant)'
+    })
+  ],
+  [
     /^q-skeleton--text$/,
     () => ({
       height: '1em',
@@ -22,9 +40,21 @@ export const qSkeletonRules: Rule[] = [
     })
   ],
   [
-    /^q-skeleton--bordered$/,
+    /^q-skeleton--circle$/,
     () => ({
-      border: '1px solid var(--q-outline-variant)'
+      'border-radius': '50%'
+    })
+  ],
+  [
+    /^q-skeleton--square$/,
+    () => ({
+      'border-radius': '0'
+    })
+  ],
+  [
+    /^q-skeleton--type$/,
+    () => ({
+      // Type
     })
   ]
 ]

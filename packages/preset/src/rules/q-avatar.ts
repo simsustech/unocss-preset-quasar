@@ -9,11 +9,11 @@ export const qAvatarRules: Rule[] = [
       'justify-content': 'center',
       'border-radius': 'var(--q-radius-circle)',
       overflow: 'hidden',
-      'flex-shrink': '0',
+      'flex-shrink': 0,
       width: '40px',
       height: '40px',
       'font-size': '16px',
-      'line-height': '1'
+      'line-height': 1
     })
   ],
   [
@@ -28,6 +28,12 @@ export const qAvatarRules: Rule[] = [
     /^q-avatar__icon$/,
     () => ({
       'font-size': 'inherit'
+    })
+  ],
+  [
+    /^q-avatar--square$/,
+    () => ({
+      'border-radius': 'var(--q-radius-sm)'
     })
   ]
 ]
