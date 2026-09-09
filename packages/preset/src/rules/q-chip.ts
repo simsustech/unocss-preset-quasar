@@ -10,10 +10,10 @@ export const qChipRules: Rule[] = [
       'background-color': 'var(--q-surface-container-high)',
       color: 'var(--q-on-surface)',
       'font-size': '13px',
-      'line-height': '1.2',
+      'line-height': 1.2,
       padding: '6px 12px',
       'min-height': '32px',
-      gap: '6px'
+      gap: 'var(--q-space-sm)'
     })
   ],
   [
@@ -43,6 +43,26 @@ export const qChipRules: Rule[] = [
     })
   ],
   [
+    /^q-chip--dark$/,
+    () => ({
+      'background-color': 'var(--q-surface-variant)'
+    })
+  ],
+  [
+    /^q-chip--outline$/,
+    () => ({
+      'background-color': 'transparent',
+      border: '1px solid var(--q-outline)'
+    })
+  ],
+  [
+    /^q-chip--disabled$/,
+    () => ({
+      opacity: 0.5,
+      'pointer-events': 'none'
+    })
+  ],
+  [
     /^q-chip__icon$/,
     () => ({
       'font-size': '1.2em'
@@ -53,13 +73,20 @@ export const qChipRules: Rule[] = [
     () => ({
       cursor: 'pointer',
       'font-size': '1.2em',
-      opacity: '0.7'
+      opacity: 0.7,
+      transition: 'opacity var(--q-duration-short) var(--q-easing-standard)'
     })
   ],
   [
     /^q-chip__content$/,
     () => ({
       'white-space': 'nowrap'
+    })
+  ],
+  [
+    /^q-chip__label$/,
+    () => ({
+      // Label
     })
   ]
 ]

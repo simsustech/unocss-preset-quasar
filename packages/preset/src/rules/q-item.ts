@@ -6,15 +6,16 @@ export const qItemRules: Rule[] = [
     () => ({
       display: 'flex',
       'align-items': 'center',
-      padding: '8px 16px',
+      padding: 'var(--q-space-sm) var(--q-space-md)',
       'min-height': '48px',
-      gap: '16px'
+      gap: 'var(--q-space-md)'
     })
   ],
   [
     /^q-item--clickable$/,
     () => ({
-      cursor: 'pointer'
+      cursor: 'pointer',
+      'user-select': 'none'
     })
   ],
   [
@@ -22,6 +23,44 @@ export const qItemRules: Rule[] = [
     () => ({
       'background-color': 'var(--q-primary-container)',
       color: 'var(--q-on-primary-container)'
+    })
+  ],
+  [
+    /^q-item--dark$/,
+    () => ({
+      // Dark mode
+    })
+  ],
+  [
+    /^q-item--dense$/,
+    () => ({
+      'min-height': '32px',
+      padding: 'var(--q-space-xs) var(--q-space-md)'
+    })
+  ],
+  [
+    /^q-item--disabled$/,
+    () => ({
+      opacity: 0.5,
+      'pointer-events': 'none'
+    })
+  ],
+  [
+    /^q-item--inset$/,
+    () => ({
+      'padding-left': 'calc(var(--q-space-md) + 56px)'
+    })
+  ],
+  [
+    /^q-item--section$/,
+    () => ({
+      // Section item
+    })
+  ],
+  [
+    /^q-item--tag$/,
+    () => ({
+      // Tag item
     })
   ],
   [
@@ -36,14 +75,26 @@ export const qItemRules: Rule[] = [
     () => ({
       'justify-content': 'center',
       'min-width': '40px',
-      'flex-shrink': '0'
+      'flex-shrink': 0
     })
   ],
   [
     /^q-item__section--main$/,
     () => ({
       flex: '1',
-      'min-width': '0'
+      'min-width': 0
+    })
+  ],
+  [
+    /^q-item__section--avatar$/,
+    () => ({
+      'min-width': '40px'
+    })
+  ],
+  [
+    /^q-item__section--thumbnail$/,
+    () => ({
+      'min-width': '80px'
     })
   ],
   [
@@ -58,14 +109,19 @@ export const qItemRules: Rule[] = [
     /^q-item__label--caption$/,
     () => ({
       'font-size': '0.75em',
-      opacity: '0.7'
+      opacity: 0.7
     })
   ],
   [
-    /^q-item--dense$/,
+    /^q-item__label--header$/,
     () => ({
-      'min-height': '32px',
-      padding: '4px 16px'
+      'font-weight': 600
+    })
+  ],
+  [
+    /^q-item__label--inset$/,
+    () => ({
+      // Inset label
     })
   ]
 ]

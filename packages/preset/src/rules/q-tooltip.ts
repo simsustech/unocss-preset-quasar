@@ -5,15 +5,21 @@ export const qTooltipRules: Rule[] = [
     /^q-tooltip$/,
     () => ({
       position: 'absolute',
-      'z-index': '10000',
+      'z-index': 9500,
       'pointer-events': 'none',
       'max-width': '300px',
-      padding: '8px 12px',
+      padding: 'var(--q-space-sm) var(--q-space-md)',
       'border-radius': 'var(--q-radius-sm)',
       'background-color': 'var(--q-inverse-surface)',
       color: 'var(--q-inverse-on-surface)',
       'font-size': '0.85em',
       'box-shadow': 'var(--q-elevation-2)'
+    })
+  ],
+  [
+    /^q-tooltip--dark$/,
+    () => ({
+      // Dark mode
     })
   ]
 ]

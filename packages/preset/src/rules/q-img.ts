@@ -26,9 +26,42 @@ export const qImgRules: Rule[] = [
     })
   ],
   [
+    /^q-img__error$/,
+    () => ({
+      display: 'flex',
+      'align-items': 'center',
+      'justify-content': 'center',
+      'background-color': 'var(--q-surface-container-high)',
+      color: 'var(--q-on-surface-variant)'
+    })
+  ],
+  [
+    /^q-img__loading$/,
+    () => ({
+      position: 'absolute',
+      inset: 0,
+      display: 'flex',
+      'align-items': 'center',
+      'justify-content': 'center',
+      'background-color': 'var(--q-surface-container-high)'
+    })
+  ],
+  [
     /^q-img--contain$/,
     () => ({
       'object-fit': 'contain'
+    })
+  ],
+  [
+    /^q-img--no-menu$/,
+    () => ({
+      // No context menu
+    })
+  ],
+  [
+    /^q-img--rounded$/,
+    () => ({
+      'border-radius': 'var(--q-radius-md)'
     })
   ]
 ]

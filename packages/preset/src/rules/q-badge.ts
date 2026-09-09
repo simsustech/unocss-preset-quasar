@@ -1,12 +1,6 @@
 import type { Rule } from '@unocss/core'
 
-/**
- * QBadge — multi-selector rules.
- * One rule per BEM class. Each generator returns declarations.
- * References CSS custom properties directly — no theme access.
- */
 export const qBadgeRules: Rule[] = [
-  // Base
   [
     /^q-badge$/,
     () => ({
@@ -17,25 +11,23 @@ export const qBadgeRules: Rule[] = [
       'background-color': 'var(--q-primary)',
       color: 'var(--q-on-primary)',
       'font-size': '12px',
-      'font-weight': '500',
-      'line-height': '1',
+      'font-weight': 500,
+      'line-height': 1,
       padding: '3px 7px',
       'min-height': '20px',
       'min-width': '20px',
       'text-align': 'center'
     })
   ],
-  // Floating variant
   [
     /^q-badge--floating$/,
     () => ({
       position: 'absolute',
       top: '-4px',
       right: '-4px',
-      'z-index': '1'
+      'z-index': 1
     })
   ],
-  // Outline variant
   [
     /^q-badge--outline$/,
     () => ({
@@ -44,14 +36,12 @@ export const qBadgeRules: Rule[] = [
       border: '1px solid var(--q-primary)'
     })
   ],
-  // Rounded variant
   [
     /^q-badge--rounded$/,
     () => ({
       'border-radius': 'var(--q-radius-md)'
     })
   ],
-  // Transparent variant
   [
     /^q-badge--transparent$/,
     () => ({
@@ -59,12 +49,27 @@ export const qBadgeRules: Rule[] = [
       color: 'var(--q-primary)'
     })
   ],
-  // Multi-line variant
   [
     /^q-badge--multi-line$/,
     () => ({
       'white-space': 'normal',
       padding: '4px 8px'
+    })
+  ],
+  [
+    /^q-badge--dark$/,
+    () => ({
+      // Dark mode
+    })
+  ],
+  [
+    /^q-badge--dot$/,
+    () => ({
+      width: '8px',
+      height: '8px',
+      padding: 0,
+      'min-width': '8px',
+      'min-height': '8px'
     })
   ]
 ]

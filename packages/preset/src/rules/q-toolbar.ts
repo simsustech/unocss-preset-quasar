@@ -6,8 +6,14 @@ export const qToolbarRules: Rule[] = [
     () => ({
       display: 'flex',
       'align-items': 'center',
-      padding: '0 16px',
+      padding: '0 var(--q-space-md)',
       'min-height': '50px'
+    })
+  ],
+  [
+    /^q-toolbar--inset$/,
+    () => ({
+      padding: '0 calc(var(--q-space-md) + 56px)'
     })
   ],
   [
@@ -15,7 +21,10 @@ export const qToolbarRules: Rule[] = [
     () => ({
       flex: '1',
       'font-size': '1.25em',
-      'font-weight': '500'
+      'font-weight': 500,
+      overflow: 'hidden',
+      'text-overflow': 'ellipsis',
+      'white-space': 'nowrap'
     })
   ]
 ]
