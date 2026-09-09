@@ -7,18 +7,18 @@ export const qBarRules: Rule[] = [
       display: 'flex',
       'align-items': 'center',
       'justify-content': 'space-between',
-      padding: '0 12px',
+      padding: '0 var(--q-space-md)',
       'min-height': '32px',
       'background-color': 'var(--q-surface-container)',
       color: 'var(--q-on-surface)',
-      gap: '8px'
+      gap: 'var(--q-space-sm)'
     })
   ],
   [
     /^q-bar--dense$/,
     () => ({
       'min-height': '24px',
-      padding: '0 8px'
+      padding: '0 var(--q-space-sm)'
     })
   ],
   [

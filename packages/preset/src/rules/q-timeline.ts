@@ -10,10 +10,40 @@ export const qTimelineRules: Rule[] = [
     })
   ],
   [
+    /^q-timeline--dark$/,
+    () => ({
+      // Dark mode
+    })
+  ],
+  [
+    /^q-timeline--dense$/,
+    () => ({
+      // Dense
+    })
+  ],
+  [
+    /^q-timeline--responsive$/,
+    () => ({
+      // Responsive
+    })
+  ],
+  [
+    /^q-timeline--reverse$/,
+    () => ({
+      // Reverse
+    })
+  ],
+  [
     /^q-timeline__entry$/,
     () => ({
       position: 'relative',
-      'padding-bottom': '16px'
+      'padding-bottom': 'var(--q-space-md)'
+    })
+  ],
+  [
+    /^q-timeline__heading$/,
+    () => ({
+      // Heading
     })
   ],
   [
@@ -21,7 +51,7 @@ export const qTimelineRules: Rule[] = [
     () => ({
       position: 'absolute',
       left: '-24px',
-      top: '0',
+      top: 0,
       width: '12px',
       height: '12px',
       'border-radius': '50%',
@@ -31,7 +61,14 @@ export const qTimelineRules: Rule[] = [
   [
     /^q-timeline__content$/,
     () => ({
-      'padding-left': '12px'
+      'padding-left': 'var(--q-space-md)'
+    })
+  ],
+  [
+    /^q-timeline__subtitle$/,
+    () => ({
+      'font-size': '0.75em',
+      color: 'var(--q-on-surface-variant)'
     })
   ]
 ]

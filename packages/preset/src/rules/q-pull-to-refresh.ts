@@ -20,7 +20,19 @@ export const qPullToRefreshRules: Rule[] = [
       display: 'flex',
       'align-items': 'center',
       'justify-content': 'center',
-      padding: '8px'
+      padding: 'var(--q-space-sm)'
+    })
+  ],
+  [
+    /^q-pull-to-refresh__icon$/,
+    () => ({
+      // Icon
+    })
+  ],
+  [
+    /^q-pull-to-refresh__message$/,
+    () => ({
+      // Message
     })
   ]
 ]

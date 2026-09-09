@@ -6,20 +6,35 @@ export const qBreadcrumbsRules: Rule[] = [
     () => ({
       display: 'flex',
       'align-items': 'center',
-      gap: '4px'
+      gap: 'var(--q-space-xs)'
     })
   ],
   [
     /^q-breadcrumbs__el$/,
     () => ({
       display: 'inline-flex',
-      'align-items': 'center'
+      'align-items': 'center',
+      color: 'var(--q-primary)',
+      'text-decoration': 'none'
+    })
+  ],
+  [
+    /^q-breadcrumbs__el-icon$/,
+    () => ({
+      'margin-right': 'var(--q-space-xs)'
+    })
+  ],
+  [
+    /^q-breadcrumbs__el-label$/,
+    () => ({
+      // Label
     })
   ],
   [
     /^q-breadcrumbs__separator$/,
     () => ({
-      margin: '0 4px'
+      margin: '0 var(--q-space-xs)',
+      color: 'var(--q-on-surface-variant)'
     })
   ]
 ]

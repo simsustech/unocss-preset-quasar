@@ -9,17 +9,35 @@ export const qSeparatorRules: Rule[] = [
     })
   ],
   [
+    /^q-separator--dark$/,
+    () => ({
+      // Dark mode
+    })
+  ],
+  [
     /^q-separator--horizontal$/,
     () => ({
       height: '1px',
-      margin: '8px 0'
+      margin: 'var(--q-space-sm) 0'
     })
   ],
   [
     /^q-separator--vertical$/,
     () => ({
       width: '1px',
-      margin: '0 8px'
+      margin: '0 var(--q-space-sm)'
+    })
+  ],
+  [
+    /^q-separator--inset$/,
+    () => ({
+      // Inset
+    })
+  ],
+  [
+    /^q-separator--spaced$/,
+    () => ({
+      margin: 'var(--q-space-md) 0'
     })
   ]
 ]

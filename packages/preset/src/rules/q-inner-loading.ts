@@ -9,14 +9,20 @@ export const qInnerLoadingRules: Rule[] = [
       display: 'flex',
       'align-items': 'center',
       'justify-content': 'center',
-      'background-color': 'rgba(255,255,255,0.7)',
-      'z-index': '1'
+      'background-color': 'rgba(255, 255, 255, 0.7)',
+      'z-index': 1
+    })
+  ],
+  [
+    /^q-inner-loading--dark$/,
+    () => ({
+      'background-color': 'rgba(0, 0, 0, 0.7)'
     })
   ],
   [
     /^q-inner-loading__label$/,
     () => ({
-      'margin-left': '8px'
+      'margin-left': 'var(--q-space-sm)'
     })
   ]
 ]

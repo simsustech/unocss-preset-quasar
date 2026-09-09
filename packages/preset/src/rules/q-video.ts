@@ -7,5 +7,11 @@ export const qVideoRules: Rule[] = [
       position: 'relative',
       overflow: 'hidden'
     })
+  ],
+  [
+    /^q-video--ratio$/,
+    () => ({
+      // Ratio
+    })
   ]
 ]

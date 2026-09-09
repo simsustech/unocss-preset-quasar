@@ -12,13 +12,61 @@ export const qTimeRules: Rule[] = [
     })
   ],
   [
+    /^q-time--dark$/,
+    () => ({
+      // Dark mode
+    })
+  ],
+  [
+    /^q-time--disabled$/,
+    () => ({
+      opacity: 0.5
+    })
+  ],
+  [
+    /^q-time--readonly$/,
+    () => ({
+      // Readonly
+    })
+  ],
+  [
+    /^q-time--square$/,
+    () => ({
+      'border-radius': '0'
+    })
+  ],
+  [
+    /^q-time--with-seconds$/,
+    () => ({
+      // With seconds
+    })
+  ],
+  [
     /^q-time__header$/,
     () => ({
       display: 'flex',
       'align-items': 'center',
       'justify-content': 'center',
-      padding: '16px',
+      padding: 'var(--q-space-md)',
       'font-size': '2em'
+    })
+  ],
+  [
+    /^q-time__header-content$/,
+    () => ({
+      // Header content
+    })
+  ],
+  [
+    /^q-time__header-label$/,
+    () => ({
+      // Header label
+    })
+  ],
+  [
+    /^q-time__header-ampm$/,
+    () => ({
+      // AM/PM
     })
   ],
   [
@@ -29,7 +77,49 @@ export const qTimeRules: Rule[] = [
       height: '200px',
       'border-radius': '50%',
       'background-color': 'var(--q-surface-container-highest)',
-      margin: '16px auto'
+      margin: 'var(--q-space-md) auto'
+    })
+  ],
+  [
+    /^q-time__content$/,
+    () => ({
+      // Content
+    })
+  ],
+  [
+    /^q-time__container$/,
+    () => ({
+      // Container
+    })
+  ],
+  [
+    /^q-time__main$/,
+    () => ({
+      // Main
+    })
+  ],
+  [
+    /^q-time__now$/,
+    () => ({
+      // Now
+    })
+  ],
+  [
+    /^q-time__progress$/,
+    () => ({
+      // Progress
+    })
+  ],
+  [
+    /^q-time__text$/,
+    () => ({
+      // Text
+    })
+  ],
+  [
+    /^q-time__input$/,
+    () => ({
+      // Input
     })
   ],
   [
@@ -37,8 +127,8 @@ export const qTimeRules: Rule[] = [
     () => ({
       display: 'flex',
       'justify-content': 'flex-end',
-      gap: '8px',
-      padding: '8px 16px'
+      gap: 'var(--q-space-sm)',
+      padding: 'var(--q-space-sm) var(--q-space-md)'
     })
   ]
 ]

@@ -5,7 +5,7 @@ export const qChatRules: Rule[] = [
     /^q-chat-message$/,
     () => ({
       display: 'flex',
-      'margin-bottom': '8px'
+      'margin-bottom': 'var(--q-space-sm)'
     })
   ],
   [
@@ -24,7 +24,7 @@ export const qChatRules: Rule[] = [
     /^q-chat-message__text$/,
     () => ({
       'max-width': '70%',
-      padding: '8px 12px',
+      padding: 'var(--q-space-sm) var(--q-space-md)',
       'border-radius': 'var(--q-radius-md)',
       'background-color': 'var(--q-surface-container-high)'
     })
@@ -33,7 +33,7 @@ export const qChatRules: Rule[] = [
     /^q-chat-message__name$/,
     () => ({
       'font-size': '0.75em',
-      opacity: '0.7',
+      opacity: 0.7,
       'margin-bottom': '2px'
     })
   ],
@@ -41,8 +41,20 @@ export const qChatRules: Rule[] = [
     /^q-chat-message__stamp$/,
     () => ({
       'font-size': '0.7em',
-      opacity: '0.6',
+      opacity: 0.6,
       'margin-top': '2px'
+    })
+  ],
+  [
+    /^q-chat-message__avatar$/,
+    () => ({
+      'margin-right': 'var(--q-space-sm)'
+    })
+  ],
+  [
+    /^q-chat-message__label$/,
+    () => ({
+      // Label
     })
   ]
 ]

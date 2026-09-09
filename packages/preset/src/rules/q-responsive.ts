@@ -7,5 +7,11 @@ export const qResponsiveRules: Rule[] = [
       position: 'relative',
       overflow: 'hidden'
     })
+  ],
+  [
+    /^q-responsive--ratio$/,
+    () => ({
+      // Ratio
+    })
   ]
 ]

@@ -20,5 +20,11 @@ export const qParallaxRules: Rule[] = [
     () => ({
       position: 'relative'
     })
+  ],
+  [
+    /^q-parallax__image$/,
+    () => ({
+      // Image
+    })
   ]
 ]

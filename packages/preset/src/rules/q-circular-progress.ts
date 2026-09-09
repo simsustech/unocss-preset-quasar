@@ -25,5 +25,12 @@ export const qCircularProgressRules: Rule[] = [
       'font-size': '0.25em',
       'text-align': 'center'
     })
+  ],
+  [
+    /^q-circular-progress__track$/,
+    () => ({
+      fill: 'none',
+      stroke: 'var(--q-surface-container-highest)'
+    })
   ]
 ]

@@ -6,7 +6,7 @@ export const qOptionGroupRules: Rule[] = [
     () => ({
       display: 'flex',
       'flex-direction': 'column',
-      gap: '4px'
+      gap: 'var(--q-space-xs)'
     })
   ],
   [

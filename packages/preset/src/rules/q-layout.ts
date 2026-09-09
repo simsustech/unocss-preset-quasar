@@ -10,6 +10,18 @@ export const qLayoutRules: Rule[] = [
     })
   ],
   [
+    /^q-layout--containerized$/,
+    () => ({
+      // Containerized
+    })
+  ],
+  [
+    /^q-layout--view$/,
+    () => ({
+      // View
+    })
+  ],
+  [
     /^q-layout__section$/,
     () => ({
       display: 'flex',
@@ -22,6 +34,12 @@ export const qLayoutRules: Rule[] = [
       flex: '1',
       display: 'flex',
       'flex-direction': 'column'
+    })
+  ],
+  [
+    /^q-layout__content$/,
+    () => ({
+      // Content
     })
   ]
 ]

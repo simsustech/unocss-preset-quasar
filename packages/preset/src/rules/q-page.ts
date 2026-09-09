@@ -4,7 +4,13 @@ export const qPageRules: Rule[] = [
   [
     /^q-page$/,
     () => ({
-      padding: '16px'
+      padding: 'var(--q-space-md)'
+    })
+  ],
+  [
+    /^q-page--padding$/,
+    () => ({
+      padding: 'var(--q-space-md)'
     })
   ],
   [
@@ -19,7 +25,13 @@ export const qPageRules: Rule[] = [
     /^q-page-sticky$/,
     () => ({
       position: 'fixed',
-      'z-index': '1000'
+      'z-index': 7000
+    })
+  ],
+  [
+    /^q-page-sticky--expand$/,
+    () => ({
+      // Expand
     })
   ]
 ]

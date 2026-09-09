@@ -6,25 +6,38 @@ export const qBannerRules: Rule[] = [
     () => ({
       display: 'flex',
       'align-items': 'center',
-      padding: '8px 16px',
+      padding: 'var(--q-space-sm) var(--q-space-md)',
       'min-height': '54px',
       'background-color': 'var(--q-surface-container-high)',
       color: 'var(--q-on-surface)'
     })
   ],
   [
+    /^q-banner--dark$/,
+    () => ({
+      'background-color': 'var(--q-surface-variant)'
+    })
+  ],
+  [
+    /^q-banner--dense$/,
+    () => ({
+      'min-height': '36px',
+      padding: 'var(--q-space-xs) var(--q-space-sm)'
+    })
+  ],
+  [
     /^q-banner__icon$/,
     () => ({
       'font-size': '1.5em',
-      'margin-right': '16px',
-      'flex-shrink': '0'
+      'margin-right': 'var(--q-space-md)',
+      'flex-shrink': 0
     })
   ],
   [
     /^q-banner__content$/,
     () => ({
       flex: '1',
-      'min-width': '0'
+      'min-width': 0
     })
   ],
   [
@@ -32,15 +45,14 @@ export const qBannerRules: Rule[] = [
     () => ({
       display: 'flex',
       'align-items': 'center',
-      gap: '4px',
-      'margin-left': '8px'
+      gap: 'var(--q-space-xs)',
+      'margin-left': 'var(--q-space-sm)'
     })
   ],
   [
-    /^q-banner--dense$/,
+    /^q-banner__avatar$/,
     () => ({
-      'min-height': '36px',
-      padding: '4px 8px'
+      'margin-right': 'var(--q-space-md)'
     })
   ]
 ]

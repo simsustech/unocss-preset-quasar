@@ -6,5 +6,17 @@ export const qIntersectionRules: Rule[] = [
     () => ({
       position: 'relative'
     })
+  ],
+  [
+    /^q-intersection--once$/,
+    () => ({
+      // Once
+    })
+  ],
+  [
+    /^q-intersection--disable$/,
+    () => ({
+      // Disable
+    })
   ]
 ]

@@ -13,7 +13,15 @@ export const qInfiniteScrollRules: Rule[] = [
       display: 'flex',
       'align-items': 'center',
       'justify-content': 'center',
-      padding: '16px'
+      padding: 'var(--q-space-md)'
+    })
+  ],
+  [
+    /^q-infinite-scroll__message$/,
+    () => ({
+      'text-align': 'center',
+      padding: 'var(--q-space-sm)',
+      color: 'var(--q-on-surface-variant)'
     })
   ]
 ]
