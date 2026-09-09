@@ -6,7 +6,14 @@ export const qPaginationRules: Rule[] = [
     () => ({
       display: 'inline-flex',
       'align-items': 'center',
-      gap: '4px'
+      gap: 'var(--q-space-xs)'
+    })
+  ],
+  [
+    /^q-pagination--disabled$/,
+    () => ({
+      opacity: 0.5,
+      'pointer-events': 'none'
     })
   ],
   [
@@ -18,10 +25,34 @@ export const qPaginationRules: Rule[] = [
     })
   ],
   [
-    /^q-pagination--disabled$/,
+    /^q-pagination__drop$/,
     () => ({
-      opacity: '0.5',
-      'pointer-events': 'none'
+      // Drop zone
+    })
+  ],
+  [
+    /^q-pagination__ellipsis$/,
+    () => ({
+      // Ellipsis
+    })
+  ],
+  [
+    /^q-pagination__goto$/,
+    () => ({
+      // Go to page
+    })
+  ],
+  [
+    /^q-pagination__input$/,
+    () => ({
+      width: '3em',
+      'text-align': 'center'
+    })
+  ],
+  [
+    /^q-pagination__range$/,
+    () => ({
+      // Range
     })
   ]
 ]

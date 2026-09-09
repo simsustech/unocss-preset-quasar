@@ -19,7 +19,8 @@ export const qCheckboxRules: Rule[] = [
       width: '1em',
       height: '1em',
       border: '2px solid var(--q-outline)',
-      'border-radius': 'var(--q-radius-xs)'
+      'border-radius': 'var(--q-radius-xs)',
+      transition: 'all var(--q-duration-short) var(--q-easing-standard)'
     })
   ],
   [
@@ -46,13 +47,52 @@ export const qCheckboxRules: Rule[] = [
   [
     /^q-checkbox__label$/,
     () => ({
-      'margin-left': '8px'
+      'margin-left': 'var(--q-space-sm)'
     })
   ],
   [
     /^q-checkbox--dense$/,
     () => ({
       'font-size': '0.8em'
+    })
+  ],
+  [
+    /^q-checkbox--dark$/,
+    () => ({
+      // Dark mode
+    })
+  ],
+  [
+    /^q-checkbox__bg$/,
+    () => ({
+      // Background
+    })
+  ],
+  [
+    /^q-checkbox__icon-container$/,
+    () => ({
+      display: 'flex',
+      'align-items': 'center',
+      'justify-content': 'center'
+    })
+  ],
+  [
+    /^q-checkbox__native$/,
+    () => ({
+      // Native input
+    })
+  ],
+  [
+    /^q-checkbox__svg$/,
+    () => ({
+      width: '1em',
+      height: '1em'
+    })
+  ],
+  [
+    /^q-checkbox__truthy$/,
+    () => ({
+      // Truthy state
     })
   ]
 ]

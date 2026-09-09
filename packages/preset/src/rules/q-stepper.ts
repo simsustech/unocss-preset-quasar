@@ -9,11 +9,41 @@ export const qStepperRules: Rule[] = [
     })
   ],
   [
+    /^q-stepper--dark$/,
+    () => ({
+      // Dark mode
+    })
+  ],
+  [
+    /^q-stepper--vertical$/,
+    () => ({
+      // Vertical layout
+    })
+  ],
+  [
     /^q-stepper__step$/,
     () => ({
       display: 'flex',
       'align-items': 'flex-start',
-      gap: '12px'
+      gap: 'var(--q-space-md)'
+    })
+  ],
+  [
+    /^q-stepper__step--disabled$/,
+    () => ({
+      opacity: 0.5
+    })
+  ],
+  [
+    /^q-stepper__step--error$/,
+    () => ({
+      color: 'var(--q-error)'
+    })
+  ],
+  [
+    /^q-stepper__step--done$/,
+    () => ({
+      // Done state
     })
   ],
   [
@@ -26,7 +56,8 @@ export const qStepperRules: Rule[] = [
       'align-items': 'center',
       'justify-content': 'center',
       'background-color': 'var(--q-surface-container-highest)',
-      'font-size': '0.8em'
+      'font-size': '0.8em',
+      'font-weight': 600
     })
   ],
   [
@@ -35,14 +66,65 @@ export const qStepperRules: Rule[] = [
       width: '2px',
       flex: '1',
       'background-color': 'var(--q-outline-variant)',
-      'margin-top': '4px'
+      'margin-top': 'var(--q-space-xs)'
     })
   ],
   [
     /^q-stepper__content$/,
     () => ({
       flex: '1',
-      'padding-bottom': '16px'
+      'padding-bottom': 'var(--q-space-md)'
+    })
+  ],
+  [
+    /^q-stepper__caption$/,
+    () => ({
+      'font-size': '0.75em',
+      color: 'var(--q-on-surface-variant)'
+    })
+  ],
+  [
+    /^q-stepper__nav$/,
+    () => ({
+      display: 'flex',
+      'justify-content': 'space-between',
+      'margin-top': 'var(--q-space-md)'
+    })
+  ],
+  [
+    /^q-stepper__header$/,
+    () => ({
+      // Header
+    })
+  ],
+  [
+    /^q-stepper__step-content$/,
+    () => ({
+      // Step content
+    })
+  ],
+  [
+    /^q-stepper__step-inner$/,
+    () => ({
+      // Step inner
+    })
+  ],
+  [
+    /^q-stepper__step-icon$/,
+    () => ({
+      // Step icon
+    })
+  ],
+  [
+    /^q-stepper__step-label$/,
+    () => ({
+      // Step label
+    })
+  ],
+  [
+    /^q-stepper__step-title$/,
+    () => ({
+      'font-weight': 500
     })
   ]
 ]
