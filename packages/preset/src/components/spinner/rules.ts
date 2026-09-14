@@ -38,8 +38,9 @@ export const spinnerRules = [
     () => ({
       // Tail spinner
     })
-  ][
-    (/^q-spinner-comment$/,
+  ],
+  [
+    /^q-spinner-comment$/,
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} circle:nth-of-type(1)`,
@@ -53,7 +54,7 @@ export const spinnerRules = [
         [symbols.selector]: (sel) => `${sel} circle:nth-of-type(3)`,
         animation: 'q-comment-typing3 1s linear infinite'
       }
-    })
+    }
   ],
   [
     /^q-spinner-dots$/,

@@ -178,11 +178,12 @@ export const timeRules = [
         width: '6px'
       }
     }
-  ][
-    (/^q-time--bordered$/,
+  ],
+  [
+    /^q-time--bordered$/,
     function* () {
       yield { border: '1px solid rgba(0, 0, 0, 0.12)' }
-    })
+    }
   ],
   [
     /^q-time__link$/,

@@ -13,8 +13,9 @@ export const responsiveRules = [
     () => ({
       // Ratio
     })
-  ][
-    (/^q-responsive__filler$/,
+  ],
+  [
+    /^q-responsive__filler$/,
     function* () {
       yield {
         width: 'inherit',
@@ -22,7 +23,7 @@ export const responsiveRules = [
         height: 'inherit',
         maxHeight: 'inherit'
       }
-    })
+    }
   ],
   [
     /^q-responsive__content$/,

@@ -122,8 +122,9 @@ export const tabsRules = [
       'font-size': '0.875em',
       'font-weight': 500
     })
-  ][
-    (/^q-tabs--not-scrollable$/,
+  ],
+  [
+    /^q-tabs--not-scrollable$/,
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel}.q-tabs__arrows--outside`,
@@ -138,7 +139,7 @@ export const tabsRules = [
         [symbols.selector]: (sel) => `${sel} .q-tabs__content`,
         borderRadius: 'inherit'
       }
-    })
+    }
   ],
   [
     /^mobile$/,

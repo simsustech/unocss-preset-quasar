@@ -144,11 +144,12 @@ export const uploaderRules = [
         content: 'none'
       }
     }
-  ][
-    (/^q-uploader--bordered$/,
+  ],
+  [
+    /^q-uploader--bordered$/,
     function* () {
       yield { border: '1px solid rgba(0, 0, 0, 0.12)' }
-    })
+    }
   ],
   [
     /^q-uploader__input$/,

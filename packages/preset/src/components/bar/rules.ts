@@ -26,8 +26,9 @@ export const barRules = [
     () => ({
       'background-color': 'var(--q-surface-container-high)'
     })
-  ][
-    (/^q-bar--standard$/,
+  ],
+  [
+    /^q-bar--standard$/,
     function* (_, { symbols }) {
       yield {
         padding: '0 12px',
@@ -42,6 +43,6 @@ export const barRules = [
         [symbols.selector]: (sel) => `${sel} .q-btn`,
         fontSize: '11px'
       }
-    })
+    }
   ]
 ] as Rule[]

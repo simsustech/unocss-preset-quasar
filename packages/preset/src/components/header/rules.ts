@@ -43,10 +43,11 @@ export const headerRules = [
         bottom: '10px'
       }
     }
-  ][
-    (/^q-footer$/,
+  ],
+  [
+    /^q-footer$/,
     function* () {
       yield { zIndex: '2000' }
-    })
+    }
   ]
 ] as Rule[]

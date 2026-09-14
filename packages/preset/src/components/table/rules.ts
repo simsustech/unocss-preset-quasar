@@ -282,8 +282,9 @@ export const tableRules = [
         background: 'rgba(255, 255, 255, 0.1)'
       }
     }
-  ][
-    (/^q-table__card$/,
+  ],
+  [
+    /^q-table__card$/,
     function* (_, { symbols }) {
       yield {
         color: '#000',
@@ -304,7 +305,7 @@ export const tableRules = [
         [symbols.selector]: (sel) => `${sel} .q-table__bottom`,
         flex: '0 0 auto'
       }
-    })
+    }
   ],
   [
     /^q-table__title$/,

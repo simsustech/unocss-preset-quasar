@@ -106,11 +106,12 @@ export const carouselRules = [
     () => ({
       // Control
     })
-  ][
-    (/^q-carousel__slides-container$/,
+  ],
+  [
+    /^q-carousel__slides-container$/,
     function* () {
       yield { height: '100%' }
-    })
+    }
   ],
   [
     /^q-carousel__arrow$/,

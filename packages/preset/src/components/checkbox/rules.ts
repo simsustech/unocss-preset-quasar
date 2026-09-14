@@ -144,14 +144,15 @@ export const checkboxRules = [
         transform: 'scale3d(1.4, 1.4, 1)'
       }
     }
-  ][
-    (/^q-checkbox__indet$/,
+  ],
+  [
+    /^q-checkbox__indet$/,
     function* () {
       yield {
         fill: 'currentColor',
         transformOrigin: '50% 50%',
         transform: 'rotate(-280deg) scale(0)'
       }
-    })
+    }
   ]
 ] as Rule[]

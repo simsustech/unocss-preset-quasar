@@ -95,11 +95,12 @@ export const linearProgressRules = [
         'animation-delay': '1.15s'
       }
     }
-  ][
-    (/^q-linear-progress__model--with-transition$/,
+  ],
+  [
+    /^q-linear-progress__model--with-transition$/,
     function* () {
       yield { transition: 'transform var(--q-linear-progress-speed)' }
-    })
+    }
   ],
   [
     /^q-linear-progress__track--with-transition$/,

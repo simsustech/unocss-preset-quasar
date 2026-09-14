@@ -120,11 +120,12 @@ export const radioRules = [
         transform: 'scale3d(1.5, 1.5, 1)'
       }
     }
-  ][
-    (/^q-radio__icon-container$/,
+  ],
+  [
+    /^q-radio__icon-container$/,
     function* () {
       yield { userSelect: 'none', WebkitUserSelect: 'none' }
-    })
+    }
   ],
   [
     /^q-radio__check$/,

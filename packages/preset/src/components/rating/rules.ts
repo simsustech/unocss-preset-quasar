@@ -46,15 +46,16 @@ export const ratingRules = [
     () => ({
       color: 'var(--q-surface-container-highest)'
     })
-  ][
-    (/^q-rating__icon-container$/,
+  ],
+  [
+    /^q-rating__icon-container$/,
     function* (_, { symbols }) {
       yield { height: '1em', outline: '0' }
       yield {
         [symbols.selector]: (sel) => `${sel} + .q-rating__icon-container`,
         marginLeft: '2px'
       }
-    })
+    }
   ],
   [
     /^q-rating__icon--hovered$/,

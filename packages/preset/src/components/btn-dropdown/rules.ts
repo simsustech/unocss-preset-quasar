@@ -12,8 +12,9 @@ export const btnDropdownRules = [
     () => ({
       'margin-left': '4px'
     })
-  ][
-    (/^q-btn-dropdown--split$/,
+  ],
+  [
+    /^q-btn-dropdown--split$/,
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-btn-dropdown__arrow-container`,
@@ -29,7 +30,7 @@ export const btnDropdownRules = [
           `${sel} .q-btn-dropdown__arrow-container:not(.q-btn--outline)`,
         borderLeft: '1px solid rgba(255, 255, 255, 0.3)'
       }
-    })
+    }
   ],
   [
     /^q-btn-dropdown--simple$/,

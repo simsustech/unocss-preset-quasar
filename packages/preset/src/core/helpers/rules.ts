@@ -29,8 +29,8 @@ export const helpersRules: ComponentRule[] = [
 
   // --- Glossy effect ---
   rule(/^glossy$/, () => ({
-    background:
-      'linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(255,255,255,0) 50%, rgba(0,0,0,0.12) 51%, rgba(0,0,0,0.04))'
+    backgroundImage:
+      'linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12) 51%, rgba(0, 0, 0, 0.04)) !important'
   })),
 
   // --- Placeholder ---

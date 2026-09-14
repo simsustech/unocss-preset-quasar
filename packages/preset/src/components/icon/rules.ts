@@ -50,8 +50,9 @@ export const iconRules = [
         'justify-content': 'center'
       }
     }
-  ][
-    (/^material-icons$/,
+  ],
+  [
+    /^material-icons$/,
     function* () {
       yield {
         userSelect: 'none',
@@ -63,7 +64,7 @@ export const iconRules = [
         justifyContent: 'center',
         verticalAlign: 'middle'
       }
-    })
+    }
   ],
   [
     /^material-icons-outlined$/,

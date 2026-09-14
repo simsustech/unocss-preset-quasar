@@ -42,14 +42,15 @@ export const selectRules = [
       color: 'var(--q-on-surface-variant)',
       opacity: 0.6
     })
-  ][
-    (/^q-select--without-input$/,
+  ],
+  [
+    /^q-select--without-input$/,
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-field__control`,
         cursor: 'pointer'
       }
-    })
+    }
   ],
   [
     /^q-select--with-input$/,

@@ -116,11 +116,12 @@ export const editorRules = [
         background: 'rgba(255, 255, 255, 0.28)'
       }
     }
-  ][
-    (/^q-editor--disabled$/,
+  ],
+  [
+    /^q-editor--disabled$/,
     function* () {
       yield { borderStyle: 'dashed' }
-    })
+    }
   ],
   [
     /^q-editor__toolbars-container$/,

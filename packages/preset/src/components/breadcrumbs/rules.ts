@@ -36,10 +36,11 @@ export const breadcrumbsRules = [
       margin: '0 var(--q-space-xs)',
       color: 'var(--q-on-surface-variant)'
     })
-  ][
-    (/^q-breadcrumbs__el-icon--with-label$/,
+  ],
+  [
+    /^q-breadcrumbs__el-icon--with-label$/,
     function* () {
       yield { marginRight: '8px' }
-    })
+    }
   ]
 ] as Rule[]

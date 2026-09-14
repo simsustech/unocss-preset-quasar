@@ -187,8 +187,9 @@ export const colorRules = [
         background: 'linear-gradient(90deg, rgba(255, 255, 255, 0), #757575)'
       }
     }
-  ][
-    (/^q-color-picker$/,
+  ],
+  [
+    /^q-color-picker$/,
     function* (_, { symbols }) {
       yield {
         overflow: 'hidden',
@@ -231,7 +232,7 @@ export const colorRules = [
         [symbols.selector]: (sel) => `${sel} .q-tab-panels`,
         background: 'inherit'
       }
-    })
+    }
   ],
   [
     /^q-color-picker--bordered$/,

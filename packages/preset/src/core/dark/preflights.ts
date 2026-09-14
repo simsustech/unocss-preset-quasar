@@ -1,3 +1,11 @@
 import type { Preflight } from '@unocss/core'
 
-export const darkPreflights: Preflight[] = []
+/** Base dark-mode page styles, mirroring quasar.css `.body--dark`. */
+export const darkPreflights: Preflight[] = [
+  {
+    getCSS: () => `.body--dark {
+  color: #fff;
+  background: var(--q-dark-page);
+}`
+  }
+]

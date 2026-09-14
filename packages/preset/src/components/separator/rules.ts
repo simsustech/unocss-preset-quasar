@@ -39,14 +39,15 @@ export const separatorRules = [
     () => ({
       margin: 'var(--q-space-md) 0'
     })
-  ][
-    (/^q-list--padding$/,
+  ],
+  [
+    /^q-list--padding$/,
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-item__label--header`,
         paddingTop: '8px'
       }
-    })
+    }
   ],
   [
     /^q-separator--horizontal-inset$/,

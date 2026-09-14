@@ -54,10 +54,11 @@ export const bannerRules = [
     () => ({
       'margin-right': 'var(--q-space-md)'
     })
-  ][
-    (/^q-banner--top-padding$/,
+  ],
+  [
+    /^q-banner--top-padding$/,
     function* () {
       yield { paddingTop: '14px' }
-    })
+    }
   ]
 ] as Rule[]

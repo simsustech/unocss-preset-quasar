@@ -57,8 +57,9 @@ export const splitterRules = [
       'background-color': 'var(--q-outline-variant)',
       cursor: 'col-resize'
     })
-  ][
-    (/^q-splitter__separator-area$/,
+  ],
+  [
+    /^q-splitter__separator-area$/,
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} > *`,
@@ -67,6 +68,6 @@ export const splitterRules = [
         left: '50%',
         transform: 'translate(-50%, -50%)'
       }
-    })
+    }
   ]
 ] as Rule[]

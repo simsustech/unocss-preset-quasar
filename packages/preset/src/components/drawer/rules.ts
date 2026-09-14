@@ -50,11 +50,12 @@ export const drawerRules = [
         left: '10px'
       }
     }
-  ][
-    (/^q-drawer--on-top$/,
+  ],
+  [
+    /^q-drawer--on-top$/,
     function* () {
       yield { zIndex: '3000' }
-    })
+    }
   ],
   [
     /^q-drawer-container$/,

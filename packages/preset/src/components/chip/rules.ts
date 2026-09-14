@@ -88,14 +88,15 @@ export const chipRules = [
     () => ({
       // Label
     })
-  ][
-    (/^q-chip--colored$/,
+  ],
+  [
+    /^q-chip--colored$/,
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-chip__icon`,
         color: 'inherit'
       }
-    })
+    }
   ],
   [
     /^q-chip__icon--left$/,

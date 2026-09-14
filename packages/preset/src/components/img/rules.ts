@@ -63,11 +63,12 @@ export const imgRules = [
     () => ({
       'border-radius': 'var(--q-radius-md)'
     })
-  ][
-    (/^q-img__container$/,
+  ],
+  [
+    /^q-img__container$/,
     function* () {
       yield { borderRadius: 'inherit', fontSize: '0' }
-    })
+    }
   ],
   [
     /^q-img__image--with-transition$/,

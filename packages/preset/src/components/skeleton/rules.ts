@@ -125,11 +125,12 @@ export const skeletonRules = [
         background: 'rgba(255, 255, 255, 0.2)'
       }
     }
-  ][
-    (/^q-skeleton--type-text$/,
+  ],
+  [
+    /^q-skeleton--type-text$/,
     function* () {
       yield { transform: 'scale(1, 0.5)' }
-    })
+    }
   ],
   [
     /^q-skeleton--type-circle$/,

@@ -271,15 +271,16 @@ export const stepperRules = [
         background: 'rgba(255, 255, 255, 0.28)'
       }
     }
-  ][
-    (/^q-stepper__title$/,
+  ],
+  [
+    /^q-stepper__title$/,
     function* () {
       yield {
         fontSize: '14px',
         lineHeight: '1.285714',
         letterSpacing: '0.1px'
       }
-    })
+    }
   ],
   [
     /^q-stepper__tab$/,

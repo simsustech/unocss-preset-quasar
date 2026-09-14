@@ -5,7 +5,8 @@ import type { StyleEntry, TokenBlock } from './types.js'
 /**
  * Emit CSS custom properties.
  * - Colors on :root (shared, from sourceColor)
- * - Default style tokens on :root (zero-config)
+ * - Default style tokens on body (zero-config; body so runtime setThemeColors
+ *   overrides on document.body win over build-time values)
  * - Per-style overrides on body.quasar-style-{name} (only tokens that differ from default)
  * - Dark overrides on body.body--dark (default) and body.body--dark.quasar-style-{name}
  */
@@ -21,8 +22,13 @@ export function createTokenPreflight(params: {
       parts.push(
         renderColorBlock(':root', params.colors.light, params.colors.quasar)
       )
-      // 2. Default style tokens on :root
-      parts.push(renderTokenBlock(':root', params.defaultStyle.tokens))
+      // 2. Default style tokens on body (NOT :root: runtime setThemeColors
+      // writes --light-*/--dark-* onto document.body, so --q-* aliases that
+      // reference them must resolve against body to pick up the overrides)
+      parts.push(renderTokenBlock('body', params.defaultStyle.tokens))
+      // 2b. Shadow color primitives + computed shadow tokens on body,
+      // mirroring quasar.css so var(--q-shadow-*) references resolve
+      parts.push(renderShadowBlock('body'))
       // 3. Per-style overrides (only diffs from default)
       for (const style of params.styles) {
         const diff = diffTokens(params.defaultStyle.tokens, style.tokens)
@@ -61,6 +67,25 @@ function renderColorBlock(
       lines.push(`  --q${suffix}-${key}: ${value};`)
     }
   }
+  return `${selector} {\n${lines.join('\n')}\n}`
+}
+
+/** Shadow primitives + computed shadow tokens, mirroring quasar.css body block */
+function renderShadowBlock(selector: string): string {
+  const lines = [
+    '  --q-shadow-color: #000;',
+    '  --q-dark-shadow-color: #fff;',
+    '  --q-shadow-umbra: color-mix(in srgb, var(--q-shadow-color) 20%, transparent);',
+    '  --q-shadow-penumbra: color-mix(in srgb, var(--q-shadow-color) 14%, transparent);',
+    '  --q-shadow-ambient: color-mix(in srgb, var(--q-shadow-color) 12%, transparent);',
+    '  --q-shadow-inset: color-mix(in srgb, var(--q-shadow-color) 70%, transparent);',
+    '  --q-shadow-layout: color-mix(in srgb, var(--q-shadow-color) 24%, transparent);',
+    '  --q-dark-shadow-umbra: color-mix(in srgb, var(--q-dark-shadow-color) 20%, transparent);',
+    '  --q-dark-shadow-penumbra: color-mix(in srgb, var(--q-dark-shadow-color) 14%, transparent);',
+    '  --q-dark-shadow-ambient: color-mix(in srgb, var(--q-dark-shadow-color) 12%, transparent);',
+    '  --q-dark-shadow-inset: color-mix(in srgb, var(--q-dark-shadow-color) 70%, transparent);',
+    '  --q-dark-shadow-layout: color-mix(in srgb, var(--q-dark-shadow-color) 24%, transparent);'
+  ]
   return `${selector} {\n${lines.join('\n')}\n}`
 }
 

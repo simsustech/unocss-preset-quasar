@@ -143,11 +143,12 @@ export const timelineRules = [
         left: '14px'
       }
     }
-  ][
-    (/^q-timeline__title$/,
+  ],
+  [
+    /^q-timeline__title$/,
     function* () {
       yield { marginTop: '0', marginBottom: '16px' }
-    })
+    }
   ],
   [
     /^q-timeline__dot-img$/,

@@ -234,11 +234,12 @@ export const sliderRules = [
         'border-left': '6px solid currentColor'
       }
     }
-  ][
-    (/^q-slider--h$/,
+  ],
+  [
+    /^q-slider--h$/,
     function* () {
       yield { width: '100%' }
-    })
+    }
   ],
   [
     /^q-slider--v$/,

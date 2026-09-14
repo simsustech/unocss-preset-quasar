@@ -187,11 +187,12 @@ export const dateRules = [
         'border-bottom-right-radius': '28px'
       }
     }
-  ][
-    (/^q-date--bordered$/,
+  ],
+  [
+    /^q-date--bordered$/,
     function* () {
       yield { border: '1px solid rgba(0, 0, 0, 0.12)' }
-    })
+    }
   ],
   [
     /^q-date__actions$/,

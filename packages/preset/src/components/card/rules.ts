@@ -83,11 +83,12 @@ export const cardRules = [
   [/^q-card__actions--items-center$/, () => ({ alignItems: 'center' })],
   [/^q-card__actions--items-end$/, () => ({ alignItems: 'flex-end' })],
   [/^q-card__actions--items-stretch$/, () => ({ alignItems: 'stretch' })],
-  [/^q-card__actions--items-baseline$/, () => ({ alignItems: 'baseline' })][
-    (/^q-card--bordered$/,
+  [/^q-card__actions--items-baseline$/, () => ({ alignItems: 'baseline' })],
+  [
+    /^q-card--bordered$/,
     function* () {
       yield { border: '1px solid rgba(0, 0, 0, 0.12)' }
-    })
+    }
   ],
   [
     /^q-card__section--vert$/,

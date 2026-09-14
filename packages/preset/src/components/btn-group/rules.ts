@@ -74,8 +74,9 @@ export const btnGroupRules = [
         'border-right': '0'
       }
     }
-  ][
-    (/^q-btn-group--push$/,
+  ],
+  [
+    /^q-btn-group--push$/,
     function* (_, { symbols }) {
       yield { borderRadius: '7px' }
       yield {
@@ -100,7 +101,7 @@ export const btnGroupRules = [
         marginTop: '2px',
         marginBottom: '-2px'
       }
-    })
+    }
   ],
   [
     /^q-btn-group--rounded$/,

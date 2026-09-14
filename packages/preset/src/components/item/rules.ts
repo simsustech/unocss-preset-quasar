@@ -150,11 +150,12 @@ export const itemRules = [
     () => ({
       // Inset label
     })
-  ][
-    (/^q-item__section--nowrap$/,
+  ],
+  [
+    /^q-item__section--nowrap$/,
     function* () {
       yield { whiteSpace: 'nowrap' }
-    })
+    }
   ],
   [
     /^q-item__label--overline$/,

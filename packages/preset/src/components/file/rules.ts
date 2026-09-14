@@ -16,8 +16,9 @@ export const fileRules = [
       left: 0,
       right: 0
     })
-  ][
-    (/^q-file__filler$/,
+  ],
+  [
+    /^q-file__filler$/,
     function* () {
       yield {
         visibility: 'hidden',
@@ -25,7 +26,7 @@ export const fileRules = [
         border: 'none',
         padding: '0'
       }
-    })
+    }
   ],
   [
     /^q-file__dnd$/,

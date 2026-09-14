@@ -96,8 +96,9 @@ export const dialogRules = [
     () => ({
       // Inner dialog
     })
-  ][
-    (/^q-dialog__title$/,
+  ],
+  [
+    /^q-dialog__title$/,
     function* () {
       yield {
         fontSize: '1.25rem',
@@ -105,7 +106,7 @@ export const dialogRules = [
         lineHeight: '1.6',
         letterSpacing: '0.0125em'
       }
-    })
+    }
   ],
   [
     /^q-dialog__progress$/,

@@ -328,11 +328,12 @@ export const treeRules = [
         right: '0'
       }
     }
-  ][
-    (/^q-tree__node-header-content$/,
+  ],
+  [
+    /^q-tree__node-header-content$/,
     function* () {
       yield { color: '#000', transition: 'color 0.3s' }
-    })
+    }
   ],
   [
     /^q-tree__icon$/,

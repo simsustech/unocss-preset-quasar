@@ -22,11 +22,12 @@ export const fabRules = [
       width: 'var(--q-fab-mini-size)',
       height: 'var(--q-fab-mini-size)'
     })
-  ][
-    (/^q-fab--form-rounded$/,
+  ],
+  [
+    /^q-fab--form-rounded$/,
     function* () {
       yield { borderRadius: '28px' }
-    })
+    }
   ],
   [
     /^q-fab--form-square$/,

@@ -71,10 +71,11 @@ export const badgeRules = [
       'min-width': '8px',
       'min-height': '8px'
     })
-  ][
-    (/^q-badge--single-line$/,
+  ],
+  [
+    /^q-badge--single-line$/,
     function* () {
       yield { whiteSpace: 'nowrap' }
-    })
+    }
   ]
 ] as Rule[]

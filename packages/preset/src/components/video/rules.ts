@@ -13,8 +13,9 @@ export const videoRules = [
     () => ({
       // Ratio
     })
-  ][
-    (/^q-video--responsive$/,
+  ],
+  [
+    /^q-video--responsive$/,
     function* (_, { symbols }) {
       yield { height: '0' }
       yield {
@@ -35,6 +36,6 @@ export const videoRules = [
         top: '0',
         left: '0'
       }
-    })
+    }
   ]
 ] as Rule[]

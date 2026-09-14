@@ -21,8 +21,9 @@ export const tooltipRules = [
     () => ({
       // Dark mode
     })
-  ][
-    (/^q-tooltip--style$/,
+  ],
+  [
+    /^q-tooltip--style$/,
     function* () {
       yield {
         fontSize: '10px',
@@ -32,6 +33,6 @@ export const tooltipRules = [
         textTransform: 'none',
         fontWeight: 'normal'
       }
-    })
+    }
   ]
 ] as Rule[]

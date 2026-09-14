@@ -54,14 +54,15 @@ export const paginationRules = [
     () => ({
       // Range
     })
-  ][
-    (/^q-pagination__middle$/,
+  ],
+  [
+    /^q-pagination__middle$/,
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-btn`,
         marginTop: 'var(--q-pagination-gutter-child)',
         marginLeft: 'var(--q-pagination-gutter-child)'
       }
-    })
+    }
   ]
 ] as Rule[]

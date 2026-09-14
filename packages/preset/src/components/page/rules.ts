@@ -33,8 +33,9 @@ export const pageRules = [
     () => ({
       // Expand
     })
-  ][
-    (/^q-page-sticky--shrink$/,
+  ],
+  [
+    /^q-page-sticky--shrink$/,
     function* (_, { symbols }) {
       yield { pointerEvents: 'none' }
       yield {
@@ -42,6 +43,6 @@ export const pageRules = [
         display: 'inline-block',
         pointerEvents: 'auto'
       }
-    })
+    }
   ]
 ] as Rule[]

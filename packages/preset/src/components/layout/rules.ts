@@ -57,8 +57,9 @@ export const layoutRules = [
           '0 0 10px 2px rgba(0, 0, 0, 0.2), 0 0px 10px rgba(0, 0, 0, 0.24)'
       }
     }
-  ][
-    (/^q-layout-container$/,
+  ],
+  [
+    /^q-layout-container$/,
     function* (_, { symbols }) {
       yield {
         position: 'relative',
@@ -78,7 +79,7 @@ export const layoutRules = [
         minHeight: '0',
         maxHeight: '100%'
       }
-    })
+    }
   ],
   [
     /^q-layout__section--marginal$/,
