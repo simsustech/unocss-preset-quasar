@@ -20,8 +20,8 @@ function rule(
 
 export const helpersRules: ComponentRule[] = [
   // --- Border radius ---
-  rule(/^rounded-borders$/, () => ({ borderRadius: '4px' })),
-  rule(/^border-radius-inherit$/, () => ({ borderRadius: 'inherit' })),
+  rule(/^rounded-borders$/, () => ({ 'border-radius': '4px' })),
+  rule(/^border-radius-inherit$/, () => ({ 'border-radius': 'inherit' })),
 
   // --- Transitions ---
   rule(/^no-transition$/, () => ({ transition: 'none' })),
@@ -29,7 +29,7 @@ export const helpersRules: ComponentRule[] = [
 
   // --- Glossy effect ---
   rule(/^glossy$/, () => ({
-    backgroundImage:
+    'background-image':
       'linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12) 51%, rgba(0, 0, 0, 0.04)) !important'
   })),
 
@@ -48,26 +48,26 @@ export const helpersRules: ComponentRule[] = [
     position: 'fixed',
     inset: 0
   })),
-  rule(/^q-body--force-scrollbar-x$/, () => ({ overflowX: 'scroll' })),
-  rule(/^q-body--force-scrollbar-y$/, () => ({ overflowY: 'scroll' })),
+  rule(/^q-body--force-scrollbar-x$/, () => ({ 'overflow-x': 'scroll' })),
+  rule(/^q-body--force-scrollbar-y$/, () => ({ 'overflow-y': 'scroll' })),
 
   // --- Input spinner ---
   rule(/^q-no-input-spinner::-webkit-outer-spin-button$/, () => ({
     margin: 0,
-    WebkitAppearance: 'none'
+    '-webkit-appearance': 'none'
   })),
   rule(/^q-no-input-spinner::-webkit-inner-spin-button$/, () => ({
     margin: 0,
-    WebkitAppearance: 'none'
+    '-webkit-appearance': 'none'
   })),
   rule(/^q-no-input-spinner$/, () => ({
-    MozAppearance: 'textfield'
+    '-moz-appearance': 'textfield'
   })),
 
   // --- Link ---
   rule(/^q-link$/, () => ({
     outline: 0,
-    textDecoration: 'none'
+    'text-decoration': 'none'
   })),
   rule(/^q-link--focusable:focus-visible$/, () => ({
     outline: 'auto'

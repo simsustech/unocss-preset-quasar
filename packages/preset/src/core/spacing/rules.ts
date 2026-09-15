@@ -29,12 +29,12 @@ function rule(
 /** Side → CSS property mapping for padding and margin */
 const sides: Record<string, string> = {
   a: '', // all sides → just "padding" / "margin"
-  t: 'Top',
-  b: 'Bottom',
-  l: 'Left',
-  r: 'Right',
-  x: 'Inline', // logical
-  y: 'Block' // logical
+  t: '-top',
+  b: '-bottom',
+  l: '-left',
+  r: '-right',
+  x: '-inline', // logical
+  y: '-block' // logical
 }
 
 /** Build padding/margin rules for all sides × all sizes */
@@ -61,17 +61,17 @@ export const spacingRules: ComponentRule[] = [
   ...buildSpacingRules('margin'),
 
   // --- Auto margins ---
-  rule(/^q-ml-auto$/, () => ({ marginLeft: 'auto' })),
-  rule(/^q-mr-auto$/, () => ({ marginRight: 'auto' })),
-  rule(/^q-mt-auto$/, () => ({ marginTop: 'auto' })),
-  rule(/^q-mb-auto$/, () => ({ marginBottom: 'auto' })),
-  rule(/^q-mx-auto$/, () => ({ marginInline: 'auto' })),
-  rule(/^q-my-auto$/, () => ({ marginBlock: 'auto' })),
+  rule(/^q-ml-auto$/, () => ({ 'margin-left': 'auto' })),
+  rule(/^q-mr-auto$/, () => ({ 'margin-right': 'auto' })),
+  rule(/^q-mt-auto$/, () => ({ 'margin-top': 'auto' })),
+  rule(/^q-mb-auto$/, () => ({ 'margin-bottom': 'auto' })),
+  rule(/^q-mx-auto$/, () => ({ 'margin-inline': 'auto' })),
+  rule(/^q-my-auto$/, () => ({ 'margin-block': 'auto' })),
 
   // --- Fit / Full / Window ---
   rule(/^fit$/, () => ({ width: '100%', height: '100%' })),
-  rule(/^full-width$/, () => ({ width: '100%', marginInline: 0 })),
+  rule(/^full-width$/, () => ({ width: '100%', 'margin-inline': 0 })),
   rule(/^full-height$/, () => ({ height: '100%' })),
-  rule(/^window-width$/, () => ({ marginInline: 0, width: '100vw' })),
-  rule(/^window-height$/, () => ({ marginBlock: 0, height: '100vh' }))
+  rule(/^window-width$/, () => ({ 'margin-inline': 0, width: '100vw' })),
+  rule(/^window-height$/, () => ({ 'margin-block': 0, height: '100vh' }))
 ]

@@ -29,7 +29,7 @@ export const expansionItemRules = [
       }
       yield {
         [symbols.selector]: (sel) => `${sel} + .q-expansion-item__toggle-icon`,
-        marginTop: '-1em'
+        'margin-top': '-1em'
       }
     }
   ],
@@ -38,7 +38,7 @@ export const expansionItemRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel}.q-item__section--side`,
-        minWidth: '56px'
+        'min-width': '56px'
       }
     }
   ],
@@ -76,17 +76,17 @@ export const expansionItemRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel}.q-expansion-item--expanded + .q-expansion-item--popup.q-expansion-item--expanded`,
-        paddingTop: '0'
+        'padding-top': '0'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel}.q-expansion-item--collapsed:not(:first-child) > .q-expansion-item__container`,
-        borderTopWidth: '0'
+        'border-top-width': '0'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel}.q-expansion-item--expanded + .q-expansion-item--popup.q-expansion-item--collapsed > .q-expansion-item__container`,
-        borderTopWidth: '1px'
+        'border-top-width': '1px'
       }
     }
   ],
@@ -95,8 +95,8 @@ export const expansionItemRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-card`,
-        boxShadow: 'none',
-        borderRadius: '0'
+        'box-shadow': 'none',
+        'border-radius': '0'
       }
     }
   ],

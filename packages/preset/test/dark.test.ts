@@ -27,7 +27,7 @@ describe('darkRules', () => {
   it('q-dark sets background-color to --q-dark-surface', () => {
     const css = matchRule('q-dark')
     expect(css).toBeDefined()
-    expect(css!.backgroundColor).toBe('var(--q-dark-surface)')
+    expect(css!['background-color']).toBe('var(--q-dark-surface)')
   })
 
   it('returns undefined for unknown selectors', () => {

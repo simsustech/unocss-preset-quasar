@@ -262,7 +262,7 @@ export const sliderRules = [
       yield { width: '100%', padding: '12px 0' }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-slider__selection`,
-        willChange: 'width, left'
+        'will-change': 'width, left'
       }
     }
   ],
@@ -272,7 +272,7 @@ export const sliderRules = [
       yield { height: '100%', padding: '0 12px' }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-slider__selection`,
-        willChange: 'height, top'
+        'will-change': 'height, top'
       }
     }
   ],
@@ -283,8 +283,8 @@ export const sliderRules = [
         position: 'relative',
         width: '100%',
         height: '100%',
-        minHeight: '24px',
-        minWidth: '24px'
+        'min-height': '24px',
+        'min-width': '24px'
       }
     }
   ],
@@ -340,7 +340,7 @@ export const sliderRules = [
     /^q-slider__thumb$/,
     function* (_, { symbols }) {
       yield {
-        zIndex: '1',
+        'z-index': '1',
         outline: '0',
         color: 'var(--q-primary)',
         transition:
@@ -355,7 +355,7 @@ export const sliderRules = [
   [
     /^q-slider__thumb--h$/,
     function* () {
-      yield { top: '50%', willChange: 'left' }
+      yield { top: '50%', 'will-change': 'left' }
     }
   ],
   [
@@ -373,7 +373,7 @@ export const sliderRules = [
   [
     /^q-slider__thumb--v$/,
     function* () {
-      yield { left: '50% /* rtl:ignore */', willChange: 'top' }
+      yield { left: '50% /* rtl:ignore */', 'will-change': 'top' }
     }
   ],
   [
@@ -394,7 +394,7 @@ export const sliderRules = [
       yield {
         top: '0',
         left: '0',
-        strokeWidth: '3.5',
+        'stroke-width': '3.5',
         stroke: 'currentColor',
         transition: 'transform 0.28s'
       }
@@ -409,11 +409,11 @@ export const sliderRules = [
     /^q-slider__focus-ring$/,
     function* () {
       yield {
-        borderRadius: '50%',
+        'border-radius': '50%',
         opacity: '0',
         transition:
           'transform 266.67ms ease-out, opacity 266.67ms ease-out, background-color 266.67ms ease-out',
-        transitionDelay: '0.14s'
+        'transition-delay': '0.14s'
       }
     }
   ],
@@ -421,8 +421,8 @@ export const sliderRules = [
     /^q-slider__label$/,
     function* () {
       yield {
-        zIndex: '1',
-        whiteSpace: 'nowrap',
+        'z-index': '1',
+        'white-space': 'nowrap',
         position: 'absolute'
       }
     }
@@ -467,19 +467,19 @@ export const sliderRules = [
     /^q-slider__text-container$/,
     function* () {
       yield {
-        minHeight: '25px',
+        'min-height': '25px',
         padding: '2px 8px',
-        borderRadius: '4px',
+        'border-radius': '4px',
         background: 'currentColor',
         position: 'relative',
-        textAlign: 'center'
+        'text-align': 'center'
       }
     }
   ],
   [
     /^q-slider__text$/,
     function* () {
-      yield { color: '#fff', fontSize: '12px' }
+      yield { color: '#fff', 'font-size': '12px' }
     }
   ],
   [

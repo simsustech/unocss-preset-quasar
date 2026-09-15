@@ -34,7 +34,7 @@ describe('colorRules', () => {
   it('bg-primary sets background-color to --q-primary', () => {
     const css = matchRule('bg-primary')
     expect(css).toBeDefined()
-    expect(css!.backgroundColor).toBe('var(--q-primary)')
+    expect(css!['background-color']).toBe('var(--q-primary)')
   })
 
   it('text-secondary sets color to --q-secondary', () => {
@@ -52,7 +52,7 @@ describe('colorRules', () => {
   it('bg-surface sets background-color to --q-surface', () => {
     const css = matchRule('bg-surface')
     expect(css).toBeDefined()
-    expect(css!.backgroundColor).toBe('var(--q-surface)')
+    expect(css!['background-color']).toBe('var(--q-surface)')
   })
 
   it('text-on-primary sets color to --q-on-primary', () => {
@@ -64,7 +64,7 @@ describe('colorRules', () => {
   it('bg-error sets background-color to --q-error', () => {
     const css = matchRule('bg-error')
     expect(css).toBeDefined()
-    expect(css!.backgroundColor).toBe('var(--q-error)')
+    expect(css!['background-color']).toBe('var(--q-error)')
   })
 
   it('text-outline-variant sets color to --q-outline-variant', () => {

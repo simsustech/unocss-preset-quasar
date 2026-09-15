@@ -1,18 +1,42 @@
 import { describe, it, expect } from 'vitest'
 import { gridRules } from '../src/core/grid/rules.js'
 
-/** Helper: find a rule by its regex test and invoke the matcher */
+/** Helper: find a rule by its regex test and invoke the matcher (handles generators) */
 function matchRule(selector: string): Record<string, string> | undefined {
   for (const entry of gridRules) {
-    const regex = entry[0]
-    const matcher = entry[1]
+    const regex = entry[0] as RegExp
+    const matcher = entry[1] as any
     if (
-      regex instanceof RegExp &&
-      regex.test(selector) &&
-      typeof matcher === 'function'
-    ) {
-      return (matcher as () => Record<string, string>)()
+      !(regex instanceof RegExp) ||
+      !regex.test(selector) ||
+      typeof matcher !== 'function'
+    )
+      continue
+    const m = regex.exec(selector)
+    const out: Record<string, string> = {}
+    const symbols = {
+      selector: Symbol('selector'),
+      variants: Symbol('variants')
     }
+    let res: any
+    try {
+      res = matcher(m ?? [selector], { symbols })
+    } catch {
+      res = matcher()
+    }
+    if (res != null && typeof res[Symbol.iterator] === 'function') {
+      for (const chunk of res) {
+        if (chunk && typeof chunk === 'object') {
+          for (const [k, v] of Object.entries(chunk)) {
+            if (typeof k === 'string' && !(k in out)) out[k] = v as string
+          }
+        }
+        break // only base declarations; symbols.selector companions ship separately
+      }
+      return out
+    }
+    if (res && typeof res === 'object') return res as Record<string, string>
+    return undefined
   }
   return undefined
 }
@@ -47,25 +71,24 @@ describe('gridRules', () => {
     expect(css!.width).toBe('auto')
   })
 
-  it('col-6 has flex-basis 50% and max-width 50%', () => {
+  it('col-6 uses --q-col-span variable', () => {
     const css = matchRule('col-6')
     expect(css).toBeDefined()
-    expect(css!.flex).toBe('0 0 50%')
-    expect(css!.maxWidth).toBe('50%')
+    expect(css!['--q-col-span']).toBe('6')
+    expect(css!.flex).toContain('var(--q-col-span)')
+    expect(css!.maxWidth).toContain('var(--q-col-span)')
   })
 
-  it('col-1 has flex-basis 8.3333% and max-width 8.3333%', () => {
+  it('col-1 uses --q-col-span variable', () => {
     const css = matchRule('col-1')
     expect(css).toBeDefined()
-    expect(css!.flex).toBe('0 0 8.3333%')
-    expect(css!.maxWidth).toBe('8.3333%')
+    expect(css!['--q-col-span']).toBe('1')
   })
 
-  it('col-12 has flex-basis 100% and max-width 100%', () => {
+  it('col-12 uses --q-col-span variable', () => {
     const css = matchRule('col-12')
     expect(css).toBeDefined()
-    expect(css!.flex).toBe('0 0 100%')
-    expect(css!.maxWidth).toBe('100%')
+    expect(css!['--q-col-span']).toBe('12')
   })
 
   it('q-gutter-md uses --q-space-md custom property', () => {

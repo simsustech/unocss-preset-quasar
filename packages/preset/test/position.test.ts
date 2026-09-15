@@ -56,8 +56,8 @@ describe('positionRules', () => {
     expect(css).toBeDefined()
     expect(css!.position).toBe('fixed')
     expect(css!.inset).toBe(0)
-    expect(css!.zIndex).toBe(6000)
-    expect(css!.borderRadius).toBe(0)
+    expect(css!['z-index']).toBe(6000)
+    expect(css!['border-radius']).toBe(0)
   })
 
   it('relative-position sets position relative', () => {
@@ -69,26 +69,26 @@ describe('positionRules', () => {
   it('on-left uses margin-inline-end (logical)', () => {
     const css = matchRule('on-left')
     expect(css).toBeDefined()
-    expect(css!.marginInlineEnd).toBe('12px')
+    expect(css!['margin-inline-end']).toBe('12px')
   })
 
   it('on-right uses margin-inline-start (logical)', () => {
     const css = matchRule('on-right')
     expect(css).toBeDefined()
-    expect(css!.marginInlineStart).toBe('12px')
+    expect(css!['margin-inline-start']).toBe('12px')
   })
 
   it('vertical-middle sets vertical-align middle', () => {
     const css = matchRule('vertical-middle')
     expect(css).toBeDefined()
-    expect(css!.verticalAlign).toBe('middle')
+    expect(css!['vertical-align']).toBe('middle')
   })
 
   it('q-position-engine uses custom properties', () => {
     const css = matchRule('q-position-engine')
     expect(css).toBeDefined()
-    expect(css!.marginTop).toBe('var(--q-pe-top, 0px)')
-    expect(css!.willChange).toBe('auto')
+    expect(css!['margin-top']).toBe('var(--q-pe-top, 0px)')
+    expect(css!['will-change']).toBe('auto')
   })
 
   it('returns undefined for unknown selectors', () => {

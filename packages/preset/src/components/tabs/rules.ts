@@ -128,8 +128,8 @@ export const tabsRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel}.q-tabs__arrows--outside`,
-        paddingLeft: '0',
-        paddingRight: '0'
+        'padding-left': '0',
+        'padding-right': '0'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-tabs__arrow`,
@@ -137,7 +137,7 @@ export const tabsRules = [
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-tabs__content`,
-        borderRadius: 'inherit'
+        'border-radius': 'inherit'
       }
     }
   ],
@@ -147,8 +147,8 @@ export const tabsRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-tabs--scrollable.q-tabs--mobile-without-arrows.q-tabs__arrows--outside`,
-        paddingLeft: '0',
-        paddingRight: '0'
+        'padding-left': '0',
+        'padding-right': '0'
       }
       yield {
         [symbols.selector]: (sel) =>
@@ -158,7 +158,7 @@ export const tabsRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-tabs--scrollable.q-tabs--mobile-without-arrows .q-tabs__content`,
-        borderRadius: 'inherit'
+        'border-radius': 'inherit'
       }
     }
   ],
@@ -167,9 +167,9 @@ export const tabsRules = [
     function* () {
       yield {
         cursor: 'pointer',
-        fontSize: '32px',
-        minWidth: '36px',
-        textShadow: '0 0 3px #fff, 0 0 1px #fff, 0 0 1px #000',
+        'font-size': '32px',
+        'min-width': '36px',
+        'text-shadow': '0 0 3px #fff, 0 0 1px #fff, 0 0 1px #000',
         transition: 'opacity 0.3s'
       }
     }
@@ -185,7 +185,7 @@ export const tabsRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-tabs__content`,
-        overflowX: 'auto'
+        'overflow-x': 'auto'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-tabs__arrow`,

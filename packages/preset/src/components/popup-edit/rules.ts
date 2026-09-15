@@ -10,10 +10,10 @@ export const popupEditRules = [
   [
     /^q-popup-edit__buttons$/,
     function* (_, { symbols }) {
-      yield { marginTop: '8px' }
+      yield { 'margin-top': '8px' }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-btn + .q-btn`,
-        marginLeft: '8px'
+        'margin-left': '8px'
       }
     }
   ]

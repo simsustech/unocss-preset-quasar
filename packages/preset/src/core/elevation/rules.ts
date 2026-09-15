@@ -27,22 +27,22 @@ const elevationRules: ComponentRule[] = Array.from(
     const level = i + 1
     return [
       new RegExp(`^(?:q-)?elevation-${level}$`),
-      () => ({ boxShadow: `var(--q-elevation-level${level})` })
+      () => ({ 'box-shadow': `var(--q-elevation-level${level})` })
     ]
   }
 )
 
 export const elevationRuleList: ComponentRule[] = [
   // --- Shadow none ---
-  rule(/^shadow-none$/, () => ({ boxShadow: 'none' })),
-  rule(/^no-shadow$/, () => ({ boxShadow: 'none' })),
+  rule(/^shadow-none$/, () => ({ 'box-shadow': 'none' })),
+  rule(/^no-shadow$/, () => ({ 'box-shadow': 'none' })),
 
   // --- Elevation levels 1-5 (both .elevation-N and .q-elevation-N) ---
   ...elevationRules,
 
   // --- Z-index utilities ---
-  rule(/^z-marginals$/, () => ({ zIndex: 2000 })),
-  rule(/^z-notify$/, () => ({ zIndex: 9500 })),
-  rule(/^z-fullscreen$/, () => ({ zIndex: 6000 })),
-  rule(/^z-inherit$/, () => ({ zIndex: 'inherit' }))
+  rule(/^z-marginals$/, () => ({ 'z-index': 2000 })),
+  rule(/^z-notify$/, () => ({ 'z-index': 9500 })),
+  rule(/^z-fullscreen$/, () => ({ 'z-index': 6000 })),
+  rule(/^z-inherit$/, () => ({ 'z-index': 'inherit' }))
 ]

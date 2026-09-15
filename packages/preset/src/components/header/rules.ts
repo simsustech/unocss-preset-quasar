@@ -14,7 +14,7 @@ export const headerRules = [
   [
     /^q-header--bordered$/,
     () => ({
-      borderBottom: '1px solid var(--q-outline-variant)'
+      'border-bottom': '1px solid var(--q-outline-variant)'
     })
   ],
   [
@@ -47,7 +47,7 @@ export const headerRules = [
   [
     /^q-footer$/,
     function* () {
-      yield { zIndex: '2000' }
+      yield { 'z-index': '2000' }
     }
   ]
 ] as Rule[]

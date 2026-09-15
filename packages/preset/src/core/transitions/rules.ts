@@ -201,12 +201,12 @@ export const transitionsRules: ComponentRule[] = [
   // ============================================================
   rule(/^q-transition--rotate-enter-active$/, () => ({
     transition: `opacity var(--q-transition-duration), transform var(--q-transition-duration) var(--q-transition-easing)`,
-    transformStyle: 'preserve-3d'
+    'transform-style': 'preserve-3d'
   })),
   rule(/^q-transition--rotate-leave-active$/, () => ({
     position: 'absolute',
     transition: `opacity var(--q-transition-duration), transform var(--q-transition-duration) var(--q-transition-easing)`,
-    transformStyle: 'preserve-3d'
+    'transform-style': 'preserve-3d'
   })),
   rule(/^q-transition--rotate-enter-from$/, () => ({
     opacity: 0,
@@ -224,12 +224,12 @@ export const transitionsRules: ComponentRule[] = [
   // --- Flip Right ---
   rule(/^q-transition--flip-right-enter-active$/, () => ({
     transition: flipTransition,
-    backfaceVisibility: 'hidden'
+    'backface-visibility': 'hidden'
   })),
   rule(/^q-transition--flip-right-leave-active$/, () => ({
     position: 'absolute',
     transition: flipTransition,
-    backfaceVisibility: 'hidden'
+    'backface-visibility': 'hidden'
   })),
   rule(/^q-transition--flip-right-enter-from$/, () => ({
     transform: 'perspective(400px) rotate3d(0, 1, 0, -180deg)'
@@ -247,12 +247,12 @@ export const transitionsRules: ComponentRule[] = [
   // --- Flip Left ---
   rule(/^q-transition--flip-left-enter-active$/, () => ({
     transition: flipTransition,
-    backfaceVisibility: 'hidden'
+    'backface-visibility': 'hidden'
   })),
   rule(/^q-transition--flip-left-leave-active$/, () => ({
     position: 'absolute',
     transition: flipTransition,
-    backfaceVisibility: 'hidden'
+    'backface-visibility': 'hidden'
   })),
   rule(/^q-transition--flip-left-enter-from$/, () => ({
     transform: 'perspective(400px) rotate3d(0, 1, 0, 180deg)'
@@ -270,12 +270,12 @@ export const transitionsRules: ComponentRule[] = [
   // --- Flip Up ---
   rule(/^q-transition--flip-up-enter-active$/, () => ({
     transition: flipTransition,
-    backfaceVisibility: 'hidden'
+    'backface-visibility': 'hidden'
   })),
   rule(/^q-transition--flip-up-leave-active$/, () => ({
     position: 'absolute',
     transition: flipTransition,
-    backfaceVisibility: 'hidden'
+    'backface-visibility': 'hidden'
   })),
   rule(/^q-transition--flip-up-enter-from$/, () => ({
     transform: 'perspective(400px) rotate3d(1, 0, 0, -180deg)'
@@ -293,12 +293,12 @@ export const transitionsRules: ComponentRule[] = [
   // --- Flip Down ---
   rule(/^q-transition--flip-down-enter-active$/, () => ({
     transition: flipTransition,
-    backfaceVisibility: 'hidden'
+    'backface-visibility': 'hidden'
   })),
   rule(/^q-transition--flip-down-leave-active$/, () => ({
     position: 'absolute',
     transition: flipTransition,
-    backfaceVisibility: 'hidden'
+    'backface-visibility': 'hidden'
   })),
   rule(/^q-transition--flip-down-enter-from$/, () => ({
     transform: 'perspective(400px) rotate3d(1, 0, 0, 180deg)'

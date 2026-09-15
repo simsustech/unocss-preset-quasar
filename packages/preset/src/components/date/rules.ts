@@ -206,7 +206,7 @@ export const dateRules = [
       yield { outline: '0' }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-btn`,
-        fontWeight: 'normal'
+        'font-weight': 'normal'
       }
     }
   ],
@@ -236,7 +236,7 @@ export const dateRules = [
         [symbols.selector]: (sel) => `${sel}:focus-visible`,
         opacity: '1',
         outline: '2px solid currentColor',
-        outlineOffset: '2px'
+        'outline-offset': '2px'
       }
     }
   ],
@@ -250,9 +250,9 @@ export const dateRules = [
     /^q-date__header-subtitle$/,
     function* () {
       yield {
-        fontSize: '14px',
-        lineHeight: '1.75',
-        letterSpacing: '0.00938em'
+        'font-size': '14px',
+        'line-height': '1.75',
+        'letter-spacing': '0.00938em'
       }
     }
   ],
@@ -260,9 +260,9 @@ export const dateRules = [
     /^q-date__header-title-label$/,
     function* () {
       yield {
-        fontSize: '24px',
-        lineHeight: '1.2',
-        letterSpacing: '0.00735em'
+        'font-size': '24px',
+        'line-height': '1.2',
+        'letter-spacing': '0.00735em'
       }
     }
   ],
@@ -272,7 +272,7 @@ export const dateRules = [
       yield {
         height: '100%',
         width: '100%',
-        minHeight: '290px',
+        'min-height': '290px',
         padding: '16px'
       }
     }
@@ -284,14 +284,14 @@ export const dateRules = [
       yield {
         [symbols.selector]: (sel) => `${sel} > div:first-child`,
         width: '8%',
-        minWidth: '24px',
-        justifyContent: 'flex-end'
+        'min-width': '24px',
+        'justify-content': 'flex-end'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > div:last-child`,
         width: '8%',
-        minWidth: '24px',
-        justifyContent: 'flex-start'
+        'min-width': '24px',
+        'justify-content': 'flex-start'
       }
     }
   ],
@@ -302,7 +302,7 @@ export const dateRules = [
       yield {
         [symbols.selector]: (sel) => `${sel} > div`,
         opacity: '0.38',
-        fontSize: '12px'
+        'font-size': '12px'
       }
     }
   ],
@@ -321,7 +321,7 @@ export const dateRules = [
   [
     /^q-date__calendar-days-container$/,
     function* () {
-      yield { height: '75%', minHeight: '192px' }
+      yield { height: '75%', 'min-height': '192px' }
     }
   ],
   [
@@ -342,8 +342,8 @@ export const dateRules = [
         left: '50%',
         height: '5px',
         width: '8px',
-        borderRadius: '5px',
-        backgroundColor: 'var(--q-secondary)',
+        'border-radius': '5px',
+        'background-color': 'var(--q-secondary)',
         transform: 'translate3d(-50%, 0, 0)'
       }
     }
@@ -351,7 +351,7 @@ export const dateRules = [
   [
     /^q-date__today$/,
     function* () {
-      yield { boxShadow: '0 0 1px 0 currentColor' }
+      yield { 'box-shadow': '0 0 1px 0 currentColor' }
     }
   ],
   [
@@ -377,11 +377,11 @@ export const dateRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-date__header`,
-        pointerEvents: 'none'
+        'pointer-events': 'none'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-date__content`,
-        pointerEvents: 'none'
+        'pointer-events': 'none'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-date__navigation`,
@@ -392,7 +392,7 @@ export const dateRules = [
   [
     /^q-date--portrait$/,
     function* () {
-      yield { flexDirection: 'column' }
+      yield { 'flex-direction': 'column' }
     }
   ],
   [
@@ -404,12 +404,12 @@ export const dateRules = [
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-date__header`,
-        borderTopRightRadius: 'inherit',
+        'border-top-right-radius': 'inherit',
         height: '86px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-date__header-title`,
-        alignItems: 'center',
+        'align-items': 'center',
         height: '30px'
       }
     }
@@ -427,14 +427,14 @@ export const dateRules = [
     /^q-date--landscape$/,
     function* (_, { symbols }) {
       yield {
-        flexDirection: 'row',
-        alignItems: 'stretch',
-        minWidth: '420px'
+        'flex-direction': 'row',
+        'align-items': 'stretch',
+        'min-width': '420px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > div`,
         display: 'flex',
-        flexDirection: 'column'
+        'flex-direction': 'column'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-date__content`,
@@ -445,21 +445,21 @@ export const dateRules = [
   [
     /^q-date--landscape-standard$/,
     function* (_, { symbols }) {
-      yield { minWidth: '420px' }
+      yield { 'min-width': '420px' }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-date__header`,
-        borderBottomLeftRadius: 'inherit',
-        minWidth: '110px',
+        'border-bottom-left-radius': 'inherit',
+        'min-width': '110px',
         width: '110px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-date__header-title`,
-        flexDirection: 'column'
+        'flex-direction': 'column'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-date__header-today`,
-        marginTop: '12px',
-        marginLeft: '-8px'
+        'margin-top': '12px',
+        'margin-left': '-8px'
       }
     }
   ],
@@ -473,9 +473,9 @@ export const dateRules = [
     /^q-date--dark$/,
     function* () {
       yield {
-        boxShadow:
+        'box-shadow':
           '0 1px 5px rgba(255, 255, 255, 0.2), 0 2px 2px rgba(255, 255, 255, 0.14), 0 3px 1px -2px rgba(255, 255, 255, 0.12)',
-        borderColor: 'rgba(255, 255, 255, 0.28)'
+        'border-color': 'rgba(255, 255, 255, 0.28)'
       }
     }
   ]

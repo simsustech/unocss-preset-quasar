@@ -40,7 +40,7 @@ export const breadcrumbsRules = [
   [
     /^q-breadcrumbs__el-icon--with-label$/,
     function* () {
-      yield { marginRight: '8px' }
+      yield { 'margin-right': '8px' }
     }
   ]
 ] as Rule[]

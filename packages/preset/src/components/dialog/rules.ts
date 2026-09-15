@@ -101,17 +101,17 @@ export const dialogRules = [
     /^q-dialog__title$/,
     function* () {
       yield {
-        fontSize: '1.25rem',
-        fontWeight: '500',
-        lineHeight: '1.6',
-        letterSpacing: '0.0125em'
+        'font-size': '1.25rem',
+        'font-weight': '500',
+        'line-height': '1.6',
+        'letter-spacing': '0.0125em'
       }
     }
   ],
   [
     /^q-dialog__progress$/,
     function* () {
-      yield { fontSize: '4rem' }
+      yield { 'font-size': '4rem' }
     }
   ],
   [
@@ -119,7 +119,7 @@ export const dialogRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} > div`,
-        borderRadius: '0 !important'
+        'border-radius': '0 !important'
       }
     }
   ],
@@ -129,7 +129,7 @@ export const dialogRules = [
       yield { padding: '24px' }
       yield {
         [symbols.selector]: (sel) => `${sel} > div`,
-        maxHeight: 'calc(var(--q-dialog-viewport-height, 100dvh) - 48px)'
+        'max-height': 'calc(var(--q-dialog-viewport-height, 100dvh) - 48px)'
       }
     }
   ],
@@ -139,7 +139,7 @@ export const dialogRules = [
       yield {
         [symbols.selector]: (sel) => `${sel} > div`,
         width: '100% !important',
-        maxWidth: '100% !important'
+        'max-width': '100% !important'
       }
     }
   ],
@@ -149,7 +149,7 @@ export const dialogRules = [
       yield {
         [symbols.selector]: (sel) => `${sel} > div`,
         height: '100% !important',
-        maxHeight: '100% !important'
+        'max-height': '100% !important'
       }
     }
   ],
@@ -160,20 +160,20 @@ export const dialogRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-card__section + .q-card__section`,
-        paddingTop: '0'
+        'padding-top': '0'
       }
     }
   ],
   [
     /^q-dialog-plugin__form$/,
     function* () {
-      yield { maxHeight: '50vh' }
+      yield { 'max-height': '50vh' }
     }
   ],
   [
     /^q-dialog-plugin--progress$/,
     function* () {
-      yield { textAlign: 'center' }
+      yield { 'text-align': 'center' }
     }
   ]
 ] as Rule[]

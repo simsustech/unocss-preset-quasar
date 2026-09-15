@@ -34,8 +34,8 @@ describe('visibilityRules', () => {
   it('ellipsis sets text-overflow and overflow', () => {
     const css = matchRule('ellipsis')
     expect(css).toBeDefined()
-    expect(css!.textOverflow).toBe('ellipsis')
-    expect(css!.whiteSpace).toBe('nowrap')
+    expect(css!['text-overflow']).toBe('ellipsis')
+    expect(css!['white-space']).toBe('nowrap')
     expect(css!.overflow).toBe('hidden')
   })
 
@@ -49,7 +49,7 @@ describe('visibilityRules', () => {
   it('transparent sets background-color transparent', () => {
     const css = matchRule('transparent')
     expect(css).toBeDefined()
-    expect(css!.backgroundColor).toBe('transparent')
+    expect(css!['background-color']).toBe('transparent')
   })
 
   it('invisible sets visibility hidden', () => {
@@ -63,13 +63,13 @@ describe('visibilityRules', () => {
   it('z-top sets z-index 7000', () => {
     const css = matchRule('z-top')
     expect(css).toBeDefined()
-    expect(css!.zIndex).toBe(7000)
+    expect(css!['z-index']).toBe(7000)
   })
 
   it('z-max sets z-index 9998', () => {
     const css = matchRule('z-max')
     expect(css).toBeDefined()
-    expect(css!.zIndex).toBe(9998)
+    expect(css!['z-index']).toBe(9998)
   })
 
   it('q-focus-helper sets outline 0', () => {

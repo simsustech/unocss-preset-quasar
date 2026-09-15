@@ -15,7 +15,7 @@ function rule(
 }
 
 export const touchRules: ComponentRule[] = [
-  rule(/^q-touch$/, () => ({ userSelect: 'none' })),
-  rule(/^q-touch-x$/, () => ({ touchAction: 'pan-x' })),
-  rule(/^q-touch-y$/, () => ({ touchAction: 'pan-y' }))
+  rule(/^q-touch$/, () => ({ 'user-select': 'none' })),
+  rule(/^q-touch-x$/, () => ({ 'touch-action': 'pan-x' })),
+  rule(/^q-touch-y$/, () => ({ 'touch-action': 'pan-y' }))
 ]

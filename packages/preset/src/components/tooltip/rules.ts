@@ -26,12 +26,12 @@ export const tooltipRules = [
     /^q-tooltip--style$/,
     function* () {
       yield {
-        fontSize: '10px',
+        'font-size': '10px',
         color: '#fafafa',
         background: '#757575',
-        borderRadius: '4px',
-        textTransform: 'none',
-        fontWeight: 'normal'
+        'border-radius': '4px',
+        'text-transform': 'none',
+        'font-weight': 'normal'
       }
     }
   ]

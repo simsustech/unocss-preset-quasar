@@ -23,12 +23,12 @@ export const btnDropdownRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-btn-dropdown__arrow-container.q-btn--outline`,
-        borderLeft: '1px solid currentColor'
+        'border-left': '1px solid currentColor'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-btn-dropdown__arrow-container:not(.q-btn--outline)`,
-        borderLeft: '1px solid rgba(255, 255, 255, 0.3)'
+        'border-left': '1px solid rgba(255, 255, 255, 0.3)'
       }
     }
   ],
@@ -37,14 +37,14 @@ export const btnDropdownRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} * + .q-btn-dropdown__arrow`,
-        marginLeft: '8px'
+        'margin-left': '8px'
       }
     }
   ],
   [
     /^q-btn-dropdown--current$/,
     function* () {
-      yield { flexGrow: '1' }
+      yield { 'flex-grow': '1' }
     }
   ]
 ] as Rule[]

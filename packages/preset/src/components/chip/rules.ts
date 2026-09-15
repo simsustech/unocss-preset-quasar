@@ -101,21 +101,21 @@ export const chipRules = [
   [
     /^q-chip__icon--left$/,
     function* () {
-      yield { marginRight: '0.2em' }
+      yield { 'margin-right': '0.2em' }
     }
   ],
   [
     /^q-chip__icon--right$/,
     function* () {
-      yield { marginLeft: '0.2em' }
+      yield { 'margin-left': '0.2em' }
     }
   ],
   [
     /^q-chip__icon--remove$/,
     function* (_, { symbols }) {
       yield {
-        marginLeft: '0.1em',
-        marginRight: '-0.5em',
+        'margin-left': '0.1em',
+        'margin-right': '-0.5em',
         opacity: '0.6',
         outline: '0'
       }
@@ -134,7 +134,7 @@ export const chipRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel}:focus-visible`,
-        boxShadow:
+        'box-shadow':
           '0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12)'
       }
     }

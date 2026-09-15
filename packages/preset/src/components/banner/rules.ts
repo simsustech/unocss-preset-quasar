@@ -58,7 +58,7 @@ export const bannerRules = [
   [
     /^q-banner--top-padding$/,
     function* () {
-      yield { paddingTop: '14px' }
+      yield { 'padding-top': '14px' }
     }
   ]
 ] as Rule[]

@@ -80,7 +80,7 @@ function generateColorRules(tokens: readonly string[]): ComponentRule[] {
         color: `var(--q-${name})`
       })),
       rule(new RegExp(`^bg-${name}$`), () => ({
-        backgroundColor: `var(--q-${name})`
+        'background-color': `var(--q-${name})`
       }))
     )
   }

@@ -33,15 +33,15 @@ export const barRules = [
       yield {
         padding: '0 12px',
         height: '32px',
-        fontSize: '18px'
+        'font-size': '18px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > div`,
-        fontSize: '16px'
+        'font-size': '16px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-btn`,
-        fontSize: '11px'
+        'font-size': '11px'
       }
     }
   ]

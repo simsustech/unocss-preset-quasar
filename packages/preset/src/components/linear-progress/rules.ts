@@ -136,9 +136,9 @@ export const linearProgressRules = [
     /^q-linear-progress__stripe$/,
     function* () {
       yield {
-        backgroundImage:
+        'background-image':
           'linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0)) !important',
-        backgroundSize: '40px 40px !important'
+        'background-size': '40px 40px !important'
       }
     }
   ],

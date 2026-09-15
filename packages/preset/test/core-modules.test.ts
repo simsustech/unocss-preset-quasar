@@ -40,16 +40,16 @@ describe('orientationRules', () => {
 
 describe('touchRules', () => {
   it('q-touch disables user selection', () => {
-    expect(matchRule(touchRules, 'q-touch')!.userSelect).toBe('none')
+    expect(matchRule(touchRules, 'q-touch')!['user-select']).toBe('none')
   })
   it('q-touch-x sets pan-x', () => {
-    expect(matchRule(touchRules, 'q-touch-x')!.touchAction).toBe('pan-x')
+    expect(matchRule(touchRules, 'q-touch-x')!['touch-action']).toBe('pan-x')
   })
 })
 
 describe('mouseRules', () => {
   it('pointer-events-all enables all', () => {
-    expect(matchRule(mouseRules, 'pointer-events-all')!.pointerEvents).toBe(
+    expect(matchRule(mouseRules, 'pointer-events-all')!['pointer-events']).toBe(
       'all'
     )
   })
@@ -63,18 +63,22 @@ describe('mouseRules', () => {
 
 describe('typographyRules', () => {
   it('text-h1 sets 6rem size', () => {
-    expect(matchRule(typographyRules, 'text-h1')!.fontSize).toBe('6rem')
+    expect(matchRule(typographyRules, 'text-h1')!['font-size']).toBe('6rem')
   })
   it('text-center sets center alignment', () => {
-    expect(matchRule(typographyRules, 'text-center')!.textAlign).toBe('center')
-  })
-  it('text-uppercase sets uppercase transform', () => {
-    expect(matchRule(typographyRules, 'text-uppercase')!.textTransform).toBe(
-      'uppercase'
+    expect(matchRule(typographyRules, 'text-center')!['text-align']).toBe(
+      'center'
     )
   })
+  it('text-uppercase sets uppercase transform', () => {
+    expect(
+      matchRule(typographyRules, 'text-uppercase')!['text-transform']
+    ).toBe('uppercase')
+  })
   it('text-weight-bold sets 700', () => {
-    expect(matchRule(typographyRules, 'text-weight-bold')!.fontWeight).toBe(700)
+    expect(matchRule(typographyRules, 'text-weight-bold')!['font-weight']).toBe(
+      700
+    )
   })
 })
 
@@ -99,12 +103,14 @@ describe('transitionsRules', () => {
 
 describe('helpersRules', () => {
   it('rounded-borders sets 4px radius', () => {
-    expect(matchRule(helpersRules, 'rounded-borders')!.borderRadius).toBe('4px')
+    expect(matchRule(helpersRules, 'rounded-borders')!['border-radius']).toBe(
+      '4px'
+    )
   })
   it('no-transition disables transition', () => {
     expect(matchRule(helpersRules, 'no-transition')!.transition).toBe('none')
   })
   it('q-link removes underline', () => {
-    expect(matchRule(helpersRules, 'q-link')!.textDecoration).toBe('none')
+    expect(matchRule(helpersRules, 'q-link')!['text-decoration']).toBe('none')
   })
 })

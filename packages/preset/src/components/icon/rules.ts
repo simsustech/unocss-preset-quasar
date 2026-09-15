@@ -55,14 +55,14 @@ export const iconRules = [
     /^material-icons$/,
     function* () {
       yield {
-        userSelect: 'none',
-        WebkitUserSelect: 'none',
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
         cursor: 'inherit',
-        fontSize: 'inherit',
+        'font-size': 'inherit',
         display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        verticalAlign: 'middle'
+        'align-items': 'center',
+        'justify-content': 'center',
+        'vertical-align': 'middle'
       }
     }
   ],
@@ -70,14 +70,14 @@ export const iconRules = [
     /^material-icons-outlined$/,
     function* () {
       yield {
-        userSelect: 'none',
-        WebkitUserSelect: 'none',
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
         cursor: 'inherit',
-        fontSize: 'inherit',
+        'font-size': 'inherit',
         display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        verticalAlign: 'middle'
+        'align-items': 'center',
+        'justify-content': 'center',
+        'vertical-align': 'middle'
       }
     }
   ],
@@ -85,14 +85,14 @@ export const iconRules = [
     /^material-icons-round$/,
     function* () {
       yield {
-        userSelect: 'none',
-        WebkitUserSelect: 'none',
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
         cursor: 'inherit',
-        fontSize: 'inherit',
+        'font-size': 'inherit',
         display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        verticalAlign: 'middle'
+        'align-items': 'center',
+        'justify-content': 'center',
+        'vertical-align': 'middle'
       }
     }
   ],
@@ -100,14 +100,14 @@ export const iconRules = [
     /^material-icons-sharp$/,
     function* () {
       yield {
-        userSelect: 'none',
-        WebkitUserSelect: 'none',
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
         cursor: 'inherit',
-        fontSize: 'inherit',
+        'font-size': 'inherit',
         display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        verticalAlign: 'middle'
+        'align-items': 'center',
+        'justify-content': 'center',
+        'vertical-align': 'middle'
       }
     }
   ],
@@ -115,14 +115,14 @@ export const iconRules = [
     /^material-symbols-outlined$/,
     function* () {
       yield {
-        userSelect: 'none',
-        WebkitUserSelect: 'none',
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
         cursor: 'inherit',
-        fontSize: 'inherit',
+        'font-size': 'inherit',
         display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        verticalAlign: 'middle'
+        'align-items': 'center',
+        'justify-content': 'center',
+        'vertical-align': 'middle'
       }
     }
   ],
@@ -130,14 +130,14 @@ export const iconRules = [
     /^material-symbols-rounded$/,
     function* () {
       yield {
-        userSelect: 'none',
-        WebkitUserSelect: 'none',
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
         cursor: 'inherit',
-        fontSize: 'inherit',
+        'font-size': 'inherit',
         display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        verticalAlign: 'middle'
+        'align-items': 'center',
+        'justify-content': 'center',
+        'vertical-align': 'middle'
       }
     }
   ],
@@ -145,14 +145,14 @@ export const iconRules = [
     /^material-symbols-sharp$/,
     function* () {
       yield {
-        userSelect: 'none',
-        WebkitUserSelect: 'none',
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
         cursor: 'inherit',
-        fontSize: 'inherit',
+        'font-size': 'inherit',
         display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        verticalAlign: 'middle'
+        'align-items': 'center',
+        'justify-content': 'center',
+        'vertical-align': 'middle'
       }
     }
   ]

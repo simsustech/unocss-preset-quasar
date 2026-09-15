@@ -31,7 +31,7 @@ export const fileRules = [
   [
     /^q-file__dnd$/,
     function* () {
-      yield { outline: '1px dashed currentColor', outlineOffset: '-4px' }
+      yield { outline: '1px dashed currentColor', 'outline-offset': '-4px' }
     }
   ]
 ] as Rule[]

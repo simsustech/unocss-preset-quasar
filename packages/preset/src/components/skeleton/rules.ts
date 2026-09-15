@@ -138,7 +138,7 @@ export const skeletonRules = [
       yield {
         height: '48px',
         width: '48px',
-        borderRadius: '50%'
+        'border-radius': '50%'
       }
     }
   ],
@@ -148,7 +148,7 @@ export const skeletonRules = [
       yield {
         height: '48px',
         width: '48px',
-        borderRadius: '50%'
+        'border-radius': '50%'
       }
     }
   ],
@@ -170,7 +170,7 @@ export const skeletonRules = [
       yield {
         width: '90px',
         height: '28px',
-        borderRadius: '16px'
+        'border-radius': '16px'
       }
     }
   ],
@@ -186,7 +186,7 @@ export const skeletonRules = [
       yield {
         width: '40px',
         height: '40px',
-        borderRadius: '50%'
+        'border-radius': '50%'
       }
     }
   ],
@@ -196,7 +196,7 @@ export const skeletonRules = [
       yield {
         width: '40px',
         height: '40px',
-        borderRadius: '50%'
+        'border-radius': '50%'
       }
     }
   ],
@@ -206,7 +206,7 @@ export const skeletonRules = [
       yield {
         width: '56px',
         height: '40px',
-        borderRadius: '7px'
+        'border-radius': '7px'
       }
     }
   ],
@@ -270,7 +270,7 @@ export const skeletonRules = [
       yield {
         position: 'relative',
         overflow: 'hidden',
-        zIndex: '1'
+        'z-index': '1'
       }
     }
   ]

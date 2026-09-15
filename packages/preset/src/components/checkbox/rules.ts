@@ -150,7 +150,7 @@ export const checkboxRules = [
     function* () {
       yield {
         fill: 'currentColor',
-        transformOrigin: '50% 50%',
+        'transform-origin': '50% 50%',
         transform: 'rotate(-280deg) scale(0)'
       }
     }

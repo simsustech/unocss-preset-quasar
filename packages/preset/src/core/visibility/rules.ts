@@ -28,27 +28,27 @@ export const visibilityRules: ComponentRule[] = [
   rule(/^no-margin$/, () => ({ margin: 0 })),
   rule(/^no-padding$/, () => ({ padding: 0 })),
   rule(/^no-border$/, () => ({ border: 0 })),
-  rule(/^no-border-radius$/, () => ({ borderRadius: 0 })),
-  rule(/^no-box-shadow$/, () => ({ boxShadow: 'none' })),
+  rule(/^no-border-radius$/, () => ({ 'border-radius': 0 })),
+  rule(/^no-box-shadow$/, () => ({ 'box-shadow': 'none' })),
   rule(/^no-outline$/, () => ({ outline: 0 })),
 
   // --- Ellipsis ---
   rule(/^ellipsis$/, () => ({
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
+    'text-overflow': 'ellipsis',
+    'white-space': 'nowrap',
     overflow: 'hidden'
   })),
   rule(/^ellipsis-2-lines$/, () => ({
     overflow: 'hidden',
     display: '-webkit-box',
-    WebkitLineClamp: 2,
-    WebkitBoxOrient: 'vertical'
+    '-webkit-line-clamp': 2,
+    '-webkit-box-orient': 'vertical'
   })),
   rule(/^ellipsis-3-lines$/, () => ({
     overflow: 'hidden',
     display: '-webkit-box',
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: 'vertical'
+    '-webkit-line-clamp': 3,
+    '-webkit-box-orient': 'vertical'
   })),
 
   // --- Disabled ---
@@ -62,7 +62,7 @@ export const visibilityRules: ComponentRule[] = [
   rule(/^readonly$/, () => ({ cursor: 'default' })),
 
   // --- Transparent ---
-  rule(/^transparent$/, () => ({ backgroundColor: 'transparent' })),
+  rule(/^transparent$/, () => ({ 'background-color': 'transparent' })),
 
   // --- Invisible ---
   rule(/^invisible$/, () => ({
@@ -72,11 +72,11 @@ export const visibilityRules: ComponentRule[] = [
   })),
 
   // --- Overflow ---
-  rule(/^overflow-hidden-y$/, () => ({ overflowY: 'hidden' })),
+  rule(/^overflow-hidden-y$/, () => ({ 'overflow-y': 'hidden' })),
 
   // --- Z-index ---
-  rule(/^z-top$/, () => ({ zIndex: 7000 })),
-  rule(/^z-max$/, () => ({ zIndex: 9998 })),
+  rule(/^z-top$/, () => ({ 'z-index': 7000 })),
+  rule(/^z-max$/, () => ({ 'z-index': 9998 })),
 
   // --- Focusable helpers (outline reset) ---
   rule(/^q-focus-helper$/, () => ({ outline: 0 })),

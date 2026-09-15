@@ -100,7 +100,7 @@ export const tableRules = [
     () => ({
       position: 'fixed',
       inset: 0,
-      zIndex: 6000
+      'z-index': 6000
     })
   ],
   [
@@ -288,9 +288,9 @@ export const tableRules = [
     function* (_, { symbols }) {
       yield {
         color: '#000',
-        backgroundColor: '#fff',
-        borderRadius: '4px',
-        boxShadow:
+        'background-color': '#fff',
+        'border-radius': '4px',
+        'box-shadow':
           '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
       }
       yield {
@@ -311,16 +311,16 @@ export const tableRules = [
     /^q-table__title$/,
     function* () {
       yield {
-        fontSize: '20px',
-        letterSpacing: '0.005em',
-        fontWeight: '400'
+        'font-size': '20px',
+        'letter-spacing': '0.005em',
+        'font-weight': '400'
       }
     }
   ],
   [
     /^q-table__separator$/,
     function* () {
-      yield { minWidth: '8px !important' }
+      yield { 'min-width': '8px !important' }
     }
   ],
   [
@@ -342,37 +342,37 @@ export const tableRules = [
   [
     /^q-table__bottom-nodata-icon$/,
     function* () {
-      yield { fontSize: '200%', marginRight: '8px' }
+      yield { 'font-size': '200%', 'margin-right': '8px' }
     }
   ],
   [
     /^q-table__bottom-item$/,
     function* () {
-      yield { marginRight: '16px' }
+      yield { 'margin-right': '16px' }
     }
   ],
   [
     /^q-table__control$/,
     function* () {
-      yield { display: 'flex', alignItems: 'center' }
+      yield { display: 'flex', 'align-items': 'center' }
     }
   ],
   [
     /^q-table__sort-icon--left$/,
     function* () {
-      yield { marginLeft: '4px' }
+      yield { 'margin-left': '4px' }
     }
   ],
   [
     /^q-table__sort-icon--center$/,
     function* () {
-      yield { marginLeft: '4px' }
+      yield { 'margin-left': '4px' }
     }
   ],
   [
     /^q-table__sort-icon--right$/,
     function* () {
-      yield { marginRight: '4px' }
+      yield { 'margin-right': '4px' }
     }
   ],
   [
@@ -385,16 +385,16 @@ export const tableRules = [
     /^q-table__card--dark$/,
     function* () {
       yield {
-        boxShadow:
+        'box-shadow':
           '0 1px 5px rgba(255, 255, 255, 0.2), 0 2px 2px rgba(255, 255, 255, 0.14), 0 3px 1px -2px rgba(255, 255, 255, 0.12)',
-        borderColor: 'rgba(255, 255, 255, 0.28)'
+        'border-color': 'rgba(255, 255, 255, 0.28)'
       }
     }
   ],
   [
     /^q-table__grid-item-card$/,
     function* (_, { symbols }) {
-      yield { verticalAlign: 'top', padding: '12px' }
+      yield { 'vertical-align': 'top', padding: '12px' }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-separator`,
         margin: '12px 0'
@@ -406,7 +406,7 @@ export const tableRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} + .q-table__grid-item-row`,
-        marginTop: '8px'
+        'margin-top': '8px'
       }
     }
   ],
@@ -415,15 +415,15 @@ export const tableRules = [
     function* () {
       yield {
         opacity: '0.54',
-        fontWeight: '500',
-        fontSize: '12px'
+        'font-weight': '500',
+        'font-size': '12px'
       }
     }
   ],
   [
     /^q-table__grid-item-value$/,
     function* () {
-      yield { fontSize: '13px' }
+      yield { 'font-size': '13px' }
     }
   ],
   [

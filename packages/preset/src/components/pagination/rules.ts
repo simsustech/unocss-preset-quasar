@@ -60,8 +60,8 @@ export const paginationRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-btn`,
-        marginTop: 'var(--q-pagination-gutter-child)',
-        marginLeft: 'var(--q-pagination-gutter-child)'
+        'margin-top': 'var(--q-pagination-gutter-child)',
+        'margin-left': 'var(--q-pagination-gutter-child)'
       }
     }
   ]

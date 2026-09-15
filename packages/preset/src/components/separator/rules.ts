@@ -45,32 +45,32 @@ export const separatorRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-item__label--header`,
-        paddingTop: '8px'
+        'padding-top': '8px'
       }
     }
   ],
   [
     /^q-separator--horizontal-inset$/,
     function* () {
-      yield { marginLeft: '16px', marginRight: '16px' }
+      yield { 'margin-left': '16px', 'margin-right': '16px' }
     }
   ],
   [
     /^q-separator--horizontal-item-inset$/,
     function* () {
-      yield { marginLeft: '72px', marginRight: '0' }
+      yield { 'margin-left': '72px', 'margin-right': '0' }
     }
   ],
   [
     /^q-separator--horizontal-item-thumbnail-inset$/,
     function* () {
-      yield { marginLeft: '116px', marginRight: '0' }
+      yield { 'margin-left': '116px', 'margin-right': '0' }
     }
   ],
   [
     /^q-separator--vertical-inset$/,
     function* () {
-      yield { marginTop: '8px', marginBottom: '8px' }
+      yield { 'margin-top': '8px', 'margin-bottom': '8px' }
     }
   ]
 ] as Rule[]

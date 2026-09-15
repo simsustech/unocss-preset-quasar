@@ -43,7 +43,7 @@ export const carouselRules = [
     () => ({
       position: 'fixed',
       inset: 0,
-      zIndex: 6000
+      'z-index': 6000
     })
   ],
   [
@@ -116,14 +116,14 @@ export const carouselRules = [
   [
     /^q-carousel__arrow$/,
     function* (_, { symbols }) {
-      yield { pointerEvents: 'none' }
+      yield { 'pointer-events': 'none' }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-icon`,
-        fontSize: '28px'
+        'font-size': '28px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-btn`,
-        pointerEvents: 'all'
+        'pointer-events': 'all'
       }
     }
   ],
@@ -173,8 +173,8 @@ export const carouselRules = [
       yield {
         left: '16px',
         right: '16px',
-        overflowX: 'auto',
-        overflowY: 'hidden',
+        'overflow-x': 'auto',
+        'overflow-y': 'hidden',
         top: '16px'
       }
     }
@@ -185,8 +185,8 @@ export const carouselRules = [
       yield {
         left: '16px',
         right: '16px',
-        overflowX: 'auto',
-        overflowY: 'hidden',
+        'overflow-x': 'auto',
+        'overflow-y': 'hidden',
         bottom: '16px'
       }
     }
@@ -197,13 +197,13 @@ export const carouselRules = [
       yield {
         top: '16px',
         bottom: '16px',
-        overflowX: 'hidden',
-        overflowY: 'auto',
+        'overflow-x': 'hidden',
+        'overflow-y': 'auto',
         left: '16px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-carousel__navigation-inner`,
-        flexDirection: 'column'
+        'flex-direction': 'column'
       }
     }
   ],
@@ -213,13 +213,13 @@ export const carouselRules = [
       yield {
         top: '16px',
         bottom: '16px',
-        overflowX: 'hidden',
-        overflowY: 'auto',
+        'overflow-x': 'hidden',
+        'overflow-y': 'auto',
         right: '16px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-carousel__navigation-inner`,
-        flexDirection: 'column'
+        'flex-direction': 'column'
       }
     }
   ],
@@ -241,11 +241,11 @@ export const carouselRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel}.q-carousel--with-padding .q-carousel__slide`,
-        paddingTop: '60px'
+        'padding-top': '60px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
-        paddingTop: '60px'
+        'padding-top': '60px'
       }
     }
   ],
@@ -255,20 +255,20 @@ export const carouselRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel}.q-carousel--with-padding .q-carousel__slide`,
-        paddingTop: '60px'
+        'padding-top': '60px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
-        paddingTop: '60px'
+        'padding-top': '60px'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel}.q-carousel--with-padding .q-carousel__slide`,
-        paddingBottom: '60px'
+        'padding-bottom': '60px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
-        paddingBottom: '60px'
+        'padding-bottom': '60px'
       }
     }
   ],
@@ -278,11 +278,11 @@ export const carouselRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel}.q-carousel--with-padding .q-carousel__slide`,
-        paddingBottom: '60px'
+        'padding-bottom': '60px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
-        paddingBottom: '60px'
+        'padding-bottom': '60px'
       }
     }
   ],
@@ -292,11 +292,11 @@ export const carouselRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel}.q-carousel--with-padding .q-carousel__slide`,
-        paddingLeft: '60px'
+        'padding-left': '60px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
-        paddingLeft: '60px'
+        'padding-left': '60px'
       }
     }
   ],
@@ -306,20 +306,20 @@ export const carouselRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel}.q-carousel--with-padding .q-carousel__slide`,
-        paddingLeft: '60px'
+        'padding-left': '60px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
-        paddingLeft: '60px'
+        'padding-left': '60px'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel}.q-carousel--with-padding .q-carousel__slide`,
-        paddingRight: '60px'
+        'padding-right': '60px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
-        paddingRight: '60px'
+        'padding-right': '60px'
       }
     }
   ],
@@ -329,11 +329,11 @@ export const carouselRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel}.q-carousel--with-padding .q-carousel__slide`,
-        paddingRight: '60px'
+        'padding-right': '60px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
-        paddingRight: '60px'
+        'padding-right': '60px'
       }
     }
   ]

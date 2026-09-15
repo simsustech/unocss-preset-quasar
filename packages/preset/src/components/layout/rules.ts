@@ -68,7 +68,7 @@ export const layoutRules = [
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-layout`,
-        minHeight: '100%'
+        'min-height': '100%'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > div`,
@@ -76,15 +76,15 @@ export const layoutRules = [
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > div > div`,
-        minHeight: '0',
-        maxHeight: '100%'
+        'min-height': '0',
+        'max-height': '100%'
       }
     }
   ],
   [
     /^q-layout__section--marginal$/,
     function* () {
-      yield { backgroundColor: 'var(--q-primary)', color: '#fff' }
+      yield { 'background-color': 'var(--q-primary)', color: '#fff' }
     }
   ],
   [

@@ -6,8 +6,8 @@ export const infiniteScrollRules = [
     function* () {
       yield {
         height: '1px',
-        marginTop: '-1px',
-        pointerEvents: 'none'
+        'margin-top': '-1px',
+        'pointer-events': 'none'
       }
     }
   ],
@@ -16,15 +16,15 @@ export const infiniteScrollRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-infinite-scroll__sentinel`,
-        marginTop: '0',
-        marginBottom: '-1px'
+        'margin-top': '0',
+        'margin-bottom': '-1px'
       }
     }
   ],
   [
     /^q-infinite-scroll--no-anchoring$/,
     function* () {
-      yield { overflowAnchor: 'none' }
+      yield { 'overflow-anchor': 'none' }
     }
   ]
 ] as Rule[]

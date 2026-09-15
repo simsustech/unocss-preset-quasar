@@ -205,7 +205,7 @@ export const timeRules = [
         [symbols.selector]: (sel) => `${sel}:focus-visible`,
         opacity: '1',
         outline: '2px solid currentColor',
-        outlineOffset: '2px'
+        'outline-offset': '2px'
       }
     }
   ],
@@ -224,7 +224,7 @@ export const timeRules = [
   [
     /^q-time__container-child$/,
     function* () {
-      yield { borderRadius: '50%', background: 'rgba(0, 0, 0, 0.12)' }
+      yield { 'border-radius': '50%', background: 'rgba(0, 0, 0, 0.12)' }
     }
   ],
   [
@@ -240,8 +240,8 @@ export const timeRules = [
         height: '6px',
         width: '6px',
         margin: 'auto',
-        borderRadius: '50%',
-        minHeight: '0',
+        'border-radius': '50%',
+        'min-height': '0',
         background: 'currentColor'
       }
     }
@@ -251,15 +251,15 @@ export const timeRules = [
     function* () {
       yield {
         position: 'absolute',
-        minHeight: '32px',
+        'min-height': '32px',
         width: '32px',
         height: '32px',
-        fontSize: '12px',
-        lineHeight: '32px',
+        'font-size': '12px',
+        'line-height': '32px',
         margin: '0',
         padding: '0',
         transform: 'translate(-50%, -50%) /* rtl:ignore */',
-        borderRadius: '50%'
+        'border-radius': '50%'
       }
     }
   ],
@@ -272,7 +272,7 @@ export const timeRules = [
   [
     /^q-time__clock-position--active$/,
     function* () {
-      yield { backgroundColor: 'var(--q-primary)', color: '#fff' }
+      yield { 'background-color': 'var(--q-primary)', color: '#fff' }
     }
   ],
   [
@@ -423,7 +423,7 @@ export const timeRules = [
     /^q-time__now-button$/,
     function* () {
       yield {
-        backgroundColor: 'var(--q-primary)',
+        'background-color': 'var(--q-primary)',
         color: '#fff',
         top: '12px',
         right: '12px'
@@ -433,15 +433,15 @@ export const timeRules = [
   [
     /^q-time--portrait$/,
     function* (_, { symbols }) {
-      yield { display: 'inline-flex', flexDirection: 'column' }
+      yield { display: 'inline-flex', 'flex-direction': 'column' }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-time__header`,
-        borderTopRightRadius: 'inherit',
-        minHeight: '86px'
+        'border-top-right-radius': 'inherit',
+        'min-height': '86px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-time__header-ampm`,
-        marginLeft: '12px'
+        'margin-left': '12px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel}.q-time--bordered .q-time__content`,
@@ -454,23 +454,23 @@ export const timeRules = [
     function* (_, { symbols }) {
       yield {
         display: 'inline-flex',
-        alignItems: 'stretch',
-        minWidth: '420px'
+        'align-items': 'stretch',
+        'min-width': '420px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > div`,
         display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center'
+        'flex-direction': 'column',
+        'justify-content': 'center'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-time__header`,
-        borderBottomLeftRadius: 'inherit',
-        minWidth: '156px'
+        'border-bottom-left-radius': 'inherit',
+        'min-width': '156px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-time__header-ampm`,
-        marginTop: '12px'
+        'margin-top': '12px'
       }
     }
   ]

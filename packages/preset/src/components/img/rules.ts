@@ -67,7 +67,7 @@ export const imgRules = [
   [
     /^q-img__container$/,
     function* () {
-      yield { borderRadius: 'inherit', fontSize: '0' }
+      yield { 'border-radius': 'inherit', 'font-size': '0' }
     }
   ],
   [

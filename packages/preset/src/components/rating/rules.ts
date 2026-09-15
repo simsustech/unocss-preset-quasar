@@ -53,7 +53,7 @@ export const ratingRules = [
       yield { height: '1em', outline: '0' }
       yield {
         [symbols.selector]: (sel) => `${sel} + .q-rating__icon-container`,
-        marginLeft: '2px'
+        'margin-left': '2px'
       }
     }
   ],

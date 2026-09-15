@@ -94,11 +94,11 @@ export const selectRules = [
     function* (_, { symbols }) {
       yield {
         width: '90vw !important',
-        maxWidth: '90vw !important',
-        maxHeight: 'calc(100vh - 70px) !important',
+        'max-width': '90vw !important',
+        'max-height': 'calc(100vh - 70px) !important',
         background: '#fff',
         display: 'flex',
-        flexDirection: 'column'
+        'flex-direction': 'column'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > .scroll`,
@@ -113,12 +113,12 @@ export const selectRules = [
       yield {
         color: 'var(--q-primary)',
         background: 'transparent',
-        alignSelf: 'stretch',
+        'align-self': 'stretch',
         border: '0',
         padding: '0 4px',
-        fontSize: '14px',
-        fontWeight: '500',
-        textDecoration: 'none',
+        'font-size': '14px',
+        'font-weight': '500',
+        'text-decoration': 'none',
         cursor: 'pointer'
       }
     }

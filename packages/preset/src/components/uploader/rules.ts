@@ -159,7 +159,7 @@ export const uploaderRules = [
         width: '100%',
         height: '100%',
         cursor: 'pointer !important',
-        zIndex: '1'
+        'z-index': '1'
       }
       yield {
         [symbols.selector]: (sel) => `${sel}::file-selector-button`,
@@ -170,16 +170,16 @@ export const uploaderRules = [
   [
     /^q-uploader__spinner$/,
     function* () {
-      yield { fontSize: '24px', marginRight: '4px' }
+      yield { 'font-size': '24px', 'margin-right': '4px' }
     }
   ],
   [
     /^q-uploader__overlay$/,
     function* () {
       yield {
-        fontSize: '36px',
+        'font-size': '36px',
         color: '#000',
-        backgroundColor: 'rgba(255, 255, 255, 0.6)'
+        'background-color': 'rgba(255, 255, 255, 0.6)'
       }
     }
   ],
@@ -189,38 +189,38 @@ export const uploaderRules = [
       yield {
         position: 'relative',
         padding: '4px 8px',
-        borderTopLeftRadius: 'inherit',
-        borderTopRightRadius: 'inherit'
+        'border-top-left-radius': 'inherit',
+        'border-top-right-radius': 'inherit'
       }
     }
   ],
   [
     /^q-uploader__file-header-content$/,
     function* () {
-      yield { paddingRight: '8px' }
+      yield { 'padding-right': '8px' }
     }
   ],
   [
     /^q-uploader__file-status$/,
     function* () {
-      yield { fontSize: '24px', marginRight: '4px' }
+      yield { 'font-size': '24px', 'margin-right': '4px' }
     }
   ],
   [
     /^q-uploader__title$/,
     function* () {
       yield {
-        fontSize: '14px',
-        fontWeight: 'bold',
-        lineHeight: '1.285714',
-        wordBreak: 'break-word'
+        'font-size': '14px',
+        'font-weight': 'bold',
+        'line-height': '1.285714',
+        'word-break': 'break-word'
       }
     }
   ],
   [
     /^q-uploader__subtitle$/,
     function* () {
-      yield { fontSize: '12px', lineHeight: '1.5' }
+      yield { 'font-size': '12px', 'line-height': '1.5' }
     }
   ],
   [
@@ -228,11 +228,11 @@ export const uploaderRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-uploader__header`,
-        pointerEvents: 'none'
+        'pointer-events': 'none'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-uploader__list`,
-        pointerEvents: 'none'
+        'pointer-events': 'none'
       }
     }
   ]

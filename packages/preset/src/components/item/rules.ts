@@ -154,7 +154,7 @@ export const itemRules = [
   [
     /^q-item__section--nowrap$/,
     function* () {
-      yield { whiteSpace: 'nowrap' }
+      yield { 'white-space': 'nowrap' }
     }
   ],
   [

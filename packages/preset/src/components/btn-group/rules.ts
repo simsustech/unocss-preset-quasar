@@ -78,7 +78,7 @@ export const btnGroupRules = [
   [
     /^q-btn-group--push$/,
     function* (_, { symbols }) {
-      yield { borderRadius: '7px' }
+      yield { 'border-radius': '7px' }
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-btn--push.q-btn--actionable`,
         transform: 'none'
@@ -92,45 +92,45 @@ export const btnGroupRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel} > .q-btn--push.q-btn--actionable:active .q-btn__content`,
-        marginTop: '2px',
-        marginBottom: '-2px'
+        'margin-top': '2px',
+        'margin-bottom': '-2px'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} > .q-btn--push.q-btn--actionable.q-btn--active .q-btn__content`,
-        marginTop: '2px',
-        marginBottom: '-2px'
+        'margin-top': '2px',
+        'margin-bottom': '-2px'
       }
     }
   ],
   [
     /^q-btn-group--rounded$/,
     function* () {
-      yield { borderRadius: '28px' }
+      yield { 'border-radius': '28px' }
     }
   ],
   [
     /^q-btn-group--square$/,
     function* () {
-      yield { borderRadius: '0' }
+      yield { 'border-radius': '0' }
     }
   ],
   [
     /^q-btn-group--flat$/,
     function* () {
-      yield { boxShadow: 'none' }
+      yield { 'box-shadow': 'none' }
     }
   ],
   [
     /^q-btn-group--unelevated$/,
     function* () {
-      yield { boxShadow: 'none' }
+      yield { 'box-shadow': 'none' }
     }
   ],
   [
     /^q-btn-group--stretch$/,
     function* () {
-      yield { alignSelf: 'stretch', borderRadius: '0' }
+      yield { 'align-self': 'stretch', 'border-radius': '0' }
     }
   ],
   [
@@ -138,7 +138,7 @@ export const btnGroupRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-btn-item`,
-        backgroundImage:
+        'background-image':
           'linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12) 51%, rgba(0, 0, 0, 0.04)) !important'
       }
     }
@@ -153,16 +153,16 @@ export const btnGroupRules = [
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-btn-item`,
         width: 'auto',
-        minWidth: '0',
-        maxWidth: '100%',
+        'min-width': '0',
+        'max-width': '100%',
         flex: '10000 1 0%'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} > .q-btn-group > .q-btn-item:not(.q-btn-dropdown__arrow-container)`,
         width: 'auto',
-        minWidth: '0',
-        maxWidth: '100%',
+        'min-width': '0',
+        'max-width': '100%',
         flex: '10000 1 0%'
       }
     }

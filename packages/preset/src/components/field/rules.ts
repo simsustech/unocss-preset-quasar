@@ -358,34 +358,34 @@ export const fieldRules = [
       yield {
         height: '56px',
         color: 'rgba(0, 0, 0, 0.54)',
-        fontSize: '24px'
+        'font-size': '24px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > * + *`,
-        marginLeft: '2px'
+        'margin-left': '2px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-avatar`,
-        fontSize: '32px'
+        'font-size': '32px'
       }
     }
   ],
   [
     /^q-field__before$/,
     function* () {
-      yield { paddingRight: '12px' }
+      yield { 'padding-right': '12px' }
     }
   ],
   [
     /^q-field__prepend$/,
     function* () {
-      yield { paddingRight: '12px' }
+      yield { 'padding-right': '12px' }
     }
   ],
   [
     /^q-field__after$/,
     function* (_, { symbols }) {
-      yield { paddingLeft: '12px' }
+      yield { 'padding-left': '12px' }
       yield {
         [symbols.selector]: (sel) => `${sel}:empty`,
         display: 'none'
@@ -395,43 +395,43 @@ export const fieldRules = [
   [
     /^q-field__append$/,
     function* (_, { symbols }) {
-      yield { paddingLeft: '12px' }
+      yield { 'padding-left': '12px' }
       yield {
         [symbols.selector]: (sel) => `${sel}:empty`,
         display: 'none'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} + .q-field__append`,
-        paddingLeft: '2px'
+        'padding-left': '2px'
       }
     }
   ],
   [
     /^q-field__inner$/,
     function* () {
-      yield { textAlign: 'left' }
+      yield { 'text-align': 'left' }
     }
   ],
   [
     /^q-field__messages$/,
     function* (_, { symbols }) {
-      yield { lineHeight: '1' }
+      yield { 'line-height': '1' }
       yield {
         [symbols.selector]: (sel) => `${sel} > div`,
-        wordBreak: 'break-word',
-        wordWrap: 'break-word',
-        overflowWrap: 'break-word'
+        'word-break': 'break-word',
+        'word-wrap': 'break-word',
+        'overflow-wrap': 'break-word'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > div + div`,
-        marginTop: '4px'
+        'margin-top': '4px'
       }
     }
   ],
   [
     /^q-field__counter$/,
     function* () {
-      yield { paddingLeft: '8px', lineHeight: '1' }
+      yield { 'padding-left': '8px', 'line-height': '1' }
     }
   ],
   [
@@ -447,7 +447,7 @@ export const fieldRules = [
         top: '8px',
         opacity: '0',
         overflow: 'hidden',
-        whiteSpace: 'pre-wrap',
+        'white-space': 'pre-wrap',
         transition: 'opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
       }
       yield {
@@ -465,20 +465,20 @@ export const fieldRules = [
     /^q-field__prefix$/,
     function* () {
       yield {
-        fontWeight: '400',
-        lineHeight: '28px',
-        letterSpacing: '0.00937em',
-        textDecoration: 'inherit',
-        textTransform: 'inherit',
+        'font-weight': '400',
+        'line-height': '28px',
+        'letter-spacing': '0.00937em',
+        'text-decoration': 'inherit',
+        'text-transform': 'inherit',
         border: 'none',
-        borderRadius: '0',
+        'border-radius': '0',
         background: 'none',
         color: 'rgba(0, 0, 0, 0.87)',
         outline: '0',
         padding: '6px 0',
         transition: 'opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1)',
-        whiteSpace: 'nowrap',
-        paddingRight: '4px'
+        'white-space': 'nowrap',
+        'padding-right': '4px'
       }
     }
   ],
@@ -486,20 +486,20 @@ export const fieldRules = [
     /^q-field__suffix$/,
     function* () {
       yield {
-        fontWeight: '400',
-        lineHeight: '28px',
-        letterSpacing: '0.00937em',
-        textDecoration: 'inherit',
-        textTransform: 'inherit',
+        'font-weight': '400',
+        'line-height': '28px',
+        'letter-spacing': '0.00937em',
+        'text-decoration': 'inherit',
+        'text-transform': 'inherit',
         border: 'none',
-        borderRadius: '0',
+        'border-radius': '0',
         background: 'none',
         color: 'rgba(0, 0, 0, 0.87)',
         outline: '0',
         padding: '6px 0',
         transition: 'opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1)',
-        whiteSpace: 'nowrap',
-        paddingLeft: '4px'
+        'white-space': 'nowrap',
+        'padding-left': '4px'
       }
     }
   ],
@@ -507,32 +507,32 @@ export const fieldRules = [
     /^q-field__input$/,
     function* (_, { symbols }) {
       yield {
-        fontWeight: '400',
-        lineHeight: '24px',
-        letterSpacing: '0.00937em',
-        textDecoration: 'inherit',
-        textTransform: 'inherit',
+        'font-weight': '400',
+        'line-height': '24px',
+        'letter-spacing': '0.00937em',
+        'text-decoration': 'inherit',
+        'text-transform': 'inherit',
         border: 'none',
-        borderRadius: '0',
+        'border-radius': '0',
         background: 'none',
         color: 'rgba(0, 0, 0, 0.87)',
         outline: '0 !important',
         padding: '0',
         width: '100%',
-        minWidth: '0',
-        userSelect: 'auto',
-        WebkitUserSelect: 'auto',
+        'min-width': '0',
+        'user-select': 'auto',
+        '-webkit-user-select': 'auto',
         height: '0',
-        minHeight: '24px'
+        'min-height': '24px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel}:autofill`,
-        animationName: 'q-autofill',
-        animationFillMode: 'both'
+        'animation-name': 'q-autofill',
+        'animation-fill-mode': 'both'
       }
       yield {
         [symbols.selector]: (sel) => `${sel}:invalid`,
-        boxShadow: 'none'
+        'box-shadow': 'none'
       }
     }
   ],

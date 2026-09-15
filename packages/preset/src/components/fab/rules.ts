@@ -26,13 +26,13 @@ export const fabRules = [
   [
     /^q-fab--form-rounded$/,
     function* () {
-      yield { borderRadius: '28px' }
+      yield { 'border-radius': '28px' }
     }
   ],
   [
     /^q-fab--form-square$/,
     function* () {
-      yield { borderRadius: '4px' }
+      yield { 'border-radius': '4px' }
     }
   ],
   [
@@ -68,7 +68,7 @@ export const fabRules = [
   [
     /^q-fab__label--external-hidden$/,
     function* () {
-      yield { opacity: '0', pointerEvents: 'none' }
+      yield { opacity: '0', 'pointer-events': 'none' }
     }
   ],
   [
@@ -118,54 +118,54 @@ export const fabRules = [
         padding: '0',
         transition:
           'font-size 0.12s cubic-bezier(0.65, 0.815, 0.735, 0.395), max-height 0.12s cubic-bezier(0.65, 0.815, 0.735, 0.395), opacity 0.07s cubic-bezier(0.65, 0.815, 0.735, 0.395)',
-        maxHeight: '30px'
+        'max-height': '30px'
       }
     }
   ],
   [
     /^q-fab__label--internal-hidden$/,
     function* () {
-      yield { fontSize: '0', opacity: '0' }
+      yield { 'font-size': '0', opacity: '0' }
     }
   ],
   [
     /^q-fab__label--internal-top$/,
     function* (_, { symbols }) {
-      yield { paddingBottom: '0.12em' }
+      yield { 'padding-bottom': '0.12em' }
       yield {
         [symbols.selector]: (sel) => `${sel}.q-fab__label--internal-hidden`,
-        maxHeight: '0'
+        'max-height': '0'
       }
     }
   ],
   [
     /^q-fab__label--internal-bottom$/,
     function* (_, { symbols }) {
-      yield { paddingTop: '0.12em' }
+      yield { 'padding-top': '0.12em' }
       yield {
         [symbols.selector]: (sel) => `${sel}.q-fab__label--internal-hidden`,
-        maxHeight: '0'
+        'max-height': '0'
       }
     }
   ],
   [
     /^q-fab__label--internal-left$/,
     function* () {
-      yield { paddingLeft: '0.285em', paddingRight: '0.571em' }
+      yield { 'padding-left': '0.285em', 'padding-right': '0.571em' }
     }
   ],
   [
     /^q-fab__label--internal-right$/,
     function* () {
-      yield { paddingRight: '0.285em', paddingLeft: '0.571em' }
+      yield { 'padding-right': '0.285em', 'padding-left': '0.571em' }
     }
   ],
   [
     /^q-fab__icon-holder$/,
     function* () {
       yield {
-        minWidth: '24px',
-        minHeight: '24px',
+        'min-width': '24px',
+        'min-height': '24px',
         position: 'relative'
       }
     }
@@ -190,10 +190,10 @@ export const fabRules = [
     function* (_, { symbols }) {
       yield {
         position: 'absolute',
-        pointerEvents: 'none',
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'center',
+        'pointer-events': 'none',
+        'align-items': 'center',
+        'justify-content': 'center',
+        'align-self': 'center',
         padding: '3px'
       }
       yield {
@@ -214,8 +214,8 @@ export const fabRules = [
       yield {
         height: '56px',
         left: '100% /* rtl:ignore */',
-        marginLeft: '9px /* rtl:ignore */',
-        flexDirection: 'row /* rtl:row-reverse */'
+        'margin-left': '9px /* rtl:ignore */',
+        'flex-direction': 'row /* rtl:row-reverse */'
       }
     }
   ],
@@ -225,8 +225,8 @@ export const fabRules = [
       yield {
         height: '56px',
         right: '100% /* rtl:ignore */',
-        marginRight: '9px /* rtl:ignore */',
-        flexDirection: 'row-reverse /* rtl:row */'
+        'margin-right': '9px /* rtl:ignore */',
+        'flex-direction': 'row-reverse /* rtl:row */'
       }
     }
   ],
@@ -236,10 +236,10 @@ export const fabRules = [
       yield {
         width: '56px',
         bottom: '100%',
-        marginBottom: '9px',
-        flexDirection: 'column-reverse',
+        'margin-bottom': '9px',
+        'flex-direction': 'column-reverse',
         left: '50%',
-        marginLeft: '-28px'
+        'margin-left': '-28px'
       }
     }
   ],
@@ -249,22 +249,22 @@ export const fabRules = [
       yield {
         width: '56px',
         top: '100%',
-        marginTop: '9px',
-        flexDirection: 'column',
+        'margin-top': '9px',
+        'flex-direction': 'column',
         left: '50%',
-        marginLeft: '-28px'
+        'margin-left': '-28px'
       }
     }
   ],
   [
     /^q-fab__actions--opened$/,
     function* (_, { symbols }) {
-      yield { pointerEvents: 'all' }
+      yield { 'pointer-events': 'all' }
       yield {
         [symbols.selector]: (sel) => `${sel} > *`,
         filter: 'opacity(1)',
         transform: 'scale(1)',
-        transitionDelay: 'calc(var(--q-fab-stagger) * (sibling-index() - 1))'
+        'transition-delay': 'calc(var(--q-fab-stagger) * (sibling-index() - 1))'
       }
     }
   ],
@@ -273,7 +273,7 @@ export const fabRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} > *`,
-        transitionDelay:
+        'transition-delay':
           'calc(var(--q-fab-stagger) * (sibling-count() - sibling-index()))'
       }
     }
@@ -283,12 +283,12 @@ export const fabRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-fab__actions--up`,
-        alignItems: 'flex-start',
+        'align-items': 'flex-start',
         left: '28px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-fab__actions--down`,
-        alignItems: 'flex-start',
+        'align-items': 'flex-start',
         left: '28px'
       }
     }
@@ -298,13 +298,13 @@ export const fabRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-fab__actions--up`,
-        alignItems: 'flex-end',
+        'align-items': 'flex-end',
         left: 'auto',
         right: '0'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-fab__actions--down`,
-        alignItems: 'flex-end',
+        'align-items': 'flex-end',
         left: 'auto',
         right: '0'
       }

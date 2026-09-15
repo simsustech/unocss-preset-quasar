@@ -14,7 +14,7 @@ export const footerRules = [
   [
     /^q-footer--bordered$/,
     () => ({
-      borderTop: '1px solid var(--q-outline-variant)'
+      'border-top': '1px solid var(--q-outline-variant)'
     })
   ],
   [

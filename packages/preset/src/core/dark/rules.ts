@@ -25,6 +25,6 @@ export const darkRules: ComponentRule[] = [
   // q-dark: force dark colors on an element
   rule(/^q-dark$/, () => ({
     color: 'var(--q-dark-on-surface)',
-    backgroundColor: 'var(--q-dark-surface)'
+    'background-color': 'var(--q-dark-surface)'
   }))
 ]

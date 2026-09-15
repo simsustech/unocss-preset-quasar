@@ -37,11 +37,11 @@ export const pageRules = [
   [
     /^q-page-sticky--shrink$/,
     function* (_, { symbols }) {
-      yield { pointerEvents: 'none' }
+      yield { 'pointer-events': 'none' }
       yield {
         [symbols.selector]: (sel) => `${sel} > div`,
         display: 'inline-block',
-        pointerEvents: 'auto'
+        'pointer-events': 'auto'
       }
     }
   ]

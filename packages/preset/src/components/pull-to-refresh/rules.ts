@@ -10,7 +10,7 @@ export const pullToRefreshRules = [
   [
     /^q-pull-to-refresh__sentinel$/,
     function* () {
-      yield { position: 'absolute', pointerEvents: 'none' }
+      yield { position: 'absolute', 'pointer-events': 'none' }
     }
   ],
   [
@@ -46,7 +46,7 @@ export const pullToRefreshRules = [
   [
     /^q-pull-to-refresh--left$/,
     function* (_, { symbols }) {
-      yield { minWidth: 'fit-content' }
+      yield { 'min-width': 'fit-content' }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-pull-to-refresh__sentinel`,
         top: '0',
@@ -62,7 +62,7 @@ export const pullToRefreshRules = [
   [
     /^q-pull-to-refresh--right$/,
     function* (_, { symbols }) {
-      yield { minWidth: 'fit-content' }
+      yield { 'min-width': 'fit-content' }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-pull-to-refresh__sentinel`,
         top: '0',
@@ -79,12 +79,12 @@ export const pullToRefreshRules = [
     /^q-pull-to-refresh__puller$/,
     function* () {
       yield {
-        borderRadius: '50%',
+        'border-radius': '50%',
         width: '40px',
         height: '40px',
         color: 'var(--q-primary)',
         background: '#fff',
-        boxShadow: '0 0 4px 0 rgba(0, 0, 0, 0.3)'
+        'box-shadow': '0 0 4px 0 rgba(0, 0, 0, 0.3)'
       }
     }
   ],

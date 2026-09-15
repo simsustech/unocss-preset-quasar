@@ -64,26 +64,29 @@ export const cardRules = [
       'flex-direction': 'column'
     })
   ],
-  [/^q-card__actions--align-start$/, () => ({ justifyContent: 'flex-start' })],
-  [/^q-card__actions--align-center$/, () => ({ justifyContent: 'center' })],
-  [/^q-card__actions--align-end$/, () => ({ justifyContent: 'flex-end' })],
+  [
+    /^q-card__actions--align-start$/,
+    () => ({ 'justify-content': 'flex-start' })
+  ],
+  [/^q-card__actions--align-center$/, () => ({ 'justify-content': 'center' })],
+  [/^q-card__actions--align-end$/, () => ({ 'justify-content': 'flex-end' })],
   [
     /^q-card__actions--align-between$/,
-    () => ({ justifyContent: 'space-between' })
+    () => ({ 'justify-content': 'space-between' })
   ],
   [
     /^q-card__actions--align-around$/,
-    () => ({ justifyContent: 'space-around' })
+    () => ({ 'justify-content': 'space-around' })
   ],
   [
     /^q-card__actions--align-evenly$/,
-    () => ({ justifyContent: 'space-evenly' })
+    () => ({ 'justify-content': 'space-evenly' })
   ],
-  [/^q-card__actions--items-start$/, () => ({ alignItems: 'flex-start' })],
-  [/^q-card__actions--items-center$/, () => ({ alignItems: 'center' })],
-  [/^q-card__actions--items-end$/, () => ({ alignItems: 'flex-end' })],
-  [/^q-card__actions--items-stretch$/, () => ({ alignItems: 'stretch' })],
-  [/^q-card__actions--items-baseline$/, () => ({ alignItems: 'baseline' })],
+  [/^q-card__actions--items-start$/, () => ({ 'align-items': 'flex-start' })],
+  [/^q-card__actions--items-center$/, () => ({ 'align-items': 'center' })],
+  [/^q-card__actions--items-end$/, () => ({ 'align-items': 'flex-end' })],
+  [/^q-card__actions--items-stretch$/, () => ({ 'align-items': 'stretch' })],
+  [/^q-card__actions--items-baseline$/, () => ({ 'align-items': 'baseline' })],
   [
     /^q-card--bordered$/,
     function* () {
@@ -101,47 +104,47 @@ export const cardRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} > div:not(.q--avoid-card-border)`,
-        borderTopLeftRadius: '0',
-        borderBottomLeftRadius: '0',
-        borderTopRightRadius: '0',
-        borderBottomRightRadius: '0'
+        'border-top-left-radius': '0',
+        'border-bottom-left-radius': '0',
+        'border-top-right-radius': '0',
+        'border-bottom-right-radius': '0'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > img:not(.q--avoid-card-border)`,
-        borderTopLeftRadius: '0',
-        borderBottomLeftRadius: '0',
-        borderTopRightRadius: '0',
-        borderBottomRightRadius: '0'
+        'border-top-left-radius': '0',
+        'border-bottom-left-radius': '0',
+        'border-top-right-radius': '0',
+        'border-bottom-right-radius': '0'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} > div:nth-child(1 of :not(.q--avoid-card-border))`,
-        borderTopLeftRadius: 'inherit',
-        borderBottomLeftRadius: 'inherit'
+        'border-top-left-radius': 'inherit',
+        'border-bottom-left-radius': 'inherit'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} > img:nth-child(1 of :not(.q--avoid-card-border))`,
-        borderTopLeftRadius: 'inherit',
-        borderBottomLeftRadius: 'inherit'
+        'border-top-left-radius': 'inherit',
+        'border-bottom-left-radius': 'inherit'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} > div:nth-last-child(1 of :not(.q--avoid-card-border))`,
-        borderTopRightRadius: 'inherit',
-        borderBottomRightRadius: 'inherit'
+        'border-top-right-radius': 'inherit',
+        'border-bottom-right-radius': 'inherit'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} > img:nth-last-child(1 of :not(.q--avoid-card-border))`,
-        borderTopRightRadius: 'inherit',
-        borderBottomRightRadius: 'inherit'
+        'border-top-right-radius': 'inherit',
+        'border-bottom-right-radius': 'inherit'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > div:not(.q--avoid-card-border)`,
-        borderTop: '0',
-        borderBottom: '0',
-        boxShadow: 'none'
+        'border-top': '0',
+        'border-bottom': '0',
+        'box-shadow': 'none'
       }
     }
   ],
@@ -150,15 +153,15 @@ export const cardRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-btn-item + .q-btn-item`,
-        marginLeft: '8px'
+        'margin-left': '8px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-btn-group + .q-btn-item`,
-        marginLeft: '8px'
+        'margin-left': '8px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-btn-item + .q-btn-group`,
-        marginLeft: '8px'
+        'margin-left': '8px'
       }
     }
   ],
@@ -167,23 +170,23 @@ export const cardRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-btn-item.q-btn--round`,
-        alignSelf: 'center'
+        'align-self': 'center'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-btn-item + .q-btn-item`,
-        marginTop: '4px'
+        'margin-top': '4px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-btn-group + .q-btn-item`,
-        marginTop: '4px'
+        'margin-top': '4px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-btn-item + .q-btn-group`,
-        marginTop: '4px'
+        'margin-top': '4px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-btn-group > .q-btn-item`,
-        flexGrow: '1'
+        'flex-grow': '1'
       }
     }
   ]

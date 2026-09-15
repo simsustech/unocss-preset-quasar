@@ -38,6 +38,9 @@ export function createTokenPreflight(params: {
       }
       // 4. Dark overrides: ONLY color tokens (shape/typography/etc are same in dark)
       parts.push(renderColorDarkBlock('body.body--dark', params.colors.dark))
+      // 4a. Dark overrides for the Quasar brand aliases (--q-dark-page etc.
+      // would otherwise keep resolving to the light palette in dark mode)
+      parts.push(renderQuasarDarkBlock('body.body--dark', params.colors))
       // 4b. Dark tokens on :root (for .q-dark utility to reference)
       parts.push(
         renderColorBlock(':root', params.colors.dark, undefined, '-dark')
@@ -97,6 +100,26 @@ function renderColorDarkBlock(
   for (const [key, value] of Object.entries(colors)) {
     lines.push(`  --q-${kebab(key)}: ${value};`)
   }
+  return `${selector} {\n${lines.join('\n')}\n}`
+}
+
+/**
+ * Quasar brand aliases remapped to the dark palette. Mirrors the `quasar`
+ * block of generateColorTokens (primary/secondary/accent/dark-page/dark)
+ * so --q-dark-page etc. resolve dark under body.body--dark. The harmonized
+ * status colors (positive/negative/info/warning) are identical in both
+ * schemes, like quasar.css constants, so they are left untouched.
+ */
+function renderQuasarDarkBlock(selector: string, colors: ColorBlock): string {
+  const dark = asRecord(colors.dark)
+  // NOTE: --q-primary/--q-secondary are already swapped by renderColorDarkBlock
+  // above (identical values); only aliases with no Material-key equivalent go here.
+  const pairs: Array<[string, string]> = [
+    ['--q-accent', dark['tertiary']],
+    ['--q-dark-page', dark['background']],
+    ['--q-dark', dark['surface']]
+  ]
+  const lines = pairs.map(([prop, value]) => `  ${prop}: ${value};`)
   return `${selector} {\n${lines.join('\n')}\n}`
 }
 

@@ -7,15 +7,15 @@ export const circularProgressRules = [
       yield {
         display: 'inline-block',
         position: 'relative',
-        verticalAlign: 'middle',
+        'vertical-align': 'middle',
         width: '1em',
         height: '1em',
-        lineHeight: '1',
-        contentVisibility: 'auto'
+        'line-height': '1',
+        'content-visibility': 'auto'
       }
       yield {
         [symbols.selector]: (sel) => `${sel}.q-focusable`,
-        borderRadius: '50%'
+        'border-radius': '50%'
       }
     }
   ],
@@ -28,7 +28,7 @@ export const circularProgressRules = [
   [
     /^q-circular-progress__text$/,
     function* () {
-      yield { fontSize: '0.25em' }
+      yield { 'font-size': '0.25em' }
     }
   ],
   [
@@ -36,10 +36,10 @@ export const circularProgressRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-circular-progress__circle`,
-        strokeDasharray: '1 400',
-        strokeDashoffset: '0',
-        transformBox: 'fill-box',
-        transformOrigin: 'center',
+        'stroke-dasharray': '1 400',
+        'stroke-dashoffset': '0',
+        'transform-box': 'fill-box',
+        'transform-origin': 'center',
         animation:
           'q-spin 2s linear infinite, q-circular-progress-circle 1.5s ease-in-out infinite /* rtl:ignore */'
       }

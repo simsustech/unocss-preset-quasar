@@ -120,21 +120,21 @@ export const editorRules = [
   [
     /^q-editor--disabled$/,
     function* () {
-      yield { borderStyle: 'dashed' }
+      yield { 'border-style': 'dashed' }
     }
   ],
   [
     /^q-editor__toolbars-container$/,
     function* (_, { symbols }) {
       yield {
-        borderTopLeftRadius: 'inherit',
-        borderTopRightRadius: 'inherit',
-        maxWidth: '100%'
+        'border-top-left-radius': 'inherit',
+        'border-top-right-radius': 'inherit',
+        'max-width': '100%'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > div:first-child`,
-        borderTopLeftRadius: 'inherit',
-        borderTopRightRadius: 'inherit'
+        'border-top-left-radius': 'inherit',
+        'border-top-right-radius': 'inherit'
       }
     }
   ],
@@ -143,10 +143,10 @@ export const editorRules = [
     function* () {
       yield {
         color: 'inherit',
-        textDecoration: 'none',
-        textTransform: 'none',
+        'text-decoration': 'none',
+        'text-transform': 'none',
         border: 'none',
-        borderRadius: '0',
+        'border-radius': '0',
         background: 'none',
         outline: '0'
       }
@@ -168,8 +168,8 @@ export const editorRules = [
       yield {
         [symbols.selector]: (sel) => `${sel} .q-editor__toolbar-group`,
         display: 'flex',
-        alignItems: 'center',
-        flexWrap: 'nowrap'
+        'align-items': 'center',
+        'flex-wrap': 'nowrap'
       }
     }
   ]

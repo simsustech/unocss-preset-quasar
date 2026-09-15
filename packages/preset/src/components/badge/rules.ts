@@ -75,7 +75,7 @@ export const badgeRules = [
   [
     /^q-badge--single-line$/,
     function* () {
-      yield { whiteSpace: 'nowrap' }
+      yield { 'white-space': 'nowrap' }
     }
   ]
 ] as Rule[]

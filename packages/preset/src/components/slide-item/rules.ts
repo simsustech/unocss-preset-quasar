@@ -12,18 +12,18 @@ export const slideItemRules = [
     function* (_, { symbols }) {
       yield {
         visibility: 'hidden',
-        fontSize: '14px',
+        'font-size': '14px',
         color: '#fff',
         background: '#4caf50',
         padding: '8px 16px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-icon`,
-        fontSize: '1.714em'
+        'font-size': '1.714em'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > div`,
-        transformOrigin: 'left center'
+        'transform-origin': 'left center'
       }
     }
   ],
@@ -32,18 +32,18 @@ export const slideItemRules = [
     function* (_, { symbols }) {
       yield {
         visibility: 'hidden',
-        fontSize: '14px',
+        'font-size': '14px',
         color: '#fff',
         background: '#ff9800',
         padding: '8px 16px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-icon`,
-        fontSize: '1.714em'
+        'font-size': '1.714em'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > div`,
-        transformOrigin: 'right center'
+        'transform-origin': 'right center'
       }
     }
   ],
@@ -52,18 +52,18 @@ export const slideItemRules = [
     function* (_, { symbols }) {
       yield {
         visibility: 'hidden',
-        fontSize: '14px',
+        'font-size': '14px',
         color: '#fff',
         background: '#2196f3',
         padding: '16px 8px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-icon`,
-        fontSize: '1.714em'
+        'font-size': '1.714em'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > div`,
-        transformOrigin: 'top center'
+        'transform-origin': 'top center'
       }
     }
   ],
@@ -72,18 +72,18 @@ export const slideItemRules = [
     function* (_, { symbols }) {
       yield {
         visibility: 'hidden',
-        fontSize: '14px',
+        'font-size': '14px',
         color: '#fff',
         background: '#9c27b0',
         padding: '16px 8px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-icon`,
-        fontSize: '1.714em'
+        'font-size': '1.714em'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} > div`,
-        transformOrigin: 'bottom center'
+        'transform-origin': 'bottom center'
       }
     }
   ],
@@ -93,8 +93,8 @@ export const slideItemRules = [
       yield {
         background: 'inherit',
         transition: 'transform 0.2s ease-in',
-        userSelect: 'none',
-        WebkitUserSelect: 'none',
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
         cursor: 'pointer'
       }
     }

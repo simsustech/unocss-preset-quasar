@@ -54,7 +54,7 @@ export const drawerRules = [
   [
     /^q-drawer--on-top$/,
     function* () {
-      yield { zIndex: '3000' }
+      yield { 'z-index': '3000' }
     }
   ],
   [
@@ -68,20 +68,20 @@ export const drawerRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel}:not(.q-drawer--mini-animate) .q-drawer--mini .q-item`,
-        textAlign: 'center',
-        justifyContent: 'center',
-        paddingLeft: '0',
-        paddingRight: '0',
-        minWidth: '0'
+        'text-align': 'center',
+        'justify-content': 'center',
+        'padding-left': '0',
+        'padding-right': '0',
+        'min-width': '0'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel}:not(.q-drawer--mini-animate) .q-drawer--mini .q-item__section`,
-        textAlign: 'center',
-        justifyContent: 'center',
-        paddingLeft: '0',
-        paddingRight: '0',
-        minWidth: '0'
+        'text-align': 'center',
+        'justify-content': 'center',
+        'padding-left': '0',
+        'padding-right': '0',
+        'min-width': '0'
       }
       yield {
         [symbols.selector]: (sel) =>
@@ -118,8 +118,8 @@ export const drawerRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-drawer__content`,
-        overflowX: 'hidden !important',
-        whiteSpace: 'nowrap'
+        'overflow-x': 'hidden !important',
+        'white-space': 'nowrap'
       }
     }
   ],
@@ -148,18 +148,18 @@ export const drawerRules = [
   [
     /^q-drawer__backdrop$/,
     function* () {
-      yield { zIndex: '2999 !important', willChange: 'background-color' }
+      yield { 'z-index': '2999 !important', 'will-change': 'background-color' }
     }
   ],
   [
     /^q-drawer__opener$/,
     function* () {
       yield {
-        zIndex: '2001',
+        'z-index': '2001',
         height: '100%',
         width: '15px',
-        userSelect: 'none',
-        WebkitUserSelect: 'none'
+        'user-select': 'none',
+        '-webkit-user-select': 'none'
       }
     }
   ]

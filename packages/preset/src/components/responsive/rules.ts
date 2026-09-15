@@ -19,22 +19,22 @@ export const responsiveRules = [
     function* () {
       yield {
         width: 'inherit',
-        maxWidth: 'inherit',
+        'max-width': 'inherit',
         height: 'inherit',
-        maxHeight: 'inherit'
+        'max-height': 'inherit'
       }
     }
   ],
   [
     /^q-responsive__content$/,
     function* (_, { symbols }) {
-      yield { borderRadius: 'inherit' }
+      yield { 'border-radius': 'inherit' }
       yield {
         [symbols.selector]: (sel) => `${sel} > *`,
         width: '100% !important',
         height: '100% !important',
-        maxHeight: '100% !important',
-        maxWidth: '100% !important'
+        'max-height': '100% !important',
+        'max-width': '100% !important'
       }
     }
   ]

@@ -4,7 +4,10 @@ export const innerLoadingRules = [
   [
     /^q-inner-loading$/,
     function* () {
-      yield { background: 'rgba(255, 255, 255, 0.6)', borderRadius: 'inherit' }
+      yield {
+        background: 'rgba(255, 255, 255, 0.6)',
+        'border-radius': 'inherit'
+      }
     }
   ],
   [
@@ -16,7 +19,7 @@ export const innerLoadingRules = [
   [
     /^q-inner-loading__label$/,
     function* () {
-      yield { marginTop: '8px' }
+      yield { 'margin-top': '8px' }
     }
   ]
 ] as Rule[]

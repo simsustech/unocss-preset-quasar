@@ -188,7 +188,7 @@ export const btnRules = [
   [
     /^q-btn--rectangle$/,
     function* () {
-      yield { borderRadius: '3px' }
+      yield { 'border-radius': '3px' }
     }
   ],
   [
@@ -196,12 +196,12 @@ export const btnRules = [
     function* (_, { symbols }) {
       yield {
         padding: '16px',
-        minHeight: '56px',
-        minWidth: '56px'
+        'min-height': '56px',
+        'min-width': '56px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-icon`,
-        fontSize: '24px'
+        'font-size': '24px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-icon`,
@@ -214,26 +214,26 @@ export const btnRules = [
     function* (_, { symbols }) {
       yield {
         padding: '8px',
-        minHeight: '40px',
-        minWidth: '40px'
+        'min-height': '40px',
+        'min-width': '40px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-icon`,
-        fontSize: '24px'
+        'font-size': '24px'
       }
     }
   ],
   [
     /^q-btn__content--hidden$/,
     function* () {
-      yield { opacity: '0', pointerEvents: 'none' }
+      yield { opacity: '0', 'pointer-events': 'none' }
     }
   ],
   [
     /^q-btn__progress-indicator$/,
     function* () {
       yield {
-        zIndex: '-1',
+        'z-index': '-1',
         transform: 'translateX(-100%)',
         background: 'rgba(255, 255, 255, 0.25)'
       }

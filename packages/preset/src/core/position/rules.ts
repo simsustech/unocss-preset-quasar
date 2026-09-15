@@ -118,28 +118,28 @@ export const positionRules: ComponentRule[] = [
   rule(/^fullscreen$/, () => ({
     position: 'fixed',
     inset: 0,
-    borderRadius: 0,
-    maxWidth: '100vw',
-    maxHeight: '100vh',
-    zIndex: 6000
+    'border-radius': 0,
+    'max-width': '100vw',
+    'max-height': '100vh',
+    'z-index': 6000
   })),
 
   // --- Relative ---
   rule(/^relative-position$/, () => ({ position: 'relative' })),
 
   // --- Vertical alignment ---
-  rule(/^vertical-top$/, () => ({ verticalAlign: 'top' })),
-  rule(/^vertical-middle$/, () => ({ verticalAlign: 'middle' })),
-  rule(/^vertical-bottom$/, () => ({ verticalAlign: 'bottom' })),
+  rule(/^vertical-top$/, () => ({ 'vertical-align': 'top' })),
+  rule(/^vertical-middle$/, () => ({ 'vertical-align': 'middle' })),
+  rule(/^vertical-bottom$/, () => ({ 'vertical-align': 'bottom' })),
 
   // --- On-left / On-right (logical properties for RTL) ---
-  rule(/^on-left$/, () => ({ marginInlineEnd: '12px' })),
-  rule(/^on-right$/, () => ({ marginInlineStart: '12px' })),
+  rule(/^on-left$/, () => ({ 'margin-inline-end': '12px' })),
+  rule(/^on-right$/, () => ({ 'margin-inline-start': '12px' })),
 
   // --- QPositionEngine (positioning engine for popups) ---
   rule(/^q-position-engine$/, () => ({
-    marginTop: 'var(--q-pe-top, 0px)',
-    marginLeft: 'var(--q-pe-left, 0px)',
-    willChange: 'auto'
+    'margin-top': 'var(--q-pe-top, 0px)',
+    'margin-left': 'var(--q-pe-left, 0px)',
+    'will-change': 'auto'
   }))
 ]

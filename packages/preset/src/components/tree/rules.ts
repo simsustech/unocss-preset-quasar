@@ -338,20 +338,20 @@ export const treeRules = [
   [
     /^q-tree__icon$/,
     function* () {
-      yield { fontSize: '21px' }
+      yield { 'font-size': '21px' }
     }
   ],
   [
     /^q-tree__img$/,
     function* () {
-      yield { height: '42px', borderRadius: '2px' }
+      yield { height: '42px', 'border-radius': '2px' }
     }
   ],
   [
     /^q-tree__avatar$/,
     function* () {
       yield {
-        borderRadius: '50%',
+        'border-radius': '50%',
         width: '28px',
         height: '28px'
       }
@@ -360,7 +360,7 @@ export const treeRules = [
   [
     /^q-tree__spinner$/,
     function* () {
-      yield { fontSize: '16px', marginRight: '4px' }
+      yield { 'font-size': '16px', 'margin-right': '4px' }
     }
   ],
   [
@@ -372,13 +372,13 @@ export const treeRules = [
   [
     /^q-tree__tickbox$/,
     function* () {
-      yield { marginRight: '4px' }
+      yield { 'margin-right': '4px' }
     }
   ],
   [
     /^q-tree__vnode$/,
     function* () {
-      yield { paddingBottom: '3px' }
+      yield { 'padding-bottom': '3px' }
     }
   ],
   [

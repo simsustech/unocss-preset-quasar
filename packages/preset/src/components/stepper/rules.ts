@@ -276,9 +276,9 @@ export const stepperRules = [
     /^q-stepper__title$/,
     function* () {
       yield {
-        fontSize: '14px',
-        lineHeight: '1.285714',
-        letterSpacing: '0.1px'
+        'font-size': '14px',
+        'line-height': '1.285714',
+        'letter-spacing': '0.1px'
       }
     }
   ],
@@ -287,9 +287,9 @@ export const stepperRules = [
     function* () {
       yield {
         padding: '8px 24px',
-        fontSize: '14px',
+        'font-size': '14px',
         color: '#9e9e9e',
-        flexDirection: 'row'
+        'flex-direction': 'row'
       }
     }
   ],
@@ -297,8 +297,8 @@ export const stepperRules = [
     /^q-stepper__tab--navigation$/,
     function* () {
       yield {
-        userSelect: 'none',
-        WebkitUserSelect: 'none',
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
         cursor: 'pointer'
       }
     }
@@ -309,11 +309,11 @@ export const stepperRules = [
       yield { color: 'var(--q-primary)' }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-stepper__dot`,
-        textShadow: '0 0 0 currentColor'
+        'text-shadow': '0 0 0 currentColor'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-stepper__label`,
-        textShadow: '0 0 0 currentColor'
+        'text-shadow': '0 0 0 currentColor'
       }
     }
   ],
@@ -323,11 +323,11 @@ export const stepperRules = [
       yield { color: 'var(--q-primary)' }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-stepper__dot`,
-        textShadow: '0 0 0 currentColor'
+        'text-shadow': '0 0 0 currentColor'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-stepper__label`,
-        textShadow: '0 0 0 currentColor'
+        'text-shadow': '0 0 0 currentColor'
       }
     }
   ],
@@ -360,20 +360,20 @@ export const stepperRules = [
       yield {
         [symbols.selector]: (sel) => `${sel} .q-stepper__dot span`,
         color: 'currentColor',
-        fontSize: '24px'
+        'font-size': '24px'
       }
     }
   ],
   [
     /^q-stepper__header--border$/,
     function* () {
-      yield { borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }
+      yield { 'border-bottom': '1px solid rgba(0, 0, 0, 0.12)' }
     }
   ],
   [
     /^q-stepper--flat$/,
     function* () {
-      yield { boxShadow: 'none' }
+      yield { 'box-shadow': 'none' }
     }
   ],
   [

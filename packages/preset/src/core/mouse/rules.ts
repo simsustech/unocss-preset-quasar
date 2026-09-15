@@ -21,16 +21,16 @@ function rule(
 
 export const mouseRules: ComponentRule[] = [
   // --- Pointer events ---
-  rule(/^pointer-events-all$/, () => ({ pointerEvents: 'all' })),
-  rule(/^no-pointer-events$/, () => ({ pointerEvents: 'none' })),
+  rule(/^pointer-events-all$/, () => ({ 'pointer-events': 'all' })),
+  rule(/^no-pointer-events$/, () => ({ 'pointer-events': 'none' })),
 
   // --- User selection ---
-  rule(/^non-selectable$/, () => ({ userSelect: 'none' })),
+  rule(/^non-selectable$/, () => ({ 'user-select': 'none' })),
 
   // --- Scroll ---
   rule(/^scroll$/, () => ({ overflow: 'auto' })),
-  rule(/^scroll-x$/, () => ({ overflowX: 'auto' })),
-  rule(/^scroll-y$/, () => ({ overflowY: 'auto' })),
+  rule(/^scroll-x$/, () => ({ 'overflow-x': 'auto' })),
+  rule(/^scroll-y$/, () => ({ 'overflow-y': 'auto' })),
   rule(/^no-scroll$/, () => ({ overflow: 'hidden' })),
 
   // --- Cursor ---

@@ -124,14 +124,14 @@ export const radioRules = [
   [
     /^q-radio__icon-container$/,
     function* () {
-      yield { userSelect: 'none', WebkitUserSelect: 'none' }
+      yield { 'user-select': 'none', '-webkit-user-select': 'none' }
     }
   ],
   [
     /^q-radio__check$/,
     function* () {
       yield {
-        transformOrigin: '50% 50%',
+        'transform-origin': '50% 50%',
         transform: 'scale3d(0, 0, 1)',
         transition: 'transform 0.22s cubic-bezier(0, 0, 0.2, 1) 0ms'
       }

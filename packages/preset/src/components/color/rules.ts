@@ -194,11 +194,11 @@ export const colorRules = [
       yield {
         overflow: 'hidden',
         background: '#fff',
-        maxWidth: '350px',
-        verticalAlign: 'top',
-        minWidth: '180px',
-        borderRadius: '4px',
-        boxShadow:
+        'max-width': '350px',
+        'vertical-align': 'top',
+        'min-width': '180px',
+        'border-radius': '4px',
+        'box-shadow':
           '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
       }
       yield {
@@ -210,7 +210,7 @@ export const colorRules = [
         color: 'inherit',
         background: 'transparent',
         outline: '0',
-        textAlign: 'center'
+        'text-align': 'center'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-tabs`,
@@ -218,7 +218,7 @@ export const colorRules = [
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-tab--active`,
-        boxShadow: '0 0 14px 3px rgba(0, 0, 0, 0.2)'
+        'box-shadow': '0 0 14px 3px rgba(0, 0, 0, 0.2)'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-tab--active .q-focus-helper`,
@@ -257,12 +257,12 @@ export const colorRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} input`,
-        lineHeight: '24px',
+        'line-height': '24px',
         border: '0'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-tab`,
-        minHeight: '32px !important',
+        'min-height': '32px !important',
         height: '32px !important'
       }
       yield {
@@ -278,7 +278,7 @@ export const colorRules = [
       yield {
         bottom: '2px',
         right: '2px',
-        fontSize: '24px',
+        'font-size': '24px',
         opacity: '0',
         transition: 'opacity 0.3s ease-in'
       }
@@ -299,7 +299,7 @@ export const colorRules = [
   [
     /^q-color-picker__header-bg$/,
     function* () {
-      yield { background: '#fff', backgroundImage: 'url("data:image/png' }
+      yield { background: '#fff', 'background-image': 'url("data:image/png' }
     }
   ],
   [
@@ -308,7 +308,7 @@ export const colorRules = [
       yield { height: '36px' }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-tab`,
-        minHeight: '36px !important',
+        'min-height': '36px !important',
         height: '36px !important'
       }
       yield {
@@ -350,9 +350,9 @@ export const colorRules = [
       yield {
         width: '10px',
         height: '10px',
-        boxShadow:
+        'box-shadow':
           '0 0 0 1.5px #fff, inset 0 0 1px 1px rgba(0, 0, 0, 0.3), 0 0 1px 2px rgba(0, 0, 0, 0.4)',
-        borderRadius: '50%',
+        'border-radius': '50%',
         transform: 'translate(-5px, -5px)'
       }
     }
@@ -378,12 +378,12 @@ export const colorRules = [
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-slider__thumb path`,
-        strokeWidth: '2px',
+        'stroke-width': '2px',
         fill: 'transparent'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-slider--active path`,
-        strokeWidth: '3px'
+        'stroke-width': '3px'
       }
     }
   ],
@@ -392,14 +392,14 @@ export const colorRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-slider`,
-        marginLeft: '18px',
-        marginRight: '18px'
+        'margin-left': '18px',
+        'margin-right': '18px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} input`,
-        fontSize: '11px',
+        'font-size': '11px',
         border: '1px solid #e0e0e0',
-        borderRadius: '4px',
+        'border-radius': '4px',
         width: '3.5em'
       }
     }
@@ -422,14 +422,14 @@ export const colorRules = [
   [
     /^q-color-picker__cube$/,
     function* () {
-      yield { paddingBottom: '10%', width: '10% !important' }
+      yield { 'padding-bottom': '10%', width: '10% !important' }
     }
   ],
   [
     /^q-color-picker--dark$/,
     function* (_, { symbols }) {
       yield {
-        boxShadow:
+        'box-shadow':
           '0 1px 5px rgba(255, 255, 255, 0.2), 0 2px 2px rgba(255, 255, 255, 0.14), 0 3px 1px -2px rgba(255, 255, 255, 0.12)'
       }
       yield {

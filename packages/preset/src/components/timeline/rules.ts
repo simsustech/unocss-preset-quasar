@@ -147,7 +147,7 @@ export const timelineRules = [
   [
     /^q-timeline__title$/,
     function* () {
-      yield { marginTop: '0', marginBottom: '16px' }
+      yield { 'margin-top': '0', 'margin-bottom': '16px' }
     }
   ],
   [
@@ -161,7 +161,7 @@ export const timelineRules = [
         height: '31px',
         width: '31px',
         background: 'currentColor',
-        borderRadius: '50%'
+        'border-radius': '50%'
       }
     }
   ],
@@ -176,7 +176,7 @@ export const timelineRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__entry`,
-        paddingLeft: '40px'
+        'padding-left': '40px'
       }
       yield {
         [symbols.selector]: (sel) =>
@@ -194,11 +194,11 @@ export const timelineRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__heading`,
-        textAlign: 'right'
+        'text-align': 'right'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__entry`,
-        paddingRight: '40px'
+        'padding-right': '40px'
       }
       yield {
         [symbols.selector]: (sel) =>
@@ -207,15 +207,15 @@ export const timelineRules = [
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__content`,
-        textAlign: 'right'
+        'text-align': 'right'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__title`,
-        textAlign: 'right'
+        'text-align': 'right'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__subtitle`,
-        textAlign: 'right'
+        'text-align': 'right'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__dot`,
@@ -230,7 +230,7 @@ export const timelineRules = [
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__heading`,
         display: 'table-row',
-        fontSize: '200%'
+        'font-size': '200%'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__heading > div`,
@@ -244,22 +244,22 @@ export const timelineRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-timeline__entry--icon .q-timeline__content`,
-        paddingTop: '8px'
+        'padding-top': '8px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__subtitle`,
         display: 'table-cell',
-        verticalAlign: 'top'
+        'vertical-align': 'top'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__dot`,
         display: 'table-cell',
-        verticalAlign: 'top'
+        'vertical-align': 'top'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__content`,
         display: 'table-cell',
-        verticalAlign: 'top'
+        'vertical-align': 'top'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__subtitle`,
@@ -268,7 +268,7 @@ export const timelineRules = [
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__dot`,
         position: 'relative',
-        minWidth: '31px'
+        'min-width': '31px'
       }
     }
   ],
@@ -278,16 +278,16 @@ export const timelineRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-timeline__heading .q-timeline__heading-title`,
-        marginLeft: '-50px'
+        'margin-left': '-50px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__subtitle`,
-        textAlign: 'right',
-        paddingRight: '30px'
+        'text-align': 'right',
+        'padding-right': '30px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__content`,
-        paddingLeft: '30px'
+        'padding-left': '30px'
       }
       yield {
         [symbols.selector]: (sel) =>
@@ -301,28 +301,28 @@ export const timelineRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__heading`,
-        textAlign: 'right'
+        'text-align': 'right'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-timeline__heading .q-timeline__heading-title`,
-        marginRight: '-50px'
+        'margin-right': '-50px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__subtitle`,
-        paddingLeft: '30px'
+        'padding-left': '30px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__content`,
-        paddingRight: '30px'
+        'padding-right': '30px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__content`,
-        textAlign: 'right'
+        'text-align': 'right'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__title`,
-        textAlign: 'right'
+        'text-align': 'right'
       }
       yield {
         [symbols.selector]: (sel) =>
@@ -340,8 +340,8 @@ export const timelineRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__heading-title`,
-        textAlign: 'center',
-        marginLeft: '0'
+        'text-align': 'center',
+        'margin-left': '0'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__entry`,
@@ -371,55 +371,55 @@ export const timelineRules = [
         [symbols.selector]: (sel) => `${sel} .q-timeline__dot`,
         position: 'absolute',
         left: '50%',
-        marginLeft: '-7.15px'
+        'margin-left': '-7.15px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__entry`,
-        paddingBottom: '24px',
+        'padding-bottom': '24px',
         overflow: 'hidden'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-timeline__entry--icon .q-timeline__dot`,
-        marginLeft: '-15px'
+        'margin-left': '-15px'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-timeline__entry--icon .q-timeline__subtitle`,
-        lineHeight: '38px'
+        'line-height': '38px'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-timeline__entry--icon .q-timeline__content`,
-        paddingTop: '8px'
+        'padding-top': '8px'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-timeline__entry--left .q-timeline__content`,
         float: 'left',
-        paddingRight: '30px',
-        textAlign: 'right'
+        'padding-right': '30px',
+        'text-align': 'right'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-timeline__entry--right .q-timeline__subtitle`,
         float: 'left',
-        paddingRight: '30px',
-        textAlign: 'right'
+        'padding-right': '30px',
+        'text-align': 'right'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-timeline__entry--left .q-timeline__subtitle`,
         float: 'right',
-        textAlign: 'left',
-        paddingLeft: '30px'
+        'text-align': 'left',
+        'padding-left': '30px'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-timeline__entry--right .q-timeline__content`,
         float: 'right',
-        textAlign: 'left',
-        paddingLeft: '30px'
+        'text-align': 'left',
+        'padding-left': '30px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__subtitle`,
