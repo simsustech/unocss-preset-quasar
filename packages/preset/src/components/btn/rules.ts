@@ -24,7 +24,16 @@ export const btnRules = [
         height: 'auto',
         cursor: 'default',
         padding: 'var(--q-btn-padding-y) var(--q-btn-padding-x)',
-        'min-height': 'var(--q-btn-min-height)'
+        'min-height': 'var(--q-btn-min-height)',
+        'border-radius': 'var(--q-btn-radius)'
+      }
+      // Icon sizing inside buttons. Source: reference `.q-btn .q-icon{font-size:1.715em}`.
+      // Merged here (not a second /^q-btn$/ entry): the engine keeps one rule
+      // per identical regex, so duplicate entries silently drop the earlier one.
+      yield {
+        [symbols.selector]: (sel: string) =>
+          `${sel} .q-icon, ${sel} .q-spinner`,
+        'font-size': '1.715em'
       }
       yield {
         [symbols.selector]: (sel) => `${sel}:before`,

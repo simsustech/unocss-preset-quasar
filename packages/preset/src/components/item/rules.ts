@@ -3,12 +3,13 @@ import type { Rule } from '@unocss/core'
 export const itemRules = [
   [
     /^q-item$/,
+    // No align-items/gap: Quasar source (.q-item, quasar.css) and the reference
+    // set padding + min-height only; vertical centering comes from section layout.
     () => ({
       display: 'flex',
-      'align-items': 'center',
-      padding: 'var(--q-space-sm) var(--q-space-md)',
-      'min-height': 'var(--q-item-min-height)',
-      gap: 'var(--q-item-gap)'
+      'flex-wrap': 'nowrap',
+      padding: 'var(--q-space-sm) var(--q-space-lg)',
+      'min-height': 'var(--q-item-min-height)'
     })
   ],
   [
@@ -92,25 +93,44 @@ export const itemRules = [
   ],
   [
     /^q-item__section$/,
+    // No align-items: with a column-direction section it horizontally centers
+    // anonymous text children (the centered-playground-list bug). Quasar source
+    // sets no alignment here; side/avatar variants align themselves.
     () => ({
-      display: 'flex',
-      'align-items': 'center'
+      display: 'flex'
     })
   ],
   [
     /^q-item__section--side$/,
-    () => ({
-      'justify-content': 'center',
-      'min-width': '40px',
-      'flex-shrink': 0
-    })
+    function* (_, { symbols }) {
+      yield {
+        'justify-content': 'center',
+        'min-width': '40px',
+        'flex-shrink': 0
+      }
+      // Source: quasar.css `.q-item__section--side > .q-avatar/.q-icon`.
+      yield {
+        [symbols.selector]: (sel: string) => `${sel} > .q-avatar`,
+        'font-size': '40px'
+      }
+      yield {
+        [symbols.selector]: (sel: string) => `${sel} > .q-icon`,
+        'font-size': '24px'
+      }
+    }
   ],
   [
     /^q-item__section--main$/,
-    () => ({
-      flex: '1',
-      'min-width': 0
-    })
+    function* (_, { symbols }) {
+      yield { flex: '1', 'min-width': 0 }
+      // Source: quasar.css `.q-item__section--main ~ .q-item__section--side`.
+      yield {
+        [symbols.selector]: (sel: string) => `${sel} ~ .q-item__section--side`,
+        'align-items': 'flex-end',
+        'padding-right': 0,
+        'padding-left': '16px'
+      }
+    }
   ],
   [
     /^q-item__section--avatar$/,
@@ -126,11 +146,18 @@ export const itemRules = [
   ],
   [
     /^q-item__label$/,
-    () => ({
-      overflow: 'hidden',
-      'text-overflow': 'ellipsis',
-      'white-space': 'nowrap'
-    })
+    function* (_, { symbols }) {
+      yield {
+        overflow: 'hidden',
+        'text-overflow': 'ellipsis',
+        'white-space': 'nowrap'
+      }
+      // Source: quasar.css `.q-item__label + .q-item__label`.
+      yield {
+        [symbols.selector]: (sel: string) => `${sel} + .q-item__label`,
+        'margin-top': '4px'
+      }
+    }
   ],
   [
     /^q-item__label--caption$/,

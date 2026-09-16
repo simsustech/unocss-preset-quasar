@@ -77,8 +77,12 @@ export const quasarSafelist: string[] = [
   'absolute-top-left',
   'absolute-top-right',
   'absolute-bottom-left',
+  'absolute',
   'absolute-bottom-right',
+  'absolute-full',
+  'fixed',
   'fullscreen',
+  'hidden',
   'relative-position',
 
   // --- Visibility ---
@@ -212,6 +216,8 @@ export const quasarSafelist: string[] = [
   'transition-0',
   'glossy',
   'q-link',
+  // Synthetic token: q-body rule emits Quasar body typography (no preflight).
+  'q-body',
   'q-body--fullscreen-mixin',
   'q-body--prevent-scroll',
   'q-body--force-scrollbar-x',
@@ -225,6 +231,8 @@ export const quasarSafelist: string[] = [
   'q-manual-focusable',
 
   // --- Dark mode ---
+  // Synthetic token: body--dark rule emits dark page colors (no preflight).
+  'body--dark',
   'q-dark',
 
   // ============================================================
@@ -258,8 +266,10 @@ export const quasarSafelist: string[] = [
   'q-btn--fab',
   'q-btn--fab-mini',
   'q-btn--flat',
+  'q-btn--no-uppercase',
   'q-btn--outline',
   'q-btn--push',
+  'q-btn--rectangle',
   'q-btn--round',
   'q-btn--rounded',
   'q-btn--square',
@@ -392,8 +402,10 @@ export const quasarSafelist: string[] = [
   'q-field--disabled',
   'q-field--error',
   'q-field--filled',
+  'q-field--float',
   'q-field--focused',
   'q-field--hide-bottom-space',
+  'q-field--highlighted',
   'q-field--item-aligned',
   'q-field--labeled',
   'q-field--loading',
@@ -515,6 +527,7 @@ export const quasarSafelist: string[] = [
   'q-toggle__inner--truthy',
   'q-toggle__label',
   'q-toggle__native',
+  'q-toggle__thumb',
   'q-toggle__track',
   'q-toggle--dark',
   'q-toggle--dense',

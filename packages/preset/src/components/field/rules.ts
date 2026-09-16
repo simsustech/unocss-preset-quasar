@@ -14,12 +14,14 @@ export const fieldRules = [
   [
     /^q-field__control$/,
     function* (_, { symbols }) {
+      // No background here: Quasar sets control backgrounds per variant
+      // (filled). An unconditional fill paints outlined/standard controls
+      // lavender (the broken control-panel look). Source: quasar.css.
       yield {
         display: 'flex',
         'align-items': 'center',
         position: 'relative',
         'border-radius': 'var(--q-radius-sm)',
-        'background-color': 'var(--q-surface-container-highest)',
         'min-height': '40px'
       }
       yield {
@@ -90,7 +92,10 @@ export const fieldRules = [
   [
     /^q-field--filled$/,
     function* (_, { symbols }) {
-      yield { 'background-color': 'var(--q-surface-container-highest)' }
+      yield {
+        [symbols.selector]: (sel: string) => `${sel} .q-field__control`,
+        'background-color': 'var(--q-surface-container-highest)'
+      }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-field__control:before`,
         background: 'rgba(0, 0, 0, 0.05)',
@@ -148,6 +153,12 @@ export const fieldRules = [
       yield {
         'background-color': 'transparent',
         border: '1px solid var(--q-outline)'
+      }
+      // Source: quasar.css `.q-field--outlined .q-field__control`.
+      yield {
+        [symbols.selector]: (sel: string) => `${sel} .q-field__control`,
+        'border-radius': '4px',
+        padding: '0 12px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-field__control:before`,
@@ -236,20 +247,40 @@ export const fieldRules = [
   ],
   [
     /^q-field--dense$/,
-    function* () {
+    function* (_, { symbols }) {
       yield { 'min-height': '32px' }
+      // Source: quasar.css `.q-field--dense .q-field__label`.
+      yield {
+        [symbols.selector]: (sel: string) => `${sel} .q-field__label`,
+        'font-size': '14px',
+        top: '10px'
+      }
     }
   ],
   [
     /^q-field--labeled$/,
-    function* () {
-      // Label is positioned absolutely, no extra styles needed
+    function* (_, { symbols }) {
+      // Source: quasar.css `.q-field--labeled .q-field__native, ...prefix, ...suffix`.
+      yield {
+        [symbols.selector]: (sel: string) =>
+          `${sel} .q-field__native, ${sel} .q-field__prefix, ${sel} .q-field__suffix`,
+        'line-height': '24px',
+        'padding-top': '24px',
+        'padding-bottom': '8px'
+      }
     }
   ],
   [
     /^q-field--float$/,
-    function* () {
-      // Floating label state handled by label variant
+    function* (_, { symbols }) {
+      // Source: quasar.css `.q-field--float .q-field__label`.
+      yield {
+        [symbols.selector]: (sel: string) => `${sel} .q-field__label`,
+        'max-width': '133%',
+        transform: 'translateY(-40%) scale(0.75)',
+        transition:
+          'transform 0.36s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.396s cubic-bezier(0.4, 0, 0.2, 1)'
+      }
     }
   ],
   [

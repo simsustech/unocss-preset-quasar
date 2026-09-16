@@ -16,6 +16,31 @@ function rule(
 }
 
 export const typographyRules: ComponentRule[] = [
+  [
+    /^q-body$/,
+    // Synthetic token (safelisted): emits Quasar body typography on the bare
+    // `body` element via symbols.selector — no preflight. Source: former
+    // core/typography/preflights.ts body block + reference `body` rule
+    // (Roboto stack, 14px/1.5, margin 0).
+    function* (_: unknown, { symbols }: any): Generator<any, void, any> {
+      yield {
+        [symbols.selector]: () => 'body',
+        'font-family':
+          "Roboto, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+        'font-size': '14px',
+        'line-height': 1.5,
+        margin: 0,
+        '-webkit-font-smoothing': 'antialiased'
+      }
+      // Universal box-sizing (replaces resetPreflight's :where block, deleted
+      // step 3). Merged here: one rule per token — duplicate /^q-body$/
+      // entries would drop each other.
+      yield {
+        [symbols.selector]: () => '*,::before,::after',
+        'box-sizing': 'border-box'
+      }
+    }
+  ],
   // --- Heading sizes ---
   rule(/^text-h1$/, () => ({
     'font-size': '6rem',

@@ -6,6 +6,7 @@ export const cardRules = [
     () => ({
       display: 'flex',
       'flex-direction': 'column',
+      padding: 'var(--q-space-lg)',
       'border-radius': 'var(--q-radius-md)',
       'background-color': 'var(--q-surface)',
       'box-shadow': 'var(--q-elevation-1)',

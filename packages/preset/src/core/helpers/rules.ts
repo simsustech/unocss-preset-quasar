@@ -71,5 +71,45 @@ export const helpersRules: ComponentRule[] = [
   })),
   rule(/^q-link--focusable:focus-visible$/, () => ({
     outline: 'auto'
-  }))
+  })),
+
+  // --- Focus helpers (keyboard focus rings; plan requires focus screenshots) ---
+  // Source: quasar.css `.q-focusable:focus-visible > .q-focus-helper` group.
+  // Synthetic owning token `q-focus-helper` (safelisted): Quasar adds these
+  // classes dynamically, so extractor output can't be relied upon.
+  [
+    /^q-focus-helper$/,
+    function* (_, { symbols }: any): Generator<any, void, any> {
+      // Base: invisible absolute overlay (quasar.css:12073). Without this,
+      // helper spans render as visible blocks (stray pills in toolbars).
+      yield {
+        [symbols.selector]: () => '.q-focus-helper',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        'pointer-events': 'none',
+        'border-radius': 'inherit',
+        opacity: 0,
+        outline: 0
+      }
+      yield {
+        [symbols.selector]: () =>
+          '.q-focusable:focus-visible > .q-focus-helper, .q-manual-focusable--focused > .q-focus-helper',
+        background: 'currentColor',
+        opacity: 0.15
+      }
+      yield {
+        [symbols.selector]: () => '.q-hoverable:hover > .q-focus-helper',
+        background: 'currentColor',
+        opacity: 0.15
+      }
+      yield {
+        [symbols.selector]: () =>
+          '.q-focus-helper, .q-focusable, .q-manual-focusable, .q-hoverable',
+        outline: 0
+      }
+    }
+  ]
 ]

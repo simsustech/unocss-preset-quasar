@@ -24,6 +24,8 @@ function rule(
 }
 
 export const visibilityRules: ComponentRule[] = [
+  // Quasar hides native inputs with `hidden` (dynamic class). Source: quasar.css.
+  rule(/^hidden$/, () => ({ display: 'none' })),
   // --- No-* resets ---
   rule(/^no-margin$/, () => ({ margin: 0 })),
   rule(/^no-padding$/, () => ({ padding: 0 })),
@@ -79,7 +81,8 @@ export const visibilityRules: ComponentRule[] = [
   rule(/^z-max$/, () => ({ 'z-index': 9998 })),
 
   // --- Focusable helpers (outline reset) ---
-  rule(/^q-focus-helper$/, () => ({ outline: 0 })),
+  // NOTE: no /^q-focus-helper$/ here — core/helpers owns that matcher (one
+  // rule per regex; duplicates drop). Outline for the helper lives there.
   rule(/^q-focusable$/, () => ({ outline: 0 })),
   rule(/^q-manual-focusable$/, () => ({ outline: 0 })),
   rule(/^q-hoverable$/, () => ({ outline: 0 }))

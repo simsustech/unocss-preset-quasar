@@ -21,6 +21,11 @@ function rule(
 }
 
 export const positionRules: ComponentRule[] = [
+  // --- Bare positions (Quasar spreads these as dynamic classes everywhere:
+  // thumb/native `absolute`, portals `fixed`). Source: quasar.css utilities.
+  rule(/^absolute$/, () => ({ position: 'absolute' })),
+  rule(/^absolute-full$/, () => ({ position: 'absolute', inset: 0 })),
+  rule(/^fixed$/, () => ({ position: 'fixed' })),
   // --- Fixed positions ---
   rule(/^fixed-full$/, () => ({ position: 'fixed', inset: 0 })),
   rule(/^fixed-center$/, () => ({

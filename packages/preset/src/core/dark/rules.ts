@@ -26,5 +26,18 @@ export const darkRules: ComponentRule[] = [
   rule(/^q-dark$/, () => ({
     color: 'var(--q-dark-on-surface)',
     'background-color': 'var(--q-dark-surface)'
-  }))
+  })),
+  [
+    /^body--dark$/,
+    // Synthetic token (safelisted): dark page colors on `body.body--dark`.
+    // Replaces darkPreflights (deleted step 3). Source: former
+    // core/dark/preflights.ts + reference dark page (white on dark surface).
+    function* (_: unknown, { symbols }: any): Generator<any, void, any> {
+      yield {
+        [symbols.selector]: () => '.body--dark',
+        color: '#fff',
+        background: 'var(--q-dark-page)'
+      }
+    }
+  ]
 ]

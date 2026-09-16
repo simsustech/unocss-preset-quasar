@@ -72,12 +72,6 @@ describe('visibilityRules', () => {
     expect(css!['z-index']).toBe(9998)
   })
 
-  it('q-focus-helper sets outline 0', () => {
-    const css = matchRule('q-focus-helper')
-    expect(css).toBeDefined()
-    expect(css!.outline).toBe(0)
-  })
-
   it('returns undefined for unknown selectors', () => {
     expect(matchRule('not-a-real-class')).toBeUndefined()
   })
