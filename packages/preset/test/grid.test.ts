@@ -46,22 +46,22 @@ describe('gridRules', () => {
     const css = matchRule('row')
     expect(css).toBeDefined()
     expect(css!.display).toBe('flex')
-    expect(css!.flexDirection).toBe('row')
-    expect(css!.flexWrap).toBe('wrap')
+    expect(css!['flex-direction']).toBe('row')
+    expect(css!['flex-wrap']).toBe('wrap')
   })
 
   it('column has display flex and flex-direction column', () => {
     const css = matchRule('column')
     expect(css).toBeDefined()
     expect(css!.display).toBe('flex')
-    expect(css!.flexDirection).toBe('column')
+    expect(css!['flex-direction']).toBe('column')
   })
 
   it('col has flex 1 1 0% and max-width 100%', () => {
     const css = matchRule('col')
     expect(css).toBeDefined()
     expect(css!.flex).toBe('1 1 0%')
-    expect(css!.maxWidth).toBe('100%')
+    expect(css!['max-width']).toBe('100%')
   })
 
   it('col-auto has flex 0 0 auto and width auto', () => {
@@ -76,7 +76,7 @@ describe('gridRules', () => {
     expect(css).toBeDefined()
     expect(css!['--q-col-span']).toBe('6')
     expect(css!.flex).toContain('var(--q-col-span)')
-    expect(css!.maxWidth).toContain('var(--q-col-span)')
+    expect(css!['max-width']).toContain('var(--q-col-span)')
   })
 
   it('col-1 uses --q-col-span variable', () => {
@@ -100,13 +100,13 @@ describe('gridRules', () => {
   it('q-gutter-x-sm uses --q-space-sm for column-gap', () => {
     const css = matchRule('q-gutter-x-sm')
     expect(css).toBeDefined()
-    expect(css!.columnGap).toBe('var(--q-space-sm)')
+    expect(css!['column-gap']).toBe('var(--q-space-sm)')
   })
 
   it('q-gutter-y-lg uses --q-space-lg for row-gap', () => {
     const css = matchRule('q-gutter-y-lg')
     expect(css).toBeDefined()
-    expect(css!.rowGap).toBe('var(--q-space-lg)')
+    expect(css!['row-gap']).toBe('var(--q-space-lg)')
   })
 
   it('q-gutter-none has zero gap', () => {
@@ -118,20 +118,20 @@ describe('gridRules', () => {
   it('wrap sets flex-wrap wrap', () => {
     const css = matchRule('wrap')
     expect(css).toBeDefined()
-    expect(css!.flexWrap).toBe('wrap')
+    expect(css!['flex-wrap']).toBe('wrap')
   })
 
   it('no-wrap sets flex-wrap nowrap', () => {
     const css = matchRule('no-wrap')
     expect(css).toBeDefined()
-    expect(css!.flexWrap).toBe('nowrap')
+    expect(css!['flex-wrap']).toBe('nowrap')
   })
 
   it('flex-center centers both axes', () => {
     const css = matchRule('flex-center')
     expect(css).toBeDefined()
-    expect(css!.justifyContent).toBe('center')
-    expect(css!.alignItems).toBe('center')
+    expect(css!['justify-content']).toBe('center')
+    expect(css!['align-items']).toBe('center')
   })
 
   it('order-first sets order -1', () => {

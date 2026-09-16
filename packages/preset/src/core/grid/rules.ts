@@ -15,8 +15,8 @@ export const gridRules = [
     function* (_: any, { symbols }: any) {
       yield {
         display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
+        'flex-direction': 'row',
+        'flex-wrap': 'wrap',
         flex: '1 1 auto'
       }
       yield {
@@ -25,7 +25,7 @@ export const gridRules = [
       }
       yield {
         [symbols.selector]: (sel: string) => `${sel}.reverse`,
-        flexDirection: 'row-reverse'
+        'flex-direction': 'row-reverse'
       }
     }
   ],
@@ -34,8 +34,8 @@ export const gridRules = [
     function* (_: any, { symbols }: any) {
       yield {
         display: 'flex',
-        flexDirection: 'column',
-        flexWrap: 'wrap',
+        'flex-direction': 'column',
+        'flex-wrap': 'wrap',
         flex: '1 1 auto'
       }
       yield {
@@ -44,7 +44,7 @@ export const gridRules = [
       }
       yield {
         [symbols.selector]: (sel: string) => `${sel}.reverse`,
-        flexDirection: 'column-reverse'
+        'flex-direction': 'column-reverse'
       }
     }
   ],
@@ -63,8 +63,8 @@ export const gridRules = [
     function* () {
       yield {
         display: 'flex',
-        flexDirection: 'row-reverse',
-        flexWrap: 'wrap',
+        'flex-direction': 'row-reverse',
+        'flex-wrap': 'wrap',
         flex: '1 1 auto'
       }
     }
@@ -74,8 +74,8 @@ export const gridRules = [
     function* () {
       yield {
         display: 'flex',
-        flexDirection: 'column-reverse',
-        flexWrap: 'wrap',
+        'flex-direction': 'column-reverse',
+        'flex-wrap': 'wrap',
         flex: '1 1 auto'
       }
     }
@@ -84,25 +84,25 @@ export const gridRules = [
   [
     /^col$/,
     function* () {
-      yield { flex: '1 1 0%', maxWidth: '100%' }
+      yield { flex: '1 1 0%', 'max-width': '100%' }
     }
   ],
   [
     /^col-auto$/,
     function* () {
-      yield { flex: '0 0 auto', width: 'auto', maxWidth: '100%' }
+      yield { flex: '0 0 auto', width: 'auto', 'max-width': '100%' }
     }
   ],
   [
     /^col-grow$/,
     function* () {
-      yield { flex: '1 1 auto', maxWidth: '100%' }
+      yield { flex: '1 1 auto', 'max-width': '100%' }
     }
   ],
   [
     /^col-shrink$/,
     function* () {
-      yield { flex: '0 1 auto', maxWidth: '100%' }
+      yield { flex: '0 1 auto', 'max-width': '100%' }
     }
   ],
 
@@ -115,7 +115,7 @@ export const gridRules = [
       yield {
         '--q-col-span': span,
         flex: '0 0 calc(var(--q-col-span) / 12 * 100%)',
-        maxWidth: 'calc(var(--q-col-span) / 12 * 100%)'
+        'max-width': 'calc(var(--q-col-span) / 12 * 100%)'
       }
     }
   ],
@@ -124,16 +124,17 @@ export const gridRules = [
     /^col-(sm|md|lg|xl)-(\d+|auto|grow|shrink)$/,
     function* ([, , span]: string[]) {
       if (span === 'auto')
-        yield { flex: '0 0 auto', width: 'auto', maxWidth: '100%' }
-      else if (span === 'grow') yield { flex: '1 1 auto', maxWidth: '100%' }
-      else if (span === 'shrink') yield { flex: '0 1 auto', maxWidth: '100%' }
+        yield { flex: '0 0 auto', width: 'auto', 'max-width': '100%' }
+      else if (span === 'grow') yield { flex: '1 1 auto', 'max-width': '100%' }
+      else if (span === 'shrink')
+        yield { flex: '0 1 auto', 'max-width': '100%' }
       else {
         const n = Number(span)
         if (n < 1 || n > 12) return
         yield {
           '--q-col-span': span,
           flex: '0 0 calc(var(--q-col-span) / 12 * 100%)',
-          maxWidth: 'calc(var(--q-col-span) / 12 * 100%)'
+          'max-width': 'calc(var(--q-col-span) / 12 * 100%)'
         }
       }
     }
@@ -142,26 +143,26 @@ export const gridRules = [
   [
     /^wrap$/,
     function* () {
-      yield { flexWrap: 'wrap' }
+      yield { 'flex-wrap': 'wrap' }
     }
   ],
   [
     /^no-wrap$/,
     function* () {
-      yield { flexWrap: 'nowrap' }
+      yield { 'flex-wrap': 'nowrap' }
     }
   ],
   [
     /^reverse-wrap$/,
     function* () {
-      yield { flexWrap: 'wrap-reverse' }
+      yield { 'flex-wrap': 'wrap-reverse' }
     }
   ],
 
   [
     /^flex-center$/,
     function* () {
-      yield { justifyContent: 'center', alignItems: 'center' }
+      yield { 'justify-content': 'center', 'align-items': 'center' }
     }
   ],
 
@@ -175,13 +176,13 @@ export const gridRules = [
   [
     /^q-(col-)?gutter-x-([a-z]+)$/,
     function* ([, , size]: string[]) {
-      yield { columnGap: `var(--q-space-${size})` }
+      yield { 'column-gap': `var(--q-space-${size})` }
     }
   ],
   [
     /^q-(col-)?gutter-y-([a-z]+)$/,
     function* ([, , size]: string[]) {
-      yield { rowGap: `var(--q-space-${size})` }
+      yield { 'row-gap': `var(--q-space-${size})` }
     }
   ],
 
@@ -203,4 +204,7 @@ export const gridRules = [
       yield { order: '0' }
     }
   ]
+  // SAFETY: generator matchers yield valid CSSObjects at runtime, but TS
+  // cannot verify symbols.selector computed keys statically, so the array
+  // is asserted to ComponentRule[] (same pattern as components/btn/rules.ts).
 ] as unknown as ComponentRule[]

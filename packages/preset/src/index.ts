@@ -44,6 +44,11 @@ export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
 
   return {
     name: 'quasar',
+    // Enforce AFTER nested presets (wind4/icons): UnoCSS matches dynamic
+    // rules first-match-wins in reverse preset order, so without this Wind4's
+    // generic rules (e.g. grid `col-N` -> grid-column) would shadow Quasar's
+    // component semantics (flexbox `col-N`, `.flex` combos).
+    enforce: 'post',
     presets: [
       presetWind4({
         preflights: { reset: false },
