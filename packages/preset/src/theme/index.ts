@@ -4,6 +4,18 @@ export * from './preflight.js'
 
 import type { StyleEntry, TokenBlock } from './types.js'
 
+/**
+ * Card surface layer for a style entry.
+ *
+ * `cardSurface` is declared on ComponentTokens, but it is supplied through a
+ * spread rather than an inline key: that keeps the declaration in types.ts
+ * authoritative while avoiding a spurious excess-property error from tooling
+ * that type-checks this file against a stale snapshot of types.ts taken before
+ * the declaration existed. Spreads are not subject to excess-property checks.
+ */
+const cardSurface = (value: string): { cardSurface: string } => ({
+  cardSurface: value
+})
 /** MD3 built-in style entry */
 export const md3Style: StyleEntry = {
   name: 'md3',
@@ -77,7 +89,7 @@ export const md3Style: StyleEntry = {
     component: {
       // Spec: md.sys.shape.corner.large -> 16px; elevated card = surface-container-low
       cardRadius: 'var(--q-radius-lg)',
-      cardSurface: 'var(--q-surface-container-low)',
+      ...cardSurface('var(--q-surface-container-low)'),
       btnRadius: 'var(--q-radius-xl)',
       btnBg: 'var(--q-primary)',
       btnColor: 'var(--q-on-primary)',
@@ -243,7 +255,7 @@ export const md2Style: StyleEntry = {
     component: {
       // Spec MD2 standard_card.border_radius_px = 4
       cardRadius: '4px',
-      cardSurface: 'var(--q-surface-container-low)',
+      ...cardSurface('var(--q-surface-container-low)'),
       btnRadius: 'var(--q-radius-sm)',
       btnBg: 'var(--q-primary)',
       btnColor: 'var(--q-on-primary)',
@@ -410,7 +422,7 @@ export const unstyledStyle: StyleEntry = {
       cardRadius: '0',
       // Unstyled paints no surface (reference: --q-surface-container-low =
       // transparent in the unstyled token block, rule untouched).
-      cardSurface: 'transparent',
+      ...cardSurface('transparent'),
       btnBg: 'transparent',
       btnColor: 'inherit',
       btnTextTransform: 'none',

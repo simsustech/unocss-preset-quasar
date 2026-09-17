@@ -1827,5 +1827,20 @@ export const quasarSafelist: string[] = [
   'q-video--responsive',
   'q-virtual-scroll--horizontal',
   'q-virtual-scroll__content',
-  'q-virtual-scroll__padding'
+  'q-virtual-scroll__padding',
+
+  // QScrollArea internals — every class is added by Quasar at runtime.
+  // The rules were an empty stub, so without these the component renders
+  // with no bar or thumb at all.
+  'q-scrollarea',
+  'q-scrollarea--dark',
+  'q-scrollarea__content',
+  'q-scrollarea__bar',
+  'q-scrollarea__bar--h',
+  'q-scrollarea__bar--v',
+  'q-scrollarea__bar--invisible',
+  'q-scrollarea__thumb',
+  'q-scrollarea__thumb--h',
+  'q-scrollarea__thumb--v',
+  'q-scrollarea__thumb--invisible'
 ]
