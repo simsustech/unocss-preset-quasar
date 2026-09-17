@@ -82,6 +82,9 @@ export const helpersRules: ComponentRule[] = [
     function* (_, { symbols }: any): Generator<any, void, any> {
       // Base: invisible absolute overlay (quasar.css:12073). Without this,
       // helper spans render as visible blocks (stray pills in toolbars).
+      // background:transparent is load-bearing — currentColor here tints
+      // every hoverable/clickable surface on hover.
+      // helper spans render as visible blocks (stray pills in toolbars).
       yield {
         [symbols.selector]: () => '.q-focus-helper',
         position: 'absolute',
@@ -91,19 +94,31 @@ export const helpersRules: ComponentRule[] = [
         height: '100%',
         'pointer-events': 'none',
         'border-radius': 'inherit',
+        background: 'transparent',
         opacity: 0,
         outline: 0
       }
+      // Hover ring: NOT `opacity: 0.15` alone — with no :before/:after overlay
+      // the helper paints currentColor over the FULL 100%x100% box, which is
+      // what turned whole pages purple on hover. Squash the tints onto the
+      // pseudo-elements like quasar.css (12123-12132) and keep the base flat.
       yield {
         [symbols.selector]: () =>
-          '.q-focusable:focus-visible > .q-focus-helper, .q-manual-focusable--focused > .q-focus-helper',
+          '.q-hoverable:hover > .q-focus-helper, .q-focusable:focus-visible > .q-focus-helper, .q-manual-focusable--focused > .q-focus-helper',
         background: 'currentColor',
         opacity: 0.15
       }
       yield {
-        [symbols.selector]: () => '.q-hoverable:hover > .q-focus-helper',
-        background: 'currentColor',
-        opacity: 0.15
+        [symbols.selector]: () =>
+          '.q-hoverable:hover > .q-focus-helper:before, .q-focusable:focus-visible > .q-focus-helper:before, .q-manual-focusable--focused > .q-focus-helper:before',
+        background: '#000',
+        opacity: 0.1
+      }
+      yield {
+        [symbols.selector]: () =>
+          '.q-hoverable:hover > .q-focus-helper:after, .q-focusable:focus-visible > .q-focus-helper:after, .q-manual-focusable--focused > .q-focus-helper:after',
+        background: '#fff',
+        opacity: 0.4
       }
       yield {
         [symbols.selector]: () =>

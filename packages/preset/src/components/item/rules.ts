@@ -3,13 +3,17 @@ import type { Rule } from '@unocss/core'
 export const itemRules = [
   [
     /^q-item$/,
-    // No align-items/gap: Quasar source (.q-item, quasar.css) and the reference
-    // set padding + min-height only; vertical centering comes from section layout.
+    // No align-items/gap: Quasar sets padding + min-height only; vertical
+    // centering comes from section layout.
+    // position:relative is load-bearing (quasar.css:2903): it contains the
+    // absolutely-positioned .q-focus-helper. Without it the 100%x100% hover
+    // overlay resolves against the viewport and tints the whole page.
     () => ({
       display: 'flex',
       'flex-wrap': 'nowrap',
       padding: 'var(--q-space-sm) var(--q-space-lg)',
-      'min-height': 'var(--q-item-min-height)'
+      'min-height': 'var(--q-item-min-height)',
+      position: 'relative'
     })
   ],
   [

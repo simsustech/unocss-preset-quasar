@@ -13,7 +13,9 @@ export const fabRules = [
       'min-width': 'auto',
       background: 'var(--q-fab-bg)',
       color: 'var(--q-fab-color)',
-      'box-shadow': 'var(--q-elevation-3)'
+      'box-shadow': 'var(--q-elevation-3)',
+      // Contains the absolute .q-focus-helper (quasar.css `.q-fab` has it).
+      position: 'relative'
     })
   ],
   [

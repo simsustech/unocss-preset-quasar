@@ -13,7 +13,10 @@ export const chipRules = [
       'line-height': 1.2,
       padding: '6px 12px',
       'min-height': 'var(--q-chip-min-height)',
-      gap: 'var(--q-space-sm)'
+      gap: 'var(--q-space-sm)',
+      // Contains the absolute .q-focus-helper (quasar.css `.q-chip` has it),
+      // so hovering a clickable chip can't tint the page.
+      position: 'relative'
     })
   ],
   [
