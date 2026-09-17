@@ -15,11 +15,20 @@ function collectYielded(rules: any[], className: string): any[] {
       regex.test(className) &&
       typeof matcher === 'function'
     ) {
-      const gen = matcher([className], { symbols }) as Generator
-      return [...gen]
+      const gen = matcher([className], { symbols })
+      // Generator rules yield; plain rules return a single declaration object.
+      if (gen && typeof gen[Symbol.iterator] === 'function') return [...gen]
+      return gen ? [gen] : []
     }
   }
   return []
+}
+
+/** Every declared value string in a rule's yielded objects. */
+function allValues(rules: any[], className: string): string[] {
+  return collectYielded(rules, className).flatMap((obj) =>
+    Object.values(obj).filter((v): v is string => typeof v === 'string')
+  )
 }
 
 describe('toggleRules', () => {
@@ -51,8 +60,10 @@ describe('toggleRules', () => {
     expect(afterEntry).toBeDefined()
     expect(afterEntry.content).toBe('""')
     expect(afterEntry.position).toBe('absolute')
-    expect(afterEntry.background).toBe('#fff')
-    expect(afterEntry['box-shadow']).toContain('rgba')
+    // Token-driven since the MD3 rewrite: the concrete colour (md3 outline /
+    // on-primary, md2 #fff / currentColor) lives in the per-style token.
+    expect(afterEntry.background).toBe('var(--q-toggle-thumb-bg)')
+    expect(afterEntry['box-shadow']).toBe('var(--q-toggle-thumb-shadow)')
   })
 
   it('reproduces full compound selector for truthy :after override', () => {
@@ -68,7 +79,9 @@ describe('toggleRules', () => {
         )
     )
     expect(compoundEntry).toBeDefined()
-    expect(compoundEntry['background-color']).toBe('currentColor')
+    expect(compoundEntry['background-color']).toBe(
+      'var(--q-toggle-thumb-bg-active)'
+    )
   })
 
   it('reproduces full selector with pseudo-class for focus ring', () => {
@@ -83,5 +96,101 @@ describe('toggleRules', () => {
         obj[symbols.selector]('.q-toggle').includes('.q-toggle__thumb:before')
     )
     expect(focusEntry).toBeDefined()
+  })
+})
+
+/**
+ * Regression guard for the reported bug: the MD3 toggle rendered as an MD2
+ * toggle because the rules hardcoded Quasar's MD2 em geometry (inner 1.4em at
+ * 40px, track 0.35em, handle 0.5em) instead of reading the style tokens.
+ *
+ * Spec (specs/reference/normalized/md3-switches.json): chassis 52x32, handle
+ * 16px at rest / 24px active, 2px outline, handle outline -> on-primary.
+ */
+describe('toggleRules MD3 token wiring', () => {
+  it('drives the chassis box from tokens, not md2 em literals', () => {
+    const inner = collectYielded(toggleRules, 'q-toggle__inner')[0]
+    expect(inner['font-size']).toBe('var(--q-toggle-font-size)')
+    expect(inner.width).toBe('var(--q-toggle-inner-width)')
+    expect(inner['min-width']).toBe('var(--q-toggle-inner-width)')
+    expect(inner.padding).toBe('var(--q-toggle-inner-padding)')
+  })
+
+  it('drives the track geometry and outline from tokens', () => {
+    const track = collectYielded(toggleRules, 'q-toggle__track')[0]
+    expect(track.height).toBe('var(--q-toggle-track-height)')
+    expect(track['border-radius']).toBe('var(--q-toggle-track-border-radius)')
+    expect(track.background).toBe('var(--q-toggle-track-bg)')
+    expect(track.border).toBe('var(--q-toggle-track-outline)')
+    // The md3 2px ring must sit inside the 32px chassis.
+    expect(track['box-sizing']).toBe('border-box')
+  })
+
+  it('drives the 16px resting handle off tokens and centres it by calc', () => {
+    const thumb = collectYielded(toggleRules, 'q-toggle__thumb')[0]
+    expect(thumb.width).toBe('var(--q-toggle-thumb-size)')
+    expect(thumb.height).toBe('var(--q-toggle-thumb-size)')
+    expect(thumb.left).toBe('var(--q-toggle-thumb-offset)')
+    expect(thumb.top).toBe('calc(50% - var(--q-toggle-thumb-size) / 2)')
+  })
+
+  it('grows the handle to the active token size when on', () => {
+    const yielded = collectYielded(toggleRules, 'q-toggle__inner--truthy')
+    const thumbEntry = yielded.find(
+      (obj) =>
+        obj &&
+        typeof obj[symbols.selector] === 'function' &&
+        obj[symbols.selector]('.q-toggle__inner--truthy') ===
+          '.q-toggle__inner--truthy .q-toggle__thumb'
+    )
+    expect(thumbEntry).toBeDefined()
+    expect(thumbEntry.width).toBe('var(--q-toggle-thumb-size-active)')
+    expect(thumbEntry.height).toBe('var(--q-toggle-thumb-size-active)')
+    expect(thumbEntry.left).toBe('var(--q-toggle-thumb-offset-active)')
+    expect(thumbEntry.top).toBe(
+      'calc(50% - var(--q-toggle-thumb-size-active) / 2)'
+    )
+  })
+
+  it('switches the track fill and outline for the on state via tokens', () => {
+    const yielded = collectYielded(toggleRules, 'q-toggle__inner--truthy')
+    const trackEntry = yielded.find(
+      (obj) =>
+        obj &&
+        typeof obj[symbols.selector] === 'function' &&
+        obj[symbols.selector]('.q-toggle__inner--truthy') ===
+          '.q-toggle__inner--truthy .q-toggle__track'
+    )
+    expect(trackEntry).toBeDefined()
+    expect(trackEntry.background).toBe('var(--q-toggle-track-bg-active)')
+    expect(trackEntry.opacity).toBe('var(--q-toggle-track-opacity-active)')
+    expect(trackEntry.border).toBe('var(--q-toggle-track-outline-active)')
+  })
+
+  it('hardcodes no md2 geometry outside the dense variant', () => {
+    // Dense keeps Quasar's proportional em geometry on purpose; every other
+    // toggle rule must be token-driven.
+    const forbidden = [
+      '1.4em',
+      '0.35em',
+      '0.5em',
+      '0.175em',
+      '40px',
+      '#fff',
+      '3px'
+    ]
+    for (const cls of [
+      'q-toggle__inner',
+      'q-toggle__track',
+      'q-toggle__thumb',
+      'q-toggle__inner--truthy',
+      'q-toggle__inner--indet'
+    ]) {
+      for (const value of allValues(toggleRules, cls)) {
+        for (const bad of forbidden) {
+          expect(value).not.toContain(bad)
+        }
+      }
+    }
   })
 })

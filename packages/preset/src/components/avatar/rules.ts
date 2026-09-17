@@ -10,8 +10,11 @@ export const avatarRules = [
       'border-radius': 'var(--q-radius-circle)',
       overflow: 'hidden',
       'flex-shrink': 0,
-      width: '40px',
-      height: '40px',
+      // 1em, not a fixed 40px: the reference sizes avatars as width/height 1em
+      // so they scale with the font-size the context sets (48px standalone,
+      // 40px in a list row, 38px in a toolbar).
+      width: '1em',
+      height: '1em',
       'font-size': 'var(--q-avatar-font-size)',
       'line-height': 1
     })
@@ -19,8 +22,15 @@ export const avatarRules = [
   [
     /^q-avatar__content$/,
     () => ({
-      width: '100%',
-      height: '100%',
+      // Reference: `.q-avatar__content { font-size:0.5em; line-height:0.5em;
+      // border-radius:inherit; height:inherit; width:inherit }`. Without the
+      // 0.5em font-size the content inherits the avatar's own size (40px in a
+      // list row), so the letter rendered enormous and clipped the circle.
+      'font-size': '0.5em',
+      'line-height': '0.5em',
+      'border-radius': 'inherit',
+      width: 'inherit',
+      height: 'inherit',
       'object-fit': 'cover'
     })
   ],

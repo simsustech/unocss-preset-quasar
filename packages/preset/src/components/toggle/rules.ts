@@ -1,8 +1,24 @@
 import type { Rule } from '@unocss/core'
 
 /**
- * QToggle — clean rewrite using symbols.selector for pseudo-elements.
- * Each matcher appears exactly once; all yields consolidated into a single generator.
+ * QToggle — token-driven rewrite (one ruleset, three styles).
+ *
+ * Every geometric value comes from the per-style component tokens, so the same
+ * rules render:
+ *
+ *   md3 — 52x32 chassis, 16px handle at rest / 24px when on, 2px outline when
+ *         off (transparent when on), track surface-container-highest -> primary,
+ *         handle outline -> on-primary, 16px handle icon, 300ms toggle.
+ *   md2 — Quasar's switch: 56x40 box, 14px track at .38/.54 opacity, 20px
+ *         handle with elevation 1, no outline, 200ms toggle.
+ *   unstyled — inert (auto/0/transparent), Quasar's HTML defaults only.
+ *
+ * Spec: specs/reference/normalized/md3-switches.json + md2-switches.json
+ * (cross-checked against Flutter _SwitchConfigM3/M2 and Compose SwitchTokens).
+ *
+ * The previous version hardcoded Quasar's MD2 em geometry (inner 1.4em @40px,
+ * track 0.35em, handle 0.5em), which is why the MD3 toggle rendered as MD2 no
+ * matter what the style tokens said.
  */
 export const toggleRules = [
   [
@@ -19,7 +35,7 @@ export const toggleRules = [
         bottom: 0,
         left: 0,
         'border-radius': '50%',
-        background: 'currentColor',
+        background: 'var(--q-toggle-state-layer-color)',
         opacity: 0.12,
         transform: 'scale3d(0, 0, 1)',
         transition: 'transform 0.22s cubic-bezier(0, 0, 0.2, 1)'
@@ -36,17 +52,24 @@ export const toggleRules = [
           `${sel}:not(.disabled):hover .q-toggle__thumb:before`,
         transform: 'scale(2)'
       }
+      // MD3 tints the on-state interaction layer with primary (MD2 keeps
+      // currentColor, so this is a no-op there via the token).
+      yield {
+        [symbols.selector]: (sel: string) =>
+          `${sel} .q-toggle__inner--truthy .q-toggle__thumb:before`,
+        background: 'var(--q-toggle-state-layer-color-active)'
+      }
     }
   ],
   [/^q-toggle__native$/, () => ({ width: '1px', height: '1px' })],
   [
     /^q-toggle__inner$/,
     () => ({
-      'font-size': '40px',
-      width: '1.4em',
-      'min-width': '1.4em',
+      'font-size': 'var(--q-toggle-font-size)',
+      width: 'var(--q-toggle-inner-width)',
+      'min-width': 'var(--q-toggle-inner-width)',
       height: '1em',
-      padding: '0.325em 0.3em',
+      padding: 'var(--q-toggle-inner-padding)',
       'print-color-adjust': 'exact',
       '-webkit-print-color-adjust': 'exact'
     })
@@ -54,26 +77,35 @@ export const toggleRules = [
   [
     /^q-toggle__track$/,
     () => ({
-      height: '0.35em',
-      'border-radius': '0.175em',
-      opacity: 0.38,
-      background: 'currentColor'
+      height: 'var(--q-toggle-track-height)',
+      'border-radius': 'var(--q-toggle-track-border-radius)',
+      opacity: 'var(--q-toggle-track-opacity)',
+      background: 'var(--q-toggle-track-bg)',
+      border: 'var(--q-toggle-track-outline)',
+      // Keeps the md3 2px ring inside the 32px chassis regardless of the
+      // surrounding reset's box-sizing.
+      'box-sizing': 'border-box',
+      'print-color-adjust': 'exact',
+      '-webkit-print-color-adjust': 'exact'
     })
   ],
   [
     /^q-toggle__thumb$/,
     function* (_, { symbols }) {
-      // NOTE: position:absolute deviates from quasar.css (which leaves the
-      // thumb static and relies on inner stacking). Without it the :after
-      // circle positions against .q-toggle__inner (observed 56px blowout) and
-      // the icon drops below the toolbar. The reference ships absolute too.
+      // Absolute positioning is required: without it the :after circle
+      // positions against .q-toggle__inner (observed 56px blowout) and the icon
+      // drops below the toolbar. The reference ships absolute too.
+      // Centring is expressed as calc(50% - size/2) so the same rule centres
+      // the 16px md3 resting handle, the 24px md3 active handle and Quasar's
+      // 20px md2 handle without per-state top offsets.
       yield {
         position: 'absolute',
-        top: '0.25em',
-        left: '0.25em',
-        width: '0.5em',
-        height: '0.5em',
-        transition: 'left 0.22s cubic-bezier(0.4, 0, 0.2, 1)',
+        top: 'calc(50% - var(--q-toggle-thumb-size) / 2)',
+        left: 'var(--q-toggle-thumb-offset)',
+        width: 'var(--q-toggle-thumb-size)',
+        height: 'var(--q-toggle-thumb-size)',
+        transition:
+          'left 0.22s cubic-bezier(0.4, 0, 0.2, 1), width 0.22s cubic-bezier(0.4, 0, 0.2, 1), height 0.22s cubic-bezier(0.4, 0, 0.2, 1)',
         'user-select': 'none',
         '-webkit-user-select': 'none',
         'z-index': 0
@@ -87,19 +119,16 @@ export const toggleRules = [
         bottom: 0,
         left: 0,
         'border-radius': '50%',
-        background: '#fff',
-        'box-shadow':
-          '0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12)'
+        background: 'var(--q-toggle-thumb-bg)',
+        'box-shadow': 'var(--q-toggle-thumb-shadow)'
       }
-      // Icon inside the thumb (was a dead `/^q-toggle__thumb .q-icon$/` entry:
-      // spaced regexes never match a token). Kept after :after so existing
-      // first-match tests keep passing. Source: quasar.css:5833.
+      // Icon inside the handle (md3: 16px check, on-primary-container).
       yield {
         [symbols.selector]: (sel: string) => `${sel} .q-icon`,
-        'font-size': '0.3em',
+        'font-size': 'var(--q-toggle-icon-size)',
         'min-width': '1em',
-        color: '#000',
-        opacity: 0.54,
+        color: 'var(--q-toggle-icon-color)',
+        opacity: 'var(--q-toggle-icon-opacity)',
         'z-index': 1
       }
     }
@@ -109,33 +138,35 @@ export const toggleRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-toggle__thumb`,
-        left: '0.45em'
+        left: 'var(--q-toggle-thumb-offset-indet)'
       }
     }
   ],
   [
     /^q-toggle__inner--truthy$/,
     function* (_, { symbols }) {
+      // Keeps currentColor-based MD2 pieces (track fill, md2 handle) in sync.
       yield { color: 'var(--q-primary)' }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-toggle__track`,
-        opacity: 0.54
+        background: 'var(--q-toggle-track-bg-active)',
+        opacity: 'var(--q-toggle-track-opacity-active)',
+        border: 'var(--q-toggle-track-outline-active)'
       }
-      // Quasar-faithful truthy thumb (quasar.css:5858-5863). The reference
-      // renders an md3 white thumb instead; that look is a design choice for
-      // the user (see follow-ups), not a defect — do not change unilaterally.
       yield {
         [symbols.selector]: (sel) => `${sel} .q-toggle__thumb`,
-        left: '0.65em'
+        width: 'var(--q-toggle-thumb-size-active)',
+        height: 'var(--q-toggle-thumb-size-active)',
+        top: 'calc(50% - var(--q-toggle-thumb-size-active) / 2)',
+        left: 'var(--q-toggle-thumb-offset-active)'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-toggle__thumb:after`,
-        'background-color': 'currentColor'
+        'background-color': 'var(--q-toggle-thumb-bg-active)'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-toggle__thumb .q-icon`,
-        color: '#fff',
-        opacity: 1
+        color: 'var(--q-toggle-icon-color-active)'
       }
     }
   ],
@@ -164,8 +195,12 @@ export const toggleRules = [
   [
     /^q-toggle--dense$/,
     function* (_, { symbols }) {
+      // Densities are not part of the M3 spec; this keeps Quasar's dense
+      // proportion (0.8em x 0.5em of the dense font size) and re-derives the
+      // handle in em so it scales with it instead of the px tokens.
       yield {
         [symbols.selector]: (sel) => `${sel} .q-toggle__inner`,
+        'font-size': 'var(--q-toggle-dense-font-size)',
         width: '0.8em',
         'min-width': '0.8em',
         height: '0.5em',
@@ -173,8 +208,10 @@ export const toggleRules = [
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-toggle__thumb`,
-        top: 0,
-        left: 0
+        width: '0.5em',
+        height: '0.5em',
+        top: 'calc(50% - 0.25em)',
+        left: '0'
       }
       yield {
         [symbols.selector]: (sel) =>
@@ -184,6 +221,9 @@ export const toggleRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-toggle__inner--truthy .q-toggle__thumb`,
+        width: '0.5em',
+        height: '0.5em',
+        top: 'calc(50% - 0.25em)',
         left: '0.3em'
       }
       yield {
@@ -202,6 +242,23 @@ export const toggleRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-toggle__label`,
+        'padding-left': 0,
+        'padding-right': '0.5em'
+      }
+    }
+  ],
+  [
+    // Label offset from the control. Missing entirely before, which left the
+    // MD3 toggle label glued to the track (reference: `.q-toggle
+    // .q-toggle__label { padding-left: .5em }`, `.reverse` swaps sides).
+    /^q-toggle__label$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `.q-toggle ${sel}`,
+        'padding-left': '0.5em'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-toggle.reverse ${sel}`,
         'padding-left': 0,
         'padding-right': '0.5em'
       }

@@ -299,7 +299,15 @@ export const colorRules = [
   [
     /^q-color-picker__header-bg$/,
     function* () {
-      yield { background: '#fff', 'background-image': 'url("data:image/png' }
+      // Full 8x8 checkerboard PNG, the same asset the reference ships. This
+      // was a truncated stub ('url("data:image/png') that stayed invisible
+      // until the class was safelisted, then broke the whole CSS build with
+      // `CssSyntaxError: Unclosed string`.
+      yield {
+        background: '#fff',
+        'background-image':
+          'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAH0lEQVQoU2NkYGAwZkAFZ5G5jPRRgOYEVDeB3EBjBQBOZwTVugIGyAAAAABJRU5ErkJggg==")'
+      }
     }
   ],
   [

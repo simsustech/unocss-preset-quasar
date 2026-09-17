@@ -1,0 +1,95 @@
+{
+  "_meta": {
+    "component": "switches",
+    "style": "md3",
+    "sources": [
+      "flutter:packages/flutter/lib/src/material/switch.dart (_SwitchConfigM3, _SwitchDefaultsM3)",
+      "compose-material3:Switch.kt (SwitchDefaults.colors)",
+      "compose-material3:tokens/SwitchTokens.kt (md.comp.switch.*)"
+    ],
+    "note": "Flutter and Compose agree exactly on every size/colour below; where they differ it is noted per key."
+  },
+  "chassis": {
+    "track_width_px": 52,
+    "track_height_px": 32,
+    "track_shape_token": "md.sys.shape.corner.full"
+  },
+  "track": {
+    "outline_width_px": 2,
+    "unselected_outline_color_token": "md.sys.color.outline",
+    "selected_outline_color": "transparent",
+    "unselected_color_token": "md.sys.color.surface-container-highest",
+    "selected_color_token": "md.sys.color.primary",
+    "hover_color_token": "md.sys.color.primary",
+    "focus_color_token": "md.sys.color.primary",
+    "pressed_color_token": "md.sys.color.primary"
+  },
+  "handle": {
+    "shape_token": "md.sys.shape.corner.full",
+    "unselected_width_px": 16,
+    "unselected_height_px": 16,
+    "unselected_color_token": "md.sys.color.outline",
+    "selected_width_px": 24,
+    "selected_height_px": 24,
+    "selected_color_token": "md.sys.color.on-primary",
+    "icon_handle_width_px": 24,
+    "icon_handle_height_px": 24,
+    "pressed_width_px": 28,
+    "pressed_height_px": 28,
+    "hover_color_token": "md.sys.color.on-surface-variant",
+    "focus_color_token": "md.sys.color.on-surface-variant",
+    "selected_hover_color_token": "md.sys.color.primary-container",
+    "selected_focus_color_token": "md.sys.color.primary-container",
+    "selected_pressed_color_token": "md.sys.color.primary-container",
+    "elevation": "level_0"
+  },
+  "handle_icon": {
+    "size_px": 16,
+    "unselected_color_token": "md.sys.color.surface-container-highest",
+    "selected_color_token": "md.sys.color.on-primary-container"
+  },
+  "state_layer": {
+    "size_px": 40,
+    "shape_token": "md.sys.shape.corner.full",
+    "hover_opacity": 0.08,
+    "focus_opacity": 0.1,
+    "pressed_opacity": 0.1,
+    "unselected_hover_color_token": "md.sys.color.on-surface",
+    "selected_hover_color_token": "md.sys.color.primary",
+    "unselected_pressed_color_token": "md.sys.color.on-surface",
+    "selected_pressed_color_token": "md.sys.color.primary"
+  },
+  "focus_indicator_color_token": "md.sys.color.secondary",
+  "layout_padding": {
+    "horizontal_px": 4
+  },
+  "motion": {
+    "toggle_duration_ms": 300,
+    "transitional_handle_width_px": 34,
+    "transitional_handle_height_px": 22,
+    "handle_size_on_press": "snap"
+  },
+  "touch_target": {
+    "min_width_px": 48,
+    "min_height_px": 40
+  },
+  "disabled": {
+    "selected_handle_color_token": "md.sys.color.surface",
+    "selected_handle_opacity": 1.0,
+    "unselected_handle_color_token": "md.sys.color.on-surface",
+    "unselected_handle_opacity": 0.38,
+    "selected_track_color_token": "md.sys.color.on-surface",
+    "selected_track_opacity": 0.12,
+    "unselected_track_color_token": "md.sys.color.surface-container-highest",
+    "track_opacity": 0.12,
+    "unselected_track_outline_color_token": "md.sys.color.on-surface",
+    "selected_icon_color_token": "md.sys.color.on-surface",
+    "selected_icon_opacity": 0.38,
+    "unselected_icon_color_token": "md.sys.color.surface-container-highest",
+    "unselected_icon_opacity": 0.38
+  },
+  "divergences": {
+    "handle_unselected_color": "Flutter _SwitchDefaultsM3 uses md.sys.color.outline; older generated SwitchTokens used on-surface-variant for the same slot (Compose Kotlin: UnselectedHandleColor = Outline). Outline is authoritative.",
+    "content_padding_end": "Flutter M3 uses start 16 / end 24 for list items (see md3-lists.json); Compose uses 16/16. List-only divergence, not switches."
+  }
+}

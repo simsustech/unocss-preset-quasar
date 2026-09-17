@@ -84,21 +84,18 @@ export const layoutRules = [
   [
     /^q-layout__section--marginal$/,
     function* () {
-      yield { 'background-color': 'var(--q-primary)', color: '#fff' }
+      // Spec: md.sys.color.surface-container-low (same token the navigation
+      // drawer uses). Was painting --q-primary with white text, and the class
+      // was missing from the safelist so it never emitted at all.
+      yield {
+        'background-color': 'var(--q-surface-container-low)',
+        color: 'var(--q-on-surface)'
+      }
     }
   ],
-  [
-    /^q-header$/,
-    function* () {
-      yield { position: 'relative' }
-    }
-  ],
-  [
-    /^q-footer$/,
-    function* () {
-      yield { position: 'relative' }
-    }
-  ],
+  // NOTE: /^q-header$/ and /^q-footer$/ were declared here as well as in the
+  // header/footer modules. The engine keeps one rule per regex, so the later
+  // declarations won and the bases were lost — do not reintroduce them here.
   [
     /^q-page$/,
     function* () {

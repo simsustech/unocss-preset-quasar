@@ -3,12 +3,15 @@ import type { Rule } from '@unocss/core'
 export const cardRules = [
   [
     /^q-card$/,
+    // Spec (specs/cards_and_containers.json): elevated_card.corner_shape_token =
+    // md.sys.shape.corner.large (16px MD3 / 4px MD2) and
+    // background_layer_mapping_token = md.sys.color.surface-container-low.
     () => ({
       display: 'flex',
       'flex-direction': 'column',
       padding: 'var(--q-space-lg)',
-      'border-radius': 'var(--q-radius-md)',
-      'background-color': 'var(--q-surface)',
+      'border-radius': 'var(--q-card-radius)',
+      'background-color': 'var(--q-card-surface)',
       'box-shadow': 'var(--q-elevation-1)',
       position: 'relative'
     })

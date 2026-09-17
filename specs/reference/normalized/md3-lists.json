@@ -1,0 +1,105 @@
+{
+  "_meta": {
+    "component": "lists",
+    "style": "md3",
+    "sources": [
+      "compose-material3:tokens/ListTokens.kt (md.comp.list.*)",
+      "compose-material3:ListItem.kt (ListItemDefaults paddings)",
+      "flutter:packages/flutter/lib/src/material/list_tile.dart (_LisTileDefaultsM3)"
+    ],
+    "note": "Compose ListTokens gives token names/values; Flutter confirms the same geometry and supplies the M3 text/colour roles."
+  },
+  "container": {
+    "shape_token": "md.sys.shape.corner.large",
+    "background_color_token": "md.sys.color.surface-variant"
+  },
+  "item": {
+    "one_line_container_height_px": 56,
+    "two_line_container_height_px": 72,
+    "three_line_container_height_px": 88,
+    "container_color_token": "md.sys.color.surface",
+    "container_shape_token": "md.sys.shape.corner.none",
+    "container_elevation": "level_0",
+    "segmented_container_color_token": "md.sys.color.surface",
+    "segmented_gap_px": 2,
+    "selected_container_color_token": "md.sys.color.secondary-container",
+    "selected_container_shape_token": "md.sys.shape.corner.large",
+    "dragged_container_elevation": "level_4",
+    "focus_indicator_color_token": "md.sys.color.secondary"
+  },
+  "label": {
+    "text_color_token": "md.sys.color.on-surface",
+    "text_typography_style": "body-large",
+    "selected_text_color_token": "md.sys.color.on-secondary-container",
+    "selected_dragged_text_color_token": "md.sys.color.on-secondary-container"
+  },
+  "supporting_text": {
+    "text_color_token": "md.sys.color.on-surface-variant",
+    "text_typography_style": "body-medium",
+    "selected_text_color_token": "md.sys.color.on-secondary-container"
+  },
+  "overline": {
+    "text_color_token": "md.sys.color.on-surface-variant",
+    "text_typography_style": "label-small",
+    "selected_text_color_token": "md.sys.color.on-secondary-container"
+  },
+  "trailing_supporting_text": {
+    "text_color_token": "md.sys.color.on-surface-variant",
+    "text_typography_style": "label-small",
+    "selected_text_color_token": "md.sys.color.on-secondary-container"
+  },
+  "leading": {
+    "icon_color_token": "md.sys.color.on-surface-variant",
+    "icon_size_px": 24,
+    "avatar_color_token": "md.sys.color.primary-container",
+    "avatar_label_color_token": "md.sys.color.on-primary-container",
+    "avatar_label_typography_style": "title-medium",
+    "avatar_shape_token": "md.sys.shape.corner.full",
+    "avatar_size_px": 40,
+    "image_height_px": 56,
+    "image_width_px": 56,
+    "image_shape_token": "md.sys.shape.corner.none",
+    "video_width_px": 100,
+    "video_shape_token": "md.sys.shape.corner.small"
+  },
+  "trailing": {
+    "icon_color_token": "md.sys.color.on-surface-variant",
+    "icon_size_px": 24,
+    "unselected_icon_color_token": "md.sys.color.on-surface",
+    "selected_icon_color_token": "md.sys.color.on-secondary-container"
+  },
+  "spacing": {
+    "leading_space_px": 16,
+    "trailing_space_px": 16,
+    "between_space_px": 12,
+    "top_space_px": 10,
+    "bottom_space_px": 10,
+    "vertical_padding_px": 8,
+    "three_line_vertical_padding_px": 12,
+    "content_padding_start_px": 16,
+    "content_padding_end_px": 24,
+    "list_divider_leading_space_px": 16,
+    "list_divider_trailing_space_px": 16,
+    "list_divider_top_space_px": 0,
+    "list_divider_bottom_space_px": 0
+  },
+  "disabled": {
+    "container_opacity": 0.38,
+    "label_text_color_token": "md.sys.color.on-surface",
+    "label_text_opacity": 0.38,
+    "leading_icon_color_token": "md.sys.color.on-surface",
+    "leading_icon_opacity": 0.38,
+    "trailing_icon_color_token": "md.sys.color.on-surface",
+    "trailing_icon_opacity": 0.38,
+    "overline_color_token": "md.sys.color.on-surface",
+    "overline_opacity": 0.38,
+    "supporting_text_color_token": "md.sys.color.on-surface",
+    "supporting_text_opacity": 0.38,
+    "state_layer_opacity": 0.1
+  },
+  "divergences": {
+    "content_padding_end": "Flutter uses start 16 / end 24 (EdgeInsetsDirectional.only(start: 16, end: 24)); Compose uses start 16 / end 16. Both are 'M3'; end 24 is the newer/expressive figure Flutter ships. Quasar's own q-item uses its own padding scale, so this only applies where the preset claims spec parity.",
+    "vertical_alignment_breakpoint_px": 68,
+    "vertical_alignment_breakpoint_formula": "(three_line_height + two_line_height) / 2 - top_padding - bottom_padding = (88 + 72) / 2 - 10 - 10 = 68 (Compose InteractiveListVerticalAlignmentBreakpoint)"
+  }
+}

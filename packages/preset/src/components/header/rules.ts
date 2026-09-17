@@ -1,15 +1,33 @@
 import type { Rule } from '@unocss/core'
 
+/**
+ * QHeader — a positioned layout section, not a toolbar.
+ *
+ * Quasar keeps `.q-header` minimal (`position: relative; z-index: 2000`) and
+ * lets the `.q-toolbar` inside own the flex row, padding and height. The
+ * earlier rewrite duplicated the toolbar's box model here and split the class
+ * across two entries; because the engine keeps only the last rule per regex,
+ * the base declarations were silently dropped and the header rendered as a
+ * bare transparent block.
+ *
+ * Surface color comes from `.q-layout__section--marginal`
+ * (md.sys.color.surface-container-low), matching the reference.
+ */
 export const headerRules = [
   [
     /^q-header$/,
-    () => ({
-      display: 'flex',
-      'align-items': 'center',
-      padding: '0 var(--q-space-md)',
-      'min-height': '50px',
-      'background-color': 'var(--q-surface-container)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        position: 'relative',
+        'z-index': 2000
+      }
+      // Shadow hook: the reveal/elevate helper sits inside the header and
+      // overflows below it (quasar.css `.q-header .q-layout__shadow:after`).
+      yield {
+        [symbols.selector]: () => '.q-header .q-layout__shadow:after',
+        bottom: '10px'
+      }
+    }
   ],
   [
     /^q-header--bordered$/,
@@ -34,20 +52,5 @@ export const headerRules = [
     () => ({
       // Reveal
     })
-  ],
-  [
-    /^q-header$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (_sel) => `.q-header .q-layout__shadow:after`,
-        bottom: '10px'
-      }
-    }
-  ],
-  [
-    /^q-footer$/,
-    function* () {
-      yield { 'z-index': '2000' }
-    }
   ]
 ] as Rule[]

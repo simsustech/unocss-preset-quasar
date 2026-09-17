@@ -1,0 +1,32 @@
+{
+  "_meta": {
+    "component": "dividers",
+    "style": "md3",
+    "sources": [
+      "compose-material3:tokens/DividerTokens.kt (md.comp.divider.*)",
+      "compose-material3:Divider.kt (DividerDefaults)",
+      "flutter:packages/flutter/lib/src/material/divider.dart (_DividerDefaultsM3)"
+    ],
+    "note": "Both implementations are exact and identical: thickness 1dp, colour outline-variant, no indent. Flutter adds space 16 (the height of the divider box)."
+  },
+  "divider": {
+    "thickness_px": 1,
+    "color_token": "md.sys.color.outline-variant",
+    "indent_px": 0,
+    "end_indent_px": 0,
+    "space_px": 16,
+    "hairline_value_px": 0
+  },
+  "list_divider": {
+    "thickness_px": 1,
+    "color_token": "md.sys.color.outline-variant",
+    "leading_space_px": 16,
+    "trailing_space_px": 16,
+    "top_space_px": 0,
+    "bottom_space_px": 0
+  },
+  "notes": {
+    "hairline": "Compose treats Dp.Hairline as 1 physical pixel (1 / density); Flutter treats thickness 0.0 as a hairline with a minimum of 1 device pixel. Use 1px for CSS.",
+    "css_mapping": "border-bottom: 1px solid var(--q-outline-variant) on the separator element, or height: 1px with the same background."
+  }
+}

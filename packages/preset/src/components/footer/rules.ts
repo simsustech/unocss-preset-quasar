@@ -1,15 +1,26 @@
 import type { Rule } from '@unocss/core'
 
+/**
+ * QFooter — mirrored counterpart of QHeader.
+ *
+ * Same contract: a positioned layout section (`position: relative;
+ * z-index: 2000`), with the inner `.q-toolbar` owning the box model. The
+ * surface comes from `.q-layout__section--marginal`. Previously this class was
+ * split across two entries in two files, so last-wins dropped the base.
+ */
 export const footerRules = [
   [
     /^q-footer$/,
-    () => ({
-      display: 'flex',
-      'align-items': 'center',
-      padding: '0 var(--q-space-md)',
-      'min-height': '50px',
-      'background-color': 'var(--q-surface-container)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        position: 'relative',
+        'z-index': 2000
+      }
+      yield {
+        [symbols.selector]: () => '.q-footer .q-layout__shadow:after',
+        top: '10px'
+      }
+    }
   ],
   [
     /^q-footer--bordered$/,
@@ -34,14 +45,5 @@ export const footerRules = [
     () => ({
       // Reveal
     })
-  ],
-  [
-    /^q-footer$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (_sel) => `.q-footer .q-layout__shadow:after`,
-        top: '10px'
-      }
-    }
   ]
 ] as Rule[]

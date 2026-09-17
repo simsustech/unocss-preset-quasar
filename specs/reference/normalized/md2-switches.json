@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "component": "switches",
+    "style": "md2",
+    "sources": [
+      "material-design-2 spec (existing specs/md2/core_component_design_specifications.json)",
+      "flutter:packages/flutter/lib/src/material/switch.dart (_SwitchConfigM2, _SwitchDefaultsM2)"
+    ],
+    "note": "The Material 2 design spec (track 36x14) and Flutter's M2 implementation (33x14) differ by 3px on track width; Quasar's MD2 switch uses the design-spec 36px. Both are recorded."
+  },
+  "chassis": {
+    "track_width_px": 36,
+    "track_width_flutter_px": 33,
+    "track_height_px": 14,
+    "corner": "full"
+  },
+  "handle": {
+    "diameter_px": 20,
+    "elevation_resting": "level_1",
+    "unselected_color": "grey-50 (dark: grey-400)",
+    "selected_color_token": "md.sys.color.secondary"
+  },
+  "track": {
+    "unselected_color": "rgba(0,0,0,0.32) (dark: white30)",
+    "selected_color": "secondary @ 50% alpha",
+    "outline_color": "transparent"
+  },
+  "motion": {
+    "toggle_duration_ms": 200,
+    "transitional_handle_size_px": "20x20",
+    "state_layer_alpha": 0.12
+  },
+  "touch_target": {
+    "min_size_px": 40
+  }
+}

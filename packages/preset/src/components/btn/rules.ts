@@ -197,7 +197,9 @@ export const btnRules = [
   [
     /^q-btn--rectangle$/,
     function* () {
-      yield { 'border-radius': '3px' }
+      // Was hardcoded 3px, which overrode --q-btn-radius in every style and is
+      // out of spec: MD3 buttons are corner.full (28px), MD2 4px.
+      yield { 'border-radius': 'var(--q-btn-radius)' }
     }
   ],
   [

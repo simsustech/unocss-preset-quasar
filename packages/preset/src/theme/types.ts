@@ -110,6 +110,9 @@ export interface MotionTokens {
 }
 
 export interface ComponentTokens {
+  // QCard — md.sys.shape.corner.large (16px MD3, 4px MD2); surface per style
+  cardRadius: string
+  cardSurface: string
   // QBtn
   btnBg: string
   btnColor: string
@@ -151,6 +154,27 @@ export interface ComponentTokens {
   toggleTrackBorderRadius: string
   toggleTrackHeight: string
   toggleInnerWidth: string
+  // QToggle — MD3 switch spec: specs/reference/normalized/md3-switches.json
+  // (chassis 52x32, handle 16 resting / 24 active, 2px outline, state layer 40,
+  // toggled in 300ms). MD2 keeps Quasar's 14px track / 20px handle.
+  toggleInnerPadding: string
+  toggleTrackBgActive: string
+  toggleTrackOpacityActive: string
+  toggleTrackOutlineActive: string
+  toggleThumbSize: string
+  toggleThumbSizeActive: string
+  toggleThumbOffset: string
+  toggleThumbOffsetActive: string
+  toggleThumbOffsetIndet: string
+  toggleThumbBg: string
+  toggleThumbBgActive: string
+  toggleThumbShadow: string
+  toggleIconSize: string
+  toggleIconOpacity: string
+  toggleIconColor: string
+  toggleIconColorActive: string
+  toggleStateLayerColor: string
+  toggleStateLayerColorActive: string
   // Misc
   linearProgressSpeed: string
   paginationGutterChild: string

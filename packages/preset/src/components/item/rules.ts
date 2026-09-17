@@ -13,6 +13,9 @@ export const itemRules = [
       'flex-wrap': 'nowrap',
       padding: 'var(--q-space-sm) var(--q-space-lg)',
       'min-height': 'var(--q-item-min-height)',
+      // Label colour role; the side sections override to on-surface-variant.
+      color: 'inherit',
+      transition: 'color 0.3s, background-color 0.3s',
       position: 'relative'
     })
   ],
@@ -101,7 +104,10 @@ export const itemRules = [
     // anonymous text children (the centered-playground-list bug). Quasar source
     // sets no alignment here; side/avatar variants align themselves.
     () => ({
-      display: 'flex'
+      display: 'flex',
+      'flex-direction': 'column',
+      'flex-wrap': 'nowrap',
+      'min-width': '0'
     })
   ],
   [
@@ -110,7 +116,12 @@ export const itemRules = [
       yield {
         'justify-content': 'center',
         'min-width': '40px',
-        'flex-shrink': 0
+        'flex-shrink': 0,
+        // Spec (md3-lists.json): leading/trailing icon slots are
+        // on-surface-variant, not the label colour. This was the reported
+        // "wrong text colour" in lists.
+        color: 'var(--q-on-surface-variant)',
+        'align-items': 'flex-start'
       }
       // Source: quasar.css `.q-item__section--side > .q-avatar/.q-icon`.
       yield {
@@ -126,7 +137,21 @@ export const itemRules = [
   [
     /^q-item__section--main$/,
     function* (_, { symbols }) {
-      yield { flex: '1', 'min-width': 0 }
+      yield {
+        flex: '10000 1 0%',
+        width: 'auto',
+        'min-width': 0,
+        'max-width': '100%'
+      }
+      // Reference: taller main content reserves a min-height per child count.
+      yield {
+        [symbols.selector]: (sel) => `${sel}:has(> :last-child:nth-child(2))`,
+        'min-height': '36px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}:has(> :last-child:nth-child(3))`,
+        'min-height': '44px'
+      }
       // Source: quasar.css `.q-item__section--main ~ .q-item__section--side`.
       yield {
         [symbols.selector]: (sel: string) => `${sel} ~ .q-item__section--side`,
@@ -139,14 +164,21 @@ export const itemRules = [
   [
     /^q-item__section--avatar$/,
     () => ({
-      'min-width': '40px'
+      'min-width': '56px',
+      color: 'inherit'
     })
   ],
   [
     /^q-item__section--thumbnail$/,
-    () => ({
-      'min-width': '80px'
-    })
+    function* (_, { symbols }) {
+      yield { flex: '0 1 auto !important' }
+      // Reference: thumbnail media measures 100x56.
+      yield {
+        [symbols.selector]: (sel) => `${sel} img`,
+        width: '100px',
+        height: '56px'
+      }
+    }
   ],
   [
     /^q-item__label$/,
@@ -154,7 +186,10 @@ export const itemRules = [
       yield {
         overflow: 'hidden',
         'text-overflow': 'ellipsis',
-        'white-space': 'nowrap'
+        'white-space': 'nowrap',
+        // Reference sets 1.2em!important here; without it the label inherits
+        // the typography line-height (21px instead of 16.8px at 14px).
+        'line-height': '1.2em'
       }
       // Source: quasar.css `.q-item__label + .q-item__label`.
       yield {
@@ -167,13 +202,20 @@ export const itemRules = [
     /^q-item__label--caption$/,
     () => ({
       'font-size': '0.75em',
-      opacity: 0.7
+      // Spec: supporting text is on-surface-variant (was a 70% currentColor
+      // opacity, which washed out against the label colour).
+      color: 'var(--q-on-surface-variant)'
     })
   ],
   [
     /^q-item__label--header$/,
     () => ({
-      'font-weight': 600
+      // Spec (md3-lists.json overline): label-small + on-surface-variant.
+      'font-size': '0.875rem',
+      'line-height': '1.25rem',
+      'letter-spacing': '0.01786em',
+      padding: 'var(--q-space-lg)',
+      color: 'var(--q-on-surface-variant)'
     })
   ],
   [
@@ -191,7 +233,21 @@ export const itemRules = [
   [
     /^q-item__label--overline$/,
     function* () {
-      yield { color: 'color-mix(in srgb, currentColor 70%, transparent)' }
+      yield { color: 'var(--q-on-surface-variant)' }
+    }
+  ],
+  [
+    // Reference bleeds a leading/trailing thumbnail to the row edge.
+    /^q-item > .q-item__section--thumbnail$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `${sel}:first-child`,
+        'margin-left': 'calc(var(--q-space-lg) * -1)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}:last-of-type`,
+        'margin-right': 'calc(var(--q-space-lg) * -1)'
+      }
     }
   ]
 ] as Rule[]

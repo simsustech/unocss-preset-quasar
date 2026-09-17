@@ -27,10 +27,13 @@ const colorTokens = [
   'info',
   'warning',
   'dark',
-  'dark-page',
-  'light',
-  'white',
-  'black'
+  'dark-page'
+  // 'light', 'white' and 'black' are deliberately absent. They are wind4
+  // palette names, not `--q-*` tokens, so generating `text-white`/`bg-white`
+  // here emitted `color: var(--q-white)` — a variable the theme never defines.
+  // Invalid declarations silently fall back to the inherited colour, which is
+  // why avatars rendered black letters on a coloured circle. wind4 already
+  // ships working utilities for these via its own `--colors-*` palette.
 ] as const
 
 /** MD3 color role tokens (from @poupe/material-color-utilities) */

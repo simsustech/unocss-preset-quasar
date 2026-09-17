@@ -1,0 +1,24 @@
+{
+  "_meta": {
+    "component": "dividers",
+    "style": "md2",
+    "sources": [
+      "flutter:packages/flutter/lib/src/material/divider.dart (M2 branch: ThemeData.dividerColor)"
+    ],
+    "note": "MD2 dividers are a 1px black-12% line, full-bleed by default; a list divider is inset by the leading 16px to align with label text."
+  },
+  "divider": {
+    "thickness_px": 1,
+    "color": "rgba(0, 0, 0, 0.12)",
+    "color_token": "theme.divider-color (Colors.black12)",
+    "indent_px": 0,
+    "end_indent_px": 0,
+    "space_px": 16
+  },
+  "list_divider": {
+    "thickness_px": 1,
+    "color": "rgba(0, 0, 0, 0.12)",
+    "indent_px": 16,
+    "end_indent_px": 0
+  }
+}
