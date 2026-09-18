@@ -1,0 +1,2185 @@
+{
+  "source": "file:/tmp/ref.css",
+  "bundleHash": "4a01f0ffbc51075f",
+  "ruleCount": 163,
+  "rules": [
+    {
+      "selector": "body.desktop.body--dark .q-chip--clickable:focus",
+      "media": null,
+      "declarations": [
+        {
+          "property": "box-shadow",
+          "value": "0 1px 3px rgba(255, 255, 255, 0.2), 0 1px 1px rgba(255, 255, 255, 0.14), 0 2px 1px -1px rgba(255, 255, 255, 0.12)"
+        }
+      ]
+    },
+    {
+      "selector": "body.body--dark .q-header",
+      "media": null,
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "rgba(255, 255, 255, 0.28)"
+        }
+      ]
+    },
+    {
+      "selector": "body.body--dark .q-footer",
+      "media": null,
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "rgba(255, 255, 255, 0.28)"
+        }
+      ]
+    },
+    {
+      "selector": "body.body--dark .q-drawer",
+      "media": null,
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "rgba(255, 255, 255, 0.28)"
+        }
+      ]
+    },
+    {
+      "selector": "body.body--dark .q-layout\\_\\_shadow:after",
+      "media": null,
+      "declarations": [
+        {
+          "property": "box-shadow",
+          "value": "0 0 10px 2px rgba(255, 255, 255, 0.2), 0 0px 10px rgba(255, 255, 255, 0.24)"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification",
+      "media": null,
+      "declarations": [
+        {
+          "property": "pointer-events",
+          "value": "all !important"
+        },
+        {
+          "property": "font-size",
+          "value": "14px"
+        },
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--light-inverse-on-surface) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "margin-inline",
+          "value": "10px"
+        },
+        {
+          "property": "margin-top",
+          "value": "10px"
+        },
+        {
+          "property": "margin-bottom",
+          "value": "0"
+        },
+        {
+          "property": "border-radius",
+          "value": "var(--shape-corner-extra-small)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--light-inverse-surface) var(--un-bg-opacity), transparent)"
+        },
+        {
+          "property": "display",
+          "value": "inline-flex"
+        },
+        {
+          "property": "flex-shrink",
+          "value": "0"
+        },
+        {
+          "property": "max-width",
+          "value": "95vw"
+        },
+        {
+          "property": "box-shadow",
+          "value": "0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)"
+        },
+        {
+          "property": "transition",
+          "value": "transform 1s, opacity 1s"
+        },
+        {
+          "property": "z-index",
+          "value": "9500"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-markup-table",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-menu",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-table__card",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-btn-group > .q-btn-item",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-date__calendar-item--in .q-btn--flat",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-date__months-item .q-btn--flat",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-date__navigation .q-btn",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-date__years-item .q-btn--flat",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-field--standout.q-field--dark.q-field--highlighted .q-field__input > .q-btn-item",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-time__now-button",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-btn-group > .q-btn-item.bg-primary",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-primary) var(--un-text-opacity), transparent) !important"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-bg-opacity), transparent) !important"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-checkbox__inner--indet",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-checkbox__inner--truthy",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-checkbox--dark .q-checkbox__inner--indet",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-checkbox--dark .q-checkbox__inner--truthy",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-chip__icon",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-circular-progress",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-drawer__content .q-list > .q-router-link--active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-field__control",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-item--active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-item.q-router-link--active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-linear-progress",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-notification__actions",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-pull-to-refresh__puller",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-radio__check",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-radio--dark .q-radio__inner--truthy",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-slider__thumb",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-stepper__tab--active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-tab--active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-time__clock-pointer",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-chip",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-secondary-container) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "outline-color",
+          "value": "color-mix(in oklab, var(--dark-outline) var(--un-outline-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-secondary-container) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-text-content--received",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, #000 var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-text-content--sent",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, #000 var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-date__calendar-item--in .q-btn",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-primary) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-date__months-item .q-btn",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-primary) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-date__years-item .q-btn",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-primary) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-time__clock-position--active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-primary) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-date__header",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container-high) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-editor__content",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface-variant) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container-highest) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-field--filled > .q-field _inner > .q-field _control",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface-variant) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container-highest) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-field__append > .q-icon",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface-variant) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-radio__inner",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface-variant) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-layout__section--marginal",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container-low) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".q-loading",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, #000 var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "position",
+          "value": "fixed !important"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-label",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, small var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "margin-inline",
+          "value": "0"
+        },
+        {
+          "property": "margin-block",
+          "value": "24px"
+        },
+        {
+          "property": "text-align",
+          "value": "center"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-name",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, small var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-stamp",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, small var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "margin-top",
+          "value": "4px"
+        },
+        {
+          "property": "opacity",
+          "value": "60%"
+        },
+        {
+          "property": "display",
+          "value": "none"
+        },
+        {
+          "property": "color",
+          "value": "inherit"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-text--received",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, #81c784 var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "border-top-left-radius",
+          "value": "4px"
+        },
+        {
+          "property": "border-bottom-right-radius",
+          "value": "4px"
+        },
+        {
+          "property": "border-top-right-radius",
+          "value": "4px"
+        },
+        {
+          "property": "border-bottom-left-radius",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-text--sent",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, #e0e0e0 var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "border-top-left-radius",
+          "value": "4px"
+        },
+        {
+          "property": "border-bottom-right-radius",
+          "value": "0"
+        },
+        {
+          "property": "border-top-right-radius",
+          "value": "4px"
+        },
+        {
+          "property": "border-bottom-left-radius",
+          "value": "4px"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-notification",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-inverse-on-surface) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-inverse-surface) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-tooltip--style",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-inverse-on-surface) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-inverse-surface) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-slider__track",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-secondary-container) 30%, transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-table tbody tr.selected td",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-secondary-container) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-table th",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface-variant) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "border-color",
+          "value": "color-mix(in oklab, var(--dark-outline-variant) var(--un-border-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-table__bottom",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "border-top",
+          "value": "1px solid var(--dark-outline-variant)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-time__header",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-primary) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container-high) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-time__link",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container-highest) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-time__link--active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-on-primary-container) var(--un-text-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-primary-container) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-toggle__inner--truthy .q-toggle__thumb",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--light-on-primary-container) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-toggle__thumb",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "color-mix(in oklab, var(--dark-surface-container-highest) var(--un-text-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-text",
+      "media": null,
+      "declarations": [
+        {
+          "property": "--un-leading",
+          "value": "1.2"
+        },
+        {
+          "property": "line-height",
+          "value": "1.2"
+        },
+        {
+          "property": "padding",
+          "value": "8px"
+        },
+        {
+          "property": "background-color",
+          "value": "currentColor"
+        },
+        {
+          "property": "position",
+          "value": "relative"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-avatar--sent",
+      "media": null,
+      "declarations": [
+        {
+          "property": "margin-left",
+          "value": "8px"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-avatar--received",
+      "media": null,
+      "declarations": [
+        {
+          "property": "margin-right",
+          "value": "8px"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message",
+      "media": null,
+      "declarations": [
+        {
+          "property": "margin-bottom",
+          "value": "8px"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message:first-child .q-message-label",
+      "media": null,
+      "declarations": [
+        {
+          "property": "margin-top",
+          "value": "calc(var(--spacing) * 0)"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-text + .q-message-text",
+      "media": null,
+      "declarations": [
+        {
+          "property": "margin-top",
+          "value": "3px"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--bottom-leave-active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "margin-left",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "margin-right",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "bottom",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "position",
+          "value": "absolute"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--bottom-left-leave-active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "margin-left",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "margin-right",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "bottom",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "position",
+          "value": "absolute"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--bottom-right-leave-active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "margin-left",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "margin-right",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "bottom",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "position",
+          "value": "absolute"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--center-leave-active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "margin-left",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "margin-right",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "top",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "position",
+          "value": "absolute"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--top-leave-active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "margin-left",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "margin-right",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "top",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "position",
+          "value": "absolute"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--left-leave-active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "margin-left",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "margin-right",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "position",
+          "value": "absolute"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--right-leave-active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "margin-left",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "margin-right",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "position",
+          "value": "absolute"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--top-left-leave-active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "margin-left",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "margin-right",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "position",
+          "value": "absolute"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--top-right-leave-active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "margin-left",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "margin-right",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "position",
+          "value": "absolute"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--standard .q-notification _actions",
+      "media": null,
+      "declarations": [
+        {
+          "property": "margin-right",
+          "value": "-8px"
+        },
+        {
+          "property": "padding-block",
+          "value": "6px"
+        },
+        {
+          "property": "padding-left",
+          "value": "8px"
+        },
+        {
+          "property": "padding-right",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--multi-line .q-notification _actions",
+      "media": null,
+      "declarations": [
+        {
+          "property": "padding",
+          "value": "calc(var(--spacing) * 0)"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--multi-line",
+      "media": null,
+      "declarations": [
+        {
+          "property": "padding-inline",
+          "value": "16px"
+        },
+        {
+          "property": "padding-block",
+          "value": "8px"
+        },
+        {
+          "property": "min-height",
+          "value": "68px"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--standard",
+      "media": null,
+      "declarations": [
+        {
+          "property": "padding-inline",
+          "value": "16px"
+        },
+        {
+          "property": "padding-block",
+          "value": "0"
+        },
+        {
+          "property": "min-height",
+          "value": "48px"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--multi-line .q-notification _actions--with-media",
+      "media": null,
+      "declarations": [
+        {
+          "property": "padding-left",
+          "value": "25px"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-name--sent",
+      "media": null,
+      "declarations": [
+        {
+          "property": "text-align",
+          "value": "right"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-toggle__track",
+      "media": null,
+      "declarations": [
+        {
+          "property": "outline-color",
+          "value": "color-mix(in oklab, var(--dark-outline) var(--un-outline-opacity), transparent)"
+        },
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-card--bordered",
+      "media": null,
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "color-mix(in oklab, var(--dark-outline-variant) var(--un-border-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-table td",
+      "media": null,
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "color-mix(in oklab, var(--dark-outline-variant) var(--un-border-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-table thead",
+      "media": null,
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "color-mix(in oklab, var(--dark-outline-variant) var(--un-border-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-table tr",
+      "media": null,
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "color-mix(in oklab, var(--dark-outline-variant) var(--un-border-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-table--bordered",
+      "media": null,
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "color-mix(in oklab, var(--dark-outline-variant) var(--un-border-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-date__edit-range-from:after",
+      "media": null,
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-border-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-date__edit-range-to:after",
+      "media": null,
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-border-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-date__edit-range:after",
+      "media": null,
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-border-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-date__edit-range-from-to:after",
+      "media": null,
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-border-opacity), transparent)"
+        },
+        {
+          "property": "border-color",
+          "value": "$dark-primary"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-editor__toolbar",
+      "media": null,
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "color-mix(in srgb, var(--colors-white) 12%, transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-avatar",
+      "media": null,
+      "declarations": [
+        {
+          "property": "border-radius",
+          "value": "50%"
+        },
+        {
+          "property": "width",
+          "value": "48px"
+        },
+        {
+          "property": "height",
+          "value": "48px"
+        },
+        {
+          "property": "min-width",
+          "value": "48px"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-badge",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-date__event",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-toggle__inner--truthy .q-toggle__track",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-primary) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-card:not(.disabled):focus",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-secondary) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-btn-group > .q-btn",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-btn-group > .q-btn-group:first-child > .q-btn--active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-secondary-container) var(--un-bg-opacity), transparent) !important"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-card",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container-low) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-drawer",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container-low) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-date",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container-high) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-dialog__inner>.q-card",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container-high) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-time",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container-high) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-drawer__content .q-list .q-router-link--active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-secondary-container) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-tab__indicator",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-secondary-container) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-table tbody td:after",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-secondary-container) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-editor__content hr",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in srgb, var(--colors-white) 12%, transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-editor__toolbar-group+.q-editor__toolbar-group:before",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in srgb, var(--colors-white) 12%, transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-field--standard .q-field__control",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container-highest) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-linear-progress__track",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container-highest) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-time__container-child",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface-container-highest) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-slide-item",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-stepper",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-stepper__label",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-surface) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-slider__inner",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-secondary-container) 30%, transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-time__header-ampm .q-time__link--active",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-tertiary-container) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-toggle__inner--truthy .q-toggle__thumb:after",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-on-primary) var(--un-bg-opacity), transparent) !important"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-toggle__thumb:after",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--dark-outline) var(--un-bg-opacity), transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--bottom-enter-from",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "translateY(50px)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--bottom-leave-to",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "translateY(50px)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--bottom-left-enter-from",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "translateY(50px)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--bottom-left-leave-to",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "translateY(50px)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--bottom-right-enter-from",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "translateY(50px)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--bottom-right-leave-to",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "translateY(50px)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--center-enter-from",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "rotateX(90deg)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--center-leave-to",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "rotateX(90deg)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--left-enter-from",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "rotateX(90deg)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--left-leave-to",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "rotateX(90deg)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--right-enter-from",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "rotateX(90deg)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--right-leave-to",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "rotateX(90deg)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--top-enter-from",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "translateY(-50px)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--top-leave-to",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "translateY(-50px)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--top-left-enter-from",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "translateY(-50px)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--top-left-leave-to",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "translateY(-50px)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--top-right-enter-from",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "translateY(-50px)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--top-right-leave-to",
+      "media": null,
+      "declarations": [
+        {
+          "property": "opacity",
+          "value": "0%"
+        },
+        {
+          "property": "transform",
+          "value": "translateY(-50px)"
+        },
+        {
+          "property": "z-index",
+          "value": "9499"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-container--sent",
+      "media": null,
+      "declarations": [
+        {
+          "property": "flex-direction",
+          "value": "row-reverse"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-text:last-child",
+      "media": null,
+      "declarations": [
+        {
+          "property": "min-height",
+          "value": "48px"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-text:last-child:before",
+      "media": null,
+      "declarations": [
+        {
+          "property": "width",
+          "value": "0"
+        },
+        {
+          "property": "height",
+          "value": "0"
+        },
+        {
+          "property": "content",
+          "value": "\"\""
+        },
+        {
+          "property": "bottom",
+          "value": "calc(var(--spacing) * 0)"
+        },
+        {
+          "property": "position",
+          "value": "absolute"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-text:last-child .q-message-stamp",
+      "media": null,
+      "declarations": [
+        {
+          "property": "display",
+          "value": "block"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-field__input",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "#fff"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-field__native",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "#fff"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-field__prefix",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "#fff"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-field__suffix",
+      "media": null,
+      "declarations": [
+        {
+          "property": "color",
+          "value": "#fff"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-text--received:last-child:before",
+      "media": null,
+      "declarations": [
+        {
+          "property": "border-right",
+          "value": "0 solid transparent"
+        },
+        {
+          "property": "border-left",
+          "value": "8px solid transparent"
+        },
+        {
+          "property": "border-bottom",
+          "value": "8px solid currentColor"
+        },
+        {
+          "property": "right",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "selector": ".q-message-text--sent:last-child:before",
+      "media": null,
+      "declarations": [
+        {
+          "property": "border-left",
+          "value": "0 solid transparent"
+        },
+        {
+          "property": "border-right",
+          "value": "8px solid transparent"
+        },
+        {
+          "property": "border-bottom",
+          "value": "8px solid currentColor"
+        },
+        {
+          "property": "left",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-table tbody td:before",
+      "media": null,
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "var(--dark-on-surface)"
+        },
+        {
+          "property": "opacity",
+          "value": "var(--q-hover-opacity-dark,0.12)"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--multi-line .q-notification _badge--bottom-left",
+      "media": null,
+      "declarations": [
+        {
+          "property": "bottom",
+          "value": "-15px"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--multi-line .q-notification _badge--bottom-right",
+      "media": null,
+      "declarations": [
+        {
+          "property": "bottom",
+          "value": "-15px"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--multi-line .q-notification _badge--top-left",
+      "media": null,
+      "declarations": [
+        {
+          "property": "top",
+          "value": "-15px"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--multi-line .q-notification _badge--top-right",
+      "media": null,
+      "declarations": [
+        {
+          "property": "top",
+          "value": "-15px"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification--multi-line .q-notification _progress",
+      "media": null,
+      "declarations": [
+        {
+          "property": "bottom",
+          "value": "-8px"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-editor__toolbar",
+      "media": "@supports (color: color-mix(in lab, red, red))",
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "color-mix(in oklab, var(--colors-white) 12%, transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-editor__content hr",
+      "media": "@supports (color: color-mix(in lab, red, red))",
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--colors-white) 12%, transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".body--dark .q-editor__toolbar-group+.q-editor__toolbar-group:before",
+      "media": "@supports (color: color-mix(in lab, red, red))",
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "color-mix(in oklab, var(--colors-white) 12%, transparent)"
+        }
+      ]
+    },
+    {
+      "selector": ".q-notification",
+      "media": "@media (min-width: 40rem)",
+      "declarations": [
+        {
+          "property": "max-width",
+          "value": "65vw"
+        }
+      ]
+    }
+  ]
+}
