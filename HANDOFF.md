@@ -77,17 +77,59 @@ All fixture selectors the preset can emit are now emitted. The one exception is
 `body.desktop.body--dark .q-chip--clickable:focus`, which needs runtime platform
 detection; both the strict gate and the report exclude it (`ENV_GATED`).
 
-### Value parity (74 mismatches, strict gate only)
+### Value parity: complete, gate un-skipped
 
-`test/parity-coverage.test.ts` is still `describe.skip` (step 11). Un-skipping it
-gives **0 missing selectors** but 74 value mismatches, 55 of them `q-notification`:
-`display=inline-flex (ref) vs flex (ours)`, `missing margin-inline`,
-`missing font-size`, `border-radius=var(--shape-corner-extra-small) (ref)`.
+`test/parity-coverage.test.ts` is no longer skipped. All 72 value mismatches are
+resolved and the gate asserts **0 missing selectors and 0 value mismatches**, with
+`checked > 100` so it cannot pass vacuously (reverting any one fix fails it).
 
-Those reference blocks are wind4-compiled with utility output merged in, which the
-gate's own header documents ("a naive value comparison would be permanently red on
-correctly ported rules"). Decide per family whether to match the reference block or
-keep the `var(--q-*)` expression, then narrow the gate's value check accordingly.
+Most were real defects the selector-only gate could not see:
+
+- `.q-notification` used `box-shadow: var(--q-elevation-6)`, and the elevation
+  rules only generate levels 1-5, so the token resolved to nothing and the
+  notification rendered with no shadow at all.
+- `.q-notification` also had the wrong `display`, no `pointer-events`,
+  `font-size`, `margin`, `flex-shrink`, `transition` or `z-index`, and its
+  `leave-active` transitions omitted `z-index: 9499` and pinned the wrong edges
+  (Quasar pins only `--top`/`--center` to `top` and the three bottom positions to
+  `bottom`).
+- `.q-message-text--sent`/`--received` used a 12px radius token where Quasar
+  ships 4px, and `.q-loading` was missing the `!important` on `position: fixed`.
+
+The rest were the gate comparing incomparable things, now handled in the gate
+test itself:
+
+- media-scoped fixture rules are skipped (it was comparing the single
+  `.q-notification` block against a `max-width: 65vw` override that only exists
+  inside `@media (min-width: 40rem)`)
+- each side's custom properties are resolved in its own context, so the
+  reference's `--shape-corner-extra-small` and the preset's
+  `--q-corner-extra-small` compare as the `4px` they both are (the extractor now
+  records the reference's literals in `variables`; the preset's come from its
+  preflight, first definition winning so the default style is compared rather
+  than an MD2 override)
+- only provable equivalences are normalised: `calc(<anything> * 0)` to `0`,
+  percentage alphas to numbers (`60%` == `0.6`), and wind4's
+  `color-mix(... #fff 12% ..., transparent)` to `rgba(255,255,255,0.12)`
+
+### Gaps found by running the harness (not by the gate)
+
+- **Flex alignment utilities were missing entirely** (22 classes: `items-*`,
+  `justify-*`, `content-*`, `self-*`). The Notify plugin needs `items-*` on the
+  notification stack, so notifications stretched the full viewport width. Fixed.
+- **Notification sub-elements had no rules** (`__message`, `__caption`, `__badge`,
+  `__progress`, `__icon`, `__avatar`, `__spinner`). Fixed.
+- **No `@keyframes` are emitted anywhere in the preset.** The badge and progress
+  animations (and skeleton / linear-progress) reference keyframes that do not
+  exist, so they are inert. Not fixed — it needs a preset-wide mechanism.
+- **Position utilities are emitted after component rules**, so `.fixed` beats
+  `.q-notifications__list { position: relative }`. quasar.css orders them the
+  other way round, so there the list stays `relative`; here it becomes `fixed`.
+  Not fixed — reordering global utility groups is a deliberate decision, and the
+  rendered result was verified visually to look correct.
+
+Verification used `~/Projects/quasar-testing-harness` (Playwright + screenshots);
+see "Harness notes" below.
 
 ### Steps 8-11 of the plan
 
@@ -120,6 +162,42 @@ keep the `var(--q-*)` expression, then narrow the gate's value check accordingly
 - Unit: `cd packages/preset && pnpm vitest run`
 - E2E: `cd packages/app && pnpm test`
 - Coverage: `cd packages/preset && pnpm vitest run _parity-snapshot` then read `test/parity-report.txt`
+
+### Harness notes (`~/Projects/quasar-testing-harness`)
+
+The app links straight to this worktree's preset
+(`"unocss-preset-quasar": "link:.../packages/preset"`), so `pnpm build` here is
+required before a harness run — otherwise the app loads the stale `dist/`.
+
+**Restart the dev server between preset changes.** `playwright.config.ts` sets
+`reuseExistingServer: true`, and a server left running from a previous day keeps
+serving CSS generated from the old preset. Two days of "missing rules" turned out
+to be exactly that; runs below use `TEST_SERVER_PORT=3100` +
+`TEST_SERVER_CMD='... vitrify dev --port 3100 --host 127.0.0.1'` to avoid the
+stale instance entirely.
+
+Changes made in the harness (left uncommitted for review):
+
+- `tests/plugin-components.spec.ts` — new, 9 tests for Notify / QChatMessage /
+  Loading: computed-style assertions plus light+dark screenshots. It reads
+  DECLARED values from the stylesheet where `getComputedStyle` returns used ones
+  (`top: auto` on a positioned element, `margin: auto` in a flex container), and
+  it parses `cssText` because enumerating `style` expands shorthands.
+- `packages/app/src/pages/q-notification/`, `q-loading/`, `q-chat-message/` +
+  three manifest entries. `QMessage` does not exist in Quasar 2.31.0 — the
+  `.q-message*` classes belong to **QChatMessage** (its sass defines them).
+- `tests/rewrite-tokens.spec.ts` — one stale test read shape/sizing tokens from
+  `:root`, but the rewrite deliberately moved them to `body` so per-style
+  overrides work (commit b05d255, 5 days before this work). It now reads `body`;
+  values were already correct (MD3 `--q-corner-extra-large: 28px`).
+
+Commands:
+
+```sh
+TEST_BASE_URL=http://localhost:3100 TEST_SERVER_PORT=3100 \
+TEST_SERVER_CMD='pnpm --filter @quasar-testing-harness/app exec vitrify dev --port 3100 --host 127.0.0.1' \
+pnpm exec playwright test tests/ --reporter=list   # 322 passed
+```
 
 ## Commit convention
 
