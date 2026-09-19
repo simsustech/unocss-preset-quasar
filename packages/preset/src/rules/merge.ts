@@ -1,3 +1,4 @@
+import { symbols as controlKeys } from '@unocss/core'
 import type {
   CSSValueInput,
   DynamicMatcher,
@@ -5,6 +6,24 @@ import type {
   Rule,
   RuleContext
 } from '@unocss/core'
+
+/**
+ * The control keys UnoCSS reads off a yielded object (`$$symbol-selector`,
+ * `$$symbol-parent`, …). Despite the name, `symbols` holds plain string keys,
+ * not JS symbols — so scoped yields must be detected by key lookup, never with
+ * `Object.getOwnPropertySymbols`, which always reports zero for them.
+ */
+const CONTROL_KEYS = new Set<string>(
+  // SAFETY: `ControlSymbols` is typed with `unique symbol` brand types, but
+  // every member is assigned a plain `$$symbol-*` string at runtime.
+  Object.values(controlKeys) as unknown as string[]
+)
+
+/** A yield carrying a control key targets its own selector/parent, not the util. */
+const isScopedYield = (item: unknown): boolean =>
+  typeof item === 'object' &&
+  item !== null &&
+  Object.keys(item).some((key) => CONTROL_KEYS.has(key))
 
 /**
  * Collapse duplicate rule matchers into single entries.
@@ -47,8 +66,8 @@ const isAsyncMatcher = (matcher: unknown): boolean =>
  * the objects as separate yields is not equivalent: UnoCSS re-orders the
  * resulting blocks, which would silently flip which value wins.
  *
- * Selector-scoped objects (those carrying symbol keys, e.g. `symbols.selector`)
- * target different selectors, so they are passed through untouched, in order.
+ * Scoped objects (those carrying a control key, e.g. `$$symbol-selector`) target
+ * different selectors, so they are passed through untouched, in order.
  */
 function* delegateMatchers(
   matchers: DynamicMatcher[],
@@ -60,11 +79,9 @@ function* delegateMatchers(
 
   const collect = (item: unknown): void => {
     if (item == null) return
-    const isPlainObject =
-      typeof item === 'object' &&
-      !Array.isArray(item) &&
-      Object.getOwnPropertySymbols(item).length === 0
-    if (isPlainObject) {
+    if (isScopedYield(item)) {
+      scoped.push(item as MatcherResult)
+    } else if (typeof item === 'object' && !Array.isArray(item)) {
       Object.assign(declarations, item)
     } else {
       scoped.push(item as MatcherResult)

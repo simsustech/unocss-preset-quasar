@@ -8,7 +8,8 @@
 // `mergeDuplicateRules` collapses those groups at assembly, so the same regex
 // may appear in more than one module as long as every declaration survives.
 // These tests pin both halves: uniqueness of the effective list, and survival
-// of the declarations the duplicates used to swallow.
+// of the declarations the duplicates used to swallow — including the scoped
+// (`symbols.selector`) yields that carry dark-mode rules.
 import { describe, it, expect } from 'vitest'
 import { createGenerator } from 'unocss'
 import type { Rule } from '@unocss/core'
@@ -79,5 +80,29 @@ describe('duplicate rule matchers', () => {
     // (identical to the old last-wins result), while the first entry's `gap`
     // side by side is preserved by the previous test.
     expect(minHeights).toEqual(['min-height:32px'])
+  })
+
+  it('keeps scoped yields separate when merging duplicate matchers', async () => {
+    // UnoCSS control keys are plain strings (`$$symbol-selector`), not JS
+    // symbols. Detecting scoped yields with `Object.getOwnPropertySymbols`
+    // never matched, so `delegateMatchers` folded every scoped yield into the
+    // util's declaration object: only the LAST selector survived, carrying the
+    // properties of all the others. `.body--dark` rules vanished that way.
+    const css = await cssFor('q-btn-group')
+    expect(css).toContain('.body--dark .q-btn-group > .q-btn-item')
+    expect(css).toContain('.q-btn-group > .q-btn-item:before')
+    expect(css).toContain('.q-btn-group > .q-btn-group:not(:first-child)')
+    expect(css).toContain('.q-btn-group > .q-btn-group:not(:last-child)')
+    expect(css).toContain('.q-btn-group > .q-btn-item.q-btn--standard:before')
+  })
+
+  it('leaves scoped declarations out of the merged util block', async () => {
+    const css = await cssFor('q-btn-group')
+    const util = block(css, '.q-btn-group')
+    expect(util).toContain('display:inline-flex')
+    expect(util).toContain('box-shadow:var(--q-elevation-1)')
+    // These belong to the scoped selectors, not to the util itself.
+    expect(util).not.toContain('--q-on-surface')
+    expect(util).not.toContain('z-index')
   })
 })

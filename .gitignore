@@ -9,6 +9,7 @@ ISSUES.md
 .npmrc
 **/.pnpm-store
 test-results/
+.vitest/
 CHANGELOG.md
 .worktrees
 .pi/
