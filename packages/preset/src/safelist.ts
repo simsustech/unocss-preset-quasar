@@ -1738,6 +1738,7 @@ export const quasarSafelist: string[] = [
   'q-table__sort-icon--left',
   'q-table__sort-icon--right',
   'q-table__title',
+
   'q-tabs--horizontal',
   'q-tabs--not-scrollable',
   'q-tabs__arrow',

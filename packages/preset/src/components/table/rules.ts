@@ -12,9 +12,15 @@ export const tableRules = [
   ],
   [
     /^q-table--bordered$/,
-    () => ({
-      border: '1px solid var(--q-outline-variant)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        border: '1px solid var(--q-outline-variant)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        'border-color': 'var(--q-outline)'
+      }
+    }
   ],
   [
     /^q-table--cell-separator$/,
@@ -132,12 +138,19 @@ export const tableRules = [
   ],
   [
     /^q-table__bottom$/,
-    () => ({
-      display: 'flex',
-      'align-items': 'center',
-      'justify-content': 'space-between',
-      padding: 'var(--q-space-sm)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        display: 'flex',
+        'align-items': 'center',
+        'justify-content': 'space-between',
+        padding: 'var(--q-space-sm)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        color: 'var(--q-on-surface)',
+        'border-top': '1px solid var(--q-outline)'
+      }
+    }
   ],
   [
     /^q-table__header$/,
@@ -304,6 +317,12 @@ export const tableRules = [
       yield {
         [symbols.selector]: (sel) => `${sel} .q-table__bottom`,
         flex: '0 0 auto'
+      }
+      // Dark: card surface.
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        color: 'var(--q-on-surface)',
+        'background-color': 'var(--q-surface-container)'
       }
     }
   ],
