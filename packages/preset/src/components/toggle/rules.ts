@@ -76,18 +76,22 @@ export const toggleRules = [
   ],
   [
     /^q-toggle__track$/,
-    () => ({
-      height: 'var(--q-toggle-track-height)',
-      'border-radius': 'var(--q-toggle-track-border-radius)',
-      opacity: 'var(--q-toggle-track-opacity)',
-      background: 'var(--q-toggle-track-bg)',
-      border: 'var(--q-toggle-track-outline)',
-      // Keeps the md3 2px ring inside the 32px chassis regardless of the
-      // surrounding reset's box-sizing.
-      'box-sizing': 'border-box',
-      'print-color-adjust': 'exact',
-      '-webkit-print-color-adjust': 'exact'
-    })
+    function* (_, { symbols }) {
+      yield {
+        height: 'var(--q-toggle-track-height)',
+        'border-radius': 'var(--q-toggle-track-border-radius)',
+        opacity: 'var(--q-toggle-track-opacity)',
+        background: 'var(--q-toggle-track-bg)',
+        border: 'var(--q-toggle-track-outline)',
+        'box-sizing': 'border-box',
+        'print-color-adjust': 'exact',
+        '-webkit-print-color-adjust': 'exact'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-toggle__track',
+        opacity: '1'
+      }
+    }
   ],
   [
     /^q-toggle__thumb$/,
