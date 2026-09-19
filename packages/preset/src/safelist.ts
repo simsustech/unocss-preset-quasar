@@ -223,6 +223,9 @@ export const quasarSafelist: string[] = [
   'q-body--force-scrollbar-x',
   'q-body--force-scrollbar-y',
   'q-no-input-spinner',
+  'q-notification',
+  'q-notification__actions',
+  'q-loading',
 
   // --- Focusable helpers ---
   'q-focus-helper',
