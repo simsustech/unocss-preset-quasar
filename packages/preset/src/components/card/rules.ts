@@ -3,18 +3,29 @@ import type { Rule } from '@unocss/core'
 export const cardRules = [
   [
     /^q-card$/,
-    // Spec (specs/cards_and_containers.json): elevated_card.corner_shape_token =
-    // md.sys.shape.corner.large (16px MD3 / 4px MD2) and
-    // background_layer_mapping_token = md.sys.color.surface-container-low.
-    () => ({
-      display: 'flex',
-      'flex-direction': 'column',
-      padding: 'var(--q-space-lg)',
-      'border-radius': 'var(--q-card-radius)',
-      'background-color': 'var(--q-card-surface)',
-      'box-shadow': 'var(--q-elevation-1)',
-      position: 'relative'
-    })
+    function* (_, { symbols }) {
+      yield {
+        display: 'flex',
+        'flex-direction': 'column',
+        padding: 'var(--q-space-lg)',
+        'border-radius': 'var(--q-card-radius)',
+        'background-color': 'var(--q-card-surface)',
+        'box-shadow': 'var(--q-elevation-1)',
+        position: 'relative'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-card',
+        'background-color': 'var(--q-surface-container-low)'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-card--bordered',
+        'border-color': 'var(--q-outline)'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-dialog__inner>.q-card',
+        'background-color': 'var(--q-surface-container-high)'
+      }
+    }
   ],
   [
     /^q-card--dark$/,

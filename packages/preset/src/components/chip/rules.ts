@@ -3,21 +3,30 @@ import type { Rule } from '@unocss/core'
 export const chipRules = [
   [
     /^q-chip$/,
-    () => ({
-      display: 'inline-flex',
-      'align-items': 'center',
-      'border-radius': 'var(--q-radius-full)',
-      'background-color': 'var(--q-surface-container-high)',
-      color: 'var(--q-on-surface)',
-      'font-size': '13px',
-      'line-height': 1.2,
-      padding: '6px 12px',
-      'min-height': 'var(--q-chip-min-height)',
-      gap: 'var(--q-space-sm)',
-      // Contains the absolute .q-focus-helper (quasar.css `.q-chip` has it),
-      // so hovering a clickable chip can't tint the page.
-      position: 'relative'
-    })
+    function* (_, { symbols }) {
+      yield {
+        display: 'inline-flex',
+        'align-items': 'center',
+        'border-radius': 'var(--q-radius-full)',
+        'background-color': 'var(--q-surface-container-high)',
+        color: 'var(--q-on-surface)',
+        'font-size': '13px',
+        'line-height': 1.2,
+        padding: '6px 12px',
+        'min-height': 'var(--q-chip-min-height)',
+        gap: 'var(--q-space-sm)',
+        position: 'relative'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-chip',
+        color: 'var(--q-on-secondary-container)',
+        'outline-color': 'var(--q-outline)'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-chip__icon',
+        color: 'var(--q-primary)'
+      }
+    }
   ],
   [
     /^q-chip--square$/,
