@@ -226,6 +226,19 @@ export const quasarSafelist: string[] = [
   'q-notification',
   'q-notification__actions',
   'q-loading',
+  // Message internals — every class is added by Quasar at runtime, and the
+  // component had no tokens at all, so none of its rules ever fired.
+  'q-message',
+  'q-message-name',
+  'q-message-label',
+  'q-message-stamp',
+  'q-message-text',
+  'q-message-text--sent',
+  'q-message-text--received',
+  'q-message-text-content--sent',
+  'q-message-text-content--received',
+  'q-message-avatar',
+  'q-message-container--sent',
 
   // --- Focusable helpers ---
   'q-focus-helper',
