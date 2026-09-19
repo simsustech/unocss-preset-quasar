@@ -3,8 +3,12 @@ import type { Rule } from '@unocss/core'
 export const slideItemRules = [
   [
     /^q-slide-item$/,
-    function* () {
+    function* (_, { symbols }) {
       yield { position: 'relative', background: 'white' }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-slide-item',
+        'background-color': 'var(--q-surface)'
+      }
     }
   ],
   [
