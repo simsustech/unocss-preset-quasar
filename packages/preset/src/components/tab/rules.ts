@@ -16,9 +16,15 @@ export const tabRules = [
   ],
   [
     /^q-tab--active$/,
-    () => ({
-      color: 'var(--q-primary)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        color: 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-tab--active',
+        color: 'var(--q-primary)'
+      }
+    }
   ],
   [
     /^q-tab--inactive$/,
