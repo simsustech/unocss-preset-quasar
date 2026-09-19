@@ -23,6 +23,33 @@ export const quasarSafelist: string[] = [
   'wrap',
   'no-wrap',
   'reverse-wrap',
+  // Flex alignment utilities. Quasar's components apply these at runtime (the
+  // Notify plugin needs `items-*` on the notification stack) and they are the
+  // standard `row items-center justify-between` idiom in markup.
+  ...[
+    'items-start',
+    'items-end',
+    'items-center',
+    'items-baseline',
+    'items-stretch',
+    'justify-start',
+    'justify-end',
+    'justify-center',
+    'justify-between',
+    'justify-around',
+    'justify-evenly',
+    'content-start',
+    'content-end',
+    'content-center',
+    'content-stretch',
+    'content-between',
+    'content-around',
+    'self-start',
+    'self-end',
+    'self-center',
+    'self-baseline',
+    'self-stretch'
+  ],
   'flex-center',
   'order-first',
   'order-last',
@@ -229,6 +256,16 @@ export const quasarSafelist: string[] = [
   'q-notification--multi-line',
   'q-notification__badge',
   'q-notification__progress',
+  // Notification sub-elements the plugin renders at runtime. None of these had
+  // rules, so the message and caption rendered with no padding or typography.
+  'q-notification__message',
+  'q-notification__caption',
+  'q-notification__icon',
+  'q-notification__icon--additional',
+  'q-notification__avatar',
+  'q-notification__avatar--additional',
+  'q-notification__spinner',
+  'q-notification__spinner--additional',
   // The plugin's stack container; without it notifications have no anchor.
   'q-notifications__list',
   'q-notifications__list--center',

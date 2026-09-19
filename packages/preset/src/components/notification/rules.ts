@@ -51,6 +51,25 @@ const transitionRules: Rule[] = POSITIONS.flatMap(
 const NOTIFICATION_SHADOW =
   '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
 
+/**
+ * Badge offsets. The base `.q-notification__badge--*` sits 6px outside; the
+ * `--multi-line` variant pushes it to 15px because that box is taller.
+ */
+const BADGE_OFFSETS: [
+  modifier: string,
+  property: 'top' | 'bottom',
+  value: string
+][] = [
+  ['--top-left', 'top', '-6px'],
+  ['--top-right', 'top', '-6px'],
+  ['--bottom-left', 'bottom', '-6px'],
+  ['--bottom-right', 'bottom', '-6px'],
+  ['--top-left', 'top', '-15px'],
+  ['--top-right', 'top', '-15px'],
+  ['--bottom-left', 'bottom', '-15px'],
+  ['--bottom-right', 'bottom', '-15px']
+]
+
 export const notificationRules: Rule[] = [
   [
     /^q-notification$/,
@@ -81,6 +100,19 @@ export const notificationRules: Rule[] = [
       }
     }
   ],
+  // Sub-elements the plugin renders. Without these the message and caption had
+  // no padding or typography at all.
+  [/^q-notification__message$/, () => ({ padding: '8px 0' })],
+  [
+    /^q-notification__caption$/,
+    () => ({ 'font-size': '0.9em', opacity: '0.7' })
+  ],
+  [/^q-notification__icon$/, () => ({ 'font-size': '24px', flex: '0 0 1em' })],
+  [/^q-notification__icon--additional$/, () => ({ 'margin-right': '16px' })],
+  [/^q-notification__avatar$/, () => ({ 'font-size': '32px' })],
+  [/^q-notification__avatar--additional$/, () => ({ 'margin-right': '8px' })],
+  [/^q-notification__spinner$/, () => ({ 'font-size': '32px' })],
+  [/^q-notification__spinner--additional$/, () => ({ 'margin-right': '8px' })],
   [
     /^q-notification__actions$/,
     function* (_, { symbols }) {
@@ -97,30 +129,49 @@ export const notificationRules: Rule[] = [
     /^q-notification__badge$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) =>
-          `.q-notification--multi-line ${sel}--bottom-left`,
-        bottom: '-15px'
+        padding: '4px 8px',
+        position: 'absolute',
+        'box-shadow':
+          '0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12)',
+        'background-color': 'var(--q-negative)',
+        color: '#fff',
+        'border-radius': 'var(--q-corner-extra-small)',
+        'font-size': '12px',
+        'line-height': '12px',
+        // Needs `@keyframes q-notif-badge`, which this preset does not emit yet;
+        // inert until then, but it is what quasar.css declares.
+        animation: 'q-notif-badge 0.42s'
       }
-      yield {
-        [symbols.selector]: (sel) =>
-          `.q-notification--multi-line ${sel}--bottom-right`,
-        bottom: '-15px'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `.q-notification--multi-line ${sel}--top-left`,
-        top: '-15px'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `.q-notification--multi-line ${sel}--top-right`,
-        top: '-15px'
+      for (const [modifier, property, value] of BADGE_OFFSETS) {
+        const multiLine = value === '-15px'
+        yield {
+          [symbols.selector]: (sel) =>
+            multiLine
+              ? `.q-notification--multi-line ${sel}${modifier}`
+              : `${sel}${modifier}`,
+          [property]: value
+        }
       }
     }
   ],
   [
     /^q-notification__progress$/,
     function* (_, { symbols }) {
+      yield {
+        'z-index': '-1',
+        position: 'absolute',
+        height: '3px',
+        bottom: '0',
+        left: '-10px',
+        right: '-10px',
+        // Needs `@keyframes q-notif-progress` (see above).
+        animation: 'q-notif-progress linear',
+        background: 'currentColor',
+        opacity: '0.3',
+        'border-radius': '4px 4px 0 0',
+        'transform-origin': '0 50%',
+        transform: 'scaleX(0)'
+      }
       yield {
         [symbols.selector]: (sel) => `.q-notification--multi-line ${sel}`,
         bottom: '-8px'
