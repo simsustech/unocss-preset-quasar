@@ -3,13 +3,19 @@ import type { Rule } from '@unocss/core'
 export const timeRules = [
   [
     /^q-time$/,
-    () => ({
-      display: 'flex',
-      'flex-direction': 'column',
-      'max-width': '300px',
-      'background-color': 'var(--q-surface)',
-      'border-radius': 'var(--q-radius-md)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        display: 'flex',
+        'flex-direction': 'column',
+        'max-width': '300px',
+        'background-color': 'var(--q-surface)',
+        'border-radius': 'var(--q-radius-md)'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-time',
+        'background-color': 'var(--q-surface-container-high)'
+      }
+    }
   ],
   [
     /^q-time--dark$/,
@@ -43,13 +49,20 @@ export const timeRules = [
   ],
   [
     /^q-time__header$/,
-    () => ({
-      display: 'flex',
-      'align-items': 'center',
-      'justify-content': 'center',
-      padding: 'var(--q-space-md)',
-      'font-size': '2em'
-    })
+    function* (_, { symbols }) {
+      yield {
+        display: 'flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        padding: 'var(--q-space-md)',
+        'font-size': '2em'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-time__header',
+        color: 'var(--q-on-primary)',
+        'background-color': 'var(--q-surface-container-high)'
+      }
+    }
   ],
   [
     /^q-time__header-content$/,

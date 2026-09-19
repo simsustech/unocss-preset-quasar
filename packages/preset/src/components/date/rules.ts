@@ -3,22 +3,35 @@ import type { Rule } from '@unocss/core'
 export const dateRules = [
   [
     /^q-date$/,
-    () => ({
-      display: 'flex',
-      'flex-direction': 'column',
-      'max-width': '300px',
-      'background-color': 'var(--q-surface)',
-      'border-radius': 'var(--q-radius-md)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        display: 'flex',
+        'flex-direction': 'column',
+        'max-width': '300px',
+        'background-color': 'var(--q-surface)',
+        'border-radius': 'var(--q-radius-md)'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-date',
+        'background-color': 'var(--q-surface-container-high)'
+      }
+    }
   ],
   [
     /^q-date__header$/,
-    () => ({
-      display: 'flex',
-      'align-items': 'center',
-      'justify-content': 'space-between',
-      padding: '8px 16px'
-    })
+    function* (_, { symbols }) {
+      yield {
+        display: 'flex',
+        'align-items': 'center',
+        'justify-content': 'space-between',
+        padding: '8px 16px'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-date__header',
+        color: 'var(--q-on-surface)',
+        'background-color': 'var(--q-surface-container-high)'
+      }
+    }
   ],
   [
     /^q-date__calendar$/,
