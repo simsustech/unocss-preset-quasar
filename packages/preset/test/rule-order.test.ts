@@ -24,6 +24,16 @@ async function cssFor(tokens: string): Promise<string> {
   return r.css
 }
 
+/**
+ * Index of the first rule carrying `sel`, whether it stands alone or is a member
+ * of a comma-joined selector list. UnoCSS merges rules with identical declaration
+ * bodies into one list, so a utility can share a block with a component rule.
+ */
+function indexOfBlock(css: string, sel: string): number {
+  const m = new RegExp(`(?:^|[,\\n])\\s*(\\${sel})(?=\\s*[,{])`, 'm').exec(css)
+  return m ? m.index + m[0].length - m[1].length : -1
+}
+
 describe('rule order', () => {
   it('emits grid utilities before component layout rules', async () => {
     const css = await cssFor(
@@ -39,8 +49,8 @@ describe('rule order', () => {
 
   it('emits colour utilities after component rules', async () => {
     const css = await cssFor('q-btn bg-secondary text-primary')
-    const btn = css.indexOf('.q-btn{')
-    const bg = css.indexOf('.bg-secondary{')
+    const btn = indexOfBlock(css, '.q-btn')
+    const bg = indexOfBlock(css, '.bg-secondary')
     expect(btn).toBeGreaterThan(-1)
     expect(bg).toBeGreaterThan(-1)
     expect(bg).toBeGreaterThan(btn)

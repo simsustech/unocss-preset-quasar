@@ -1,0 +1,5 @@
+=== PARITY: 162/162 (100%) ===
+(163 in fixture; 1 env-gated)
+Missing 0 selectors:
+
+--- BREAKDOWN ---

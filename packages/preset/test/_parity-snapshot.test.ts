@@ -21,6 +21,12 @@ function normalize(s: string) {
     .trim()
 }
 
+// Env-gated selectors the preset cannot emit — they need runtime platform
+// detection (body.desktop/body.electron/body.platform-ios). Excluded here for
+// the same reason `parity-coverage.test.ts` excludes them, so this report
+// measures only selectors the preset can actually control.
+const ENV_GATED = /\bbody\.(desktop|electron|platform-ios|q-ios-padding)\b/
+
 // @ts-expect-error -- pi-lens infers wrong type; vitest resolves TS correctly
 const preset = QuasarPreset({})
 
@@ -30,19 +36,30 @@ describe('parity snapshot', () => {
     const { css } = await gen.generate(quasarSafelist.join(' '), {
       preflights: false
     })
+    // Match whole selectors, not substrings: `.body--dark .q-editor__toolbar`
+    // is a prefix of `.body--dark .q-editor__toolbar-group+...`, which made a
+    // genuinely missing rule look present.
+    const emitted = new Set<string>()
+    for (const m of css.matchAll(/([^{}]+)\{/g)) {
+      for (const part of m[1].split(',')) {
+        const t = normalize(part)
+        if (t) emitted.add(t)
+      }
+    }
     let missing = 0
     let found = 0
     const missingList: string[] = []
     for (const r of fixture.rules) {
-      const norm = normalize(r.selector)
-      if (css.includes(norm) || css.includes(r.selector)) {
+      if (ENV_GATED.test(r.selector)) continue
+      if (emitted.has(normalize(r.selector))) {
         found++
       } else {
         missing++
         missingList.push(r.selector.slice(0, 80))
       }
     }
-    const pct = Math.round((found / fixture.ruleCount) * 100)
+    const considered = found + missing
+    const pct = Math.round((found / considered) * 100)
     const byComp: Record<string, number> = {}
     for (const s of missingList) {
       const m = s.match(/\.q-([a-z]+)/)
@@ -50,7 +67,8 @@ describe('parity snapshot', () => {
       byComp[comp] = (byComp[comp] || 0) + 1
     }
     const report = [
-      `=== PARITY: ${found}/${fixture.ruleCount} (${pct}%) ===`,
+      `=== PARITY: ${found}/${considered} (${pct}%) ===`,
+      `(${fixture.ruleCount} in fixture; ${fixture.ruleCount - considered} env-gated)`,
       `Missing ${missing} selectors:`,
       ...missingList.map((s) => `  ${s}`),
       '',
