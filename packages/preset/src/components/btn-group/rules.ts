@@ -11,10 +11,16 @@ export const btnGroupRules = [
   ],
   [
     /^q-btn-group > .q-btn$/,
-    () => ({
-      'border-radius': '0',
-      'box-shadow': 'none'
-    })
+    function* (_, { symbols }) {
+      yield {
+        'border-radius': '0',
+        'box-shadow': 'none'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-btn-group > .q-btn',
+        'background-color': 'var(--q-surface-container)'
+      }
+    }
   ],
   [
     /^q-btn-group$/,
@@ -22,6 +28,11 @@ export const btnGroupRules = [
       yield {
         [symbols.selector]: (_sel) => `.q-btn-group > .q-btn-item:before`,
         'box-shadow': 'none'
+      }
+      // Dark: btn-group item colour.
+      yield {
+        [symbols.selector]: () => '.body--dark .q-btn-group > .q-btn-item',
+        color: 'var(--q-on-surface)'
       }
     }
   ],
