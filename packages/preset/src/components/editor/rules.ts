@@ -89,6 +89,12 @@ export const editorRules = [
         opacity: '0.7',
         'pointer-events': 'none'
       }
+      // Dark: content colour and background.
+      yield {
+        [symbols.selector]: () => '.body--dark .q-editor__content',
+        color: 'var(--q-on-surface-variant)',
+        'background-color': 'var(--q-surface-container-highest)'
+      }
     }
   ],
   [
@@ -104,6 +110,12 @@ export const editorRules = [
         bottom: '4px',
         width: '1px',
         background: 'rgba(0, 0, 0, 0.12)'
+      }
+      // Dark: toolbar group divider.
+      yield {
+        [symbols.selector]: () =>
+          '.body--dark .q-editor__toolbar-group + .q-editor__toolbar-group:before',
+        background: 'rgba(255, 255, 255, 0.12)'
       }
     }
   ],
