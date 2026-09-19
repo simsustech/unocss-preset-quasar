@@ -4,7 +4,9 @@ export const loadingRules: Rule[] = [
   [
     /^q-loading$/,
     () => ({
-      position: 'fixed',
+      // `!important` matches quasar.css: the overlay must stay fixed even when
+      // the app sets a positioning context on an ancestor.
+      position: 'fixed !important',
       top: 0,
       left: 0,
       right: 0,

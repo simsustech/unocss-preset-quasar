@@ -229,6 +229,11 @@ export const quasarSafelist: string[] = [
   'q-notification--multi-line',
   'q-notification__badge',
   'q-notification__progress',
+  // The plugin's stack container; without it notifications have no anchor.
+  'q-notifications__list',
+  'q-notifications__list--center',
+  'q-notifications__list--top',
+  'q-notifications__list--bottom',
   // Transition classes Quasar's Vue <transition> adds at runtime, so they never
   // appear in source for the scanner to pick up.
   ...[

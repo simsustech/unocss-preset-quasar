@@ -190,6 +190,34 @@ function isFixtureRule(sel) {
   return (sel.includes('body--dark') || PLUGIN.test(sel)) && /\.q-/.test(sel)
 }
 
+/**
+ * Custom properties the reference defines with a literal value, across all
+ * scopes. The parity gate resolves `var(--x)` on both sides before comparing
+ * values, because the reference is wind4-compiled and names its tokens
+ * differently from the preset (`--shape-corner-extra-small` where the preset
+ * emits `--q-corner-extra-small`, both `4px`).
+ *
+ * A property whose literal differs between scopes is dropped rather than guessed
+ * at, since this flat map cannot model scope. `--un-*` internals are left out:
+ * they belong to wind4's runtime, not to the component contract.
+ */
+function collectVariables(rules) {
+  const values = new Map()
+  const conflicting = new Set()
+  for (const rule of rules) {
+    for (const { property, value } of rule.declarations) {
+      if (!property.startsWith('--')) continue
+      if (property.startsWith('--un-')) continue
+      if (value.includes('var(')) continue
+      const seen = values.get(property)
+      if (seen === undefined) values.set(property, value)
+      else if (seen !== value) conflicting.add(property)
+    }
+  }
+  for (const name of conflicting) values.delete(name)
+  return Object.fromEntries([...values].sort(([a], [b]) => (a < b ? -1 : 1)))
+}
+
 async function main() {
   let css
   let source
@@ -217,13 +245,18 @@ async function main() {
 
   const bundleHash = createHash('sha256').update(css).digest('hex').slice(0, 16)
   const tree = parse(css)
-  const allRules = dedupe(flatten(tree, null))
+  // Variables come from the raw flatten: the bundle defines `:root` twice (an
+  // earlier preset build's preflight, then wind4's), and `dedupe` keeps only one
+  // entry per selector, which would drop the whole second block.
+  const flat = flatten(tree, null)
+  const allRules = dedupe(flat)
   const rules = allRules.filter((r) => isFixtureRule(r.selector))
 
   const fixture = {
     source,
     bundleHash,
     ruleCount: rules.length,
+    variables: collectVariables(flat),
     rules
   }
   writeFileSync(OUT, `${JSON.stringify(fixture, null, 2)}\n`)

@@ -110,9 +110,9 @@ export const messageRules: Rule[] = [
     () => ({
       color: 'var(--q-on-primary)',
       'background-color': 'var(--q-primary)',
-      'border-top-left-radius': 'var(--q-radius-md)',
-      'border-top-right-radius': 'var(--q-radius-md)',
-      'border-bottom-left-radius': 'var(--q-radius-md)',
+      'border-top-left-radius': '4px',
+      'border-top-right-radius': '4px',
+      'border-bottom-left-radius': '4px',
       'border-bottom-right-radius': '0'
     })
   ],
@@ -121,10 +121,10 @@ export const messageRules: Rule[] = [
     () => ({
       color: 'var(--q-on-surface)',
       'background-color': 'var(--q-surface-container-high)',
-      'border-top-left-radius': 'var(--q-radius-md)',
-      'border-top-right-radius': 'var(--q-radius-md)',
+      'border-top-left-radius': '4px',
+      'border-top-right-radius': '4px',
       'border-bottom-left-radius': '0',
-      'border-bottom-right-radius': 'var(--q-radius-md)'
+      'border-bottom-right-radius': '4px'
     })
   ],
   [

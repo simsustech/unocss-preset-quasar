@@ -1,13 +1,13 @@
 import type { Rule } from '@unocss/core'
 
 /**
- * Notification positions Quasar keys its Vue transitions off. `enter-from` and
- * `leave-to` are the same rule; `leave-active` pins the element while it
- * animates out, so the position decides which edge it pins to.
+ * Notification positions Quasar keys its Vue transitions off.
  *
- * `offset` is the direction the notification travels, `edge` the side it pins
- * to once `absolute` (null for the horizontal/centred positions, which only
- * offset along their own axis).
+ * `enter-from` and `leave-to` share one rule per direction; `leave-active` pins
+ * the element while it animates out. `edge` is the side `leave-active` pins to,
+ * and it is NOT simply "the position's own edge": Quasar pins only
+ * `--top`/`--center` to `top` and the three bottom positions to `bottom`, while
+ * `--top-left`, `--top-right`, `--left` and `--right` get no edge at all.
  */
 const POSITIONS: [
   position: string,
@@ -15,14 +15,14 @@ const POSITIONS: [
   edge: 'top' | 'bottom' | null
 ][] = [
   ['top', 'translateY(-50px)', 'top'],
-  ['top-left', 'translateY(-50px)', 'top'],
-  ['top-right', 'translateY(-50px)', 'top'],
+  ['top-left', 'translateY(-50px)', null],
+  ['top-right', 'translateY(-50px)', null],
   ['bottom', 'translateY(50px)', 'bottom'],
   ['bottom-left', 'translateY(50px)', 'bottom'],
   ['bottom-right', 'translateY(50px)', 'bottom'],
   ['left', 'rotateX(90deg)', null],
   ['right', 'rotateX(90deg)', null],
-  ['center', 'rotateX(90deg)', null]
+  ['center', 'rotateX(90deg)', 'top']
 ]
 
 const transitionRules: Rule[] = POSITIONS.flatMap(
@@ -33,10 +33,11 @@ const transitionRules: Rule[] = POSITIONS.flatMap(
       'z-index': '9499'
     })
     const pinned = () => ({
+      position: 'absolute',
+      'z-index': '9499',
       'margin-left': '0',
       'margin-right': '0',
-      ...(edge ? { [edge]: '0' } : {}),
-      position: 'absolute'
+      ...(edge ? { [edge]: '0' } : {})
     })
     return [
       [new RegExp(`^q-notification--${position}-enter-from$`), hidden],
@@ -46,20 +47,32 @@ const transitionRules: Rule[] = POSITIONS.flatMap(
   }
 )
 
+/** Quasar's notification box, verbatim (quasar.css `.q-notification`). */
+const NOTIFICATION_SHADOW =
+  '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
+
 export const notificationRules: Rule[] = [
   [
     /^q-notification$/,
     function* (_, { symbols }) {
       yield {
-        display: 'flex',
-        'align-items': 'center',
-        'min-width': '300px',
-        'max-width': '95vw',
-        'border-radius': 'var(--q-radius-sm)',
+        // `!important` so the notification stays clickable even when an
+        // ancestor disables pointer events, as Quasar's own
+        // `.q-notifications__list` does.
+        'pointer-events': 'all !important',
+        'font-size': '14px',
+        'margin-inline': '10px',
+        'margin-top': '10px',
+        'margin-bottom': '0',
+        'border-radius': 'var(--q-corner-extra-small)',
         background: 'var(--q-inverse-surface)',
         color: 'var(--q-inverse-on-surface)',
-        'box-shadow': 'var(--q-elevation-6)',
-        'word-break': 'break-word'
+        display: 'inline-flex',
+        'flex-shrink': '0',
+        'max-width': '95vw',
+        'box-shadow': NOTIFICATION_SHADOW,
+        transition: 'transform 1s, opacity 1s',
+        'z-index': '9500'
       }
       yield {
         [symbols.selector]: (sel) => `.body--dark ${sel}`,
@@ -71,7 +84,9 @@ export const notificationRules: Rule[] = [
   [
     /^q-notification__actions$/,
     function* (_, { symbols }) {
-      yield { 'margin-left': 'auto' }
+      // `margin-left: auto` right-aligns the actions: Quasar gets that from its
+      // `.q-notification__content`, which this preset does not emit.
+      yield { color: 'var(--q-primary)', 'margin-left': 'auto' }
       yield {
         [symbols.selector]: (sel) => `.body--dark ${sel}`,
         color: 'var(--q-primary)'
@@ -148,5 +163,22 @@ export const notificationRules: Rule[] = [
       }
     }
   ],
+  // The plugin wraps each stack in `.q-notifications__list`. Without it the
+  // notifications have no stacking context or anchor and fall into the page
+  // flow, so it is part of the component, not of the host page.
+  [
+    /^q-notifications__list$/,
+    () => ({
+      'z-index': '9500',
+      'pointer-events': 'none',
+      left: '0',
+      right: '0',
+      'margin-bottom': '10px',
+      position: 'relative'
+    })
+  ],
+  [/^q-notifications__list--center$/, () => ({ top: '0', bottom: '0' })],
+  [/^q-notifications__list--top$/, () => ({ top: '0' })],
+  [/^q-notifications__list--bottom$/, () => ({ bottom: '0' })],
   ...transitionRules
 ] as Rule[]
