@@ -1,167 +1,89 @@
-# Handoff — Pseudo-element Migration Plan
+# Handoff: Dark layer + plugin component parity
 
-**Date**: 2026-09-09
-**Branch**: `preset-rewrite` at `/home/stefan/Projects/unocss-preset-quasar/.worktrees/rules`
-**Plan**: `~/.pi/plans/2026-09-08-fix-pseudo-elements.md`
-**Harness**: `/home/stefan/Projects/quasar-testing-harness` (branch `rules`)
+Branch: `preset-rewrite`  
+Worktree: `/home/stefan/Projects/unocss-preset-quasar/.worktrees/rules`  
+Date: 2026-09-18
 
-## Goal
-
-Port ALL pseudo-element styles (`:before`, `:after`) from `quasar.css` and the preflight system into the preset's rule system using the `symbols.selector` pattern. After this plan, no component should need a preflight for pseudo-element styles.
-
-The `symbols.selector` API (in `@unocss/core@66.x`) lets a rule matcher return an object with `[symbols.selector]: sel =>`${sel}:after`` to apply declarations to a pseudo-element selector — no raw CSS strings needed.
-
-## What was done this session
-
-### 1. Dependency fix (BLOCKER resolved)
-
-**Problem**: `@unocss/core` resolved to **0.51.8** (no `symbols.selector`), even though `package.json` declared `^66.10.1`. Root cause: `animated-unocss@0.0.6` (abandoned, never imported, not installed) pulled in `@unocss/preset-mini@0.51.8` → `@unocss/core@0.51.8`.
-
-**Fix**: Removed `"animated-unocss": "^0.0.6"` from `packages/preset/package.json` dependencies. Ran `pnpm install --no-frozen-lockfile`.
-
-**Result**: `@unocss/core` now resolves to **66.10.1** (confirmed via `require.resolve`). `symbols.selector` is available.
-
-**Files changed**:
-
-- `packages/preset/package.json` — removed `animated-unocss` line
-- `pnpm-lock.yaml` — regenerated (animated-unocss + its 0.51.8 transitive deps removed)
-
-### 2. Pre-flight findings (plan has gaps)
-
-Running `/implement` against the plan surfaced these issues:
-
-| Issue                              | Detail                                                                                                                                                                                                                                              |
-| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `rules/q-tab.ts` missing           | File doesn't exist. But investigation shows q-tab has **zero** pseudo-elements in quasar.css (the only `q-tab--inactive:before` is scoped to `.q-color-picker__header-content-dark`). Nothing to migrate. Plan step 14 is a misread.                |
-| `rules/q-focus-helper.ts` missing  | File doesn't exist. q-focus-helper pseudo-elements are all scoped under `body.desktop` (desktop-only feature query) — that's a variant/media wrapper, not a pure pseudo-element. Doesn't fit `symbols.selector` cleanly. Plan step 16 is a misread. |
-| `q-toggle.ts` dirty                | Has uncommitted changes from a prior attempt. Uses **raw CSS string returns** (`.q-toggle__thumb:after { ... }` as a template literal), NOT the `symbols.selector` pattern the plan requires. Step 1 is incomplete and must be redone correctly.    |
-| Untracked `preflights/q-toggle.ts` | Redundant preflight created alongside the rule file. Must be deleted — the plan's whole point is "rules, not preflights".                                                                                                                           |
-
-### 3. Current working tree state
+## What was done (15 commits)
 
 ```
- M package.json
- M packages/preset/package.json
- M packages/preset/src/rules/q-toggle.ts
- M pnpm-lock.yaml
- M pnpm-workspace.yaml
-?? packages/preset/src/preflights/q-toggle.ts
+0d0ff58  feat(preset): add reference-parity fixture and coverage gate
+3ccd8e1  feat(preset): add field dark-mode overrides (9 rules)
+d90f462  feat(preset): add table dark-mode overrides (3 rules)
+47b67df  feat(preset): add card and chip dark-mode overrides (7 rules)
+9580b3a  feat(preset): add date and time dark-mode overrides (4 rules)
+9fc4c6e  feat(preset): add toggle dark-mode overrides (2 rules)
+395da7c  feat(preset): add layout, drawer, header, footer dark overrides (5 rules)
+1f0f6ef  feat(preset): add btn-group, checkbox, radio, slider dark overrides (13 rules)
+1dcc614  feat(preset): add editor dark-mode overrides (2 rules)
+fb06809  feat(preset): add tab and stepper dark-mode overrides (2 rules)
+173b982  feat(preset): add item dark-mode override (1 rule)
+c0220d5  feat(preset): add dark overrides for remaining families (7 rules)
+a148503  feat(preset): add markup-table, tooltip, slide, pull dark overrides (4 rules)
+54abfbe  feat(preset): add date, time, toggle dark overrides (14 rules)
+aaccdbf  feat(preset): add notification, message, and loading components
 ```
 
-## How to continue
+## What's in place
 
-### Immediate next steps
+1. **Parity fixture** (`test/fixtures/reference-selectors.json`) — 163 dark-scoped selectors extracted from the deployed reference CSS. Generated by `scripts/extract-reference-fixture.mjs`. Idempotent (no timestamp).
 
-1. **Wait for `pnpm install` to finish** (was still running when this was written). Verify with `node -e "console.log(require.resolve('@unocss/core', {paths:['packages/preset']}))"` → should end in `66.10.1`.
+2. **Coverage test** (`test/_parity-snapshot.test.ts`) — generates CSS with the full safelist, checks fixture coverage. Currently 43/163 (26%). Report written to `test/parity-report.txt`.
 
-2. **Rewrite `q-toggle.ts` correctly** (plan step 1, the reference implementation):
-   - Use `import { symbols } from 'unocss'`
-   - For `q-toggle__thumb:after` (the thumb circle with box-shadow), return an object with `[symbols.selector]: sel =>`${sel}:after`` alongside the declaration properties
-   - For `q-toggle__thumb:before` (empty, z-index layering), same pattern
-   - For `q-toggle__inner--truthy .q-toggle__thumb:after` (background currentColor), use `[symbols.selector]` on the deepest class match
-   - Return arrays of declaration objects where a base class has multiple pseudo-elements
-   - **Delete `preflights/q-toggle.ts`** when the rule is correct
+3. **Dark yield pattern** — inline `symbols.selector` yields in existing generators:
 
-3. **Decide on q-tab and q-focus-helper** (plan steps 14 and 16):
-   - **q-tab**: no pseudo-elements exist. Either skip step 14 entirely, or create `rules/q-tab.ts` with base styles only (no pseudo-elements) if the goal is "rules not preflights" generally.
-   - **q-focus-helper**: pseudo-elements are `body.desktop`-scoped. Either handle via a variant (not `symbols.selector`), or leave in preflight. Recommend: leave in preflight, skip step 16.
+   ```ts
+   yield {
+     [symbols.selector]: () => '.body--dark .q-xxx',
+     color: 'var(--q-primary)'
+   }
+   ```
 
-4. **Continue with steps 2–13, 15, 17–20** per the plan's `(f)` entries. Each step:
-   - Add `[symbols.selector]` entries to the relevant rule file
-   - Extract pseudo-element declarations from `quasar.css` (source of truth at `node_modules/.pnpm/quasar@2.31.0/node_modules/quasar/dist/quasar.css`)
-   - Run `(d2)`: `pnpm --filter unocss-preset-quasar test` + `cd ~/Projects/quasar-testing-harness && pnpm test`
+   Works for field (9 rules), card (3), chip (2), date (10), time (5), toggle (5), drawer (2), header (1), footer (1), layout (1), btn-group (2), checkbox (2), radio (1), slider (3), editor (2), tab (1), stepper (1), item (1), linear-progress (2), menu (1), badge (1), circular-progress (1), markup-table (1), tooltip (1), slide-item (1), pull-to-refresh (1).
 
-5. **Step 21**: Create `tests/pseudo-elements.spec.ts` E2E spec for q-btn, q-toggle, q-checkbox, q-radio using `getComputedStyle(el, ':after')`.
+4. **New components** — `src/components/notification/`, `src/components/message/`, `src/components/loading/` with rules + dark yields. Registered in barrel + safelist.
 
-### Pattern reference (from plan section b)
+## The core problem to solve
 
-```ts
-import { symbols } from 'unocss'
+The dark rules I added via inline `symbols.selector` yields are NOT appearing in the parity check's CSS output. The parity check generates with `quasarSafelist` which includes tokens like `q-table`, `q-toggle`, etc. When those tokens are generated, the base rules fire. But the dark scoped yields (via `symbols.selector`) aren't producing the expected `.body--dark` prefixed selectors in the output.
 
-// Single pseudo-element
-;[
-  /^q-toggle__thumb$/,
-  () => ({
-    [symbols.selector]: (sel) => `${sel}:after`,
-    content: '""',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    borderRadius: '50%',
-    background: '#fff',
-    boxShadow: '0 3px 1px -2px rgba(0, 0, 0, 0.2), ...'
-  })
-][
-  // Multiple pseudo-elements on same base class — return array
-  (/^q-btn$/,
-  () => [
-    {/* base styles */},
-    {
-      [symbols.selector]: (sel) => `${sel}:before`,
-      content: '""',
-      position: 'absolute',
-      inset: 0,
-      borderRadius: 'inherit',
-      boxShadow: 'var(--q-elevation-1)'
-    }
-  ])
-][
-  // Variant class with pseudo-element
-  (/^q-btn--standard$/,
-  () => [
-    { background: 'var(--q-btn-bg)', color: 'var(--q-btn-color)' },
-    {
-      [symbols.selector]: (sel) => `${sel}:before`,
-      transition: 'box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.5, 1)'
-    }
-  ])
-]
-```
+**Diagnosis needed:** Add `console.log` to one generator (e.g., `src/components/field/rules.ts` q-field__control) to verify it fires when `q-field__control` is in the candidates. If it fires but the dark selector isn't in CSS, the issue is in UnoCSS's post-processing of scoped yields from merged generators. If it doesn't fire, the issue is that the safelist token doesn't trigger the generator.
 
-## Key files
+**Key architectural finding:** `mergeDuplicateRules` in `src/rules/merge.ts` groups duplicate regexes via `delegateSelectors`. This function:
 
-| File                                             | Role                                                             |
-| ------------------------------------------------ | ---------------------------------------------------------------- |
-| `packages/preset/src/rules/q-toggle.ts`          | Step 1 reference implementation (currently dirty, needs rewrite) |
-| `packages/preset/src/rules/q-btn.ts`             | Step 2 — most complex, many variant pseudo-elements              |
-| `packages/preset/src/rules/index.ts`             | Rule aggregator (all rule files exported here)                   |
-| `packages/preset/src/safelist.ts`                | Component class safelist                                         |
-| `packages/preset/src/preflights/components/*.ts` | Existing preflights (pseudo-elements migrate OUT of these)       |
-| `packages/preset/src/preflights/q-toggle.ts`     | **DELETE** — redundant with q-toggle rule                        |
-| `quasar.css`                                     | Source of truth for pseudo-element declarations                  |
+- Folds plain declarations into one object (later wins)
+- Passes through selector-scoped yields (those with `symbols.selector`)
+- But the yielded scoped items may be silently dropped by UnoCSS's post-processing
 
-## How to run
+## Remaining work
 
-```bash
-# Build the preset
-cd /home/stefan/Projects/unocss-preset-quasar/.worktrees/rules
-pnpm build:preset
+### Dark rules (120 missing from fixture)
 
-# Refresh harness (required after every preset rebuild)
-cd /home/stefan/Projects/quasar-testing-harness
-pnpm install
+- **notification transitions** (37 selectors) — CSS transition/animation classes (`--bottom-enter-from`, `--left-leave-to`, etc.) that are animation states, not visual overrides. Low priority.
+- **message** (21 selectors) — base message rules (avatar, text, stamp, name, label, sent/received variants). The component exists but the rules need more selectors.
+- **date calendar items** (12) — `.body--dark .q-date__calendar-item--in .q-btn--flat` etc. Need dark yields on the right generators.
+- **time clock** (7) — clock-pointer, clock-position--active, link, link--active, container-child, header-ampm.
+- **table descendants** (7) — `tbody tr.selected td`, `th`, `td`, `thead`, `tr`, `tbody td:after`, `tbody td:before`. Need the `dark:q-table` approach (colon-free safelist token).
+- **toggle truthy** (5) — inner--truthy thumb/track/thumb:after.
+- **btn-group** (4) — `.q-btn-group > .q-btn-item`, `.q-btn-group > .q-btn`, `.q-btn-group > .q-btn-group:first-child > .q-btn--active`.
+- **checkbox** (4) — inner--indet/truthy, dark variants.
+- **editor** (4) — toolbar border, content hr, toolbar-group divider.
 
-# Run unit tests
-pnpm --filter unocss-preset-quasar test
+### Steps 8-11 of the plan
 
-# Run E2E tests
-cd ~/Projects/quasar-testing-harness && pnpm test
+- **Step 8**: Prop variants (light-mode variant selectors the build doesn't emit)
+- **Step 9**: Plugin demo pages in harness (`packages/app/src/pages/q-notify/`, `q-loading/`, `q-message/`)
+- **Step 10**: E2E dark-screenshots for plugin pages
+- **Step 11**: `CONTEXT.md`, `README.md`, dead-variable guard test
 
-# Start dev server for visual inspection
-cd packages/app && pnpm dev
-# Then visit http://127.0.0.1:3000/q-btn?style=md3
-```
+## Test commands
 
-## Deviations from plan
+- Unit: `cd packages/preset && pnpm vitest run`
+- E2E: `cd packages/app && pnpm test`
+- Coverage: `cd packages/preset && pnpm vitest run _parity-snapshot` then read `test/parity-report.txt`
 
-1. **Removed `animated-unocss` dep** — it was the root cause of `@unocss/core@0.51.8` resolution, blocking `symbols.selector`. Not in plan but required.
-2. **q-tab.ts and q-focus-helper.ts don't exist as rule files** — plan assumes they do. Investigation shows neither has migratable pseudo-elements in the `symbols.selector` pattern. Steps 14 and 16 need re-scoping or skipping.
-3. **q-toggle.ts dirty state** — prior attempt used raw CSS strings, not `symbols.selector`. Must be rewritten to match plan's `(f)` entry.
+## Commit convention
 
-## Open questions for next session
-
-1. q-tab: skip (no pseudo-elements) or create base-only rule file?
-2. q-focus-helper: leave in preflight (body.desktop variant doesn't fit pattern) or handle via variant API?
-3. Commit policy: commit the dep fix + lockfile regeneration separately before starting the pseudo-element steps?
+- `git commit -F /tmp/cmsg.txt` (body ≤100 chars/line)
+- Pre-commit hook: `run-s lint:preset lint:docs` → `oxfmt --check .`
+- Run `pnpm exec oxfmt --write <files>` before committing if oxfmt flags issues
