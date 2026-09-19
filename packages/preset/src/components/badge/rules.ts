@@ -3,21 +3,27 @@ import type { Rule } from '@unocss/core'
 export const badgeRules = [
   [
     /^q-badge$/,
-    () => ({
-      display: 'inline-flex',
-      'align-items': 'center',
-      'justify-content': 'center',
-      'border-radius': 'var(--q-radius-full)',
-      'background-color': 'var(--q-primary)',
-      color: 'var(--q-on-primary)',
-      'font-size': '12px',
-      'font-weight': 'var(--q-badge-font-weight)',
-      'line-height': 1,
-      padding: '3px 7px',
-      'min-height': '20px',
-      'min-width': '20px',
-      'text-align': 'center'
-    })
+    function* (_, { symbols }) {
+      yield {
+        display: 'inline-flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        'border-radius': 'var(--q-radius-full)',
+        'background-color': 'var(--q-primary)',
+        color: 'var(--q-on-primary)',
+        'font-size': '12px',
+        'font-weight': 'var(--q-badge-font-weight)',
+        'line-height': 1,
+        padding: '3px 7px',
+        'min-height': '20px',
+        'min-width': '20px',
+        'text-align': 'center'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-badge',
+        'background-color': 'var(--q-primary)'
+      }
+    }
   ],
   [
     /^q-badge--floating$/,

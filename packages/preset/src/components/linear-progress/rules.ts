@@ -3,13 +3,23 @@ import type { Rule } from '@unocss/core'
 export const linearProgressRules = [
   [
     /^q-linear-progress$/,
-    () => ({
-      position: 'relative',
-      height: '4px',
-      overflow: 'hidden',
-      'border-radius': 'var(--q-radius-full)',
-      'background-color': 'var(--q-surface-container-highest)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        position: 'relative',
+        height: '4px',
+        overflow: 'hidden',
+        'border-radius': 'var(--q-radius-full)',
+        'background-color': 'var(--q-surface-container-highest)'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-linear-progress',
+        color: 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-linear-progress__track',
+        'background-color': 'var(--q-surface-container-highest)'
+      }
+    }
   ],
   [
     /^q-linear-progress--dark$/,

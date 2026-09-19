@@ -17,6 +17,10 @@ export const circularProgressRules = [
         [symbols.selector]: (sel) => `${sel}.q-focusable`,
         'border-radius': '50%'
       }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-circular-progress',
+        color: 'var(--q-primary)'
+      }
     }
   ],
   [

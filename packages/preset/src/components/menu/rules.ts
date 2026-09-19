@@ -3,15 +3,21 @@ import type { Rule } from '@unocss/core'
 export const menuRules = [
   [
     /^q-menu$/,
-    () => ({
-      position: 'absolute',
-      'z-index': 9500,
-      'min-width': '100px',
-      'background-color': 'var(--q-surface)',
-      'border-radius': 'var(--q-radius-md)',
-      'box-shadow': 'var(--q-elevation-3)',
-      overflow: 'hidden'
-    })
+    function* (_, { symbols }) {
+      yield {
+        position: 'absolute',
+        'z-index': 9500,
+        'min-width': '100px',
+        'background-color': 'var(--q-surface)',
+        'border-radius': 'var(--q-radius-md)',
+        'box-shadow': 'var(--q-elevation-3)',
+        overflow: 'hidden'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-menu',
+        color: 'var(--q-on-surface)'
+      }
+    }
   ],
   [
     /^q-menu--square$/,
