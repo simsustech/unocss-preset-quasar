@@ -99,25 +99,21 @@ keep the `var(--q-*)` expression, then narrow the gate's value check accordingly
 
 ### Known latent risks
 
-- `symbols.selector` yields that hardcode their selector instead of using `${sel}`
-  still exist across several components (e.g. `.q-table tbody td:before`,
-  `.q-checkbox--dark .q-checkbox__inner:before`, the `q-editor__btn*` rules). They
-  produce correct output today, but re-keying the rule silently breaks them.
 - UnoCSS merges rules with identical declaration bodies into one comma-joined
   selector list, so a utility can share a block with an unrelated component rule.
   Order is preserved by first occurrence; assert order with a selector-list-aware
   lookup, not a standalone `.sel{` search.
-- **toggle truthy** (5) — inner--truthy thumb/track/thumb:after.
-- **btn-group** (4) — `.q-btn-group > .q-btn-item`, `.q-btn-group > .q-btn`, `.q-btn-group > .q-btn-group:first-child > .q-btn--active`.
-- **checkbox** (4) — inner--indet/truthy, dark variants.
-- **editor** (4) — toolbar border, content hr, toolbar-group divider.
+- Rules keyed on a token that is not a runtime class Quasar adds can never be
+  safelisted, so they never fire. Three were found this way (`q-btn-group > .q-btn`,
+  `q-list`, `q-tab`); nothing guards the class yet. A rule whose token is absent
+  from `quasarSafelist` and which no utility can produce is dead code — a good
+  candidate for the step 11 guard test.
 
-### Steps 8-11 of the plan
+### Resolved risks
 
-- **Step 8**: Prop variants (light-mode variant selectors the build doesn't emit)
-- **Step 9**: Plugin demo pages in harness (`packages/app/src/pages/q-notify/`, `q-loading/`, `q-message/`)
-- **Step 10**: E2E dark-screenshots for plugin pages
-- **Step 11**: `CONTEXT.md`, `README.md`, dead-variable guard test
+- Scoped-selector convention: all 136 hardcoded yields now interpolate `${sel}`
+  (verified byte-identical output), with seven deliberate exemptions enforced by
+  `test/scoped-selector-convention.test.ts`.
 
 ## Test commands
 
