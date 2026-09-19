@@ -3,15 +3,22 @@ import type { Rule } from '@unocss/core'
 export const drawerRules = [
   [
     /^q-drawer$/,
-    () => ({
-      position: 'fixed',
-      top: '0',
-      bottom: '0',
-      width: '300px',
-      'background-color': 'var(--q-surface)',
-      'box-shadow': 'var(--q-elevation-3)',
-      'z-index': '1000'
-    })
+    function* (_, { symbols }) {
+      yield {
+        position: 'fixed',
+        top: '0',
+        bottom: '0',
+        width: '300px',
+        'background-color': 'var(--q-surface)',
+        'box-shadow': 'var(--q-elevation-3)',
+        'z-index': '1000'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-drawer',
+        'border-color': 'rgba(255, 255, 255, 0.28)',
+        'background-color': 'var(--q-surface-container-low)'
+      }
+    }
   ],
   [
     /^q-drawer--left$/,

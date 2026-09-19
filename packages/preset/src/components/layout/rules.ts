@@ -83,12 +83,17 @@ export const layoutRules = [
   ],
   [
     /^q-layout__section--marginal$/,
-    function* () {
+    function* (_, { symbols }) {
       // Spec: md.sys.color.surface-container-low (same token the navigation
       // drawer uses). Was painting --q-primary with white text, and the class
       // was missing from the safelist so it never emitted at all.
       yield {
         'background-color': 'var(--q-surface-container-low)',
+        color: 'var(--q-on-surface)'
+      }
+      // Dark: marginal section colour.
+      yield {
+        [symbols.selector]: () => '.body--dark .q-layout__section--marginal',
         color: 'var(--q-on-surface)'
       }
     }

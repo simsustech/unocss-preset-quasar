@@ -20,6 +20,11 @@ export const footerRules = [
         [symbols.selector]: () => '.q-footer .q-layout__shadow:after',
         top: '10px'
       }
+      // Dark: footer border.
+      yield {
+        [symbols.selector]: () => '.body--dark .q-footer',
+        'border-color': 'rgba(255, 255, 255, 0.28)'
+      }
     }
   ],
   [

@@ -27,6 +27,11 @@ export const headerRules = [
         [symbols.selector]: () => '.q-header .q-layout__shadow:after',
         bottom: '10px'
       }
+      // Dark: header border.
+      yield {
+        [symbols.selector]: () => '.body--dark .q-header',
+        'border-color': 'rgba(255, 255, 255, 0.28)'
+      }
     }
   ],
   [
