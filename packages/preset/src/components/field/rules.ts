@@ -45,6 +45,11 @@ export const fieldRules = [
         left: '0',
         'pointer-events': 'none'
       }
+      // Dark: control text colour.
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        color: 'var(--q-primary)'
+      }
     }
   ],
   [
@@ -68,13 +73,17 @@ export const fieldRules = [
   ],
   [
     /^q-field__native$/,
-    function* () {
+    function* (_, { symbols }) {
       yield {
         width: '100%',
         border: 'none',
         outline: 'none',
         background: 'transparent',
         padding: '16px 12px 8px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        color: '#fff'
       }
     }
   ],
@@ -144,6 +153,13 @@ export const fieldRules = [
         opacity: '1',
         background: 'transparent',
         'border-bottom-style': 'dashed'
+      }
+      // Dark: filled control bg + text colour.
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel} > .q-field__inner > .q-field__control`,
+        color: 'var(--q-on-surface-variant)',
+        'background-color': 'var(--q-surface-container-highest)'
       }
     }
   ],
@@ -228,6 +244,11 @@ export const fieldRules = [
         [symbols.selector]: (sel) =>
           `${sel}.q-field--readonly .q-field__control:before`,
         'border-bottom-style': 'dashed'
+      }
+      // Dark: standard control bg.
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel} .q-field__control`,
+        'background-color': 'var(--q-surface-container-highest)'
       }
     }
   ],
@@ -435,6 +456,11 @@ export const fieldRules = [
         [symbols.selector]: (sel) => `${sel} + .q-field__append`,
         'padding-left': '2px'
       }
+      // Dark: marginal icon colour.
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel} > .q-icon`,
+        color: 'var(--q-on-surface-variant)'
+      }
     }
   ],
   [
@@ -494,7 +520,7 @@ export const fieldRules = [
   ],
   [
     /^q-field__prefix$/,
-    function* () {
+    function* (_, { symbols }) {
       yield {
         'font-weight': '400',
         'line-height': '28px',
@@ -511,11 +537,15 @@ export const fieldRules = [
         'white-space': 'nowrap',
         'padding-right': '4px'
       }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        color: '#fff'
+      }
     }
   ],
   [
     /^q-field__suffix$/,
-    function* () {
+    function* (_, { symbols }) {
       yield {
         'font-weight': '400',
         'line-height': '28px',
@@ -531,6 +561,10 @@ export const fieldRules = [
         transition: 'opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1)',
         'white-space': 'nowrap',
         'padding-left': '4px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        color: '#fff'
       }
     }
   ],
@@ -564,6 +598,16 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (sel) => `${sel}:invalid`,
         'box-shadow': 'none'
+      }
+      // Dark: input text colour.
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        color: '#fff'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark .q-field--standout.q-field--dark.q-field--highlighted ${sel} > .q-btn-item`,
+        color: 'var(--q-on-surface)'
       }
     }
   ],
