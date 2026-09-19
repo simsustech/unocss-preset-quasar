@@ -261,5 +261,15 @@ export const itemRules = [
         'margin-right': 'calc(var(--q-space-lg) * -1)'
       }
     }
+  ],
+  // Dark: an active router-link item takes the primary role.
+  [
+    /^q-item$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}.q-router-link--active`,
+        color: 'var(--q-primary)'
+      }
+    }
   ]
 ] as Rule[]

@@ -381,5 +381,24 @@ export const stepperRules = [
     function* () {
       yield { border: '1px solid rgba(0, 0, 0, 0.12)' }
     }
+  ],
+  // Dark: the stepper and its labels sit on `surface`, and the active tab takes
+  // the primary role.
+  [
+    /^q-stepper$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        'background-color': 'var(--q-surface)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__label`,
+        'background-color': 'var(--q-surface)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__tab--active`,
+        color: 'var(--q-primary)'
+      }
+    }
   ]
 ] as Rule[]

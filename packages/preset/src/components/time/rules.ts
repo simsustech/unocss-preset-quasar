@@ -486,5 +486,45 @@ export const timeRules = [
         'margin-top': '12px'
       }
     }
+  ],
+  // Dark: the clock face and links sit on the highest container, the selected
+  // position takes primary contrast, and the AM/PM selector uses tertiary.
+  [
+    /^q-time$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__now-button`,
+        color: 'var(--q-on-surface)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__clock-pointer`,
+        color: 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel}__clock-position--active`,
+        color: 'var(--q-on-primary)',
+        'background-color': 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__link`,
+        color: 'var(--q-on-surface)',
+        'background-color': 'var(--q-surface-container-highest)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__link--active`,
+        color: 'var(--q-on-primary-container)',
+        'background-color': 'var(--q-primary-container)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__container-child`,
+        'background-color': 'var(--q-surface-container-highest)'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel}__header-ampm .q-time__link--active`,
+        'background-color': 'var(--q-tertiary-container)'
+      }
+    }
   ]
 ] as Rule[]

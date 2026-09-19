@@ -491,5 +491,48 @@ export const dateRules = [
         'border-color': 'rgba(255, 255, 255, 0.28)'
       }
     }
+  ],
+  // Dark: the picker's nav buttons fade to the surface role, the selected
+  // day/month/year keeps primary contrast, and the edit range uses primary.
+  [
+    /^q-date$/,
+    function* (_, { symbols }) {
+      for (const container of [
+        'calendar-item--in',
+        'months-item',
+        'years-item'
+      ]) {
+        yield {
+          [symbols.selector]: (sel) =>
+            `.body--dark ${sel}__${container} .q-btn--flat`,
+          color: 'var(--q-on-surface)'
+        }
+        yield {
+          [symbols.selector]: (sel) =>
+            `.body--dark ${sel}__${container} .q-btn`,
+          color: 'var(--q-on-primary)',
+          'background-color': 'var(--q-primary)'
+        }
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__navigation .q-btn`,
+        color: 'var(--q-on-surface)'
+      }
+      for (const range of [
+        'edit-range',
+        'edit-range-from',
+        'edit-range-to',
+        'edit-range-from-to'
+      ]) {
+        yield {
+          [symbols.selector]: (sel) => `.body--dark ${sel}__${range}:after`,
+          'border-color': 'var(--q-primary)'
+        }
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__event`,
+        'background-color': 'var(--q-primary)'
+      }
+    }
   ]
 ] as Rule[]

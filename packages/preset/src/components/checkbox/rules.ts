@@ -154,5 +154,23 @@ export const checkboxRules = [
         transform: 'rotate(-280deg) scale(0)'
       }
     }
+  ],
+  // Dark: the truthy/indeterminate marks take the primary role, both on the
+  // base class and under the explicit `.q-checkbox--dark` scope.
+  [
+    /^q-checkbox$/,
+    function* (_, { symbols }) {
+      for (const state of ['--truthy', '--indet']) {
+        yield {
+          [symbols.selector]: (sel) => `.body--dark ${sel}__inner${state}`,
+          color: 'var(--q-primary)'
+        }
+        yield {
+          [symbols.selector]: (sel) =>
+            `.body--dark ${sel}--dark .q-checkbox__inner${state}`,
+          color: 'var(--q-primary)'
+        }
+      }
+    }
   ]
 ] as Rule[]

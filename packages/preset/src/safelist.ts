@@ -1597,6 +1597,8 @@ export const quasarSafelist: string[] = [
   'q-linear-progress__track--light',
   'q-linear-progress__track--with-transition',
   'q-list--bordered',
+  // The base class was missing, so the `/^q-list$/` rule never fired.
+  'q-list',
   'q-list--dark',
   'q-list--dense',
   'q-list--padding',
@@ -1756,6 +1758,8 @@ export const quasarSafelist: string[] = [
   'q-stepper__tab--navigation',
   'q-stepper__title',
   'q-tab--active',
+  // The base class was missing, so the `/^q-tab$/` rule never fired.
+  'q-tab',
   'q-tab--inactive',
   'q-tab__icon',
   'q-tab__indicator',

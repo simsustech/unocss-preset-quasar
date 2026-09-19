@@ -136,5 +136,24 @@ export const radioRules = [
         transition: 'transform 0.22s cubic-bezier(0, 0, 0.2, 1) 0ms'
       }
     }
+  ],
+  // Dark: the outline fades to the variant role, the truthy mark keeps primary.
+  [
+    /^q-radio$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__inner`,
+        color: 'var(--q-on-surface-variant)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__check`,
+        color: 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel}--dark .q-radio__inner--truthy`,
+        color: 'var(--q-primary)'
+      }
+    }
   ]
 ] as Rule[]

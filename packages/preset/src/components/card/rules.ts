@@ -204,5 +204,15 @@ export const cardRules = [
         'flex-grow': '1'
       }
     }
+  ],
+  // Dark: a focused card (not disabled) lifts onto the secondary role.
+  [
+    /^q-card$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}:not(.disabled):focus`,
+        'background-color': 'var(--q-secondary)'
+      }
+    }
   ]
 ] as Rule[]

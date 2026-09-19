@@ -459,5 +459,37 @@ export const tableRules = [
     function* () {
       yield { transform: 'scale(0.95)' }
     }
+  ],
+  // Dark: separators and the row overlays. Cell borders follow the outline
+  // role, while the `:before`/`:after` overlays are lit from the container
+  // roles so they read against a dark surface.
+  [
+    /^q-table$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel} th`,
+        color: 'var(--q-on-surface-variant)',
+        'border-color': 'var(--q-outline-variant)'
+      }
+      for (const cell of ['td', 'thead', 'tr']) {
+        yield {
+          [symbols.selector]: (sel) => `.body--dark ${sel} ${cell}`,
+          'border-color': 'var(--q-outline-variant)'
+        }
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel} tbody tr.selected td`,
+        color: 'var(--q-on-secondary-container)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel} tbody td:after`,
+        'background-color': 'var(--q-secondary-container)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel} tbody td:before`,
+        'background-color': 'var(--q-on-surface)',
+        opacity: 'var(--q-hover-opacity-dark, 0.12)'
+      }
+    }
   ]
 ] as Rule[]

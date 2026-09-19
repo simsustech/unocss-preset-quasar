@@ -580,5 +580,24 @@ export const sliderRules = [
         opacity: '1'
       }
     }
+  ],
+  // Dark: thumb and track take primary over the secondary container.
+  [
+    /^q-slider$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__thumb`,
+        color: 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__track`,
+        color: 'var(--q-primary)',
+        'background-color': 'var(--q-secondary-container)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__inner`,
+        'background-color': 'var(--q-secondary-container)'
+      }
+    }
   ]
 ] as Rule[]

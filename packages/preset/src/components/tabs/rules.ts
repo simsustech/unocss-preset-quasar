@@ -204,5 +204,24 @@ export const tabsRules = [
         bottom: '0'
       }
     }
+  ],
+  // Dark: the active tab takes primary, its indicator the secondary container.
+  [
+    /^q-tab--active$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        color: 'var(--q-primary)'
+      }
+    }
+  ],
+  [
+    /^q-tab__indicator$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        'background-color': 'var(--q-secondary-container)'
+      }
+    }
   ]
 ] as Rule[]

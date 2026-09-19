@@ -93,5 +93,15 @@ export const pullToRefreshRules = [
     function* () {
       yield { transition: 'transform 0.3s, opacity 0.3s' }
     }
+  ],
+  // Dark: the spinner keeps primary against the puller surface.
+  [
+    /^q-pull-to-refresh__puller$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        color: 'var(--q-primary)'
+      }
+    }
   ]
 ] as Rule[]

@@ -10,14 +10,18 @@ export const btnGroupRules = [
     })
   ],
   [
-    /^q-btn-group > .q-btn$/,
+    // Keyed on `q-btn-group`, not the `q-btn-group > .q-btn` token: the latter
+    // is not a runtime class Quasar adds, so it can never be safelisted and the
+    // rule (and its dark override) silently never fired.
+    /^q-btn-group$/,
     function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (sel) => `${sel} > .q-btn`,
         'border-radius': '0',
         'box-shadow': 'none'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-btn-group > .q-btn',
+        [symbols.selector]: (sel) => `.body--dark ${sel} > .q-btn`,
         'background-color': 'var(--q-surface-container)'
       }
     }
@@ -175,6 +179,24 @@ export const btnGroupRules = [
         'min-width': '0',
         'max-width': '100%',
         flex: '10000 1 0%'
+      }
+    }
+  ],
+  // Dark: a primary-filled item keeps primary contrast, and the first grouped
+  // item's active state takes the secondary container.
+  [
+    /^q-btn-group$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel} > .q-btn-item.bg-primary`,
+        color: 'var(--q-on-primary) !important',
+        'background-color': 'var(--q-primary) !important'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel} > .q-btn-group:first-child > .q-btn--active`,
+        'background-color': 'var(--q-secondary-container) !important'
       }
     }
   ]

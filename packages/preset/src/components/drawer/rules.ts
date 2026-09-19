@@ -169,5 +169,22 @@ export const drawerRules = [
         '-webkit-user-select': 'none'
       }
     }
+  ],
+  // Dark: active router links inside the drawer's list take primary, and the
+  // deeper descendant scope uses the secondary container as a row fill.
+  [
+    /^q-drawer$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel}__content .q-list > .q-router-link--active`,
+        color: 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel}__content .q-list .q-router-link--active`,
+        'background-color': 'var(--q-secondary-container)'
+      }
+    }
   ]
 ] as Rule[]

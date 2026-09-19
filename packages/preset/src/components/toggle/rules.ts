@@ -267,5 +267,35 @@ export const toggleRules = [
         'padding-right': '0.5em'
       }
     }
+  ],
+  // Dark: thumb and track. The resting thumb takes the highest surface so the
+  // knob stays visible, and the truthy track takes the primary container.
+  [
+    /^q-toggle$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__thumb`,
+        color: 'var(--q-surface-container-highest)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__thumb:after`,
+        'background-color': 'var(--q-outline)'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel}__inner--truthy .q-toggle__thumb`,
+        color: 'var(--q-on-primary-container)'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel}__inner--truthy .q-toggle__thumb:after`,
+        'background-color': 'var(--q-on-primary) !important'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel}__inner--truthy .q-toggle__track`,
+        'background-color': 'var(--q-primary)'
+      }
+    }
   ]
 ] as Rule[]

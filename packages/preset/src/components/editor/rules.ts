@@ -184,5 +184,33 @@ export const editorRules = [
         'flex-wrap': 'nowrap'
       }
     }
+  ],
+  // Dark: rules and the toolbar divider are lit from white at 12%, matching the
+  // reference's `color-mix` over the same alpha.
+  [
+    /^q-editor$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__content hr`,
+        'background-color': 'rgba(255, 255, 255, 0.12)'
+      }
+      yield {
+        // No spaces around `+`: the reference is minified and the parity
+        // fixture compares selector strings literally.
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel}__toolbar-group+.q-editor__toolbar-group:before`,
+        'background-color': 'rgba(255, 255, 255, 0.12)'
+      }
+    }
+  ],
+  // Dark: the toolbar's own divider lightens like the content rules.
+  [
+    /^q-editor__toolbar$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        'border-color': 'rgba(255, 255, 255, 0.12)'
+      }
+    }
   ]
 ] as Rule[]
