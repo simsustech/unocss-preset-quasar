@@ -44,7 +44,7 @@
       ]
     },
     {
-      "selector": "body.body--dark .q-layout\\_\\_shadow:after",
+      "selector": "body.body--dark .q-layout__shadow:after",
       "media": null,
       "declarations": [
         {
@@ -554,7 +554,7 @@
       ]
     },
     {
-      "selector": ".body--dark .q-field--filled > .q-field _inner > .q-field _control",
+      "selector": ".body--dark .q-field--filled > .q-field__inner > .q-field__control",
       "media": null,
       "declarations": [
         {
@@ -1126,7 +1126,7 @@
       ]
     },
     {
-      "selector": ".q-notification--standard .q-notification _actions",
+      "selector": ".q-notification--standard .q-notification__actions",
       "media": null,
       "declarations": [
         {
@@ -1148,7 +1148,7 @@
       ]
     },
     {
-      "selector": ".q-notification--multi-line .q-notification _actions",
+      "selector": ".q-notification--multi-line .q-notification__actions",
       "media": null,
       "declarations": [
         {
@@ -1194,7 +1194,7 @@
       ]
     },
     {
-      "selector": ".q-notification--multi-line .q-notification _actions--with-media",
+      "selector": ".q-notification--multi-line .q-notification__actions--with-media",
       "media": null,
       "declarations": [
         {
@@ -2092,7 +2092,7 @@
       ]
     },
     {
-      "selector": ".q-notification--multi-line .q-notification _badge--bottom-left",
+      "selector": ".q-notification--multi-line .q-notification__badge--bottom-left",
       "media": null,
       "declarations": [
         {
@@ -2102,7 +2102,7 @@
       ]
     },
     {
-      "selector": ".q-notification--multi-line .q-notification _badge--bottom-right",
+      "selector": ".q-notification--multi-line .q-notification__badge--bottom-right",
       "media": null,
       "declarations": [
         {
@@ -2112,7 +2112,7 @@
       ]
     },
     {
-      "selector": ".q-notification--multi-line .q-notification _badge--top-left",
+      "selector": ".q-notification--multi-line .q-notification__badge--top-left",
       "media": null,
       "declarations": [
         {
@@ -2122,7 +2122,7 @@
       ]
     },
     {
-      "selector": ".q-notification--multi-line .q-notification _badge--top-right",
+      "selector": ".q-notification--multi-line .q-notification__badge--top-right",
       "media": null,
       "declarations": [
         {
@@ -2132,7 +2132,7 @@
       ]
     },
     {
-      "selector": ".q-notification--multi-line .q-notification _progress",
+      "selector": ".q-notification--multi-line .q-notification__progress",
       "media": null,
       "declarations": [
         {

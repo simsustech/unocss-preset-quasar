@@ -137,11 +137,36 @@ function flatten(nodes, media) {
       const sels = splitSelectors(node.selector)
       const decls = parseDeclarations(node.declarations || '')
       for (const sel of sels) {
-        out.push({ selector: sel, media, declarations: decls })
+        out.push({
+          selector: normalizeSelector(sel),
+          media,
+          declarations: decls
+        })
       }
     }
   }
   return out
+}
+
+/**
+ * Normalise the two ways the reference bundle renders BEM `__` in a descendant
+ * position. Both name elements real Quasar ships as `.q-field__inner`,
+ * `.q-notification__badge--bottom-left`, etc:
+ *
+ *   `.q-field _inner`        `__inner` rendered as a descendant element selector
+ *   `.q-layout\_\_shadow`    `__` CSS-escaped (equivalent escaping, not a class)
+ *
+ * Without this the fixture demands selectors no component should ever emit —
+ * a bare `_inner` element selector — so the gate could never go green.
+ */
+function normalizeSelector(sel) {
+  return (
+    sel
+      // `\_` is just an escaped underscore: same selector once unescaped.
+      .replace(/\\_/g, '_')
+      // Re-join a descendant `_part` onto the preceding class as BEM `__part`.
+      .replace(/(\.[-\w]+) _(?=[-\w])/g, '$1__')
+  )
 }
 
 function dedupe(rules) {
