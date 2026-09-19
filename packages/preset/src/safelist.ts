@@ -225,6 +225,27 @@ export const quasarSafelist: string[] = [
   'q-no-input-spinner',
   'q-notification',
   'q-notification__actions',
+  'q-notification--standard',
+  'q-notification--multi-line',
+  'q-notification__badge',
+  'q-notification__progress',
+  // Transition classes Quasar's Vue <transition> adds at runtime, so they never
+  // appear in source for the scanner to pick up.
+  ...[
+    'top',
+    'top-left',
+    'top-right',
+    'bottom',
+    'bottom-left',
+    'bottom-right',
+    'left',
+    'right',
+    'center'
+  ].flatMap((position) => [
+    `q-notification--${position}-enter-from`,
+    `q-notification--${position}-leave-to`,
+    `q-notification--${position}-leave-active`
+  ]),
   'q-loading',
   // Message internals — every class is added by Quasar at runtime, and the
   // component had no tokens at all, so none of its rules ever fired.
