@@ -28,10 +28,16 @@ export const itemRules = [
   ],
   [
     /^q-item--active$/,
-    () => ({
-      'background-color': 'var(--q-primary-container)',
-      color: 'var(--q-on-primary-container)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        'background-color': 'var(--q-primary-container)',
+        color: 'var(--q-on-primary-container)'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-item--active',
+        color: 'var(--q-primary)'
+      }
+    }
   ],
   [
     /^q-item--dark$/,
@@ -55,10 +61,16 @@ export const itemRules = [
   ],
   [
     /^q-item--active$/,
-    () => ({
-      'background-color': 'var(--q-primary-container)',
-      color: 'var(--q-on-primary-container)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        'background-color': 'var(--q-primary-container)',
+        color: 'var(--q-on-primary-container)'
+      }
+      yield {
+        [symbols.selector]: () => '.body--dark .q-item--active',
+        color: 'var(--q-primary)'
+      }
+    }
   ],
   [
     /^q-item--dark$/,
