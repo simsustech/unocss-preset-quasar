@@ -46,7 +46,7 @@ export const layoutRules = [
     /^q-layout__shadow$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-layout__shadow:after`,
+        [symbols.selector]: (sel) => `${sel}:after`,
         content: '""',
         position: 'absolute',
         top: '0',
@@ -93,7 +93,7 @@ export const layoutRules = [
       }
       // Dark: marginal section colour.
       yield {
-        [symbols.selector]: () => '.body--dark .q-layout__section--marginal',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         color: 'var(--q-on-surface)'
       }
     }

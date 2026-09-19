@@ -12,7 +12,7 @@ export const dateRules = [
         'border-radius': 'var(--q-radius-md)'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-date',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         'background-color': 'var(--q-surface-container-high)'
       }
     }
@@ -27,7 +27,7 @@ export const dateRules = [
         padding: '8px 16px'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-date__header',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         color: 'var(--q-on-surface)',
         'background-color': 'var(--q-surface-container-high)'
       }
@@ -70,7 +70,7 @@ export const dateRules = [
     /^q-date__calendar-item$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-date__calendar-item:after`,
+        [symbols.selector]: (sel) => `${sel}:after`,
         content: '""',
         position: 'absolute',
         'pointer-events': 'none',
@@ -88,8 +88,8 @@ export const dateRules = [
     /^q-date__range$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-date__range:before, .q-date__range-from:before, .q-date__range-to:before`,
+        [symbols.selector]: (sel) =>
+          `${sel}:before, .q-date__range-from:before, .q-date__range-to:before`,
         content: '""',
         'background-color': 'currentColor',
         position: 'absolute',
@@ -105,8 +105,8 @@ export const dateRules = [
     /^q-date__range$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-date__range:nth-child(7n-6):before, .q-date__range-from:nth-child(7n-6):before, .q-date__range-to:nth-child(7n-6):before`,
+        [symbols.selector]: (sel) =>
+          `${sel}:nth-child(7n-6):before, .q-date__range-from:nth-child(7n-6):before, .q-date__range-to:nth-child(7n-6):before`,
         'border-top-left-radius': '0',
         'border-bottom-left-radius': '0'
       }
@@ -116,8 +116,8 @@ export const dateRules = [
     /^q-date__range$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-date__range:nth-child(7n):before, .q-date__range-from:nth-child(7n):before, .q-date__range-to:nth-child(7n):before`,
+        [symbols.selector]: (sel) =>
+          `${sel}:nth-child(7n):before, .q-date__range-from:nth-child(7n):before, .q-date__range-to:nth-child(7n):before`,
         'border-top-right-radius': '0',
         'border-bottom-right-radius': '0'
       }
@@ -127,7 +127,7 @@ export const dateRules = [
     /^q-date__range-from$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-date__range-from:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         left: '50%'
       }
     }
@@ -136,7 +136,7 @@ export const dateRules = [
     /^q-date__range-to$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-date__range-to:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         right: '50%'
       }
     }
@@ -145,7 +145,7 @@ export const dateRules = [
     /^q-date__edit-range$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-date__edit-range:after`,
+        [symbols.selector]: (sel) => `${sel}:after`,
         'border-color': 'currentColor transparent'
       }
     }
@@ -154,8 +154,7 @@ export const dateRules = [
     /^q-date__edit-range$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-date__edit-range:nth-child(7n-6):after`,
+        [symbols.selector]: (sel) => `${sel}:nth-child(7n-6):after`,
         'border-top-left-radius': '0',
         'border-bottom-left-radius': '0'
       }
@@ -165,7 +164,7 @@ export const dateRules = [
     /^q-date__edit-range$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-date__edit-range:nth-child(7n):after`,
+        [symbols.selector]: (sel) => `${sel}:nth-child(7n):after`,
         'border-top-right-radius': '0',
         'border-bottom-right-radius': '0'
       }
@@ -175,8 +174,8 @@ export const dateRules = [
     /^q-date__edit-range-from$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-date__edit-range-from:after, .q-date__edit-range-from-to:after`,
+        [symbols.selector]: (sel) =>
+          `${sel}:after, .q-date__edit-range-from-to:after`,
         left: '4px',
         'border-left-color': 'currentColor',
         'border-top-color': 'currentColor',
@@ -190,8 +189,8 @@ export const dateRules = [
     /^q-date__edit-range-to$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-date__edit-range-to:after, .q-date__edit-range-from-to:after`,
+        [symbols.selector]: (sel) =>
+          `${sel}:after, .q-date__edit-range-from-to:after`,
         right: '4px',
         'border-right-color': 'currentColor',
         'border-top-color': 'currentColor',

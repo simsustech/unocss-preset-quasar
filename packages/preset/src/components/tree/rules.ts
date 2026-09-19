@@ -118,7 +118,7 @@ export const treeRules = [
     /^q-tree__node$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-tree__node:after`,
+        [symbols.selector]: (sel) => `${sel}:after`,
         content: '""',
         position: 'absolute',
         top: '-3px',
@@ -134,7 +134,7 @@ export const treeRules = [
     /^q-tree__node$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-tree__node:last-child:after`,
+        [symbols.selector]: (sel) => `${sel}:last-child:after`,
         display: 'none'
       }
     }
@@ -143,7 +143,7 @@ export const treeRules = [
     /^q-tree__node-header$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-tree__node-header:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         content: '""',
         position: 'absolute',
         top: '-3px',
@@ -159,8 +159,7 @@ export const treeRules = [
     /^q-tree__node--parent$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-tree__node--parent > .q-tree__node-header:before`,
+        [symbols.selector]: (sel) => `${sel} > .q-tree__node-header:before`,
         width: '15px',
         left: '-15px'
       }
@@ -170,8 +169,8 @@ export const treeRules = [
     /^q-tree__node--parent$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-tree__node--parent > .q-tree__node-collapsible > .q-tree__node-body:after`,
+        [symbols.selector]: (sel) =>
+          `${sel} > .q-tree__node-collapsible > .q-tree__node-body:after`,
         content: '""',
         position: 'absolute',
         top: '0',
@@ -188,8 +187,8 @@ export const treeRules = [
     /^q-tree$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-tree > .q-tree__node:after, .q-tree > .q-tree__node > .q-tree__node-header:before`,
+        [symbols.selector]: (sel) =>
+          `${sel} > .q-tree__node:after, ${sel} > .q-tree__node > .q-tree__node-header:before`,
         display: 'none'
       }
     }
@@ -198,8 +197,7 @@ export const treeRules = [
     /^q-tree--no-connectors$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-tree--no-connectors .q-tree__node:after,`,
+        [symbols.selector]: (sel) => `${sel} .q-tree__node:after,`,
         display: 'none !important'
       }
     }
@@ -208,7 +206,7 @@ export const treeRules = [
     /^q-tree__vguide--line$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-tree__vguide--line:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         content: '""',
         position: 'absolute',
         top: '0',
@@ -222,7 +220,7 @@ export const treeRules = [
     /^q-tree__vguide--connector$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-tree__vguide--connector:after`,
+        [symbols.selector]: (sel) => `${sel}:after`,
         content: '""',
         position: 'absolute',
         top: '0',
@@ -238,8 +236,7 @@ export const treeRules = [
     /^q-tree__vnode--parent$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-tree__vnode--parent .q-tree__vguide--connector:after`,
+        [symbols.selector]: (sel) => `${sel} .q-tree__vguide--connector:after`,
         right: '-2px'
       }
     }
@@ -248,8 +245,7 @@ export const treeRules = [
     /^q-tree--virtual$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-tree--virtual .q-tree__node-header:before`,
+        [symbols.selector]: (sel) => `${sel} .q-tree__node-header:before`,
         display: 'none'
       }
     }
@@ -258,7 +254,7 @@ export const treeRules = [
     /^q-tree--dense$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-tree--dense .q-tree__node:after`,
+        [symbols.selector]: (sel) => `${sel} .q-tree__node:after`,
         top: '0',
         left: '-8px'
       }
@@ -268,8 +264,7 @@ export const treeRules = [
     /^q-tree--dense$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-tree--dense .q-tree__node-header:before`,
+        [symbols.selector]: (sel) => `${sel} .q-tree__node-header:before`,
         top: '0',
         left: '-8px',
         width: '8px'
@@ -280,8 +275,8 @@ export const treeRules = [
     /^q-tree--dense$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-tree--dense .q-tree__node--child > .q-tree__node-header:before`,
+        [symbols.selector]: (sel) =>
+          `${sel} .q-tree__node--child > .q-tree__node-header:before`,
         left: '-25px',
         width: '21px'
       }
@@ -291,8 +286,8 @@ export const treeRules = [
     /^q-tree--dense$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-tree--dense .q-tree__node--parent > .q-tree__node-collapsible > .q-tree__node-body:after`,
+        [symbols.selector]: (sel) =>
+          `${sel} .q-tree__node--parent > .q-tree__node-collapsible > .q-tree__node-body:after`,
         left: '8px'
       }
     }
@@ -301,8 +296,7 @@ export const treeRules = [
     /^q-tree--dense$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-tree--dense .q-tree__vguide--line:before`,
+        [symbols.selector]: (sel) => `${sel} .q-tree__vguide--line:before`,
         left: '8px',
         bottom: '0'
       }
@@ -312,8 +306,7 @@ export const treeRules = [
     /^q-tree--dense$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-tree--dense .q-tree__vguide--connector:after`,
+        [symbols.selector]: (sel) => `${sel} .q-tree__vguide--connector:after`,
         left: '8px',
         right: '-13px'
       }
@@ -323,8 +316,8 @@ export const treeRules = [
     /^q-tree--dense$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-tree--dense .q-tree__vnode--parent .q-tree__vguide--connector:after`,
+        [symbols.selector]: (sel) =>
+          `${sel} .q-tree__vnode--parent .q-tree__vguide--connector:after`,
         right: '0'
       }
     }

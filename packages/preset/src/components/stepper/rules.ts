@@ -131,8 +131,7 @@ export const stepperRules = [
     /^q-stepper__header--standard-labels$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-stepper__header--standard-labels .q-stepper__dot:after`,
+        [symbols.selector]: (sel) => `${sel} .q-stepper__dot:after`,
         display: 'none'
       }
     }
@@ -141,8 +140,8 @@ export const stepperRules = [
     /^q-stepper__header--alternative-labels$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-stepper__header--alternative-labels .q-stepper__label:before, .q-stepper__header--alternative-labels .q-stepper__label:after`,
+        [symbols.selector]: (sel) =>
+          `${sel} .q-stepper__label:before, ${sel} .q-stepper__label:after`,
         display: 'none'
       }
     }
@@ -151,8 +150,8 @@ export const stepperRules = [
     /^q-stepper__header--contracted$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-stepper__header--contracted .q-stepper__tab:not(:last-child) .q-stepper__dot:after`,
+        [symbols.selector]: (sel) =>
+          `${sel} .q-stepper__tab:not(:last-child) .q-stepper__dot:after`,
         display: 'block !important'
       }
     }
@@ -161,8 +160,8 @@ export const stepperRules = [
     /^q-stepper--horizontal$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-stepper--horizontal .q-stepper__tab:first-child .q-stepper__dot:before,`,
+        [symbols.selector]: (sel) =>
+          `${sel} .q-stepper__tab:first-child .q-stepper__dot:before,`,
         display: 'none'
       }
     }
@@ -171,8 +170,8 @@ export const stepperRules = [
     /^q-stepper--horizontal$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-stepper--horizontal .q-stepper__line:before, .q-stepper--horizontal .q-stepper__line:after`,
+        [symbols.selector]: (sel) =>
+          `${sel} .q-stepper__line:before, ${sel} .q-stepper__line:after`,
         position: 'absolute',
         top: '50%',
         height: '1px',
@@ -185,8 +184,8 @@ export const stepperRules = [
     /^q-stepper--horizontal$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-stepper--horizontal .q-stepper__label:after, .q-stepper--horizontal .q-stepper__dot:after`,
+        [symbols.selector]: (sel) =>
+          `${sel} .q-stepper__label:after, ${sel} .q-stepper__dot:after`,
         content: '""',
         left: '100%',
         'margin-left': '8px'
@@ -197,8 +196,7 @@ export const stepperRules = [
     /^q-stepper--horizontal$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-stepper--horizontal .q-stepper__dot:before`,
+        [symbols.selector]: (sel) => `${sel} .q-stepper__dot:before`,
         content: '""',
         right: '100%',
         'margin-right': '8px'
@@ -209,8 +207,8 @@ export const stepperRules = [
     /^q-stepper--vertical$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-stepper--vertical .q-stepper__dot:before, .q-stepper--vertical .q-stepper__dot:after`,
+        [symbols.selector]: (sel) =>
+          `${sel} .q-stepper__dot:before, ${sel} .q-stepper__dot:after`,
         content: '""',
         position: 'absolute',
         left: '50%',
@@ -224,8 +222,7 @@ export const stepperRules = [
     /^q-stepper--vertical$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-stepper--vertical .q-stepper__dot:before`,
+        [symbols.selector]: (sel) => `${sel} .q-stepper__dot:before`,
         bottom: '100%',
         'margin-bottom': '8px'
       }
@@ -235,8 +232,7 @@ export const stepperRules = [
     /^q-stepper--vertical$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-stepper--vertical .q-stepper__dot:after`,
+        [symbols.selector]: (sel) => `${sel} .q-stepper__dot:after`,
         top: '100%',
         'margin-top': '8px'
       }
@@ -246,8 +242,8 @@ export const stepperRules = [
     /^q-stepper--vertical$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-stepper--vertical .q-stepper__step:first-child .q-stepper__dot:before,`,
+        [symbols.selector]: (sel) =>
+          `${sel} .q-stepper__step:first-child .q-stepper__dot:before,`,
         display: 'none'
       }
     }
@@ -256,8 +252,8 @@ export const stepperRules = [
     /^q-stepper--dark$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-stepper--dark.q-stepper--horizontal .q-stepper__line:before, .q-stepper--dark.q-stepper--horizontal .q-stepper__line:after`,
+        [symbols.selector]: (sel) =>
+          `${sel}.q-stepper--horizontal .q-stepper__line:before, ${sel}.q-stepper--horizontal .q-stepper__line:after`,
         background: 'rgba(255, 255, 255, 0.28)'
       }
     }
@@ -266,8 +262,8 @@ export const stepperRules = [
     /^q-stepper--dark$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-stepper--dark.q-stepper--vertical .q-stepper__dot:before, .q-stepper--dark.q-stepper--vertical .q-stepper__dot:after`,
+        [symbols.selector]: (sel) =>
+          `${sel}.q-stepper--vertical .q-stepper__dot:before, ${sel}.q-stepper--vertical .q-stepper__dot:after`,
         background: 'rgba(255, 255, 255, 0.28)'
       }
     }

@@ -14,7 +14,7 @@ export const cardRules = [
         position: 'relative'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-card',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         'background-color': 'var(--q-surface-container-low)'
       }
       yield {
@@ -22,7 +22,7 @@ export const cardRules = [
         'border-color': 'var(--q-outline)'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-dialog__inner>.q-card',
+        [symbols.selector]: (sel) => `.body--dark .q-dialog__inner>${sel}`,
         'background-color': 'var(--q-surface-container-high)'
       }
     }

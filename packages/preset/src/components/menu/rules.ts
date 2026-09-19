@@ -14,7 +14,7 @@ export const menuRules = [
         overflow: 'hidden'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-menu',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         color: 'var(--q-on-surface)'
       }
     }

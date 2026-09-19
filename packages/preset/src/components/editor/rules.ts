@@ -83,15 +83,14 @@ export const editorRules = [
     /^q-editor__content$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-editor__content:empty:not(:focus):before`,
+        [symbols.selector]: (sel) => `${sel}:empty:not(:focus):before`,
         content: 'attr(aria-placeholder)',
         opacity: '0.7',
         'pointer-events': 'none'
       }
       // Dark: content colour and background.
       yield {
-        [symbols.selector]: () => '.body--dark .q-editor__content',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         color: 'var(--q-on-surface-variant)',
         'background-color': 'var(--q-surface-container-highest)'
       }
@@ -101,8 +100,7 @@ export const editorRules = [
     /^q-editor__toolbar-group$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-editor__toolbar-group + .q-editor__toolbar-group:before`,
+        [symbols.selector]: (sel) => `${sel} + ${sel}:before`,
         content: '""',
         position: 'absolute',
         left: '-4px',
@@ -113,8 +111,7 @@ export const editorRules = [
       }
       // Dark: toolbar group divider.
       yield {
-        [symbols.selector]: () =>
-          '.body--dark .q-editor__toolbar-group + .q-editor__toolbar-group:before',
+        [symbols.selector]: (sel) => `.body--dark ${sel} + ${sel}:before`,
         background: 'rgba(255, 255, 255, 0.12)'
       }
     }
@@ -123,8 +120,8 @@ export const editorRules = [
     /^q-editor--dark$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-editor--dark .q-editor__toolbar-group + .q-editor__toolbar-group:before`,
+        [symbols.selector]: (sel) =>
+          `${sel} .q-editor__toolbar-group + .q-editor__toolbar-group:before`,
         background: 'rgba(255, 255, 255, 0.28)'
       }
     }

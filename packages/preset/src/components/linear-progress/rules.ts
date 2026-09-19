@@ -12,7 +12,7 @@ export const linearProgressRules = [
         'background-color': 'var(--q-surface-container-highest)'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-linear-progress',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         color: 'var(--q-primary)'
       }
       yield {
@@ -69,8 +69,8 @@ export const linearProgressRules = [
     /^q-linear-progress__model--indeterminate$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-linear-progress__model--indeterminate:before, .q-linear-progress__model--indeterminate:after, .q-linear-progress__model--query:before, .q-linear-progress__model--query:after`,
+        [symbols.selector]: (sel) =>
+          `${sel}:before, ${sel}:after, .q-linear-progress__model--query:before, .q-linear-progress__model--query:after`,
         background: 'currentColor',
         content: '""',
         position: 'absolute',
@@ -86,8 +86,8 @@ export const linearProgressRules = [
     /^q-linear-progress__model--indeterminate$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-linear-progress__model--indeterminate:before, .q-linear-progress__model--query:before`,
+        [symbols.selector]: (sel) =>
+          `${sel}:before, .q-linear-progress__model--query:before`,
         animation:
           'q-linear-progress--indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite'
       }
@@ -97,8 +97,8 @@ export const linearProgressRules = [
     /^q-linear-progress__model--indeterminate$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-linear-progress__model--indeterminate:after, .q-linear-progress__model--query:after`,
+        [symbols.selector]: (sel) =>
+          `${sel}:after, .q-linear-progress__model--query:after`,
         transform: 'translate3d(-101%, 0, 0) scale3d(1, 1, 1)',
         animation:
           'q-linear-progress--indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite',

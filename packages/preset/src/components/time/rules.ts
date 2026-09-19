@@ -12,7 +12,7 @@ export const timeRules = [
         'border-radius': 'var(--q-radius-md)'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-time',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         'background-color': 'var(--q-surface-container-high)'
       }
     }
@@ -58,7 +58,7 @@ export const timeRules = [
         'font-size': '2em'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-time__header',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         color: 'var(--q-on-primary)',
         'background-color': 'var(--q-surface-container-high)'
       }
@@ -148,7 +148,7 @@ export const timeRules = [
     /^q-time__content$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-time__content:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         content: '""',
         display: 'block',
         'padding-bottom': '100%'
@@ -159,8 +159,7 @@ export const timeRules = [
     /^q-time__clock-pointer$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-time__clock-pointer:before, .q-time__clock-pointer:after`,
+        [symbols.selector]: (sel) => `${sel}:before, ${sel}:after`,
         content: '""',
         position: 'absolute',
         left: '50%',
@@ -174,7 +173,7 @@ export const timeRules = [
     /^q-time__clock-pointer$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-time__clock-pointer:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         bottom: '-4px',
         width: '8px',
         height: '8px'
@@ -185,7 +184,7 @@ export const timeRules = [
     /^q-time__clock-pointer$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-time__clock-pointer:after`,
+        [symbols.selector]: (sel) => `${sel}:after`,
         top: '-3px',
         height: '6px',
         width: '6px'

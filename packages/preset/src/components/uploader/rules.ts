@@ -121,7 +121,7 @@ export const uploaderRules = [
     /^q-uploader__file$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-uploader__file:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         content: '""',
         'border-top-left-radius': 'inherit',
         'border-top-right-radius': 'inherit',
@@ -140,7 +140,7 @@ export const uploaderRules = [
     /^q-uploader__file--img$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-uploader__file--img:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         content: 'none'
       }
     }

@@ -18,7 +18,7 @@ export const chipRules = [
         position: 'relative'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-chip',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         color: 'var(--q-on-secondary-container)',
         'outline-color': 'var(--q-outline)'
       }

@@ -61,7 +61,7 @@ export const skeletonRules = [
     /^q-skeleton$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-skeleton:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         content: '" "'
       }
     }
@@ -70,8 +70,8 @@ export const skeletonRules = [
     /^q-skeleton--anim-wave$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-skeleton--anim-wave:after, .q-skeleton--anim-blink:after, .q-skeleton--anim-pop:after`,
+        [symbols.selector]: (sel) =>
+          `${sel}:after, .q-skeleton--anim-blink:after, .q-skeleton--anim-pop:after`,
         content: '""',
         position: 'absolute',
         top: '0',
@@ -86,7 +86,7 @@ export const skeletonRules = [
     /^q-skeleton--anim-blink$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-skeleton--anim-blink:after`,
+        [symbols.selector]: (sel) => `${sel}:after`,
         background: 'rgba(255, 255, 255, 0.7)',
         animation:
           'q-skeleton--fade var(--q-skeleton-speed) linear 0.5s infinite'
@@ -97,7 +97,7 @@ export const skeletonRules = [
     /^q-skeleton--anim-wave$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-skeleton--anim-wave:after`,
+        [symbols.selector]: (sel) => `${sel}:after`,
         background:
           'linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0))',
         animation:
@@ -109,8 +109,7 @@ export const skeletonRules = [
     /^q-skeleton--dark$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-skeleton--dark.q-skeleton--anim-wave:after`,
+        [symbols.selector]: (sel) => `${sel}.q-skeleton--anim-wave:after`,
         background:
           'linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0))'
       }
@@ -120,8 +119,7 @@ export const skeletonRules = [
     /^q-skeleton--dark$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-skeleton--dark.q-skeleton--anim-blink:after`,
+        [symbols.selector]: (sel) => `${sel}.q-skeleton--anim-blink:after`,
         background: 'rgba(255, 255, 255, 0.2)'
       }
     }

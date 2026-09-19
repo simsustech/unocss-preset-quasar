@@ -30,12 +30,12 @@ export const btnGroupRules = [
     /^q-btn-group$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-btn-group > .q-btn-item:before`,
+        [symbols.selector]: (sel) => `${sel} > .q-btn-item:before`,
         'box-shadow': 'none'
       }
       // Dark: btn-group item colour.
       yield {
-        [symbols.selector]: () => '.body--dark .q-btn-group > .q-btn-item',
+        [symbols.selector]: (sel) => `.body--dark ${sel} > .q-btn-item`,
         color: 'var(--q-on-surface)'
       }
     }
@@ -44,8 +44,8 @@ export const btnGroupRules = [
     /^q-btn-group$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-btn-group > .q-btn-group:not(:first-child) > .q-btn:first-child:before`,
+        [symbols.selector]: (sel) =>
+          `${sel} > ${sel}:not(:first-child) > .q-btn:first-child:before`,
         'border-left': '0'
       }
     }
@@ -54,8 +54,8 @@ export const btnGroupRules = [
     /^q-btn-group$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-btn-group > .q-btn-group:not(:last-child) > .q-btn:last-child:before`,
+        [symbols.selector]: (sel) =>
+          `${sel} > ${sel}:not(:last-child) > .q-btn:last-child:before`,
         'border-right': '0'
       }
     }
@@ -64,8 +64,8 @@ export const btnGroupRules = [
     /^q-btn-group$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-btn-group > .q-btn-item.q-btn--standard:before`,
+        [symbols.selector]: (sel) =>
+          `${sel} > .q-btn-item.q-btn--standard:before`,
         'z-index': '-1'
       }
     }
@@ -74,8 +74,8 @@ export const btnGroupRules = [
     /^q-btn-group--outline$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-btn-group--outline > .q-btn-item + .q-btn-item:before`,
+        [symbols.selector]: (sel) =>
+          `${sel} > .q-btn-item + .q-btn-item:before`,
         'border-left': '0'
       }
     }
@@ -84,8 +84,8 @@ export const btnGroupRules = [
     /^q-btn-group--outline$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-btn-group--outline > .q-btn-item:not(:last-child):before`,
+        [symbols.selector]: (sel) =>
+          `${sel} > .q-btn-item:not(:last-child):before`,
         'border-right': '0'
       }
     }

@@ -17,12 +17,12 @@ export const footerRules = [
         'z-index': 2000
       }
       yield {
-        [symbols.selector]: () => '.q-footer .q-layout__shadow:after',
+        [symbols.selector]: (sel) => `${sel} .q-layout__shadow:after`,
         top: '10px'
       }
       // Dark: footer border.
       yield {
-        [symbols.selector]: () => '.body--dark .q-footer',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         'border-color': 'rgba(255, 255, 255, 0.28)'
       }
     }

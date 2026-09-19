@@ -62,7 +62,7 @@ export const notificationRules: Rule[] = [
         'word-break': 'break-word'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-notification',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         color: 'var(--q-inverse-on-surface)',
         'background-color': 'var(--q-inverse-surface)'
       }
@@ -73,7 +73,7 @@ export const notificationRules: Rule[] = [
     function* (_, { symbols }) {
       yield { 'margin-left': 'auto' }
       yield {
-        [symbols.selector]: () => '.body--dark .q-notification__actions',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         color: 'var(--q-primary)'
       }
     }

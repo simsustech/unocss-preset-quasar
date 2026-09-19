@@ -76,7 +76,7 @@ export const radioRules = [
     /^q-radio--dark$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-radio--dark .q-radio__inner:before`,
+        [symbols.selector]: (sel) => `${sel} .q-radio__inner:before`,
         opacity: '0.32 !important'
       }
     }
@@ -85,8 +85,8 @@ export const radioRules = [
     /^q-radio$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-radio:not(.disabled) .q-radio__inner:before`,
+        [symbols.selector]: (sel) =>
+          `${sel}:not(.disabled) .q-radio__inner:before`,
         content: '""',
         position: 'absolute',
         top: '0',
@@ -105,8 +105,8 @@ export const radioRules = [
     /^q-radio$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-radio:not(.disabled):focus-visible .q-radio__inner:before`,
+        [symbols.selector]: (sel) =>
+          `${sel}:not(.disabled):focus-visible .q-radio__inner:before`,
         transform: 'scale3d(1, 1, 1)'
       }
     }
@@ -115,8 +115,8 @@ export const radioRules = [
     /^q-radio--dense$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-radio--dense:not(.disabled):focus-visible .q-radio__inner:before`,
+        [symbols.selector]: (sel) =>
+          `${sel}:not(.disabled):focus-visible .q-radio__inner:before`,
         transform: 'scale3d(1.5, 1.5, 1)'
       }
     }

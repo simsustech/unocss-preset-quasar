@@ -20,7 +20,7 @@ export const badgeRules = [
         'text-align': 'center'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-badge',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         'background-color': 'var(--q-primary)'
       }
     }

@@ -128,7 +128,7 @@ export const sliderRules = [
     /^q-slider__markers$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-slider__markers:after`,
+        [symbols.selector]: (sel) => `${sel}:after`,
         content: '""',
         position: 'absolute',
         background: 'currentColor'
@@ -139,7 +139,7 @@ export const sliderRules = [
     /^q-slider__markers--h$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-slider__markers--h:after`,
+        [symbols.selector]: (sel) => `${sel}:after`,
         height: '100%',
         width: '2px',
         top: '0',
@@ -151,7 +151,7 @@ export const sliderRules = [
     /^q-slider__markers--v$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-slider__markers--v:after`,
+        [symbols.selector]: (sel) => `${sel}:after`,
         width: '100%',
         height: '2px',
         left: '0',
@@ -163,7 +163,7 @@ export const sliderRules = [
     /^q-slider__pin$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-slider__pin:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         content: '""',
         width: '0',
         height: '0',
@@ -175,7 +175,7 @@ export const sliderRules = [
     /^q-slider__pin--h$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-slider__pin--h:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         'border-left': '6px solid transparent',
         'border-right': '6px solid transparent',
         left: '50%',
@@ -187,7 +187,7 @@ export const sliderRules = [
     /^q-slider__pin--h-standard$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-slider__pin--h-standard:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         bottom: '2px',
         'border-top': '6px solid currentColor'
       }
@@ -197,7 +197,7 @@ export const sliderRules = [
     /^q-slider__pin--h-switched$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-slider__pin--h-switched:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         top: '2px',
         'border-bottom': '6px solid currentColor'
       }
@@ -207,7 +207,7 @@ export const sliderRules = [
     /^q-slider__pin--v$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-slider__pin--v:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         top: '50%',
         transform: 'translateY(-50%)',
         'border-top': '6px solid transparent',
@@ -219,7 +219,7 @@ export const sliderRules = [
     /^q-slider__pin--v-standard$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-slider__pin--v-standard:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         left: '2px',
         'border-right': '6px solid currentColor'
       }
@@ -229,7 +229,7 @@ export const sliderRules = [
     /^q-slider__pin--v-switched$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-slider__pin--v-switched:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         right: '2px',
         'border-left': '6px solid currentColor'
       }

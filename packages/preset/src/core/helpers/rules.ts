@@ -86,7 +86,7 @@ export const helpersRules: ComponentRule[] = [
       // every hoverable/clickable surface on hover.
       // helper spans render as visible blocks (stray pills in toolbars).
       yield {
-        [symbols.selector]: () => '.q-focus-helper',
+        [symbols.selector]: (sel: string) => `${sel}`,
         position: 'absolute',
         top: 0,
         left: 0,
@@ -103,26 +103,26 @@ export const helpersRules: ComponentRule[] = [
       // what turned whole pages purple on hover. Squash the tints onto the
       // pseudo-elements like quasar.css (12123-12132) and keep the base flat.
       yield {
-        [symbols.selector]: () =>
-          '.q-hoverable:hover > .q-focus-helper, .q-focusable:focus-visible > .q-focus-helper, .q-manual-focusable--focused > .q-focus-helper',
+        [symbols.selector]: (sel: string) =>
+          `.q-hoverable:hover > ${sel}, .q-focusable:focus-visible > ${sel}, .q-manual-focusable--focused > ${sel}`,
         background: 'currentColor',
         opacity: 0.15
       }
       yield {
-        [symbols.selector]: () =>
-          '.q-hoverable:hover > .q-focus-helper:before, .q-focusable:focus-visible > .q-focus-helper:before, .q-manual-focusable--focused > .q-focus-helper:before',
+        [symbols.selector]: (sel: string) =>
+          `.q-hoverable:hover > ${sel}:before, .q-focusable:focus-visible > ${sel}:before, .q-manual-focusable--focused > ${sel}:before`,
         background: '#000',
         opacity: 0.1
       }
       yield {
-        [symbols.selector]: () =>
-          '.q-hoverable:hover > .q-focus-helper:after, .q-focusable:focus-visible > .q-focus-helper:after, .q-manual-focusable--focused > .q-focus-helper:after',
+        [symbols.selector]: (sel: string) =>
+          `.q-hoverable:hover > ${sel}:after, .q-focusable:focus-visible > ${sel}:after, .q-manual-focusable--focused > ${sel}:after`,
         background: '#fff',
         opacity: 0.4
       }
       yield {
-        [symbols.selector]: () =>
-          '.q-focus-helper, .q-focusable, .q-manual-focusable, .q-hoverable',
+        [symbols.selector]: (sel: string) =>
+          `${sel}, .q-focusable, .q-manual-focusable, .q-hoverable`,
         outline: 0
       }
     }

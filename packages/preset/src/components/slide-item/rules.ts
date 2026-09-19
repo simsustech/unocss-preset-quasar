@@ -6,7 +6,7 @@ export const slideItemRules = [
     function* (_, { symbols }) {
       yield { position: 'relative', background: 'white' }
       yield {
-        [symbols.selector]: () => '.body--dark .q-slide-item',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         'background-color': 'var(--q-surface)'
       }
     }

@@ -38,7 +38,7 @@ export const knobRules = [
     /^q-knob--editable$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-knob--editable:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         content: '""',
         position: 'absolute',
         top: '0',
@@ -55,7 +55,7 @@ export const knobRules = [
     /^q-knob--editable$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-knob--editable:focus:before`,
+        [symbols.selector]: (sel) => `${sel}:focus:before`,
         'box-shadow':
           '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
       }

@@ -75,8 +75,7 @@ export const timelineRules = [
     /^q-timeline__dot$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-timeline__dot:before, .q-timeline__dot:after`,
+        [symbols.selector]: (sel) => `${sel}:before, ${sel}:after`,
         content: '""',
         background: 'currentColor',
         display: 'block',
@@ -88,7 +87,7 @@ export const timelineRules = [
     /^q-timeline__dot$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-timeline__dot:before`,
+        [symbols.selector]: (sel) => `${sel}:before`,
         border: '3px solid transparent',
         'border-radius': '100%',
         height: '15px',
@@ -103,7 +102,7 @@ export const timelineRules = [
     /^q-timeline__dot$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-timeline__dot:after`,
+        [symbols.selector]: (sel) => `${sel}:after`,
         width: '3px',
         opacity: '0.4',
         top: '24px',
@@ -116,8 +115,7 @@ export const timelineRules = [
     /^q-timeline__entry$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-timeline__entry:last-child .q-timeline__dot:after`,
+        [symbols.selector]: (sel) => `${sel}:last-child .q-timeline__dot:after`,
         content: 'none'
       }
     }
@@ -126,8 +124,7 @@ export const timelineRules = [
     /^q-timeline__entry--icon$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-timeline__entry--icon .q-timeline__dot:before`,
+        [symbols.selector]: (sel) => `${sel} .q-timeline__dot:before`,
         height: '31px',
         width: '31px'
       }
@@ -137,8 +134,7 @@ export const timelineRules = [
     /^q-timeline__entry--icon$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-timeline__entry--icon .q-timeline__dot:after`,
+        [symbols.selector]: (sel) => `${sel} .q-timeline__dot:after`,
         top: '41px',
         left: '14px'
       }

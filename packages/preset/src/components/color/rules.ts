@@ -159,8 +159,7 @@ export const colorRules = [
     /^q-color-picker__header-content--dark$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-color-picker__header-content--dark .q-tab--inactive:before`,
+        [symbols.selector]: (sel) => `${sel} .q-tab--inactive:before`,
         content: '""',
         position: 'absolute',
         top: '0',
@@ -175,8 +174,7 @@ export const colorRules = [
     /^q-color-picker__alpha$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-color-picker__alpha .q-slider__track:before`,
+        [symbols.selector]: (sel) => `${sel} .q-slider__track:before`,
         content: '""',
         position: 'absolute',
         top: '0',

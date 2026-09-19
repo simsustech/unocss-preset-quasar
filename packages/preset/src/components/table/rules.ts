@@ -240,8 +240,8 @@ export const tableRules = [
     /^q-table$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-table tbody td:before, .q-table tbody td:after`,
+        [symbols.selector]: (sel) =>
+          `${sel} tbody td:before, ${sel} tbody td:after`,
         position: 'absolute',
         top: '0',
         left: '0',
@@ -255,7 +255,7 @@ export const tableRules = [
     /^q-table$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-table tbody td:before`,
+        [symbols.selector]: (sel) => `${sel} tbody td:before`,
         background: 'rgba(0, 0, 0, 0.03)'
       }
     }
@@ -264,7 +264,7 @@ export const tableRules = [
     /^q-table$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-table tbody td:after`,
+        [symbols.selector]: (sel) => `${sel} tbody td:after`,
         background: 'rgba(0, 0, 0, 0.06)'
       }
     }
@@ -273,7 +273,7 @@ export const tableRules = [
     /^q-table$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-table tbody tr.selected td:after`,
+        [symbols.selector]: (sel) => `${sel} tbody tr.selected td:after`,
         content: '""'
       }
     }
@@ -282,7 +282,7 @@ export const tableRules = [
     /^q-table--dark$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-table--dark tbody td:before`,
+        [symbols.selector]: (sel) => `${sel} tbody td:before`,
         background: 'rgba(255, 255, 255, 0.07)'
       }
     }
@@ -291,7 +291,7 @@ export const tableRules = [
     /^q-table--dark$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-table--dark tbody td:after`,
+        [symbols.selector]: (sel) => `${sel} tbody td:after`,
         background: 'rgba(255, 255, 255, 0.1)'
       }
     }

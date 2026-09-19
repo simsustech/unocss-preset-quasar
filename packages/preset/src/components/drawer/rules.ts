@@ -14,7 +14,7 @@ export const drawerRules = [
         'z-index': '1000'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-drawer',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         'border-color': 'rgba(255, 255, 255, 0.28)',
         'background-color': 'var(--q-surface-container-low)'
       }
@@ -43,7 +43,7 @@ export const drawerRules = [
     /^q-drawer--left$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-drawer--left .q-layout__shadow:after`,
+        [symbols.selector]: (sel) => `${sel} .q-layout__shadow:after`,
         right: '10px'
       }
     }
@@ -52,8 +52,7 @@ export const drawerRules = [
     /^q-drawer--right$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-drawer--right .q-layout__shadow:after`,
+        [symbols.selector]: (sel) => `${sel} .q-layout__shadow:after`,
         left: '10px'
       }
     }

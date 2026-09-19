@@ -42,7 +42,7 @@ export const iconRules = [
     /^q-icon$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) => `.q-icon:before, .q-icon:after`,
+        [symbols.selector]: (sel) => `${sel}:before, ${sel}:after`,
         width: '100%',
         height: '100%',
         display: 'flex !important',

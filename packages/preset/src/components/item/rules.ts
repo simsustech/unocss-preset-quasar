@@ -34,7 +34,7 @@ export const itemRules = [
         color: 'var(--q-on-primary-container)'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-item--active',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         color: 'var(--q-primary)'
       }
     }
@@ -67,7 +67,7 @@ export const itemRules = [
         color: 'var(--q-on-primary-container)'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-item--active',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         color: 'var(--q-primary)'
       }
     }

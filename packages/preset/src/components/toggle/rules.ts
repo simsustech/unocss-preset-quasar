@@ -88,7 +88,7 @@ export const toggleRules = [
         '-webkit-print-color-adjust': 'exact'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-toggle__track',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         opacity: '1'
       }
     }

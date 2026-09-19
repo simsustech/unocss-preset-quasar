@@ -99,8 +99,7 @@ export const checkboxRules = [
     /^q-checkbox--dark$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-checkbox--dark .q-checkbox__inner:before`,
+        [symbols.selector]: (sel) => `${sel} .q-checkbox__inner:before`,
         opacity: '0.32 !important'
       }
     }
@@ -109,8 +108,8 @@ export const checkboxRules = [
     /^q-checkbox$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-checkbox:not(.disabled) .q-checkbox__inner:before`,
+        [symbols.selector]: (sel) =>
+          `${sel}:not(.disabled) .q-checkbox__inner:before`,
         content: '""',
         position: 'absolute',
         top: '0',
@@ -129,8 +128,8 @@ export const checkboxRules = [
     /^q-checkbox$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-checkbox:not(.disabled):focus-visible .q-checkbox__inner:before`,
+        [symbols.selector]: (sel) =>
+          `${sel}:not(.disabled):focus-visible .q-checkbox__inner:before`,
         transform: 'scale3d(1, 1, 1)'
       }
     }
@@ -139,8 +138,8 @@ export const checkboxRules = [
     /^q-checkbox--dense$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (_sel) =>
-          `.q-checkbox--dense:not(.disabled):focus-visible .q-checkbox__inner:before`,
+        [symbols.selector]: (sel) =>
+          `${sel}:not(.disabled):focus-visible .q-checkbox__inner:before`,
         transform: 'scale3d(1.4, 1.4, 1)'
       }
     }

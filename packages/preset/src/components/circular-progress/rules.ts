@@ -18,7 +18,7 @@ export const circularProgressRules = [
         'border-radius': '50%'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-circular-progress',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         color: 'var(--q-primary)'
       }
     }

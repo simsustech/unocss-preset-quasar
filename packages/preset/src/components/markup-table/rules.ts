@@ -10,7 +10,7 @@ export const markupTableRules: Rule[] = [
         width: '100%'
       }
       yield {
-        [symbols.selector]: () => '.body--dark .q-markup-table',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         color: 'var(--q-on-surface)'
       }
     }

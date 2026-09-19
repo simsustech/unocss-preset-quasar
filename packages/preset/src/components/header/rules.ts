@@ -24,12 +24,12 @@ export const headerRules = [
       // Shadow hook: the reveal/elevate helper sits inside the header and
       // overflows below it (quasar.css `.q-header .q-layout__shadow:after`).
       yield {
-        [symbols.selector]: () => '.q-header .q-layout__shadow:after',
+        [symbols.selector]: (sel) => `${sel} .q-layout__shadow:after`,
         bottom: '10px'
       }
       // Dark: header border.
       yield {
-        [symbols.selector]: () => '.body--dark .q-header',
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
         'border-color': 'rgba(255, 255, 255, 0.28)'
       }
     }
