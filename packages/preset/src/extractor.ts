@@ -1,4 +1,5 @@
 import type { Extractor } from '@unocss/core'
+import { componentClasses } from './generated/quasar-classes.js'
 
 /**
  * Classes that exist only because a *value* names them.
@@ -36,6 +37,43 @@ function literal(attribute: string, value: string): string | null {
   }
   text = text.trim()
   return EMPTY_VALUES.has(text) ? null : text
+}
+
+/** `QBtn` -> `q-btn`: the markup may name a component either way. */
+const pascalToKebab = (name: string) =>
+  name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()
+
+/**
+ * Every class a component can apply, once the markup mentions that component.
+ *
+ * This is what lets the safelist stop carrying them: Quasar composes these at
+ * runtime (`q-btn` gains `q-btn--flat`, `q-btn--dense`, …), so a hand-written
+ * list has to enumerate them and a human has to remember each new one. Quasar's
+ * own source enumerates them (`scripts/generate-quasar-classes.mjs`), and the
+ * markup says which component is in play.
+ */
+export const quasarComponentExtractor: Extractor = {
+  name: 'quasar-component-extractor',
+  order: 1,
+  extract({ code }) {
+    const classes = new Set<string>()
+    for (const [root, vocabulary] of Object.entries(componentClasses)) {
+      // `q-btn` catches `<q-btn>`, `q-btn-group` and `QBtn`; the PascalCase
+      // form is derived from the root so a component used as `<QBtn>` counts.
+      const pascal = root
+        .split('-')
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join('')
+      if (code.includes(root) || code.includes(pascal)) {
+        for (const name of vocabulary) classes.add(name)
+      }
+    }
+    // Guard against the mapping drifting out of kebab form.
+    for (const name of classes) {
+      if (pascalToKebab(name) !== name.toLowerCase()) classes.delete(name)
+    }
+    return [...classes]
+  }
 }
 
 export const quasarValueExtractor: Extractor = {

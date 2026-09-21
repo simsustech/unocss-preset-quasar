@@ -17,7 +17,7 @@ import { generateColorTokens } from './theme/colors.js'
 import { createTokenPreflight } from './theme/preflight.js'
 import { builtinStyles } from './theme/index.js'
 import type { QuasarStyleEntry } from './styles/index.js'
-import { quasarValueExtractor } from './extractor.js'
+import { quasarComponentExtractor, quasarValueExtractor } from './extractor.js'
 import { quasarSafelist } from './safelist.js'
 import * as componentModules from './components/index.js'
 import * as coreModules from './core/index.js'
@@ -176,7 +176,7 @@ export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
     shortcuts: [...coreShortcuts, ...componentShortcuts],
     // Values that name classes (icons, transitions) cannot be safelisted, so
     // they are derived from the markup instead — see extractor.ts.
-    extractors: [quasarValueExtractor],
+    extractors: [quasarComponentExtractor, quasarValueExtractor],
     safelist: quasarSafelist,
     // The Quasar palette has to reach wind4's theme, not just our own token
     // preflight: wind4 emits `--colors-<name>` and generates the colour

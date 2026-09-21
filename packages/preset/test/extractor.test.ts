@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { quasarValueExtractor } from '../src/extractor.js'
+import {
+  quasarComponentExtractor,
+  quasarValueExtractor
+} from '../src/extractor.js'
 
 /**
  * The classes Quasar builds from prop *values*. They are invisible to content
@@ -37,5 +40,26 @@ describe('quasar value extractor', () => {
       'i-mdi-x'
     )
     expect(extract('<q-dialog :transition-show="null" />')).toEqual([])
+  })
+})
+
+describe('quasar component extractor', () => {
+  const extract = (code: string) =>
+    quasarComponentExtractor.extract!({ code } as never) as string[]
+
+  it('derives a component vocabulary from the component being used', () => {
+    const btn = extract('<q-btn flat label="Go" />')
+    expect(btn).toContain('q-btn--flat')
+    expect(btn).toContain('q-btn--dense')
+    // A different component's classes are not dragged in.
+    expect(btn).not.toContain('q-item--active')
+  })
+
+  it('recognises the PascalCase form too', () => {
+    expect(extract('<QItem clickable />')).toContain('q-item--clickable')
+  })
+
+  it('emits nothing when no component is mentioned', () => {
+    expect(extract('<div class="row">plain</div>')).toEqual([])
   })
 })
