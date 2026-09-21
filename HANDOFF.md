@@ -1,218 +1,262 @@
-# Handoff: full-sheet parity — steps 1–5 done, step 6 half done
+# Handoff: full-sheet parity — step 6 at 101/113, harness still unverified
 
 Branch: `preset-rewrite`
 Worktree: `/home/stefan/Projects/unocss-preset-quasar/.worktrees/rules`
-Date: 2026-09-21
 Plan: `/home/stefan/.pi/plans/2026-09-21-new-preset-looks.md`
 Evaluation: `/home/stefan/.pi/plans/2026-09-21-new-preset-looks.evaluation.md`
 
-> **The worktree is dirty and could not be committed from inside this sandbox.**
-> See "Committing" at the end — the message is written and ready; git only needs
-> write access to the worktree's gitdir.
+## Read this first: the harness run is the open item
 
-## What this session did
+The user asked for a `quasar-testing-harness` verification pass and **it could not
+be run**. The harness is read-only under this sandbox, and vitrify refuses to
+start without writing a transient `packages/app/vitrify.config.ts.js` next to
+`vitrify.config.ts`:
 
-Ran `/implement` on the plan above. The previous handoff (default branch, and the
-15 dark-layer commits `0d0ff58`…`aaccdbf`) is superseded — its content is in the
-git log. What changed now, in one line each:
-
-- **Measured everything.** The vendored reference bundle is back
-  (`specs/reference/raw/reference-bundle.css.txt`, sha256 `4a01f0ffbc51075f…`,
-  pinned in `MANIFEST.sha256`) and `scripts/extract-reference-fixture.mjs` now keeps
-  **all** rules instead of the dark-scoped subset: **2,441 rules, 110 keyframes,
-  170 vars** (was 163 selectors).
-- **Replaced the gate.** `scripts/parity-report.mjs` classifies every fixture
-  selector into a module, compares declarations after resolving scoped tokens, and
-  keeps a ratchet in `test/fixtures/parity-baseline.json` that may only shrink.
-  `test/_parity-snapshot.test.ts` and `test/parity-report.txt` are the legacy writer;
-  they are redundant now (delete with the docs pass, or keep as a smoke test).
-- **Closed the emission bugs.** `elevationRuleList` → `elevationRules` (11 rules were
-  never picked up); `/^q-item-type$/` deleted (it forced `display:block` on every
-  QItem, rows 154px → 93px); main's per-component safelists ported
-  (`componentsSafelistMap`) so runtime-composed classes are emitted at all.
-- **Shell.** `.q-page-container` is no longer a flex row with a 1018px height,
-  `.q-drawer` is the reference's absolute 80px mini track (not a 300px fixed panel
-  with a shadow), `.q-tabs--vertical` is a block, `.lt-md`/`.gt-sm` hide ranges and
-  the platform rules exist, grid gutters use wind4 spacing steps.
-- **Forms, all at target 0:** field (131 gaps → 0), textarea (**new module**, had no
-  rules), select, option-group, input, checkbox, radio, toggle, slider, date, time,
-  form, file, rating, range.
-- **Step 6 partial:** spacing, grid, badge, tab, item, banner, fab, no-ssr, skeleton,
-  panel-parent (**new module**), tab-panel, pull-to-refresh.
-
-## State
-
-| Fact                           | Value                                                |
-| ------------------------------ | ---------------------------------------------------- |
-| Reference rules (fixture)      | 2,441 + 110 keyframes + 170 vars                     |
-| Selectors fully matching       | 1,685                                                |
-| Remaining gap declaration keys | **1,182** (missing 756, absent 363, mismatch 63)     |
-| Modules at target 0            | **53 of 113**                                        |
-| Payload                        | 182 KB emitted vs 307 KB reference (limit ref × 1.1) |
-| `pnpm vitest run`              | 30 files / 179 tests **passing**                     |
-| petboarding e2e                | `screenshots-rewrite.spec.ts` 6/6 passing            |
-| Harness suite                  | **not run** (see below)                              |
-
-Top remaining modules by gap count:
-`icons 123` and `resets 72`, `utilities 63` (all `reported` scope — see the reason in
-`parity-report.mjs`), `keyframes 110` + `animated 98` (step 9), `table 98`,
-`stepper 51`, `tree 51`, `btn 42`, `uploader 41`, `dialog 39`, `timeline 36`,
-`chip 35`, `color-utilities 34` (step 8), `editor 28`, then ~45 smaller modules.
-
-## The gate: how it works, and its four fixed bugs
-
-```sh
-cd packages/preset
-node scripts/parity-report.mjs                      # table + work list
-node scripts/parity-report.mjs --module table       # one module's gaps in detail
-node scripts/parity-report.mjs --update             # rewrite the ratchet baseline
-node scripts/parity-report.mjs --set-target a,b,c   # mark modules complete
-PARITY_DEBUG=1 node scripts/parity-report.mjs       # print every resolved comparison
 ```
-
-Reach for `PARITY_DEBUG=1` **first** when a batch of mismatches appears — it prints
-`ref` vs `ours` after token resolution, which is what you actually need to know.
-The report is written to `test/parity-report.json` on every run (gitignored: it is a
-work list, not an artifact; the ratchet source is `test/fixtures/parity-baseline.json`).
-
-Four measurement bugs were found and fixed in this session; all four had produced
-dozens of _false_ gaps, so distrust any old number:
-
-1. **Tokens never resolved.** `parseSheet` keeps rule bodies as text (`body`) and only
-   the comparison path converts them (`declarations`). The token collector read
-   `declarations`, so every `var(--q-*)` stayed literal and compared unequal.
-2. **Style-scope precedence.** Both sheets define each token three times (base +
-   `body.quasar-style-<name>`). The reference bundle is the _harness_ running every
-   entry as a body class, so its base scope holds the _unstyled_ tokens. Resolution
-   order is now: named style block, then base, then the other entries.
-3. **Unmatchable selectors.** The reference bundle drops a leading `.` on nested class
-   selectors while minifying (`.q-checkbox--dense q-checkbox__label`). Seven selectors
-   cannot match anything; they are excluded by rule, and the preset emits the
-   _corrected_ selector.
-4. **Relative vs absolute geometry.** The reference states md3 sizes relative to the
-   control's font-size (`0.75em` of a 32px switch); the preset uses per-style tokens
-   with absolute values. Equal by construction, unequal as text → reported, and
-   verified in the browser instead.
-
-## Running things
-
-Preset unit suite (run after **every** module batch — the ratchet catches shape
-regressions, e.g. it caught a missing comma that silently deleted the whole `q-time`
-module):
-
-```sh
-cd packages/preset && pnpm vitest run
-```
-
-Petboarding dev loop (the preset is a `file:` override plus a dev-only
-`resolve.conditions: ['source']`, so `src/` is used while iterating):
-
-```sh
-cd packages/preset && pnpm run build                      # prod dist, for the app's prod path
-cd ~/Projects/petboarding && pnpm install --frozen-lockfile
-docker compose -f docker-compose.dev.yaml up -d database mailhog
-cd packages/api && NODE_TLS_REJECT_UNAUTHORIZED=0 pnpm exec vitrify dev -m fastify --port 3000
-```
-
-App e2e (login is real; only `https://localhost:3000` works — the OIDC issuer is
-host-specific and a 3111 server fails with `Incorrect issuer in meta data`):
-
-```sh
-cd ~/Projects/petboarding/packages/api
-PETBOARDING_E2E_BASE_URL=https://localhost:3000 PLAYWRIGHT_ALLOW_SCREENSHOTS=1 \
-  pnpm exec playwright test tests/e2e/screenshots-rewrite.spec.ts --reporter=line
-```
-
-Harness suite — **unverified in this session**, the sandbox has it read-only:
-
-```sh
-cd ~/Projects/quasar-testing-harness
-TEST_SERVER_PORT=3100 \
-TEST_SERVER_CMD='pnpm --filter @quasar-testing-harness/app exec vitrify dev --port 3100 --host 127.0.0.1' \
-  pnpm exec playwright test tests/ --reporter=list
-```
-
-Start the session with `nono run --profile pi --allow ~/Projects/quasar-testing-harness -- pi`,
-otherwise the profile blocks it. Use port 3100, not 3000: the harness reuses an
-existing server, so a stale one serves old CSS. 83 page dirs, 120s timeouts,
-`tests/rewrite-tokens.spec.ts` reads tokens from `body` (not `:root`) on purpose.
-
-## Remaining work, in plan order
-
-- **Step 6 (finish).** Per module: dump the gaps (`--module <name>`), fetch the
-  reference declarations from `test/fixtures/reference-selectors.json`, append a
-  documented parity block to the module's `rules.ts`, run `tsc`, run the gate, set the
-  target. Order by size: `table 98`, `stepper 51`, `tree 51`, `btn 42`, `uploader 41`,
-  `dialog 39`, `timeline 36`, `chip 35`, `editor 28`, `btn-group 18`, `color-picker 18`,
-  `tooltip 18`, `splitter 17`, `card 17`.
-- **Step 7.** Data/display ports: `table`/`tree`/`virtual-scroll`, `timeline`,
-  `editor`, `color-picker`.
-- **Step 8.** Token model: scheme roles + `--q-*` aliases, `extendTheme`/wind4
-  `--colors-*` so the colour utilities exist (`color-utilities 34 → 0`) and
-  petboarding's bands/badges paint. Good news: comparing the md3 entry on both sides
-  shows **0 differences on 43 overlapping token names**, so this step is mostly about
-  emitting the colour layer, not about re-deciding values.
-- **Step 9.** Motion: `q-*` keyframes (110) + `animated-unocss` (98).
-- **Step 10.** Ratchet to 0 where the plan says so, `test/token-trace.test.ts`, docs
-  (repo-root `README.md`, `packages/docs/guide/development.md`, `packages/docs/api/*`),
-  `CONTEXT.md` + two ADRs, changeset (minor), harness run, evaluation.
-
-## Traps that cost time (do not rediscover)
-
-- **Never write a rule whose regex overlaps an earlier rule's token.** A rule matching
-  `.q-field ::-ms-clear|^q-field$` silently killed _all_ `/^q-field$/` output.
-- **Duplicates only merge when the bodies have the same shape.** Appending a generator
-  entry for a regex that already has a plain-object body drops one of them — fold the
-  yields into the existing entry instead. (This bit `q-item--dense`, `q-slider--dense`,
-  `q-time`.)
-- **A missing comma in a generated block deletes a whole module** from the emission
-  without failing the build. Run `tsc --noEmit` and the gate after every generated
-  block; the unit suite's ratchet is what caught it.
-- **Rules cannot carry at-rules.** Media families are assembled as CSS text in
-  `src/index.ts` (one preflight). Barrels must not export `*Preflights`.
-- **Module names ≠ directories.** `tab` → `components/tabs/`, `spacing` →
-  `core/spacing/`, `panel-parent` had no directory at all. Check with `ls` first.
-- **Prefer editing the existing body over appending an override.** UnoCSS re-orders
-  emitted blocks, so a later-appended block is not guaranteed to win; several rounds
-  were spent chasing that.
-- **Quasar's proof points are runtime classes.** If a class is never in the scanned
-  source it is only emitted through `src/safelist.ts`.
-
-## Committing
-
-`git commit` **fails inside this sandbox** — the worktree's gitdir
-(`/home/stefan/Projects/unocss-preset-quasar/.git/worktrees/rules`) is outside the
-profile's write grant, while the worktree files themselves are writable. Diagnosis:
-
-```sh
-nono why --self --path /home/stefan/Projects/unocss-preset-quasar/.git/worktrees/rules --op write
+$ nono why --self --path /home/stefan/Projects/quasar-testing-harness/packages/app --op write
+DENIED
+  Reason: insufficient_access
+  Details: Path is covered by '/home/stefan/Projects', which grants read access from user but write was requested
+  Suggested fix: --write /home/stefan/Projects/quasar-testing-harness/packages/app
 ```
 
 Two ways forward, pick one:
 
 ```sh
-# A. one-off grant for this worktree's gitdir
-nono run --profile pi --allow ~/Projects/unocss-preset-quasar/.git/worktrees/rules -- pi
+# A. one-off grant for this session
+nono run --profile pi --write ~/Projects/quasar-testing-harness -- pi
 
-# B. persistent
-#   drafts ~/.config/nono/profile-drafts/<name>.json, then promote it
-nono profile promote <name>
+# B. persistent — the draft is already written
+#   ~/.config/nono/profile-drafts/pi-quasar-parity.json
+nono profile promote pi-quasar-parity
+nono run --profile pi-quasar-parity -- pi
 ```
 
-The message is ready at `/tmp/preset-parity-commit.txt` (a `feat(preset):` commit
-covering emission, shell, forms, the new gate, the two new modules, the vendored
-bundle and the changeset). Then:
+The draft also covers `~/Projects/unocss-preset-quasar/.git/**` (so `git commit`
+works from inside the sandbox — this session had that grant and did commit) and
+the preset worktree.
+
+Then run the suite the plan's (d0) specifies:
 
 ```sh
-cd /home/stefan/Projects/unocss-preset-quasar/.worktrees/rules
-git add -A && git commit -F /tmp/preset-parity-commit.txt
+cd ~/Projects/quasar-testing-harness
+TEST_SERVER_PORT=3100 \
+TEST_SERVER_CMD='pnpm --filter @quasar-testing-harness/app exec vitrify dev --port 3100 --host 127.0.0.1' \
+  pnpm exec playwright test tests/ --reporter=list --output=/tmp/pw-results
 ```
 
-petboarding's half is **already committed** (`8a69d3548 test(app): assert the
-rewritten preset's shell and form geometry in e2e`) — its `.git` is writable. A stale
-`.git/index.lock` from a killed process had to be removed first; if it reappears, no
-git process is running, so `rm` it.
+Use **3100**, not 3000: :3000 is petboarding's vitrify dev server right now, and
+`reuseExistingServer: true` would happily drive the wrong app. The harness's
+`packages/app/package.json` already links `unocss-preset-quasar` to this
+worktree's `packages/preset`, so it is testing the rewrite, not main.
 
-Commit convention: `git commit -F <file>`, body ≤100 chars/line, pre-commit hooks
-run `oxfmt --check` (never `--no-verify`). Format first with
-`pnpm exec oxfmt --write <files>`.
+## State
+
+| Fact                                      | Value                                                |
+| ----------------------------------------- | ---------------------------------------------------- |
+| Reference rules (fixture)                 | 2,441 + 110 keyframes + 170 vars                     |
+| Selectors fully matching                  | 1,873 (76.7%)                                        |
+| Remaining gaps                            | missing 568, absent 129, mismatch 23                 |
+| Modules at target 0                       | **101 of 113**                                       |
+| Payload                                   | 205 KB emitted vs 314 KB reference (limit ref × 1.1) |
+| `pnpm vitest run`                         | 30 files / 179 tests **passing**                     |
+| `tsc --noEmit`, `oxlint`, `oxfmt --check` | clean (pre-existing lint warnings only)              |
+| harness suite                             | **not run — blocked, see above**                     |
+| petboarding e2e                           | not re-run this session (last session: 6/6)          |
+
+Commits this session, newest first:
+
+- `8758f98` btn → 0 (101 targets)
+- `70e044d` timeline, editor → 0 (100)
+- `0ab46cc` 14 display modules → 0 (98)
+- `fe9efe3` 31 structure modules → 0 (84)
+- `5bec234` the previous session's tree (emission, shell, forms, new gate)
+
+## Remaining work
+
+Everything left is **preset scope** except the two `reported` modules, which are
+ratcheted but never driven to zero.
+
+| Module            | missing | absent | mismatch | Step |
+| ----------------- | ------- | ------ | -------- | ---- |
+| `table`           | 72      | 24     | 2        | 7    |
+| `stepper`         | 35      | 12     | 4        | 7    |
+| `tree`            | 32      | 15     | 4        | 7    |
+| `dialog`          | 26      | 12     | 1        | 7    |
+| `uploader`        | 13      | 26     | 2        | 7    |
+| `color-utilities` | 34      | 0      | 0        | 8    |
+| `tokens`          | 3       | 0      | 0        | 8    |
+| `keyframes`       | 110     | 0      | 0        | 9    |
+| `animated`        | 98      | 0      | 0        | 9    |
+
+Step 10 is untouched: tighten the ratchet, `test/token-trace.test.ts`, docs
+(repo-root `README.md`, `packages/docs/guide/development.md`, `packages/docs/api/*`),
+`CONTEXT.md` + the two ADRs, a minor changeset, and the harness run.
+
+## The loop that works (for the remaining modules)
+
+```sh
+cd packages/preset
+node /tmp/refdump.mjs <module>        # see /tmp/refsel.mjs for ad-hoc selectors; recreate both if /tmp was cleared
+# edit src/components/<module>/rules.ts
+npx tsc --noEmit                      # FIRST — a clipped brace makes the gate report stale numbers
+node scripts/parity-report.mjs        # gate; --module <name> for detail, PARITY_DEBUG=1 for resolved values
+pnpm vitest run                       # cumulative (d2)
+node scripts/parity-report.mjs --update --set-target <module>
+pnpm exec oxfmt --write src           # the pre-commit hook runs oxfmt --check and will reject otherwise
+git commit
+```
+
+The two helper scripts are reproduced at the bottom of this file so they survive
+a `/tmp` wipe: save them as `/tmp/refdump.mjs` and `/tmp/refsel.mjs`.
+
+### The five things that cost the most time this session
+
+1. **The reference states declarations as longhands.** `padding-inline`/
+   `padding-block`, `border-width`/`border-style`/`border-color`,
+   `outline-style`/`outline-width`, `background-image` vs `background`,
+   `background-color` vs `background`. The gate compares property by property, so
+   a shorthand leaves the longhand keys _absent_ even when the box paints
+   identically. Nearly every module port began by discovering this.
+2. **A reference value containing `var(--un-*)` is not compared at all** (the
+   report skips it). Those are the properties where you may keep the `--q-*`
+   token — which is what keeps md2/unstyled style switching alive. Do not freeze
+   them to the reference's `color-mix` text.
+3. **Plain rules that can never match a class token.** `/^q-btn\.disabled$/`
+   compiles but matches nothing; the selector has to be yielded from the base
+   matcher as `${sel}.disabled`. `no-duplicate-rules.test.ts` cannot see this
+   class of bug.
+4. **`mergeDuplicateRules` reorders.** It retains every duplicate's declarations
+   but emits the merged plain object _before_ the scoped yields. When duplicate
+   entries' scoped yields must keep their relative order (it bit
+   `q-linear-progress__model--indeterminate`), fold them into one generator by
+   hand.
+5. **Inert minifier artifacts are part of the reference.** The bundle emits
+   selectors where a combinator became `__` (`.q-btn-group--spread__> …`) and
+   where a dot was lost (`.q-editor .q btn`, `.q-table .q-virtual-scroll__padding
+td`). They cannot match, but parity emits them next to the corrected selector.
+   If you would rather fix the gate instead, extend `isUnmatchableSelector` and
+   record it — do not do both.
+
+## Still standing traps
+
+- **Never write a rule whose regex overlaps an earlier rule's token.** A rule
+  matching `.q-field ::-ms-clear|^q-field$` silently killed all `/^q-field$/`.
+- **A missing comma in a generated block deletes a whole module** without failing
+  the build. `tsc` then the gate, after every block.
+- **Rules cannot carry at-rules.** Media families are CSS text assembled in
+  `src/index.ts` (`responsiveVisibilityCss`, `platformMediaCss`, `layoutMediaCss`,
+  `tooltipMediaCss`, `notificationMediaCss`). Barrels must not export `*Preflights`.
+- **Module names ≠ directories.** `tab` → `components/tabs/`, `spacing` →
+  `core/spacing/`, `color-picker` → `components/color/`, `panel-parent` had no
+  directory before this work. `ls` first.
+- **Quasar's proof points are runtime classes.** If a class is never in the
+  scanned source it is only emitted through `src/safelist.ts` — e.g.
+  `q-focus-helper--round`, `q-electron-drag`, `q-loading__backdrop` were added
+  there this session.
+- **`barrels must not export *MediaCss` as rules** — `pickRules` filters on the
+  `Rules` suffix, so a `*MediaCss` export is inert unless `src/index.ts` imports
+  it explicitly.
+
+## Committing
+
+`git commit` works in this session (the worktree gitdir is writable). The
+pre-commit hook runs `oxlint` + `oxfmt --check`; format with
+`pnpm exec oxfmt --write <files>` first, and never `--no-verify`. Body ≤100
+chars/line, `git commit -F <file>`.
+
+## Helper scripts (recreate after a /tmp wipe)
+
+`/tmp/refdump.mjs <module>` — prints, for every gap the gate reports for a
+module, the reference declarations of the owning selectors. `/tmp/refsel.mjs
+'.q-menu'` does the same for explicit selectors. Both import `normSel`,
+`ruleKey` and `containerKey` from
+`<worktree>/packages/preset/scripts/parity-report.mjs` and read
+`test/parity-report.json` + `test/fixtures/reference-selectors.json`.
+
+Save as `/tmp/refdump.mjs` (adjust `PKG` if the worktree moves):
+
+```js
+#!/usr/bin/env node
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
+import {
+  normSel,
+  ruleKey,
+  containerKey
+} from '<WORKTREE>/packages/preset/scripts/parity-report.mjs'
+
+const PKG = '<WORKTREE>/packages/preset'
+const report = JSON.parse(
+  readFileSync(join(PKG, 'test/parity-report.json'), 'utf8')
+)
+const fixture = JSON.parse(
+  readFileSync(join(PKG, 'test/fixtures/reference-selectors.json'), 'utf8')
+)
+const [moduleName] = process.argv.slice(2)
+if (!moduleName) {
+  for (const [n, m] of Object.entries(report.modules))
+    if (m.missing.length + m.absent.length + m.mismatch.length)
+      console.log(
+        `  ${n} (${m.scope}) ${m.missing.length + m.absent.length + m.mismatch.length}`
+      )
+  process.exit(0)
+}
+const entry = report.modules[moduleName]
+const byKey = new Map()
+for (const rule of fixture.rules) {
+  const key = ruleKey(rule.media, rule.selector)
+  if (!byKey.has(key)) byKey.set(key, [])
+  byKey.get(key).push(rule)
+}
+const wanted = new Set()
+for (const s of entry.missing) wanted.add(s.replace(/ \(in .*\)$/, ''))
+for (const s of entry.absent) wanted.add(s.split('|')[0])
+for (const s of entry.mismatch) wanted.add(s.split('|')[0])
+console.log(`=== ${moduleName} (${entry.scope}) ===`)
+console.log(
+  `missing ${entry.missing.length}  absent ${entry.absent.length}  mismatch ${entry.mismatch.length}\n`
+)
+for (const sel of [...wanted].sort()) {
+  const hits = byKey.get(`\u0000${normSel(sel)}`) ?? byKey.get(`\u0000${sel}`)
+  if (!hits) {
+    console.log(`--- ${sel}  [ NO FIXTURE ENTRY ]`)
+    continue
+  }
+  console.log(`--- ${sel}`)
+  for (const rule of hits) {
+    const c = containerKey(rule.media)
+    const eff = new Map()
+    for (const d of rule.declarations) eff.set(d.property, d.value)
+    const decls = [...eff].filter(([p]) => !p.startsWith('--'))
+    if (c) console.log(`    @container ${c}`)
+    console.log(`    { ${decls.map(([p, v]) => `'${p}': '${v}'`).join(', ')} }`)
+  }
+  console.log()
+}
+```
+
+`/tmp/refsel.mjs '.q-menu' '.q-tooltip'` is the same idea for explicit selectors:
+
+```js
+import { readFileSync } from 'node:fs'
+import { normSel } from '<WORKTREE>/packages/preset/scripts/parity-report.mjs'
+const PKG = '<WORKTREE>/packages/preset'
+const fixture = JSON.parse(
+  readFileSync(`${PKG}/test/fixtures/reference-selectors.json`, 'utf8')
+)
+for (const w of process.argv.slice(2)) {
+  const hits = fixture.rules.filter((r) => normSel(r.selector) === normSel(w))
+  console.log(`--- ${w} (${hits.length})`)
+  for (const r of hits) {
+    const eff = new Map()
+    for (const d of r.declarations) eff.set(d.property, d.value)
+    console.log(
+      `  ${r.media ?? '(no container)'}  { ${[...eff]
+        .filter(([p]) => !p.startsWith('--'))
+        .map(([p, v]) => `${p}: ${v}`)
+        .join('; ')} }`
+    )
+  }
+}
+```
