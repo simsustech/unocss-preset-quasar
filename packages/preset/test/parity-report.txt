@@ -1,6 +1,6 @@
-=== PARITY: 1948/2401 (81%) ===
+=== PARITY: 2010/2401 (84%) ===
 (2441 in fixture; 40 env-gated)
-Missing 453 selectors:
+Missing 391 selectors:
   ::backdrop
   :root
   :host
@@ -264,18 +264,12 @@ Missing 453 selectors:
   .i-mdi-view-dashboard-outline
   .i-mdi-view-grid
   .i-mdi-volume-high
-  .body--dark .text-primary
-  .body--dark .text-accent
-  .body--dark .text-secondary
   .q-checkbox--dense q-checkbox__label
   .q-checkbox--dense.reverse q-checkbox__label
   .disabled *
   .q-field__nativeinput:focus
   .q-field__nativetextarea:focus
   .q-checkbox:not(.disabled):hover q-checkbox__inner:before
-  .body--dark .bg-accent
-  .body--dark .bg-primary
-  .body--dark .bg-secondary
   .q-checkbox__inner--indet q-checkbox__bg
   .container
   .q-checkbox--dense q-checkbox__bg
@@ -289,40 +283,12 @@ Missing 453 selectors:
   .container
   .container
   .container
-  .text-blue-grey
-  .text-deep-orange
-  .text-deep-purple
-  .text-green-1
-  .text-grey-1
-  .text-grey-3
-  .text-grey-5
-  .text-grey-6
-  .text-grey-7
-  .text-grey-8
-  .text-grey-9
-  .text-light-blue
-  .text-light-green
-  .text-light-primary
   .m\[1\]
   .me
   .px
   .outline
   .border
-  .border-grey-3
   .rounded
-  .bg-blue-grey
-  .bg-deep-orange
-  .bg-deep-purple
-  .bg-green-1
-  .bg-grey-1
-  .bg-grey-3
-  .bg-grey-5
-  .bg-grey-6
-  .bg-grey-7
-  .bg-grey-8
-  .bg-grey-9
-  .bg-light-blue
-  .bg-light-green
   .visible
   .italic
   .transform
@@ -426,37 +392,9 @@ Missing 453 selectors:
   .animated-zoom-out-left
   .animated-zoom-out-right
   .animated-zoom-out-up
-  .text-blue-grey
-  .text-deep-orange
-  .text-deep-purple
-  .text-green-1
-  .text-grey-1
-  .text-grey-3
-  .text-grey-5
-  .text-grey-6
-  .text-grey-7
-  .text-grey-8
-  .text-grey-9
-  .text-light-blue
-  .text-light-green
-  .text-light-primary
-  .border-grey-3
-  .bg-blue-grey
-  .bg-deep-orange
-  .bg-deep-purple
-  .bg-green-1
-  .bg-grey-1
-  .bg-grey-3
-  .bg-grey-5
-  .bg-grey-6
-  .bg-grey-7
-  .bg-grey-8
-  .bg-grey-9
-  .bg-light-blue
-  .bg-light-green
 
 --- BREAKDOWN ---
-  other: 435
+  other: 373
   checkbox: 7
   dialog: 6
   layout: 3

@@ -9,12 +9,11 @@ import type { ComponentRule } from '../../rules/types.js'
  * - Generates text- and bg- for all quasar color tokens
  */
 
-/** Single rule entry helper — keeps tuple type [RegExp, matcher] */
-function rule(
-  regex: RegExp,
-  matcher: () => Record<string, string>
-): ComponentRule {
-  return [regex, matcher]
+/** Single rule entry helper — keeps the tuple type [RegExp, matcher] */
+function rule(regex: RegExp, matcher: ComponentRule[1]): ComponentRule {
+  // `ComponentRule` is a union of static and dynamic shapes and the matcher
+  // type covers both; the cast selects the dynamic member.
+  return [regex, matcher] as ComponentRule
 }
 
 /** Quasar color names → --q-* custom property */
@@ -74,25 +73,61 @@ const md3Tokens = [
   'scrim'
 ] as const
 
+/**
+ * Brand colours whose utility the reference also scopes to dark mode
+ * (`body.body--dark .bg-primary` …). The roles already flip through `--q-*`,
+ * so the value is the same token; the dark-scoped selector is what the
+ * reference emits, and it is what a dark override in app CSS has to beat.
+ */
+const darkScopedColorTokens = ['primary', 'secondary', 'accent'] as const
+
 /** Generate text-{color} and bg-{color} rules for a list of token names */
-function generateColorRules(tokens: readonly string[]): ComponentRule[] {
+function generateColorRules(
+  tokens: readonly string[],
+  darkScoped = false
+): ComponentRule[] {
   const rules: ComponentRule[] = []
   for (const name of tokens) {
-    rules.push(
-      rule(new RegExp(`^text-${name}$`), () => ({
-        color: `var(--q-${name})`
-      })),
-      rule(new RegExp(`^bg-${name}$`), () => ({
-        'background-color': `var(--q-${name})`
-      }))
-    )
+    if (!darkScoped) {
+      rules.push(
+        rule(new RegExp(`^text-${name}$`), () => ({
+          color: `var(--q-${name})`
+        })),
+        rule(new RegExp(`^bg-${name}$`), () => ({
+          'background-color': `var(--q-${name})`
+        }))
+      )
+      continue
+    }
+    // Both yields stay in one generator: UnoCSS keeps only the last rule per
+    // regex, so a second rule for the same token would silently drop the first.
+    for (const [prefix, property] of [
+      ['text', 'color'],
+      ['bg', 'background-color']
+    ] as const) {
+      rules.push(
+        rule(new RegExp(`^${prefix}-${name}$`), function* (_, { symbols }) {
+          yield { [property]: `var(--q-${name})` }
+          yield {
+            [symbols.selector]: (sel: string) => `.body--dark ${sel}`,
+            [property]: `var(--q-${name})`
+          }
+        })
+      )
+    }
   }
   return rules
 }
 
+/** The brand tokens are generated above; the rest plainly. */
+const plainColorTokens = colorTokens.filter(
+  (name) => !(darkScopedColorTokens as readonly string[]).includes(name)
+)
+
 export const colorRules: ComponentRule[] = [
   // --- Quasar color tokens ---
-  ...generateColorRules(colorTokens),
+  ...generateColorRules(plainColorTokens),
+  ...generateColorRules(darkScopedColorTokens, true),
 
   // --- MD3 color role tokens ---
   ...generateColorRules(md3Tokens)

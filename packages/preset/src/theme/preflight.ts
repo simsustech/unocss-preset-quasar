@@ -18,10 +18,26 @@ export function createTokenPreflight(params: {
   return {
     getCSS: () => {
       const parts: string[] = []
-      // 1. Colors on :root (shared)
+      // 1. Scheme roles + Quasar aliases on :root (shared).
+      //
+      // The roles are what the component rules reference (`color-mix(… var(--light-*)
+      // …)`), and the reference defines them here rather than relying on a runtime
+      // `setThemeColors()` call: a `var()` with no definition makes the whole
+      // declaration invalid, so an undefined role does not fall back — it drops.
       parts.push(
-        renderColorBlock(':root', params.colors.light, params.colors.quasar)
+        renderColorBlock(
+          ':root',
+          params.colors.light,
+          params.colors.quasar,
+          '',
+          'light'
+        )
       )
+      parts.push(
+        renderColorBlock(':root', params.colors.dark, undefined, '', 'dark')
+      )
+      // 1a. Shape roles, as the md3 entry states them.
+      parts.push(renderShapeRoles(':root', params.defaultStyle.tokens))
       // 2. Default style tokens on body (NOT :root: runtime setThemeColors
       // writes --light-*/--dark-* onto document.body, so --q-* aliases that
       // reference them must resolve against body to pick up the overrides)
@@ -45,10 +61,13 @@ export function createTokenPreflight(params: {
       parts.push(
         renderColorBlock(':root', params.colors.dark, undefined, '-dark')
       )
+      // 4c. Per-style dark: the combination the reference emits for every style
+      // entry, so `body.body--dark.quasar-style-md2` resolves the same tokens as
+      // `body.body--dark` rather than falling back to the light palette.
       for (const style of params.styles) {
-        // Per-style dark: only if style has color overrides (it doesn't — colors are shared)
-        // This block is for completeness; colors are shared so no per-style dark overrides needed
-        void style
+        const selector = `body.body--dark.quasar-style-${style.name}`
+        parts.push(renderColorDarkBlock(selector, params.colors.dark))
+        parts.push(renderQuasarDarkBlock(selector, params.colors))
       }
       return parts.join('\n\n')
     }
@@ -59,11 +78,16 @@ function renderColorBlock(
   selector: string,
   colors: TokenBlock['color'],
   quasar?: ColorBlock['quasar'],
-  suffix = ''
+  suffix = '',
+  /** Emit `--<prefix>-<role>` alongside each `--q-<role>` (the scheme roles). */
+  rolePrefix?: string
 ): string {
   const lines: string[] = []
   for (const [key, value] of Object.entries(colors)) {
     lines.push(`  --q${suffix}-${kebab(key)}: ${value};`)
+    if (rolePrefix) {
+      lines.push(`  --${rolePrefix}-${kebab(key)}: ${value};`)
+    }
   }
   if (quasar) {
     for (const [key, value] of Object.entries(quasar)) {
@@ -73,6 +97,22 @@ function renderColorBlock(
   return `${selector} {\n${lines.join('\n')}\n}`
 }
 
+/**
+ * The shape roles the reference states at `:root`
+ * (`--shape-corner-extra-small` … `--shape-corner-extra-large`), taken from the
+ * default style entry's corner scale. The `radius*` aliases are named separately
+ * so they are not emitted twice.
+ */
+function renderShapeRoles(selector: string, tokens: TokenCategories): string {
+  const shape = asRecord(asRecord(tokens).shape ?? {})
+  const lines: string[] = []
+  for (const [key, value] of Object.entries(shape)) {
+    if (!key.startsWith('corner') || key === 'cornerCircle') continue
+    if (key === 'cornerFull' && !value) continue
+    lines.push(`  --shape-${kebab(key)}: ${value};`)
+  }
+  return `${selector} {\n${lines.join('\n')}\n}`
+}
 /** Shadow primitives + computed shadow tokens, mirroring quasar.css body block */
 function renderShadowBlock(selector: string): string {
   const lines = [

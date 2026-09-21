@@ -8,6 +8,7 @@ import {
 import type { WebFontsOptions } from '@unocss/preset-web-fonts'
 import presetWind4 from '@unocss/preset-wind4'
 import type { Rule } from '@unocss/core'
+import { generateTheme } from './theme/quasar-theme.js'
 import { mergeDuplicateRules } from './rules/merge.js'
 import { generateColorTokens } from './theme/colors.js'
 import { createTokenPreflight } from './theme/preflight.js'
@@ -71,6 +72,32 @@ const componentPreflights = pickBySuffix(componentModules, 'Preflights')
 const coreShortcuts = pickBySuffix(coreModules, 'Shortcuts')
 const componentShortcuts = pickBySuffix(componentModules, 'Shortcuts')
 
+/**
+ * The flat Quasar palette out of the public theme, for wind4.
+ *
+ * `colors.light` / `colors.dark` are *scheme objects*, not colours — spreading
+ * them into a colour namespace would make wind4 treat each role as a palette
+ * entry (`--colors-light-primary`). The roles reach CSS through the token
+ * preflight instead. Everything else (the Quasar palette plus the brand
+ * aliases) is a colour name that utilities address directly.
+ */
+function paletteColors(theme: { colors: Record<string, unknown> }) {
+  const out: Record<string, unknown> = {}
+  for (const [key, value] of Object.entries(theme.colors)) {
+    if (key === 'light' || key === 'dark') continue
+    if (typeof value !== 'string') continue
+    out[key] = value
+  }
+  // The reference also exposes the light scheme's primary as a palette colour:
+  // `.text-light-primary` resolves `var(--colors-light-primary)`, so it is a
+  // utility-addressed colour rather than a role.
+  const light = theme.colors.light
+  if (light && typeof light === 'object') {
+    const primary = (light as Record<string, unknown>).primary
+    if (typeof primary === 'string') out['light-primary'] = primary
+  }
+  return out
+}
 export interface QuasarPresetOptions {
   style?: QuasarStyleEntry
   sourceColor?: string
@@ -80,6 +107,9 @@ export interface QuasarPresetOptions {
 export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
   const sourceColor = options?.sourceColor ?? '#1976d2'
   const colors = generateColorTokens(sourceColor)
+  // The public theme: wind4 needs the palette on the UnoCSS theme (see
+  // `extendTheme` below), and it is the same generator behind our preflight.
+  const theme = generateTheme(sourceColor)
   const defaultStyle = options?.style ?? builtinStyles[0] // md3 default
   const allStyles = builtinStyles // always include all built-ins for setStyle() to work
 
@@ -132,6 +162,17 @@ export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
     ]),
     shortcuts: [...coreShortcuts, ...componentShortcuts],
     safelist: quasarSafelist,
+    // The Quasar palette has to reach wind4's theme, not just our own token
+    // preflight: wind4 emits `--colors-<name>` and generates the colour
+    // utilities (`bg-grey-8`, `text-deep-orange`, …) from the theme, so without
+    // this the palette classes the safelist names resolve to nothing.
+    extendTheme: (themeArg: { colors?: Record<string, unknown> }) => ({
+      ...themeArg,
+      colors: {
+        ...(themeArg.colors ?? {}),
+        ...paletteColors(theme)
+      }
+    }),
     transformers: [transformerVariantGroup(), transformerDirectives()]
   }
 })
