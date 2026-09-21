@@ -30,8 +30,12 @@ export const itemRules = [
     /^q-item--active$/,
     function* (_, { symbols }) {
       yield {
-        'background-color': 'var(--q-primary-container)',
-        color: 'var(--q-on-primary-container)'
+        // md3 spec: the selected container is `secondary-container` and its
+        // text `on-secondary-container` (specs/reference/normalized/
+        // md3-lists.json). The reference has no such rule; the primary
+        // pair was this port's own invention.
+        'background-color': 'var(--q-secondary-container)',
+        color: 'var(--q-on-secondary-container)'
       }
       yield {
         [symbols.selector]: (sel) => `.body--dark ${sel}`,
@@ -63,8 +67,12 @@ export const itemRules = [
     /^q-item--active$/,
     function* (_, { symbols }) {
       yield {
-        'background-color': 'var(--q-primary-container)',
-        color: 'var(--q-on-primary-container)'
+        // md3 spec: the selected container is `secondary-container` and its
+        // text `on-secondary-container` (specs/reference/normalized/
+        // md3-lists.json). The reference has no such rule; the primary
+        // pair was this port's own invention.
+        'background-color': 'var(--q-secondary-container)',
+        color: 'var(--q-on-secondary-container)'
       }
       yield {
         [symbols.selector]: (sel) => `.body--dark ${sel}`,
