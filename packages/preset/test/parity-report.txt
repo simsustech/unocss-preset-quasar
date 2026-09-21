@@ -1,6 +1,6 @@
-=== PARITY: 1924/2401 (80%) ===
+=== PARITY: 1935/2401 (81%) ===
 (2441 in fixture; 40 env-gated)
-Missing 477 selectors:
+Missing 466 selectors:
   ::backdrop
   :root
   :host
@@ -56,7 +56,6 @@ Missing 477 selectors:
   object
   #q-app
   img.responsive
-  body.quasar-style-unstyled .q-dialog
   body.quasar-style-unstyled .q-uploader
   [aria-busy=true]
   [aria-controls]
@@ -136,6 +135,7 @@ Missing 477 selectors:
   body.platform-android:not(.native-mobile) .q-dialog__inner--minimized > div
   .q-dialog__inner--top > div
   .q-dialog__inner--bottom > div
+  .q-dialog__inner--minimized > div
   html
   .q-layout-padding
   .q-layout-padding
@@ -265,7 +265,6 @@ Missing 477 selectors:
   .i-mdi-view-dashboard-outline
   .i-mdi-view-grid
   .i-mdi-volume-high
-  .q-dialog__inner>div
   .q-uploader__file .q-circular-progress
   .q-uploader__file--img .q-circular-progress
   .body--dark .text-primary
@@ -285,23 +284,13 @@ Missing 477 selectors:
   .q-uploader--dark .q-uploader__file
   .q-uploader--dark
   .q-checkbox:not(.disabled):hover q-checkbox__inner:before
-  .q-dialog__inner--maximized>div
-  .q-dialog__inner--square>div
-  .q-dialog__inner--left:not(.q-dialog__inner--animating)>div
-  .q-dialog__inner--right:not(.q-dialog__inner--animating)>div
-  .q-dialog__inner--bottom:not(.q-dialog__inner--animating)>div
   .body--dark .bg-accent
   .body--dark .bg-primary
   .body--dark .bg-secondary
   .q-checkbox__inner--indet q-checkbox__bg
-  .q-dialog__inner>.q-card
   .q-uploader--dark .q-uploader__dnd
   .container
   .q-checkbox--dense q-checkbox__bg
-  .q-dialog__inner>.q-card>.q-card__actions .q-btn--rectangle
-  .q-dialog__inner--fullheight>div
-  .q-dialog__inner--fullwidth>div
-  .q-dialog__inner--minimized>div
   .q-uploader__input::-webkit-file-upload-button
   .no-pointer-events--children
   .no-pointer-events--children *
@@ -481,8 +470,8 @@ Missing 477 selectors:
 
 --- BREAKDOWN ---
   other: 435
-  dialog: 17
   uploader: 13
   checkbox: 7
+  dialog: 6
   layout: 3
   field: 2
