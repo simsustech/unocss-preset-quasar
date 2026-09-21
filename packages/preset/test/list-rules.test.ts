@@ -53,7 +53,13 @@ describe('QList spec conformance', () => {
 
   it('styles the header label with the overline role', async () => {
     const css = await cssFor('q-item__label--header')
-    const block = css.match(/\.q-item__label--header\{[^}]*\}/)?.[0] ?? ''
+    // The dark override is a separate *descendant* rule
+    // (`.q-item--dark .q-item__label--header`), so match the base rule by its
+    // exact selector rather than the last block that mentions the class.
+    const block =
+      [...css.matchAll(/([^{}]+)\{([^}]*)\}/g)].find(
+        ([, selector]) => selector.trim() === '.q-item__label--header'
+      )?.[2] ?? ''
     expect(block).toContain('color:var(--q-on-surface-variant)')
     expect(block).not.toContain('font-weight:600')
   })

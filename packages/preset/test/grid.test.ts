@@ -91,28 +91,28 @@ describe('gridRules', () => {
     expect(css!['--q-col-span']).toBe('12')
   })
 
-  it('q-gutter-md uses --q-space-md custom property', () => {
+  it('q-gutter-md uses the wind4 spacing step for md custom property', () => {
     const css = matchRule('q-gutter-md')
     expect(css).toBeDefined()
-    expect(css!.gap).toBe('var(--q-space-md)')
+    expect(css!['column-gap']).toBe('calc(var(--spacing) * 4)')
   })
 
-  it('q-gutter-x-sm uses --q-space-sm for column-gap', () => {
+  it('q-gutter-x-sm uses the wind4 spacing step for sm for column-gap', () => {
     const css = matchRule('q-gutter-x-sm')
     expect(css).toBeDefined()
-    expect(css!['column-gap']).toBe('var(--q-space-sm)')
+    expect(css!['column-gap']).toBe('calc(var(--spacing) * 2)')
   })
 
-  it('q-gutter-y-lg uses --q-space-lg for row-gap', () => {
+  it('q-gutter-y-lg uses the wind4 spacing step for lg for row-gap', () => {
     const css = matchRule('q-gutter-y-lg')
     expect(css).toBeDefined()
-    expect(css!['row-gap']).toBe('var(--q-space-lg)')
+    expect(css!['row-gap']).toBe('calc(var(--spacing) * 6)')
   })
 
   it('q-gutter-none has zero gap', () => {
     const css = matchRule('q-gutter-none')
     expect(css).toBeDefined()
-    expect(css!.gap).toBe('var(--q-space-none)')
+    expect(css!['column-gap']).toBe('calc(var(--spacing) * 0)')
   })
 
   it('wrap sets flex-wrap wrap', () => {

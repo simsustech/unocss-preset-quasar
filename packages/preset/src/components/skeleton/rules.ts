@@ -271,5 +271,16 @@ export const skeletonRules = [
         'z-index': '1'
       }
     }
+  ],
+  // --- Reference parity: the unstyled style entry strips the component skin ---
+  [
+    /^q-skeleton$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+    }
   ]
 ] as Rule[]

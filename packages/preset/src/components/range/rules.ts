@@ -123,5 +123,16 @@ export const rangeRules = [
     () => ({
       // Active
     })
+  ],
+  // --- Reference parity: the unstyled override ---
+  [
+    /^q-range$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+    }
   ]
 ] as Rule[]

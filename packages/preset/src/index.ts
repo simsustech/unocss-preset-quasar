@@ -16,6 +16,8 @@ import type { QuasarStyleEntry } from './styles/index.js'
 import { quasarSafelist } from './safelist.js'
 import * as componentModules from './components/index.js'
 import * as coreModules from './core/index.js'
+import { platformMediaCss, responsiveVisibilityCss } from './core/index.js'
+import { layoutMediaCss } from './components/layout/rules.js'
 
 const pickBySuffix = (
   mod: Record<string, unknown>,
@@ -101,7 +103,16 @@ export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
     preflights: [
       ...corePreflights,
       ...componentPreflights,
-      createTokenPreflight({ colors, defaultStyle, styles: allStyles })
+      createTokenPreflight({ colors, defaultStyle, styles: allStyles }),
+      // Media-query families: responsive visibility (`lt-md`, `xs`, …) and the
+      // orientation/print platform classes. A UnoCSS rule body cannot carry an
+      // at-rule (a nested `'@media …'` key is stringified as `[object Object]`),
+      // and these classes are added by Quasar or by markup with no source hint,
+      // so the reference emits them unconditionally — here, once, as text.
+      {
+        getCSS: () =>
+          `${responsiveVisibilityCss}\n${platformMediaCss}\n${layoutMediaCss}`
+      }
     ],
     // Rule order matters twice over:
     //  - grid/container utilities first, so component layout wins on equal

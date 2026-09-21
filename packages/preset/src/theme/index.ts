@@ -1,6 +1,9 @@
 export * from './types.js'
 export * from './colors.js'
 export * from './preflight.js'
+// Public `unocss-preset-quasar/theme` surface (QuasarTheme, defaultTheme,
+// generateTheme, setThemeColors) — see quasar-theme.ts for why it stays.
+export * from './quasar-theme.js'
 
 import type { StyleEntry, TokenBlock } from './types.js'
 

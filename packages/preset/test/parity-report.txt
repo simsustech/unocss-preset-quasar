@@ -1,5 +1,829 @@
-=== PARITY: 162/162 (100%) ===
-(163 in fixture; 1 env-gated)
-Missing 0 selectors:
+=== PARITY: 1620/2401 (67%) ===
+(2441 in fixture; 40 env-gated)
+Missing 781 selectors:
+  ::backdrop
+  :root
+  :host
+  body.quasar-style-md3
+  body.quasar-style-md2
+  body.quasar-style-unstyled
+  body.body--dark.quasar-style-md3
+  body.body--dark.quasar-style-md2
+  body.body--dark.quasar-style-unstyled
+  ::backdrop
+  html
+  :host
+  hr
+  h1
+  h2
+  h3
+  h4
+  h5
+  h6
+  a
+  b
+  strong
+  code
+  kbd
+  samp
+  pre
+  small
+  sub
+  sup
+  table
+  button
+  input
+  optgroup
+  select
+  textarea
+  input:where([type='button'], [type='reset'], [type='submit'])
+  :-moz-focusring
+  :-moz-ui-invalid
+  progress
+  ::-webkit-inner-spin-button
+  ::-webkit-outer-spin-button
+  [type='search']
+  ::-webkit-search-decoration
+  ::-webkit-file-upload-button
+  summary
+  img
+  svg
+  video
+  canvas
+  audio
+  iframe
+  embed
+  object
+  #q-app
+  img.responsive
+  body.quasar-style-unstyled .q-btn
+  body.quasar-style-unstyled .q-card
+  body.quasar-style-unstyled .q-chip
+  body.quasar-style-unstyled .q-bar
+  body.quasar-style-unstyled .q-expansion-item
+  body.quasar-style-unstyled .q-stepper
+  body.quasar-style-unstyled .q-carousel
+  body.quasar-style-unstyled .q-slide-item
+  body.quasar-style-unstyled .q-knob
+  body.quasar-style-unstyled .q-linear-progress
+  body.quasar-style-unstyled .q-circular-progress
+  body.quasar-style-unstyled .q-spinner
+  body.quasar-style-unstyled .q-pagination
+  body.quasar-style-unstyled .q-btn-toggle
+  body.quasar-style-unstyled .q-btn-dropdown
+  body.quasar-style-unstyled .q-btn-group
+  body.quasar-style-unstyled .q-header
+  body.quasar-style-unstyled .q-footer
+  body.quasar-style-unstyled .q-toolbar
+  body.quasar-style-unstyled .q-tooltip
+  body.quasar-style-unstyled .q-menu
+  body.quasar-style-unstyled .q-dialog
+  body.quasar-style-unstyled .q-bottom-sheet
+  body.quasar-style-unstyled .q-uploader
+  body.quasar-style-unstyled .q-table
+  body.quasar-style-unstyled .q-tree
+  body.quasar-style-unstyled .q-timeline
+  body.quasar-style-unstyled .q-editor
+  body.quasar-style-unstyled .q-color-picker
+  body.quasar-style-unstyled .q-markup-table
+  body.quasar-style-unstyled .q-img
+  body.quasar-style-unstyled .q-inner-loading
+  body.quasar-style-unstyled .q-separator
+  body.quasar-style-unstyled .q-video
+  body.quasar-style-unstyled .q-intersection
+  body.quasar-style-unstyled .q-virtual-scroll
+  [aria-busy=true]
+  [aria-controls]
+  [aria-disabled=true]
+  h1
+  h2
+  h3
+  h4
+  h5
+  h6
+  p
+  small
+  big
+  sub
+  sup
+  [disabled] *
+  body:not(.native-mobile) .native-mobile-only
+  body.native-mobile .native-mobile-hide
+  body:not(.cordova) .cordova-only
+  body.cordova .cordova-hide
+  body:not(.capacitor) .capacitor-only
+  body.capacitor .capacitor-hide
+  body:not(.within-iframe) .within-iframe-only
+  body.within-iframe .within-iframe-hide
+  body:not(.platform-ios) .platform-ios-only
+  body:not(.platform-android) .platform-android-only
+  body.platform-android .platform-android-hide
+  .orientation-landscape
+  .orientation-portrait
+  .print-only
+  .print-hide
+  .xs-hide
+  .gt-xs
+  .sm
+  .gt-sm
+  .md
+  .gt-md
+  .lg
+  .gt-lg
+  .xl
+  .sm-hide
+  .xs
+  .lt-sm
+  .gt-sm
+  .md
+  .gt-md
+  .lg
+  .gt-lg
+  .xl
+  .md-hide
+  .xs
+  .lt-sm
+  .sm
+  .lt-md
+  .gt-md
+  .lg
+  .gt-lg
+  .xl
+  .lg-hide
+  .xs
+  .lt-sm
+  .sm
+  .lt-md
+  .md
+  .lt-lg
+  .gt-lg
+  .xl
+  .xl-hide
+  .xs
+  .lt-sm
+  .sm
+  .lt-md
+  .md
+  .lt-lg
+  .lg
+  .lt-xl
+  [dir=rtl] .q-breadcrumbs__separator .q-icon
+  body.platform-android:not(.native-mobile) .q-dialog__inner--minimized > div
+  .q-dialog__inner--top > div
+  .q-dialog__inner--bottom > div
+  html
+  .q-layout-padding
+  .q-layout-padding
+  .q-layout-padding
+  body.platform-android.native-mobile .q-dialog__inner--top .q-select__dialog
+  body.platform-android:not(.native-mobile) .q-dialog__inner--top .q-select__dialo
+  [dir=rtl] .q-tree__arrow
+  [dir=rtl] .q-tree__arrow--rotate
+  .i-mdi-account
+  .i-mdi-person
+  .i-mdi-account-plus-outline
+  .i-mdi-alert
+  .i-mdi-alert-circle
+  .i-mdi-alert-circle-outline
+  .i-mdi-arrow-down
+  .i-mdi-arrow-left
+  .i-mdi-arrow-right
+  .i-mdi-arrow-up
+  .i-mdi-bell
+  .i-mdi-brightness-7
+  .i-mdi-calendar
+  .i-mdi-calendar-today
+  .i-mdi-cart
+  .i-mdi-cart-outline
+  .i-mdi-check
+  .i-mdi-check-all
+  .i-mdi-check-circle
+  .i-mdi-check-circle-outline
+  .i-mdi-chevron-double-left
+  .i-mdi-chevron-double-right
+  .i-mdi-chevron-down
+  .i-mdi-chevron-left
+  .i-mdi-chevron-right
+  .i-mdi-chevron-up
+  .i-mdi-circle
+  .i-mdi-clock-outline
+  .i-mdi-close
+  .i-mdi-close-circle
+  .i-mdi-cloud-upload
+  .i-mdi-code-tags
+  .i-mdi-cog
+  .i-mdi-comment-text-outline
+  .i-mdi-compass
+  .i-mdi-credit-card-outline
+  .i-mdi-payment
+  .i-mdi-delete
+  .i-mdi-details
+  .i-mdi-dots-vertical
+  .i-mdi-email
+  .i-mdi-email-outline
+  .i-mdi-exclamation
+  .i-mdi-file
+  .i-mdi-file-document-outline
+  .i-mdi-folder
+  .i-mdi-format-align-center
+  .i-mdi-format-align-justify
+  .i-mdi-format-align-left
+  .i-mdi-format-align-right
+  .i-mdi-format-bold
+  .i-mdi-format-clear
+  .i-mdi-format-color-text
+  .i-mdi-format-font
+  .i-mdi-format-header-1
+  .i-mdi-format-header-2
+  .i-mdi-format-header-3
+  .i-mdi-format-header-4
+  .i-mdi-format-header-5
+  .i-mdi-format-header-6
+  .i-mdi-format-indent-decrease
+  .i-mdi-format-indent-increase
+  .i-mdi-format-italic
+  .i-mdi-format-list-bulleted
+  .i-mdi-format-list-numbered
+  .i-mdi-format-quote-close
+  .i-mdi-format-size
+  .i-mdi-format-strikethrough-variant
+  .i-mdi-format-subscript
+  .i-mdi-format-superscript
+  .i-mdi-format-underline
+  .i-mdi-fullscreen
+  .i-mdi-gradient-vertical
+  .i-mdi-home
+  .i-mdi-image
+  .i-mdi-image-multiple
+  .i-mdi-image-outline
+  .i-mdi-inbox
+  .i-mdi-information
+  .i-mdi-information-outline
+  .i-mdi-laptop
+  .i-mdi-layers
+  .i-mdi-link
+  .i-mdi-magnify
+  .i-mdi-menu
+  .i-mdi-menu-down
+  .i-mdi-minus
+  .i-mdi-moon-and-stars
+  .i-mdi-notification-clear-all
+  .i-mdi-numeric-1-box
+  .i-mdi-numeric-2-box
+  .i-mdi-numeric-3-box
+  .i-mdi-numeric-4-box
+  .i-mdi-numeric-5-box
+  .i-mdi-numeric-6-box
+  .i-mdi-numeric-7-box
+  .i-mdi-package-variant-closed
+  .i-mdi-palette-swatch
+  .i-mdi-style
+  .i-mdi-pencil
+  .i-mdi-play
+  .i-mdi-plus
+  .i-mdi-plus-box
+  .i-mdi-printer
+  .i-mdi-radiobox-blank
+  .i-mdi-radiobox-marked
+  .i-mdi-redo
+  .i-mdi-refresh
+  .i-mdi-rocket
+  .i-mdi-rocket-launch-outline
+  .i-mdi-school-outline
+  .i-mdi-send
+  .i-mdi-share-variant
+  .i-mdi-star
+  .i-mdi-star-outline
+  .i-mdi-truck-fast-outline
+  .i-mdi-tune
+  .i-mdi-tv
+  .i-mdi-undo
+  .i-mdi-view-dashboard
+  .i-mdi-view-dashboard-outline
+  .i-mdi-view-grid
+  .i-mdi-volume-high
+  .q-dialog__inner>div
+  .q-img__content > div
+  .q-bar--dense .q-btn
+  .q-bar--standard>div
+  .q-uploader__file .q-circular-progress
+  .q-chip .q-avatar
+  .q-chip--dense .q-avatar
+  .q-chip--dense .q-chip__icon
+  .q-img__loading .q-spinner
+  .q-table tbody td
+  .q-table th
+  .q-table--dense .q-table__sort-icon
+  .q-timeline__dot .q-icon
+  .q-tree__node-header-content .q-avatar
+  .q-tree__node-header-content .q-icon
+  .q-btn-group > .q-btn-item
+  .q-btn-group > .q-btn-item.bg-primary
+  .q-carousel__control
+  .q-color-picker__header-content--dark
+  .q-stepper__dot span
+  .q-timeline--dark
+  .q-uploader__file--img .q-circular-progress
+  .body--dark .text-primary
+  .q-list--dark .q-item__section--side:not(.q-item__section--avatar)
+  .q-stepper--dark .q-stepper__dot span
+  .q-editor--dark
+  .q-list--dark .q-item__label--caption
+  .q-list--dark .q-item__label--overline
+  .q-list--dark .q-item__label--header
+  .q-loading__box
+  .q-stepper--dark .q-stepper__tab--disabled
+  .q-stepper--dark .q-stepper__tab--disabled .q-stepper__label
+  .q-table--dark tbody tr.selected td
+  .q-table tbody tr.selected td
+  .q-uploader__file--img
+  .q-uploader--dark .q-uploader__overlay
+  .body--dark .text-accent
+  .body--dark .text-secondary
+  .q-chip--dark .q-chip__icon
+  .q-stepper--vertical .q-stepper__title
+  .q-carousel .q-carousel__thumbnail
+  .q-editor .q btn
+  .q-editor__content hr
+  .q-pagination input::-webkit-inner-spin-button
+  .q-pagination input::-webkit-outer-spin-button
+  .q-carousel__navigation .q-btn
+  .q-editor__toolbar-group
+  .q-loading__message
+  .q-stepper--vertical .q-stepper__dot
+  .q-bar>.q-btn
+  .q-bar>.q-icon
+  .q-bar>.q-btn:first-child
+  .q-bar>.q-icon:first-child
+  .q-bar>div:first-child
+  .q-bar>div
+  .q-bar>div+.q-icon
+  .q-btn-dropdown--simple+.q-btn-dropdown__arrow
+  .q-table--dense .q-table__bottom-item
+  .q-btn--dense .on-left
+  .q-btn--dense .on-right
+  .q-btn-group--push__> .q-btn--push.q-btn--actionable.q-btn--active__.q-btn__cont
+  .q-chip--dense .q-chip__icon--left
+  .q-chip--dense .q-chip__icon--remove
+  .q-uploader__file + .q-uploader__file
+  .q-pagination__content > .q-btn
+  .q-pagination__content > .q-input
+  .q-stepper__header--alternative-labels .q-stepper__dot
+  .q-stepper__header--alternative-labels .q-stepper__label
+  .q-table--grid .q-table__middle
+  .q-btn--dense.q-btn--round
+  .q-carousel .q-carousel--padding
+  .q-table .q-virtual-scroll__padding td
+  .q-stepper--horizontal .q-stepper__step-inner
+  .q-tree > .q-tree__node
+  .q-table--dense .q-table__select .q-field__control
+  .q-table--dense .q-table__select .q-field__native
+  .q-uploader__header-content
+  .q-stepper__header--alternative-labels .q-stepper__tab
+  .q-stepper--horizontal > .q-stepper__nav
+  .q-stepper--vertical
+  .q-stepper--vertical .q-stepper__tab
+  .q-stepper--vertical > .q-stepper__nav
+  .q-table td
+  .q-table--dense .q-table td
+  .q-table--dense .q-table th
+  .q-table--dense .q-table__top
+  .q-table--dense .q-table td:first-child
+  .q-table--dense .q-table th:first-child
+  .q-checkbox--dense q-checkbox__label
+  .q-checkbox--dense.reverse q-checkbox__label
+  .q-color-picker__alpha .q-slider__track-container
+  .q-timeline__heading:first-child .q-timeline__heading-title
+  .q-tree__node--parent
+  .q-separator--spaced + .q-item__label--header
+  .q-timeline__entry--icon .q-timeline__subtitle
+  .q-stepper--vertical .q-stepper__step-inner
+  .q-stepper--vertical .q-stepper__step:last-child .q-stepper__step-inner
+  .q-table--dense .q-table td:last-child
+  .q-table--dense .q-table th:last-child
+  .q-table--grid .q-table__top
+  .q-timeline__entry:last-child
+  .q-timeline__heading:last-child .q-timeline__heading-title
+  .q-tree > .q-tree__node--child> .q-tree__node-header
+  .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-body
+  .q-tree__node-body
+  .q-tree--dense .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-b
+  .q-uploader__file--img .q-uploader__file-header
+  .q-pagination input
+  .disabled *
+  .q-knob--editable
+  .q-uploader__dnd
+  .q-field__nativeinput:focus
+  .q-field__nativetextarea:focus
+  .q-table--grid .q-table__middle thead
+  .q-table--grid .q-table__middle thead th
+  .q-table thead
+  .q-table--cell-separator tbody tr:not(:last-child) > td
+  .q-table--cell-separator thead th
+  .q-table--cell-separator thead tr:last-child th
+  .q-table--cell-separator.q-table--loading tr:nth-last-child(2) th
+  .q-table--horizontal-separator tbody tr:not(:last-child) > td
+  .q-table--horizontal-separator thead th
+  .q-table--vertical-separator thead tr:last-child th
+  .q-table--vertical-separator.q-table--loading tr:nth-last-child(2) th
+  .q-table--cell-separator td
+  .q-table--cell-separator th
+  .q-table--vertical-separator td
+  .q-table--vertical-separator th
+  .q-card > img
+  .q-table--dark .q-table__bottom
+  .q-table--dark td
+  .q-table--dark th
+  .q-table--dark thead
+  .q-table--dark tr
+  .q-table--dark.q-table--cell-separator .q-table__top
+  .q-table--dark.q-table--vertical-separator .q-table__top
+  .q-carousel .q-carousel__thumbnail--active
+  .q-editor--dark .q-editor__content hr
+  .q-editor--dark .q-editor__toolbar
+  .q-editor--dark .q-editor__toolbar-group+.q-editor__toolbar-group:before
+  .q-stepper--dark .q-stepper__header--border
+  .q-stepper--dark.q-stepper--bordered
+  .q-uploader--dark .q-uploader__file
+  .q-table tr
+  .q-uploader--dark
+  .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-body:after
+  .q-checkbox:not(.disabled):hover q-checkbox__inner:before
+  .q-dialog__inner--maximized>div
+  .q-dialog__inner--square>div
+  .q-btn-group > .q-btn-group:not(:first-child) > .q-btn:first-child
+  .q-btn-group > .q-btn-item:not(:first-child)
+  .q-dialog__inner--left:not(.q-dialog__inner--animating)>div
+  .q-btn-group > .q-btn-item:not(:last-child)
+  .q-dialog__inner--right:not(.q-dialog__inner--animating)>div
+  .q-card > div:not(.q--avoid-card-border)
+  .q-card > img:not(.q--avoid-card-border)
+  .q-chip--square .q-avatar
+  .q-dialog__inner--bottom:not(.q-dialog__inner--animating)>div
+  .q-editor>div:first-child
+  .q-stepper__header
+  .q-table__container > div:first-child
+  .body--dark .bg-accent
+  .body--dark .bg-primary
+  .q-card:not(.disabled):focus
+  .body--dark .bg-secondary
+  .q-btn--flat .q-btn__progress-indicator
+  .q-btn--outline .q-btn__progress-indicator
+  .q-btn-group > .q-btn-group:first-child > .q-btn--active
+  .q-checkbox__inner--indet q-checkbox__bg
+  .q-dialog__inner>.q-card
+  .q-editor__toolbar-group+.q-editor__toolbar-group:before
+  .q-loading__backdrop
+  .q-separator--dark
+  .q-splitter--dark .q-splitter__separator
+  .q-stepper--dark .q-stepper__tab--disabled .q-stepper__dot
+  .q-stepper__label
+  .q-uploader--dark .q-uploader__dnd
+  .q-btn.disabled
+  .q-card.disabled
+  .q-carousel .q-carousel__thumbnail:hover
+  .q-timeline--dark .q-timeline__subtitle
+  .q-tree__node--disabled .disabled
+  .q-tree__node--disabled> .disabled .q-tree__node--disabled> .disabled
+  .q-tree__node--disabled> .disabled .q-tree__node--disabled>div
+  .q-tree__node--disabled> .disabled .q-tree__node--disabled>i
+  .q-tree__node--disabled>div .q-tree__node--disabled> .disabled
+  .q-tree__node--disabled>div .q-tree__node--disabled>div
+  .q-tree__node--disabled>div .q-tree__node--disabled>i
+  .q-tree__node--disabled>i .q-tree__node--disabled> .disabled
+  .q-tree__node--disabled>i .q-tree__node--disabled>div
+  .q-tree__node--disabled>i .q-tree__node--disabled>i
+  .q-table th.sortable:hover .q-table__sort-icon
+  .q-table th.sorted .q-table__sort-icon
+  .q-tree__node--disabled> .disabled
+  .q-tree__node--disabled>div
+  .q-tree__node--disabled>i
+  .container
+  .q-splitter--horizontal > .q-splitter__panel
+  .q-btn-group--spread__> .q-btn-group > .q-btn-item:not(.q-btn-dropdown__arrow-co
+  .q-table--grid .q-table__grid-content
+  .q-header .q-toolbar__title
+  .q-table__top .q-table__control
+  .q-splitter--vertical > .q-splitter__panel
+  .q-checkbox--dense q-checkbox__bg
+  .q-splitter__panel > .q-splitter
+  .q-video embed
+  .q-video iframe
+  .q-video object
+  .q-dialog__inner>.q-card>.q-card__actions .q-btn--rectangle
+  .q-dialog__inner--fullheight>div
+  .q-dialog__inner--fullwidth>div
+  .q-dialog__inner--minimized>div
+  .q-table__bottom .q-table__control
+  .q-panel
+  .q-panel>div
+  .q-splitter--horizontal > .q-splitter__separator
+  .q-splitter--vertical > .q-splitter__separator
+  .q-stepper__header--standard-labels .q-stepper__tab
+  .q-table .q-virtual-scroll__padding tr
+  .q-table thead tr
+  .q-table--dense .q-table tbody td
+  .q-table--dense .q-table tbody tr
+  .q-table--dense .q-table thead tr
+  .q-table--dense .q-table__bottom
+  .q-table--dense .q-table__select .q-field__marginal
+  .q-timeline__dot .q-icon > img
+  .q-timeline__dot .q-icon > svg
+  .q-timeline__entry--icon .q-timeline__dot
+  .q-tree__node--parent> .q-tree__node-header:before
+  .q-btn-group--outline > .q-separator
+  .q-chip--selected .q-avatar
+  .q-stepper--horizontal .q-stepper__tab:last-child .q-stepper__dot:after
+  .q-stepper--horizontal .q-stepper__tab:last-child .q-stepper__label:after
+  .q-stepper--vertical .q-stepper__step:last-child .q-stepper__dot:after
+  .q-tree > .q-tree__node> .q-tree__node-header:before
+  .q-tree--no-connectors .q-tree__node-body:after
+  .q-tree--no-connectors .q-tree__node-header:before
+  .q-table th.sortable
+  .q-uploader__input::-webkit-file-upload-button
+  .q-splitter--vertical.q-splitter--active
+  .q-splitter--vertical.q-splitter--workable > .q-splitter__separator
+  .q-splitter--horizontal.q-splitter--active
+  .q-splitter--horizontal.q-splitter--workable > .q-splitter__separator
+  .q-stepper--horizontal .q-stepper__line
+  .no-pointer-events--children
+  .no-pointer-events--children *
+  .q-img--no-menu .q-img__image
+  .q-img--no-menu .q-img__placeholder
+  .q-table--no-wrap td
+  .q-table--no-wrap th
+  .q-editor__content pre
+  .q-card:not(.disabled):hover
+  .q-circular-progress--indeterminate .q-circular-progress__svg
+  .q-linear-progress__model
+  .q-linear-progress--reverse .q-linear-progress__model
+  .q-linear-progress--reverse .q-linear-progress__track
+  .q-spinner-mat
+  .q-btn--push.q-btn--actionable:active
+  .q-btn--push.q-btn--actionable.q-btn--active
+  .q-checkbox__inner--indet q-checkbox__indet
+  .q-table th.sort-desc .q-table__sort-icon
+  .q-checkbox:not(.disabled):focus q-checkbox__inner:before
+  .q-linear-progress__model--indeterminate
+  .hide-scrollbar
+  .q-avatar img:not(.q-icon):not(.q-img__image)
+  .q-btn-group > .q-btn-group
+  .q-btn-group--outline
+  .q-btn--push.q-btn--actionable
+  .q-btn--standard:before
+  .q-btn-group > .q-btn-group:first-child > .q-btn:first-child
+  .q-table--cell-separator td:first-child
+  .q-table--cell-separator th:first-child
+  .q-table--vertical-separator td:first-child
+  .q-table--vertical-separator th:first-child
+  .q-card > div:nth-child(1 of :not(.q--avoid-card-border))
+  .q-card > img:nth-child(1 of :not(.q--avoid-card-border))
+  .q-card > div:nth-last-child(1 of :not(.q--avoid-card-border))
+  .q-card > img:nth-last-child(1 of :not(.q--avoid-card-border))
+  .q-table--grid.fullscreen
+  .q-tree__node--selected .q-tree__node--selected .q-tree__node-header-content
+  .q-stepper--dark
+  .q-stepper--horizontal .q-stepper__tab:first-child
+  .q-stepper--horizontal .q-stepper__tab:last-child
+  .q-table__container > .q-inner-loading
+  .q-table__container > div:last-child
+  .q-table--cell-separator .q-table__top
+  .q-table--vertical-separator .q-table__top
+  .q-table--grid .q-table__bottom
+  .q-timeline h6
+  .q-tree--dark .q-tree__node-header-content
+  .q-btn-group > .q-btn-item .q-badge--floating
+  .q-footer .q-layout__shadow
+  .q-header .q-layout__shadow
+  .q-splitter--horizontal > .q-splitter__separator > div
+  .q-splitter--vertical > .q-splitter__separator > div
+  .q-table--grid .q-table__linear-progress
+  .q-tree--dense .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-b
+  .q-stepper__header--standard-labels .q-stepper__tab:first-child
+  .q-stepper__header--standard-labels .q-stepper__tab:last-child
+  .q-stepper__header--standard-labels .q-stepper__tab:only-child
+  .q-timeline__heading
+  .q-stepper--horizontal .q-stepper__tab
+  .q-stepper--vertical .q-stepper__step
+  .q-spinner-mat .path
+  .q-editor--dark
+  .q-editor--dark .q-editor__content hr
+  .q-editor--dark .q-editor__toolbar
+  .q-editor--dark .q-editor__toolbar-group+.q-editor__toolbar-group:before
+  .q-editor__content hr
+  .q-editor__toolbar-group+.q-editor__toolbar-group:before
+  .container
+  .container
+  .container
+  .container
+  .container
+  .text-blue-grey
+  .text-deep-orange
+  .text-deep-purple
+  .text-green-1
+  .text-grey-1
+  .text-grey-3
+  .text-grey-5
+  .text-grey-6
+  .text-grey-7
+  .text-grey-8
+  .text-grey-9
+  .text-light-blue
+  .text-light-green
+  .text-light-primary
+  .m\[1\]
+  .me
+  .px
+  .outline
+  .border
+  .border-grey-3
+  .rounded
+  .bg-blue-grey
+  .bg-deep-orange
+  .bg-deep-purple
+  .bg-green-1
+  .bg-grey-1
+  .bg-grey-3
+  .bg-grey-5
+  .bg-grey-6
+  .bg-grey-7
+  .bg-grey-8
+  .bg-grey-9
+  .bg-light-blue
+  .bg-light-green
+  .visible
+  .italic
+  .transform
+  .relative
+  .animated
+  .animated-back-in-down
+  .animated-back-in-left
+  .animated-back-in-right
+  .animated-back-in-up
+  .animated-back-out-down
+  .animated-back-out-left
+  .animated-back-out-right
+  .animated-back-out-up
+  .animated-bounce
+  .animated-bounce-in
+  .animated-bounce-in-down
+  .animated-bounce-in-left
+  .animated-bounce-in-right
+  .animated-bounce-in-up
+  .animated-bounce-out
+  .animated-bounce-out-down
+  .animated-bounce-out-left
+  .animated-bounce-out-right
+  .animated-bounce-out-up
+  .animated-fade-in
+  .animated-fade-in-bottom-left
+  .animated-fade-in-bottom-right
+  .animated-fade-in-down
+  .animated-fade-in-down-big
+  .animated-fade-in-left
+  .animated-fade-in-left-big
+  .animated-fade-in-right
+  .animated-fade-in-right-big
+  .animated-fade-in-top-left
+  .animated-fade-in-top-right
+  .animated-fade-in-up
+  .animated-fade-in-up-big
+  .animated-fade-out
+  .animated-fade-out-bottom-left
+  .animated-fade-out-bottom-right
+  .animated-fade-out-down
+  .animated-fade-out-down-big
+  .animated-fade-out-left
+  .animated-fade-out-left-big
+  .animated-fade-out-right
+  .animated-fade-out-right-big
+  .animated-fade-out-top-left
+  .animated-fade-out-top-right
+  .animated-fade-out-up
+  .animated-fade-out-up-big
+  .animated-flash
+  .animated-flip
+  .animated-flip-in-x
+  .animated-flip-in-y
+  .animated-flip-out-x
+  .animated-flip-out-y
+  .animated-head-shake
+  .animated-heart-beat
+  .animated-hinge
+  .animated-jack-in-the-box
+  .animated-jello
+  .animated-light-speed-in-left
+  .animated-light-speed-in-right
+  .animated-light-speed-out-left
+  .animated-light-speed-out-right
+  .animated-pulse
+  .animated-roll-in
+  .animated-roll-out
+  .animated-rotate-in
+  .animated-rotate-in-down-left
+  .animated-rotate-in-down-right
+  .animated-rotate-in-up-left
+  .animated-rotate-in-up-right
+  .animated-rotate-out
+  .animated-rotate-out-down-left
+  .animated-rotate-out-down-right
+  .animated-rotate-out-up-left
+  .animated-rotate-out-up-right
+  .animated-rubber-band
+  .animated-shake
+  .animated-shake-x
+  .animated-shake-y
+  .animated-slide-in-down
+  .animated-slide-in-left
+  .animated-slide-in-right
+  .animated-slide-in-up
+  .animated-slide-out-down
+  .animated-slide-out-left
+  .animated-slide-out-right
+  .animated-slide-out-up
+  .animated-swing
+  .animated-tada
+  .animated-wobble
+  .animated-zoom-in
+  .animated-zoom-in-down
+  .animated-zoom-in-left
+  .animated-zoom-in-right
+  .animated-zoom-in-up
+  .animated-zoom-out
+  .animated-zoom-out-down
+  .animated-zoom-out-left
+  .animated-zoom-out-right
+  .animated-zoom-out-up
+  .text-blue-grey
+  .text-deep-orange
+  .text-deep-purple
+  .text-green-1
+  .text-grey-1
+  .text-grey-3
+  .text-grey-5
+  .text-grey-6
+  .text-grey-7
+  .text-grey-8
+  .text-grey-9
+  .text-light-blue
+  .text-light-green
+  .text-light-primary
+  .border-grey-3
+  .bg-blue-grey
+  .bg-deep-orange
+  .bg-deep-purple
+  .bg-green-1
+  .bg-grey-1
+  .bg-grey-3
+  .bg-grey-5
+  .bg-grey-6
+  .bg-grey-7
+  .bg-grey-8
+  .bg-grey-9
+  .bg-light-blue
+  .bg-light-green
 
 --- BREAKDOWN ---
+  other: 435
+  table: 71
+  stepper: 35
+  tree: 32
+  btn: 28
+  dialog: 17
+  editor: 17
+  uploader: 13
+  timeline: 13
+  splitter: 12
+  card: 11
+  bar: 10
+  chip: 9
+  carousel: 7
+  checkbox: 7
+  pagination: 6
+  linear: 5
+  img: 5
+  video: 4
+  list: 4
+  spinner: 3
+  header: 3
+  color: 3
+  separator: 3
+  layout: 3
+  loading: 3
+  knob: 2
+  circular: 2
+  footer: 2
+  field: 2
+  panel: 2
+  expansion: 1
+  slide: 1
+  toolbar: 1
+  tooltip: 1
+  menu: 1
+  bottom: 1
+  markup: 1
+  inner: 1
+  intersection: 1
+  virtual: 1
+  breadcrumbs: 1
+  avatar: 1

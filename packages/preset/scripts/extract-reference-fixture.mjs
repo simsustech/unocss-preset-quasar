@@ -2,38 +2,57 @@
 // Extract a normalised selector+declarations fixture from the reference bundle.
 //
 // Produces test/fixtures/reference-selectors.json:
-//   { source, bundleHash, ruleCount, rules: [{ selector, media, declarations: [{property, value}] }] }
+//   {
+//     source, bundleHash, sha256, byteSize, ruleCount,
+//     variables: { --name: value },
+//     keyframes: [{ name, steps: [{ selector, declarations }] }],
+//     rules:     [{ selector, media, declarations: [{ property, value }] }]
+//   }
 //
 // "selector" is the normalised full selector. Comma-joined selector lists are
 // split so each entry maps 1:1 to a block the preset must emit.
-// "media" is the enclosing @media query text, or null.
+// "media" is the enclosing at-rule text (nested containers joined with " && "),
+// or null. `@layer` wrappers are kept here and normalised away by the report,
+// which compares containers with `containerKey()`.
 // "declarations" is the list of {property, value} pairs in that block.
 //
-// Scope: only selectors containing a `.q-` component class are kept. The preset
-// is responsible for component rules; wind4 utilities (*, ::before, .bg-*,
-// @keyframes, @font-face, etc.) are out of scope and excluded so the parity
-// test is not permanently red on rules the preset never emits.
+// Scope: every rule block in the reference sheet that carries declarations, plus
+// the component `@keyframes`. This used to be narrowed to dark-scoped rules and
+// three plugin components (`isFixtureRule`), which let 1,141 base selectors go
+// missing while the parity gate stayed green. The report buckets selectors into
+// modules instead, and marks the ones the preset does not own as `reported`.
 //
-// Usage:
-//   node scripts/extract-reference-fixture.mjs            # reads /tmp/ref.css if present, else fetches
-//   node scripts/extract-reference-fixture.mjs ./ref.css   # read a local file
+// Input: the vendored bundle, never the network — the deployed harness renames
+// its assets, and a fixture that changes under the gate is not a gate:
+//
+//   node scripts/extract-reference-fixture.mjs                      # vendored bundle
+//   node scripts/extract-reference-fixture.mjs --ref ./some/other.css
+//   REF_CSS_FILE=./other.css node scripts/extract-reference-fixture.mjs
 //
 // Idempotent: re-running on the same bundle byte-for-byte produces a byte-
 // identical file (no timestamp in the output). Verified by the parity test.
 
-import { readFileSync, writeFileSync } from 'node:fs'
+import { readFileSync, writeFileSync, statSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const OUT = join(
-  __dirname,
-  '..',
-  'test',
-  'fixtures',
-  'reference-selectors.json'
+const PKG = join(__dirname, '..')
+const REPO = join(PKG, '..', '..')
+const OUT = join(PKG, 'test', 'fixtures', 'reference-selectors.json')
+
+// Vendored reference build (see specs/reference/README.md and MANIFEST.sha256).
+// The `.txt` suffix follows the repo's convention for verbatim raw evidence: it
+// keeps the formatter and lint hooks from rewriting bytes the manifest pins.
+const VENDORED = join(
+  REPO,
+  'specs',
+  'reference',
+  'raw',
+  'reference-bundle.css.txt'
 )
+const VENDORED_SOURCE = 'specs/reference/raw/reference-bundle.css.txt'
 
 // Strip CSS comments to spaces (CSS has no nested comments).
 function stripComments(css) {
@@ -42,8 +61,8 @@ function stripComments(css) {
 
 /**
  * Tokenise a CSS string into a tree of nodes. Each node is either
- *   { type: 'rule', selector, declarations, rules: [] } or
- *   { type: 'media', query, rules: [] }.
+ *   { type: 'rule', selector, declarations }        a style rule
+ *   { type: 'at', at, params, rules, declarations } an at-rule container
  * Handles nested @media / @supports / @layer via an explicit container stack.
  */
 function parse(input) {
@@ -65,10 +84,12 @@ function parse(input) {
     const c = css[i]
     if (c === '{') {
       const head = flush()
-      const at = head.match(/^@(\w+)\s*(.*)$/)
+      const at = head.match(/^@([\w-]+)\s*(.*)$/)
       const container = { rules: [] }
       if (at) {
-        container.type = 'media'
+        container.type = 'at'
+        container.at = at[1]
+        container.params = at[2].trim()
         container.query = head.trim()
       } else {
         container.type = 'rule'
@@ -127,22 +148,41 @@ function parseDeclarations(block) {
   return out
 }
 
-/** Flatten a parsed tree into rules with media context. */
-function flatten(nodes, media) {
-  const out = []
+/**
+ * Flatten a parsed tree into rules with their enclosing at-rule context, and
+ * collect `@keyframes` separately — their steps (`0%`, `100%`) are not
+ * selectors and must never enter the rule list.
+ */
+function flatten(nodes, media, out) {
   for (const node of nodes) {
-    if (node.type === 'media') {
-      out.push(...flatten(node.rules, node.query))
-    } else if (node.type === 'rule') {
-      const sels = splitSelectors(node.selector)
-      const decls = parseDeclarations(node.declarations || '')
-      for (const sel of sels) {
-        out.push({
-          selector: normalizeSelector(sel),
-          media,
-          declarations: decls
+    if (node.type === 'at') {
+      const frame = media ? `${media} && ${node.query}` : node.query
+      if (node.at === 'keyframes' || node.at.endsWith('keyframes')) {
+        out.keyframes.push({
+          name: node.params,
+          steps: (node.rules ?? []).map((step) => ({
+            selector: step.selector,
+            declarations: parseDeclarations(step.declarations || '')
+          }))
         })
+        continue
       }
+      flatten(node.rules, frame, out)
+      continue
+    }
+    if (node.type !== 'rule') continue
+    const decls = parseDeclarations(node.declarations || '')
+    // Native CSS nesting: wind4 emits `.q-gutter-y-lg{:where(&>…){…}}`, so the
+    // outer rule carries no declarations of its own. Both sides are parsed the
+    // same way — the nested child is not a selector the preset is compared on —
+    // so a declaration-less rule has nothing to measure and is dropped.
+    if (!decls.length) continue
+    for (const sel of splitSelectors(node.selector)) {
+      out.rules.push({
+        selector: normalizeSelector(sel),
+        media: media ?? null,
+        declarations: decls
+      })
     }
   }
   return out
@@ -181,15 +221,6 @@ function dedupe(rules) {
   return out
 }
 
-// Keep only rules the preset is responsible for: dark-scoped component
-// overrides and plugin component classes. Media-responsive layout rules
-// (dialog/layout breakpoints) live outside the preset and are excluded so the
-// parity test is not permanently red on rules the preset never emits.
-const PLUGIN = /\b(q-notification|q-message|q-loading)\b/
-function isFixtureRule(sel) {
-  return (sel.includes('body--dark') || PLUGIN.test(sel)) && /\.q-/.test(sel)
-}
-
 /**
  * Custom properties the reference defines with a literal value, across all
  * scopes. The parity gate resolves `var(--x)` on both sides before comparing
@@ -218,54 +249,48 @@ function collectVariables(rules) {
   return Object.fromEntries([...values].sort(([a], [b]) => (a < b ? -1 : 1)))
 }
 
-async function main() {
-  let css
-  let source
-  const arg = process.argv[2]
-  if (arg) {
-    css = readFileSync(arg, 'utf8')
-    source = `file:${arg}`
-  } else if (process.env.REF_CSS_FILE) {
-    css = readFileSync(process.env.REF_CSS_FILE, 'utf8')
-    source = `file:${process.env.REF_CSS_FILE}`
-  } else {
-    try {
-      css = readFileSync('/tmp/ref.css', 'utf8')
-      source = 'file:/tmp/ref.css'
-    } catch {
-      const url =
-        process.env.REF_URL ||
-        'https://simsustech.github.io/quasar-testing-harness/assets/vue-2d8243d3.css'
-      source = `url:${url}`
-      const res = await fetch(url)
-      if (!res.ok) throw new Error(`fetch ${url} -> ${res.status}`)
-      css = await res.text()
-    }
-  }
+function resolveInput() {
+  const idx = process.argv.indexOf('--ref')
+  const arg = idx === -1 ? undefined : process.argv[idx + 1]
+  const path = arg ?? process.env.REF_CSS_FILE
+  if (path) return { path, source: `file:${path}` }
+  return { path: VENDORED, source: VENDORED_SOURCE }
+}
 
-  const bundleHash = createHash('sha256').update(css).digest('hex').slice(0, 16)
+function main() {
+  const { path, source } = resolveInput()
+  const css = readFileSync(path, 'utf8')
+  const sha256 = createHash('sha256').update(css).digest('hex')
+  const bundleHash = sha256.slice(0, 16)
   const tree = parse(css)
   // Variables come from the raw flatten: the bundle defines `:root` twice (an
   // earlier preset build's preflight, then wind4's), and `dedupe` keeps only one
   // entry per selector, which would drop the whole second block.
-  const flat = flatten(tree, null)
-  const allRules = dedupe(flat)
-  const rules = allRules.filter((r) => isFixtureRule(r.selector))
+  const flat = flatten(tree, null, { rules: [], keyframes: [] })
+  const allRules = dedupe(flat.rules)
+  // Dedupe by name: `dedupe` keys on (media, selector), which every keyframe
+  // block would share, so it would collapse the whole list into one entry.
+  const seenKeyframes = new Set()
+  const keyframes = flat.keyframes.filter((k) => {
+    if (seenKeyframes.has(k.name)) return false
+    seenKeyframes.add(k.name)
+    return true
+  })
 
   const fixture = {
     source,
     bundleHash,
-    ruleCount: rules.length,
-    variables: collectVariables(flat),
-    rules
+    sha256,
+    byteSize: statSync(path).size,
+    ruleCount: allRules.length,
+    variables: collectVariables(flat.rules),
+    keyframes,
+    rules: allRules
   }
   writeFileSync(OUT, `${JSON.stringify(fixture, null, 2)}\n`)
   console.log(
-    `wrote ${OUT}: ${rules.length} component rules (${allRules.length} total, bundle ${bundleHash})`
+    `wrote ${OUT}: ${allRules.length} rules, ${keyframes.length} keyframes (${flat.rules.length} before dedupe, bundle ${bundleHash})`
   )
 }
 
-main().catch((e) => {
-  console.error(e)
-  process.exit(1)
-})
+main()

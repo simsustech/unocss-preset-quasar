@@ -13,7 +13,21 @@ import type { ComponentRule } from '../../rules/types.js'
 const sizes = ['none', 'xs', 'sm', 'md', 'lg', 'xl'] as const
 
 /** Map size name to --q-space-* custom property */
-const space = (size: string) => `var(--q-space-${size})`
+/**
+ * Spacing steps, in wind4 spacing units (`--spacing` is 0.25rem). The reference
+ * emits `calc(var(--spacing) * N)`, which keeps the scale responsive to the
+ * base font size instead of freezing the pixel value in a token.
+ */
+const steps: Record<string, number> = {
+  none: 0,
+  xs: 1,
+  sm: 2,
+  md: 4,
+  lg: 6,
+  xl: 8
+}
+
+const space = (size: string) => `calc(var(--spacing) * ${steps[size] ?? 0})`
 
 /** CSS value — strings or unitless numbers (e.g. margin: 0) */
 type CSSValue = string | number

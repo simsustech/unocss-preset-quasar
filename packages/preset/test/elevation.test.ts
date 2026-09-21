@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { elevationRuleList } from '../src/core/elevation/rules.js'
+import { elevationRules } from '../src/core/elevation/rules.js'
 
 function matchRule(
   selector: string
 ): Record<string, string | number> | undefined {
-  for (const entry of elevationRuleList) {
+  for (const entry of elevationRules) {
     const regex = entry[0]
     const matcher = entry[1]
     if (
@@ -18,7 +18,7 @@ function matchRule(
   return undefined
 }
 
-describe('elevationRuleList', () => {
+describe('elevationRules', () => {
   it('shadow-none sets box-shadow none', () => {
     const css = matchRule('shadow-none')
     expect(css).toBeDefined()

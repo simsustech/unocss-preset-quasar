@@ -122,5 +122,80 @@ export const selectRules = [
         cursor: 'pointer'
       }
     }
+  ],
+
+  // --- Reference parity: hidden inputs, input padding, dialog height ---
+  [
+    /^q-select$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-field__native`,
+        'padding-right': '48px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-field__input`,
+        'padding-right': '48px',
+        'min-width': '50px !important',
+        cursor: 'text'
+      }
+    }
+  ],
+  [
+    /^q-select__autocomplete-input$/,
+    () => ({
+      padding: '0',
+      'outline-style': 'none !important',
+      'outline-width': '0px !important',
+      'border-width': '0px',
+      opacity: '0%',
+      width: '1px',
+      height: '1px',
+      position: 'absolute'
+    })
+  ],
+  [
+    /^q-select__focus-target$/,
+    () => ({
+      padding: '0',
+      'outline-style': 'none !important',
+      'outline-width': '0px !important',
+      'border-width': '0px',
+      opacity: '0%',
+      width: '1px',
+      height: '1px',
+      position: 'absolute'
+    })
+  ],
+  [
+    /^q-select__dropdown-icon$/,
+    () => ({
+      cursor: 'pointer !important',
+      transition: 'transform 0.28s'
+    })
+  ],
+  [
+    /^q-select__dialog$/,
+    function* (_, { symbols }) {
+      // On a phone the select dialog is capped below the status bar.
+      yield {
+        [symbols.selector]: (sel) => `body.mobile:not(.native-mobile) ${sel}`,
+        'max-height': 'calc(100vh - 108px) !important'
+      }
+    }
+  ],
+  // --- Reference parity: the padding hook a dense select input uses ---
+  [
+    /^q-select$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-field__input--padding`,
+        'padding-left': '4px'
+      }
+    }
   ]
 ] as Rule[]

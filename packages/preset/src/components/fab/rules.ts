@@ -311,5 +311,133 @@ export const fabRules = [
         right: '0'
       }
     }
+  ],
+  // --- Reference parity: the speed-dial geometry ---
+  [/^q-fab$/, () => ({ 'vertical-align': 'middle', position: 'relative' })],
+  [
+    /^q-fab__icon$/,
+    function* (_, { symbols }) {
+      yield {
+        opacity: '100%',
+        rotate: '0deg',
+        transition: 'opacity 0.4s, transform 0.4s',
+        position: 'relative !important'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-fab__icon-holder--opened ${sel}`,
+        opacity: '0%',
+        rotate: '180deg'
+      }
+    }
+  ],
+  [
+    /^q-fab__active-icon$/,
+    function* (_, { symbols }) {
+      yield {
+        'margin-right': '-20px !important',
+        opacity: '0%',
+        rotate: '-180deg',
+        transition: 'opacity 0.4s, transform 0.4s',
+        left: '-20px !important',
+        position: 'relative !important'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-fab__icon-holder--opened ${sel}`,
+        opacity: '100%',
+        rotate: '0deg'
+      }
+    }
+  ],
+  [
+    /^q-fab__icon-holder$/,
+    function* (_, { symbols }) {
+      yield { [symbols.selector]: (sel) => `${sel}:before`, content: '""' }
+    }
+  ],
+  [
+    /^q-fab__actions$/,
+    function* (_, { symbols }) {
+      yield {
+        padding: '3px',
+        opacity: '0%',
+        'pointer-events': 'none',
+        transition: 'transform 0.18s ease-in, opacity 0.18s ease-in',
+        'align-items': 'center',
+        'align-self': 'center',
+        'justify-content': 'center',
+        position: 'absolute'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--opened`,
+        'pointer-events': 'all !important',
+        opacity: '100%',
+        transform: 'translateY(0)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--up`,
+        'margin-bottom': '9px',
+        'margin-left': '-28px',
+        'flex-direction': 'column-reverse',
+        width: '56px',
+        'transform-origin': '50% 100%',
+        transform: 'translateY(62px)',
+        bottom: '100%',
+        left: '50%'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--down`,
+        'margin-top': '9px',
+        'margin-left': '-28px',
+        'flex-direction': 'column',
+        width: '56px',
+        'transform-origin': '50% 0',
+        transform: 'translateY(-62px)',
+        top: '100%',
+        left: '50%'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--left`,
+        'margin-right': '9px',
+        'flex-direction': 'row-reverse',
+        height: '56px',
+        'transform-origin': '100% 50%',
+        transform: 'translateX(62px)',
+        right: '100%'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--right`,
+        'margin-left': '9px',
+        height: '56px',
+        'transform-origin': '0 50%',
+        transform: 'translateX(-62px)',
+        left: '100%'
+      }
+    }
+  ],
+  [
+    /^q-fab__label--external$/,
+    () => ({
+      'padding-inline': '8px',
+      'padding-block': '0',
+      'background-color': 'transparent',
+      transition: 'opacity 0.18s cubic-bezier(0.65, 0.815, 0.735, 0.395)',
+      position: 'absolute'
+    })
+  ],
+  [
+    /^q-fab__label--external-top$/,
+    () => ({ transform: 'translateX(-50%)', top: '-12px', left: '50%' })
+  ],
+  [
+    /^q-fab__label--external-bottom$/,
+    () => ({ transform: 'translateX(-50%)', bottom: '-12px', left: '50%' })
+  ],
+  [
+    /^q-fab__label--external-left$/,
+    () => ({ transform: 'translateY(-50%)', top: '50%', left: '-12px' })
+  ],
+  [
+    /^q-fab__label--external-right$/,
+    () => ({ transform: 'translateY(-50%)', top: '50%', right: '-12px' })
   ]
 ] as Rule[]

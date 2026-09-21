@@ -155,5 +155,152 @@ export const radioRules = [
         color: 'var(--q-primary)'
       }
     }
+  ],
+
+  // --- Reference parity: MD3 ring geometry and the desktop hover/focus halo ---
+  [
+    /^q-radio$/,
+    function* (_, { symbols }) {
+      yield { 'vertical-align': 'middle' }
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}.disabled`,
+        opacity: '75% !important'
+      }
+      // The halo grows out of the ring on hover/focus and only exists on
+      // desktops (touch devices have no hover state).
+      yield {
+        [symbols.selector]: (sel) =>
+          `body.desktop ${sel}:not(.disabled) .q-radio__inner:before`,
+        content: '""',
+        position: 'absolute',
+        top: '0',
+        right: '0',
+        bottom: '0',
+        left: '0',
+        'border-radius': '50%',
+        background: 'currentColor',
+        opacity: '0.12',
+        transform: 'scale3d(0, 0, 1)',
+        transition: 'transform 0.22s cubic-bezier(0, 0, 0.2, 1) 0ms'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `body.desktop ${sel}:not(.disabled):hover .q-radio__inner:before`,
+        transform: 'scale3d(1, 1, 1)'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `body.desktop ${sel}:not(.disabled):focus .q-radio__inner:before`,
+        transform: 'scale3d(1, 1, 1)'
+      }
+    }
+  ],
+  [
+    /^q-radio__inner$/,
+    function* () {
+      yield {
+        'font-size': '40px',
+        color: 'var(--q-on-surface-variant)',
+        'border-radius': '50%',
+        width: '1em',
+        'min-width': '1em',
+        height: '1em'
+      }
+    }
+  ],
+  [
+    /^q-radio__icon$/,
+    function* () {
+      yield { 'font-size': '0.5em', color: 'currentColor' }
+    }
+  ],
+  [
+    /^q-radio--dense$/,
+    function* (_, { symbols }) {
+      // The halo grows further on dense radios, and the reference scopes these to
+      // desktops only.
+      yield {
+        [symbols.selector]: (sel) =>
+          `body.desktop ${sel}:not(.disabled):hover .q-radio__inner:before`,
+        transform: 'scale3d(1.5, 1.5, 1)'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `body.desktop ${sel}:not(.disabled):focus .q-radio__inner:before`,
+        transform: 'scale3d(1.5, 1.5, 1)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-radio__inner`,
+        width: '0.5em',
+        'min-width': '0.5em',
+        height: '0.5em'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-radio__label`,
+        'padding-left': '0.5em'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}.reverse .q-radio__label`,
+        'padding-left': '0',
+        'padding-right': '0.5em'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-radio__bg`,
+        width: '100%',
+        height: '100%',
+        left: '0',
+        top: '0'
+      }
+    }
+  ],
+  [
+    /^q-radio__bg$/,
+    function* (_, { symbols }) {
+      yield {
+        width: '50%',
+        height: '50%',
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
+        top: '25%',
+        left: '25%'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} path`,
+        fill: 'currentColor'
+      }
+    }
+  ],
+  [
+    /^q-radio__check$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `.q-radio__inner--truthy ${sel}`,
+        transform: 'scale3d(1, 1, 1)'
+      }
+    }
+  ],
+  [
+    /^q-radio__native$/,
+    function* () {
+      yield { width: '1px', height: '1px' }
+    }
+  ],
+  [
+    /^q-radio--dark$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-radio__inner`,
+        color: 'rgba(255, 255, 255, 0.7)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-radio__inner--truthy`,
+        color: 'var(--q-primary)'
+      }
+    }
   ]
 ] as Rule[]

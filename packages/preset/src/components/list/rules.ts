@@ -67,15 +67,13 @@ export const listRules = [
       'border-color': 'var(--q-outline)'
     })
   ],
-  [
-    /^q-item-type$/,
-    () => ({
-      // Quasar tags every list row with .q-item-type. It carries no styles of
-      // its own, but the sibling selectors above need the class to exist in the
-      // emitted sheet.
-      display: 'block'
-    })
-  ],
+  // No `/^q-item-type$/` rule: the reference declares nothing for the bare
+  // class, and a rule added only to force it into the sheet would land after
+  // `.q-item` in the cascade — every QItem carries both classes, so it would win
+  // with a `display` of its own and break the flex row (`display: block` made
+  // petboarding's booking rows 154px instead of 93px). The class reaches the
+  // sheet through the safelist instead; the only rule that needs it is the
+  // sibling separator below.
   [
     // Dense rows tighten the block padding (Quasar: 8px -> 2px).
     /^q-list--dense$/,

@@ -21,7 +21,7 @@ function rule(
 }
 
 /** Generate elevation-1 through elevation-5 (and q-elevation-*) rules */
-const elevationRules: ComponentRule[] = Array.from(
+const elevationLevelRules: ComponentRule[] = Array.from(
   { length: 5 },
   (_, i): ComponentRule => {
     const level = i + 1
@@ -32,13 +32,13 @@ const elevationRules: ComponentRule[] = Array.from(
   }
 )
 
-export const elevationRuleList: ComponentRule[] = [
+export const elevationRules: ComponentRule[] = [
   // --- Shadow none ---
   rule(/^shadow-none$/, () => ({ 'box-shadow': 'none' })),
   rule(/^no-shadow$/, () => ({ 'box-shadow': 'none' })),
 
   // --- Elevation levels 1-5 (both .elevation-N and .q-elevation-N) ---
-  ...elevationRules,
+  ...elevationLevelRules,
 
   // --- Z-index utilities ---
   rule(/^z-marginals$/, () => ({ 'z-index': 2000 })),

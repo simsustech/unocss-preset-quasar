@@ -20,59 +20,59 @@ function matchRule(
 
 describe('spacingRules', () => {
   // --- Padding ---
-  it('q-pa-md sets padding to --q-space-md', () => {
+  it('q-pa-md sets padding from the wind4 spacing step for md', () => {
     const css = matchRule('q-pa-md')
     expect(css).toBeDefined()
-    expect(css!.padding).toBe('var(--q-space-md)')
+    expect(css!.padding).toBe('calc(var(--spacing) * 4)')
   })
 
   it('q-pt-xs sets padding-top', () => {
     const css = matchRule('q-pt-xs')
     expect(css).toBeDefined()
-    expect(css!['padding-top']).toBe('var(--q-space-xs)')
+    expect(css!['padding-top']).toBe('calc(var(--spacing) * 1)')
   })
 
   it('q-px-md sets padding-inline (logical)', () => {
     const css = matchRule('q-px-md')
     expect(css).toBeDefined()
-    expect(css!['padding-inline']).toBe('var(--q-space-md)')
+    expect(css!['padding-inline']).toBe('calc(var(--spacing) * 4)')
   })
 
   it('q-py-sm sets padding-block (logical)', () => {
     const css = matchRule('q-py-sm')
     expect(css).toBeDefined()
-    expect(css!['padding-block']).toBe('var(--q-space-sm)')
+    expect(css!['padding-block']).toBe('calc(var(--spacing) * 2)')
   })
 
   it('q-pa-none sets padding to zero', () => {
     const css = matchRule('q-pa-none')
     expect(css).toBeDefined()
-    expect(css!.padding).toBe('var(--q-space-none)')
+    expect(css!.padding).toBe('calc(var(--spacing) * 0)')
   })
 
   // --- Margin ---
-  it('q-ma-lg sets margin to --q-space-lg', () => {
+  it('q-ma-lg sets margin from the wind4 spacing step for lg', () => {
     const css = matchRule('q-ma-lg')
     expect(css).toBeDefined()
-    expect(css!.margin).toBe('var(--q-space-lg)')
+    expect(css!.margin).toBe('calc(var(--spacing) * 6)')
   })
 
   it('q-mb-sm sets margin-bottom', () => {
     const css = matchRule('q-mb-sm')
     expect(css).toBeDefined()
-    expect(css!['margin-bottom']).toBe('var(--q-space-sm)')
+    expect(css!['margin-bottom']).toBe('calc(var(--spacing) * 2)')
   })
 
   it('q-mx-md sets margin-inline (logical)', () => {
     const css = matchRule('q-mx-md')
     expect(css).toBeDefined()
-    expect(css!['margin-inline']).toBe('var(--q-space-md)')
+    expect(css!['margin-inline']).toBe('calc(var(--spacing) * 4)')
   })
 
   it('q-my-lg sets margin-block (logical)', () => {
     const css = matchRule('q-my-lg')
     expect(css).toBeDefined()
-    expect(css!['margin-block']).toBe('var(--q-space-lg)')
+    expect(css!['margin-block']).toBe('calc(var(--spacing) * 6)')
   })
 
   // --- Auto margins ---

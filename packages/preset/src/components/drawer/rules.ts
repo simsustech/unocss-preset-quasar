@@ -5,12 +5,18 @@ export const drawerRules = [
     /^q-drawer$/,
     function* (_, { symbols }) {
       yield {
-        position: 'fixed',
+        // Reference: `border-start-end-radius: var(--shape-corner-large);
+        // border-end-end-radius: …; background-color: …surface-container-low;
+        // top: 0; bottom: 0; position: absolute; z-index: 1000`.
+        // The rewrite pinned `position: fixed; width: 300px; box-shadow:
+        // elevation-3`, which overrode the width Quasar sets inline from the
+        // drawer's `width` prop and floated the drawer over the page content.
+        'border-start-end-radius': 'var(--q-corner-large)',
+        'border-end-end-radius': 'var(--q-corner-large)',
+        'background-color': 'var(--q-surface-container-low)',
         top: '0',
         bottom: '0',
-        width: '300px',
-        'background-color': 'var(--q-surface)',
-        'box-shadow': 'var(--q-elevation-3)',
+        position: 'absolute',
         'z-index': '1000'
       }
       yield {
@@ -23,12 +29,14 @@ export const drawerRules = [
   [
     /^q-drawer--left$/,
     () => ({
+      transform: 'translateX(-100%)',
       left: '0'
     })
   ],
   [
     /^q-drawer--right$/,
     () => ({
+      transform: 'translateX(100%)',
       right: '0'
     })
   ],
@@ -60,7 +68,8 @@ export const drawerRules = [
   [
     /^q-drawer--on-top$/,
     function* () {
-      yield { 'z-index': '3000' }
+      // Reference: 7000 (above the drawer container's 3000 stack).
+      yield { 'z-index': '7000' }
     }
   ],
   [
@@ -154,7 +163,7 @@ export const drawerRules = [
   [
     /^q-drawer__backdrop$/,
     function* () {
-      yield { 'z-index': '2999 !important', 'will-change': 'background-color' }
+      yield { 'z-index': '6999', 'will-change': 'background-color' }
     }
   ],
   [
@@ -182,6 +191,104 @@ export const drawerRules = [
       yield {
         [symbols.selector]: (sel) =>
           `.body--dark ${sel}__content .q-list .q-router-link--active`,
+        'background-color': 'var(--q-secondary-container)'
+      }
+    }
+  ],
+  // --- Reference parity: layout offsets, borders and content padding ---
+  [
+    /^q-drawer$/,
+    function* (_, { symbols }) {
+      // The unstyled style entry drops the drawer's surface.
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+    }
+  ],
+  [
+    /^q-drawer--left$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-layout__shadow`,
+        left: '10px',
+        right: '-10px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}.q-drawer--bordered`,
+        'border-right': '1px solid rgba(0, 0, 0, 0.12)'
+      }
+    }
+  ],
+  [
+    /^q-drawer--right$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-layout__shadow`,
+        left: '-10px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}.q-drawer--bordered`,
+        'border-left': '1px solid rgba(0, 0, 0, 0.12)'
+      }
+    }
+  ],
+  [
+    /^q-drawer--mini$/,
+    function* (_, { symbols }) {
+      yield { 'border-radius': '0 !important' }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-tab__label`,
+        'font-size': '12px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-tabs--vertical .q-tab`,
+        'padding-inline': '0'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-drawer__content`,
+        'padding-block': '9px !important'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-drawer__content > *`,
+        'padding-inline': '4px !important'
+      }
+    }
+  ],
+  [
+    /^q-drawer--mobile$/,
+    () => ({
+      'border-start-end-radius': 'var(--q-corner-large)',
+      'border-end-end-radius': 'var(--q-corner-large)'
+    })
+  ],
+  [
+    /^q-drawer__content$/,
+    function* (_, { symbols }) {
+      yield { 'padding-block': '14px' }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > *`,
+        'padding-inline': '28px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-list`,
+        'padding-inline': '12px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-scrollarea`,
+        'padding-inline': '0'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-list .q-item`,
+        'border-radius': '32px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-list > .q-router-link--active`,
+        color: 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-list .q-router-link--active`,
         'background-color': 'var(--q-secondary-container)'
       }
     }

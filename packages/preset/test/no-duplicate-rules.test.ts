@@ -69,8 +69,11 @@ describe('duplicate rule matchers', () => {
     const css = await cssFor('q-item--dense')
     const b = block(css, '.q-item--dense')
     expect(b).toContain('gap:var(--q-space-md)')
-    expect(b).toContain('padding:var(--q-space-xs) var(--q-space-md)')
-    expect(b).toContain('min-height:32px')
+    // The dense padding is spelled with logical longhands, as the reference
+    // declares it, so it does not collide with the base rule's `gap`.
+    expect(b).toContain('padding-inline:16px')
+    expect(b).toContain('padding-block:2px')
+    expect(b).toContain('min-height:28px')
   })
 
   it('folds repeated properties into one, with the later entry winning', async () => {
@@ -79,7 +82,7 @@ describe('duplicate rule matchers', () => {
     // One merged declaration set: the second entry's value overrides the first
     // (identical to the old last-wins result), while the first entry's `gap`
     // side by side is preserved by the previous test.
-    expect(minHeights).toEqual(['min-height:32px'])
+    expect(minHeights).toEqual(['min-height:28px'])
   })
 
   it('keeps scoped yields separate when merging duplicate matchers', async () => {

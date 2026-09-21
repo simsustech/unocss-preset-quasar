@@ -103,5 +103,35 @@ export const pullToRefreshRules = [
         color: 'var(--q-primary)'
       }
     }
+  ],
+  // --- Reference parity: the spinner puck ---
+  [
+    /^q-pull-to-refresh__puller$/,
+    () => ({
+      color:
+        'color-mix(in oklab, var(--q-primary) var(--un-text-opacity), transparent)',
+      'border-radius': '50%',
+      'background-color':
+        'color-mix(in oklab, #fff var(--un-bg-opacity), transparent)',
+      flex: '0 1 auto !important',
+      width: '40px',
+      height: '40px',
+      'box-shadow': '0 0 4px 0 rgba(0, 0, 0, 0.3)'
+    })
+  ],
+  // --- Reference parity: the spinner puck ---
+  [
+    /^q-pull-to-refresh__puller$/,
+    () => ({
+      color:
+        'color-mix(in oklab, var(--q-primary) var(--un-text-opacity), transparent)',
+      'border-radius': '50%',
+      'background-color':
+        'color-mix(in oklab, #fff var(--un-bg-opacity), transparent)',
+      flex: '0 1 auto !important',
+      width: '40px',
+      height: '40px',
+      'box-shadow': '0 0 4px 0 rgba(0, 0, 0, 0.3)'
+    })
   ]
 ] as Rule[]

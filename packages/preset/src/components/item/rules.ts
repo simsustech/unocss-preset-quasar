@@ -81,8 +81,9 @@ export const itemRules = [
   [
     /^q-item--dense$/,
     () => ({
-      'min-height': '32px',
-      padding: 'var(--q-space-xs) var(--q-space-md)'
+      'min-height': '28px',
+      'padding-inline': '16px',
+      'padding-block': '2px'
     })
   ],
   [
@@ -269,6 +270,131 @@ export const itemRules = [
       yield {
         [symbols.selector]: (sel) => `.body--dark ${sel}.q-router-link--active`,
         color: 'var(--q-primary)'
+      }
+    }
+  ],
+  // --- Reference parity: md3 list item metrics ---
+  [
+    /^q-item$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+      yield {
+        'padding-inline': '16px',
+        'padding-block': '8px',
+        display: 'flex',
+        'flex-wrap': 'nowrap',
+        'min-height': '28px',
+        color: 'inherit',
+        transition: 'color 0.3s, background-color 0.3s',
+        position: 'relative'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}.q-router-link--active`,
+        color:
+          'color-mix(in oklab, var(--q-primary) var(--un-text-opacity), transparent)'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel} > .q-focus-helper + .q-item__section--thumbnail`,
+        'margin-left': '-16px'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel} > .q-item__section--thumbnail:first-child`,
+        'margin-left': '-16px'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel} > .q-item__section--thumbnail:last-of-type`,
+        'margin-right': '-16px'
+      }
+      yield {
+        // Dark overrides without a scheme-token equivalent stay literal, as the
+        // reference emits them.
+        [symbols.selector]: (sel) => `${sel}--dark`,
+        color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)',
+        'border-color': 'rgba(255, 255, 255, 0.28)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--dark .q-item__label--caption`,
+        color: 'rgba(255, 255, 255, 0.8)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--dark .q-item__label--overline`,
+        color: 'rgba(255, 255, 255, 0.8)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--dark .q-item__label--header`,
+        color: 'rgba(255, 255, 255, 0.64)'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel}--dark .q-item__section--side:not(.q-item__section--avatar)`,
+        color: 'rgba(255, 255, 255, 0.7)'
+      }
+    }
+  ],
+  [
+    /^q-item__label$/,
+    () => ({ 'line-height': '1.2em !important', 'max-width': '100%' })
+  ],
+  [
+    /^q-item__label--header$/,
+    () => ({
+      'font-size': '0.875rem',
+      'line-height': 'calc(var(--spacing) * 5)',
+      'letter-spacing': '0.01786em',
+      padding: '16px',
+      color: 'var(--q-on-surface-variant)'
+    })
+  ],
+  [
+    /^q-item__section$/,
+    () => ({
+      display: 'flex',
+      'flex-direction': 'column',
+      'flex-wrap': 'nowrap',
+      'min-width': '0',
+      'align-items': 'stretch'
+    })
+  ],
+  [
+    /^q-item__section--side$/,
+    () => ({
+      'padding-right': '16px',
+      flex: '0 1 auto !important',
+      width: 'auto',
+      color: 'var(--q-on-surface-variant)',
+      'align-items': 'flex-start'
+    })
+  ],
+  [
+    /^q-item__section--avatar$/,
+    () => ({
+      flex: '0 1 auto !important',
+      'min-width': '56px',
+      color: 'inherit'
+    })
+  ],
+  [
+    /^q-item__section--main$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `${sel} + ${sel}`,
+        'margin-left': '8px'
+      }
+      // Two lines of content set the row to 36px, three to 44px.
+      yield {
+        [symbols.selector]: (sel) => `${sel}:has(>:last-child:nth-child(2))`,
+        'min-height': '36px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}:has(>:last-child:nth-child(3))`,
+        'min-height': '44px'
       }
     }
   ]

@@ -97,5 +97,17 @@ export const scrollAreaRules = [
     () => ({
       // Colour overrides hang off the thumb rule above via symbols.selector.
     })
+  ],
+
+  // The unstyled style entry drops the component's own surface.
+  [
+    /^q-scroll-area$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+    }
   ]
 ] as Rule[]

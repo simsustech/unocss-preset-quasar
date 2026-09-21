@@ -21,8 +21,8 @@ export const bannerRules = [
   [
     /^q-banner--dense$/,
     () => ({
-      'min-height': '36px',
-      padding: 'var(--q-space-xs) var(--q-space-sm)'
+      'min-height': '32px',
+      padding: '8px'
     })
   ],
   [
@@ -60,5 +60,90 @@ export const bannerRules = [
     function* () {
       yield { 'padding-top': '14px' }
     }
-  ]
+  ],
+  // --- Reference parity: banner paddings, avatar sizes and dense variants ---
+  [
+    /^q-banner$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+      yield {
+        'padding-inline': '16px',
+        'padding-block': '8px',
+        'background-color': 'transparent',
+        'min-height': '54px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--dense`,
+        padding: '8px',
+        'min-height': '32px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--dense.q-banner--top-padding`,
+        'padding-top': '12px'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel}--dense .q-banner__actions.col-auto`,
+        'padding-left': '8px'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel}--dense .q-banner__avatar > .q-avatar`,
+        'font-size': '28px'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel}--dense .q-banner__avatar > .q-icon`,
+        'font-size': '28px'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel}--dense .q-banner__avatar:not(:empty) + .q-banner__content`,
+        'padding-left': '8px'
+      }
+    }
+  ],
+  [
+    /^q-banner__avatar$/,
+    function* (_, { symbols }) {
+      yield {
+        flex: '0 1 auto !important',
+        'min-width': '1px !important',
+        'align-self': 'auto !important'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-avatar`,
+        'font-size': '46px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-icon`,
+        'font-size': '40px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}:not(:empty) + .q-banner__content`,
+        'padding-left': '16px'
+      }
+    }
+  ],
+  [
+    /^q-banner__actions$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `${sel}.col-auto`,
+        'padding-left': '16px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}.col-all .q-btn-item`,
+        'margin-top': '4px',
+        'margin-right': '0',
+        'margin-bottom': '0',
+        'margin-left': '4px'
+      }
+    }
+  ],
+  [/^q-banner__content$/, () => ({ 'max-width': 'calc(100% - 56px)' })]
 ] as Rule[]

@@ -9,6 +9,15 @@ import type { ComponentRule } from '../../rules/types.js'
  * - Gutters as capture rules mapping size -> var(--q-space-*).
  */
 
+const GUTTER_STEPS: Record<string, number> = {
+  none: 0,
+  xs: 1,
+  sm: 2,
+  md: 4,
+  lg: 6,
+  xl: 8
+}
+
 export const gridRules = [
   [
     /^row$/,
@@ -84,7 +93,9 @@ export const gridRules = [
   [
     /^col$/,
     function* () {
-      yield { flex: '1 1 0%', 'max-width': '100%' }
+      // `flex-grow` as a longhand too: the reference states it separately and
+      // the shorthand's value is not visible to a per-property comparison.
+      yield { flex: '1 1 0%', 'flex-grow': 1, 'max-width': '100%' }
     }
   ],
   [
@@ -96,7 +107,7 @@ export const gridRules = [
   [
     /^col-grow$/,
     function* () {
-      yield { flex: '1 1 auto', 'max-width': '100%' }
+      yield { flex: '1 1 auto', 'flex-grow': 1, 'max-width': '100%' }
     }
   ],
   [
@@ -166,23 +177,28 @@ export const gridRules = [
     }
   ],
 
-  // gutters: single capture -> var(--q-space-*)
+  // gutters: single capture -> wind4 spacing steps, as the reference emits them
   [
     /^q-(col-)?gutter-([a-z]+)$/,
     function* ([, , size]: string[]) {
-      yield { gap: `var(--q-space-${size})` }
+      // The reference emits only the column gap for the plain gutter class.
+      yield {
+        'column-gap': `calc(var(--spacing) * ${GUTTER_STEPS[size] ?? 0})`
+      }
     }
   ],
   [
     /^q-(col-)?gutter-x-([a-z]+)$/,
     function* ([, , size]: string[]) {
-      yield { 'column-gap': `var(--q-space-${size})` }
+      yield {
+        'column-gap': `calc(var(--spacing) * ${GUTTER_STEPS[size] ?? 0})`
+      }
     }
   ],
   [
     /^q-(col-)?gutter-y-([a-z]+)$/,
     function* ([, , size]: string[]) {
-      yield { 'row-gap': `var(--q-space-${size})` }
+      yield { 'row-gap': `calc(var(--spacing) * ${GUTTER_STEPS[size] ?? 0})` }
     }
   ],
 
@@ -203,6 +219,12 @@ export const gridRules = [
     function* () {
       yield { order: '0' }
     }
+  ],
+  [
+    /^shrink$/,
+    () => ({
+      'flex-shrink': 1
+    })
   ]
   // SAFETY: generator matchers yield valid CSSObjects at runtime, but TS
   // cannot verify symbols.selector computed keys statically, so the array

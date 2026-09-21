@@ -86,4 +86,67 @@ export const visibilityRules: ComponentRule[] = [
   rule(/^q-focusable$/, () => ({ outline: 0 })),
   rule(/^q-manual-focusable$/, () => ({ outline: 0 })),
   rule(/^q-hoverable$/, () => ({ outline: 0 }))
+
+  // NOTE: the QResponsive component rules (`.q-responsive`, `__content`,
+  // `__filler`, and the unstyled style override) live in
+  // `components/responsive/rules.ts`, next to the component they belong to.
 ]
+
+/**
+ * Quasar's breakpoint table, which the reference sheet emits literally:
+ *
+ *   xs 0-599.98 | sm 600-1023.98 | md 1024-1439.98 | lg 1440-1919.98 | xl 1920+
+ *
+ * Media queries reject `var()`, so these numbers cannot be tokens; they are
+ * Quasar's own breakpoints, and the ranges are the reference's (each upper bound
+ * is the next breakpoint minus 0.02px so the ranges never overlap).
+ */
+const RESPONSIVE_BREAKPOINTS = [
+  { name: 'xs', up: 0 },
+  { name: 'sm', up: 600 },
+  { name: 'md', up: 1024 },
+  { name: 'lg', up: 1440 },
+  { name: 'xl', up: 1920 }
+] as const
+
+const breakpointQuery = (index: number): string => {
+  const current = RESPONSIVE_BREAKPOINTS[index]
+  const next = RESPONSIVE_BREAKPOINTS[index + 1]
+  if (!next) return `(min-width: ${current.up}px)`
+  const upper = `(max-width: ${next.up - 0.02}px)`
+  // The first range has no lower bound — the reference is `(max-width: 599.98px)`.
+  return current.up === 0 ? upper : `(min-width: ${current.up}px) and ${upper}`
+}
+
+/**
+ * Responsive visibility (`xs`…`xl`, `lt-*`, `gt-*`, `*-hide`).
+ *
+ * Emitted as CSS text rather than as rules because a UnoCSS rule body cannot
+ * carry an at-rule — a nested `'@media …'` key is stringified into
+ * `[object Object]` by the generator (verified against unocss 66.10.1) — and
+ * because the classes are added by Quasar or written in markup with no source
+ * hint, so they must be emitted unconditionally, exactly as the reference does.
+ * `src/index.ts` assembles this text into the preset's preflight block.
+ *
+ * In each range the elements hidden are: every breakpoint class except the
+ * active one, the active breakpoint's `-hide`, the `lt-*` classes at or below it
+ * and the `gt-*` classes at or above it.
+ */
+export const responsiveVisibilityCss: string = RESPONSIVE_BREAKPOINTS.map(
+  (breakpoint, index) => {
+    const hidden = [
+      ...RESPONSIVE_BREAKPOINTS.filter((_, other) => other !== index).map(
+        (other) => `.${other.name}`
+      ),
+      `.${breakpoint.name}-hide`,
+      // `lt-xs` and `gt-xl` do not exist.
+      ...RESPONSIVE_BREAKPOINTS.slice(1, index + 1).map(
+        (other) => `.lt-${other.name}`
+      ),
+      ...RESPONSIVE_BREAKPOINTS.slice(index, -1).map(
+        (other) => `.gt-${other.name}`
+      )
+    ].sort()
+    return `@media ${breakpointQuery(index)}{${hidden.join(',')}{display:none !important}}`
+  }
+).join('\n')

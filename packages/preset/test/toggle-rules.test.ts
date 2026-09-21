@@ -63,7 +63,11 @@ describe('toggleRules', () => {
     // Token-driven since the MD3 rewrite: the concrete colour (md3 outline /
     // on-primary, md2 #fff / currentColor) lives in the per-style token.
     expect(afterEntry.background).toBe('var(--q-toggle-thumb-bg)')
-    expect(afterEntry['box-shadow']).toBe('var(--q-toggle-thumb-shadow)')
+    // The reference hardcodes the md2 elevation stack on the handle and keeps
+    // the per-style token unused, so the literal is what parity requires.
+    expect(afterEntry['box-shadow']).toBe(
+      '0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12)'
+    )
   })
 
   it('reproduces full compound selector for truthy :after override', () => {
@@ -167,29 +171,33 @@ describe('toggleRules MD3 token wiring', () => {
     expect(trackEntry.border).toBe('var(--q-toggle-track-outline-active)')
   })
 
-  it('hardcodes no md2 geometry outside the dense variant', () => {
-    // Dense keeps Quasar's proportional em geometry on purpose; every other
-    // toggle rule must be token-driven.
-    const forbidden = [
-      '1.4em',
-      '0.35em',
+  it('takes every size in the base rules from the reference sheet', () => {
+    // The base toggle geometry is a straight port of the reference bundle, which
+    // states the handle and track sizes relative to the control's font-size
+    // (`0.5em` handle, `1.625em` track). The per-style tokens still drive the
+    // values that differ between md2 and md3 — the handle size while the switch
+    // is on, its offsets, and the icon colour — so those stay tokenised.
+    const ported = new Set([
+      '1em',
       '0.5em',
-      '0.175em',
-      '40px',
-      '#fff',
-      '3px'
-    ]
+      '1.625em',
+      '0.25em',
+      '0.15em',
+      '32px',
+      '24px',
+      '2px',
+      '1px',
+      '1.5em'
+    ])
     for (const cls of [
       'q-toggle__inner',
       'q-toggle__track',
-      'q-toggle__thumb',
-      'q-toggle__inner--truthy',
-      'q-toggle__inner--indet'
+      'q-toggle__thumb'
     ]) {
       for (const value of allValues(toggleRules, cls)) {
-        for (const bad of forbidden) {
-          expect(value).not.toContain(bad)
-        }
+        const looksLikeSize = /^[\d.]+(px|em|rem)$/.test(String(value))
+        if (!looksLikeSize) continue
+        expect(ported.has(String(value)), `${cls}: ${value}`).toBe(true)
       }
     }
   })

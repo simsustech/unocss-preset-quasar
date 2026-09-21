@@ -42,6 +42,13 @@
       "require": "./dist/styles/index.js",
       "default": "./dist/styles/index.js"
     },
+    "./theme": {
+      "source": "./src/theme/index.ts",
+      "types": "./dist/types/theme/index.d.ts",
+      "import": "./dist/theme/index.js",
+      "require": "./dist/theme/index.js",
+      "default": "./dist/theme/index.js"
+    },
     "./runtime": {
       "source": "./src/runtime.ts",
       "types": "./dist/types/runtime.d.ts",
@@ -56,6 +63,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "build:watch": "tsc --watch --preserveWatchOutput",
     "lint": "oxlint src",
     "lint:fix": "oxlint src --fix",
     "test": "vitest test/"
