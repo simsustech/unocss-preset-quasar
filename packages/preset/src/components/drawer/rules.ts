@@ -17,6 +17,13 @@ export const drawerRules = [
         top: '0',
         bottom: '0',
         position: 'absolute',
+        // The drawer's width is not an inline `width`: QDrawer's own runtime
+        // writes `--q-drawer-width` as a custom property on the element
+        // (`quasar.client.js`, `"--q-drawer-width": `${size.value}px``), and
+        // quasar.css binds it here. The preset replaces quasar.css, so it has
+        // to make the same binding — without it the drawer has no width and
+        // collapses to its content, whatever `width` prop was passed.
+        width: 'var(--q-drawer-width)',
         'z-index': '1000'
       }
       yield {

@@ -163,12 +163,52 @@ group), yet the port emits eight rules for it — a background, a radius, a
 `skeleton` module therefore reads as complete while rendering something the
 reference does not.
 
-Three of those rules also lean on tokens **nothing defines**, so their
-declarations drop (`--q-skeleton-speed` as an `animation` duration,
-`--q-fab-stagger`, `--q-elevation-{1,2,3,5}` / `--q-elevation-level{1..5}`).
-None of them exists in the reference's variable map either — they are port
-inventions, which is why the sweep in §4 lists them. `--q-skeleton-blink` is not
-one of the reference's 110 keyframes, so that animation could never run.
+One of those rules also names a keyframe that does not exist: `.q-skeleton--anim`
+animates `q-skeleton-blink`, which is not one of the reference's 110 keyframes
+and not ours either, so that animation never runs. The variant rules are fine —
+they use `q-skeleton--fade`/`--wave`/`--pulse`, which we now emit.
+
+Not bugs, despite appearing in the sweep of §4:
+
+- **`--q-skeleton-speed` and `--q-linear-progress-speed` are supplied inline by
+  Quasar's runtime.** QDrawer, QSkeleton and QLinearProgress are the only
+  components that set custom properties from JavaScript — exactly three:
+
+  ```sh
+  grep -o '"--q-[a-z0-9-]*"\s*:' node_modules/quasar/dist/quasar.client.js | sort -u
+  # "--q-drawer-width": "--q-linear-progress-speed": "--q-skeleton-speed":
+  ```
+
+  Our CSS reads the latter two and they resolve on a real element
+  (`--q-skeleton-speed: 1500ms`, `transition: transform 2.1s`). **The sweep in
+  §4 will always list these three** — the definition is inline, not in the
+  sheet, so judge them by the rendered element, not by the CSSOM walk.
+
+- **`--q-fab-stagger`** is referenced by Quasar's own CSS without being defined
+  there either (`transition-delay: calc(var(--q-fab-stagger) * …)`); it is an
+  app-provided styling hook, so a dropped declaration matches Quasar.
+- **`--q-elevation-*`** is ours and parity-neutral (see §4b).
+
+### 3.2 The one that was a real bug: `--q-drawer-width`
+
+`.q-drawer` declared no `width` at all. The port's comment said the rewrite had
+"pinned `width: 300px`, which overrode the width Quasar sets inline from the
+drawer's `width` prop" — but QDrawer sets no inline width. It writes
+`--q-drawer-width` as a custom property, and **quasar.css is what binds it**:
+
+```css
+.q-drawer { position: absolute; top: 0; bottom: 0; width: var(--q-drawer-width); … }
+```
+
+Since the preset replaces quasar.css, it has to make that binding too, or the
+drawer collapses to its content width whatever `width` was passed. Fixed by
+stating `width: var(--q-drawer-width)` on `.q-drawer`; verified in the harness
+with the inline `--q-drawer-width: 300px` producing a 300px computed width.
+
+The generalizable check, worth running after any component port: for every
+custom property Quasar's JS sets (the three above), confirm **some rule in our
+sheet reads it**. A property that is set and never read is a binding the preset
+failed to reproduce.
 
 Worth doing before step 10 claims the port is faithful: walk the extras
 group-by-group and decide, per selector, whether it is a deliberate extension or
