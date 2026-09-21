@@ -569,58 +569,6 @@ console.log(unresolved.map(([n, w]) => `${n}  (used by ${w})`).join('\n'))
 
 ---
 
-## 8c. The literal duplicate blocks, and the spec pass they blocked
-
-`mergeDuplicateRules` collapses repeated matchers because UnoCSS keeps only the
-last rule registered for a regex. The rewrite nonetheless left a _second_,
-literal copy of many components — a "reference parity" block re-declaring the
-same selectors with hardcoded values. **29 rules files carry 268 duplicated
-matchers:**
-
-```
-44 dup / 101 matchers  src/components/time/rules.ts
-43 dup /  83 matchers  src/components/field/rules.ts
-30 dup /  75 matchers  src/components/date/rules.ts
-25 dup /  88 matchers  src/components/slider/rules.ts
-17 dup /  31 matchers  src/components/checkbox/rules.ts
-... drawer, fab, tabs, toggle, btn-group, select, timeline, item, separator
-```
-
-Because those copies carry literals, they are style-agnostic, and they are what
-the sheet actually emits: the token system is bypassed, and the md2/md3 bodies
-live side by side without a style being able to win. That is the root cause of
-"the md3 toggle rendered as md2 no matter what the style tokens said" — and of
-md2 rendering md3 geometry.
-
-Folded so far: `toggle`, `item`, `separator` — the three components the vendored
-specs cover. Literals moved into per-style tokens, and both styles set to their
-spec (verified by probing the harness on 3100, md3 and md2):
-
-|                     | md3 spec                           | md3 rendered  | md2 spec                     | md2 rendered       |
-| ------------------- | ---------------------------------- | ------------- | ---------------------------- | ------------------ |
-| switch chassis      | 52x32                              | 52x32         | 56x40 box (`1.4em` @40px)    | 56x40              |
-| switch track        | 52x32, outline 2px `outline`       | same          | 36x14, no outline            | 36x14              |
-| track fill, off     | `surface-container-highest`        | `#e6e1e6`     | `rgba(0,0,0,0.32)`           | same               |
-| track fill, on      | `primary`                          | `#6750a4`     | `secondary` 50%              | `oklab(... / 0.5)` |
-| handle              | 16px `outline` / 24px `on-primary` | 16x16 / 24x24 | 20px `#fafafa` / `secondary` | 20x20              |
-| list item, one line | 56px                               | 56px          | 56px (48px dense)            | 56px               |
-| list item, selected | `secondary-container`              | token         | `primary` 12%                | token              |
-| divider             | 1px `outline-variant`              | `#cac4cf`     | 1px black 12%                | `rgba(0,0,0,0.12)` |
-
-The gate cannot see any of this: it skips a reference value built from a role
-variable, so a wrong role reads as clean. It also cannot see a _tokenised_
-value, so folding literals into tokens moves a handful of declarations from
-"matching" to "mismatch" by construction. `absent`/`mismatch` are pinned back at
-their pre-fold numbers (40/10) by declaring the reference's own longhands and by
-giving each token the reference's exact value where the spec is silent (md3 has
-no dense item, so its dense height stays the reference's 28px).
-
-Remaining: the other 26 files. Do them in the same shape — one component per
-commit, `--update --set-target <module>`, probe both styles, and put the value
-in the style entry rather than the rule.
-
-## 9. What is left, in plan order
-
 ## 8b. Spec adherence, checked without the reference
 
 The reference bundle is one third-party build, and it carries its own quirks:
@@ -699,3 +647,104 @@ Worth doing alongside, in rough priority order:
    `harness-screenshot`) so the suite stops reporting 13 phantom failures, and
    correct the three wrong expectations in §2 (causes 2–4).
 3. **`pnpm build`** before every consumer-facing check (§0).
+
+## 8c. The literal duplicate blocks, and the spec pass they blocked
+
+`mergeDuplicateRules` collapses repeated matchers because UnoCSS keeps only the
+last rule registered for a regex. The rewrite nonetheless left a _second_,
+literal copy of many components — a "reference parity" block re-declaring the
+same selectors with hardcoded values. **29 rules files carry 268 duplicated
+matchers:**
+
+```
+44 dup / 101 matchers  src/components/time/rules.ts
+43 dup /  83 matchers  src/components/field/rules.ts
+30 dup /  75 matchers  src/components/date/rules.ts
+25 dup /  88 matchers  src/components/slider/rules.ts
+17 dup /  31 matchers  src/components/checkbox/rules.ts
+... drawer, fab, tabs, toggle, btn-group, select, timeline, item, separator
+```
+
+Because those copies carry literals, they are style-agnostic, and they are what
+the sheet actually emits: the token system is bypassed, and the md2/md3 bodies
+live side by side without a style being able to win. That is the root cause of
+"the md3 toggle rendered as md2 no matter what the style tokens said" — and of
+md2 rendering md3 geometry.
+
+Folded so far: `toggle`, `item`, `separator` — the three components the vendored
+specs cover. Literals moved into per-style tokens, and both styles set to their
+spec (verified by probing the harness on 3100, md3 and md2):
+
+|                     | md3 spec                           | md3 rendered  | md2 spec                     | md2 rendered       |
+| ------------------- | ---------------------------------- | ------------- | ---------------------------- | ------------------ |
+| switch chassis      | 52x32                              | 52x32         | 56x40 box (`1.4em` @40px)    | 56x40              |
+| switch track        | 52x32, outline 2px `outline`       | same          | 36x14, no outline            | 36x14              |
+| track fill, off     | `surface-container-highest`        | `#e6e1e6`     | `rgba(0,0,0,0.32)`           | same               |
+| track fill, on      | `primary`                          | `#6750a4`     | `secondary` 50%              | `oklab(... / 0.5)` |
+| handle              | 16px `outline` / 24px `on-primary` | 16x16 / 24x24 | 20px `#fafafa` / `secondary` | 20x20              |
+| list item, one line | 56px                               | 56px          | 56px (48px dense)            | 56px               |
+| list item, selected | `secondary-container`              | token         | `primary` 12%                | token              |
+| divider             | 1px `outline-variant`              | `#cac4cf`     | 1px black 12%                | `rgba(0,0,0,0.12)` |
+
+The gate cannot see any of this: it skips a reference value built from a role
+variable, so a wrong role reads as clean. It also cannot see a _tokenised_
+value, so folding literals into tokens moves a handful of declarations from
+"matching" to "mismatch" by construction. `absent`/`mismatch` are pinned back at
+their pre-fold numbers (40/10) by declaring the reference's own longhands and by
+giving each token the reference's exact value where the spec is silent (md3 has
+no dense item, so its dense height stays the reference's 28px).
+
+**Done:** all of them. 268 duplicated matchers → 5, and the 5 that remain are
+the cross-module pairs where the same matcher in two modules _adds_
+declarations rather than overriding any (`q-page`, `q-list--padding`). Every
+fold was verified by diffing the whole emitted sheet (2647 selectors) against
+the pre-fold build, and the test suite now pins the count so it can only shrink.
+
+Two failure modes worth remembering, both seen more than once: a _literal copy
+sitting in the first yield_ wins and silently reverts a tokenised value (the
+field label landed on top of its value text, the date picker lost
+`display: inline-flex`), and a declaration can be lost outright when the entry
+carrying it is not captured (`.q-fab` lost `vertical-align`). Only the sheet
+diff catches either.
+
+## 9. What is left, in plan order
+
+Done since this handoff was written: the duplicate sweep above; the spec pass on
+the three components the vendored specs cover (switches, lists, dividers — both
+styles, including md2's dark switch values via `string | { light, dark }`
+tokens); and the consumer-reported defects (button elevation on the base
+`:before`, `.row`/`.column` carrying `flex: 1 1 auto`, `.q-icon > img` sizing,
+`.q-badge` size, the notification badge's missing vertical offsets, and the
+5s-timeout "flakiness").
+
+Left, roughly by value:
+
+1. **§4b — wind4's runtime layer.** The biggest structural gap: `variants`,
+   `postprocess`, `layers` and the custom `extractors` that `main` used are not
+   wired in, and ~40 `var()` names the reference resolves are still unresolved
+   in our sheet (the sweep script is in §8).
+2. **Extras audit (§3.1).** 879 declarations we emit that the reference does
+   not. Most look like content-scan artefacts (the reference was built from a
+   smaller content set), but the audit is what separates deliberate additions
+   from stale copies.
+3. **Spec coverage.** The normalized specs cover switches, lists and dividers.
+   `SPEC_VERIFICATION_REPORT.md` names what the pre-rewrite preset was verified
+   against (`QBtn`, `QToggle`, `QCheckbox`, `QChip`, `QCard`, `QField`) — worth
+   re-running those rows, and extracting more of the vendored Flutter/Compose
+   sources the same way.
+4. **Documented deviations.** Several modules are deliberately no longer locked
+   to the reference — `item` (56px per md3 vs 28px), `toggle` (300ms per M3 vs
+   0.22s, plus its tokenised transition), `badge` (12px and the token
+   radius/weight vs the reference's 11px/literals), `flex-grid` (Quasar's flex
+   addon has no `flex: 1 1 auto` on `.row`/`.column`). Each is recorded in
+   `test/fixtures/parity-baseline.json` with `target: null`; they belong in the
+   docs, not just the baseline.
+5. **Docs and a changeset.** `CONTEXT.md`, the ADRs the plan names, and a
+   changeset for these fixes (`.changeset/` already exists).
+6. **Consumer side (petboarding).** `file:` → `link:` for the preset dependency
+   (the hardlink copy is what hid `dist/core/motion/`), `q-mini-drawer-hide` on
+   the drawer labels, and the dev proxy that makes login work — built during
+   this session, currently living only in `/tmp`.
+7. **Harness visual coverage.** The 13 screenshot tests are capture-only: they
+   pass but assert nothing, so they cannot catch a visual regression. Worth
+   adding baseline comparison if that should fail CI.

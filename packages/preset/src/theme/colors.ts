@@ -1,7 +1,6 @@
 import {
   argbFromHex,
   Blend,
-  Hct,
   hexFromArgb,
   themeFromSourceColor
 } from '@poupe/material-color-utilities'
