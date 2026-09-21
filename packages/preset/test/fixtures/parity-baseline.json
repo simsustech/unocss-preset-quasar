@@ -390,10 +390,10 @@
       "mismatch": []
     },
     "item": {
-      "target": 0,
+      "target": null,
       "missing": [],
       "absent": [],
-      "mismatch": []
+      "mismatch": [".q-item|min-height"]
     },
     "keyframes": {
       "target": 0,

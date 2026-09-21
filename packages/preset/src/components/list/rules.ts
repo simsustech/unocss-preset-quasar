@@ -110,9 +110,9 @@ export const listRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-item`,
-        'padding-inline': '16px',
+        'padding-inline': 'var(--q-space-lg)',
         'padding-block': '2px',
-        'min-height': '28px'
+        'min-height': 'var(--q-item-dense-min-height)'
       }
     }
   ]

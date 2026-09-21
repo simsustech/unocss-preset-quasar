@@ -80,8 +80,8 @@ describe('duplicate rule matchers', () => {
     // copy, a token loses. Fold a group by collapsing it to a single
     // token-driven rule, then lower this number.
     //
-    // Folded so far: btn-group (8 -> 1, output-neutral), radio (8 groups) and
-    // checkbox (12 groups). Note the fold is NOT always output-neutral: within
+    // Folded so far: btn-group (8 -> 1), radio (8 groups), checkbox (12
+    // groups), item (10 groups). Note the fold is NOT always output-neutral: within
     // one matcher UnoCSS merges multiple yields first-wins per property, while
     // across entries the merge is later-wins, so a conflicting property that
     // the later entry used to win can flip to the earlier one. Always diff the
@@ -96,9 +96,9 @@ describe('duplicate rule matchers', () => {
       }
     }
     const duplicated = [...counts.entries()].filter(([, n]) => n > 1).length
-    // 188 distinct regexes are declared more than once. 268 duplicated matchers
+    // 178 distinct regexes are declared more than once. 268 duplicated matchers
     // when counted per file (a regex repeated in two modules counts once here).
-    expect(duplicated).toBe(188)
+    expect(duplicated).toBe(178)
   })
 
   it('retains declarations from every duplicate for the same class', async () => {

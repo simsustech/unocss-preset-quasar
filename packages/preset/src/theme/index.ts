@@ -166,7 +166,8 @@ export const md3Style: StyleEntry = {
       virtualScrollItemWidth: '100%',
       // New tokens for hardcoded value conversion
       btnPaddingY: '4px',
-      btnMinHeight: '2.572em',
+      // 40px at the 14px md3 button font size (md2 is 2.572em = 36px)
+      btnMinHeight: '2.857em',
       btnFontWeight: 500,
       btnContentGap: '4px',
       btnIconFontSize: '1.4em',
