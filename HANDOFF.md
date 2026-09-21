@@ -47,10 +47,10 @@ for f in $(find src -name '*.ts'); do d="dist/${f#src/}.js"; \
 | ----------------------------------------- | ------------------------------------------------------------------------------------ |
 | Reference bundle                          | vendored, sha256 `4a01f0ffbc51075f…` pinned in `specs/reference/raw/MANIFEST.sha256` |
 | Fixture                                   | 2,441 rules + 110 keyframes + 170 vars                                               |
-| Selectors fully matching                  | **2,051 / 2,441 (84.0 %)**                                                           |
-| Remaining gaps                            | missing **390**, absent **40**, mismatch **10**                                      |
-| Modules at target 0                       | **all `preset` modules except `animated`, `keyframes`, `color-utilities`, `tokens`** |
-| Payload                                   | 220,685 B emitted vs 314,650 B reference (limit = ref × 1.1)                         |
+| Selectors fully matching                  | **2,214 / 2,441 (90.7 %)**                                                           |
+| Remaining gaps                            | missing **227**, absent **40**, mismatch **10** (all three `reported` modules)       |
+| Modules at target 0                       | **every `preset` module** — steps 7, 8 and 9 are done                                |
+| Payload                                   | 261,623 B emitted vs 314,650 B reference (limit = ref × 1.1)                         |
 | `pnpm vitest run`                         | 30 files / **179 tests passing**                                                     |
 | `tsc --noEmit`, `oxlint`, `oxfmt --check` | clean                                                                                |
 | harness suite                             | 306 passed / **16 failed — all 16 harness-side (see §2)**                            |
@@ -151,6 +151,29 @@ for (const [property, value] of effective) {        // reference declarations
 Closing either blind spot is a gate change; the plan's step 10 is the place for
 it, and the handoff's own rule applies: extend the gate and record it, or fix
 the module — not both.
+
+### 3.1 The extras are unverified output (measured, not hypothetical)
+
+The `extra` count is now **877 selectors** — output we emit that the reference
+does not. Nothing compares them, and they can paint where the reference is
+silent. `.q-skeleton` is the clearest case: the reference bundle styles it _not
+at all_ (its only mention of the class is inside a `body.quasar-style-unstyled`
+group), yet the port emits eight rules for it — a background, a radius, a
+`q-skeleton-blink` animation and `--dark`/`--anim`/`--text` variants. The
+`skeleton` module therefore reads as complete while rendering something the
+reference does not.
+
+Three of those rules also lean on tokens **nothing defines**, so their
+declarations drop (`--q-skeleton-speed` as an `animation` duration,
+`--q-fab-stagger`, `--q-elevation-{1,2,3,5}` / `--q-elevation-level{1..5}`).
+None of them exists in the reference's variable map either — they are port
+inventions, which is why the sweep in §4 lists them. `--q-skeleton-blink` is not
+one of the reference's 110 keyframes, so that animation could never run.
+
+Worth doing before step 10 claims the port is faithful: walk the extras
+group-by-group and decide, per selector, whether it is a deliberate extension or
+something copied from an older Quasar. The gate cannot help here — it is the one
+question it does not ask.
 
 ---
 
@@ -508,22 +531,18 @@ console.log(unresolved.map(([n, w]) => `${n}  (used by ${w})`).join('\n'))
 
 ## 9. What is left, in plan order
 
-**Step 8 (token model)** — this is the one that fixes what you can see. Emit the
-scheme roles per style entry (`--light-*` / `--dark-*`), then the `--q-*` alias
-blocks (`body.quasar-style-<name>`, `body.body--dark`, and the combination), and
-re-add `extendTheme` so the Quasar palette reaches wind4's theme and the colour
-utilities generate. That closes `color-utilities` (34) and `tokens` (3), and
-removes the dropped-declaration class in §4 (transparent chips and headers, no
-elevation on cards). Comparing the md3 entry on both sides shows **0 differences
-on 43 overlapping token names**, so this is about _emitting_ the colour layer,
-not re-deciding values.
+**Steps 8 and 9 are done.** Step 8 (`23bf7bb`) emitted the scheme roles
+(`--light-*` / `--dark-*`), the `--shape-corner-*` roles, the
+`body.body--dark.quasar-style-<name>` combination and re-added `extendTheme`,
+closing `color-utilities` (34) and `tokens` (3); `--light-primary` is `#6750a4`
+and `--dark-primary` `#cfbcff`, the reference's own values, where both were
+undefined before. Step 9 (`bdea83f`) emitted Quasar's 12 `q-*` `@keyframes` and
+put `animated-unocss@^0.0.6` back in `presets`, closing `keyframes` (110) and
+`animated` (98); the sheet now carries exactly the reference's 110 keyframes.
 
-**Step 9 (motion)** — `q-*` keyframes from the modules that own the animated
-component (skeleton owns `q-skeleton--*`, linear-progress owns its indeterminate
-pair), and re-add `animated-unocss` as a dependency plus its preset so
-`.animated-*` / `une*` return. Check that the dependency is installable before
-committing to this step — it is a new package. Closes `keyframes` (110) and
-`animated` (98).
+The remaining `preset` gaps are zero; what is left is step 10, the two open
+findings (§4b wind4's runtime-variable layer, and the extras audit below), and
+the harness-spec fixes in §2.
 
 **Step 10 (close out)** — tighten the ratchet to zero where the plan says so,
 `test/token-trace.test.ts`, docs (repo-root `README.md`,
