@@ -3,24 +3,18 @@ import type { Rule } from '@unocss/core'
 export const btnGroupRules = [
   [
     /^q-btn-group$/,
-    () => ({
-      display: 'inline-flex',
-      // Reference `.q-btn-group`: middle-aligned, `flex: 0 1 auto`, 28px corner
-      // and the level-2 elevation, which the preset previously took from a token
-      // whose resolved pair differs.
-      'vertical-align': 'middle',
-      flex: '0 1 auto',
-      'border-radius': '28px',
-      'box-shadow':
-        '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
-    })
-  ],
-  [
-    // Keyed on `q-btn-group`, not the `q-btn-group > .q-btn` token: the latter
-    // is not a runtime class Quasar adds, so it can never be safelisted and the
-    // rule (and its dark override) silently never fired.
-    /^q-btn-group$/,
     function* (_, { symbols }) {
+      yield {
+        display: 'inline-flex',
+        // Reference `.q-btn-group`: middle-aligned, `flex: 0 1 auto`, 28px corner
+        // and the level-2 elevation, which the preset previously took from a token
+        // whose resolved pair differs.
+        'vertical-align': 'middle',
+        flex: '0 1 auto',
+        'border-radius': '28px',
+        'box-shadow':
+          '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
+      }
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-btn`,
         'border-radius': '0',
@@ -30,49 +24,93 @@ export const btnGroupRules = [
         [symbols.selector]: (sel) => `.body--dark ${sel} > .q-btn`,
         'background-color': 'var(--q-surface-container)'
       }
-    }
-  ],
-  [
-    /^q-btn-group$/,
-    function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-btn-item:before`,
         'box-shadow': 'none'
       }
-      // Dark: btn-group item colour.
       yield {
         [symbols.selector]: (sel) => `.body--dark ${sel} > .q-btn-item`,
         color: 'var(--q-on-surface)'
       }
-    }
-  ],
-  [
-    /^q-btn-group$/,
-    function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) =>
           `${sel} > ${sel}:not(:first-child) > .q-btn:first-child:before`,
         'border-left': '0'
       }
-    }
-  ],
-  [
-    /^q-btn-group$/,
-    function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) =>
           `${sel} > ${sel}:not(:last-child) > .q-btn:last-child:before`,
         'border-right': '0'
       }
-    }
-  ],
-  [
-    /^q-btn-group$/,
-    function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) =>
           `${sel} > .q-btn-item.q-btn--standard:before`,
         'z-index': '-1'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-btn-group`,
+        'box-shadow': 'none'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel} > .q-btn-group:first-child > .q-btn:first-child`,
+        'border-top-left-radius': 'inherit',
+        'border-bottom-left-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel} > .q-btn-group:not(:first-child) > .q-btn:first-child`,
+        'border-top-left-radius': '0',
+        'border-bottom-left-radius': '0'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel} > .q-btn-group:first-child > .q-btn--active`,
+        'background-color':
+          'color-mix(in oklab, var(--light-secondary-container) var(--un-bg-opacity), transparent) !important'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-btn-item`,
+        color:
+          'color-mix(in oklab, var(--light-on-surface) var(--un-text-opacity), transparent)',
+        'align-self': 'stretch'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-btn-item:not(:first-child)`,
+        'border-top-left-radius': 'var(--radius-none)',
+        'border-bottom-left-radius': 'var(--radius-none)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-btn-item:not(:last-child)`,
+        'border-top-right-radius': 'var(--radius-none)',
+        'border-bottom-right-radius': 'var(--radius-none)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-btn-item .q-badge--floating`,
+        right: 'calc(var(--spacing) * 0)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-btn-item.bg-primary`,
+        color:
+          'color-mix(in oklab, var(--light-on-primary) var(--un-text-opacity), transparent) !important',
+        'background-color':
+          'color-mix(in oklab, var(--light-primary) var(--un-bg-opacity), transparent) !important'
+      }
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel} > .q-btn-item.bg-primary`,
+        color: 'var(--q-on-primary) !important',
+        'background-color': 'var(--q-primary) !important'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel} > .q-btn-group:first-child > .q-btn--active`,
+        'background-color': 'var(--q-secondary-container) !important'
       }
     }
   ],
@@ -209,87 +247,6 @@ export const btnGroupRules = [
         width: 'auto',
         'min-width': '0',
         'max-width': '100%'
-      }
-    }
-  ],
-  [
-    /^q-btn-group$/,
-    function* (_, { symbols }) {
-      // Reference `.q-btn-group > .q-btn-group` family: a nested group contributes
-      // no elevation and only keeps the outer corners of its run.
-      yield {
-        [symbols.selector]: (sel) => `${sel} > .q-btn-group`,
-        'box-shadow': 'none'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel} > .q-btn-group:first-child > .q-btn:first-child`,
-        'border-top-left-radius': 'inherit',
-        'border-bottom-left-radius': 'inherit'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel} > .q-btn-group:not(:first-child) > .q-btn:first-child`,
-        'border-top-left-radius': '0',
-        'border-bottom-left-radius': '0'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel} > .q-btn-group:first-child > .q-btn--active`,
-        'background-color':
-          'color-mix(in oklab, var(--light-secondary-container) var(--un-bg-opacity), transparent) !important'
-      }
-      // Reference `.q-btn-group > .q-btn-item` family.
-      yield {
-        [symbols.selector]: (sel) => `${sel} > .q-btn-item`,
-        color:
-          'color-mix(in oklab, var(--light-on-surface) var(--un-text-opacity), transparent)',
-        'align-self': 'stretch'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} > .q-btn-item:not(:first-child)`,
-        'border-top-left-radius': 'var(--radius-none)',
-        'border-bottom-left-radius': 'var(--radius-none)'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} > .q-btn-item:not(:last-child)`,
-        'border-top-right-radius': 'var(--radius-none)',
-        'border-bottom-right-radius': 'var(--radius-none)'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} > .q-btn-item .q-badge--floating`,
-        right: 'calc(var(--spacing) * 0)'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} > .q-btn-item.bg-primary`,
-        color:
-          'color-mix(in oklab, var(--light-on-primary) var(--un-text-opacity), transparent) !important',
-        'background-color':
-          'color-mix(in oklab, var(--light-primary) var(--un-bg-opacity), transparent) !important'
-      }
-      // Reference `body.quasar-style-unstyled .q-btn-group`.
-      yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
-        background: 'none',
-        color: 'inherit'
-      }
-    }
-  ],
-  // Dark: a primary-filled item keeps primary contrast, and the first grouped
-  // item's active state takes the secondary container.
-  [
-    /^q-btn-group$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) =>
-          `.body--dark ${sel} > .q-btn-item.bg-primary`,
-        color: 'var(--q-on-primary) !important',
-        'background-color': 'var(--q-primary) !important'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `.body--dark ${sel} > .q-btn-group:first-child > .q-btn--active`,
-        'background-color': 'var(--q-secondary-container) !important'
       }
     }
   ]
