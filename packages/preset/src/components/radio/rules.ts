@@ -3,87 +3,13 @@ import type { Rule } from '@unocss/core'
 export const radioRules = [
   [
     /^q-radio$/,
-    () => ({
-      display: 'inline-flex',
-      'align-items': 'center',
-      cursor: 'pointer',
-      'user-select': 'none'
-    })
-  ],
-  [
-    /^q-radio__inner$/,
-    () => ({
-      display: 'flex',
-      'align-items': 'center',
-      'justify-content': 'center',
-      width: '1em',
-      height: '1em',
-      border: '2px solid var(--q-outline)',
-      'border-radius': '50%',
-      transition: 'all var(--q-duration-short) var(--q-easing-standard)'
-    })
-  ],
-  [
-    /^q-radio__inner--truthy$/,
-    () => ({
-      'border-color': 'var(--q-primary)'
-    })
-  ],
-  [
-    /^q-radio__inner--falsy$/,
-    () => ({
-      // Falsy state
-    })
-  ],
-  [
-    /^q-radio__label$/,
-    () => ({
-      'margin-left': 'var(--q-space-sm)'
-    })
-  ],
-  [
-    /^q-radio--dense$/,
-    () => ({
-      'font-size': '0.8em'
-    })
-  ],
-  [
-    /^q-radio--dark$/,
-    () => ({
-      // Dark mode
-    })
-  ],
-  [
-    /^q-radio__bg$/,
-    () => ({
-      // Background
-    })
-  ],
-  [
-    /^q-radio__native$/,
-    () => ({
-      // Native input
-    })
-  ],
-  [
-    /^q-radio__icon$/,
-    () => ({
-      'font-size': '0.6em',
-      color: 'var(--q-on-primary)'
-    })
-  ],
-  [
-    /^q-radio--dark$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-radio__inner:before`,
-        opacity: '0.32 !important'
+        display: 'inline-flex',
+        'align-items': 'center',
+        cursor: 'pointer',
+        'user-select': 'none'
       }
-    }
-  ],
-  [
-    /^q-radio$/,
-    function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) =>
           `${sel}:not(.disabled) .q-radio__inner:before`,
@@ -99,48 +25,11 @@ export const radioRules = [
         transform: 'scale3d(0, 0, 1)',
         transition: 'transform 0.22s cubic-bezier(0, 0, 0.2, 1) 0ms'
       }
-    }
-  ],
-  [
-    /^q-radio$/,
-    function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) =>
           `${sel}:not(.disabled):focus-visible .q-radio__inner:before`,
         transform: 'scale3d(1, 1, 1)'
       }
-    }
-  ],
-  [
-    /^q-radio--dense$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:not(.disabled):focus-visible .q-radio__inner:before`,
-        transform: 'scale3d(1.5, 1.5, 1)'
-      }
-    }
-  ],
-  [
-    /^q-radio__icon-container$/,
-    function* () {
-      yield { 'user-select': 'none', '-webkit-user-select': 'none' }
-    }
-  ],
-  [
-    /^q-radio__check$/,
-    function* () {
-      yield {
-        'transform-origin': '50% 50%',
-        transform: 'scale3d(0, 0, 1)',
-        transition: 'transform 0.22s cubic-bezier(0, 0, 0.2, 1) 0ms'
-      }
-    }
-  ],
-  // Dark: the outline fades to the variant role, the truthy mark keeps primary.
-  [
-    /^q-radio$/,
-    function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `.body--dark ${sel}__inner`,
         color: 'var(--q-on-surface-variant)'
@@ -154,13 +43,6 @@ export const radioRules = [
           `.body--dark ${sel}--dark .q-radio__inner--truthy`,
         color: 'var(--q-primary)'
       }
-    }
-  ],
-
-  // --- Reference parity: MD3 ring geometry and the desktop hover/focus halo ---
-  [
-    /^q-radio$/,
-    function* (_, { symbols }) {
       yield { 'vertical-align': 'middle' }
       yield {
         [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
@@ -202,7 +84,17 @@ export const radioRules = [
   ],
   [
     /^q-radio__inner$/,
-    function* () {
+    function* (_, { symbols }) {
+      yield {
+        display: 'flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        width: '1em',
+        height: '1em',
+        border: '2px solid var(--q-outline)',
+        'border-radius': '50%',
+        transition: 'all var(--q-duration-short) var(--q-easing-standard)'
+      }
       yield {
         'font-size': '40px',
         color: 'var(--q-on-surface-variant)',
@@ -214,14 +106,34 @@ export const radioRules = [
     }
   ],
   [
-    /^q-radio__icon$/,
-    function* () {
-      yield { 'font-size': '0.5em', color: 'currentColor' }
-    }
+    /^q-radio__inner--truthy$/,
+    () => ({
+      'border-color': 'var(--q-primary)'
+    })
+  ],
+  [
+    /^q-radio__inner--falsy$/,
+    () => ({
+      // Falsy state
+    })
+  ],
+  [
+    /^q-radio__label$/,
+    () => ({
+      'margin-left': 'var(--q-space-sm)'
+    })
   ],
   [
     /^q-radio--dense$/,
     function* (_, { symbols }) {
+      yield {
+        'font-size': '0.8em'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel}:not(.disabled):focus-visible .q-radio__inner:before`,
+        transform: 'scale3d(1.5, 1.5, 1)'
+      }
       // The halo grows further on dense radios, and the reference scopes these to
       // desktops only.
       yield {
@@ -259,6 +171,23 @@ export const radioRules = [
     }
   ],
   [
+    /^q-radio--dark$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-radio__inner:before`,
+        opacity: '0.32 !important'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-radio__inner`,
+        color: 'rgba(255, 255, 255, 0.7)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-radio__inner--truthy`,
+        color: 'var(--q-primary)'
+      }
+    }
+  ],
+  [
     /^q-radio__bg$/,
     function* (_, { symbols }) {
       yield {
@@ -276,30 +205,37 @@ export const radioRules = [
     }
   ],
   [
-    /^q-radio__check$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `.q-radio__inner--truthy ${sel}`,
-        transform: 'scale3d(1, 1, 1)'
-      }
-    }
-  ],
-  [
     /^q-radio__native$/,
-    function* () {
+    function* (_, { symbols }) {
       yield { width: '1px', height: '1px' }
     }
   ],
   [
-    /^q-radio--dark$/,
+    /^q-radio__icon$/,
+    // The md3 radio is an outlined circle whose dot is drawn with
+    // `currentColor`, inheriting the inner's primary; `on-primary` would make
+    // the dot the same colour as the ring's interior, i.e. invisible. The
+    // `0.6em`/`var(--q-on-primary)` pair this entry also carried was a wrong
+    // guess that the literal copy used to hide.
+    () => ({ 'font-size': '0.5em', color: 'currentColor' })
+  ],
+  [
+    /^q-radio__icon-container$/,
+    function* () {
+      yield { 'user-select': 'none', '-webkit-user-select': 'none' }
+    }
+  ],
+  [
+    /^q-radio__check$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-radio__inner`,
-        color: 'rgba(255, 255, 255, 0.7)'
+        'transform-origin': '50% 50%',
+        transform: 'scale3d(0, 0, 1)',
+        transition: 'transform 0.22s cubic-bezier(0, 0, 0.2, 1) 0ms'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-radio__inner--truthy`,
-        color: 'var(--q-primary)'
+        [symbols.selector]: (sel) => `.q-radio__inner--truthy ${sel}`,
+        transform: 'scale3d(1, 1, 1)'
       }
     }
   ]
