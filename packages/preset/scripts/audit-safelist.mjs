@@ -57,14 +57,18 @@ const styled = new Set(
 )
 
 const known = new Set(knownClasses)
-const derived = new Set([
-  ...globalClasses,
-  ...Object.values(componentClasses).flat()
-])
+// Only a component's own vocabulary is content-derivable: the globals
+// (`desktop-only`, `body--dark`, the plugin classes) are applied whatever the
+// source says, so no extractor can supply them and they belong in the safelist.
+const derived = new Set(Object.values(componentClasses).flat())
+const generatedGlobals = new Set(globalClasses)
 
 const derivable = quasarSafelist.filter((c) => known.has(c) && derived.has(c))
 const needed = quasarSafelist.filter((c) => known.has(c) && !derived.has(c))
-const ours = quasarSafelist.filter((c) => !known.has(c) && styled.has(c))
+const ours = quasarSafelist.filter(
+  (c) => !known.has(c) && styled.has(c) && !generatedGlobals.has(c)
+)
+const globals = quasarSafelist.filter((c) => generatedGlobals.has(c))
 const dead = quasarSafelist.filter((c) => !known.has(c) && !styled.has(c))
 
 const quasarShaped = (list) =>
@@ -77,6 +81,7 @@ const rows = [
   ['  derivable (drop — the extractor covers them)', derivable.length],
   ['  needed (shared Quasar classes)', needed.length],
   ['  ours (the preset styles them)', ours.length],
+  ['  generated globals (from Quasar)', globals.length],
   ['  DEAD (select no rule, name no Quasar class)', dead.length],
   ['    of the dead, Quasar-shaped (scraper gap?)', shapedDead.length],
   ['    of the dead, plain', plainDead.length]

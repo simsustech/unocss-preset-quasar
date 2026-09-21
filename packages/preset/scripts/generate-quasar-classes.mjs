@@ -201,9 +201,11 @@ const componentsDir = path.join(quasarRoot, 'src', 'components')
 for (const entry of fs.readdirSync(componentsDir, { withFileTypes: true })) {
   if (!entry.isDirectory()) continue
   const root = `q-${entry.name}`
-  const classes = classesIn(walk(path.join(componentsDir, entry.name))).filter(
-    (c) => c === root || c.startsWith(`${root}--`) || c.startsWith(`${root}__`)
-  )
+  // Every class the component's own files mention, not only those that carry the
+  // component's prefix: Quasar composes shared ones too (`q-btn-item`,
+  // `q-focus-helper`, `q-anchor--skip`), and a file that names a class is
+  // evidence the component applies it.
+  const classes = classesIn(walk(path.join(componentsDir, entry.name)))
   if (classes.length > 0) components[root] = classes
 }
 

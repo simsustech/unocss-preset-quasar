@@ -55,10 +55,18 @@ export function createTokenPreflight(params: {
       // 2b. Shadow color primitives + computed shadow tokens on body,
       // mirroring quasar.css so var(--q-shadow-*) references resolve
       parts.push(renderShadowBlock('body'))
-      // 2c. `--q-skeleton-speed`: quasar.css ships 1500ms and QSkeleton's JS
-      // overrides it, so the default has to be stated or the declaration (and
-      // with it the shimmer animation) has no duration.
-      parts.push('body {\n  --q-skeleton-speed: 1500ms;\n}')
+      // 2c. Quasar variables our rules name that quasar.css carries defaults for.
+      // They have to be stated — this preset replaces quasar.css — or the
+      // declarations using them are invalid and the property falls back to its
+      // initial value: no shimmer on a skeleton, no motion on a transition.
+      // Components whose JS sets them at runtime still override these.
+      parts.push(
+        'body {\n' +
+          '  --q-skeleton-speed: 1500ms;\n' +
+          '  --q-transition-duration: .3s;\n' +
+          '  --q-transition-easing: cubic-bezier(0.215, 0.61, 0.355, 1);\n' +
+          '}'
+      )
       // 3. Per-style overrides (only diffs from default)
       for (const style of params.styles) {
         const diff = diffTokens(params.defaultStyle.tokens, style.tokens)

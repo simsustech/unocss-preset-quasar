@@ -599,9 +599,27 @@ export async function buildParityReport() {
   const { quasarSafelist } = await import('../src/safelist.js')
 
   const gen = await createGenerator({ presets: [QuasarPreset({})] })
-  const { css } = await gen.generate(quasarSafelist.join(' '), {
-    preflights: true
-  })
+  // Content is the safelist *plus* a mention of every component: the classes a
+  // component composes at runtime reach the sheet through
+  // `quasarComponentExtractor` (derived from Quasar's own source) rather than
+  // from a hand-written safelist entry, so the gate has to give it the same
+  // signal a build gets from markup.
+  const { componentClasses } =
+    await import('../src/generated/quasar-classes.js')
+  const componentMarkers = Object.keys(componentClasses).map((root) =>
+    root
+      .split('-')
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join('')
+  )
+  const { css } = await gen.generate(
+    [
+      ...quasarSafelist,
+      ...Object.keys(componentClasses),
+      ...componentMarkers
+    ].join(' '),
+    { preflights: true }
+  )
 
   const sheet = parseSheet(css)
   const emittedVars = collectScopedVars(sheet.rules)
