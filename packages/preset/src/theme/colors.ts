@@ -36,8 +36,25 @@ export interface ColorBlock {
  *   lowest  10, low  12, base  14, high  16, highest  17
  *   dim     6,  bright 24
  */
+/**
+ * The MD3 surface-container / dim / bright tokens the library's `Scheme` does
+ * not expose.
+ *
+ * They come from the **neutral** palette at fixed tones, not from the primary:
+ * surfaces are near-neutral in MD3 (chroma ~1–2), and deriving them from the
+ * source colour's hue *and chroma* tints every card, bar, menu and dialog with
+ * the primary's saturation — `#f3eaff` where the reference has `#f2ecf1`.
+ *
+ * MD3 tones, per the Material 3 colour spec:
+ *   light  lowest 100, low 96, base 94, high 92, highest 90, dim 87, bright 98
+ *   dark   lowest 4,   low 10, base 12, high 17, highest 22, dim 6,  bright 24
+ */
+interface NeutralPalette {
+  tone(tone: number): number
+}
+
 function surfaceContainerTokens(
-  surfaceArgb: number,
+  neutral: NeutralPalette,
   isDark: boolean
 ): {
   surfaceDim: string
@@ -48,31 +65,27 @@ function surfaceContainerTokens(
   surfaceContainerHigh: string
   surfaceContainerHighest: string
 } {
-  const hct = Hct.fromInt(surfaceArgb)
-  const hue = hct.hue
-  const chroma = hct.chroma
-
   const tones = isDark
     ? {
         dim: 6,
         bright: 24,
-        lowest: 10,
-        low: 12,
-        base: 14,
-        high: 16,
-        highest: 17
+        lowest: 4,
+        low: 10,
+        base: 12,
+        high: 17,
+        highest: 22
       }
     : {
         dim: 87,
         bright: 98,
-        lowest: 98,
+        lowest: 100,
         low: 96,
         base: 94,
         high: 92,
         highest: 90
       }
 
-  const at = (tone: number) => hexFromArgb(Hct.from(hue, chroma, tone).toInt())
+  const at = (tone: number) => hexFromArgb(neutral.tone(tone))
 
   return {
     surfaceDim: at(tones.dim),
@@ -96,8 +109,8 @@ export function generateColorTokens(sourceColor: string): ColorBlock {
   const harmonize = (designColor: string) =>
     hexFromArgb(Blend.harmonize(argbFromHex(designColor), argb))
 
-  const lightSurface = surfaceContainerTokens(light.primary, false)
-  const darkSurface = surfaceContainerTokens(dark.primary, true)
+  const lightSurface = surfaceContainerTokens(theme.palettes.neutral, false)
+  const darkSurface = surfaceContainerTokens(theme.palettes.neutral, true)
 
   return {
     light: {

@@ -33,9 +33,12 @@ export function createTokenPreflight(params: {
           'light'
         )
       )
-      parts.push(
-        renderColorBlock(':root', params.colors.dark, undefined, '', 'dark')
-      )
+      // The dark block emits ONLY the `--dark-*` roles: `--q-*` is the light
+      // palette's alias set and re-emitting it from the dark palette here would
+      // clobber every light value (`--q-surface-container-low` became `#1c1b1e`,
+      // so cards rendered near-black in light mode). The dark values reach
+      // `--q-*` through `body.body--dark` and the `-dark` infix block below.
+      parts.push(renderRoleBlock(':root', params.colors.dark, 'dark'))
       // 1a. Shape roles, as the md3 entry states them.
       parts.push(renderShapeRoles(':root', params.defaultStyle.tokens))
       // 2. Default style tokens on body (NOT :root: runtime setThemeColors
@@ -103,6 +106,24 @@ function renderColorBlock(
  * default style entry's corner scale. The `radius*` aliases are named separately
  * so they are not emitted twice.
  */
+/**
+ * The scheme roles alone (`--light-*` / `--dark-*`), with no `--q-*` aliases.
+ *
+ * Used for the dark palette, which must not touch the `--q-*` names: those are
+ * the light aliases, and writing the dark values there makes every light-mode
+ * component render with dark surfaces.
+ */
+function renderRoleBlock(
+  selector: string,
+  colors: TokenBlock['color'],
+  prefix: 'light' | 'dark'
+): string {
+  const lines: string[] = []
+  for (const [key, value] of Object.entries(colors)) {
+    lines.push(`  --${prefix}-${kebab(key)}: ${value};`)
+  }
+  return `${selector} {\n${lines.join('\n')}\n}`
+}
 function renderShapeRoles(selector: string, tokens: TokenCategories): string {
   const shape = asRecord(asRecord(tokens).shape ?? {})
   const lines: string[] = []
