@@ -7,9 +7,11 @@ import {
 } from 'unocss'
 import type { WebFontsOptions } from '@unocss/preset-web-fonts'
 import presetWind4 from '@unocss/preset-wind4'
-import type { Rule } from '@unocss/core'
+import type { Preset, Rule } from '@unocss/core'
 import { generateTheme } from './theme/quasar-theme.js'
 import { mergeDuplicateRules } from './rules/merge.js'
+import { animatedUno } from 'animated-unocss'
+import { quasarKeyframesCss } from './core/motion/keyframes.js'
 import { generateColorTokens } from './theme/colors.js'
 import { createTokenPreflight } from './theme/preflight.js'
 import { builtinStyles } from './theme/index.js'
@@ -126,6 +128,10 @@ export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
         dark: { light: '.body--light', dark: '.body--dark' }
       }),
       presetIcons({}),
+      // animated-unocss brings the `une*` keyframes and the `.animated-*`
+      // classes that name them; the reference build was made with it in place.
+      animatedUno() as unknown as Preset,
+      presetIcons({}),
       presetWebFonts(
         options?.presetWebFonts ?? {
           provider: 'bunny',
@@ -144,7 +150,7 @@ export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
       // so the reference emits them unconditionally — here, once, as text.
       {
         getCSS: () =>
-          `${responsiveVisibilityCss}\n${platformMediaCss}\n${layoutMediaCss}\n${tooltipMediaCss}\n${notificationMediaCss}\n${dialogMediaCss}\n${dialogPlatformCss}`
+          `${responsiveVisibilityCss}\n${platformMediaCss}\n${layoutMediaCss}\n${tooltipMediaCss}\n${notificationMediaCss}\n${dialogMediaCss}\n${dialogPlatformCss}\n${quasarKeyframesCss}`
       }
     ],
     // Rule order matters twice over:

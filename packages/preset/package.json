@@ -75,6 +75,7 @@
     "@unocss/preset-web-fonts": "66.10.1",
     "@unocss/preset-wind": "^66.10.1",
     "@unocss/preset-wind4": "66.10.1",
+    "animated-unocss": "^0.0.6",
     "unocss": "66.10.1"
   },
   "devDependencies": {
