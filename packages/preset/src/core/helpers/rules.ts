@@ -64,29 +64,71 @@ export const helpersRules: ComponentRule[] = [
     '-moz-appearance': 'textfield'
   })),
 
+  // --- Electron drag handles ---
+  // Reference scopes these to `body.electron`: the frameless-window drag region
+  // is the element's own `-webkit-app-region`, and any interactive child opts
+  // back out so it stays clickable.
+  [
+    /^q-electron-drag$/,
+    function* (_, { symbols }: any): Generator<any, void, any> {
+      yield {
+        [symbols.selector]: (sel: string) => `body.electron ${sel}`,
+        '-webkit-user-select': 'none',
+        '-webkit-app-region': 'drag'
+      }
+      yield {
+        [symbols.selector]: (sel: string) => `body.electron ${sel} .q-btn-item`,
+        '-webkit-app-region': 'no-drag'
+      }
+    }
+  ],
+  [
+    /^q-electron-drag--exception$/,
+    function* (_, { symbols }: any): Generator<any, void, any> {
+      yield {
+        [symbols.selector]: (sel: string) => `body.electron ${sel}`,
+        '-webkit-app-region': 'no-drag'
+      }
+    }
+  ],
+
   // --- Link ---
+  // Reference `.q-link { outline-style: var(--un-outline-style); outline-width: 0px;
+  // text-decoration: none }` — the longhands, not the `outline` shorthand, so the
+  // reset lines up with every other focusable surface.
   rule(/^q-link$/, () => ({
-    outline: 0,
+    'outline-style': 'var(--un-outline-style)',
+    'outline-width': '0px',
     'text-decoration': 'none'
   })),
   rule(/^q-link--focusable:focus-visible$/, () => ({
     outline: 'auto'
   })),
 
-  // --- Focus helpers (keyboard focus rings; plan requires focus screenshots) ---
-  // Source: quasar.css `.q-focusable:focus-visible > .q-focus-helper` group.
-  // Synthetic owning token `q-focus-helper` (safelisted): Quasar adds these
-  // classes dynamically, so extractor output can't be relied upon.
+  // --- Focus helpers ---
+  //
+  // Reference shape (transcribed from `specs/reference/raw/reference-bundle.css.txt`):
+  // the *geometry* of the helper is desktop-scoped (`body.desktop .q-focus-helper`),
+  // while the bare class only resets the outline through the wind4 longhands. The
+  // preset previously emitted the geometry unconditionally, so the reference's
+  // `body.desktop …` selectors were missing and the bare `.q-focus-helper` was
+  // missing `outline-style`/`outline-width`.
+  //
+  // `background: transparent` is kept on the bare class as an extra: it is not in
+  // the reference, but without it the spans paint `currentColor` over their full
+  // 100%x100% box (stray pills in toolbars). Extras are not part of the gate's
+  // contract and this one is load-bearing for rendering.
   [
     /^q-focus-helper$/,
     function* (_, { symbols }: any): Generator<any, void, any> {
-      // Base: invisible absolute overlay (quasar.css:12073). Without this,
-      // helper spans render as visible blocks (stray pills in toolbars).
-      // background:transparent is load-bearing — currentColor here tints
-      // every hoverable/clickable surface on hover.
-      // helper spans render as visible blocks (stray pills in toolbars).
       yield {
         [symbols.selector]: (sel: string) => `${sel}`,
+        'outline-style': 'var(--un-outline-style)',
+        'outline-width': '0px',
+        background: 'transparent'
+      }
+      yield {
+        [symbols.selector]: (sel: string) => `body.desktop ${sel}`,
         position: 'absolute',
         top: 0,
         left: 0,
@@ -94,36 +136,142 @@ export const helpersRules: ComponentRule[] = [
         height: '100%',
         'pointer-events': 'none',
         'border-radius': 'inherit',
-        background: 'transparent',
         opacity: 0,
-        outline: 0
+        transition:
+          'background-color 0.3s cubic-bezier(0.25, 0.8, 0.5, 1), opacity 0.4s cubic-bezier(0.25, 0.8, 0.5, 1)'
+      }
+      yield {
+        [symbols.selector]: (sel: string) => `body.desktop ${sel}--round`,
+        'border-radius': '50%'
+      }
+      yield {
+        [symbols.selector]: (sel: string) => `body.desktop ${sel}--rounded`,
+        'border-radius': '4px'
       }
       // Hover ring: NOT `opacity: 0.15` alone — with no :before/:after overlay
       // the helper paints currentColor over the FULL 100%x100% box, which is
       // what turned whole pages purple on hover. Squash the tints onto the
-      // pseudo-elements like quasar.css (12123-12132) and keep the base flat.
+      // pseudo-elements like quasar.css and keep the base flat.
+      yield {
+        [symbols.selector]: (sel: string) => `body.desktop ${sel}:before`,
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        opacity: 0,
+        'border-radius': 'inherit',
+        transition:
+          'background-color 0.3s cubic-bezier(0.25, 0.8, 0.5, 1), opacity 0.6s cubic-bezier(0.25, 0.8, 0.5, 1)'
+      }
+      yield {
+        [symbols.selector]: (sel: string) => `body.desktop ${sel}:after`,
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        opacity: 0,
+        'border-radius': 'inherit',
+        transition:
+          'background-color 0.3s cubic-bezier(0.25, 0.8, 0.5, 1), opacity 0.6s cubic-bezier(0.25, 0.8, 0.5, 1)'
+      }
+    }
+  ],
+  // --- Focusable / hoverable / manual-focusable ---
+  //
+  // The reference resets each wrapper's outline through the wind4 longhands and
+  // then drives the helper's tint from the *wrapper's* state. Quasar's runtime
+  // toggles `:focus-visible` where the reference bundle still uses `:focus`, so
+  // both states are emitted for the focusable pair.
+  //
+  // One matcher per regex: the two states share a single generator, yields are
+  // additive, so no regex is registered twice (a duplicate would silently shadow
+  // the earlier matcher).
+  [
+    /^q-focusable$/,
+    function* (_, { symbols }: any): Generator<any, void, any> {
+      yield {
+        [symbols.selector]: (sel: string) => `${sel}`,
+        'outline-style': 'var(--un-outline-style)',
+        'outline-width': '0px'
+      }
+      for (const state of [':focus', ':focus-visible']) {
+        yield {
+          [symbols.selector]: (sel: string) =>
+            `body.desktop ${sel}${state} > .q-focus-helper`,
+          background: 'currentColor',
+          opacity: 0.15
+        }
+        yield {
+          [symbols.selector]: (sel: string) =>
+            `body.desktop ${sel}${state} > .q-focus-helper:after`,
+          opacity: 0.4
+        }
+        yield {
+          [symbols.selector]: (sel: string) =>
+            `body.desktop ${sel}${state} > .q-focus-helper:before`,
+          opacity: 0.1
+        }
+      }
+    }
+  ],
+  [
+    /^q-hoverable$/,
+    function* (_, { symbols }: any): Generator<any, void, any> {
+      yield {
+        [symbols.selector]: (sel: string) => `${sel}`,
+        'outline-style': 'var(--un-outline-style)',
+        'outline-width': '0px'
+      }
       yield {
         [symbols.selector]: (sel: string) =>
-          `.q-hoverable:hover > ${sel}, .q-focusable:focus-visible > ${sel}, .q-manual-focusable--focused > ${sel}`,
+          `body.desktop ${sel}:hover > .q-focus-helper`,
         background: 'currentColor',
         opacity: 0.15
       }
       yield {
         [symbols.selector]: (sel: string) =>
-          `.q-hoverable:hover > ${sel}:before, .q-focusable:focus-visible > ${sel}:before, .q-manual-focusable--focused > ${sel}:before`,
-        background: '#000',
-        opacity: 0.1
-      }
-      yield {
-        [symbols.selector]: (sel: string) =>
-          `.q-hoverable:hover > ${sel}:after, .q-focusable:focus-visible > ${sel}:after, .q-manual-focusable--focused > ${sel}:after`,
-        background: '#fff',
+          `body.desktop ${sel}:hover > .q-focus-helper:after`,
         opacity: 0.4
       }
       yield {
         [symbols.selector]: (sel: string) =>
-          `${sel}, .q-focusable, .q-manual-focusable, .q-hoverable`,
-        outline: 0
+          `body.desktop ${sel}:hover > .q-focus-helper:before`,
+        opacity: 0.1
+      }
+    }
+  ],
+  [
+    /^q-manual-focusable$/,
+    function* (_, { symbols }: any): Generator<any, void, any> {
+      yield {
+        [symbols.selector]: (sel: string) => `${sel}`,
+        'outline-style': 'var(--un-outline-style)',
+        'outline-width': '0px'
+      }
+    }
+  ],
+  [
+    /^q-manual-focusable--focused$/,
+    function* (_, { symbols }: any): Generator<any, void, any> {
+      yield {
+        [symbols.selector]: (sel: string) =>
+          `body.desktop ${sel} > .q-focus-helper`,
+        background: 'currentColor',
+        opacity: 0.15
+      }
+      yield {
+        [symbols.selector]: (sel: string) =>
+          `body.desktop ${sel} > .q-focus-helper:after`,
+        opacity: 0.4
+      }
+      yield {
+        [symbols.selector]: (sel: string) =>
+          `body.desktop ${sel} > .q-focus-helper:before`,
+        opacity: 0.1
       }
     }
   ]

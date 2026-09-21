@@ -364,9 +364,14 @@ export const quasarSafelist: string[] = [
 
   // --- Focusable helpers ---
   'q-focus-helper',
+  'q-focus-helper--round',
+  'q-focus-helper--rounded',
   'q-focusable',
   'q-hoverable',
   'q-manual-focusable',
+  // Electron frameless-window drag handles (the rules are `body.electron`-scoped).
+  'q-electron-drag',
+  'q-electron-drag--exception',
 
   // --- Dark mode ---
   // Synthetic token: body--dark rule emits dark page colors (no preflight).

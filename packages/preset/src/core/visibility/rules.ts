@@ -78,14 +78,12 @@ export const visibilityRules: ComponentRule[] = [
 
   // --- Z-index ---
   rule(/^z-top$/, () => ({ 'z-index': 7000 })),
-  rule(/^z-max$/, () => ({ 'z-index': 9998 })),
+  rule(/^z-max$/, () => ({ 'z-index': 9998 }))
 
-  // --- Focusable helpers (outline reset) ---
-  // NOTE: no /^q-focus-helper$/ here — core/helpers owns that matcher (one
-  // rule per regex; duplicates drop). Outline for the helper lives there.
-  rule(/^q-focusable$/, () => ({ outline: 0 })),
-  rule(/^q-manual-focusable$/, () => ({ outline: 0 })),
-  rule(/^q-hoverable$/, () => ({ outline: 0 }))
+  // --- Focusable helpers ---
+  // `q-focusable`, `q-hoverable`, `q-manual-focusable` and `q-focus-helper` are
+  // owned by `core/helpers/rules.ts` (the focus family lives in one file, and
+  // UnoCSS silently drops a second matcher for the same regex).
 
   // NOTE: the QResponsive component rules (`.q-responsive`, `__content`,
   // `__filler`, and the unstyled style override) live in

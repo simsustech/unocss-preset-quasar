@@ -156,7 +156,12 @@ export const dialogRules = [
   [
     /^q-dialog-plugin$/,
     function* (_, { symbols }) {
-      yield { width: '400px' }
+      yield {
+        width: '400px',
+        // Reference `.q-dialog-plugin { min-width: 280px }`: below that the
+        // action row wraps.
+        'min-width': '280px'
+      }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} .q-card__section + .q-card__section`,
@@ -174,6 +179,18 @@ export const dialogRules = [
     /^q-dialog-plugin--progress$/,
     function* () {
       yield { 'text-align': 'center' }
+    }
+  ],
+  [
+    // QBottomSheet renders `q-dialog q-bottom-sheet`; the reference overrides the
+    // unstyled entry for it, and that override has no other owner in `src/`.
+    /^q-bottom-sheet$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
     }
   ]
 ] as Rule[]

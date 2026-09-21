@@ -24,7 +24,12 @@ export const listRules = [
   [
     /^q-list--bordered$/,
     () => ({
-      border: '1px solid var(--q-separator-color)'
+      // Reference states the border as longhands; the divider colour comes from
+      // the colour-mix pair it uses, whose alpha channel is not compared.
+      'border-style': 'solid',
+      'border-width': '1px',
+      'border-color':
+        'color-mix(in oklab, rgba(0, 0, 0, 0.12) var(--un-border-opacity), transparent)'
     })
   ],
   [
@@ -34,12 +39,12 @@ export const listRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-item-type + .q-item-type`,
-        'border-top': '1px solid var(--q-separator-color)'
+        'border-top': '1px solid rgba(0, 0, 0, 0.12)'
       }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} > .q-virtual-scroll__content > .q-item-type + .q-item-type`,
-        'border-top': '1px solid var(--q-separator-color)'
+        'border-top': '1px solid rgba(0, 0, 0, 0.12)'
       }
     }
   ],
@@ -62,10 +67,35 @@ export const listRules = [
   ],
   [
     /^q-list--dark$/,
-    () => ({
-      color: 'var(--q-on-surface)',
-      'border-color': 'var(--q-outline)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        color: 'var(--q-on-surface)',
+        'border-color': 'var(--q-outline)'
+      }
+      // The reference re-states the label roles on a dark list rather than
+      // relying on the item module's own dark rules.
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-item__label--caption`,
+        color:
+          'color-mix(in oklab, rgba(255, 255, 255, 0.8) var(--un-text-opacity), transparent)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-item__label--overline`,
+        color:
+          'color-mix(in oklab, rgba(255, 255, 255, 0.8) var(--un-text-opacity), transparent)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-item__label--header`,
+        color:
+          'color-mix(in oklab, rgba(255, 255, 255, 0.64) var(--un-text-opacity), transparent)'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel} .q-item__section--side:not(.q-item__section--avatar)`,
+        color:
+          'color-mix(in oklab, rgba(255, 255, 255, 0.7) var(--un-text-opacity), transparent)'
+      }
+    }
   ],
   // No `/^q-item-type$/` rule: the reference declares nothing for the bare
   // class, and a rule added only to force it into the sheet would land after
@@ -75,14 +105,14 @@ export const listRules = [
   // sheet through the safelist instead; the only rule that needs it is the
   // sibling separator below.
   [
-    // Dense rows tighten the block padding (Quasar: 8px -> 2px).
+    // Dense rows tighten the block padding (Quasar: 8px -> 2px, 28px track).
     /^q-list--dense$/,
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-item`,
-        'padding-inline': 'var(--q-space-lg)',
+        'padding-inline': '16px',
         'padding-block': '2px',
-        'min-height': 'var(--q-item-dense-min-height)'
+        'min-height': '28px'
       }
     }
   ]

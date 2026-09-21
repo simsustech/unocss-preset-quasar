@@ -3,17 +3,38 @@ import type { Rule } from '@unocss/core'
 export const spinnerRules = [
   [
     /^q-spinner$/,
-    () => ({
-      display: 'inline-flex',
-      'align-items': 'center',
-      'justify-content': 'center'
-    })
+    function* (_, { symbols }) {
+      yield {
+        display: 'inline-flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        // Reference `.q-spinner { vertical-align: middle }`.
+        'vertical-align': 'middle'
+      }
+      // Reference `body.quasar-style-unstyled .q-spinner`.
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+    }
   ],
   [
     /^q-spinner-mat$/,
-    () => ({
-      // Material spinner
-    })
+    function* (_, { symbols }) {
+      // Reference `.q-spinner-mat { transform-origin: center center; animation:
+      // q-spin 2s linear infinite }` and `.q-spinner-mat .path { animation:
+      // q-mat-dash 1.5s ease-in-out infinite }`. The keyframes themselves are
+      // step 9's; they are declared here because this module owns the animation.
+      yield {
+        'transform-origin': 'center center',
+        animation: 'q-spin 2s linear infinite'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .path`,
+        animation: 'q-mat-dash 1.5s ease-in-out infinite'
+      }
+    }
   ],
   [
     /^q-spinner--gears$/,

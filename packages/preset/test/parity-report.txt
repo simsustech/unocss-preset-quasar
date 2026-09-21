@@ -1,6 +1,6 @@
-=== PARITY: 1620/2401 (67%) ===
+=== PARITY: 1667/2401 (69%) ===
 (2441 in fixture; 40 env-gated)
-Missing 781 selectors:
+Missing 734 selectors:
   ::backdrop
   :root
   :host
@@ -58,40 +58,24 @@ Missing 781 selectors:
   img.responsive
   body.quasar-style-unstyled .q-btn
   body.quasar-style-unstyled .q-card
-  body.quasar-style-unstyled .q-chip
   body.quasar-style-unstyled .q-bar
-  body.quasar-style-unstyled .q-expansion-item
   body.quasar-style-unstyled .q-stepper
   body.quasar-style-unstyled .q-carousel
-  body.quasar-style-unstyled .q-slide-item
-  body.quasar-style-unstyled .q-knob
   body.quasar-style-unstyled .q-linear-progress
-  body.quasar-style-unstyled .q-circular-progress
-  body.quasar-style-unstyled .q-spinner
   body.quasar-style-unstyled .q-pagination
-  body.quasar-style-unstyled .q-btn-toggle
   body.quasar-style-unstyled .q-btn-dropdown
   body.quasar-style-unstyled .q-btn-group
-  body.quasar-style-unstyled .q-header
-  body.quasar-style-unstyled .q-footer
   body.quasar-style-unstyled .q-toolbar
   body.quasar-style-unstyled .q-tooltip
   body.quasar-style-unstyled .q-menu
   body.quasar-style-unstyled .q-dialog
-  body.quasar-style-unstyled .q-bottom-sheet
   body.quasar-style-unstyled .q-uploader
   body.quasar-style-unstyled .q-table
   body.quasar-style-unstyled .q-tree
   body.quasar-style-unstyled .q-timeline
   body.quasar-style-unstyled .q-editor
   body.quasar-style-unstyled .q-color-picker
-  body.quasar-style-unstyled .q-markup-table
   body.quasar-style-unstyled .q-img
-  body.quasar-style-unstyled .q-inner-loading
-  body.quasar-style-unstyled .q-separator
-  body.quasar-style-unstyled .q-video
-  body.quasar-style-unstyled .q-intersection
-  body.quasar-style-unstyled .q-virtual-scroll
   [aria-busy=true]
   [aria-controls]
   [aria-disabled=true]
@@ -167,7 +151,6 @@ Missing 781 selectors:
   .lt-lg
   .lg
   .lt-xl
-  [dir=rtl] .q-breadcrumbs__separator .q-icon
   body.platform-android:not(.native-mobile) .q-dialog__inner--minimized > div
   .q-dialog__inner--top > div
   .q-dialog__inner--bottom > div
@@ -307,9 +290,6 @@ Missing 781 selectors:
   .q-bar--dense .q-btn
   .q-bar--standard>div
   .q-uploader__file .q-circular-progress
-  .q-chip .q-avatar
-  .q-chip--dense .q-avatar
-  .q-chip--dense .q-chip__icon
   .q-img__loading .q-spinner
   .q-table tbody td
   .q-table th
@@ -325,13 +305,8 @@ Missing 781 selectors:
   .q-timeline--dark
   .q-uploader__file--img .q-circular-progress
   .body--dark .text-primary
-  .q-list--dark .q-item__section--side:not(.q-item__section--avatar)
   .q-stepper--dark .q-stepper__dot span
   .q-editor--dark
-  .q-list--dark .q-item__label--caption
-  .q-list--dark .q-item__label--overline
-  .q-list--dark .q-item__label--header
-  .q-loading__box
   .q-stepper--dark .q-stepper__tab--disabled
   .q-stepper--dark .q-stepper__tab--disabled .q-stepper__label
   .q-table--dark tbody tr.selected td
@@ -340,7 +315,6 @@ Missing 781 selectors:
   .q-uploader--dark .q-uploader__overlay
   .body--dark .text-accent
   .body--dark .text-secondary
-  .q-chip--dark .q-chip__icon
   .q-stepper--vertical .q-stepper__title
   .q-carousel .q-carousel__thumbnail
   .q-editor .q btn
@@ -349,7 +323,6 @@ Missing 781 selectors:
   .q-pagination input::-webkit-outer-spin-button
   .q-carousel__navigation .q-btn
   .q-editor__toolbar-group
-  .q-loading__message
   .q-stepper--vertical .q-stepper__dot
   .q-bar>.q-btn
   .q-bar>.q-icon
@@ -363,8 +336,6 @@ Missing 781 selectors:
   .q-btn--dense .on-left
   .q-btn--dense .on-right
   .q-btn-group--push__> .q-btn--push.q-btn--actionable.q-btn--active__.q-btn__cont
-  .q-chip--dense .q-chip__icon--left
-  .q-chip--dense .q-chip__icon--remove
   .q-uploader__file + .q-uploader__file
   .q-pagination__content > .q-btn
   .q-pagination__content > .q-input
@@ -395,7 +366,6 @@ Missing 781 selectors:
   .q-color-picker__alpha .q-slider__track-container
   .q-timeline__heading:first-child .q-timeline__heading-title
   .q-tree__node--parent
-  .q-separator--spaced + .q-item__label--header
   .q-timeline__entry--icon .q-timeline__subtitle
   .q-stepper--vertical .q-stepper__step-inner
   .q-stepper--vertical .q-stepper__step:last-child .q-stepper__step-inner
@@ -411,7 +381,6 @@ Missing 781 selectors:
   .q-uploader__file--img .q-uploader__file-header
   .q-pagination input
   .disabled *
-  .q-knob--editable
   .q-uploader__dnd
   .q-field__nativeinput:focus
   .q-field__nativetextarea:focus
@@ -458,7 +427,6 @@ Missing 781 selectors:
   .q-dialog__inner--right:not(.q-dialog__inner--animating)>div
   .q-card > div:not(.q--avoid-card-border)
   .q-card > img:not(.q--avoid-card-border)
-  .q-chip--square .q-avatar
   .q-dialog__inner--bottom:not(.q-dialog__inner--animating)>div
   .q-editor>div:first-child
   .q-stepper__header
@@ -473,8 +441,6 @@ Missing 781 selectors:
   .q-checkbox__inner--indet q-checkbox__bg
   .q-dialog__inner>.q-card
   .q-editor__toolbar-group+.q-editor__toolbar-group:before
-  .q-loading__backdrop
-  .q-separator--dark
   .q-splitter--dark .q-splitter__separator
   .q-stepper--dark .q-stepper__tab--disabled .q-stepper__dot
   .q-stepper__label
@@ -502,21 +468,15 @@ Missing 781 selectors:
   .q-splitter--horizontal > .q-splitter__panel
   .q-btn-group--spread__> .q-btn-group > .q-btn-item:not(.q-btn-dropdown__arrow-co
   .q-table--grid .q-table__grid-content
-  .q-header .q-toolbar__title
   .q-table__top .q-table__control
   .q-splitter--vertical > .q-splitter__panel
   .q-checkbox--dense q-checkbox__bg
   .q-splitter__panel > .q-splitter
-  .q-video embed
-  .q-video iframe
-  .q-video object
   .q-dialog__inner>.q-card>.q-card__actions .q-btn--rectangle
   .q-dialog__inner--fullheight>div
   .q-dialog__inner--fullwidth>div
   .q-dialog__inner--minimized>div
   .q-table__bottom .q-table__control
-  .q-panel
-  .q-panel>div
   .q-splitter--horizontal > .q-splitter__separator
   .q-splitter--vertical > .q-splitter__separator
   .q-stepper__header--standard-labels .q-stepper__tab
@@ -532,7 +492,6 @@ Missing 781 selectors:
   .q-timeline__entry--icon .q-timeline__dot
   .q-tree__node--parent> .q-tree__node-header:before
   .q-btn-group--outline > .q-separator
-  .q-chip--selected .q-avatar
   .q-stepper--horizontal .q-stepper__tab:last-child .q-stepper__dot:after
   .q-stepper--horizontal .q-stepper__tab:last-child .q-stepper__label:after
   .q-stepper--vertical .q-stepper__step:last-child .q-stepper__dot:after
@@ -554,11 +513,9 @@ Missing 781 selectors:
   .q-table--no-wrap th
   .q-editor__content pre
   .q-card:not(.disabled):hover
-  .q-circular-progress--indeterminate .q-circular-progress__svg
   .q-linear-progress__model
   .q-linear-progress--reverse .q-linear-progress__model
   .q-linear-progress--reverse .q-linear-progress__track
-  .q-spinner-mat
   .q-btn--push.q-btn--actionable:active
   .q-btn--push.q-btn--actionable.q-btn--active
   .q-checkbox__inner--indet q-checkbox__indet
@@ -566,7 +523,6 @@ Missing 781 selectors:
   .q-checkbox:not(.disabled):focus q-checkbox__inner:before
   .q-linear-progress__model--indeterminate
   .hide-scrollbar
-  .q-avatar img:not(.q-icon):not(.q-img__image)
   .q-btn-group > .q-btn-group
   .q-btn-group--outline
   .q-btn--push.q-btn--actionable
@@ -593,8 +549,6 @@ Missing 781 selectors:
   .q-timeline h6
   .q-tree--dark .q-tree__node-header-content
   .q-btn-group > .q-btn-item .q-badge--floating
-  .q-footer .q-layout__shadow
-  .q-header .q-layout__shadow
   .q-splitter--horizontal > .q-splitter__separator > div
   .q-splitter--vertical > .q-splitter__separator > div
   .q-table--grid .q-table__linear-progress
@@ -605,7 +559,6 @@ Missing 781 selectors:
   .q-timeline__heading
   .q-stepper--horizontal .q-stepper__tab
   .q-stepper--vertical .q-stepper__step
-  .q-spinner-mat .path
   .q-editor--dark
   .q-editor--dark .q-editor__content hr
   .q-editor--dark .q-editor__toolbar
@@ -788,7 +741,7 @@ Missing 781 selectors:
   table: 71
   stepper: 35
   tree: 32
-  btn: 28
+  btn: 27
   dialog: 17
   editor: 17
   uploader: 13
@@ -796,34 +749,14 @@ Missing 781 selectors:
   splitter: 12
   card: 11
   bar: 10
-  chip: 9
   carousel: 7
   checkbox: 7
   pagination: 6
   linear: 5
   img: 5
-  video: 4
-  list: 4
-  spinner: 3
-  header: 3
   color: 3
-  separator: 3
   layout: 3
-  loading: 3
-  knob: 2
-  circular: 2
-  footer: 2
   field: 2
-  panel: 2
-  expansion: 1
-  slide: 1
   toolbar: 1
   tooltip: 1
   menu: 1
-  bottom: 1
-  markup: 1
-  inner: 1
-  intersection: 1
-  virtual: 1
-  breadcrumbs: 1
-  avatar: 1

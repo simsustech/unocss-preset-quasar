@@ -27,6 +27,23 @@ export const headerRules = [
         [symbols.selector]: (sel) => `${sel} .q-layout__shadow:after`,
         bottom: '10px'
       }
+      // Reference `.q-header .q-layout__shadow { bottom: -10px }`.
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-layout__shadow`,
+        bottom: '-10px'
+      }
+      // Reference `.q-header .q-toolbar__title { flex-grow: 1000 }`: the title
+      // absorbs the toolbar's free space so the actions stay right-aligned.
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-toolbar__title`,
+        'flex-grow': '1000'
+      }
+      // Reference `body.quasar-style-unstyled .q-header`.
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
       // Dark: header border.
       yield {
         [symbols.selector]: (sel) => `.body--dark ${sel}`,
@@ -37,7 +54,7 @@ export const headerRules = [
   [
     /^q-header--bordered$/,
     () => ({
-      'border-bottom': '1px solid var(--q-outline-variant)'
+      'border-bottom': '1px solid rgba(0, 0, 0, 0.12)'
     })
   ],
   [
@@ -49,7 +66,7 @@ export const headerRules = [
   [
     /^q-header--hidden$/,
     () => ({
-      display: 'none'
+      transform: 'translateY(-110%)'
     })
   ],
   [

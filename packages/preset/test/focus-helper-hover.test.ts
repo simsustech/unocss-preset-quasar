@@ -35,9 +35,24 @@ describe('focus-helper hover must not tint the page', () => {
     }
   })
 
-  it('overlay tints come from the black/white pseudo-elements', async () => {
-    const c = await cssFor('q-focus-helper')
-    expect(c).toMatch(/\.q-focus-helper:before\{[^}]*background:#000/)
-    expect(c).toMatch(/\.q-focus-helper:after\{[^}]*background:#fff/)
+  it('confines the tint to the desktop-scoped helper, not the bare pseudo-elements', async () => {
+    // Both tokens: the tint rule is a descendant selector of `.q-focusable`, so
+    // the generator emits it only when that class is in the scanned input too.
+    const c = await cssFor('q-focus-helper q-focusable')
+    // The reference states the tint on the helper itself —
+    // `body.desktop .q-focusable:focus > .q-focus-helper{background:currentColor; opacity:.15}` —
+    // with `:before/:after` carrying only opacity. That 100%x100% currentColor
+    // overlay is exactly the shape that turned pages purple, so what keeps it
+    // contained is the host's `position:relative` (asserted above), not a weaker
+    // tint. The desktop scope is the reference's own guard: touch devices never
+    // get the overlay at all.
+    // UnoCSS joins every host variant into one comma-separated rule, so the tint
+    // selector is followed by a comma, not the opening brace.
+    expect(c).toContain('body.desktop .q-focusable:focus > .q-focus-helper,')
+    expect(c).toContain('background:currentColor;opacity:0.15;')
+    // The pseudo-element layers carry opacity only — no colour of their own.
+    expect(c).not.toMatch(
+      /q-focus-helper:(before|after)[^{]*\{[^}]*background:/
+    )
   })
 })

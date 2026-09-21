@@ -4,7 +4,10 @@ export const popupEditRules = [
   [
     /^q-popup-edit$/,
     function* () {
-      yield { padding: '8px 16px' }
+      // Reference states the padding as logical longhands (`padding-inline:
+      // 16px; padding-block: 8px`), so the declaration is the one the gate
+      // measures and RTL gets it for free.
+      yield { 'padding-inline': '16px', 'padding-block': '8px' }
     }
   ],
   [

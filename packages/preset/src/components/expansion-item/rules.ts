@@ -16,7 +16,10 @@ export const expansionItemRules = [
   [
     /^q-expansion-item__toggle-icon--rotated$/,
     function* () {
-      yield { transform: 'rotate(180deg)' }
+      // The reference rotates through the standalone `rotate` property (not the
+      // `transform` shorthand); `transform` stays as an extra for engines that
+      // predate it.
+      yield { rotate: '180deg', transform: 'rotate(180deg)' }
     }
   ],
   [
@@ -58,7 +61,10 @@ export const expansionItemRules = [
       yield { transition: 'padding 0.5s' }
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-expansion-item__container`,
-        border: '1px solid rgba(0, 0, 0, 0.12)'
+        // Longhands, as the reference states them.
+        'border-style': 'solid',
+        'border-width': '1px',
+        'border-color': 'rgba(0, 0, 0, 0.12)'
       }
       yield {
         [symbols.selector]: (sel) =>
@@ -112,6 +118,12 @@ export const expansionItemRules = [
         [symbols.selector]: (sel) =>
           `${sel}:last-child > div > .q-expansion-item__border--bottom`,
         opacity: '0'
+      }
+      // Reference `body.quasar-style-unstyled .q-expansion-item`.
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
       }
     }
   ],

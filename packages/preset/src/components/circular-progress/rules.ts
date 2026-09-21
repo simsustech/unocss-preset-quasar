@@ -21,6 +21,12 @@ export const circularProgressRules = [
         [symbols.selector]: (sel) => `.body--dark ${sel}`,
         color: 'var(--q-primary)'
       }
+      // Reference `body.quasar-style-unstyled .q-circular-progress`.
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
     }
   ],
   [
@@ -38,6 +44,14 @@ export const circularProgressRules = [
   [
     /^q-circular-progress--indeterminate$/,
     function* (_, { symbols }) {
+      // The reference runs the spin on the SVG and the dash on the circle; the
+      // preset used to stack both animations on the circle, so the `animation`
+      // list compared unequal and the SVG had no rotation of its own.
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-circular-progress__svg`,
+        'transform-origin': '50% 50%',
+        animation: 'q-spin 2s linear infinite'
+      }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-circular-progress__circle`,
         'stroke-dasharray': '1 400',
@@ -45,7 +59,7 @@ export const circularProgressRules = [
         'transform-box': 'fill-box',
         'transform-origin': 'center',
         animation:
-          'q-spin 2s linear infinite, q-circular-progress-circle 1.5s ease-in-out infinite /* rtl:ignore */'
+          'q-circular-progress-circle 1.5s ease-in-out infinite /* rtl:ignore */'
       }
     }
   ]

@@ -9,6 +9,12 @@ export const slideItemRules = [
         [symbols.selector]: (sel) => `.body--dark ${sel}`,
         'background-color': 'var(--q-surface)'
       }
+      // Reference `body.quasar-style-unstyled .q-slide-item`.
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
     }
   ],
   [
@@ -19,7 +25,9 @@ export const slideItemRules = [
         'font-size': '14px',
         color: '#fff',
         background: '#4caf50',
-        padding: '8px 16px'
+        // Reference states the padding as logical longhands.
+        'padding-inline': '16px',
+        'padding-block': '8px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-icon`,
@@ -39,7 +47,8 @@ export const slideItemRules = [
         'font-size': '14px',
         color: '#fff',
         background: '#ff9800',
-        padding: '8px 16px'
+        'padding-inline': '16px',
+        'padding-block': '8px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-icon`,
@@ -59,7 +68,8 @@ export const slideItemRules = [
         'font-size': '14px',
         color: '#fff',
         background: '#2196f3',
-        padding: '16px 8px'
+        'padding-inline': '8px',
+        'padding-block': '16px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-icon`,
@@ -79,7 +89,8 @@ export const slideItemRules = [
         'font-size': '14px',
         color: '#fff',
         background: '#9c27b0',
-        padding: '16px 8px'
+        'padding-inline': '8px',
+        'padding-block': '16px'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-icon`,

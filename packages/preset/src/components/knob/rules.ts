@@ -3,12 +3,23 @@ import type { Rule } from '@unocss/core'
 export const knobRules = [
   [
     /^q-knob$/,
-    () => ({
-      position: 'relative',
-      display: 'inline-flex',
-      'align-items': 'center',
-      'justify-content': 'center'
-    })
+    function* (_, { symbols }) {
+      yield {
+        position: 'relative',
+        display: 'inline-flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        // Reference `.q-knob { font-size: 48px }`: the SVG geometry is em-based,
+        // so this is the knob's diameter.
+        'font-size': '48px'
+      }
+      // Reference `body.quasar-style-unstyled .q-knob`.
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+    }
   ],
   [
     /^q-knob__inner$/,
@@ -35,8 +46,16 @@ export const knobRules = [
     })
   ],
   [
+    // One matcher per regex: the previous file registered `/^q-knob--editable$/`
+    // twice and UnoCSS silently dropped the first entry's yield.
     /^q-knob--editable$/,
     function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `${sel}`,
+        cursor: 'pointer',
+        'outline-color':
+          'color-mix(in oklab, 0 var(--un-outline-opacity), transparent)'
+      }
       yield {
         [symbols.selector]: (sel) => `${sel}:before`,
         content: '""',
@@ -49,11 +68,6 @@ export const knobRules = [
         'box-shadow': 'none',
         transition: 'box-shadow 0.24s ease-in-out'
       }
-    }
-  ],
-  [
-    /^q-knob--editable$/,
-    function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel}:focus:before`,
         'box-shadow':

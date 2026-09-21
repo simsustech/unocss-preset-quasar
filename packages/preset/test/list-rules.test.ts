@@ -28,20 +28,22 @@ describe('QList spec conformance', () => {
     const css = await cssFor('q-list q-list--separator q-item-type')
     expect(css).toMatch(/\.q-list\{/)
     // The divider between rows is what was missing: no rule matched q-list at all.
-    expect(css).toContain(
-      // UnoCSS groups both sibling selectors into one rule, so the selector is
-      // followed by a comma rather than the opening brace.
-      '.q-list--separator > .q-item-type + .q-item-type,'
-    )
-    expect(css).toContain('border-top:1px solid var(--q-separator-color)')
+    // UnoCSS groups both sibling selectors into one comma-joined rule, so match the
+    // plain sibling form by its prefix (the virtual-scroll variant inserts
+    // `.q-virtual-scroll__content` before it).
+    expect(css).toContain('.q-list--separator > .q-item-type + .q-item-type')
+    // Reference value, transcribed in `src/components/list/rules.ts`.
+    expect(css).toContain('border-top:1px solid rgba(0, 0, 0, 0.12)')
   })
 
   it('gives bordered lists a border', async () => {
     const css = await cssFor('q-list--bordered')
-    // UnoCSS expands the `border` shorthand into longhands (the reference
-    // stylesheet ships them expanded too).
+    // The reference states the border as longhands, so the port does too: the
+    // gate compares the declaration it names, and a `border` shorthand would
+    // leave `border-style`/`border-width` absent.
     expect(css).toContain('.q-list--bordered{')
-    expect(css).toContain('border:1px solid var(--q-separator-color)')
+    expect(css).toContain('border-style:solid')
+    expect(css).toContain('border-width:1px')
   })
 
   it('colours the side section on-surface-variant, not the label colour', async () => {
