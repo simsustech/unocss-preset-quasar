@@ -1,6 +1,6 @@
-=== PARITY: 1892/2401 (79%) ===
+=== PARITY: 1924/2401 (80%) ===
 (2441 in fixture; 40 env-gated)
-Missing 509 selectors:
+Missing 477 selectors:
   ::backdrop
   :root
   :host
@@ -58,7 +58,6 @@ Missing 509 selectors:
   img.responsive
   body.quasar-style-unstyled .q-dialog
   body.quasar-style-unstyled .q-uploader
-  body.quasar-style-unstyled .q-tree
   [aria-busy=true]
   [aria-controls]
   [aria-disabled=true]
@@ -143,8 +142,6 @@ Missing 509 selectors:
   .q-layout-padding
   body.platform-android.native-mobile .q-dialog__inner--top .q-select__dialog
   body.platform-android:not(.native-mobile) .q-dialog__inner--top .q-select__dialo
-  [dir=rtl] .q-tree__arrow
-  [dir=rtl] .q-tree__arrow--rotate
   .i-mdi-account
   .i-mdi-person
   .i-mdi-account-plus-outline
@@ -270,8 +267,6 @@ Missing 509 selectors:
   .i-mdi-volume-high
   .q-dialog__inner>div
   .q-uploader__file .q-circular-progress
-  .q-tree__node-header-content .q-avatar
-  .q-tree__node-header-content .q-icon
   .q-uploader__file--img .q-circular-progress
   .body--dark .text-primary
   .q-uploader__file--img
@@ -279,15 +274,9 @@ Missing 509 selectors:
   .body--dark .text-accent
   .body--dark .text-secondary
   .q-uploader__file + .q-uploader__file
-  .q-tree > .q-tree__node
   .q-uploader__header-content
   .q-checkbox--dense q-checkbox__label
   .q-checkbox--dense.reverse q-checkbox__label
-  .q-tree__node--parent
-  .q-tree > .q-tree__node--child> .q-tree__node-header
-  .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-body
-  .q-tree__node-body
-  .q-tree--dense .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-b
   .q-uploader__file--img .q-uploader__file-header
   .disabled *
   .q-uploader__dnd
@@ -295,7 +284,6 @@ Missing 509 selectors:
   .q-field__nativetextarea:focus
   .q-uploader--dark .q-uploader__file
   .q-uploader--dark
-  .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-body:after
   .q-checkbox:not(.disabled):hover q-checkbox__inner:before
   .q-dialog__inner--maximized>div
   .q-dialog__inner--square>div
@@ -308,38 +296,18 @@ Missing 509 selectors:
   .q-checkbox__inner--indet q-checkbox__bg
   .q-dialog__inner>.q-card
   .q-uploader--dark .q-uploader__dnd
-  .q-tree__node--disabled .disabled
-  .q-tree__node--disabled> .disabled .q-tree__node--disabled> .disabled
-  .q-tree__node--disabled> .disabled .q-tree__node--disabled>div
-  .q-tree__node--disabled> .disabled .q-tree__node--disabled>i
-  .q-tree__node--disabled>div .q-tree__node--disabled> .disabled
-  .q-tree__node--disabled>div .q-tree__node--disabled>div
-  .q-tree__node--disabled>div .q-tree__node--disabled>i
-  .q-tree__node--disabled>i .q-tree__node--disabled> .disabled
-  .q-tree__node--disabled>i .q-tree__node--disabled>div
-  .q-tree__node--disabled>i .q-tree__node--disabled>i
-  .q-tree__node--disabled> .disabled
-  .q-tree__node--disabled>div
-  .q-tree__node--disabled>i
   .container
   .q-checkbox--dense q-checkbox__bg
   .q-dialog__inner>.q-card>.q-card__actions .q-btn--rectangle
   .q-dialog__inner--fullheight>div
   .q-dialog__inner--fullwidth>div
   .q-dialog__inner--minimized>div
-  .q-tree__node--parent> .q-tree__node-header:before
-  .q-tree > .q-tree__node> .q-tree__node-header:before
-  .q-tree--no-connectors .q-tree__node-body:after
-  .q-tree--no-connectors .q-tree__node-header:before
   .q-uploader__input::-webkit-file-upload-button
   .no-pointer-events--children
   .no-pointer-events--children *
   .q-checkbox__inner--indet q-checkbox__indet
   .q-checkbox:not(.disabled):focus q-checkbox__inner:before
   .hide-scrollbar
-  .q-tree__node--selected .q-tree__node--selected .q-tree__node-header-content
-  .q-tree--dark .q-tree__node-header-content
-  .q-tree--dense .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-b
   .container
   .container
   .container
@@ -513,7 +481,6 @@ Missing 509 selectors:
 
 --- BREAKDOWN ---
   other: 435
-  tree: 32
   dialog: 17
   uploader: 13
   checkbox: 7
