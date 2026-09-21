@@ -29,7 +29,9 @@ export const badgeRules = [
         color: 'inherit'
       }
       yield {
-        'font-size': '11px',
+        // No `font-size` here: the base rule's 12px is Quasar's value (and what
+        // the harness asserts). This parity copy's 11px won the cascade and
+        // rendered every badge a size too small.
         color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)',
         'line-height': 'var(--leading-none)',
         'font-weight': 'var(--fontWeight-normal)',

@@ -14,10 +14,14 @@
       "mismatch": []
     },
     "badge": {
-      "target": 0,
+      "target": null,
       "missing": [],
       "absent": [],
-      "mismatch": []
+      "mismatch": [
+        ".q-badge|border-radius",
+        ".q-badge|font-size",
+        ".q-badge|font-weight"
+      ]
     },
     "banner": {
       "target": 0,

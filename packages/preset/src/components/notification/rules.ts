@@ -153,21 +153,17 @@ export const notificationRules: Rule[] = [
       }
       for (const [modifier, property, value] of BADGE_OFFSETS) {
         const multiLine = value === '-15px'
-        yield {
-          [symbols.selector]: (sel) =>
-            multiLine
-              ? `.q-notification--multi-line ${sel}${modifier}`
-              : `${sel}${modifier}`,
-          [property]: value
-        }
-        // Reference pairs each vertical offset with a horizontal one, 22px
-        // outside the box on both axes.
+        // Both offsets in ONE yield: two yields with the same scoped selector
+        // collide, and the later block (the side) silently replaced the
+        // vertical offset — so no badge ever got `top`/`bottom`, and
+        // `q-notification__badge--top-left` shipped with `left` only.
         const side = modifier.endsWith('-left') ? 'left' : 'right'
         yield {
           [symbols.selector]: (sel) =>
             multiLine
               ? `.q-notification--multi-line ${sel}${modifier}`
               : `${sel}${modifier}`,
+          [property]: value,
           [side]: '-22px'
         }
       }
