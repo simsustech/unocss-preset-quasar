@@ -68,6 +68,15 @@ export function createTokenPreflight(params: {
       }
       // 4. Dark overrides: ONLY color tokens (shape/typography/etc are same in dark)
       parts.push(renderColorDarkBlock('body.body--dark', params.colors.dark))
+      // 4d. The default style's dark-side token values. A token may carry its
+      // own dark value (see `TokenValue`), and without this only the *other*
+      // styles got theirs — their diff is emitted in 4c, while the default
+      // style's own dark side had nowhere to go. There is no colour category
+      // here to clobber: `TokenBlock.color` is shared, not per-style, and its
+      // dark counterparts are emitted in 4 above.
+      parts.push(
+        renderTokenBlock('body.body--dark', params.defaultStyle.tokens, 'dark')
+      )
       // 4a. Dark overrides for the Quasar brand aliases (--q-dark-page etc.
       // would otherwise keep resolving to the light palette in dark mode)
       parts.push(renderQuasarDarkBlock('body.body--dark', params.colors))

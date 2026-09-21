@@ -80,12 +80,12 @@ export interface TypographyTokens {
 }
 
 export interface ElevationTokens {
-  elevationLevel0: string
-  elevationLevel1: string
-  elevationLevel2: string
-  elevationLevel3: string
-  elevationLevel4: string
-  elevationLevel5: string
+  elevationLevel0: TokenValue
+  elevationLevel1: TokenValue
+  elevationLevel2: TokenValue
+  elevationLevel3: TokenValue
+  elevationLevel4: TokenValue
+  elevationLevel5: TokenValue
 }
 
 export interface SizingTokens {

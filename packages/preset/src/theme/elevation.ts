@@ -15,8 +15,9 @@
  *   level_4  { blur_px: 14, y_offset_px: 6, spread_px: 0, opacity_ambient: 0.3 }
  *   level_5  { blur_px: 20, y_offset_px: 8, spread_px: 0, opacity_ambient: 0.3 }
  *
- * The colour is `--q-shadow-color` (black in light, white in dark) rather than a
- * literal, so md3's dark elevation stays white-ish as the spec intends.
+ * The colour is a token, not a literal: `--q-shadow-color` in light and
+ * `--q-dark-shadow-color` in dark, so dark elevation stays white-ish as the spec
+ * intends instead of shadowing black on black.
  *
  * md2 — Quasar's own scale, `src/css/variables.sass` (`$shadow-1` … `$shadow-5`),
  * which is also the md2 spec's three-layer table:
@@ -34,37 +35,64 @@
  * materializecss-style scale (`0 3px 6px rgba(0,0,0,0.16), …`), and md3's were
  * literal black, so dark mode would have shadowed with black on black.
  */
-import type { ElevationTokens } from './types.js'
+import type { DarkPair, ElevationTokens } from './types.js'
 
 /** md3: the spec's vectors, with the ambient opacity as a percentage. */
 export const md3Elevation: ElevationTokens = {
   elevationLevel0: 'none',
-  elevationLevel1: shadow(1, 3, '20%'),
-  elevationLevel2: shadow(2, 6, '20%'),
-  elevationLevel3: shadow(4, 10, '30%'),
-  elevationLevel4: shadow(6, 14, '30%'),
-  elevationLevel5: shadow(8, 20, '30%')
+  elevationLevel1: pair(1, 3, '20%'),
+  elevationLevel2: pair(2, 6, '20%'),
+  elevationLevel3: pair(4, 10, '30%'),
+  elevationLevel4: pair(6, 14, '30%'),
+  elevationLevel5: pair(8, 20, '30%')
 }
 
 /** md2: Quasar's `$shadow-N` expansion over the `--q-shadow-*` primitives. */
 export const md2Elevation: ElevationTokens = {
   elevationLevel0: 'none',
-  elevationLevel1: layers('0 1px 3px', '0 1px 1px', '0 2px 1px -1px'),
-  elevationLevel2: layers('0 1px 5px', '0 2px 2px', '0 3px 1px -2px'),
-  elevationLevel3: layers('0 1px 8px', '0 3px 4px', '0 3px 3px -2px'),
-  elevationLevel4: layers('0 2px 4px -1px', '0 4px 5px', '0 1px 10px'),
-  elevationLevel5: layers('0 3px 5px -1px', '0 5px 8px', '0 1px 14px')
+  elevationLevel1: both('0 1px 3px', '0 1px 1px', '0 2px 1px -1px'),
+  elevationLevel2: both('0 1px 5px', '0 2px 2px', '0 3px 1px -2px'),
+  elevationLevel3: both('0 1px 8px', '0 3px 4px', '0 3px 3px -2px'),
+  elevationLevel4: both('0 2px 4px -1px', '0 4px 5px', '0 1px 10px'),
+  elevationLevel5: both('0 3px 5px -1px', '0 5px 8px', '0 1px 14px')
 }
 
 /** `0 1px 3px 0 color-mix(in srgb, var(--q-shadow-color) 20%, transparent)` */
-function shadow(y: number, blur: number, ambient: string): string {
-  return `0 ${y}px ${blur}px 0 color-mix(in srgb, var(--q-shadow-color) ${ambient}, transparent)`
+function shadow(
+  y: number,
+  blur: number,
+  ambient: string,
+  color: string
+): string {
+  return `0 ${y}px ${blur}px 0 color-mix(in srgb, var(${color}) ${ambient}, transparent)`
 }
 
-function layers(umbra: string, penumbra: string, ambient: string): string {
+/** The md3 vector for both schemes. */
+function pair(y: number, blur: number, ambient: string): DarkPair {
+  return {
+    light: shadow(y, blur, ambient, '--q-shadow-color'),
+    dark: shadow(y, blur, ambient, '--q-dark-shadow-color')
+  }
+}
+
+/** One layer set, against the light or the dark shadow primitives. */
+function layers(
+  umbra: string,
+  penumbra: string,
+  ambient: string,
+  prefix: string
+): string {
   return [
-    `${umbra} var(--q-shadow-umbra)`,
-    `${penumbra} var(--q-shadow-penumbra)`,
-    `${ambient} var(--q-shadow-ambient)`
+    `${umbra} var(--q-${prefix}shadow-umbra)`,
+    `${penumbra} var(--q-${prefix}shadow-penumbra)`,
+    `${ambient} var(--q-${prefix}shadow-ambient)`
   ].join(', ')
+}
+
+/** Quasar's `$shadow-N` (light) and `$dark-shadow-N` (dark member of the pair). */
+function both(umbra: string, penumbra: string, ambient: string): DarkPair {
+  return {
+    light: layers(umbra, penumbra, ambient, ''),
+    dark: layers(umbra, penumbra, ambient, 'dark-')
+  }
 }
