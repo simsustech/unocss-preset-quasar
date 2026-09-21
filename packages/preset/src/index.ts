@@ -5,6 +5,7 @@ import {
   transformerDirectives,
   transformerVariantGroup
 } from 'unocss'
+import type { IconsOptions } from '@unocss/preset-icons'
 import type { WebFontsOptions } from '@unocss/preset-web-fonts'
 import presetWind4 from '@unocss/preset-wind4'
 import type { Preset, Rule } from '@unocss/core'
@@ -16,6 +17,7 @@ import { generateColorTokens } from './theme/colors.js'
 import { createTokenPreflight } from './theme/preflight.js'
 import { builtinStyles } from './theme/index.js'
 import type { QuasarStyleEntry } from './styles/index.js'
+import { quasarValueExtractor } from './extractor.js'
 import { quasarSafelist } from './safelist.js'
 import * as componentModules from './components/index.js'
 import * as coreModules from './core/index.js'
@@ -103,6 +105,7 @@ function paletteColors(theme: { colors: Record<string, unknown> }) {
 export interface QuasarPresetOptions {
   style?: QuasarStyleEntry
   sourceColor?: string
+  presetIcons?: IconsOptions
   presetWebFonts?: WebFontsOptions
 }
 
@@ -127,11 +130,15 @@ export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
         preflights: { reset: false },
         dark: { light: '.body--light', dark: '.body--dark' }
       }),
-      presetIcons({}),
+      // Icons are not optional here: Quasar takes an icon *name* as a prop
+      // (`icon="chevron-down"`) and adds `i-mdi-chevron-down` to the DOM at
+      // runtime, so `quasarValueExtractor` derives the class from the value and
+      // this preset turns it into CSS. Without it the icons render as empty
+      // boxes while every other check stays green.
+      presetIcons(options?.presetIcons ?? {}),
       // animated-unocss brings the `une*` keyframes and the `.animated-*`
       // classes that name them; the reference build was made with it in place.
       animatedUno() as unknown as Preset,
-      presetIcons({}),
       presetWebFonts(
         options?.presetWebFonts ?? {
           provider: 'bunny',
@@ -167,6 +174,9 @@ export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
       ...nonGridCoreRules
     ]),
     shortcuts: [...coreShortcuts, ...componentShortcuts],
+    // Values that name classes (icons, transitions) cannot be safelisted, so
+    // they are derived from the markup instead — see extractor.ts.
+    extractors: [quasarValueExtractor],
     safelist: quasarSafelist,
     // The Quasar palette has to reach wind4's theme, not just our own token
     // preflight: wind4 emits `--colors-<name>` and generates the colour
