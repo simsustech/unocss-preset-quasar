@@ -78,10 +78,96 @@ function walk(dir, acc = []) {
   return acc
 }
 
+/**
+ * Class names Quasar builds by interpolation, e.g.
+ *
+ *   `q-btn--${design.value}`                 // q-btn--flat, q-btn--outline, …
+ *   'q-fab--label--' + props.labelPosition   // q-fab--label--external, …
+ *
+ * The literal fragment gives the root and separator; the values come from the
+ * variable being interpolated, resolved in three steps that stay inside the
+ * component's own directory:
+ *
+ *   fragment -> variable -> its assignment -> the option list it reads
+ *
+ * `design` is assigned `getBtnDesign(props, 'standard')`, and that function
+ * returns from `btnDesignOptions = ['flat', 'outline', 'push', 'unelevated']`,
+ * so `design` is those four plus the `'standard'` fallback.
+ *
+ * Pairing every fragment with every value in the file would be easier and
+ * wrong: it produces `q-btn--round--dense`, which Quasar never emits.
+ */
+const INTERPOLATED = /(q-[a-z0-9-]+(?:__|--))\$\{\s*(?:props\.|this\.)?(\w+)/g
+const CONCATENATED =
+  /['"`](q-[a-z0-9-]+(?:__|--))['"`]\s*\+\s*(?:props\.|this\.)?(\w+)/g
+const OPTION_LIST = /const\s+(\w+Options?)\s*=\s*\[([^\]]*)\]/g
+const FUNCTION_BODY = /function\s+(\w+)\s*\([^)]*\)\s*\{([\s\S]*?)\n\}/g
+const ASSIGNMENT = /const\s+(\w+)\s*=\s*([^\n]*)/g
+const NAME = /\b(\w+Options?)\b/g
+/** A candidate *value* (`flat`, `fab-mini`). Never a class: those carry `--`/`__`. */
+const VALUE = /['"`]([a-z][a-z0-9-]*)['"`]/g
+const isValue = (name) => !name.includes('--') && !name.includes('__')
+
+function dynamicClasses(text) {
+  /** `btnDesignOptions` -> its values. */
+  const options = new Map()
+  for (const match of text.matchAll(OPTION_LIST)) {
+    options.set(
+      match[1],
+      [...match[2].matchAll(VALUE)].map((v) => v[1]).filter(isValue)
+    )
+  }
+  /** The values a function body pulls in, one hop: `getBtnDesign` -> its list. */
+  const fromFunction = new Map()
+  for (const match of text.matchAll(FUNCTION_BODY)) {
+    const values = new Set()
+    for (const name of match[2].matchAll(NAME)) {
+      for (const value of options.get(name[1]) ?? []) values.add(value)
+    }
+    if (values.size > 0) fromFunction.set(match[1], values)
+  }
+  /** `design` -> the values its assignment can produce. */
+  const byVariable = new Map()
+  for (const match of text.matchAll(ASSIGNMENT)) {
+    const [, variable, expression] = match
+    const values = new Set()
+    for (const name of expression.matchAll(NAME)) {
+      for (const value of options.get(name[1]) ?? []) values.add(value)
+    }
+    for (const call of expression.matchAll(/\b(\w+)\s*\(/g)) {
+      for (const value of fromFunction.get(call[1]) ?? []) values.add(value)
+    }
+    for (const literal of expression.matchAll(VALUE)) {
+      if (isValue(literal[1])) values.add(literal[1])
+    }
+    if (values.size > 0) byVariable.set(variable, values)
+  }
+
+  const generated = []
+  for (const pattern of [INTERPOLATED, CONCATENATED]) {
+    for (const match of text.matchAll(pattern)) {
+      const [, fragment, variable] = match
+      const values = byVariable.get(variable)
+      if (values === undefined) continue
+      for (const value of values) {
+        const name = `${fragment}${value}`
+        // BEM allows one element separator and one modifier: `q-fab__label--top`
+        // is a class, `q-btn--round--dense` is not. Quasar's own tests enumerate
+        // combinations (round + dense) that no rendering produces, so a second
+        // `--` means the pairing came from a test matrix, not from the CSS.
+        if ((name.match(/--/g) ?? []).length > 1) continue
+        generated.push(name)
+      }
+    }
+  }
+  return generated
+}
+
 function classesIn(files) {
   const found = new Set()
   for (const file of files) {
     const text = fs.readFileSync(file, 'utf8')
+    for (const name of dynamicClasses(text)) found.add(name)
     const isStyle = /\.(sass|scss|vue)$/.test(file)
     const patterns = isStyle
       ? [SELECTOR_CLASS, QUOTED_CLASS, QUOTED_QUASAR]
@@ -95,7 +181,15 @@ function classesIn(files) {
         [...text.matchAll(/\.(q-[a-z0-9-]+)(?![-_])/g)].map((m) => m[1])
       )
       for (const match of text.matchAll(NESTED_SUFFIX)) {
-        for (const root of roots) found.add(`${root}${match[1]}${match[2]}`)
+        for (const root of roots) {
+          const name = `${root}${match[1]}${match[2]}`
+          // Same BEM rule as the interpolated names: nesting a modifier inside a
+          // modifier (`.q-btn--round { &--actionable }`) pairs a root with a
+          // suffix that never combines. Literals are exempt — one Quasar wrote
+          // down is evidence, whoever wrote it.
+          if ((name.match(/--/g) ?? []).length > 1) continue
+          found.add(name)
+        }
       }
     }
   }

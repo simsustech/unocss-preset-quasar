@@ -45,8 +45,11 @@ const sampleSize = Number(flag('sample', 14))
 
 const { createGenerator } = await import('unocss')
 const generator = await createGenerator({ presets: [QuasarPreset({})] })
+// Preflights included: some of the classes in question (the platform and
+// responsive visibility ones, `body--dark`) come from our preflights rather than
+// from a rule, and with `preflights: false` they looked like dead entries.
 const { css: sheet } = await generator.generate(quasarSafelist.join(' '), {
-  preflights: false
+  preflights: true
 })
 /** The classes our own rules emit. */
 const styled = new Set(
