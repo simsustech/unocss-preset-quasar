@@ -1,6 +1,6 @@
-=== PARITY: 1857/2401 (77%) ===
+=== PARITY: 1892/2401 (79%) ===
 (2441 in fixture; 40 env-gated)
-Missing 544 selectors:
+Missing 509 selectors:
   ::backdrop
   :root
   :host
@@ -56,7 +56,6 @@ Missing 544 selectors:
   object
   #q-app
   img.responsive
-  body.quasar-style-unstyled .q-stepper
   body.quasar-style-unstyled .q-dialog
   body.quasar-style-unstyled .q-uploader
   body.quasar-style-unstyled .q-tree
@@ -273,34 +272,18 @@ Missing 544 selectors:
   .q-uploader__file .q-circular-progress
   .q-tree__node-header-content .q-avatar
   .q-tree__node-header-content .q-icon
-  .q-stepper__dot span
   .q-uploader__file--img .q-circular-progress
   .body--dark .text-primary
-  .q-stepper--dark .q-stepper__dot span
-  .q-stepper--dark .q-stepper__tab--disabled
-  .q-stepper--dark .q-stepper__tab--disabled .q-stepper__label
   .q-uploader__file--img
   .q-uploader--dark .q-uploader__overlay
   .body--dark .text-accent
   .body--dark .text-secondary
-  .q-stepper--vertical .q-stepper__title
-  .q-stepper--vertical .q-stepper__dot
   .q-uploader__file + .q-uploader__file
-  .q-stepper__header--alternative-labels .q-stepper__dot
-  .q-stepper__header--alternative-labels .q-stepper__label
-  .q-stepper--horizontal .q-stepper__step-inner
   .q-tree > .q-tree__node
   .q-uploader__header-content
-  .q-stepper__header--alternative-labels .q-stepper__tab
-  .q-stepper--horizontal > .q-stepper__nav
-  .q-stepper--vertical
-  .q-stepper--vertical .q-stepper__tab
-  .q-stepper--vertical > .q-stepper__nav
   .q-checkbox--dense q-checkbox__label
   .q-checkbox--dense.reverse q-checkbox__label
   .q-tree__node--parent
-  .q-stepper--vertical .q-stepper__step-inner
-  .q-stepper--vertical .q-stepper__step:last-child .q-stepper__step-inner
   .q-tree > .q-tree__node--child> .q-tree__node-header
   .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-body
   .q-tree__node-body
@@ -310,8 +293,6 @@ Missing 544 selectors:
   .q-uploader__dnd
   .q-field__nativeinput:focus
   .q-field__nativetextarea:focus
-  .q-stepper--dark .q-stepper__header--border
-  .q-stepper--dark.q-stepper--bordered
   .q-uploader--dark .q-uploader__file
   .q-uploader--dark
   .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-body:after
@@ -321,14 +302,11 @@ Missing 544 selectors:
   .q-dialog__inner--left:not(.q-dialog__inner--animating)>div
   .q-dialog__inner--right:not(.q-dialog__inner--animating)>div
   .q-dialog__inner--bottom:not(.q-dialog__inner--animating)>div
-  .q-stepper__header
   .body--dark .bg-accent
   .body--dark .bg-primary
   .body--dark .bg-secondary
   .q-checkbox__inner--indet q-checkbox__bg
   .q-dialog__inner>.q-card
-  .q-stepper--dark .q-stepper__tab--disabled .q-stepper__dot
-  .q-stepper__label
   .q-uploader--dark .q-uploader__dnd
   .q-tree__node--disabled .disabled
   .q-tree__node--disabled> .disabled .q-tree__node--disabled> .disabled
@@ -349,32 +327,19 @@ Missing 544 selectors:
   .q-dialog__inner--fullheight>div
   .q-dialog__inner--fullwidth>div
   .q-dialog__inner--minimized>div
-  .q-stepper__header--standard-labels .q-stepper__tab
   .q-tree__node--parent> .q-tree__node-header:before
-  .q-stepper--horizontal .q-stepper__tab:last-child .q-stepper__dot:after
-  .q-stepper--horizontal .q-stepper__tab:last-child .q-stepper__label:after
-  .q-stepper--vertical .q-stepper__step:last-child .q-stepper__dot:after
   .q-tree > .q-tree__node> .q-tree__node-header:before
   .q-tree--no-connectors .q-tree__node-body:after
   .q-tree--no-connectors .q-tree__node-header:before
   .q-uploader__input::-webkit-file-upload-button
-  .q-stepper--horizontal .q-stepper__line
   .no-pointer-events--children
   .no-pointer-events--children *
   .q-checkbox__inner--indet q-checkbox__indet
   .q-checkbox:not(.disabled):focus q-checkbox__inner:before
   .hide-scrollbar
   .q-tree__node--selected .q-tree__node--selected .q-tree__node-header-content
-  .q-stepper--dark
-  .q-stepper--horizontal .q-stepper__tab:first-child
-  .q-stepper--horizontal .q-stepper__tab:last-child
   .q-tree--dark .q-tree__node-header-content
   .q-tree--dense .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-b
-  .q-stepper__header--standard-labels .q-stepper__tab:first-child
-  .q-stepper__header--standard-labels .q-stepper__tab:last-child
-  .q-stepper__header--standard-labels .q-stepper__tab:only-child
-  .q-stepper--horizontal .q-stepper__tab
-  .q-stepper--vertical .q-stepper__step
   .container
   .container
   .container
@@ -548,7 +513,6 @@ Missing 544 selectors:
 
 --- BREAKDOWN ---
   other: 435
-  stepper: 35
   tree: 32
   dialog: 17
   uploader: 13
