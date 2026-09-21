@@ -137,7 +137,19 @@ export function iconSetClasses(iconSet: unknown): string[] {
   return [...found]
 }
 
-export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
+/**
+ * The preset, callable and usable directly.
+ *
+ * Consumers configure it — `QuasarPreset({ style, sourceColor, iconSet })` — and
+ * `definePreset` types its result as a plain `Preset`, which has no call
+ * signature. The runtime object is callable (that is how the option reaches the
+ * preset at all); only the type was wrong, so every call site was a type error.
+ */
+export type QuasarPresetFactory = Preset & {
+  (options?: QuasarPresetOptions): Preset
+}
+
+const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
   const sourceColor = options?.sourceColor ?? '#1976d2'
   const colors = generateColorTokens(sourceColor)
   // The public theme: wind4 needs the palette on the UnoCSS theme (see
@@ -222,6 +234,8 @@ export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
     transformers: [transformerVariantGroup(), transformerDirectives()]
   }
 })
+
+export const QuasarPreset = quasarPreset as unknown as QuasarPresetFactory
 
 export type { QuasarStyleEntry } from './styles/index.js'
 export {
