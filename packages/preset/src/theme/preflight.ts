@@ -71,6 +71,16 @@ export function createTokenPreflight(params: {
         const selector = `body.body--dark.quasar-style-${style.name}`
         parts.push(renderColorDarkBlock(selector, params.colors.dark))
         parts.push(renderQuasarDarkBlock(selector, params.colors))
+        // The dark side of this style's tokens. The selector is a superset of
+        // `body.quasar-style-<name>`, so these win in dark mode.
+        const darkDiff = diffTokens(
+          params.defaultStyle.tokens,
+          style.tokens,
+          'dark'
+        )
+        if (Object.keys(darkDiff).length > 0) {
+          parts.push(renderTokenBlock(selector, darkDiff, 'dark'))
+        }
       }
       return parts.join('\n\n')
     }
@@ -191,15 +201,32 @@ type TokenCategories = Omit<TokenBlock, 'color'>
 const asRecord = (o: unknown): Record<string, string> =>
   o as Record<string, string>
 
+/** The light or dark side of a token value. */
+export function tokenValue(
+  value: unknown,
+  mode: 'light' | 'dark' = 'light'
+): unknown {
+  if (
+    value !== null &&
+    typeof value === 'object' &&
+    'light' in value &&
+    'dark' in value
+  ) {
+    return (value as { light: string; dark: string })[mode]
+  }
+  return value
+}
+
 function renderTokenBlock(
   selector: string,
-  tokens: Partial<TokenCategories> | TokenCategories
+  tokens: Partial<TokenCategories> | TokenCategories,
+  mode: 'light' | 'dark' = 'light'
 ): string {
   const lines: string[] = []
   for (const [_category, categoryTokens] of Object.entries(tokens)) {
     if (!categoryTokens) continue
     for (const [key, value] of Object.entries(asRecord(categoryTokens))) {
-      lines.push(`  --q-${kebab(key)}: ${value};`)
+      lines.push(`  --q-${kebab(key)}: ${tokenValue(value, mode)};`)
     }
   }
   return `${selector} {\n${lines.join('\n')}\n}`
@@ -207,14 +234,18 @@ function renderTokenBlock(
 
 function diffTokens(
   defaultTokens: TokenCategories,
-  styleTokens: TokenCategories
+  styleTokens: TokenCategories,
+  mode: 'light' | 'dark' = 'light'
 ): Partial<TokenCategories> {
-  const diff: Record<string, Record<string, string>> = {}
+  const diff: Record<string, Record<string, unknown>> = {}
   for (const [category, categoryTokens] of Object.entries(styleTokens)) {
     const defaultCategory = defaultTokens[category as keyof TokenCategories]
-    const categoryDiff: Record<string, string> = {}
+    const categoryDiff: Record<string, unknown> = {}
     for (const [key, value] of Object.entries(asRecord(categoryTokens))) {
-      if (asRecord(defaultCategory)[key] !== value) {
+      if (
+        tokenValue(asRecord(defaultCategory)[key], mode) !==
+        tokenValue(value, mode)
+      ) {
         categoryDiff[key] = value
       }
     }

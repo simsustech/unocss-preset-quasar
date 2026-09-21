@@ -309,7 +309,12 @@ export const md2Style: StyleEntry = {
       tabIndicatorBg: 'var(--q-secondary-container)',
       toggleFontSize: '40px',
       toggleDenseFontSize: '28px',
-      toggleTrackBg: 'rgba(0, 0, 0, 0.32)',
+      // md2-switches.json: dark is white-30 / grey-400 rather than its light
+      // values or md3's dark ones, so both sides live here.
+      toggleTrackBg: {
+        light: 'rgba(0, 0, 0, 0.32)',
+        dark: 'rgba(255, 255, 255, 0.3)'
+      },
       toggleDuration: '200ms',
       toggleTrackWidth: '0.9em',
       toggleTrackOutlineWidth: '0',
@@ -333,7 +338,10 @@ export const md2Style: StyleEntry = {
       toggleThumbOffset: '0.25em',
       toggleThumbOffsetActive: '0.65em',
       toggleThumbOffsetIndet: '0.45em',
-      toggleThumbBg: '#fafafa',
+      toggleThumbBg: {
+        light: '#fafafa',
+        dark: '#bdbdbd'
+      },
       toggleThumbBgActive: 'var(--q-secondary)',
       toggleThumbShadow:
         '0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12)',

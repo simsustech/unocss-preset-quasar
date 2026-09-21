@@ -77,9 +77,12 @@ export const toggleRules = [
         [symbols.selector]: (sel) => `.body--dark ${sel}__thumb`,
         color: 'var(--q-surface-container-highest)'
       }
+      // Keep the selectors the reference declares, but take the token: md3's
+      // tokens resolve to the same roles the reference names, and md2 states its
+      // own dark values (white-30 track, grey-400 handle).
       yield {
         [symbols.selector]: (sel) => `.body--dark ${sel}__thumb:after`,
-        'background-color': 'var(--q-outline)'
+        'background-color': 'var(--q-toggle-thumb-bg)'
       }
       yield {
         [symbols.selector]: (sel) =>
@@ -88,13 +91,14 @@ export const toggleRules = [
       }
       yield {
         [symbols.selector]: (sel) =>
-          `.body--dark ${sel}__inner--truthy .q-toggle__thumb:after`,
-        'background-color': 'var(--q-on-primary) !important'
+          `.body--dark ${sel}__inner--truthy .q-toggle__track`,
+        'background-color': 'var(--q-toggle-track-bg-active)'
       }
       yield {
         [symbols.selector]: (sel) =>
-          `.body--dark ${sel}__inner--truthy .q-toggle__track`,
-        'background-color': 'var(--q-primary)'
+          `.body--dark ${sel}__inner--truthy .q-toggle__thumb:after`,
+        // the token: md3's is `on-primary`, md2's is the spec's `secondary`
+        'background-color': 'var(--q-toggle-thumb-bg-active) !important'
       }
     }
   ],

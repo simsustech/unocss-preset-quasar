@@ -109,6 +109,19 @@ export interface MotionTokens {
   easingAccelerate: string
 }
 
+/**
+ * A token whose dark value is not derivable from the palette roles (md2's dark
+ * switch is white-30 / grey-400, which is neither its light value nor md3's
+ * dark one). Keeping both sides at the token means one token lives in one
+ * place; a second `tokensDark` map could drift out of step silently.
+ */
+export interface DarkPair {
+  light: string
+  dark: string
+}
+
+export type TokenValue = string | DarkPair
+
 export interface ComponentTokens {
   // QCard — md.sys.shape.corner.large (16px MD3, 4px MD2); surface per style
   cardRadius: string
@@ -148,7 +161,7 @@ export interface ComponentTokens {
   // QToggle
   toggleFontSize: string
   toggleDenseFontSize: string
-  toggleTrackBg: string
+  toggleTrackBg: TokenValue
   toggleDuration: string
   toggleTrackWidth: string
   toggleTrackOutlineWidth: string
@@ -172,7 +185,7 @@ export interface ComponentTokens {
   toggleThumbOffset: string
   toggleThumbOffsetActive: string
   toggleThumbOffsetIndet: string
-  toggleThumbBg: string
+  toggleThumbBg: TokenValue
   toggleThumbBgActive: string
   toggleThumbShadow: string
   toggleIconSize: string
