@@ -78,7 +78,8 @@ export const dialogRules = [
         'max-height': '90vh',
         'border-radius': 'var(--q-radius-lg)',
         'background-color': 'var(--q-surface)',
-        'box-shadow': 'var(--q-elevation-5)',
+        // interfaces_and_modals.json: outer_ambient_shadow_mapping = level_3.
+        'box-shadow': 'var(--q-elevation-level3)',
         'outline-style': 'var(--un-outline-style)',
         'outline-width': '0px'
       }

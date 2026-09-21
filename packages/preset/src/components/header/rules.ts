@@ -60,7 +60,7 @@ export const headerRules = [
   [
     /^q-header--elevated$/,
     () => ({
-      'box-shadow': 'var(--q-elevation-2)'
+      'box-shadow': 'var(--q-elevation-level2)'
     })
   ],
   [

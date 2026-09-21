@@ -48,7 +48,7 @@ export const footerRules = [
   [
     /^q-footer--elevated$/,
     () => ({
-      'box-shadow': 'var(--q-elevation-2)'
+      'box-shadow': 'var(--q-elevation-level2)'
     })
   ],
   [

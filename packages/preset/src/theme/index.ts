@@ -5,6 +5,7 @@ export * from './preflight.js'
 // generateTheme, setThemeColors) — see quasar-theme.ts for why it stays.
 export * from './quasar-theme.js'
 
+import { md2Elevation, md3Elevation } from './elevation.js'
 import type { StyleEntry, TokenBlock } from './types.js'
 
 /**
@@ -62,14 +63,8 @@ export const md3Style: StyleEntry = {
       pressedOpacity: '0.12',
       draggedOpacity: '0.16'
     },
-    elevation: {
-      level0: 'none',
-      level1: '0 1px 3px rgba(0,0,0,0.2)',
-      level2: '0 2px 6px rgba(0,0,0,0.2)',
-      level3: '0 4px 10px rgba(0,0,0,0.3)',
-      level4: '0 6px 14px rgba(0,0,0,0.3)',
-      level5: '0 8px 20px rgba(0,0,0,0.3)'
-    },
+    // md3: the spec's elevation vectors (see elevation.ts).
+    elevation: md3Elevation,
     sizing: {
       spaceXs: '4px',
       spaceSm: '8px',
@@ -244,14 +239,8 @@ export const md2Style: StyleEntry = {
       pressedOpacity: '0.16',
       draggedOpacity: '0.08'
     },
-    elevation: {
-      level0: 'none',
-      level1: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-      level2: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
-      level3: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
-      level4: '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)',
-      level5: '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'
-    },
+    // md2: Quasar's `$shadow-N` scale, i.e. the md2 spec's table.
+    elevation: md2Elevation,
     sizing: {
       spaceXs: '4px',
       spaceSm: '8px',
@@ -430,12 +419,12 @@ export const unstyledStyle: StyleEntry = {
       draggedOpacity: '0'
     },
     elevation: {
-      level0: 'none',
-      level1: 'none',
-      level2: 'none',
-      level3: 'none',
-      level4: 'none',
-      level5: 'none'
+      elevationLevel0: 'none',
+      elevationLevel1: 'none',
+      elevationLevel2: 'none',
+      elevationLevel3: 'none',
+      elevationLevel4: 'none',
+      elevationLevel5: 'none'
     },
     sizing: {
       spaceXs: '0',

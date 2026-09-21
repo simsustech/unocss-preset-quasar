@@ -15,7 +15,7 @@ export const cardRules = [
         // the gate (`var(--un-bg-opacity)` is skipped), and md2/unstyled must
         // keep resolving through the token.
         'background-color': 'var(--q-card-surface)',
-        'box-shadow': 'var(--q-elevation-1)',
+        'box-shadow': 'var(--q-elevation-level1)',
         position: 'relative'
       }
       // Reference family `.q-card > div|img`: children lose their own radius so
@@ -69,7 +69,7 @@ export const cardRules = [
       }
       yield {
         [symbols.selector]: (sel) => `${sel}:not(.disabled):hover`,
-        'box-shadow': 'var(--q-elevation-2)'
+        'box-shadow': 'var(--q-elevation-level2)'
       }
       yield {
         [symbols.selector]: (sel) => `.body--dark ${sel}`,

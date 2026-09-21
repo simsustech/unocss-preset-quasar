@@ -1,6 +1,7 @@
 import type { Preflight } from '@unocss/core'
 import type { ColorBlock } from './colors.js'
 import type { StyleEntry, TokenBlock } from './types.js'
+import { wind4NamespaceTokens } from './wind4.js'
 
 /**
  * Emit CSS custom properties.
@@ -41,6 +42,12 @@ export function createTokenPreflight(params: {
       parts.push(renderRoleBlock(':root', params.colors.dark, 'dark'))
       // 1a. Shape roles, as the md3 entry states them.
       parts.push(renderShapeRoles(':root', params.defaultStyle.tokens))
+      // 1b. wind4's theme namespaces. Our rules reference these
+      // (`calc(var(--spacing) * N)`, `var(--radius-none)`, the font weights),
+      // but wind4 only emits them once one of *its* utilities generates — so a
+      // Quasar-only page would leave every one of those declarations invalid.
+      // See `wind4NamespaceTokens` for the measurements.
+      parts.push(renderNamespaceBlock(':root'))
       // 2. Default style tokens on body (NOT :root: runtime setThemeColors
       // writes --light-*/--dark-* onto document.body, so --q-* aliases that
       // reference them must resolve against body to pick up the overrides)
@@ -48,6 +55,10 @@ export function createTokenPreflight(params: {
       // 2b. Shadow color primitives + computed shadow tokens on body,
       // mirroring quasar.css so var(--q-shadow-*) references resolve
       parts.push(renderShadowBlock('body'))
+      // 2c. `--q-skeleton-speed`: quasar.css ships 1500ms and QSkeleton's JS
+      // overrides it, so the default has to be stated or the declaration (and
+      // with it the shimmer animation) has no duration.
+      parts.push('body {\n  --q-skeleton-speed: 1500ms;\n}')
       // 3. Per-style overrides (only diffs from default)
       for (const style of params.styles) {
         const diff = diffTokens(params.defaultStyle.tokens, style.tokens)
@@ -142,6 +153,14 @@ function renderShapeRoles(selector: string, tokens: TokenCategories): string {
     if (key === 'cornerFull' && !value) continue
     lines.push(`  --shape-${kebab(key)}: ${value};`)
   }
+  return `${selector} {\n${lines.join('\n')}\n}`
+}
+
+/** wind4's theme namespaces, which wind4 itself emits only on demand. */
+function renderNamespaceBlock(selector: string): string {
+  const lines = Object.entries(wind4NamespaceTokens).map(
+    ([prop, value]) => `  ${prop}: ${value};`
+  )
   return `${selector} {\n${lines.join('\n')}\n}`
 }
 /** Shadow primitives + computed shadow tokens, mirroring quasar.css body block */
