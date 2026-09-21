@@ -1,6 +1,6 @@
-=== PARITY: 1775/2401 (74%) ===
+=== PARITY: 1786/2401 (74%) ===
 (2441 in fixture; 40 env-gated)
-Missing 626 selectors:
+Missing 615 selectors:
   ::backdrop
   :root
   :host
@@ -56,7 +56,6 @@ Missing 626 selectors:
   object
   #q-app
   img.responsive
-  body.quasar-style-unstyled .q-btn
   body.quasar-style-unstyled .q-stepper
   body.quasar-style-unstyled .q-dialog
   body.quasar-style-unstyled .q-uploader
@@ -293,13 +292,10 @@ Missing 626 selectors:
   .q-stepper--vertical .q-stepper__title
   .q-stepper--vertical .q-stepper__dot
   .q-table--dense .q-table__bottom-item
-  .q-btn--dense .on-left
-  .q-btn--dense .on-right
   .q-uploader__file + .q-uploader__file
   .q-stepper__header--alternative-labels .q-stepper__dot
   .q-stepper__header--alternative-labels .q-stepper__label
   .q-table--grid .q-table__middle
-  .q-btn--dense.q-btn--round
   .q-table .q-virtual-scroll__padding td
   .q-stepper--horizontal .q-stepper__step-inner
   .q-tree > .q-tree__node
@@ -373,14 +369,11 @@ Missing 626 selectors:
   .body--dark .bg-accent
   .body--dark .bg-primary
   .body--dark .bg-secondary
-  .q-btn--flat .q-btn__progress-indicator
-  .q-btn--outline .q-btn__progress-indicator
   .q-checkbox__inner--indet q-checkbox__bg
   .q-dialog__inner>.q-card
   .q-stepper--dark .q-stepper__tab--disabled .q-stepper__dot
   .q-stepper__label
   .q-uploader--dark .q-uploader__dnd
-  .q-btn.disabled
   .q-tree__node--disabled .disabled
   .q-tree__node--disabled> .disabled .q-tree__node--disabled> .disabled
   .q-tree__node--disabled> .disabled .q-tree__node--disabled>div
@@ -427,14 +420,10 @@ Missing 626 selectors:
   .no-pointer-events--children *
   .q-table--no-wrap td
   .q-table--no-wrap th
-  .q-btn--push.q-btn--actionable:active
-  .q-btn--push.q-btn--actionable.q-btn--active
   .q-checkbox__inner--indet q-checkbox__indet
   .q-table th.sort-desc .q-table__sort-icon
   .q-checkbox:not(.disabled):focus q-checkbox__inner:before
   .hide-scrollbar
-  .q-btn--push.q-btn--actionable
-  .q-btn--standard:before
   .q-table--cell-separator td:first-child
   .q-table--cell-separator th:first-child
   .q-table--vertical-separator td:first-child
@@ -635,7 +624,6 @@ Missing 626 selectors:
   tree: 32
   dialog: 17
   uploader: 13
-  btn: 11
   checkbox: 7
   layout: 3
   field: 2

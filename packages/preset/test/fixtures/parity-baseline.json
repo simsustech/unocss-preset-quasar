@@ -149,55 +149,10 @@
       "mismatch": []
     },
     "btn": {
-      "target": null,
-      "missing": [
-        ".q-btn--dense .on-left",
-        ".q-btn--dense .on-right",
-        ".q-btn--dense.q-btn--round",
-        ".q-btn--flat .q-btn__progress-indicator",
-        ".q-btn--outline .q-btn__progress-indicator",
-        ".q-btn--push.q-btn--actionable",
-        ".q-btn--push.q-btn--actionable.q-btn--active",
-        ".q-btn--push.q-btn--actionable:active",
-        ".q-btn--standard:before",
-        ".q-btn.disabled",
-        "body.quasar-style-unstyled .q-btn"
-      ],
-      "absent": [
-        ".q-btn--dense|min-height",
-        ".q-btn--fab-mini|align-items",
-        ".q-btn--fab-mini|border-radius",
-        ".q-btn--fab-mini|flex-direction",
-        ".q-btn--fab-mini|height",
-        ".q-btn--fab-mini|justify-content",
-        ".q-btn--fab|align-items",
-        ".q-btn--fab|border-radius",
-        ".q-btn--fab|flex-direction",
-        ".q-btn--fab|height",
-        ".q-btn--fab|justify-content",
-        ".q-btn--fab|z-index",
-        ".q-btn--flat|background-color",
-        ".q-btn--flat|border-radius",
-        ".q-btn--outline:before|border-style",
-        ".q-btn--outline:before|border-width",
-        ".q-btn--outline|background-color",
-        ".q-btn--outline|border-radius",
-        ".q-btn--round|min-height",
-        ".q-btn__content|transition",
-        ".q-btn__progress|z-index",
-        ".q-btn|border-width",
-        ".q-btn|min-width",
-        ".q-btn|outline-width",
-        ".q-btn|overflow",
-        ".q-btn|padding-block",
-        ".q-btn|padding-inline"
-      ],
-      "mismatch": [
-        ".q-btn--actionable.q-btn--standard.q-btn--active:before|box-shadow",
-        ".q-btn--fab-mini|padding",
-        ".q-btn--fab|padding",
-        ".q-btn__content|z-index"
-      ]
+      "target": 0,
+      "missing": [],
+      "absent": [],
+      "mismatch": []
     },
     "btn-dropdown": {
       "target": 0,
