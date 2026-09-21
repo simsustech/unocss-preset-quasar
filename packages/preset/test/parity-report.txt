@@ -1,6 +1,6 @@
-=== PARITY: 1935/2401 (81%) ===
+=== PARITY: 1948/2401 (81%) ===
 (2441 in fixture; 40 env-gated)
-Missing 466 selectors:
+Missing 453 selectors:
   ::backdrop
   :root
   :host
@@ -56,7 +56,6 @@ Missing 466 selectors:
   object
   #q-app
   img.responsive
-  body.quasar-style-unstyled .q-uploader
   [aria-busy=true]
   [aria-controls]
   [aria-disabled=true]
@@ -265,33 +264,21 @@ Missing 466 selectors:
   .i-mdi-view-dashboard-outline
   .i-mdi-view-grid
   .i-mdi-volume-high
-  .q-uploader__file .q-circular-progress
-  .q-uploader__file--img .q-circular-progress
   .body--dark .text-primary
-  .q-uploader__file--img
-  .q-uploader--dark .q-uploader__overlay
   .body--dark .text-accent
   .body--dark .text-secondary
-  .q-uploader__file + .q-uploader__file
-  .q-uploader__header-content
   .q-checkbox--dense q-checkbox__label
   .q-checkbox--dense.reverse q-checkbox__label
-  .q-uploader__file--img .q-uploader__file-header
   .disabled *
-  .q-uploader__dnd
   .q-field__nativeinput:focus
   .q-field__nativetextarea:focus
-  .q-uploader--dark .q-uploader__file
-  .q-uploader--dark
   .q-checkbox:not(.disabled):hover q-checkbox__inner:before
   .body--dark .bg-accent
   .body--dark .bg-primary
   .body--dark .bg-secondary
   .q-checkbox__inner--indet q-checkbox__bg
-  .q-uploader--dark .q-uploader__dnd
   .container
   .q-checkbox--dense q-checkbox__bg
-  .q-uploader__input::-webkit-file-upload-button
   .no-pointer-events--children
   .no-pointer-events--children *
   .q-checkbox__inner--indet q-checkbox__indet
@@ -470,7 +457,6 @@ Missing 466 selectors:
 
 --- BREAKDOWN ---
   other: 435
-  uploader: 13
   checkbox: 7
   dialog: 6
   layout: 3

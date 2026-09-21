@@ -1102,54 +1102,10 @@
       "mismatch": []
     },
     "uploader": {
-      "target": null,
-      "missing": [
-        ".q-uploader--dark",
-        ".q-uploader--dark .q-uploader__dnd",
-        ".q-uploader--dark .q-uploader__file",
-        ".q-uploader--dark .q-uploader__overlay",
-        ".q-uploader__dnd",
-        ".q-uploader__file + .q-uploader__file",
-        ".q-uploader__file .q-circular-progress",
-        ".q-uploader__file--img",
-        ".q-uploader__file--img .q-circular-progress",
-        ".q-uploader__file--img .q-uploader__file-header",
-        ".q-uploader__header-content",
-        ".q-uploader__input::-webkit-file-upload-button",
-        "body.quasar-style-unstyled .q-uploader"
-      ],
-      "absent": [
-        ".q-uploader--bordered|border-style",
-        ".q-uploader--bordered|border-width",
-        ".q-uploader__file-header|padding-block",
-        ".q-uploader__file-header|padding-inline",
-        ".q-uploader__file:before|background-color",
-        ".q-uploader__file|border-bottom-left-radius",
-        ".q-uploader__file|border-bottom-right-radius",
-        ".q-uploader__file|border-style",
-        ".q-uploader__file|border-top-left-radius",
-        ".q-uploader__file|border-top-right-radius",
-        ".q-uploader__file|border-width",
-        ".q-uploader__header|border-top-left-radius",
-        ".q-uploader__header|border-top-right-radius",
-        ".q-uploader__header|position",
-        ".q-uploader__header|width",
-        ".q-uploader__list|border-bottom-left-radius",
-        ".q-uploader__list|border-bottom-right-radius",
-        ".q-uploader__list|flex",
-        ".q-uploader__list|min-height",
-        ".q-uploader__list|padding",
-        ".q-uploader__list|position",
-        ".q-uploader|box-shadow",
-        ".q-uploader|max-height",
-        ".q-uploader|position",
-        ".q-uploader|vertical-align",
-        ".q-uploader|width"
-      ],
-      "mismatch": [
-        ".q-uploader__title|font-weight",
-        ".q-uploader|border-radius"
-      ]
+      "target": 0,
+      "missing": [],
+      "absent": [],
+      "mismatch": []
     },
     "utilities": {
       "target": null,
