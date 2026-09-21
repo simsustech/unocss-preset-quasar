@@ -70,6 +70,31 @@ describe('duplicate rule matchers', () => {
     expect(asyncOnes).toEqual([])
   })
 
+  it('pins the duplicated matchers still to fold (may only shrink)', () => {
+    // The invariant is ONE entry per regex in the effective list — that is what
+    // `mergeDuplicateRules` guarantees, and what this file's header promises.
+    // Checked on the merged list it would be tautological, so check the source
+    // modules instead: every regex declared more than once is a group whose
+    // properties are unioned with later-wins, which means a conflicting value
+    // in an earlier entry is dead text — and when the later entry is a literal
+    // copy, a token loses. Fold a group by collapsing it to a single
+    // token-driven rule, then lower this number.
+    //
+    // Worst offenders when recorded: btn-group 8x, radio 5x, checkbox 5x,
+    // time/date/timeline/pull-to-refresh 4x.
+    const counts = new Map<string, number>()
+    for (const rule of sourceRules()) {
+      const [matcher] = rule as [unknown]
+      if (matcher instanceof RegExp) {
+        counts.set(matcher.source, (counts.get(matcher.source) ?? 0) + 1)
+      }
+    }
+    const duplicated = [...counts.entries()].filter(([, n]) => n > 1).length
+    // 209 distinct regexes are declared more than once. 268 duplicated matchers
+    // when counted per file (a regex repeated in two modules counts once here).
+    expect(duplicated).toBe(209)
+  })
+
   it('retains declarations from every duplicate for the same class', async () => {
     // A synthetic pair: the first entry carries `gap`, the second adds padding.
     // Last-wins alone used to drop the gap entirely, and UnoCSS itself keeps
