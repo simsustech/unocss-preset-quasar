@@ -181,7 +181,8 @@ export const tableRules = [
       }
       yield {
         [symbols.selector]: (sel) => `.body--dark ${sel}`,
-        'border-color': 'var(--q-outline)'
+        // The body--dark scope takes the faint role, matching the reference.
+        'border-color': 'var(--q-outline-variant)'
       }
     }
   ],
@@ -702,7 +703,9 @@ export const tableRules = [
       yield {
         'box-shadow':
           '0 1px 5px rgba(255, 255, 255, 0.2), 0 2px 2px rgba(255, 255, 255, 0.14), 0 3px 1px -2px rgba(255, 255, 255, 0.12)',
-        'border-color': 'rgba(255, 255, 255, 0.28)'
+        // The dark card's edge is the dark outline-variant role, not a white
+        // overlay literal.
+        'border-color': 'var(--dark-outline-variant)'
       }
     }
   ],

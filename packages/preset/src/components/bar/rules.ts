@@ -11,7 +11,10 @@ export const barRules = [
         'padding-inline': '12px',
         'padding-block': 'calc(var(--spacing) * 0)',
         'min-height': '32px',
-        'background-color': 'var(--q-surface-container)',
+        // Reference `.q-bar`: a 20% tint of the dark surface, which reads as a
+        // raised rail; a surface-container role is lighter than that.
+        'background-color':
+          'color-mix(in oklab, var(--dark-surface) 20%, transparent)',
         color: 'var(--q-on-surface)',
         gap: 'var(--q-space-sm)'
       }
@@ -66,9 +69,15 @@ export const barRules = [
   ],
   [
     /^q-bar--dark$/,
-    () => ({
-      'background-color': 'var(--q-surface-container-high)'
-    })
+    function* () {
+      yield {
+        // Dark roles rather than the `--q-*` aliases, which follow the body
+        // class: a `q-bar--dark` on a light body kept the light surface.
+        'background-color': 'var(--dark-surface-container)',
+        color:
+          'color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)'
+      }
+    }
   ],
   [
     /^q-bar--standard$/,

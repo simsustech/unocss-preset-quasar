@@ -77,12 +77,25 @@ export const linearProgressRules = [
   ],
   [
     /^q-linear-progress__track$/,
-    () => ({
-      position: 'absolute',
-      inset: '0',
-      'transform-origin': '0 0',
-      'background-color': 'var(--q-primary)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        position: 'absolute',
+        inset: '0',
+        'transform-origin': '0 0',
+        // The track is the unfilled rail, not the fill: `--q-primary` painted
+        // the whole rail with the accent colour.
+        'background-color': 'var(--q-surface-container-highest)'
+      }
+      // The per-scheme variants the reference states name the role directly.
+      yield {
+        [symbols.selector]: (sel) => `${sel}--light`,
+        'background-color': 'var(--light-surface-container-highest)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--dark`,
+        'background-color': 'var(--dark-surface-container-highest)'
+      }
+    }
   ],
   [
     /^q-linear-progress__model$/,

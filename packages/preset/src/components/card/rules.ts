@@ -77,7 +77,8 @@ export const cardRules = [
       }
       yield {
         [symbols.selector]: () => '.body--dark .q-card--bordered',
-        'border-color': 'var(--q-outline)'
+        // `outline-variant`, not `outline`: the bordered edge is the faint role.
+        'border-color': 'var(--q-outline-variant)'
       }
       yield {
         [symbols.selector]: (sel) => `.body--dark .q-dialog__inner>${sel}`,
@@ -93,11 +94,18 @@ export const cardRules = [
   ],
   [
     /^q-card--dark$/,
-    () => ({
-      'background-color': 'var(--q-surface-variant)',
-      // Reference restates the border with the light-on-dark 28% overlay.
-      'border-color': 'color-mix(in srgb, var(--colors-white) 28%, transparent)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        // The component-level dark variant names the dark roles directly: the
+        // `--q-*` aliases follow the *body* class, so using them here left a
+        // `.q-card--dark` on a light body with light surfaces.
+        'background-color': 'var(--dark-surface-container)',
+        color:
+          'color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)',
+        'border-color':
+          'color-mix(in srgb, var(--colors-white) 28%, transparent)'
+      }
+    }
   ],
   [
     /^q-card--horizontal$/,

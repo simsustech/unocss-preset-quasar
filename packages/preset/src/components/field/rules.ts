@@ -258,11 +258,14 @@ export const fieldRules = [
       yield { 'background-color': 'var(--q-surface-variant)' }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-field__control:before`,
-        'border-color': 'rgba(255, 255, 255, 0.6)'
+        // Roles, not white literals: the dark field edge is on-surface-variant
+        // at 60%, and the hover state takes it at full strength.
+        'border-color':
+          'color-mix(in oklab, var(--dark-on-surface-variant) 60%, transparent)'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-field__control:hover:before`,
-        'border-color': '#fff'
+        'border-color': 'var(--dark-on-surface-variant)'
       }
     }
   ],

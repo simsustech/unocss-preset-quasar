@@ -33,8 +33,11 @@ export const chipRules = [
       }
       yield {
         [symbols.selector]: (sel) => `.body--dark ${sel}`,
-        color: 'var(--q-on-secondary-container)',
-        'outline-color': 'var(--q-outline)'
+        color:
+          'color-mix(in oklab, var(--dark-on-secondary-container) var(--un-text-opacity), transparent)',
+        'background-color':
+          'color-mix(in oklab, var(--dark-secondary-container) var(--un-bg-opacity), transparent)',
+        'outline-color': 'var(--dark-outline)'
       }
       yield {
         [symbols.selector]: () => '.body--dark .q-chip__icon',
@@ -128,7 +131,10 @@ export const chipRules = [
     /^q-chip--dark$/,
     function* (_, { symbols }) {
       yield {
-        'background-color': 'var(--q-surface-variant)'
+        // Dark roles, not the `--q-*` aliases: those follow the body class.
+        'background-color': 'var(--dark-surface-container)',
+        color:
+          'color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-chip__icon`,
