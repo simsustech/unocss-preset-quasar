@@ -49,9 +49,11 @@ export const btnRules = [
         right: '0',
         top: '0',
         bottom: '0',
-        'border-radius': 'inherit',
-        'box-shadow':
-          '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
+        'border-radius': 'inherit'
+        // No elevation here: the reference puts `box-shadow` on
+        // `.q-btn--standard:before`, so a flat/outline/unelevated button has
+        // none. Carrying it on the base selector gave every button in the app a
+        // raised shadow — including the drawer's flat round button.
       }
       yield {
         [symbols.selector]: (sel) => `${sel}.disabled`,
