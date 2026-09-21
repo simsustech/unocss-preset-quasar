@@ -107,6 +107,34 @@ export interface QuasarPresetOptions {
   sourceColor?: string
   presetIcons?: IconsOptions
   presetWebFonts?: WebFontsOptions
+  /**
+   * Quasar's icon set (`framework.iconSet`): a nested map of icon names to the
+   * class each one renders as. The app owns it, so the preset reads the classes
+   * out of it — Quasar's own components ask for icons nobody writes in markup
+   * (a table's expand chevron, a select's arrow), and a class that only exists
+   * in this map is otherwise never generated.
+   */
+  iconSet?: unknown
+}
+
+/** Every `i-*` class value in the icon set, at any depth. */
+export function iconSetClasses(iconSet: unknown): string[] {
+  const found = new Set<string>()
+  const walk = (value: unknown): void => {
+    if (typeof value === 'string') {
+      if (/^i-[a-z0-9-]+$/.test(value)) found.add(value)
+      return
+    }
+    if (Array.isArray(value)) {
+      for (const entry of value) walk(entry)
+      return
+    }
+    if (value !== null && typeof value === 'object') {
+      for (const entry of Object.values(value)) walk(entry)
+    }
+  }
+  walk(iconSet)
+  return [...found]
 }
 
 export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
@@ -177,7 +205,9 @@ export const QuasarPreset = definePreset<QuasarPresetOptions>((options) => {
     // Values that name classes (icons, transitions) cannot be safelisted, so
     // they are derived from the markup instead — see extractor.ts.
     extractors: [quasarComponentExtractor, quasarValueExtractor],
-    safelist: quasarSafelist,
+    // The icon set's classes join the safelist: they are app configuration, not
+    // markup, and Quasar applies them without any source mentioning them.
+    safelist: [...quasarSafelist, ...iconSetClasses(options?.iconSet)],
     // The Quasar palette has to reach wind4's theme, not just our own token
     // preflight: wind4 emits `--colors-<name>` and generates the colour
     // utilities (`bg-grey-8`, `text-deep-orange`, …) from the theme, so without

@@ -3,6 +3,7 @@ import {
   quasarComponentExtractor,
   quasarValueExtractor
 } from '../src/extractor.js'
+import { iconSetClasses } from '../src/index.js'
 
 /**
  * The classes Quasar builds from prop *values*. They are invisible to content
@@ -61,5 +62,21 @@ describe('quasar component extractor', () => {
 
   it('emits nothing when no component is mentioned', () => {
     expect(extract('<div class="row">plain</div>')).toEqual([])
+  })
+})
+
+describe('icon set classes', () => {
+  it("reads the i-* classes out of Quasar's icon set, at any depth", () => {
+    const classes = iconSetClasses({
+      carousel: { left: 'i-mdi-chevron-left', right: ['i-mdi-chevron-right'] },
+      chip: { remove: 'i-mdi-close-circle', ignore: 7, nothing: null },
+      nothing: 'not-an-icon-class',
+      alsoNothing: 'mdi-chevron-down'
+    })
+    expect(classes.sort()).toEqual([
+      'i-mdi-chevron-left',
+      'i-mdi-chevron-right',
+      'i-mdi-close-circle'
+    ])
   })
 })
