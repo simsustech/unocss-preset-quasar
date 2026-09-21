@@ -3,17 +3,40 @@ import type { Rule } from '@unocss/core'
 export const sliderRules = [
   [
     /^q-slider$/,
-    () => ({
-      position: 'relative',
-      height: '1.5em',
-      cursor: 'pointer'
-    })
+    function* (_, { symbols }) {
+      yield {
+        position: 'relative',
+        height: '1.5em',
+        cursor: 'pointer'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__thumb`,
+        color: 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__track`,
+        color: 'var(--q-primary)',
+        'background-color': 'var(--q-secondary-container)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__inner`,
+        'background-color': 'var(--q-secondary-container)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+    }
   ],
   [
     /^q-slider--dark$/,
-    () => ({
-      // Dark mode
-    })
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-slider__markers`,
+        color: 'rgba(255, 255, 255, 0.3)'
+      }
+    }
   ],
   [
     /^q-slider--dense$/,
@@ -60,19 +83,37 @@ export const sliderRules = [
   ],
   [
     /^q-slider__track-container$/,
-    () => ({
-      position: 'relative',
-      height: '100%'
-    })
+    function* (_, { symbols }) {
+      yield {
+        position: 'relative',
+        height: '100%'
+      }
+      yield { 'outline-style': 'solid', 'outline-width': '0px' }
+    }
   ],
   [
     /^q-slider__selection$/,
-    () => ({
-      'background-color': 'currentColor',
-      width: '100%',
-      height: '100%',
-      'border-radius': 'inherit'
-    })
+    function* (_, { symbols }) {
+      yield {
+        'background-color': 'currentColor',
+        width: '100%',
+        height: '100%',
+        'border-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-slider--focus ${sel}`,
+        opacity: '100%'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-slider--no-value ${sel}`,
+        opacity: '0%'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-slider--inactive ${sel}`,
+        transition:
+          'width 0.28s, left 0.28s, right 0.28s, height 0.28s, top 0.28s, bottom 0.28s'
+      }
+    }
   ],
   [
     /^q-slider__handle$/,
@@ -111,9 +152,32 @@ export const sliderRules = [
   ],
   [
     /^q-slider__inner$/,
-    () => ({
-      // Inner
-    })
+    function* (_, { symbols }) {
+      yield {
+        'background-color':
+          'color-mix(in oklab, var(--q-secondary-container) 30%, transparent)',
+        width: '100%',
+        height: '100%',
+        'border-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        'background-color':
+          'color-mix(in oklab, var(--q-secondary-container) 30%, transparent)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-slider--dark ${sel}`,
+        'background-color': 'rgba(255, 255, 255, 0.1)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-slider--focus ${sel}`,
+        opacity: '100%'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-slider--no-value ${sel}`,
+        opacity: '0%'
+      }
+    }
   ],
   [
     /^q-slider__inner--active$/,
@@ -155,6 +219,12 @@ export const sliderRules = [
         position: 'absolute',
         'background-color': 'currentColor'
       }
+      yield {
+        width: '100%',
+        height: '100%',
+        color: 'var(--q-on-surface-variant)',
+        'border-radius': 'inherit'
+      }
     }
   ],
   [
@@ -166,6 +236,10 @@ export const sliderRules = [
         width: '2px',
         top: '0',
         right: '0'
+      }
+      yield {
+        'background-color':
+          'color-mix(in oklab, repeating-linear-gradient(to right, currentColor, currentColor 2px, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0)), transparent)'
       }
     }
   ],
@@ -179,6 +253,10 @@ export const sliderRules = [
         left: '0',
         bottom: '0'
       }
+      yield {
+        'background-color':
+          'color-mix(in oklab, repeating-linear-gradient(to bottom, currentColor, currentColor 2px, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0)), transparent)'
+      }
     }
   ],
   [
@@ -190,6 +268,16 @@ export const sliderRules = [
         width: '0',
         height: '0',
         position: 'absolute'
+      }
+      yield {
+        opacity: '0%',
+        'white-space': 'nowrap',
+        'transition-delay': '140ms',
+        transition: 'opacity 0.28s ease-out'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-slider--label .q-slider--focus ${sel}`,
+        opacity: '100%'
       }
     }
   ],
@@ -213,6 +301,7 @@ export const sliderRules = [
         bottom: '2px',
         'border-top': '6px solid currentColor'
       }
+      yield { bottom: '100%' }
     }
   ],
   [
@@ -223,6 +312,7 @@ export const sliderRules = [
         top: '2px',
         'border-bottom': '6px solid currentColor'
       }
+      yield { top: '100%' }
     }
   ],
   [
@@ -235,6 +325,7 @@ export const sliderRules = [
         'border-top': '6px solid transparent',
         'border-bottom': '6px solid transparent'
       }
+      yield { top: '0' }
     }
   ],
   [
@@ -245,6 +336,7 @@ export const sliderRules = [
         left: '2px',
         'border-right': '6px solid currentColor'
       }
+      yield { left: '100%' }
     }
   ],
   [
@@ -255,6 +347,7 @@ export const sliderRules = [
         right: '2px',
         'border-left': '6px solid currentColor'
       }
+      yield { right: '100%' }
     }
   ],
   [
@@ -286,6 +379,7 @@ export const sliderRules = [
         [symbols.selector]: (sel) => `${sel} .q-slider__selection`,
         'will-change': 'left'
       }
+      yield { 'padding-inline': '0', 'padding-block': '12px' }
     }
   ],
   [
@@ -296,6 +390,7 @@ export const sliderRules = [
         [symbols.selector]: (sel) => `${sel} .q-slider__selection`,
         'will-change': 'top'
       }
+      yield { 'padding-inline': '12px', 'padding-block': '0' }
     }
   ],
   [
@@ -374,12 +469,41 @@ export const sliderRules = [
         [symbols.selector]: (sel) => `${sel}.q-slider--focus`,
         opacity: '1 !important'
       }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        color: 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-slider--focus ${sel}`,
+        opacity: '100%'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-slider--no-value ${sel}`,
+        opacity: '0%'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-color-picker__sliders ${sel}`,
+        color: '#424242'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-color-picker__sliders ${sel} path`,
+        fill: 'transparent',
+        'stroke-width': '2px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-color-picker--dark ${sel}`,
+        color: '#fafafa'
+      }
     }
   ],
   [
     /^q-slider__thumb--h$/,
-    function* () {
+    function* (_, { symbols }) {
       yield { top: '50%', 'will-change': 'left' }
+      yield {
+        [symbols.selector]: (sel) => `.q-slider--inactive ${sel}`,
+        transition: 'left 0.28s, right 0.28s'
+      }
     }
   ],
   [
@@ -396,8 +520,12 @@ export const sliderRules = [
   ],
   [
     /^q-slider__thumb--v$/,
-    function* () {
+    function* (_, { symbols }) {
       yield { left: '50% /* rtl:ignore */', 'will-change': 'top' }
+      yield {
+        [symbols.selector]: (sel) => `.q-slider--inactive ${sel}`,
+        transition: 'top 0.28s, bottom 0.28s'
+      }
     }
   ],
   [
@@ -427,17 +555,31 @@ export const sliderRules = [
         stroke: 'currentColor',
         fill: 'currentColor'
       }
+      yield {
+        [symbols.selector]: (sel) => `.q-slider--active ${sel}`,
+        transform: 'scale3d(1.5, 1.5, 1)'
+      }
     }
   ],
   [
     /^q-slider__focus-ring$/,
-    function* () {
+    function* (_, { symbols }) {
       yield {
         'border-radius': '50%',
         opacity: '0',
         transition:
           'transform 266.67ms ease-out, opacity 266.67ms ease-out, background-color 266.67ms ease-out',
         'transition-delay': '140ms'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-slider--focus ${sel}`,
+        'background-color': 'currentColor',
+        opacity: '25%',
+        transform: 'scale3d(1.55, 1.55, 1)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-slider--active ${sel}`,
+        transform: 'scale3d(0, 0, 1) !important'
       }
     }
   ],
@@ -489,7 +631,7 @@ export const sliderRules = [
   ],
   [
     /^q-slider__text-container$/,
-    function* () {
+    function* (_, { symbols }) {
       yield {
         'min-height': '25px',
         padding: '2px 8px',
@@ -497,6 +639,19 @@ export const sliderRules = [
         background: 'currentColor',
         position: 'relative',
         'text-align': 'center'
+      }
+      yield {
+        'padding-inline': '8px',
+        'padding-block': '2px',
+        'text-align': 'center',
+        'border-radius': '4px',
+        'background-color': 'currentColor',
+        'min-height': '25px',
+        position: 'relative'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.q-slider--inactive ${sel}`,
+        transition: 'transform 0.28s'
       }
     }
   ],
@@ -602,282 +757,6 @@ export const sliderRules = [
         [symbols.selector]: (sel) =>
           `${sel}.q-slider--label-always .q-slider__pin`,
         opacity: '1'
-      }
-    }
-  ],
-  // Dark: thumb and track take primary over the secondary container.
-  [
-    /^q-slider$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}__thumb`,
-        color: 'var(--q-primary)'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}__track`,
-        color: 'var(--q-primary)',
-        'background-color': 'var(--q-secondary-container)'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}__inner`,
-        'background-color': 'var(--q-secondary-container)'
-      }
-    }
-  ],
-  // --- Reference parity: the parts of the sheet the port had not reached yet ---
-  [
-    /^q-slider$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
-        background: 'none',
-        color: 'inherit'
-      }
-    }
-  ],
-  [
-    /^q-slider__inner$/,
-    function* (_, { symbols }) {
-      yield {
-        'background-color':
-          'color-mix(in oklab, var(--q-secondary-container) 30%, transparent)',
-        width: '100%',
-        height: '100%',
-        'border-radius': 'inherit'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
-        'background-color':
-          'color-mix(in oklab, var(--q-secondary-container) 30%, transparent)'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.q-slider--dark ${sel}`,
-        'background-color': 'rgba(255, 255, 255, 0.1)'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.q-slider--focus ${sel}`,
-        opacity: '100%'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.q-slider--no-value ${sel}`,
-        opacity: '0%'
-      }
-    }
-  ],
-  [
-    /^q-slider__track-container$/,
-    function* () {
-      yield { 'outline-style': 'solid', 'outline-width': '0px' }
-    }
-  ],
-  [
-    /^q-slider__track-container--h$/,
-    function* () {
-      yield { 'padding-inline': '0', 'padding-block': '12px' }
-    }
-  ],
-  [
-    /^q-slider__track-container--v$/,
-    function* () {
-      yield { 'padding-inline': '12px', 'padding-block': '0' }
-    }
-  ],
-  [
-    /^q-slider__text-container$/,
-    () => ({
-      'padding-inline': '8px',
-      'padding-block': '2px',
-      'text-align': 'center',
-      'border-radius': '4px',
-      'background-color': 'currentColor',
-      'min-height': '25px',
-      position: 'relative'
-    })
-  ],
-  [
-    /^q-slider__markers$/,
-    function* (_, { symbols }) {
-      yield {
-        width: '100%',
-        height: '100%',
-        color: 'var(--q-on-surface-variant)',
-        'border-radius': 'inherit'
-      }
-    }
-  ],
-  [
-    /^q-slider__markers--h$/,
-    function* () {
-      yield {
-        'background-color':
-          'color-mix(in oklab, repeating-linear-gradient(to right, currentColor, currentColor 2px, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0)), transparent)'
-      }
-    }
-  ],
-  [
-    /^q-slider__markers--v$/,
-    function* () {
-      yield {
-        'background-color':
-          'color-mix(in oklab, repeating-linear-gradient(to bottom, currentColor, currentColor 2px, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0)), transparent)'
-      }
-    }
-  ],
-  [
-    /^q-slider--dark$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-slider__markers`,
-        color: 'rgba(255, 255, 255, 0.3)'
-      }
-    }
-  ],
-  [
-    /^q-slider__pin$/,
-    function* () {
-      yield {
-        opacity: '0%',
-        'white-space': 'nowrap',
-        'transition-delay': '140ms',
-        transition: 'opacity 0.28s ease-out'
-      }
-    }
-  ],
-  [
-    /^q-slider__pin--v$/,
-    function* () {
-      yield { top: '0' }
-    }
-  ],
-  [
-    /^q-slider__pin--h-standard$/,
-    function* () {
-      yield { bottom: '100%' }
-    }
-  ],
-  [
-    /^q-slider__pin--h-switched$/,
-    function* () {
-      yield { top: '100%' }
-    }
-  ],
-  [
-    /^q-slider__pin--v-standard$/,
-    function* () {
-      yield { left: '100%' }
-    }
-  ],
-  [
-    /^q-slider__pin--v-switched$/,
-    function* () {
-      yield { right: '100%' }
-    }
-  ],
-  [
-    /^q-slider__focus-ring$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `.q-slider--focus ${sel}`,
-        'background-color': 'currentColor',
-        opacity: '25%',
-        transform: 'scale3d(1.55, 1.55, 1)'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.q-slider--active ${sel}`,
-        transform: 'scale3d(0, 0, 1) !important'
-      }
-    }
-  ],
-  [
-    /^q-slider__thumb$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
-        color: 'var(--q-primary)'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.q-slider--focus ${sel}`,
-        opacity: '100%'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.q-slider--no-value ${sel}`,
-        opacity: '0%'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.q-color-picker__sliders ${sel}`,
-        color: '#424242'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.q-color-picker__sliders ${sel} path`,
-        fill: 'transparent',
-        'stroke-width': '2px'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.q-color-picker--dark ${sel}`,
-        color: '#fafafa'
-      }
-    }
-  ],
-  [
-    /^q-slider__selection$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `.q-slider--focus ${sel}`,
-        opacity: '100%'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.q-slider--no-value ${sel}`,
-        opacity: '0%'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.q-slider--inactive ${sel}`,
-        transition:
-          'width 0.28s, left 0.28s, right 0.28s, height 0.28s, top 0.28s, bottom 0.28s'
-      }
-    }
-  ],
-  [
-    /^q-slider__thumb-shape$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `.q-slider--active ${sel}`,
-        transform: 'scale3d(1.5, 1.5, 1)'
-      }
-    }
-  ],
-  [
-    /^q-slider__thumb--h$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `.q-slider--inactive ${sel}`,
-        transition: 'left 0.28s, right 0.28s'
-      }
-    }
-  ],
-  [
-    /^q-slider__thumb--v$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `.q-slider--inactive ${sel}`,
-        transition: 'top 0.28s, bottom 0.28s'
-      }
-    }
-  ],
-  [
-    /^q-slider__text-container$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `.q-slider--inactive ${sel}`,
-        transition: 'transform 0.28s'
-      }
-    }
-  ],
-  [
-    /^q-slider__pin$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `.q-slider--label .q-slider--focus ${sel}`,
-        opacity: '100%'
       }
     }
   ]
