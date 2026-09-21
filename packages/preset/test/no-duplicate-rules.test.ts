@@ -14,6 +14,7 @@ import { describe, it, expect } from 'vitest'
 import { createGenerator } from 'unocss'
 import type { Rule } from '@unocss/core'
 import { QuasarPreset } from '../src/index.js'
+import { mergeDuplicateRules } from '../src/rules/merge.js'
 import * as componentModules from '../src/components/index.js'
 import * as coreModules from '../src/core/index.js'
 
@@ -44,6 +45,13 @@ async function cssFor(tokens: string): Promise<string> {
   return r.css
 }
 
+/** CSS for a synthetic rule list, so the guard does not depend on a component. */
+async function cssForRules(rules: Rule[], token: string): Promise<string> {
+  const gen = await createGenerator({ rules: mergeDuplicateRules(rules) })
+  const r = await gen.generate(token, { preflights: false })
+  return r.css
+}
+
 function block(css: string, sel: string): string {
   const m = css.match(new RegExp(`\\${sel}\\{[^}]*\\}`, 'g'))
   return m ? m.join('\n') : ''
@@ -63,26 +71,44 @@ describe('duplicate rule matchers', () => {
   })
 
   it('retains declarations from every duplicate for the same class', async () => {
-    // `q-item--dense` is declared twice: the first entry carries `gap`, the
-    // second overrides `min-height` and adds padding. Last-wins used to drop
-    // the gap entirely.
-    const css = await cssFor('q-item--dense')
-    const b = block(css, '.q-item--dense')
+    // A synthetic pair: the first entry carries `gap`, the second adds padding.
+    // Last-wins alone used to drop the gap entirely, and UnoCSS itself keeps
+    // only the last rule registered for a regex.
+    const css = await cssForRules(
+      [
+        [/^q-fixture$/, () => ({ gap: 'var(--q-space-md)' })],
+        [
+          /^q-fixture$/,
+          () => ({
+            'min-height': 'var(--q-item-dense-min-height)',
+            'padding-inline': '16px'
+          })
+        ]
+      ],
+      'q-fixture'
+    )
+    const b = block(css, '.q-fixture')
     expect(b).toContain('gap:var(--q-space-md)')
-    // The dense padding is spelled with logical longhands, as the reference
-    // declares it, so it does not collide with the base rule's `gap`.
     expect(b).toContain('padding-inline:16px')
-    expect(b).toContain('padding-block:2px')
-    expect(b).toContain('min-height:28px')
+    expect(b).toContain('min-height:var(--q-item-dense-min-height)')
   })
 
   it('folds repeated properties into one, with the later entry winning', async () => {
-    const css = await cssFor('q-item--dense')
-    const minHeights = block(css, '.q-item--dense').match(/min-height:[^;]+/g)
-    // One merged declaration set: the second entry's value overrides the first
-    // (identical to the old last-wins result), while the first entry's `gap`
-    // side by side is preserved by the previous test.
-    expect(minHeights).toEqual(['min-height:28px'])
+    const css = await cssForRules(
+      [
+        [/^q-fixture$/, () => ({ 'min-height': '28px' })],
+        [
+          /^q-fixture$/,
+          () => ({ 'min-height': 'auto', 'padding-block': '2px' })
+        ]
+      ],
+      'q-fixture'
+    )
+    const minHeights = block(css, '.q-fixture').match(/min-height:[^;]+/g)
+    // One merged declaration set: the later entry's value wins, and the other
+    // entry's declarations survive (previous test).
+    expect(minHeights).toEqual(['min-height:auto'])
+    expect(block(css, '.q-fixture')).toContain('padding-block:2px')
   })
 
   it('keeps scoped yields separate when merging duplicate matchers', async () => {

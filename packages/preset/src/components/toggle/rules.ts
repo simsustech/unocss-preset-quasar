@@ -35,8 +35,8 @@ export const toggleRules = [
         bottom: 0,
         left: 0,
         'border-radius': '50%',
-        background: 'var(--q-toggle-state-layer-color)',
-        opacity: 0.12,
+        'background-color': 'var(--q-toggle-state-layer-color)',
+        opacity: '0%',
         transform: 'scale3d(0, 0, 1)',
         transition: 'transform 0.22s cubic-bezier(0, 0, 0.2, 1)'
       }
@@ -50,14 +50,27 @@ export const toggleRules = [
       yield {
         [symbols.selector]: (sel: string) =>
           `${sel}:not(.disabled):hover .q-toggle__thumb:before`,
+        // Alpha is declared here as well as on the base rule because the
+        // reference states it on the hover selector.
+        opacity: '12%',
         transform: 'scale(2)'
+      }
+      // The unstyled style entry is inert: no surface, inherit the text colour.
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}.disabled`,
+        opacity: '75% !important'
       }
       // MD3 tints the on-state interaction layer with primary (MD2 keeps
       // currentColor, so this is a no-op there via the token).
       yield {
         [symbols.selector]: (sel: string) =>
           `${sel} .q-toggle__inner--truthy .q-toggle__thumb:before`,
-        background: 'var(--q-toggle-state-layer-color-active)'
+        'background-color': 'var(--q-toggle-state-layer-color-active)'
       }
     }
   ],
@@ -71,7 +84,8 @@ export const toggleRules = [
       height: '1em',
       padding: 'var(--q-toggle-inner-padding)',
       'print-color-adjust': 'exact',
-      '-webkit-print-color-adjust': 'exact'
+      '-webkit-print-color-adjust': 'exact',
+      position: 'relative'
     })
   ],
   [
@@ -82,7 +96,11 @@ export const toggleRules = [
         'border-radius': 'var(--q-toggle-track-border-radius)',
         opacity: 'var(--q-toggle-track-opacity)',
         background: 'var(--q-toggle-track-bg)',
-        border: 'var(--q-toggle-track-outline)',
+        'outline-width': 'var(--q-toggle-track-outline-width)',
+        'outline-style': 'var(--q-toggle-track-outline-style)',
+        'outline-color': 'var(--q-toggle-track-outline-color)',
+        width: 'var(--q-toggle-track-width)',
+        position: 'relative',
         'box-sizing': 'border-box',
         'print-color-adjust': 'exact',
         '-webkit-print-color-adjust': 'exact'
@@ -108,8 +126,8 @@ export const toggleRules = [
         left: 'var(--q-toggle-thumb-offset)',
         width: 'var(--q-toggle-thumb-size)',
         height: 'var(--q-toggle-thumb-size)',
-        transition:
-          'left 0.22s cubic-bezier(0.4, 0, 0.2, 1), width 0.22s cubic-bezier(0.4, 0, 0.2, 1), height 0.22s cubic-bezier(0.4, 0, 0.2, 1)',
+        // The reference animates `left` only; the size change is not eased.
+        transition: 'left 0.22s cubic-bezier(0.4, 0, 0.2, 1)',
         'user-select': 'none',
         '-webkit-user-select': 'none',
         'z-index': 0
@@ -158,7 +176,9 @@ export const toggleRules = [
         [symbols.selector]: (sel) => `${sel} .q-toggle__track`,
         background: 'var(--q-toggle-track-bg-active)',
         opacity: 'var(--q-toggle-track-opacity-active)',
-        border: 'var(--q-toggle-track-outline-active)'
+        'outline-width': 'var(--q-toggle-track-outline-width-active)',
+        'outline-style': 'var(--q-toggle-track-outline-style-active)',
+        'outline-color': 'var(--q-toggle-track-outline-color-active)'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-toggle__thumb`,
@@ -173,7 +193,8 @@ export const toggleRules = [
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-toggle__thumb .q-icon`,
-        color: 'var(--q-toggle-icon-color-active)'
+        color: 'var(--q-toggle-icon-color-active)',
+        opacity: '100%'
       }
     }
   ],
@@ -208,10 +229,12 @@ export const toggleRules = [
       yield {
         [symbols.selector]: (sel) => `${sel} .q-toggle__inner`,
         'font-size': 'var(--q-toggle-dense-font-size)',
-        width: '0.8em',
-        'min-width': '0.8em',
-        height: '0.5em',
-        padding: '0.07625em 0'
+        width: 'var(--q-toggle-inner-width)',
+        'min-width': 'var(--q-toggle-inner-width)',
+        height: '1em',
+        // The reference zeroes the dense padding rather than scaling it.
+        'padding-inline': '0',
+        'padding-block': '0'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-toggle__thumb`,
@@ -299,208 +322,6 @@ export const toggleRules = [
           `.body--dark ${sel}__inner--truthy .q-toggle__track`,
         'background-color': 'var(--q-primary)'
       }
-    }
-  ],
-
-  // --- Reference parity: MD3 switch geometry and state layers ---
-  [
-    /^q-toggle$/,
-    function* (_, { symbols }) {
-      yield { 'vertical-align': 'middle' }
-      yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel}.disabled`,
-        opacity: '75% !important'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__label`,
-        'padding-left': '0.5em'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel}.reverse .q-toggle__label`,
-        'padding-left': '0',
-        'padding-right': '0.5em'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:not(.disabled):hover .q-toggle__thumb:before`,
-        opacity: '12%',
-        transform: 'scale(2)'
-      }
-    }
-  ],
-  [
-    /^q-toggle__inner$/,
-    function* () {
-      yield {
-        height: '1em',
-        width: '1.625em',
-        'font-size': '32px',
-        padding: '0',
-        position: 'relative'
-      }
-    }
-  ],
-  [
-    /^q-toggle--dense$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__inner`,
-        'padding-inline': '0',
-        'padding-block': '0',
-        height: '1em',
-        width: '1.625em',
-        'min-width': '1.625em',
-        'font-size': '28px'
-      }
-    }
-  ],
-  [
-    /^q-toggle__track$/,
-    function* (_, { symbols }) {
-      yield {
-        'outline-style': 'solid',
-        'outline-width': '2px',
-        'outline-color': 'var(--q-outline)',
-        'border-radius': 'calc(infinity * 1px) !important',
-        'background-color': 'var(--q-surface-container)',
-        height: '1em',
-        width: '1.625em',
-        position: 'relative'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
-        'outline-color': 'var(--q-outline)',
-        'background-color': 'var(--q-surface-container)'
-      }
-    }
-  ],
-  [
-    /^q-toggle__thumb$/,
-    function* (_, { symbols }) {
-      yield {
-        color: 'var(--q-surface-container-highest)',
-        width: '0.5em',
-        height: '0.5em',
-        'user-select': 'none',
-        '-webkit-user-select': 'none',
-        transition: 'left 0.22s cubic-bezier(0.4, 0, 0.2, 1)',
-        top: '0.25em',
-        left: '0.15em',
-        position: 'absolute',
-        'z-index': '0'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel}:after`,
-        'border-radius': '50%',
-        'background-color': 'var(--q-outline)',
-        content: '""',
-        'box-shadow':
-          '0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12)',
-        top: '0',
-        right: '0',
-        bottom: '0',
-        left: '0',
-        position: 'absolute'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.q-toggle:not(.disabled) ${sel}:before`,
-        'border-radius': '50%',
-        'background-color': 'currentColor',
-        opacity: '0%',
-        content: '""',
-        top: '0',
-        left: '0',
-        right: '0',
-        bottom: '0',
-        position: 'absolute'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-icon`,
-        'font-size': '0.33em',
-        color: 'rgba(0, 0, 0, 1)',
-        opacity: '0.54',
-        'z-index': '2'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
-        color: 'var(--q-surface-container-highest)'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}:after`,
-        'background-color': 'var(--q-outline)'
-      }
-    }
-  ],
-  [
-    /^q-toggle__inner--truthy$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__thumb`,
-        color: 'var(--q-on-primary-container)',
-        width: '0.75em',
-        height: '0.75em',
-        left: '0.725em',
-        top: '0.125em'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__thumb .q-icon`,
-        color: '#fff',
-        opacity: '100%'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__thumb:after`,
-        'background-color': 'var(--q-on-primary) !important'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__track`,
-        'background-color': 'var(--q-primary)'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel} .q-toggle__thumb`,
-        color: 'var(--q-on-primary-container)'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `.body--dark ${sel} .q-toggle__thumb:after`,
-        'background-color': 'var(--q-on-primary) !important'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel} .q-toggle__track`,
-        'background-color': 'var(--q-primary)'
-      }
-    }
-  ],
-  [
-    /^q-toggle__inner--indet$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__thumb`,
-        left: '0.4375em'
-      }
-    }
-  ],
-  [
-    /^q-toggle--dark$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__thumb:before`,
-        opacity: '0.32 !important'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__thumb:after`,
-        'box-shadow': 'none'
-      }
-    }
-  ],
-  [
-    /^q-toggle__native$/,
-    function* () {
-      yield { width: '1px', height: '1px' }
     }
   ]
 ] as Rule[]

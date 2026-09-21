@@ -5,7 +5,7 @@ export const separatorRules = [
     /^q-separator$/,
     function* (_, { symbols }) {
       yield {
-        'background-color': 'var(--q-outline-variant)',
+        'background-color': 'var(--q-separator-color)',
         // Reference states the reset as longhands (`border-width: 0px`), not the
         // `border` shorthand, so the declaration the gate measures is present.
         'border-width': '0px',

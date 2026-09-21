@@ -149,7 +149,10 @@ export interface ComponentTokens {
   toggleFontSize: string
   toggleDenseFontSize: string
   toggleTrackBg: string
-  toggleTrackOutline: string
+  toggleTrackWidth: string
+  toggleTrackOutlineWidth: string
+  toggleTrackOutlineStyle: string
+  toggleTrackOutlineColor: string
   toggleTrackOpacity: string
   toggleTrackBorderRadius: string
   toggleTrackHeight: string
@@ -160,7 +163,9 @@ export interface ComponentTokens {
   toggleInnerPadding: string
   toggleTrackBgActive: string
   toggleTrackOpacityActive: string
-  toggleTrackOutlineActive: string
+  toggleTrackOutlineWidthActive: string
+  toggleTrackOutlineStyleActive: string
+  toggleTrackOutlineColorActive: string
   toggleThumbSize: string
   toggleThumbSizeActive: string
   toggleThumbOffset: string
@@ -193,7 +198,10 @@ export interface ComponentTokens {
   fieldPaddingX: string
   fieldPaddingY: string
   itemMinHeight: string
+  separatorColor: string
   itemGap: string
+  itemActiveBg: string
+  itemActiveColor: string
   itemDenseMinHeight: string
   badgeFontWeight: number
   chipMinHeight: string

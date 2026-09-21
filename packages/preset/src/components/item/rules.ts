@@ -30,12 +30,12 @@ export const itemRules = [
     /^q-item--active$/,
     function* (_, { symbols }) {
       yield {
-        // md3 spec: the selected container is `secondary-container` and its
-        // text `on-secondary-container` (specs/reference/normalized/
-        // md3-lists.json). The reference has no such rule; the primary
-        // pair was this port's own invention.
-        'background-color': 'var(--q-secondary-container)',
-        color: 'var(--q-on-secondary-container)'
+        // Selected colours are per style: md3 uses `secondary-container` with
+        // `on-secondary-container` text, md2 `primary` at 12% with `primary`
+        // text (specs/reference/normalized/{md3,md2}-lists.json). The reference
+        // has no such rule at all.
+        'background-color': 'var(--q-item-active-bg)',
+        color: 'var(--q-item-active-color)'
       }
       yield {
         [symbols.selector]: (sel) => `.body--dark ${sel}`,
@@ -53,7 +53,12 @@ export const itemRules = [
     /^q-item--dense$/,
     () => ({
       'min-height': 'var(--q-item-dense-min-height)',
-      gap: 'var(--q-space-md)'
+      gap: 'var(--q-space-md)',
+      // The reference declares the dense padding as logical longhands; the
+      // inline value is the space token, the 2px block inset is Quasar's own
+      // density (not part of the md3 list spec).
+      'padding-inline': 'var(--q-space-lg)',
+      'padding-block': '2px'
     })
   ],
   [
@@ -67,12 +72,12 @@ export const itemRules = [
     /^q-item--active$/,
     function* (_, { symbols }) {
       yield {
-        // md3 spec: the selected container is `secondary-container` and its
-        // text `on-secondary-container` (specs/reference/normalized/
-        // md3-lists.json). The reference has no such rule; the primary
-        // pair was this port's own invention.
-        'background-color': 'var(--q-secondary-container)',
-        color: 'var(--q-on-secondary-container)'
+        // Selected colours are per style: md3 uses `secondary-container` with
+        // `on-secondary-container` text, md2 `primary` at 12% with `primary`
+        // text (specs/reference/normalized/{md3,md2}-lists.json). The reference
+        // has no such rule at all.
+        'background-color': 'var(--q-item-active-bg)',
+        color: 'var(--q-item-active-color)'
       }
       yield {
         [symbols.selector]: (sel) => `.body--dark ${sel}`,
@@ -84,14 +89,6 @@ export const itemRules = [
     /^q-item--dark$/,
     () => ({
       // Dark mode
-    })
-  ],
-  [
-    /^q-item--dense$/,
-    () => ({
-      'min-height': '28px',
-      'padding-inline': '16px',
-      'padding-block': '2px'
     })
   ],
   [

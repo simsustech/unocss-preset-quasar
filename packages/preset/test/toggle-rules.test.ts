@@ -125,7 +125,11 @@ describe('toggleRules MD3 token wiring', () => {
     expect(track.height).toBe('var(--q-toggle-track-height)')
     expect(track['border-radius']).toBe('var(--q-toggle-track-border-radius)')
     expect(track.background).toBe('var(--q-toggle-track-bg)')
-    expect(track.border).toBe('var(--q-toggle-track-outline)')
+    // The ring is tokenised as outline longhands (the reference declares them
+    // as longhands too), so md2 can set width 0 / style none.
+    expect(track['outline-width']).toBe('var(--q-toggle-track-outline-width)')
+    expect(track['outline-style']).toBe('var(--q-toggle-track-outline-style)')
+    expect(track['outline-color']).toBe('var(--q-toggle-track-outline-color)')
     // The md3 2px ring must sit inside the 32px chassis.
     expect(track['box-sizing']).toBe('border-box')
   })
@@ -168,7 +172,15 @@ describe('toggleRules MD3 token wiring', () => {
     expect(trackEntry).toBeDefined()
     expect(trackEntry.background).toBe('var(--q-toggle-track-bg-active)')
     expect(trackEntry.opacity).toBe('var(--q-toggle-track-opacity-active)')
-    expect(trackEntry.border).toBe('var(--q-toggle-track-outline-active)')
+    expect(trackEntry['outline-width']).toBe(
+      'var(--q-toggle-track-outline-width-active)'
+    )
+    expect(trackEntry['outline-style']).toBe(
+      'var(--q-toggle-track-outline-style-active)'
+    )
+    expect(trackEntry['outline-color']).toBe(
+      'var(--q-toggle-track-outline-color-active)'
+    )
   })
 
   it('takes every size in the base rules from the reference sheet', () => {

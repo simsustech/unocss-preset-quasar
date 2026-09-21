@@ -569,6 +569,56 @@ console.log(unresolved.map(([n, w]) => `${n}  (used by ${w})`).join('\n'))
 
 ---
 
+## 8c. The literal duplicate blocks, and the spec pass they blocked
+
+`mergeDuplicateRules` collapses repeated matchers because UnoCSS keeps only the
+last rule registered for a regex. The rewrite nonetheless left a _second_,
+literal copy of many components — a "reference parity" block re-declaring the
+same selectors with hardcoded values. **29 rules files carry 268 duplicated
+matchers:**
+
+```
+44 dup / 101 matchers  src/components/time/rules.ts
+43 dup /  83 matchers  src/components/field/rules.ts
+30 dup /  75 matchers  src/components/date/rules.ts
+25 dup /  88 matchers  src/components/slider/rules.ts
+17 dup /  31 matchers  src/components/checkbox/rules.ts
+... drawer, fab, tabs, toggle, btn-group, select, timeline, item, separator
+```
+
+Because those copies carry literals, they are style-agnostic, and they are what
+the sheet actually emits: the token system is bypassed, and the md2/md3 bodies
+live side by side without a style being able to win. That is the root cause of
+"the md3 toggle rendered as md2 no matter what the style tokens said" — and of
+md2 rendering md3 geometry.
+
+Folded so far: `toggle`, `item`, `separator` — the three components the vendored
+specs cover. Literals moved into per-style tokens, and both styles set to their
+spec (verified by probing the harness on 3100, md3 and md2):
+
+|                     | md3 spec                           | md3 rendered  | md2 spec                     | md2 rendered       |
+| ------------------- | ---------------------------------- | ------------- | ---------------------------- | ------------------ |
+| switch chassis      | 52x32                              | 52x32         | 56x40 box (`1.4em` @40px)    | 56x40              |
+| switch track        | 52x32, outline 2px `outline`       | same          | 36x14, no outline            | 36x14              |
+| track fill, off     | `surface-container-highest`        | `#e6e1e6`     | `rgba(0,0,0,0.32)`           | same               |
+| track fill, on      | `primary`                          | `#6750a4`     | `secondary` 50%              | `oklab(... / 0.5)` |
+| handle              | 16px `outline` / 24px `on-primary` | 16x16 / 24x24 | 20px `#fafafa` / `secondary` | 20x20              |
+| list item, one line | 56px                               | 56px          | 56px (48px dense)            | 56px               |
+| list item, selected | `secondary-container`              | token         | `primary` 12%                | token              |
+| divider             | 1px `outline-variant`              | `#cac4cf`     | 1px black 12%                | `rgba(0,0,0,0.12)` |
+
+The gate cannot see any of this: it skips a reference value built from a role
+variable, so a wrong role reads as clean. It also cannot see a _tokenised_
+value, so folding literals into tokens moves a handful of declarations from
+"matching" to "mismatch" by construction. `absent`/`mismatch` are pinned back at
+their pre-fold numbers (40/10) by declaring the reference's own longhands and by
+giving each token the reference's exact value where the spec is silent (md3 has
+no dense item, so its dense height stays the reference's 28px).
+
+Remaining: the other 26 files. Do them in the same shape — one component per
+commit, `--update --set-target <module>`, probe both styles, and put the value
+in the style entry rather than the rule.
+
 ## 9. What is left, in plan order
 
 ## 8b. Spec adherence, checked without the reference
