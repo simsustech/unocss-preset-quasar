@@ -30,6 +30,15 @@ export const iconRules = [
         position: 'relative',
         overflow: 'visible'
       }
+      // A media child fills the 1em box, as Quasar's own CSS states
+      // (`.q-icon > svg, .q-icon > img { width: 100%; height: 100% }`). Without
+      // it an <img> keeps its intrinsic size, so a logo inside a q-icon — e.g.
+      // a `q-item__section--avatar` — never scales to the icon.
+      yield {
+        [symbols.selector]: (sel) => `${sel} > svg, ${sel} > img`,
+        width: '100%',
+        height: '100%'
+      }
       yield {
         [symbols.selector]: (sel) => `${sel}:before, ${sel}:after`,
         width: '100%',

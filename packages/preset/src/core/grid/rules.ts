@@ -25,8 +25,13 @@ export const gridRules = [
       yield {
         display: 'flex',
         'flex-direction': 'row',
-        'flex-wrap': 'wrap',
-        flex: '1 1 auto'
+        'flex-wrap': 'wrap'
+        // No `flex: 1 1 auto` here: Quasar's flex addon is
+        // `.row,.column,.flex { display: flex; flex-wrap: wrap }`, and the
+        // extra growth made every row/column in a consumer fill its parent —
+        // in petboarding it stretched the drawer's content column to the full
+        // drawer height, padding out the top of the drawer. Growth belongs to
+        // `.col`/`.col-grow`.
       }
       yield {
         [symbols.selector]: (sel: string) => `${sel}.inline`,
@@ -44,8 +49,13 @@ export const gridRules = [
       yield {
         display: 'flex',
         'flex-direction': 'column',
-        'flex-wrap': 'wrap',
-        flex: '1 1 auto'
+        'flex-wrap': 'wrap'
+        // No `flex: 1 1 auto` here: Quasar's flex addon is
+        // `.row,.column,.flex { display: flex; flex-wrap: wrap }`, and the
+        // extra growth made every row/column in a consumer fill its parent —
+        // in petboarding it stretched the drawer's content column to the full
+        // drawer height, padding out the top of the drawer. Growth belongs to
+        // `.col`/`.col-grow`.
       }
       yield {
         [symbols.selector]: (sel: string) => `${sel}.inline`,
@@ -73,8 +83,13 @@ export const gridRules = [
       yield {
         display: 'flex',
         'flex-direction': 'row-reverse',
-        'flex-wrap': 'wrap',
-        flex: '1 1 auto'
+        'flex-wrap': 'wrap'
+        // No `flex: 1 1 auto` here: Quasar's flex addon is
+        // `.row,.column,.flex { display: flex; flex-wrap: wrap }`, and the
+        // extra growth made every row/column in a consumer fill its parent —
+        // in petboarding it stretched the drawer's content column to the full
+        // drawer height, padding out the top of the drawer. Growth belongs to
+        // `.col`/`.col-grow`.
       }
     }
   ],
@@ -84,8 +99,13 @@ export const gridRules = [
       yield {
         display: 'flex',
         'flex-direction': 'column-reverse',
-        'flex-wrap': 'wrap',
-        flex: '1 1 auto'
+        'flex-wrap': 'wrap'
+        // No `flex: 1 1 auto` here: Quasar's flex addon is
+        // `.row,.column,.flex { display: flex; flex-wrap: wrap }`, and the
+        // extra growth made every row/column in a consumer fill its parent —
+        // in petboarding it stretched the drawer's content column to the full
+        // drawer height, padding out the top of the drawer. Growth belongs to
+        // `.col`/`.col-grow`.
       }
     }
   ],

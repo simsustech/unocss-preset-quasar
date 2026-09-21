@@ -188,9 +188,9 @@
       "mismatch": []
     },
     "flex-grid": {
-      "target": 0,
+      "target": null,
       "missing": [],
-      "absent": [],
+      "absent": [".column|flex", ".row|flex"],
       "mismatch": []
     },
     "focus-helper": {
