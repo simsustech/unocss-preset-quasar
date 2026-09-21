@@ -191,6 +191,60 @@ those.
 
 ## 5. Standing traps
 
+## 4b. Open: wind4's runtime-variable and theme-namespace layer is missing
+
+Step 8 closed the token/role/palette class: `--light-*`, `--dark-*`,
+`--shape-corner-*` and `--colors-*` are now defined, and unresolved `var()`
+references fell from ~60 to 40. **All 40 that remain are wind4's own names**, and
+they are missing in a real app build, not just in the gate's safelist-only sheet
+(measured on the harness):
+
+```
+--spacing  --radius-none  --radius-2xl  --fontWeight-{normal,medium,light,bold}
+--leading-{none,normal}  --tracking-{normal,widest}
+--un-outline-style  --un-outline-opacity  --un-content  --un-translate-x/y
+--un-shadow  --un-inset-shadow  --un-inset-ring-shadow  --un-ring-{offset-,}shadow
+--un-contain-{size,layout,paint,style}  --un-border-left-opacity
+```
+
+Two symptoms, one likely cause:
+
+- The sheet carries only **3 `@property` registrations**, where wind4 registers
+  its `--un-*` runtime variables that way. An unregistered `var()` makes the
+  declaration invalid, so every rule copied from the reference that uses one
+  **drops**: the shadow chain on `.q-card` (and `dialog`'s), `.q-stepper__line`'s
+  `contain`, `.q-color-picker__alpha .q-slider__track::before`'s `content`,
+  `.q-uploader__dnd`'s outline — the same failure mode as §4.
+- wind4's theme namespaces (`--spacing`, `--fontWeight-*`, `--leading-*`,
+  `--tracking-*`, `--radius-*`) are absent, and **our own rules reference them**:
+  `.q-table th { font-weight: var(--fontWeight-medium) }`, the gutter rules
+  (`calc(var(--spacing) * N)`), `.q-badge`'s `--leading-none`.
+
+`main` wired these explicitly and the rewrite did not:
+
+```sh
+git show main:packages/preset/src/index.ts | grep -n 'postprocess\|variants:\|layers\|extractors'
+#  136:      variants: rawStyle.variants,
+#  138:      postprocess: rawStyle.postprocess ? rawStyle.postprocess.concat(fixBemVarMangling) : [fixBemVarMangling],
+#  157:      layers,
+#  158:      extractors: [            <- the Quasar class extractor (q-*, Q*, color="…", i-mdi-*)
+```
+
+The rewrite's `src/index.ts` has none of the four: it nests `presetWind4()` in
+`presets` instead, which brings wind4's own variants and postprocess along but
+not the custom `extractors` or `layers`. Worth checking whether re-adding the
+extractor alone restores the namespaces (more classes extracted → more utilities
+→ their variables and `@property` registrations get emitted) before wiring
+wind4's postprocess by hand. Whatever the fix, verify it the §6 way: count
+`@property` rules and the unresolved-`var()` set on a real page, not in the gate.
+
+Note `--q-elevation-*` / `--q-elevation-level*` are also in that list of 40 and
+are **our own invention** (nothing in the reference defines them; the reference's
+`.q-card` uses wind4's shadow chain, which resolves to no shadow there too). They
+are deliberately left undefined — the rendered result already matches. If a
+future step wants real elevation, it has to come from the reference's literals,
+not from a token nobody defines.
+
 Carried over, plus what this session added:
 
 - **Selector spacing is part of the key.** `normSel` collapses whitespace runs
