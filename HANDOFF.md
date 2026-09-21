@@ -571,6 +571,55 @@ console.log(unresolved.map(([n, w]) => `${n}  (used by ${w})`).join('\n'))
 
 ## 9. What is left, in plan order
 
+## 8b. Spec adherence, checked without the reference
+
+The reference bundle is one third-party build, and it carries its own quirks:
+its `.q-separator` is a `rgba(0,0,0,0.12)` literal where the md3 spec says
+`outline-variant`, and its `.q-item` is `min-height: 28px` where the spec says a
+56px one-line container. So parity with it is not conformance. The specs are
+machine-readable and self-describing — `specs/reference/normalized/
+{md3,md2}-{switches,lists,dividers}.json`, distilled from the Flutter and
+Compose sources in `specs/reference/raw/` — and each entry names **both** the
+number and the role token, which is what makes them checkable:
+
+```
+chassis/track_width_px                 52          track/selected_color_token   md.sys.color.primary
+handle/unselected_width_px             16          handle/selected_color_token  md.sys.color.on-primary
+divider/color_token  md.sys.color.outline-variant
+item/selected_container_color_token  md.sys.color.secondary-container
+```
+
+Compare three things per component: px values, which role token a colour
+resolves to, and which style entry the spec addresses. `test/*-spec.test.ts`
+(`buttons-spec`, `card-spec`) already encode some of this for the buttons and
+cards; the normalized JSONs cover switches, lists and dividers; the
+`SPEC_VERIFICATION_REPORT.md` table covers the components the pre-rewrite preset
+was verified against (`QBtn`, `QToggle`, `QCheckbox`, `QChip`, `QCard`,
+`QField`), and is worth re-running against the rewrite because several of its
+rows are exactly the classes this rewrite moved.
+
+**First pass — deviations found in the rewrite (3 components the specs cover):**
+
+| Where                             | Spec                            | Ours                       | Also the reference?               |
+| --------------------------------- | ------------------------------- | -------------------------- | --------------------------------- |
+| `.q-toggle__track` fill (md3)     | `surface-container-highest`     | `--q-surface-container`    | yes, same                         |
+| selected `.q-toggle__thumb` (md3) | `on-primary`                    | `--q-on-primary-container` | yes, same                         |
+| `.q-item` one-line height (md3)   | 56px (72/88 for two/three-line) | `min-height: 28px`         | yes, same                         |
+| `.q-item--active` fill (md3)      | `secondary-container`           | `--q-primary-container`    | reference has no such rule — ours |
+| `.q-item--active` text (md3)      | `on-secondary-container`        | `--q-on-primary-container` | ours                              |
+| `.q-separator` (md3)              | `outline-variant`               | `--q-outline-variant` ✓    | reference is a `rgba` literal     |
+
+Conforming as far as checked: the md3 switch chassis (52×32px via
+`1.625em`/`1em` at font-size 32px), thumb 16×16/24×24 (`0.5em`/`0.75em`), track
+outline 2px in `outline`, and the divider's 1px `outline-variant`.
+
+Still to check: every component the specs do not ship a normalized file for —
+the sources are vendored per component (`flutter/`, `compose-material3/`), so
+extending coverage means extracting more of them the same way, and then the
+px/role comparison above scales to the whole library. Do this _after_ the
+extras audit in §3.1, since it is the only check that can tell a deliberate
+extension from a wrong one.
+
 **Steps 8 and 9 are done.** Step 8 (`23bf7bb`) emitted the scheme roles
 (`--light-*` / `--dark-*`), the `--shape-corner-*` roles, the
 `body.body--dark.quasar-style-<name>` combination and re-added `extendTheme`,
