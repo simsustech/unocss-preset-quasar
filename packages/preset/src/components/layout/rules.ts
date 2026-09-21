@@ -70,6 +70,11 @@ export const layoutRules = [
         'box-shadow':
           '0 0 10px 2px rgba(0, 0, 0, 0.2), 0 0px 10px rgba(0, 0, 0, 0.24)'
       }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}:after`,
+        'box-shadow':
+          '0 0 10px 2px rgba(255, 255, 255, 0.2), 0 0px 10px rgba(255, 255, 255, 0.24)'
+      }
     }
   ],
   [
@@ -119,18 +124,6 @@ export const layoutRules = [
     /^q-page$/,
     function* () {
       yield { position: 'relative' }
-    }
-  ],
-  // Dark: the layout's drop shadow lightens, since a black shadow is invisible
-  // on a dark page.
-  [
-    /^q-layout__shadow$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}:after`,
-        'box-shadow':
-          '0 0 10px 2px rgba(255, 255, 255, 0.2), 0 0px 10px rgba(255, 255, 255, 0.24)'
-      }
     }
   ],
 

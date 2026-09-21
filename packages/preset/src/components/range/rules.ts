@@ -3,11 +3,18 @@ import type { Rule } from '@unocss/core'
 export const rangeRules = [
   [
     /^q-range$/,
-    () => ({
-      position: 'relative',
-      height: '1.5em',
-      cursor: 'pointer'
-    })
+    function* (_, { symbols }) {
+      yield {
+        position: 'relative',
+        height: '1.5em',
+        cursor: 'pointer'
+      }
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+    }
   ],
   [
     /^q-range--dark$/,
@@ -123,16 +130,5 @@ export const rangeRules = [
     () => ({
       // Active
     })
-  ],
-  // --- Reference parity: the unstyled override ---
-  [
-    /^q-range$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
-        background: 'none',
-        color: 'inherit'
-      }
-    }
   ]
 ] as Rule[]

@@ -102,6 +102,10 @@ export const textareaRules = [
           `${sel}.q-field--dense.q-field--labeled .q-field__shadow`,
         top: '14px'
       }
+      yield {
+        [symbols.selector]: (sel) => `${sel}.disabled .q-field__native`,
+        resize: 'none'
+      }
     }
   ],
   [
@@ -119,16 +123,6 @@ export const textareaRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-field__native`,
-        resize: 'none'
-      }
-    }
-  ],
-  // --- Reference parity: a disabled textarea is not resizable ---
-  [
-    /^q-textarea$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel}.disabled .q-field__native`,
         resize: 'none'
       }
     }

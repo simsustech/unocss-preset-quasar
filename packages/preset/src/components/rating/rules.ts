@@ -3,10 +3,22 @@ import type { Rule } from '@unocss/core'
 export const ratingRules = [
   [
     /^q-rating$/,
-    () => ({
-      display: 'inline-flex',
-      'align-items': 'center'
-    })
+    function* (_, { symbols }) {
+      yield {
+        display: 'inline-flex',
+        'align-items': 'center'
+      }
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+      yield {
+        color:
+          'color-mix(in oklab, #ffeb3b var(--un-text-opacity), transparent)',
+        'vertical-align': 'middle'
+      }
+    }
   ],
   [
     /^q-rating--dark$/,
@@ -28,75 +40,14 @@ export const ratingRules = [
   ],
   [
     /^q-rating__icon$/,
-    () => ({
-      'font-size': '1.5em',
-      color: 'var(--q-surface-container-highest)',
-      cursor: 'pointer',
-      transition: 'color var(--q-duration-short) var(--q-easing-standard)'
-    })
-  ],
-  [
-    /^q-rating__icon--active$/,
-    () => ({
-      color: '#f9a825'
-    })
-  ],
-  [
-    /^q-rating__icon--inactive$/,
-    () => ({
-      color: 'var(--q-surface-container-highest)'
-    })
-  ],
-  [
-    /^q-rating__icon-container$/,
-    function* (_, { symbols }) {
-      yield { height: '1em', outline: '0' }
-      yield {
-        [symbols.selector]: (sel) => `${sel} + .q-rating__icon-container`,
-        'margin-left': '2px'
-      }
-    }
-  ],
-  [
-    /^q-rating__icon--hovered$/,
-    function* () {
-      yield { transform: 'scale(1.3)' }
-    }
-  ],
-  [
-    /^q-rating__icon--exselected$/,
-    function* () {
-      yield { opacity: '0.7' }
-    }
-  ],
-  [
-    /^q-rating--no-dimming$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-rating__icon`,
-        opacity: '1'
+        'font-size': '1.5em',
+        cursor: 'pointer'
+        // `color` and the transition come from the yield below: the reference's
+        // `currentColor` and its `transform`/`opacity` 0.2s pair. The copies that
+        // used to sit here recoloured every star after the fold.
       }
-    }
-  ],
-  // --- Reference parity: yellow stars, dimming and the hover scale ---
-  [
-    /^q-rating$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
-        color:
-          'color-mix(in oklab, #ffeb3b var(--un-text-opacity), transparent)',
-        'vertical-align': 'middle'
-      }
-    }
-  ],
-  [
-    /^q-rating__icon$/,
-    function* (_, { symbols }) {
       yield {
         color: 'currentColor',
         opacity: '40%',
@@ -124,8 +75,25 @@ export const ratingRules = [
     }
   ],
   [
+    /^q-rating__icon--active$/,
+    () => ({
+      color: '#f9a825'
+    })
+  ],
+  [
+    /^q-rating__icon--inactive$/,
+    () => ({
+      color: 'var(--q-surface-container-highest)'
+    })
+  ],
+  [
     /^q-rating__icon-container$/,
     function* (_, { symbols }) {
+      yield { height: '1em', outline: '0' }
+      yield {
+        [symbols.selector]: (sel) => `${sel} + .q-rating__icon-container`,
+        'margin-left': '2px'
+      }
       yield {
         'outline-style': 'solid',
         'outline-width': '0px',
@@ -138,6 +106,27 @@ export const ratingRules = [
       yield {
         [symbols.selector]: (sel) => `.q-rating--editable ${sel}`,
         cursor: 'pointer !important'
+      }
+    }
+  ],
+  [
+    /^q-rating__icon--hovered$/,
+    function* () {
+      yield { transform: 'scale(1.3)' }
+    }
+  ],
+  [
+    /^q-rating__icon--exselected$/,
+    function* () {
+      yield { opacity: '0.7' }
+    }
+  ],
+  [
+    /^q-rating--no-dimming$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-rating__icon`,
+        opacity: '1'
       }
     }
   ]

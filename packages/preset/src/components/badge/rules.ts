@@ -23,6 +23,51 @@ export const badgeRules = [
         [symbols.selector]: (sel) => `.body--dark ${sel}`,
         'background-color': 'var(--q-primary)'
       }
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+      yield {
+        'font-size': '11px',
+        color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)',
+        'line-height': 'var(--leading-none)',
+        'font-weight': 'var(--fontWeight-normal)',
+        'padding-inline': '6px',
+        'padding-block': '0',
+        'vertical-align': 'baseline',
+        'border-radius': '4px',
+        'background-color':
+          'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)',
+        height: '16px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--outline`,
+        'border-color': 'currentColor',
+        'border-style': 'solid',
+        'background-color': 'transparent',
+        'border-width': '1px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--transparent`,
+        opacity: '80%'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--multi-line`,
+        'word-break': 'break-all',
+        'word-wrap': 'break-word'
+      }
+      // A floating badge hangs off the top-right corner of its anchor and must
+      // paint above it without inheriting the anchor's stacking context.
+      yield {
+        [symbols.selector]: (sel) => `${sel}--floating`,
+        cursor: 'inherit',
+        top: '-4px !important',
+        right: '-3px',
+        position: 'absolute !important',
+        'z-index': '10',
+        isolation: 'isolate'
+      }
     }
   ],
   [
@@ -85,57 +130,6 @@ export const badgeRules = [
     /^q-badge--single-line$/,
     function* () {
       yield { 'white-space': 'nowrap' }
-    }
-  ],
-  // --- Reference parity: the md2 badge geometry with md3 colour roles ---
-  [
-    /^q-badge$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
-        'font-size': '11px',
-        color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)',
-        'line-height': 'var(--leading-none)',
-        'font-weight': 'var(--fontWeight-normal)',
-        'padding-inline': '6px',
-        'padding-block': '0',
-        'vertical-align': 'baseline',
-        'border-radius': '4px',
-        'background-color':
-          'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)',
-        height: '16px'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel}--outline`,
-        'border-color': 'currentColor',
-        'border-style': 'solid',
-        'background-color': 'transparent',
-        'border-width': '1px'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel}--transparent`,
-        opacity: '80%'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel}--multi-line`,
-        'word-break': 'break-all',
-        'word-wrap': 'break-word'
-      }
-      // A floating badge hangs off the top-right corner of its anchor and must
-      // paint above it without inheriting the anchor's stacking context.
-      yield {
-        [symbols.selector]: (sel) => `${sel}--floating`,
-        cursor: 'inherit',
-        top: '-4px !important',
-        right: '-3px',
-        position: 'absolute !important',
-        'z-index': '10',
-        isolation: 'isolate'
-      }
     }
   ]
 ] as Rule[]

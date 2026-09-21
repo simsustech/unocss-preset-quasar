@@ -77,13 +77,39 @@ export const pullToRefreshRules = [
   ],
   [
     /^q-pull-to-refresh__puller$/,
-    function* () {
+    function* (_, { symbols }) {
       yield {
         'border-radius': '50%',
         width: '40px',
         height: '40px',
         color: 'var(--q-primary)',
         background: '#fff',
+        'box-shadow': '0 0 4px 0 rgba(0, 0, 0, 0.3)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        color: 'var(--q-primary)'
+      }
+      yield {
+        color:
+          'color-mix(in oklab, var(--q-primary) var(--un-text-opacity), transparent)',
+        'border-radius': '50%',
+        'background-color':
+          'color-mix(in oklab, #fff var(--un-bg-opacity), transparent)',
+        flex: '0 1 auto !important',
+        width: '40px',
+        height: '40px',
+        'box-shadow': '0 0 4px 0 rgba(0, 0, 0, 0.3)'
+      }
+      yield {
+        color:
+          'color-mix(in oklab, var(--q-primary) var(--un-text-opacity), transparent)',
+        'border-radius': '50%',
+        'background-color':
+          'color-mix(in oklab, #fff var(--un-bg-opacity), transparent)',
+        flex: '0 1 auto !important',
+        width: '40px',
+        height: '40px',
         'box-shadow': '0 0 4px 0 rgba(0, 0, 0, 0.3)'
       }
     }
@@ -93,45 +119,5 @@ export const pullToRefreshRules = [
     function* () {
       yield { transition: 'transform 0.3s, opacity 0.3s' }
     }
-  ],
-  // Dark: the spinner keeps primary against the puller surface.
-  [
-    /^q-pull-to-refresh__puller$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
-        color: 'var(--q-primary)'
-      }
-    }
-  ],
-  // --- Reference parity: the spinner puck ---
-  [
-    /^q-pull-to-refresh__puller$/,
-    () => ({
-      color:
-        'color-mix(in oklab, var(--q-primary) var(--un-text-opacity), transparent)',
-      'border-radius': '50%',
-      'background-color':
-        'color-mix(in oklab, #fff var(--un-bg-opacity), transparent)',
-      flex: '0 1 auto !important',
-      width: '40px',
-      height: '40px',
-      'box-shadow': '0 0 4px 0 rgba(0, 0, 0, 0.3)'
-    })
-  ],
-  // --- Reference parity: the spinner puck ---
-  [
-    /^q-pull-to-refresh__puller$/,
-    () => ({
-      color:
-        'color-mix(in oklab, var(--q-primary) var(--un-text-opacity), transparent)',
-      'border-radius': '50%',
-      'background-color':
-        'color-mix(in oklab, #fff var(--un-bg-opacity), transparent)',
-      flex: '0 1 auto !important',
-      width: '40px',
-      height: '40px',
-      'box-shadow': '0 0 4px 0 rgba(0, 0, 0, 0.3)'
-    })
   ]
 ] as Rule[]

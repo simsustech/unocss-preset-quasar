@@ -3,16 +3,38 @@ import type { Rule } from '@unocss/core'
 export const skeletonRules = [
   [
     /^q-skeleton$/,
-    () => ({
-      background: 'var(--q-surface-container-highest)',
-      'border-radius': 'var(--q-radius-sm)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        background: 'var(--q-surface-container-highest)',
+        'border-radius': 'var(--q-radius-sm)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}:before`,
+        content: '" "'
+      }
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+    }
   ],
   [
     /^q-skeleton--dark$/,
-    () => ({
-      background: 'var(--q-surface-variant)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        background: 'var(--q-surface-variant)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}.q-skeleton--anim-wave:after`,
+        background:
+          'linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0))'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}.q-skeleton--anim-blink:after`,
+        background: 'rgba(255, 255, 255, 0.2)'
+      }
+    }
   ],
   [
     /^q-skeleton--anim$/,
@@ -58,15 +80,6 @@ export const skeletonRules = [
     })
   ],
   [
-    /^q-skeleton$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel}:before`,
-        content: '" "'
-      }
-    }
-  ],
-  [
     /^q-skeleton--anim-wave$/,
     function* (_, { symbols }) {
       yield {
@@ -80,22 +93,6 @@ export const skeletonRules = [
         left: '0',
         'z-index': '0'
       }
-    }
-  ],
-  [
-    /^q-skeleton--anim-blink$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel}:after`,
-        background: 'rgba(255, 255, 255, 0.7)',
-        animation:
-          'q-skeleton--fade var(--q-skeleton-speed) linear 0.5s infinite'
-      }
-    }
-  ],
-  [
-    /^q-skeleton--anim-wave$/,
-    function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel}:after`,
         background:
@@ -106,21 +103,13 @@ export const skeletonRules = [
     }
   ],
   [
-    /^q-skeleton--dark$/,
+    /^q-skeleton--anim-blink$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel}.q-skeleton--anim-wave:after`,
-        background:
-          'linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0))'
-      }
-    }
-  ],
-  [
-    /^q-skeleton--dark$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel}.q-skeleton--anim-blink:after`,
-        background: 'rgba(255, 255, 255, 0.2)'
+        [symbols.selector]: (sel) => `${sel}:after`,
+        background: 'rgba(255, 255, 255, 0.7)',
+        animation:
+          'q-skeleton--fade var(--q-skeleton-speed) linear 0.5s infinite'
       }
     }
   ],
@@ -269,17 +258,6 @@ export const skeletonRules = [
         position: 'relative',
         overflow: 'hidden',
         'z-index': '1'
-      }
-    }
-  ],
-  // --- Reference parity: the unstyled style entry strips the component skin ---
-  [
-    /^q-skeleton$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
-        background: 'none',
-        color: 'inherit'
       }
     }
   ]

@@ -53,6 +53,15 @@ export const btnRules = [
         'box-shadow':
           '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
       }
+      yield {
+        [symbols.selector]: (sel) => `${sel}.disabled`,
+        opacity: '70% !important'
+      }
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
     }
   ],
   [
@@ -231,18 +240,6 @@ export const btnRules = [
     })
   ],
   [
-    // Reference `.q-btn.disabled` — the runtime class, not the `--disabled`
-    // modifier QBtn also sets. Emitted from the base matcher: it is a descendant
-    // selector, not a class of its own.
-    /^q-btn$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel}.disabled`,
-        opacity: '70% !important'
-      }
-    }
-  ],
-  [
     /^q-btn__content$/,
     () => ({
       display: 'flex',
@@ -342,17 +339,6 @@ export const btnRules = [
         'z-index': '-1',
         transform: 'translateX(-100%)',
         background: 'rgba(255, 255, 255, 0.25)'
-      }
-    }
-  ],
-  [
-    // Reference `body.quasar-style-unstyled .q-btn`.
-    /^q-btn$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
-        background: 'none',
-        color: 'inherit'
       }
     }
   ],

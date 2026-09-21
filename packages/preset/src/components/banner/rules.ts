@@ -3,68 +3,15 @@ import type { Rule } from '@unocss/core'
 export const bannerRules = [
   [
     /^q-banner$/,
-    () => ({
-      display: 'flex',
-      'align-items': 'center',
-      padding: 'var(--q-space-sm) var(--q-space-md)',
-      'min-height': 'var(--q-banner-min-height)',
-      'background-color': 'var(--q-surface-container-high)',
-      color: 'var(--q-on-surface)'
-    })
-  ],
-  [
-    /^q-banner--dark$/,
-    () => ({
-      'background-color': 'var(--q-surface-variant)'
-    })
-  ],
-  [
-    /^q-banner--dense$/,
-    () => ({
-      'min-height': '32px',
-      padding: '8px'
-    })
-  ],
-  [
-    /^q-banner__icon$/,
-    () => ({
-      'font-size': '1.5em',
-      'margin-right': 'var(--q-space-md)',
-      'flex-shrink': 0
-    })
-  ],
-  [
-    /^q-banner__content$/,
-    () => ({
-      flex: '1',
-      'min-width': 0
-    })
-  ],
-  [
-    /^q-banner__actions$/,
-    () => ({
-      display: 'flex',
-      'align-items': 'center',
-      gap: 'var(--q-space-xs)',
-      'margin-left': 'var(--q-space-sm)'
-    })
-  ],
-  [
-    /^q-banner__avatar$/,
-    () => ({
-      'margin-right': 'var(--q-space-md)'
-    })
-  ],
-  [
-    /^q-banner--top-padding$/,
-    function* () {
-      yield { 'padding-top': '14px' }
-    }
-  ],
-  // --- Reference parity: banner paddings, avatar sizes and dense variants ---
-  [
-    /^q-banner$/,
     function* (_, { symbols }) {
+      yield {
+        display: 'flex',
+        'align-items': 'center',
+        padding: 'var(--q-space-sm) var(--q-space-md)',
+        'min-height': 'var(--q-banner-min-height)',
+        'background-color': 'var(--q-surface-container-high)',
+        color: 'var(--q-on-surface)'
+      }
       yield {
         [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
         background: 'none',
@@ -108,8 +55,61 @@ export const bannerRules = [
     }
   ],
   [
+    /^q-banner--dark$/,
+    () => ({
+      'background-color': 'var(--q-surface-variant)'
+    })
+  ],
+  [
+    /^q-banner--dense$/,
+    () => ({
+      'min-height': '32px',
+      padding: '8px'
+    })
+  ],
+  [
+    /^q-banner__icon$/,
+    () => ({
+      'font-size': '1.5em',
+      'margin-right': 'var(--q-space-md)',
+      'flex-shrink': 0
+    })
+  ],
+  [
+    /^q-banner__content$/,
+    () => ({
+      flex: '1',
+      'min-width': 0
+    })
+  ],
+  [
+    /^q-banner__actions$/,
+    function* (_, { symbols }) {
+      yield {
+        display: 'flex',
+        'align-items': 'center',
+        gap: 'var(--q-space-xs)',
+        'margin-left': 'var(--q-space-sm)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}.col-auto`,
+        'padding-left': '16px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}.col-all .q-btn-item`,
+        'margin-top': '4px',
+        'margin-right': '0',
+        'margin-bottom': '0',
+        'margin-left': '4px'
+      }
+    }
+  ],
+  [
     /^q-banner__avatar$/,
     function* (_, { symbols }) {
+      yield {
+        'margin-right': 'var(--q-space-md)'
+      }
       yield {
         flex: '0 1 auto !important',
         'min-width': '1px !important',
@@ -130,19 +130,9 @@ export const bannerRules = [
     }
   ],
   [
-    /^q-banner__actions$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel}.col-auto`,
-        'padding-left': '16px'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel}.col-all .q-btn-item`,
-        'margin-top': '4px',
-        'margin-right': '0',
-        'margin-bottom': '0',
-        'margin-left': '4px'
-      }
+    /^q-banner--top-padding$/,
+    function* () {
+      yield { 'padding-top': '14px' }
     }
   ],
   [/^q-banner__content$/, () => ({ 'max-width': 'calc(100% - 56px)' })]

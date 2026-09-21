@@ -90,6 +90,10 @@ export const cardRules = [
         background: 'none',
         color: 'inherit'
       }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}:not(.disabled):focus`,
+        'background-color': 'var(--q-secondary)'
+      }
     }
   ],
   [
@@ -284,16 +288,6 @@ export const cardRules = [
       yield {
         [symbols.selector]: (sel) => `${sel} > .q-btn-group > .q-btn-item`,
         'flex-grow': '1'
-      }
-    }
-  ],
-  // Dark: a focused card (not disabled) lifts onto the secondary role.
-  [
-    /^q-card$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}:not(.disabled):focus`,
-        'background-color': 'var(--q-secondary)'
       }
     }
   ]

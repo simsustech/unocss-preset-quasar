@@ -9,11 +9,6 @@ export const timelineRules = [
         [symbols.selector]: (sel) => `${sel} h6`,
         'line-height': 'inherit'
       }
-    }
-  ],
-  [
-    /^q-timeline$/,
-    function* (_, { symbols }) {
       yield {
         display: 'flex',
         'flex-direction': 'column',
@@ -66,11 +61,22 @@ export const timelineRules = [
   ],
   [
     /^q-timeline__entry$/,
-    () => ({
-      position: 'relative',
-      'line-height': '22px',
-      'padding-bottom': 'var(--q-space-md)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        position: 'relative',
+        'line-height': '22px',
+        'padding-bottom': 'var(--q-space-md)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}:last-child .q-timeline__dot:after`,
+        content: 'none'
+      }
+      // Reference `.q-timeline__entry:last-child`.
+      yield {
+        [symbols.selector]: (sel) => `${sel}:last-child`,
+        'padding-bottom': 'calc(var(--spacing) * 0) !important'
+      }
+    }
   ],
   [
     /^q-timeline__heading$/,
@@ -112,6 +118,34 @@ export const timelineRules = [
           height: '1em'
         }
       }
+      yield {
+        [symbols.selector]: (sel) => `${sel}:before, ${sel}:after`,
+        content: 'var(--un-content)',
+        'background-color': 'currentColor',
+        display: 'block',
+        position: 'absolute'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}:before`,
+        // Reference states the ring as longhands with a 1px border.
+        'border-style': 'solid',
+        'border-width': '1px',
+        'border-color': 'transparent',
+        'border-radius': '100%',
+        height: '15px',
+        width: '15px',
+        top: '4px',
+        left: '0',
+        transition: 'background 0.3s ease-in-out, border 0.3s ease-in-out'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}:after`,
+        width: '3px',
+        opacity: '0.4',
+        top: '24px',
+        bottom: '0',
+        left: '6px'
+      }
     }
   ],
   [
@@ -135,63 +169,6 @@ export const timelineRules = [
     })
   ],
   [
-    /^q-timeline__dot$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel}:before, ${sel}:after`,
-        content: 'var(--un-content)',
-        'background-color': 'currentColor',
-        display: 'block',
-        position: 'absolute'
-      }
-    }
-  ],
-  [
-    /^q-timeline__dot$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel}:before`,
-        // Reference states the ring as longhands with a 1px border.
-        'border-style': 'solid',
-        'border-width': '1px',
-        'border-color': 'transparent',
-        'border-radius': '100%',
-        height: '15px',
-        width: '15px',
-        top: '4px',
-        left: '0',
-        transition: 'background 0.3s ease-in-out, border 0.3s ease-in-out'
-      }
-    }
-  ],
-  [
-    /^q-timeline__dot$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel}:after`,
-        width: '3px',
-        opacity: '0.4',
-        top: '24px',
-        bottom: '0',
-        left: '6px'
-      }
-    }
-  ],
-  [
-    /^q-timeline__entry$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel}:last-child .q-timeline__dot:after`,
-        content: 'none'
-      }
-      // Reference `.q-timeline__entry:last-child`.
-      yield {
-        [symbols.selector]: (sel) => `${sel}:last-child`,
-        'padding-bottom': 'calc(var(--spacing) * 0) !important'
-      }
-    }
-  ],
-  [
     /^q-timeline__entry--icon$/,
     function* (_, { symbols }) {
       // Reference `.q-timeline__entry--icon .q-timeline__dot { width: 31px }`
@@ -209,11 +186,6 @@ export const timelineRules = [
         [symbols.selector]: (sel) => `${sel} .q-timeline__subtitle`,
         'padding-top': '8px'
       }
-    }
-  ],
-  [
-    /^q-timeline__entry--icon$/,
-    function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-timeline__dot:after`,
         top: '41px',
