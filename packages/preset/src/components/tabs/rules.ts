@@ -21,25 +21,102 @@ export const tabsRules = [
   ],
   [
     /^q-tabs--dense$/,
-    () => ({
-      // Dense padding
-    })
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-tab`,
+        'min-height': '36px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-tab--full`,
+        'min-height': '52px'
+      }
+    }
   ],
   [
     /^q-tabs--vertical$/,
-    () => ({
-      // Reference: the rail swaps the flex track for a block box; without
-      // `display: block !important` the base `display: flex` won and the rail
-      // rendered horizontally.
-      height: '100%',
-      display: 'block !important'
-    })
+    function* (_, { symbols }) {
+      yield {
+        // Reference: the rail swaps the flex track for a block box; without
+        // `display: block !important` the base `display: flex` won and the rail
+        // rendered horizontally.
+        height: '100%',
+        display: 'block !important'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-tab`,
+        'padding-inline': '8px',
+        'padding-block': '0'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-tab__indicator`,
+        height: 'unset',
+        width: '2px',
+        'min-height': '100%'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-tabs--dense .q-tab__content`,
+        'min-width': '24px'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel} .q-tabs--not-scrollable .q-tabs__content`,
+        height: '100%'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-tabs__arrow`,
+        'text-align': 'center',
+        width: '100%',
+        height: '36px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-tabs__arrow--left`,
+        top: '0',
+        left: '0',
+        right: '0'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-tabs__arrow--right`,
+        left: '0',
+        right: '0',
+        bottom: '0'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-tabs__content`,
+        height: '100%',
+        display: 'block !important'
+      }
+    }
   ],
   [
     /^q-tabs--scrollable$/,
-    () => ({
-      overflow: 'hidden'
-    })
+    function* (_, { symbols }) {
+      yield {
+        overflow: 'hidden'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel}.q-tabs__arrows--inside .q-tabs__arrow--faded`,
+        display: 'none'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel}.q-tabs__arrows--outside .q-tabs__arrow--faded`,
+        opacity: '30%',
+        'pointer-events': 'none'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel}.q-tabs__arrows--outside.q-tabs--horizontal`,
+        'padding-left': '36px',
+        'padding-right': '36px'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel}.q-tabs__arrows--outside.q-tabs--vertical`,
+        'padding-top': '36px',
+        'padding-bottom': '36px'
+      }
+    }
   ],
   [
     /^q-tabs__content$/,
@@ -60,9 +137,15 @@ export const tabsRules = [
   ],
   [
     /^q-tabs__content--align-justify$/,
-    () => ({
-      'justify-content': 'space-between'
-    })
+    function* (_, { symbols }) {
+      yield {
+        'justify-content': 'space-between'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-tab`,
+        flex: '1 1 auto'
+      }
+    }
   ],
   [
     /^q-tabs__content--align-left$/,
@@ -89,22 +172,73 @@ export const tabsRules = [
   ],
   [
     /^q-tab$/,
-    () => ({
-      display: 'flex',
-      'align-items': 'center',
-      'justify-content': 'center',
-      padding: 'var(--q-space-sm) var(--q-space-md)',
-      'min-height': 'var(--q-item-min-height)',
-      cursor: 'pointer',
-      'user-select': 'none',
-      transition: 'color var(--q-duration-short) var(--q-easing-standard)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        display: 'flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        padding: 'var(--q-space-sm) var(--q-space-md)',
+        'min-height': 'var(--q-item-min-height)',
+        cursor: 'pointer',
+        'user-select': 'none',
+        transition: 'color var(--q-duration-short) var(--q-easing-standard)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+      yield {
+        'padding-inline': '16px',
+        'padding-block': '0',
+        'text-decoration': 'none',
+        'min-height': '48px',
+        'white-space': 'nowrap',
+        transition: 'color 0.3s, background-color 0.3s',
+        color: 'inherit'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--active .q-tab__indicator`,
+        opacity: '100%'
+      }
+      yield { [symbols.selector]: (sel) => `${sel}--inactive`, opacity: '0.85' }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--full`,
+        'min-height': '72px',
+        height: '72px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}--no-caps`,
+        'text-transform': 'none'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-badge`,
+        top: '3px',
+        right: '-12px'
+      }
+      yield {
+        // The focus helper is inset to match the indicator pill, not the tab.
+        [symbols.selector]: (sel) => `${sel} > .q-focus-helper`,
+        'border-radius': 'var(--shape-corner-large) !important',
+        height: 'calc(80%) !important',
+        width: 'calc(80%) !important',
+        top: 'calc(10%) !important',
+        left: 'calc(10%) !important',
+        position: 'absolute !important'
+      }
+    }
   ],
   [
     /^q-tab--active$/,
-    () => ({
-      color: 'var(--q-primary)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        color: 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        color: 'var(--q-primary)'
+      }
+    }
   ],
   [
     /^q-tab--inactive$/,
@@ -121,17 +255,31 @@ export const tabsRules = [
   ],
   [
     /^q-tab__icon$/,
-    () => ({
-      'font-size': '1.5em',
-      'margin-right': 'var(--q-space-xs)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        'font-size': '1.5em',
+        'margin-right': 'var(--q-space-xs)'
+      }
+      yield {
+        'font-size': '24px',
+        width: '24px',
+        height: '24px'
+      }
+    }
   ],
   [
     /^q-tab__label$/,
-    () => ({
-      'font-size': '0.875em',
-      'font-weight': 500
-    })
+    function* (_, { symbols }) {
+      yield {
+        'font-size': '0.875em',
+        'font-weight': 500
+      }
+      yield {
+        'font-size': '14px',
+        'line-height': '1.715em',
+        'font-weight': 'var(--fontWeight-medium)'
+      }
+    }
   ],
   [
     /^q-tabs--not-scrollable$/,
@@ -215,16 +363,6 @@ export const tabsRules = [
       }
     }
   ],
-  // Dark: the active tab takes primary, its indicator the secondary container.
-  [
-    /^q-tab--active$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
-        color: 'var(--q-primary)'
-      }
-    }
-  ],
   [
     /^q-tab__indicator$/,
     function* (_, { symbols }) {
@@ -232,169 +370,21 @@ export const tabsRules = [
         [symbols.selector]: (sel) => `.body--dark ${sel}`,
         'background-color': 'var(--q-secondary-container)'
       }
+      yield {
+        'border-radius': 'var(--radius-2xl)',
+        'background-color':
+          'color-mix(in oklab, var(--q-secondary-container) var(--un-bg-opacity), transparent)',
+        opacity: '0%',
+        width: '56px',
+        height: '32px',
+        'min-height': 'unset',
+        left: 'calc(50% - 28px)',
+        top: '0.5em',
+        position: 'absolute'
+      }
     }
   ],
 
-  // --- Reference parity: dense sizes, scrollable arrows, vertical rail ---
-  [
-    /^q-tabs--dense$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab`,
-        'min-height': '36px'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab--full`,
-        'min-height': '52px'
-      }
-    }
-  ],
-  [
-    /^q-tabs--scrollable$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel}.q-tabs__arrows--inside .q-tabs__arrow--faded`,
-        display: 'none'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel}.q-tabs__arrows--outside .q-tabs__arrow--faded`,
-        opacity: '30%',
-        'pointer-events': 'none'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel}.q-tabs__arrows--outside.q-tabs--horizontal`,
-        'padding-left': '36px',
-        'padding-right': '36px'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel}.q-tabs__arrows--outside.q-tabs--vertical`,
-        'padding-top': '36px',
-        'padding-bottom': '36px'
-      }
-    }
-  ],
-  [
-    /^q-tabs--vertical$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab`,
-        'padding-inline': '8px',
-        'padding-block': '0'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab__indicator`,
-        height: 'unset',
-        width: '2px',
-        'min-height': '100%'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-tabs--dense .q-tab__content`,
-        'min-width': '24px'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-tabs--not-scrollable .q-tabs__content`,
-        height: '100%'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-tabs__arrow`,
-        'text-align': 'center',
-        width: '100%',
-        height: '36px'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-tabs__arrow--left`,
-        top: '0',
-        left: '0',
-        right: '0'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-tabs__arrow--right`,
-        left: '0',
-        right: '0',
-        bottom: '0'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-tabs__content`,
-        height: '100%',
-        display: 'block !important'
-      }
-    }
-  ],
-  [
-    /^q-tabs__content--align-justify$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab`,
-        flex: '1 1 auto'
-      }
-    }
-  ],
-  // --- Reference parity: the md3 tab metrics and indicator pill ---
-  [
-    /^q-tab$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
-        'padding-inline': '16px',
-        'padding-block': '0',
-        'text-decoration': 'none',
-        'min-height': '48px',
-        'white-space': 'nowrap',
-        transition: 'color 0.3s, background-color 0.3s',
-        color: 'inherit'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel}--active .q-tab__indicator`,
-        opacity: '100%'
-      }
-      yield { [symbols.selector]: (sel) => `${sel}--inactive`, opacity: '0.85' }
-      yield {
-        [symbols.selector]: (sel) => `${sel}--full`,
-        'min-height': '72px',
-        height: '72px'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel}--no-caps`,
-        'text-transform': 'none'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-badge`,
-        top: '3px',
-        right: '-12px'
-      }
-      yield {
-        // The focus helper is inset to match the indicator pill, not the tab.
-        [symbols.selector]: (sel) => `${sel} > .q-focus-helper`,
-        'border-radius': 'var(--shape-corner-large) !important',
-        height: 'calc(80%) !important',
-        width: 'calc(80%) !important',
-        top: 'calc(10%) !important',
-        left: 'calc(10%) !important',
-        position: 'absolute !important'
-      }
-    }
-  ],
-  [
-    /^q-tab__icon$/,
-    () => ({ 'font-size': '24px', width: '24px', height: '24px' })
-  ],
-  [
-    /^q-tab__label$/,
-    () => ({
-      'font-size': '14px',
-      'line-height': '1.715em',
-      'font-weight': 'var(--fontWeight-medium)'
-    })
-  ],
   [
     /^q-tab__content$/,
     function* (_, { symbols }) {
@@ -440,21 +430,6 @@ export const tabsRules = [
       'font-size': '18px',
       top: '2px',
       right: '-12px',
-      position: 'absolute'
-    })
-  ],
-  [
-    /^q-tab__indicator$/,
-    () => ({
-      'border-radius': 'var(--radius-2xl)',
-      'background-color':
-        'color-mix(in oklab, var(--q-secondary-container) var(--un-bg-opacity), transparent)',
-      opacity: '0%',
-      width: '56px',
-      height: '32px',
-      'min-height': 'unset',
-      left: 'calc(50% - 28px)',
-      top: '0.5em',
       position: 'absolute'
     })
   ]

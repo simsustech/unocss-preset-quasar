@@ -128,11 +128,6 @@ export const btnGroupRules = [
           `${sel} > .q-btn-item + .q-btn-item:before`,
         'border-left': '0'
       }
-    }
-  ],
-  [
-    /^q-btn-group--outline$/,
-    function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) =>
           `${sel} > .q-btn-item:not(:last-child):before`,

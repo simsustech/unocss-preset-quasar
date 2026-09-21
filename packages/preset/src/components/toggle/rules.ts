@@ -72,6 +72,29 @@ export const toggleRules = [
           `${sel} .q-toggle__inner--truthy .q-toggle__thumb:before`,
         'background-color': 'var(--q-toggle-state-layer-color-active)'
       }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__thumb`,
+        color: 'var(--q-surface-container-highest)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `.body--dark ${sel}__thumb:after`,
+        'background-color': 'var(--q-outline)'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel}__inner--truthy .q-toggle__thumb`,
+        color: 'var(--q-on-primary-container)'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel}__inner--truthy .q-toggle__thumb:after`,
+        'background-color': 'var(--q-on-primary) !important'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel}__inner--truthy .q-toggle__track`,
+        'background-color': 'var(--q-primary)'
+      }
     }
   ],
   [/^q-toggle__native$/, () => ({ width: '1px', height: '1px' })],
@@ -291,36 +314,6 @@ export const toggleRules = [
         [symbols.selector]: (sel) => `.q-toggle.reverse ${sel}`,
         'padding-left': 0,
         'padding-right': '0.5em'
-      }
-    }
-  ],
-  // Dark: thumb and track. The resting thumb takes the highest surface so the
-  // knob stays visible, and the truthy track takes the primary container.
-  [
-    /^q-toggle$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}__thumb`,
-        color: 'var(--q-surface-container-highest)'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}__thumb:after`,
-        'background-color': 'var(--q-outline)'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `.body--dark ${sel}__inner--truthy .q-toggle__thumb`,
-        color: 'var(--q-on-primary-container)'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `.body--dark ${sel}__inner--truthy .q-toggle__thumb:after`,
-        'background-color': 'var(--q-on-primary) !important'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `.body--dark ${sel}__inner--truthy .q-toggle__track`,
-        'background-color': 'var(--q-primary)'
       }
     }
   ]

@@ -31,35 +31,43 @@ export const drawerRules = [
         'border-color': 'rgba(255, 255, 255, 0.28)',
         'background-color': 'var(--q-surface-container-low)'
       }
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel}__content .q-list > .q-router-link--active`,
+        color: 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `.body--dark ${sel}__content .q-list .q-router-link--active`,
+        'background-color': 'var(--q-secondary-container)'
+      }
+      // The unstyled style entry drops the drawer's surface.
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
     }
-  ],
-  [
-    /^q-drawer--left$/,
-    () => ({
-      transform: 'translateX(-100%)',
-      left: '0'
-    })
-  ],
-  [
-    /^q-drawer--right$/,
-    () => ({
-      transform: 'translateX(100%)',
-      right: '0'
-    })
-  ],
-  [
-    /^q-drawer__content$/,
-    () => ({
-      height: '100%',
-      'overflow-y': 'auto'
-    })
   ],
   [
     /^q-drawer--left$/,
     function* (_, { symbols }) {
       yield {
+        transform: 'translateX(-100%)',
+        left: '0'
+      }
+      yield {
         [symbols.selector]: (sel) => `${sel} .q-layout__shadow:after`,
         right: '10px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-layout__shadow`,
+        left: '10px',
+        right: '-10px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}.q-drawer--bordered`,
+        'border-right': '1px solid rgba(0, 0, 0, 0.12)'
       }
     }
   ],
@@ -67,8 +75,54 @@ export const drawerRules = [
     /^q-drawer--right$/,
     function* (_, { symbols }) {
       yield {
+        transform: 'translateX(100%)',
+        right: '0'
+      }
+      yield {
         [symbols.selector]: (sel) => `${sel} .q-layout__shadow:after`,
         left: '10px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-layout__shadow`,
+        left: '-10px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}.q-drawer--bordered`,
+        'border-left': '1px solid rgba(0, 0, 0, 0.12)'
+      }
+    }
+  ],
+  [
+    /^q-drawer__content$/,
+    function* (_, { symbols }) {
+      yield {
+        height: '100%',
+        'overflow-y': 'auto'
+      }
+      yield { 'padding-block': '14px' }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > *`,
+        'padding-inline': '28px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-list`,
+        'padding-inline': '12px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-scrollarea`,
+        'padding-inline': '0'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-list .q-item`,
+        'border-radius': '32px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-list > .q-router-link--active`,
+        color: 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-list .q-router-link--active`,
+        'background-color': 'var(--q-secondary-container)'
       }
     }
   ],
@@ -133,6 +187,23 @@ export const drawerRules = [
         [symbols.selector]: (sel) => `${sel} .q-expansion-item__content`,
         display: 'none'
       }
+      yield { 'border-radius': '0 !important' }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-tab__label`,
+        'font-size': '12px'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-tabs--vertical .q-tab`,
+        'padding-inline': '0'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-drawer__content`,
+        'padding-block': '9px !important'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-drawer__content > *`,
+        'padding-inline': '4px !important'
+      }
     }
   ],
   [
@@ -165,6 +236,10 @@ export const drawerRules = [
         [symbols.selector]: (sel) => `${sel} .q-mini-drawer-hide`,
         display: 'none'
       }
+      yield {
+        'border-start-end-radius': 'var(--q-corner-large)',
+        'border-end-end-radius': 'var(--q-corner-large)'
+      }
     }
   ],
   [
@@ -182,121 +257,6 @@ export const drawerRules = [
         width: '15px',
         'user-select': 'none',
         '-webkit-user-select': 'none'
-      }
-    }
-  ],
-  // Dark: active router links inside the drawer's list take primary, and the
-  // deeper descendant scope uses the secondary container as a row fill.
-  [
-    /^q-drawer$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) =>
-          `.body--dark ${sel}__content .q-list > .q-router-link--active`,
-        color: 'var(--q-primary)'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `.body--dark ${sel}__content .q-list .q-router-link--active`,
-        'background-color': 'var(--q-secondary-container)'
-      }
-    }
-  ],
-  // --- Reference parity: layout offsets, borders and content padding ---
-  [
-    /^q-drawer$/,
-    function* (_, { symbols }) {
-      // The unstyled style entry drops the drawer's surface.
-      yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
-        background: 'none',
-        color: 'inherit'
-      }
-    }
-  ],
-  [
-    /^q-drawer--left$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-layout__shadow`,
-        left: '10px',
-        right: '-10px'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel}.q-drawer--bordered`,
-        'border-right': '1px solid rgba(0, 0, 0, 0.12)'
-      }
-    }
-  ],
-  [
-    /^q-drawer--right$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-layout__shadow`,
-        left: '-10px'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel}.q-drawer--bordered`,
-        'border-left': '1px solid rgba(0, 0, 0, 0.12)'
-      }
-    }
-  ],
-  [
-    /^q-drawer--mini$/,
-    function* (_, { symbols }) {
-      yield { 'border-radius': '0 !important' }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab__label`,
-        'font-size': '12px'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-tabs--vertical .q-tab`,
-        'padding-inline': '0'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} > .q-drawer__content`,
-        'padding-block': '9px !important'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} > .q-drawer__content > *`,
-        'padding-inline': '4px !important'
-      }
-    }
-  ],
-  [
-    /^q-drawer--mobile$/,
-    () => ({
-      'border-start-end-radius': 'var(--q-corner-large)',
-      'border-end-end-radius': 'var(--q-corner-large)'
-    })
-  ],
-  [
-    /^q-drawer__content$/,
-    function* (_, { symbols }) {
-      yield { 'padding-block': '14px' }
-      yield {
-        [symbols.selector]: (sel) => `${sel} > *`,
-        'padding-inline': '28px'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} > .q-list`,
-        'padding-inline': '12px'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} > .q-scrollarea`,
-        'padding-inline': '0'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-list .q-item`,
-        'border-radius': '32px'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-list > .q-router-link--active`,
-        color: 'var(--q-primary)'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-list .q-router-link--active`,
-        'background-color': 'var(--q-secondary-container)'
       }
     }
   ]
