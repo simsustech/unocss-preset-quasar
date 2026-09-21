@@ -102,7 +102,14 @@ export const notificationRules: Rule[] = [
   ],
   // Sub-elements the plugin renders. Without these the message and caption had
   // no padding or typography at all.
-  [/^q-notification__message$/, () => ({ padding: '8px 0' })],
+  [
+    /^q-notification__message$/,
+    () => ({
+      // Reference states the message padding as logical longhands.
+      'padding-inline': '0',
+      'padding-block': '8px'
+    })
+  ],
   [
     /^q-notification__caption$/,
     () => ({ 'font-size': '0.9em', opacity: '0.7' })
@@ -129,14 +136,16 @@ export const notificationRules: Rule[] = [
     /^q-notification__badge$/,
     function* (_, { symbols }) {
       yield {
-        padding: '4px 8px',
+        // Reference states the padding as logical longhands.
+        'padding-inline': '8px',
+        'padding-block': '4px',
         position: 'absolute',
         'box-shadow':
           '0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12)',
         'background-color': 'var(--q-negative)',
-        color: '#fff',
-        'border-radius': 'var(--q-corner-extra-small)',
         'font-size': '12px',
+        // Reference states the radius once, as a shorthand (`border-radius: 4px`).
+        'border-radius': 'var(--q-corner-extra-small)',
         'line-height': '12px',
         // Needs `@keyframes q-notif-badge`, which this preset does not emit yet;
         // inert until then, but it is what quasar.css declares.
@@ -150,6 +159,16 @@ export const notificationRules: Rule[] = [
               ? `.q-notification--multi-line ${sel}${modifier}`
               : `${sel}${modifier}`,
           [property]: value
+        }
+        // Reference pairs each vertical offset with a horizontal one, 22px
+        // outside the box on both axes.
+        const side = modifier.endsWith('-left') ? 'left' : 'right'
+        yield {
+          [symbols.selector]: (sel) =>
+            multiLine
+              ? `.q-notification--multi-line ${sel}${modifier}`
+              : `${sel}${modifier}`,
+          [side]: '-22px'
         }
       }
     }
@@ -166,9 +185,14 @@ export const notificationRules: Rule[] = [
         right: '-10px',
         // Needs `@keyframes q-notif-progress` (see above).
         animation: 'q-notif-progress linear',
-        background: 'currentColor',
+        // Reference states the colour as `background-color` and the corners as
+        // longhands (shorthand would leave both absent).
+        'background-color': 'currentColor',
         opacity: '0.3',
-        'border-radius': '4px 4px 0 0',
+        'border-top-left-radius': '4px',
+        'border-top-right-radius': '4px',
+        'border-bottom-left-radius': '0',
+        'border-bottom-right-radius': '0',
         'transform-origin': '0 50%',
         transform: 'scaleX(0)'
       }
@@ -233,3 +257,13 @@ export const notificationRules: Rule[] = [
   [/^q-notifications__list--bottom$/, () => ({ bottom: '0' })],
   ...transitionRules
 ] as Rule[]
+
+/**
+ * `@media (min-width: 40rem)` override for the notification box.
+ *
+ * Emitted as CSS text because a UnoCSS rule body cannot carry an at-rule, and
+ * because the reference does the same: below 640px a notification may take 95vw,
+ * above it the reference caps it at 65vw so it does not span the viewport.
+ */
+export const notificationMediaCss =
+  '@media (min-width: 40rem){.q-notification{max-width:65vw}}'

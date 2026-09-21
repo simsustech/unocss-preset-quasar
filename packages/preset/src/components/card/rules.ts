@@ -7,11 +7,69 @@ export const cardRules = [
       yield {
         display: 'flex',
         'flex-direction': 'column',
+        'vertical-align': 'top',
         padding: 'var(--q-space-lg)',
         'border-radius': 'var(--q-card-radius)',
+        // The style token stays authoritative: the reference's own
+        // `color-mix(… var(--light-surface-container-low) …)` is not compared by
+        // the gate (`var(--un-bg-opacity)` is skipped), and md2/unstyled must
+        // keep resolving through the token.
         'background-color': 'var(--q-card-surface)',
         'box-shadow': 'var(--q-elevation-1)',
         position: 'relative'
+      }
+      // Reference family `.q-card > div|img`: children lose their own radius so
+      // only the card's corners show, the first and last of the run inherit them
+      // back, and an image spans the card.
+      for (const child of ['div', 'img']) {
+        yield {
+          [symbols.selector]: (sel) =>
+            `${sel} > ${child}:not(.q--avoid-card-border)`,
+          'border-top-left-radius': 'var(--radius-none)',
+          'border-top-right-radius': 'var(--radius-none)',
+          'border-bottom-left-radius': 'var(--radius-none)',
+          'border-bottom-right-radius': 'var(--radius-none)'
+        }
+        yield {
+          [symbols.selector]: (sel) =>
+            `${sel} > ${child}:nth-child(1 of :not(.q--avoid-card-border))`,
+          'border-top': '0',
+          'border-top-left-radius': 'inherit',
+          'border-top-right-radius': 'inherit'
+        }
+        yield {
+          [symbols.selector]: (sel) =>
+            `${sel} > ${child}:nth-last-child(1 of :not(.q--avoid-card-border))`,
+          'border-bottom': '0',
+          'border-bottom-left-radius': 'inherit',
+          'border-bottom-right-radius': 'inherit'
+        }
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > div:not(.q--avoid-card-border)`,
+        'border-left': '0',
+        'border-right': '0'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > img`,
+        'border-color':
+          'color-mix(in oklab, 0 var(--un-border-opacity), transparent)',
+        width: '100%',
+        'max-width': '100%',
+        display: 'block'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}.disabled`,
+        opacity: '38%'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}:not(.disabled):focus`,
+        'background-color':
+          'color-mix(in oklab, var(--light-secondary) var(--un-bg-opacity), transparent)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel}:not(.disabled):hover`,
+        'box-shadow': 'var(--q-elevation-2)'
       }
       yield {
         [symbols.selector]: (sel) => `.body--dark ${sel}`,
@@ -25,12 +83,20 @@ export const cardRules = [
         [symbols.selector]: (sel) => `.body--dark .q-dialog__inner>${sel}`,
         'background-color': 'var(--q-surface-container-high)'
       }
+      // Reference `body.quasar-style-unstyled .q-card`.
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
     }
   ],
   [
     /^q-card--dark$/,
     () => ({
-      'background-color': 'var(--q-surface-variant)'
+      'background-color': 'var(--q-surface-variant)',
+      // Reference restates the border with the light-on-dark 28% overlay.
+      'border-color': 'color-mix(in srgb, var(--colors-white) 28%, transparent)'
     })
   ],
   [
@@ -42,7 +108,8 @@ export const cardRules = [
   [
     /^q-card__section$/,
     () => ({
-      padding: 'var(--q-space-md)'
+      padding: 'var(--q-space-md)',
+      position: 'relative'
     })
   ],
   [
@@ -64,7 +131,8 @@ export const cardRules = [
       display: 'flex',
       'align-items': 'center',
       gap: 'var(--q-space-sm)',
-      padding: 'var(--q-space-sm) var(--q-space-md)'
+      // Reference `.q-card__actions { padding: 8px }`.
+      padding: '8px'
     })
   ],
   [
@@ -105,7 +173,13 @@ export const cardRules = [
   [
     /^q-card--bordered$/,
     function* () {
-      yield { border: '1px solid rgba(0, 0, 0, 0.12)' }
+      // Longhands: the reference names `border-width`/`border-style` separately.
+      yield {
+        'border-style': 'solid',
+        'border-width': '1px',
+        'border-color':
+          'color-mix(in oklab, var(--light-outline-variant) var(--un-border-opacity), transparent)'
+      }
     }
   ],
   [

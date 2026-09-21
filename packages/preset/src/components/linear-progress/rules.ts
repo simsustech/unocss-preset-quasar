@@ -5,8 +5,15 @@ export const linearProgressRules = [
     /^q-linear-progress$/,
     function* (_, { symbols }) {
       yield {
+        // Reference `.q-linear-progress { font-size: 4px; … height: 1em }`: the
+        // bar's thickness is em-based so a taller bar only needs `font-size`.
+        'font-size': '4px',
+        color:
+          'color-mix(in oklab, var(--light-primary) var(--un-text-opacity), transparent)',
+        width: '100%',
+        height: '1em',
+        transform: 'scale3d(1, 1, 1)',
         position: 'relative',
-        height: '4px',
         overflow: 'hidden',
         'border-radius': 'var(--q-radius-full)',
         'background-color': 'var(--q-surface-container-highest)'
@@ -19,6 +26,12 @@ export const linearProgressRules = [
         [symbols.selector]: () => '.body--dark .q-linear-progress__track',
         'background-color': 'var(--q-surface-container-highest)'
       }
+      // Reference `body.quasar-style-unstyled .q-linear-progress`.
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
     }
   ],
   [
@@ -29,9 +42,20 @@ export const linearProgressRules = [
   ],
   [
     /^q-linear-progress--reverse$/,
-    () => ({
-      // Reverse
-    })
+    function* (_, { symbols }) {
+      // Reference turns both the model and the track around; the preset only
+      // flipped nothing at all, so a reversed bar grew from the right when it
+      // should have grown from the left.
+      for (const part of [
+        '.q-linear-progress__model',
+        '.q-linear-progress__track'
+      ]) {
+        yield {
+          [symbols.selector]: (sel) => `${sel} ${part}`,
+          'transform-origin': '0 100%'
+        }
+      }
+    }
   ],
   [
     /^q-linear-progress--rounded$/,
@@ -56,22 +80,31 @@ export const linearProgressRules = [
     () => ({
       position: 'absolute',
       inset: '0',
+      'transform-origin': '0 0',
       'background-color': 'var(--q-primary)'
     })
   ],
   [
     /^q-linear-progress__model$/,
     () => ({
-      // Model
+      // Reference `.q-linear-progress__model { transform-origin: 0 0 }`.
+      'transform-origin': '0 0'
     })
   ],
   [
+    // One matcher per regex: the three entries this replaces were merged by
+    // `mergeDuplicateRules`, but the merge put their combined declarations before
+    // the scoped yields, which reordered the emitted blocks.
     /^q-linear-progress__model--indeterminate$/,
     function* (_, { symbols }) {
       yield {
+        // Reference `.q-linear-progress__model--indeterminate { transition: none }`.
+        transition: 'none'
+      }
+      yield {
         [symbols.selector]: (sel) =>
           `${sel}:before, ${sel}:after, .q-linear-progress__model--query:before, .q-linear-progress__model--query:after`,
-        background: 'currentColor',
+        'background-color': 'currentColor',
         content: '""',
         position: 'absolute',
         top: '0',
@@ -80,22 +113,12 @@ export const linearProgressRules = [
         left: '0',
         'transform-origin': '0 0'
       }
-    }
-  ],
-  [
-    /^q-linear-progress__model--indeterminate$/,
-    function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) =>
           `${sel}:before, .q-linear-progress__model--query:before`,
         animation:
           'q-linear-progress--indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite'
       }
-    }
-  ],
-  [
-    /^q-linear-progress__model--indeterminate$/,
-    function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) =>
           `${sel}:after, .q-linear-progress__model--query:after`,
@@ -121,7 +144,7 @@ export const linearProgressRules = [
   [
     /^q-linear-progress__model--determinate$/,
     function* () {
-      yield { background: 'currentColor' }
+      yield { 'background-color': 'currentColor' }
     }
   ],
   [

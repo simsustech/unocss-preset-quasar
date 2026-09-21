@@ -125,27 +125,9 @@
       "mismatch": []
     },
     "bar": {
-      "target": null,
-      "missing": [
-        ".q-bar--dense .q-btn",
-        ".q-bar--standard>div",
-        ".q-bar>.q-btn",
-        ".q-bar>.q-btn:first-child",
-        ".q-bar>.q-icon",
-        ".q-bar>.q-icon:first-child",
-        ".q-bar>div",
-        ".q-bar>div+.q-icon",
-        ".q-bar>div:first-child",
-        "body.quasar-style-unstyled .q-bar"
-      ],
-      "absent": [
-        ".q-bar--dense|font-size",
-        ".q-bar--dense|height",
-        ".q-bar--dense|padding-block",
-        ".q-bar--dense|padding-inline",
-        ".q-bar--standard|padding-block",
-        ".q-bar--standard|padding-inline"
-      ],
+      "target": 0,
+      "missing": [],
+      "absent": [],
       "mismatch": []
     },
     "body": {
@@ -218,44 +200,16 @@
       ]
     },
     "btn-dropdown": {
-      "target": null,
-      "missing": [
-        ".q-btn-dropdown--simple+.q-btn-dropdown__arrow",
-        "body.quasar-style-unstyled .q-btn-dropdown"
-      ],
-      "absent": [
-        ".q-btn-dropdown--split .q-btn-dropdown__arrow-container.q-btn--outline|border-left-color",
-        ".q-btn-dropdown--split .q-btn-dropdown__arrow-container.q-btn--outline|border-left-style",
-        ".q-btn-dropdown--split .q-btn-dropdown__arrow-container.q-btn--outline|border-left-width",
-        ".q-btn-dropdown--split .q-btn-dropdown__arrow-container:not(.q-btn--outline)|border-left-style",
-        ".q-btn-dropdown--split .q-btn-dropdown__arrow-container:not(.q-btn--outline)|border-left-width",
-        ".q-btn-dropdown--split .q-btn-dropdown__arrow-container|padding-block",
-        ".q-btn-dropdown--split .q-btn-dropdown__arrow-container|padding-inline",
-        ".q-btn-dropdown__arrow|transition-duration",
-        ".q-btn-dropdown__arrow|transition-property"
-      ],
+      "target": 0,
+      "missing": [],
+      "absent": [],
       "mismatch": []
     },
     "btn-group": {
-      "target": null,
-      "missing": [
-        ".q-btn-group > .q-btn-group",
-        ".q-btn-group > .q-btn-group:first-child > .q-btn--active",
-        ".q-btn-group > .q-btn-group:first-child > .q-btn:first-child",
-        ".q-btn-group > .q-btn-group:not(:first-child) > .q-btn:first-child",
-        ".q-btn-group > .q-btn-item",
-        ".q-btn-group > .q-btn-item .q-badge--floating",
-        ".q-btn-group > .q-btn-item.bg-primary",
-        ".q-btn-group > .q-btn-item:not(:first-child)",
-        ".q-btn-group > .q-btn-item:not(:last-child)",
-        ".q-btn-group--outline",
-        ".q-btn-group--outline > .q-separator",
-        ".q-btn-group--push__> .q-btn--push.q-btn--actionable.q-btn--active__.q-btn__content",
-        ".q-btn-group--spread__> .q-btn-group > .q-btn-item:not(.q-btn-dropdown__arrow-container)",
-        "body.quasar-style-unstyled .q-btn-group"
-      ],
-      "absent": [".q-btn-group|flex", ".q-btn-group|vertical-align"],
-      "mismatch": [".q-btn-group|border-radius", ".q-btn-group|box-shadow"]
+      "target": 0,
+      "missing": [],
+      "absent": [],
+      "mismatch": []
     },
     "btn-toggle": {
       "target": 0,
@@ -264,46 +218,16 @@
       "mismatch": []
     },
     "card": {
-      "target": null,
-      "missing": [
-        ".q-card > div:not(.q--avoid-card-border)",
-        ".q-card > div:nth-child(1 of :not(.q--avoid-card-border))",
-        ".q-card > div:nth-last-child(1 of :not(.q--avoid-card-border))",
-        ".q-card > img",
-        ".q-card > img:not(.q--avoid-card-border)",
-        ".q-card > img:nth-child(1 of :not(.q--avoid-card-border))",
-        ".q-card > img:nth-last-child(1 of :not(.q--avoid-card-border))",
-        ".q-card.disabled",
-        ".q-card:not(.disabled):focus",
-        ".q-card:not(.disabled):hover",
-        "body.quasar-style-unstyled .q-card"
-      ],
-      "absent": [
-        ".q-card--bordered|border-style",
-        ".q-card--bordered|border-width",
-        ".q-card--dark|border-color",
-        ".q-card__section|position",
-        ".q-card|vertical-align"
-      ],
-      "mismatch": [".q-card__actions|padding"]
+      "target": 0,
+      "missing": [],
+      "absent": [],
+      "mismatch": []
     },
     "carousel": {
-      "target": null,
-      "missing": [
-        ".q-carousel .q-carousel--padding",
-        ".q-carousel .q-carousel__thumbnail",
-        ".q-carousel .q-carousel__thumbnail--active",
-        ".q-carousel .q-carousel__thumbnail:hover",
-        ".q-carousel__control",
-        ".q-carousel__navigation .q-btn",
-        "body.quasar-style-unstyled .q-carousel"
-      ],
-      "absent": [
-        ".q-carousel__slide|background-repeat",
-        ".q-carousel__slide|height",
-        ".q-carousel|height"
-      ],
-      "mismatch": [".q-carousel__slide|background-position"]
+      "target": 0,
+      "missing": [],
+      "absent": [],
+      "mismatch": []
     },
     "checkbox": {
       "target": 0,
@@ -324,29 +248,9 @@
       "mismatch": []
     },
     "color-picker": {
-      "target": null,
-      "missing": [
-        ".q-color-picker__alpha .q-slider__track-container",
-        ".q-color-picker__header-content--dark",
-        "body.quasar-style-unstyled .q-color-picker"
-      ],
-      "absent": [
-        ".q-color-picker input|background-color",
-        ".q-color-picker--bordered|border-style",
-        ".q-color-picker--bordered|border-width",
-        ".q-color-picker--dark .q-color-picker__tune-tab input|border-style",
-        ".q-color-picker--dark .q-color-picker__tune-tab input|border-width",
-        ".q-color-picker__alpha .q-slider__track:before|background-image",
-        ".q-color-picker__footer .q-tab--inactive|background-image",
-        ".q-color-picker__header .q-tab--inactive|background-image",
-        ".q-color-picker__hue .q-slider__track|background-image",
-        ".q-color-picker__sliders|padding-block",
-        ".q-color-picker__sliders|padding-inline",
-        ".q-color-picker__spectrum-black|background-image",
-        ".q-color-picker__spectrum-white|background-image",
-        ".q-color-picker__tune-tab input|border-style",
-        ".q-color-picker__tune-tab input|border-width"
-      ],
+      "target": 0,
+      "missing": [],
+      "absent": [],
       "mismatch": []
     },
     "color-utilities": {
@@ -709,21 +613,9 @@
       "mismatch": []
     },
     "img": {
-      "target": null,
-      "missing": [
-        ".q-img--no-menu .q-img__image",
-        ".q-img--no-menu .q-img__placeholder",
-        ".q-img__content > div",
-        ".q-img__loading .q-spinner",
-        "body.quasar-style-unstyled .q-img"
-      ],
-      "absent": [
-        ".q-img__content|border-radius",
-        ".q-img__content|pointer-events",
-        ".q-img__image|border-radius",
-        ".q-img|vertical-align",
-        ".q-img|width"
-      ],
+      "target": 0,
+      "missing": [],
+      "absent": [],
       "mismatch": []
     },
     "inner-loading": {
@@ -892,25 +784,9 @@
       "mismatch": []
     },
     "linear-progress": {
-      "target": null,
-      "missing": [
-        ".q-linear-progress--reverse .q-linear-progress__model",
-        ".q-linear-progress--reverse .q-linear-progress__track",
-        ".q-linear-progress__model",
-        ".q-linear-progress__model--indeterminate",
-        "body.quasar-style-unstyled .q-linear-progress"
-      ],
-      "absent": [
-        ".q-linear-progress__model--determinate|background-color",
-        ".q-linear-progress__model--indeterminate:after|background-color",
-        ".q-linear-progress__model--indeterminate:before|background-color",
-        ".q-linear-progress__model--query:after|background-color",
-        ".q-linear-progress__model--query:before|background-color",
-        ".q-linear-progress__track|transform-origin",
-        ".q-linear-progress|font-size",
-        ".q-linear-progress|transform",
-        ".q-linear-progress|width"
-      ],
+      "target": 0,
+      "missing": [],
+      "absent": [],
       "mismatch": []
     },
     "link": {
@@ -944,23 +820,10 @@
       "mismatch": []
     },
     "menu": {
-      "target": null,
-      "missing": ["body.quasar-style-unstyled .q-menu"],
-      "absent": [
-        ".q-menu--dark|box-shadow",
-        ".q-menu|display",
-        ".q-menu|max-height",
-        ".q-menu|max-width",
-        ".q-menu|outline-width",
-        ".q-menu|overflow-x",
-        ".q-menu|overflow-y"
-      ],
-      "mismatch": [
-        ".q-menu|border-radius",
-        ".q-menu|box-shadow",
-        ".q-menu|position",
-        ".q-menu|z-index"
-      ]
+      "target": 0,
+      "missing": [],
+      "absent": [],
+      "mismatch": []
     },
     "message": {
       "target": 0,
@@ -1017,23 +880,9 @@
       "mismatch": []
     },
     "notification": {
-      "target": null,
-      "missing": [".q-notification (in @media (min-width: 40rem))"],
-      "absent": [
-        ".q-notification__badge--bottom-left|left",
-        ".q-notification__badge--bottom-right|right",
-        ".q-notification__badge--top-left|left",
-        ".q-notification__badge--top-right|right",
-        ".q-notification__badge|padding-block",
-        ".q-notification__badge|padding-inline",
-        ".q-notification__message|padding-block",
-        ".q-notification__message|padding-inline",
-        ".q-notification__progress|background-color",
-        ".q-notification__progress|border-bottom-left-radius",
-        ".q-notification__progress|border-bottom-right-radius",
-        ".q-notification__progress|border-top-left-radius",
-        ".q-notification__progress|border-top-right-radius"
-      ],
+      "target": 0,
+      "missing": [],
+      "absent": [],
       "mismatch": []
     },
     "notifications": {
@@ -1061,21 +910,9 @@
       "mismatch": []
     },
     "pagination": {
-      "target": null,
-      "missing": [
-        ".q-pagination input",
-        ".q-pagination input::-webkit-inner-spin-button",
-        ".q-pagination input::-webkit-outer-spin-button",
-        ".q-pagination__content > .q-btn",
-        ".q-pagination__content > .q-input",
-        "body.quasar-style-unstyled .q-pagination"
-      ],
-      "absent": [
-        ".q-pagination__content|flex",
-        ".q-pagination__content|margin-left",
-        ".q-pagination__content|margin-top",
-        ".q-pagination|flex"
-      ],
+      "target": 0,
+      "missing": [],
+      "absent": [],
       "mismatch": []
     },
     "panel": {
@@ -1284,28 +1121,9 @@
       "mismatch": []
     },
     "splitter": {
-      "target": null,
-      "missing": [
-        ".q-splitter--dark .q-splitter__separator",
-        ".q-splitter--horizontal > .q-splitter__panel",
-        ".q-splitter--horizontal > .q-splitter__separator",
-        ".q-splitter--horizontal > .q-splitter__separator > div",
-        ".q-splitter--horizontal.q-splitter--active",
-        ".q-splitter--horizontal.q-splitter--workable > .q-splitter__separator",
-        ".q-splitter--vertical > .q-splitter__panel",
-        ".q-splitter--vertical > .q-splitter__separator",
-        ".q-splitter--vertical > .q-splitter__separator > div",
-        ".q-splitter--vertical.q-splitter--active",
-        ".q-splitter--vertical.q-splitter--workable > .q-splitter__separator",
-        ".q-splitter__panel > .q-splitter"
-      ],
-      "absent": [
-        ".q-splitter__panel|position",
-        ".q-splitter__panel|z-index",
-        ".q-splitter__separator|-webkit-user-select",
-        ".q-splitter__separator|position",
-        ".q-splitter__separator|user-select"
-      ],
+      "target": 0,
+      "missing": [],
+      "absent": [],
       "mismatch": []
     },
     "stepper": {
@@ -1573,50 +1391,16 @@
       "mismatch": []
     },
     "toolbar": {
-      "target": null,
-      "missing": ["body.quasar-style-unstyled .q-toolbar"],
-      "absent": [
-        ".q-toolbar--inset|padding-left",
-        ".q-toolbar__title|letter-spacing",
-        ".q-toolbar__title|max-width",
-        ".q-toolbar__title|min-width",
-        ".q-toolbar__title|padding-block",
-        ".q-toolbar__title|padding-inline",
-        ".q-toolbar|padding-block",
-        ".q-toolbar|padding-inline"
-      ],
-      "mismatch": [
-        ".q-toolbar__title|flex",
-        ".q-toolbar__title|font-size",
-        ".q-toolbar__title|font-weight"
-      ]
+      "target": 0,
+      "missing": [],
+      "absent": [],
+      "mismatch": []
     },
     "tooltip": {
-      "target": null,
-      "missing": [
-        ".q-tooltip (in @media (min-width: 40rem))",
-        ".q-tooltip--style (in @media (min-width: 40rem))",
-        "body.quasar-style-unstyled .q-tooltip"
-      ],
-      "absent": [
-        ".q-tooltip--style|display",
-        ".q-tooltip--style|line-height",
-        ".q-tooltip--style|max-width",
-        ".q-tooltip--style|padding-block",
-        ".q-tooltip--style|padding-inline",
-        ".q-tooltip--style|pointer-events",
-        ".q-tooltip|max-height",
-        ".q-tooltip|overflow-x",
-        ".q-tooltip|overflow-y",
-        ".q-tooltip|padding-block",
-        ".q-tooltip|padding-inline"
-      ],
-      "mismatch": [
-        ".q-tooltip--style|font-weight",
-        ".q-tooltip|max-width",
-        ".q-tooltip|position",
-        ".q-tooltip|z-index"
-      ]
+      "target": 0,
+      "missing": [],
+      "absent": [],
+      "mismatch": []
     },
     "tree": {
       "target": null,

@@ -3,10 +3,55 @@ import type { Rule } from '@unocss/core'
 export const carouselRules = [
   [
     /^q-carousel$/,
-    () => ({
-      position: 'relative',
-      overflow: 'hidden'
-    })
+    function* (_, { symbols }) {
+      yield {
+        position: 'relative',
+        overflow: 'hidden',
+        // Reference `.q-carousel { … height: 400px }` and its surface role.
+        height: '400px',
+        'background-color':
+          'color-mix(in oklab, var(--light-surface) var(--un-bg-opacity), transparent)'
+      }
+      // Reference `.q-carousel .q-carousel--padding { padding: 16px }` — the
+      // padding modifier is a *descendant* of the carousel in the bundle.
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
+        padding: '16px'
+      }
+      // Reference `.q-carousel .q-carousel__thumbnail` family: the strip of
+      // preview frames under the slides.
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-carousel__thumbnail`,
+        margin: '2px',
+        'vertical-align': 'middle',
+        'border-style': 'solid',
+        'border-width': '1px',
+        'border-color': 'transparent',
+        'border-radius': '4px',
+        opacity: '70%',
+        height: '50px',
+        width: 'auto',
+        display: 'inline-block',
+        cursor: 'pointer',
+        transition: 'opacity 0.3s'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-carousel__thumbnail--active`,
+        'border-color': 'currentColor',
+        opacity: '100%',
+        cursor: 'default'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-carousel__thumbnail:hover`,
+        opacity: '100%'
+      }
+      // Reference `body.quasar-style-unstyled .q-carousel`.
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
+    }
   ],
   [
     /^q-carousel--dark$/,
@@ -50,20 +95,33 @@ export const carouselRules = [
     /^q-carousel__slide$/,
     () => ({
       'min-height': '100%',
+      // Reference `.q-carousel__slide { background-position: 50%; height: 400px;
+      // background-size: cover; background-repeat: no-repeat }`.
+      'background-position': '50%',
+      height: '400px',
       'background-size': 'cover',
-      'background-position': 'center'
+      'background-repeat': 'no-repeat'
     })
   ],
   [
     /^q-carousel__navigation$/,
-    () => ({
-      position: 'absolute',
-      bottom: 'var(--q-space-sm)',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      display: 'flex',
-      gap: 'var(--q-space-xs)'
-    })
+    function* (_, { symbols }) {
+      yield {
+        position: 'absolute',
+        bottom: 'var(--q-space-sm)',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        display: 'flex',
+        gap: 'var(--q-space-xs)'
+      }
+      // Reference `.q-carousel__navigation .q-btn`.
+      yield {
+        [symbols.selector]: (sel) => `${sel} .q-btn`,
+        'margin-inline': '4px',
+        'margin-block': '6px',
+        padding: '5px'
+      }
+    }
   ],
   [
     /^q-carousel__navigation-icon$/,
@@ -104,7 +162,8 @@ export const carouselRules = [
   [
     /^q-carousel__control$/,
     () => ({
-      // Control
+      // Reference `.q-carousel__control { color: color-mix(in oklab, #fff …) }`.
+      color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)'
     })
   ],
   [

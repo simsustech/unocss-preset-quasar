@@ -5,11 +5,19 @@ export const tooltipRules = [
     /^q-tooltip$/,
     function* (_, { symbols }) {
       yield {
-        position: 'absolute',
-        'z-index': 9500,
+        // Reference `.q-tooltip`: fixed and scrollable, with the tooltip's own
+        // padding only up to 40rem — the smaller `padding-inline`/`padding-block`
+        // pair below is the default and `tooltipMediaCss` widens it on larger
+        // screens, exactly as the reference does.
+        position: 'fixed',
+        'z-index': 9000,
         'pointer-events': 'none',
-        'max-width': '300px',
-        padding: 'var(--q-space-sm) var(--q-space-md)',
+        'padding-inline': '10px',
+        'padding-block': '6px',
+        'max-width': '95vw',
+        'max-height': '65vh',
+        'overflow-y': 'auto',
+        'overflow-x': 'hidden',
         'border-radius': 'var(--q-radius-sm)',
         'background-color': 'var(--q-inverse-surface)',
         color: 'var(--q-inverse-on-surface)',
@@ -19,6 +27,12 @@ export const tooltipRules = [
       yield {
         [symbols.selector]: () => '.body--dark .q-tooltip--style',
         color: 'var(--q-inverse-on-surface)'
+      }
+      // Reference `body.quasar-style-unstyled .q-tooltip`.
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
       }
     }
   ],
@@ -33,12 +47,34 @@ export const tooltipRules = [
     function* () {
       yield {
         'font-size': '10px',
-        color: '#fafafa',
-        background: '#757575',
-        'border-radius': '4px',
-        'text-transform': 'none',
-        'font-weight': 'normal'
+        color:
+          'color-mix(in oklab, var(--light-inverse-on-surface) var(--un-text-opacity), transparent)',
+        'line-height': 'var(--leading-normal)',
+        'font-weight': 'var(--fontWeight-normal)',
+        'padding-inline': '8px',
+        'padding-block': '4px',
+        'border-radius': 'var(--shape-corner-small)',
+        'background-color':
+          'color-mix(in oklab, var(--light-inverse-surface) var(--un-bg-opacity), transparent)',
+        'max-width': '90vw',
+        display: 'inline-block',
+        'pointer-events': 'none',
+        'text-transform': 'none'
       }
     }
   ]
 ] as Rule[]
+
+/**
+ * `@media (min-width: 40rem)` overrides for the tooltip.
+ *
+ * Emitted as CSS text because a UnoCSS rule body cannot carry an at-rule; the
+ * reference widens the tooltip's padding and its `--style` variant's type and
+ * max-width at 640px so a tooltip does not look cramped on desktop.
+ */
+export const tooltipMediaCss = [
+  '@media (min-width: 40rem){',
+  '.q-tooltip{padding-top:8px;padding-bottom:8px;padding-left:16px;padding-right:16px}',
+  '.q-tooltip--style{font-size:14px;max-width:300px}',
+  '}'
+].join('')

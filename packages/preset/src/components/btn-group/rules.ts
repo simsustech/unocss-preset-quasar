@@ -5,8 +5,14 @@ export const btnGroupRules = [
     /^q-btn-group$/,
     () => ({
       display: 'inline-flex',
-      'box-shadow': 'var(--q-elevation-1)',
-      'border-radius': 'var(--q-btn-radius)'
+      // Reference `.q-btn-group`: middle-aligned, `flex: 0 1 auto`, 28px corner
+      // and the level-2 elevation, which the preset previously took from a token
+      // whose resolved pair differs.
+      'vertical-align': 'middle',
+      flex: '0 1 auto',
+      'border-radius': '28px',
+      'box-shadow':
+        '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
     })
   ],
   [
@@ -73,6 +79,12 @@ export const btnGroupRules = [
   [
     /^q-btn-group--outline$/,
     function* (_, { symbols }) {
+      // Reference `.q-btn-group--outline { box-shadow: none }`.
+      yield { 'box-shadow': 'none' }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-separator`,
+        display: 'none'
+      }
       yield {
         [symbols.selector]: (sel) =>
           `${sel} > .q-btn-item + .q-btn-item:before`,
@@ -107,6 +119,15 @@ export const btnGroupRules = [
       yield {
         [symbols.selector]: (sel) =>
           `${sel} > .q-btn--push.q-btn--actionable:active .q-btn__content`,
+        'margin-top': '2px',
+        'margin-bottom': '-2px'
+      }
+      // The bundle also emits the minifier artifact of the rule above, where the
+      // combinator became `__`. It cannot match anything, but the reference
+      // carries it, so parity carries it too.
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel}__> .q-btn--push.q-btn--actionable.q-btn--active__.q-btn__content`,
         'margin-top': '2px',
         'margin-bottom': '-2px'
       }
@@ -179,6 +200,78 @@ export const btnGroupRules = [
         'min-width': '0',
         'max-width': '100%',
         flex: '10000 1 0%'
+      }
+      // Minifier artifact of the yield above (see the `--push` note).
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel}__> .q-btn-group > .q-btn-item:not(.q-btn-dropdown__arrow-container)`,
+        flex: '10000 1 0%',
+        width: 'auto',
+        'min-width': '0',
+        'max-width': '100%'
+      }
+    }
+  ],
+  [
+    /^q-btn-group$/,
+    function* (_, { symbols }) {
+      // Reference `.q-btn-group > .q-btn-group` family: a nested group contributes
+      // no elevation and only keeps the outer corners of its run.
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-btn-group`,
+        'box-shadow': 'none'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel} > .q-btn-group:first-child > .q-btn:first-child`,
+        'border-top-left-radius': 'inherit',
+        'border-bottom-left-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel} > .q-btn-group:not(:first-child) > .q-btn:first-child`,
+        'border-top-left-radius': '0',
+        'border-bottom-left-radius': '0'
+      }
+      yield {
+        [symbols.selector]: (sel) =>
+          `${sel} > .q-btn-group:first-child > .q-btn--active`,
+        'background-color':
+          'color-mix(in oklab, var(--light-secondary-container) var(--un-bg-opacity), transparent) !important'
+      }
+      // Reference `.q-btn-group > .q-btn-item` family.
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-btn-item`,
+        color:
+          'color-mix(in oklab, var(--light-on-surface) var(--un-text-opacity), transparent)',
+        'align-self': 'stretch'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-btn-item:not(:first-child)`,
+        'border-top-left-radius': 'var(--radius-none)',
+        'border-bottom-left-radius': 'var(--radius-none)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-btn-item:not(:last-child)`,
+        'border-top-right-radius': 'var(--radius-none)',
+        'border-bottom-right-radius': 'var(--radius-none)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-btn-item .q-badge--floating`,
+        right: 'calc(var(--spacing) * 0)'
+      }
+      yield {
+        [symbols.selector]: (sel) => `${sel} > .q-btn-item.bg-primary`,
+        color:
+          'color-mix(in oklab, var(--light-on-primary) var(--un-text-opacity), transparent) !important',
+        'background-color':
+          'color-mix(in oklab, var(--light-primary) var(--un-bg-opacity), transparent) !important'
+      }
+      // Reference `body.quasar-style-unstyled .q-btn-group`.
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
       }
     }
   ],

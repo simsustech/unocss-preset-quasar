@@ -103,7 +103,11 @@ describe('duplicate rule matchers', () => {
     const css = await cssFor('q-btn-group')
     const util = block(css, '.q-btn-group')
     expect(util).toContain('display:inline-flex')
-    expect(util).toContain('box-shadow:var(--q-elevation-1)')
+    // Step 6 ported the reference's own elevation pair, so the util now carries
+    // the literal shadow instead of the token alias.
+    expect(util).toContain(
+      'box-shadow:0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
+    )
     // These belong to the scoped selectors, not to the util itself.
     expect(util).not.toContain('--q-on-surface')
     expect(util).not.toContain('z-index')

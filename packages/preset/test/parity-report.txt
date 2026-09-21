@@ -1,6 +1,6 @@
-=== PARITY: 1667/2401 (69%) ===
+=== PARITY: 1745/2401 (73%) ===
 (2441 in fixture; 40 env-gated)
-Missing 734 selectors:
+Missing 656 selectors:
   ::backdrop
   :root
   :host
@@ -57,25 +57,13 @@ Missing 734 selectors:
   #q-app
   img.responsive
   body.quasar-style-unstyled .q-btn
-  body.quasar-style-unstyled .q-card
-  body.quasar-style-unstyled .q-bar
   body.quasar-style-unstyled .q-stepper
-  body.quasar-style-unstyled .q-carousel
-  body.quasar-style-unstyled .q-linear-progress
-  body.quasar-style-unstyled .q-pagination
-  body.quasar-style-unstyled .q-btn-dropdown
-  body.quasar-style-unstyled .q-btn-group
-  body.quasar-style-unstyled .q-toolbar
-  body.quasar-style-unstyled .q-tooltip
-  body.quasar-style-unstyled .q-menu
   body.quasar-style-unstyled .q-dialog
   body.quasar-style-unstyled .q-uploader
   body.quasar-style-unstyled .q-table
   body.quasar-style-unstyled .q-tree
   body.quasar-style-unstyled .q-timeline
   body.quasar-style-unstyled .q-editor
-  body.quasar-style-unstyled .q-color-picker
-  body.quasar-style-unstyled .q-img
   [aria-busy=true]
   [aria-controls]
   [aria-disabled=true]
@@ -286,21 +274,13 @@ Missing 734 selectors:
   .i-mdi-view-grid
   .i-mdi-volume-high
   .q-dialog__inner>div
-  .q-img__content > div
-  .q-bar--dense .q-btn
-  .q-bar--standard>div
   .q-uploader__file .q-circular-progress
-  .q-img__loading .q-spinner
   .q-table tbody td
   .q-table th
   .q-table--dense .q-table__sort-icon
   .q-timeline__dot .q-icon
   .q-tree__node-header-content .q-avatar
   .q-tree__node-header-content .q-icon
-  .q-btn-group > .q-btn-item
-  .q-btn-group > .q-btn-item.bg-primary
-  .q-carousel__control
-  .q-color-picker__header-content--dark
   .q-stepper__dot span
   .q-timeline--dark
   .q-uploader__file--img .q-circular-progress
@@ -316,34 +296,18 @@ Missing 734 selectors:
   .body--dark .text-accent
   .body--dark .text-secondary
   .q-stepper--vertical .q-stepper__title
-  .q-carousel .q-carousel__thumbnail
   .q-editor .q btn
   .q-editor__content hr
-  .q-pagination input::-webkit-inner-spin-button
-  .q-pagination input::-webkit-outer-spin-button
-  .q-carousel__navigation .q-btn
   .q-editor__toolbar-group
   .q-stepper--vertical .q-stepper__dot
-  .q-bar>.q-btn
-  .q-bar>.q-icon
-  .q-bar>.q-btn:first-child
-  .q-bar>.q-icon:first-child
-  .q-bar>div:first-child
-  .q-bar>div
-  .q-bar>div+.q-icon
-  .q-btn-dropdown--simple+.q-btn-dropdown__arrow
   .q-table--dense .q-table__bottom-item
   .q-btn--dense .on-left
   .q-btn--dense .on-right
-  .q-btn-group--push__> .q-btn--push.q-btn--actionable.q-btn--active__.q-btn__cont
   .q-uploader__file + .q-uploader__file
-  .q-pagination__content > .q-btn
-  .q-pagination__content > .q-input
   .q-stepper__header--alternative-labels .q-stepper__dot
   .q-stepper__header--alternative-labels .q-stepper__label
   .q-table--grid .q-table__middle
   .q-btn--dense.q-btn--round
-  .q-carousel .q-carousel--padding
   .q-table .q-virtual-scroll__padding td
   .q-stepper--horizontal .q-stepper__step-inner
   .q-tree > .q-tree__node
@@ -363,7 +327,6 @@ Missing 734 selectors:
   .q-table--dense .q-table th:first-child
   .q-checkbox--dense q-checkbox__label
   .q-checkbox--dense.reverse q-checkbox__label
-  .q-color-picker__alpha .q-slider__track-container
   .q-timeline__heading:first-child .q-timeline__heading-title
   .q-tree__node--parent
   .q-timeline__entry--icon .q-timeline__subtitle
@@ -379,7 +342,6 @@ Missing 734 selectors:
   .q-tree__node-body
   .q-tree--dense .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-b
   .q-uploader__file--img .q-uploader__file-header
-  .q-pagination input
   .disabled *
   .q-uploader__dnd
   .q-field__nativeinput:focus
@@ -399,7 +361,6 @@ Missing 734 selectors:
   .q-table--cell-separator th
   .q-table--vertical-separator td
   .q-table--vertical-separator th
-  .q-card > img
   .q-table--dark .q-table__bottom
   .q-table--dark td
   .q-table--dark th
@@ -407,7 +368,6 @@ Missing 734 selectors:
   .q-table--dark tr
   .q-table--dark.q-table--cell-separator .q-table__top
   .q-table--dark.q-table--vertical-separator .q-table__top
-  .q-carousel .q-carousel__thumbnail--active
   .q-editor--dark .q-editor__content hr
   .q-editor--dark .q-editor__toolbar
   .q-editor--dark .q-editor__toolbar-group+.q-editor__toolbar-group:before
@@ -420,34 +380,24 @@ Missing 734 selectors:
   .q-checkbox:not(.disabled):hover q-checkbox__inner:before
   .q-dialog__inner--maximized>div
   .q-dialog__inner--square>div
-  .q-btn-group > .q-btn-group:not(:first-child) > .q-btn:first-child
-  .q-btn-group > .q-btn-item:not(:first-child)
   .q-dialog__inner--left:not(.q-dialog__inner--animating)>div
-  .q-btn-group > .q-btn-item:not(:last-child)
   .q-dialog__inner--right:not(.q-dialog__inner--animating)>div
-  .q-card > div:not(.q--avoid-card-border)
-  .q-card > img:not(.q--avoid-card-border)
   .q-dialog__inner--bottom:not(.q-dialog__inner--animating)>div
   .q-editor>div:first-child
   .q-stepper__header
   .q-table__container > div:first-child
   .body--dark .bg-accent
   .body--dark .bg-primary
-  .q-card:not(.disabled):focus
   .body--dark .bg-secondary
   .q-btn--flat .q-btn__progress-indicator
   .q-btn--outline .q-btn__progress-indicator
-  .q-btn-group > .q-btn-group:first-child > .q-btn--active
   .q-checkbox__inner--indet q-checkbox__bg
   .q-dialog__inner>.q-card
   .q-editor__toolbar-group+.q-editor__toolbar-group:before
-  .q-splitter--dark .q-splitter__separator
   .q-stepper--dark .q-stepper__tab--disabled .q-stepper__dot
   .q-stepper__label
   .q-uploader--dark .q-uploader__dnd
   .q-btn.disabled
-  .q-card.disabled
-  .q-carousel .q-carousel__thumbnail:hover
   .q-timeline--dark .q-timeline__subtitle
   .q-tree__node--disabled .disabled
   .q-tree__node--disabled> .disabled .q-tree__node--disabled> .disabled
@@ -465,20 +415,14 @@ Missing 734 selectors:
   .q-tree__node--disabled>div
   .q-tree__node--disabled>i
   .container
-  .q-splitter--horizontal > .q-splitter__panel
-  .q-btn-group--spread__> .q-btn-group > .q-btn-item:not(.q-btn-dropdown__arrow-co
   .q-table--grid .q-table__grid-content
   .q-table__top .q-table__control
-  .q-splitter--vertical > .q-splitter__panel
   .q-checkbox--dense q-checkbox__bg
-  .q-splitter__panel > .q-splitter
   .q-dialog__inner>.q-card>.q-card__actions .q-btn--rectangle
   .q-dialog__inner--fullheight>div
   .q-dialog__inner--fullwidth>div
   .q-dialog__inner--minimized>div
   .q-table__bottom .q-table__control
-  .q-splitter--horizontal > .q-splitter__separator
-  .q-splitter--vertical > .q-splitter__separator
   .q-stepper__header--standard-labels .q-stepper__tab
   .q-table .q-virtual-scroll__padding tr
   .q-table thead tr
@@ -491,7 +435,6 @@ Missing 734 selectors:
   .q-timeline__dot .q-icon > svg
   .q-timeline__entry--icon .q-timeline__dot
   .q-tree__node--parent> .q-tree__node-header:before
-  .q-btn-group--outline > .q-separator
   .q-stepper--horizontal .q-stepper__tab:last-child .q-stepper__dot:after
   .q-stepper--horizontal .q-stepper__tab:last-child .q-stepper__label:after
   .q-stepper--vertical .q-stepper__step:last-child .q-stepper__dot:after
@@ -500,42 +443,24 @@ Missing 734 selectors:
   .q-tree--no-connectors .q-tree__node-header:before
   .q-table th.sortable
   .q-uploader__input::-webkit-file-upload-button
-  .q-splitter--vertical.q-splitter--active
-  .q-splitter--vertical.q-splitter--workable > .q-splitter__separator
-  .q-splitter--horizontal.q-splitter--active
-  .q-splitter--horizontal.q-splitter--workable > .q-splitter__separator
   .q-stepper--horizontal .q-stepper__line
   .no-pointer-events--children
   .no-pointer-events--children *
-  .q-img--no-menu .q-img__image
-  .q-img--no-menu .q-img__placeholder
   .q-table--no-wrap td
   .q-table--no-wrap th
   .q-editor__content pre
-  .q-card:not(.disabled):hover
-  .q-linear-progress__model
-  .q-linear-progress--reverse .q-linear-progress__model
-  .q-linear-progress--reverse .q-linear-progress__track
   .q-btn--push.q-btn--actionable:active
   .q-btn--push.q-btn--actionable.q-btn--active
   .q-checkbox__inner--indet q-checkbox__indet
   .q-table th.sort-desc .q-table__sort-icon
   .q-checkbox:not(.disabled):focus q-checkbox__inner:before
-  .q-linear-progress__model--indeterminate
   .hide-scrollbar
-  .q-btn-group > .q-btn-group
-  .q-btn-group--outline
   .q-btn--push.q-btn--actionable
   .q-btn--standard:before
-  .q-btn-group > .q-btn-group:first-child > .q-btn:first-child
   .q-table--cell-separator td:first-child
   .q-table--cell-separator th:first-child
   .q-table--vertical-separator td:first-child
   .q-table--vertical-separator th:first-child
-  .q-card > div:nth-child(1 of :not(.q--avoid-card-border))
-  .q-card > img:nth-child(1 of :not(.q--avoid-card-border))
-  .q-card > div:nth-last-child(1 of :not(.q--avoid-card-border))
-  .q-card > img:nth-last-child(1 of :not(.q--avoid-card-border))
   .q-table--grid.fullscreen
   .q-tree__node--selected .q-tree__node--selected .q-tree__node-header-content
   .q-stepper--dark
@@ -548,9 +473,6 @@ Missing 734 selectors:
   .q-table--grid .q-table__bottom
   .q-timeline h6
   .q-tree--dark .q-tree__node-header-content
-  .q-btn-group > .q-btn-item .q-badge--floating
-  .q-splitter--horizontal > .q-splitter__separator > div
-  .q-splitter--vertical > .q-splitter__separator > div
   .q-table--grid .q-table__linear-progress
   .q-tree--dense .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-b
   .q-stepper__header--standard-labels .q-stepper__tab:first-child
@@ -741,22 +663,11 @@ Missing 734 selectors:
   table: 71
   stepper: 35
   tree: 32
-  btn: 27
   dialog: 17
   editor: 17
   uploader: 13
   timeline: 13
-  splitter: 12
-  card: 11
-  bar: 10
-  carousel: 7
+  btn: 11
   checkbox: 7
-  pagination: 6
-  linear: 5
-  img: 5
-  color: 3
   layout: 3
   field: 2
-  toolbar: 1
-  tooltip: 1
-  menu: 1

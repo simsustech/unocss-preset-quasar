@@ -159,6 +159,10 @@ export const colorRules = [
     /^q-color-picker__header-content--dark$/,
     function* (_, { symbols }) {
       yield {
+        // Reference states the label colour on the container itself.
+        color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)'
+      }
+      yield {
         [symbols.selector]: (sel) => `${sel} .q-tab--inactive:before`,
         content: '""',
         position: 'absolute',
@@ -174,15 +178,20 @@ export const colorRules = [
     /^q-color-picker__alpha$/,
     function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (sel) => `${sel} .q-slider__track-container`,
+        'padding-top': 'calc(var(--spacing) * 0)'
+      }
+      yield {
         [symbols.selector]: (sel) => `${sel} .q-slider__track:before`,
-        content: '""',
+        content: 'var(--un-content)',
         position: 'absolute',
         top: '0',
         right: '0',
         bottom: '0',
         left: '0',
         'border-radius': 'inherit',
-        background: 'linear-gradient(90deg, rgba(255, 255, 255, 0), #757575)'
+        'background-image':
+          'linear-gradient(90deg, rgba(255, 255, 255, 0), #757575)'
       }
     }
   ],
@@ -206,7 +215,8 @@ export const colorRules = [
       yield {
         [symbols.selector]: (sel) => `${sel} input`,
         color: 'inherit',
-        background: 'transparent',
+        // Reference states the colour reset as `background-color`.
+        'background-color': 'transparent',
         outline: '0',
         'text-align': 'center'
       }
@@ -230,12 +240,24 @@ export const colorRules = [
         [symbols.selector]: (sel) => `${sel} .q-tab-panels`,
         background: 'inherit'
       }
+      // Reference `body.quasar-style-unstyled .q-color-picker`.
+      yield {
+        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        background: 'none',
+        color: 'inherit'
+      }
     }
   ],
   [
     /^q-color-picker--bordered$/,
     function* () {
-      yield { border: '1px solid rgba(0, 0, 0, 0.12)' }
+      // Longhands: the reference names `border-width`/`border-style` separately.
+      yield {
+        'border-style': 'solid',
+        'border-width': '1px',
+        'border-color':
+          'color-mix(in oklab, rgba(0,0,0,0.12) var(--un-border-opacity), transparent)'
+      }
     }
   ],
   [
@@ -265,8 +287,8 @@ export const colorRules = [
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-tab--inactive`,
-        background:
-          'linear-gradient(to top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 25%, rgba(0, 0, 0, 0.1))'
+        'background-image':
+          'linear-gradient( to top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 25%, rgba(0, 0, 0, 0.1) )'
       }
     }
   ],
@@ -319,8 +341,8 @@ export const colorRules = [
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-tab--inactive`,
-        background:
-          'linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 25%, rgba(0, 0, 0, 0.1))'
+        'background-image':
+          'linear-gradient( to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 25%, rgba(0, 0, 0, 0.1) )'
       }
     }
   ],
@@ -340,14 +362,17 @@ export const colorRules = [
     /^q-color-picker__spectrum-white$/,
     function* () {
       yield {
-        background: 'linear-gradient(to right, #fff, rgba(255, 255, 255, 0))'
+        'background-image':
+          'linear-gradient(to right, #fff, rgba(255, 255, 255, 0))'
       }
     }
   ],
   [
     /^q-color-picker__spectrum-black$/,
     function* () {
-      yield { background: 'linear-gradient(to top, #000, rgba(0, 0, 0, 0))' }
+      yield {
+        'background-image': 'linear-gradient(to top, #000, rgba(0, 0, 0, 0))'
+      }
     }
   ],
   [
@@ -368,16 +393,17 @@ export const colorRules = [
     function* (_, { symbols }) {
       yield {
         [symbols.selector]: (sel) => `${sel} .q-slider__track`,
-        background:
-          'linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%) !important',
-        opacity: '1'
+        'background-image':
+          'linear-gradient( to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100% ) !important',
+        opacity: '100%'
       }
     }
   ],
   [
     /^q-color-picker__sliders$/,
     function* (_, { symbols }) {
-      yield { padding: '0 16px' }
+      // Reference states the padding as logical longhands.
+      yield { 'padding-inline': '16px', 'padding-block': '0' }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-slider__thumb`,
         color: '#424242'
@@ -404,7 +430,10 @@ export const colorRules = [
       yield {
         [symbols.selector]: (sel) => `${sel} input`,
         'font-size': '11px',
-        border: '1px solid #e0e0e0',
+        'border-style': 'solid',
+        'border-width': '1px',
+        'border-color':
+          'color-mix(in oklab, #e0e0e0 var(--un-border-opacity), transparent)',
         'border-radius': '4px',
         width: '3.5em'
       }
@@ -440,7 +469,10 @@ export const colorRules = [
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-color-picker__tune-tab input`,
-        border: '1px solid rgba(255, 255, 255, 0.3)'
+        'border-style': 'solid',
+        'border-width': '1px',
+        'border-color':
+          'color-mix(in oklab, rgba(255,255,255,0.3) var(--un-border-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (sel) => `${sel} .q-slider__thumb`,
