@@ -38,7 +38,8 @@ export const toggleRules = [
         'background-color': 'var(--q-toggle-state-layer-color)',
         opacity: '0%',
         transform: 'scale3d(0, 0, 1)',
-        transition: 'transform 0.22s cubic-bezier(0, 0, 0.2, 1)'
+        transition:
+          'transform var(--q-toggle-duration) cubic-bezier(0, 0, 0.2, 1)'
       }
       yield {
         [symbols.selector]: (sel) =>
@@ -150,7 +151,8 @@ export const toggleRules = [
         width: 'var(--q-toggle-thumb-size)',
         height: 'var(--q-toggle-thumb-size)',
         // The reference animates `left` only; the size change is not eased.
-        transition: 'left 0.22s cubic-bezier(0.4, 0, 0.2, 1)',
+        transition:
+          'left var(--q-toggle-duration) cubic-bezier(0.4, 0, 0.2, 1)',
         'user-select': 'none',
         '-webkit-user-select': 'none',
         'z-index': 0

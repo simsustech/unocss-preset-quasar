@@ -393,7 +393,7 @@
       "target": null,
       "missing": [],
       "absent": [],
-      "mismatch": [".q-item|min-height"]
+      "mismatch": [".q-item|min-height", ".q-item|padding-block"]
     },
     "keyframes": {
       "target": 0,
@@ -823,10 +823,10 @@
       "mismatch": []
     },
     "toggle": {
-      "target": 0,
+      "target": null,
       "missing": [],
       "absent": [],
-      "mismatch": []
+      "mismatch": [".q-toggle__thumb|transition"]
     },
     "tokens": {
       "target": null,

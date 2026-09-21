@@ -149,6 +149,7 @@ export interface ComponentTokens {
   toggleFontSize: string
   toggleDenseFontSize: string
   toggleTrackBg: string
+  toggleDuration: string
   toggleTrackWidth: string
   toggleTrackOutlineWidth: string
   toggleTrackOutlineStyle: string
@@ -197,6 +198,7 @@ export interface ComponentTokens {
   fieldBorderWidth: string
   fieldPaddingX: string
   fieldPaddingY: string
+  itemPaddingY: string
   itemMinHeight: string
   separatorColor: string
   itemGap: string

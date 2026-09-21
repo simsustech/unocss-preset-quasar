@@ -7,7 +7,7 @@ export const itemRules = [
       yield {
         display: 'flex',
         'flex-wrap': 'nowrap',
-        padding: 'var(--q-space-sm) var(--q-space-lg)',
+        padding: 'var(--q-item-padding-y) var(--q-space-lg)',
         'min-height': 'var(--q-item-min-height)',
         // Label colour role; the side sections override to on-surface-variant.
         color: 'inherit',
@@ -27,9 +27,11 @@ export const itemRules = [
         // The base rule's geometry, kept as the reference's longhands (the gate
         // measures longhands, not the shorthand), but taken from tokens. The
         // `min-height: 28px` that used to sit here was the literal copy that
-        // beat the token and sized every item to 28px instead of md3's 56px.
+        // beat the token and sized every item to 28px instead of md3's 56px —
+        // and the block padding it declares here must be the token too, or it
+        // overrides the shorthand and md2 never gets its spec's 4px.
         'padding-inline': 'var(--q-space-lg)',
-        'padding-block': 'var(--q-space-sm)'
+        'padding-block': 'var(--q-item-padding-y)'
       }
       yield {
         [symbols.selector]: (sel) => `${sel}.q-router-link--active`,

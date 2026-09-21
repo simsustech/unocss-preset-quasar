@@ -128,6 +128,9 @@ export const md3Style: StyleEntry = {
       toggleFontSize: '32px',
       toggleDenseFontSize: '28px',
       toggleTrackBg: 'var(--q-surface-container-highest)',
+      // M3 switch motion is 300ms; the md2 spec's toggle is 200ms
+      // (specs/reference/normalized/md2-switches.json).
+      toggleDuration: '300ms',
       toggleTrackWidth: 'var(--q-toggle-inner-width)',
       toggleTrackOutlineWidth: '2px',
       toggleTrackOutlineStyle: 'solid',
@@ -178,6 +181,7 @@ export const md3Style: StyleEntry = {
       fieldPaddingY: '16px 12px 8px',
       // md3 lists: one-line container is 56px; two/three-line grow past it
       // with their content (specs/reference/normalized/md3-lists.json).
+      itemPaddingY: 'var(--q-space-sm)',
       itemMinHeight: '56px',
       itemActiveBg: 'var(--q-secondary-container)',
       itemActiveColor: 'var(--q-on-secondary-container)',
@@ -306,6 +310,7 @@ export const md2Style: StyleEntry = {
       toggleFontSize: '40px',
       toggleDenseFontSize: '28px',
       toggleTrackBg: 'rgba(0, 0, 0, 0.32)',
+      toggleDuration: '200ms',
       toggleTrackWidth: '0.9em',
       toggleTrackOutlineWidth: '0',
       toggleTrackOutlineStyle: 'none',
@@ -354,6 +359,8 @@ export const md2Style: StyleEntry = {
       fieldBorderWidth: '1px',
       fieldPaddingX: '12px',
       fieldPaddingY: '16px 12px 8px',
+      // md2 lists: minimum vertical padding 4px (md2-lists.json)
+      itemPaddingY: '4px',
       itemMinHeight: '56px',
       itemActiveBg: 'color-mix(in oklab, var(--q-primary) 12%, transparent)',
       itemActiveColor: 'var(--q-primary)',
@@ -483,6 +490,7 @@ export const unstyledStyle: StyleEntry = {
       toggleFontSize: '32px',
       toggleDenseFontSize: '28px',
       toggleTrackBg: 'transparent',
+      toggleDuration: '0s',
       toggleTrackWidth: 'auto',
       toggleTrackOutlineWidth: '0',
       toggleTrackOutlineStyle: 'none',
@@ -527,6 +535,7 @@ export const unstyledStyle: StyleEntry = {
       fieldBorderWidth: '0',
       fieldPaddingX: '0',
       fieldPaddingY: '0',
+      itemPaddingY: '0',
       itemMinHeight: 'auto',
       // inert, like the rest of this entry
       itemActiveBg: 'transparent',
