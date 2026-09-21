@@ -371,38 +371,10 @@
       "mismatch": []
     },
     "editor": {
-      "target": null,
-      "missing": [
-        ".q-editor .q btn",
-        ".q-editor--dark",
-        ".q-editor--dark .q-editor__content hr",
-        ".q-editor--dark .q-editor__toolbar",
-        ".q-editor--dark .q-editor__toolbar-group+.q-editor__toolbar-group:before",
-        ".q-editor>div:first-child",
-        ".q-editor__content hr",
-        ".q-editor__content pre",
-        ".q-editor__toolbar-group",
-        ".q-editor__toolbar-group+.q-editor__toolbar-group:before",
-        "body.quasar-style-unstyled .q-editor"
-      ],
-      "absent": [
-        ".q-editor--flat .q-editor__toolbar|border-width",
-        ".q-editor--flat|border-width",
-        ".q-editor__content|border-bottom-style",
-        ".q-editor__content|max-width",
-        ".q-editor__content|outline-width",
-        ".q-editor__content|overflow",
-        ".q-editor__link-input|background-image",
-        ".q-editor__link-input|border-style",
-        ".q-editor__link-input|outline-width",
-        ".q-editor__toolbar|border-bottom-style",
-        ".q-editor__toolbar|border-bottom-width",
-        ".q-editor__toolbar|border-color",
-        ".q-editor__toolbar|min-height",
-        ".q-editor|border-style",
-        ".q-editor|border-width"
-      ],
-      "mismatch": [".q-editor__content|padding", ".q-editor|border-radius"]
+      "target": 0,
+      "missing": [],
+      "absent": [],
+      "mismatch": []
     },
     "electron-drag": {
       "target": 0,
@@ -1330,49 +1302,10 @@
       "mismatch": []
     },
     "timeline": {
-      "target": null,
-      "missing": [
-        ".q-timeline h6",
-        ".q-timeline--dark",
-        ".q-timeline--dark .q-timeline__subtitle",
-        ".q-timeline__dot .q-icon",
-        ".q-timeline__dot .q-icon > img",
-        ".q-timeline__dot .q-icon > svg",
-        ".q-timeline__entry--icon .q-timeline__dot",
-        ".q-timeline__entry--icon .q-timeline__subtitle",
-        ".q-timeline__entry:last-child",
-        ".q-timeline__heading",
-        ".q-timeline__heading:first-child .q-timeline__heading-title",
-        ".q-timeline__heading:last-child .q-timeline__heading-title",
-        "body.quasar-style-unstyled .q-timeline"
-      ],
-      "absent": [
-        ".q-timeline__content|padding-bottom",
-        ".q-timeline__dot-img|background-color",
-        ".q-timeline__dot:after|background-color",
-        ".q-timeline__dot:before|background-color",
-        ".q-timeline__dot:before|border-color",
-        ".q-timeline__dot:before|border-style",
-        ".q-timeline__dot:before|border-width",
-        ".q-timeline__dot|bottom",
-        ".q-timeline__entry|line-height",
-        ".q-timeline__heading-title|padding-block",
-        ".q-timeline__heading-title|padding-inline",
-        ".q-timeline__subtitle|font-weight",
-        ".q-timeline__subtitle|letter-spacing",
-        ".q-timeline__subtitle|margin-bottom",
-        ".q-timeline__subtitle|opacity",
-        ".q-timeline__subtitle|text-transform",
-        ".q-timeline|list-style",
-        ".q-timeline|padding",
-        ".q-timeline|width"
-      ],
-      "mismatch": [
-        ".q-timeline__dot|width",
-        ".q-timeline__entry--icon .q-timeline__dot:before|height",
-        ".q-timeline__entry--icon .q-timeline__dot:before|width",
-        ".q-timeline__subtitle|font-size"
-      ]
+      "target": 0,
+      "missing": [],
+      "absent": [],
+      "mismatch": []
     },
     "toggle": {
       "target": 0,

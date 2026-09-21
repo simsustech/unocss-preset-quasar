@@ -1,6 +1,6 @@
-=== PARITY: 1745/2401 (73%) ===
+=== PARITY: 1775/2401 (74%) ===
 (2441 in fixture; 40 env-gated)
-Missing 656 selectors:
+Missing 626 selectors:
   ::backdrop
   :root
   :host
@@ -62,8 +62,6 @@ Missing 656 selectors:
   body.quasar-style-unstyled .q-uploader
   body.quasar-style-unstyled .q-table
   body.quasar-style-unstyled .q-tree
-  body.quasar-style-unstyled .q-timeline
-  body.quasar-style-unstyled .q-editor
   [aria-busy=true]
   [aria-controls]
   [aria-disabled=true]
@@ -278,15 +276,12 @@ Missing 656 selectors:
   .q-table tbody td
   .q-table th
   .q-table--dense .q-table__sort-icon
-  .q-timeline__dot .q-icon
   .q-tree__node-header-content .q-avatar
   .q-tree__node-header-content .q-icon
   .q-stepper__dot span
-  .q-timeline--dark
   .q-uploader__file--img .q-circular-progress
   .body--dark .text-primary
   .q-stepper--dark .q-stepper__dot span
-  .q-editor--dark
   .q-stepper--dark .q-stepper__tab--disabled
   .q-stepper--dark .q-stepper__tab--disabled .q-stepper__label
   .q-table--dark tbody tr.selected td
@@ -296,9 +291,6 @@ Missing 656 selectors:
   .body--dark .text-accent
   .body--dark .text-secondary
   .q-stepper--vertical .q-stepper__title
-  .q-editor .q btn
-  .q-editor__content hr
-  .q-editor__toolbar-group
   .q-stepper--vertical .q-stepper__dot
   .q-table--dense .q-table__bottom-item
   .q-btn--dense .on-left
@@ -327,16 +319,12 @@ Missing 656 selectors:
   .q-table--dense .q-table th:first-child
   .q-checkbox--dense q-checkbox__label
   .q-checkbox--dense.reverse q-checkbox__label
-  .q-timeline__heading:first-child .q-timeline__heading-title
   .q-tree__node--parent
-  .q-timeline__entry--icon .q-timeline__subtitle
   .q-stepper--vertical .q-stepper__step-inner
   .q-stepper--vertical .q-stepper__step:last-child .q-stepper__step-inner
   .q-table--dense .q-table td:last-child
   .q-table--dense .q-table th:last-child
   .q-table--grid .q-table__top
-  .q-timeline__entry:last-child
-  .q-timeline__heading:last-child .q-timeline__heading-title
   .q-tree > .q-tree__node--child> .q-tree__node-header
   .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-body
   .q-tree__node-body
@@ -368,9 +356,6 @@ Missing 656 selectors:
   .q-table--dark tr
   .q-table--dark.q-table--cell-separator .q-table__top
   .q-table--dark.q-table--vertical-separator .q-table__top
-  .q-editor--dark .q-editor__content hr
-  .q-editor--dark .q-editor__toolbar
-  .q-editor--dark .q-editor__toolbar-group+.q-editor__toolbar-group:before
   .q-stepper--dark .q-stepper__header--border
   .q-stepper--dark.q-stepper--bordered
   .q-uploader--dark .q-uploader__file
@@ -383,7 +368,6 @@ Missing 656 selectors:
   .q-dialog__inner--left:not(.q-dialog__inner--animating)>div
   .q-dialog__inner--right:not(.q-dialog__inner--animating)>div
   .q-dialog__inner--bottom:not(.q-dialog__inner--animating)>div
-  .q-editor>div:first-child
   .q-stepper__header
   .q-table__container > div:first-child
   .body--dark .bg-accent
@@ -393,12 +377,10 @@ Missing 656 selectors:
   .q-btn--outline .q-btn__progress-indicator
   .q-checkbox__inner--indet q-checkbox__bg
   .q-dialog__inner>.q-card
-  .q-editor__toolbar-group+.q-editor__toolbar-group:before
   .q-stepper--dark .q-stepper__tab--disabled .q-stepper__dot
   .q-stepper__label
   .q-uploader--dark .q-uploader__dnd
   .q-btn.disabled
-  .q-timeline--dark .q-timeline__subtitle
   .q-tree__node--disabled .disabled
   .q-tree__node--disabled> .disabled .q-tree__node--disabled> .disabled
   .q-tree__node--disabled> .disabled .q-tree__node--disabled>div
@@ -431,9 +413,6 @@ Missing 656 selectors:
   .q-table--dense .q-table thead tr
   .q-table--dense .q-table__bottom
   .q-table--dense .q-table__select .q-field__marginal
-  .q-timeline__dot .q-icon > img
-  .q-timeline__dot .q-icon > svg
-  .q-timeline__entry--icon .q-timeline__dot
   .q-tree__node--parent> .q-tree__node-header:before
   .q-stepper--horizontal .q-stepper__tab:last-child .q-stepper__dot:after
   .q-stepper--horizontal .q-stepper__tab:last-child .q-stepper__label:after
@@ -448,7 +427,6 @@ Missing 656 selectors:
   .no-pointer-events--children *
   .q-table--no-wrap td
   .q-table--no-wrap th
-  .q-editor__content pre
   .q-btn--push.q-btn--actionable:active
   .q-btn--push.q-btn--actionable.q-btn--active
   .q-checkbox__inner--indet q-checkbox__indet
@@ -471,22 +449,14 @@ Missing 656 selectors:
   .q-table--cell-separator .q-table__top
   .q-table--vertical-separator .q-table__top
   .q-table--grid .q-table__bottom
-  .q-timeline h6
   .q-tree--dark .q-tree__node-header-content
   .q-table--grid .q-table__linear-progress
   .q-tree--dense .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-b
   .q-stepper__header--standard-labels .q-stepper__tab:first-child
   .q-stepper__header--standard-labels .q-stepper__tab:last-child
   .q-stepper__header--standard-labels .q-stepper__tab:only-child
-  .q-timeline__heading
   .q-stepper--horizontal .q-stepper__tab
   .q-stepper--vertical .q-stepper__step
-  .q-editor--dark
-  .q-editor--dark .q-editor__content hr
-  .q-editor--dark .q-editor__toolbar
-  .q-editor--dark .q-editor__toolbar-group+.q-editor__toolbar-group:before
-  .q-editor__content hr
-  .q-editor__toolbar-group+.q-editor__toolbar-group:before
   .container
   .container
   .container
@@ -664,9 +634,7 @@ Missing 656 selectors:
   stepper: 35
   tree: 32
   dialog: 17
-  editor: 17
   uploader: 13
-  timeline: 13
   btn: 11
   checkbox: 7
   layout: 3
