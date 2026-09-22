@@ -128,9 +128,28 @@ const BROKEN_REFERENCE_SELECTORS = new Set([
 const UNMATCHABLE_SELECTOR =
   /(^|[\s>+~,])([a-z][\w-]*(?:__|--)[\w-]+|[a-z][\w-]*q-[\w-]+)(?=[\s>+~,:.\[{]|$)/
 
+/**
+ * Selectors no target browser can parse, so the reference's own rule for them is
+ * already dead before it can match anything.
+ *
+ * `.q-field ::-ms-clear, .q-field ::-ms-reveal { display: none }` exists for
+ * IE/legacy Edge only: an unparseable selector invalidates the whole rule it sits
+ * in, which is why Chrome discards that reference rule. The preset therefore does
+ * not emit it, and emitting it would be actively harmful — the preset's
+ * equal-declaration merge folds every `display: none` rule into a single selector
+ * list, and those two selectors then discarded 29 unrelated declarations with
+ * them (`.hidden`, `.q-field__after:empty`, `.q-tabs--not-scrollable
+ * .q-tabs__arrow`, the `.q-drawer--mini/--mobile/--standard` mini/full switches,
+ * the stepper and date rules …). `test/no-invalid-selectors.test.ts` guards the
+ * emission side.
+ */
+const BROWSER_REJECTED_SELECTOR =
+  /::(-ms-|shadow)|:-ms-|::v-(deep|global|slotted)|\/deep\/|>>>/
+
 function isUnmatchableSelector(selector) {
   return (
     BROKEN_REFERENCE_SELECTORS.has(selector) ||
+    BROWSER_REJECTED_SELECTOR.test(selector) ||
     UNMATCHABLE_SELECTOR.test(selector)
   )
 }
@@ -664,9 +683,13 @@ export async function buildParityReport() {
   const modules = new Map()
   const referenceKeys = new Set()
   let present = 0
+  let skipped = 0
 
   for (const rule of fixture.rules) {
-    if (isUnmatchableSelector(rule.selector)) continue
+    if (isUnmatchableSelector(rule.selector)) {
+      skipped++
+      continue
+    }
     const { module, scope, reason } = classifySelector(rule.selector, names)
     const entry = moduleFor(modules, module, scope, reason)
     const key = ruleKey(rule.media, rule.selector)
@@ -754,11 +777,17 @@ export async function buildParityReport() {
   }
 
   const referenceBytes = existsSync(BUNDLE) ? statSync(BUNDLE).size : 0
+  // Reference selectors no stylesheet can match (minifier artifacts, selectors
+  // browsers reject) are not measurable, so they leave the denominator too:
+  // `missing` is derived as `ruleCount - present`, and counting them would
+  // report gaps that no emission could ever close.
+  const measurable = fixture.ruleCount - skipped
   const report = {
     bundleHash: fixture.bundleHash,
     reference: {
       source: fixture.source,
-      ruleCount: fixture.ruleCount,
+      ruleCount: measurable,
+      skipped,
       byteSize: referenceBytes
     },
     emitted: {
@@ -768,7 +797,7 @@ export async function buildParityReport() {
     payload: { referenceBytes, emittedBytes: Buffer.byteLength(css) },
     totals: {
       present,
-      missing: fixture.ruleCount - present,
+      missing: measurable - present,
       absent: 0,
       mismatch: 0,
       extra: extras.length

@@ -17,11 +17,17 @@ export const fieldRules = [
         background: 'none',
         color: 'inherit'
       }
-      yield {
-        [symbols.selector]: (selector) =>
-          `${selector} ::-ms-clear, ${selector} ::-ms-reveal`,
-        display: 'none'
-      }
+      // Reference: `.q-field ::-ms-clear, .q-field ::-ms-reveal { display: none }`.
+      // Deliberately NOT emitted. `::-ms-clear`/`::-ms-reveal` are invalid
+      // selectors outside IE/legacy Edge, and one invalid selector discards the
+      // whole rule it appears in — Chrome throws away the reference rule for the
+      // same reason, so nothing renders differently. What does differ is our
+      // equal-declaration merging: it folds every `display: none` rule into a
+      // single selector list, and these two selectors silently killed 29
+      // unrelated declarations with it (`.hidden`, `.q-field__after:empty`,
+      // `.q-tabs--not-scrollable .q-tabs__arrow`, `.q-drawer--mini
+      // .q-mini-drawer-hide`, both `.q-drawer--*/q-mini-drawer-only` rules, the
+      // stepper and date rules …). `test/no-invalid-selectors.test.ts` guards it.
       yield {
         [symbols.selector]: (selector) => `${selector}__control`,
         display: 'flex',
