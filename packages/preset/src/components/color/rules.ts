@@ -236,7 +236,7 @@ export const colorRules = [
         [symbols.selector]: (selector) => `${selector}__error-icon`,
         bottom: '2px',
         right: '2px',
-        'font-size': '24px',
+        'font-size': 'var(--q-size-icon)',
         opacity: '0',
         transition: 'opacity 0.3s ease-in'
       }

@@ -254,7 +254,7 @@ export const btnRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--fab .q-icon`,
-        'font-size': '24px'
+        'font-size': 'var(--q-size-icon)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--fab .q-icon`,
@@ -274,7 +274,7 @@ export const btnRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--fab-mini .q-icon`,
-        'font-size': '24px'
+        'font-size': 'var(--q-size-icon)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__content--hidden`,

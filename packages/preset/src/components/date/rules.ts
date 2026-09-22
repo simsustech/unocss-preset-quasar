@@ -532,13 +532,13 @@ export const dateRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header-title-label`,
-        'font-size': '24px',
+        'font-size': 'var(--q-headline-small-size)',
         'line-height': '1.2',
         'letter-spacing': '0.00735em'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header-title-label`,
-        'font-size': '24px',
+        'font-size': 'var(--q-headline-small-size)',
         'line-height': '1.2',
         'letter-spacing': '0.00735em'
       }

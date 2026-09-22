@@ -93,7 +93,7 @@ export const radioRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__inner`,
-        'font-size': '40px',
+        'font-size': 'var(--q-size-md)',
         color: 'var(--q-on-surface-variant)',
         'border-radius': '50%',
         width: '1em',

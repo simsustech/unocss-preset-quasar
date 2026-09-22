@@ -78,7 +78,7 @@ export const notificationRules: Rule[] = [
       // .q-notification__icon
       yield {
         [symbols.selector]: (selector) => `${selector}__icon`,
-        'font-size': '24px',
+        'font-size': 'var(--q-size-icon)',
         flex: '0 0 1em'
       }
       // .q-notification__icon--additional

@@ -289,7 +289,7 @@ export const tabsRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__icon`,
-        'font-size': '24px',
+        'font-size': 'var(--q-size-icon)',
         width: '24px',
         height: '24px'
       }

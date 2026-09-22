@@ -110,7 +110,7 @@ export const bannerRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__avatar > .q-icon`,
-        'font-size': '40px'
+        'font-size': 'var(--q-size-md)'
       }
       yield {
         [symbols.selector]: (selector) =>
