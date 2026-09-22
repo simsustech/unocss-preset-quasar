@@ -234,7 +234,11 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector: string) =>
           `${selector}--filled .q-field__control`,
-        'background-color': 'var(--q-surface-container-highest)'
+        'background-color': 'var(--q-surface-container-highest)',
+        // quasar.sass &--filled: `border-radius: $generic-border-radius
+        // $generic-border-radius 0 0`. The MD3 filled text field rounds its top
+        // corners only (4dp), so a filled field is not a square box.
+        'border-radius': '4px 4px 0 0'
       }
       yield {
         [symbols.selector]: (selector) =>
