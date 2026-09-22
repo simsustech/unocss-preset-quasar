@@ -74,13 +74,13 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__label`,
         position: 'absolute',
-        transform: 'translateY(-50%)',
         'pointer-events': 'none'
-        // `left`/`top`/`transition` come from the yield below: it carries the
-        // reference's own values (`left: 0`, `top: 18px`,
-        // `transition: transform 0.36s ...`), and the fold made this first yield
-        // win, which put the floated label at the control's centre and collided
-        // with the value text in every field.
+        // No transform here. The in-place label is centred by `top: 18px` with
+        // its 20px line — 18 + 10 = 28px, the control's centre, which is where
+        // the value sits. A `translateY(-50%)` was added at some point and pushed
+        // the label 10px above that, and because the floated state moves by
+        // `translateY(-40%)` (8px), the two nearly cancelled: the label shrank in
+        // place instead of rising to the stacked position on focus.
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__label`,
