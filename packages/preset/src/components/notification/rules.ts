@@ -43,7 +43,7 @@ export const notificationRules: Rule[] = [
         // ancestor disables pointer events, as Quasar's own
         // `.q-notifications__list` does.
         'pointer-events': 'all !important',
-        'font-size': '14px',
+        'font-size': 'var(--q-body-medium-size)',
         'margin-inline': '10px',
         'margin-top': '10px',
         'margin-bottom': '0',
@@ -126,7 +126,7 @@ export const notificationRules: Rule[] = [
         'box-shadow':
           '0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12)',
         'background-color': 'var(--q-negative)',
-        'font-size': '12px',
+        'font-size': 'var(--q-body-small-size)',
         // Reference states the radius once, as a shorthand (`border-radius: 4px`).
         'border-radius': 'var(--q-corner-extra-small)',
         'line-height': '12px',

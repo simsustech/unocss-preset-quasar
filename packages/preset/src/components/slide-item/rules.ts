@@ -19,7 +19,7 @@ export const slideItemRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__left`,
         visibility: 'hidden',
-        'font-size': '14px',
+        'font-size': 'var(--q-body-medium-size)',
         color: '#fff',
         background: '#4caf50',
         // Reference states the padding as logical longhands.
@@ -37,7 +37,7 @@ export const slideItemRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__right`,
         visibility: 'hidden',
-        'font-size': '14px',
+        'font-size': 'var(--q-body-medium-size)',
         color: '#fff',
         background: '#ff9800',
         'padding-inline': 'var(--q-space-lg)',
@@ -54,7 +54,7 @@ export const slideItemRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__top`,
         visibility: 'hidden',
-        'font-size': '14px',
+        'font-size': 'var(--q-body-medium-size)',
         color: '#fff',
         background: '#2196f3',
         'padding-inline': 'var(--q-space-sm)',
@@ -71,7 +71,7 @@ export const slideItemRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__bottom`,
         visibility: 'hidden',
-        'font-size': '14px',
+        'font-size': 'var(--q-body-medium-size)',
         color: '#fff',
         background: '#9c27b0',
         'padding-inline': 'var(--q-space-sm)',

@@ -300,7 +300,7 @@ export const tabsRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__label`,
-        'font-size': '14px',
+        'font-size': 'var(--q-label-large-size)',
         'line-height': '1.715em',
         'font-weight': 'var(--fontWeight-medium)'
       }

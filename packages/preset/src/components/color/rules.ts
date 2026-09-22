@@ -331,7 +331,7 @@ export const colorRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__tune-tab input`,
-        'font-size': '11px',
+        'font-size': 'var(--q-label-small-size)',
         'border-style': 'solid',
         'border-width': '1px',
         'border-color':

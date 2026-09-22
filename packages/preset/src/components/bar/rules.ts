@@ -56,7 +56,7 @@ export const barRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--dense`,
         // Reference `.q-bar--dense`: 14px type, 24px track, no block padding.
-        'font-size': '14px',
+        'font-size': 'var(--q-body-medium-size)',
         'padding-inline': 'var(--q-space-sm)',
         'padding-block': 'calc(var(--spacing) * 0)',
         height: '24px',
@@ -88,7 +88,7 @@ export const barRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--standard .q-btn`,
-        'font-size': '11px'
+        'font-size': 'var(--q-label-small-size)'
       }
     }
   ]

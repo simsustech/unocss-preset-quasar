@@ -136,7 +136,7 @@ export const timelineRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__subtitle`,
         // Reference `.q-timeline__subtitle`: overline typography at 60% opacity.
-        'font-size': '12px',
+        'font-size': 'var(--q-body-small-size)',
         'letter-spacing': '1px',
         'font-weight': 'var(--fontWeight-bold)',
         'margin-bottom': '8px',

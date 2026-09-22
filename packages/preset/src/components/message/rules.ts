@@ -34,7 +34,7 @@ export const messageRules: Rule[] = [
       // .q-message-name
       yield {
         'font-weight': 'var(--fontWeight-medium)',
-        'font-size': '14px',
+        'font-size': 'var(--q-label-large-size)',
         color: 'var(--q-on-surface-variant)'
       }
       yield {
@@ -49,7 +49,7 @@ export const messageRules: Rule[] = [
       // .q-message-label
       yield {
         color: 'var(--q-on-surface-variant)',
-        'font-size': '12px',
+        'font-size': 'var(--q-body-small-size)',
         'margin-block': '24px',
         'margin-inline': '0',
         'text-align': 'center'
@@ -62,7 +62,7 @@ export const messageRules: Rule[] = [
       // .q-message-stamp
       yield {
         color: 'inherit',
-        'font-size': '11px',
+        'font-size': 'var(--q-label-small-size)',
         'margin-top': '4px',
         opacity: '0.6',
         display: 'none'

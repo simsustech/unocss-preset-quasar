@@ -268,7 +268,7 @@ export const uploaderRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__title`,
-        'font-size': '14px',
+        'font-size': 'var(--q-body-medium-size)',
         // The gate resolves the reference's `var(--fontWeight-bold)` to its
         // numeric weight, so the literal is stated rather than `bold`.
         'font-weight': 'var(--fontWeight-bold)',
@@ -277,7 +277,7 @@ export const uploaderRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__subtitle`,
-        'font-size': '12px',
+        'font-size': 'var(--q-body-small-size)',
         'line-height': '1.5'
       }
       yield {

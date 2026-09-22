@@ -546,7 +546,7 @@ export const sliderRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__text`,
         color: '#fff',
-        'font-size': '12px'
+        'font-size': 'var(--q-body-small-size)'
       }
       yield {
         [symbols.selector]: (selector) =>

@@ -67,7 +67,7 @@ export const tableRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector} th`,
-        'font-size': '12px',
+        'font-size': 'var(--q-label-medium-size)',
         color: onSurfaceVariantText,
         'font-weight': 'var(--fontWeight-medium)',
         'padding-inline': 'var(--q-space-lg)',
@@ -531,7 +531,7 @@ export const tableRules = [
         display: 'flex',
         'align-items': 'center',
         'justify-content': 'space-between',
-        'font-size': '12px',
+        'font-size': 'var(--q-body-small-size)',
         color: onSurfaceText,
         'padding-block': 'var(--q-space-xs)',
         'padding-left': '16px',
@@ -698,7 +698,7 @@ export const tableRules = [
         [symbols.selector]: (selector) => `${selector}__grid-item-title`,
         opacity: '0.54',
         'font-weight': 'var(--fontWeight-medium)',
-        'font-size': '12px'
+        'font-size': 'var(--q-label-medium-size)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__grid-item-value`,

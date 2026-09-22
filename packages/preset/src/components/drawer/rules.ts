@@ -145,7 +145,7 @@ export const drawerRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--mini .q-tab__label`,
-        'font-size': '12px'
+        'font-size': 'var(--q-body-small-size)'
       }
       yield {
         [symbols.selector]: (selector) =>

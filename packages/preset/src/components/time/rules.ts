@@ -231,7 +231,7 @@ export const timeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__clock`,
-        'font-size': '14px',
+        'font-size': 'var(--q-body-medium-size)',
         padding: '24px',
         width: '100%',
         height: '100%',
@@ -462,7 +462,7 @@ export const timeRules = [
         'min-height': '32px',
         width: '32px',
         height: '32px',
-        'font-size': '12px',
+        'font-size': 'var(--q-body-small-size)',
         'line-height': '32px',
         margin: '0',
         padding: '0',
@@ -471,7 +471,7 @@ export const timeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__clock-position`,
-        'font-size': '12px',
+        'font-size': 'var(--q-body-small-size)',
         'line-height': '32px',
         margin: '0',
         padding: '0',

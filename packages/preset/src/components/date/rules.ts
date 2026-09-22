@@ -520,13 +520,13 @@ export const dateRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header-subtitle`,
-        'font-size': '14px',
+        'font-size': 'var(--q-body-medium-size)',
         'line-height': '1.75',
         'letter-spacing': '0.00938em'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header-subtitle`,
-        'font-size': '14px',
+        'font-size': 'var(--q-body-medium-size)',
         'line-height': '1.75',
         'letter-spacing': '0.00938em'
       }
@@ -603,7 +603,7 @@ export const dateRules = [
         [symbols.selector]: (selector) =>
           `${selector}__calendar-weekdays > div`,
         opacity: '0.38',
-        'font-size': '12px'
+        'font-size': 'var(--q-body-small-size)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__calendar-weekdays`,
@@ -612,7 +612,7 @@ export const dateRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__calendar-weekdays > div`,
-        'font-size': '12px',
+        'font-size': 'var(--q-body-small-size)',
         opacity: '0.38'
       }
       yield {

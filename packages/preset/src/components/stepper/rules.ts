@@ -197,7 +197,7 @@ export const stepperRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__dot`,
-        'font-size': '14px',
+        'font-size': 'var(--q-body-medium-size)',
         'margin-right': '8px',
         'border-radius': '50%',
         'background-color': 'currentColor',
@@ -228,7 +228,7 @@ export const stepperRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__caption`,
-        'font-size': '12px',
+        'font-size': 'var(--q-body-small-size)',
         'line-height': '1.16667',
         color: 'var(--q-on-surface-variant)'
       }
@@ -397,13 +397,13 @@ export const stepperRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__title`,
-        'font-size': '14px',
+        'font-size': 'var(--q-body-medium-size)',
         'line-height': '1.285714',
         'letter-spacing': '0.1px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__tab`,
-        'font-size': '14px',
+        'font-size': 'var(--q-body-medium-size)',
         'padding-inline': 'var(--q-space-xl)',
         'padding-block': 'var(--q-space-sm)',
         'flex-direction': 'row',

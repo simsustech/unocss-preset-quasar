@@ -140,7 +140,7 @@ export const selectRules = [
         'align-self': 'stretch',
         border: '0',
         padding: '0 4px',
-        'font-size': '14px',
+        'font-size': 'var(--q-label-large-size)',
         'font-weight': 'var(--fontWeight-medium)',
         'text-decoration': 'none',
         cursor: 'pointer'
