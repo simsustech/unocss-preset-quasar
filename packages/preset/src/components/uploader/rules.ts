@@ -209,7 +209,7 @@ export const uploaderRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__file--img .q-uploader__file-header`,
-        'padding-bottom': '24px',
+        'padding-bottom': 'var(--q-space-xl)',
         'background-image':
           'linear-gradient( to bottom, rgba(0, 0, 0, 0.7) 20%, rgba(255, 255, 255, 0) )'
       }
@@ -252,8 +252,8 @@ export const uploaderRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__file-header`,
         position: 'relative',
-        'padding-inline': '8px',
-        'padding-block': '4px',
+        'padding-inline': 'var(--q-space-sm)',
+        'padding-block': 'var(--q-space-xs)',
         'border-top-left-radius': 'inherit',
         'border-top-right-radius': 'inherit'
       }

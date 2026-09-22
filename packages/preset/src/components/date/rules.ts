@@ -444,9 +444,9 @@ export const dateRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__actions`,
-        'padding-inline': '16px',
+        'padding-inline': 'var(--q-space-lg)',
         'padding-top': '0',
-        'padding-bottom': '16px'
+        'padding-bottom': 'var(--q-space-lg)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__content`,
@@ -632,7 +632,7 @@ export const dateRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__calendar-days-container`,
-        'padding-top': '12px',
+        'padding-top': 'var(--q-space-md)',
         height: '75%',
         'min-height': '192px'
       }
@@ -682,7 +682,7 @@ export const dateRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__years-content`,
-        'padding-inline': '8px',
+        'padding-inline': 'var(--q-space-sm)',
         'padding-block': '0',
         'row-gap': '0.5em'
       }

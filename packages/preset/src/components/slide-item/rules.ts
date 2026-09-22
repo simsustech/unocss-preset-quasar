@@ -23,8 +23,8 @@ export const slideItemRules = [
         color: '#fff',
         background: '#4caf50',
         // Reference states the padding as logical longhands.
-        'padding-inline': '16px',
-        'padding-block': '8px'
+        'padding-inline': 'var(--q-space-lg)',
+        'padding-block': 'var(--q-space-sm)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__left .q-icon`,
@@ -40,8 +40,8 @@ export const slideItemRules = [
         'font-size': '14px',
         color: '#fff',
         background: '#ff9800',
-        'padding-inline': '16px',
-        'padding-block': '8px'
+        'padding-inline': 'var(--q-space-lg)',
+        'padding-block': 'var(--q-space-sm)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__right .q-icon`,
@@ -57,8 +57,8 @@ export const slideItemRules = [
         'font-size': '14px',
         color: '#fff',
         background: '#2196f3',
-        'padding-inline': '8px',
-        'padding-block': '16px'
+        'padding-inline': 'var(--q-space-sm)',
+        'padding-block': 'var(--q-space-lg)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__top .q-icon`,
@@ -74,8 +74,8 @@ export const slideItemRules = [
         'font-size': '14px',
         color: '#fff',
         background: '#9c27b0',
-        'padding-inline': '8px',
-        'padding-block': '16px'
+        'padding-inline': 'var(--q-space-sm)',
+        'padding-block': 'var(--q-space-lg)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__bottom .q-icon`,

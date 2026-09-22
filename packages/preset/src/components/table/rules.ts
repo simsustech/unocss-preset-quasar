@@ -61,7 +61,7 @@ export const tableRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector} td`,
-        'padding-inline': '16px',
+        'padding-inline': 'var(--q-space-lg)',
         'padding-block': '7px',
         ...cellBox
       }
@@ -70,7 +70,7 @@ export const tableRules = [
         'font-size': '12px',
         color: onSurfaceVariantText,
         'font-weight': 'var(--fontWeight-medium)',
-        'padding-inline': '16px',
+        'padding-inline': 'var(--q-space-lg)',
         'padding-block': '7px',
         'user-select': 'none',
         '-webkit-user-select': 'none',
@@ -312,7 +312,7 @@ export const tableRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--grid .q-table__top`,
-        'padding-bottom': '4px'
+        'padding-bottom': 'var(--q-space-xs)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--grid.fullscreen`,
@@ -335,8 +335,8 @@ export const tableRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense .q-table td`,
-        'padding-inline': '8px',
-        'padding-block': '4px'
+        'padding-inline': 'var(--q-space-sm)',
+        'padding-block': 'var(--q-space-xs)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -350,8 +350,8 @@ export const tableRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense .q-table th`,
-        'padding-inline': '8px',
-        'padding-block': '4px'
+        'padding-inline': 'var(--q-space-sm)',
+        'padding-block': 'var(--q-space-xs)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -396,7 +396,7 @@ export const tableRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense .q-table__top`,
-        'padding-inline': '16px',
+        'padding-inline': 'var(--q-space-lg)',
         'padding-block': '6px'
       }
       yield {
@@ -515,8 +515,8 @@ export const tableRules = [
         display: 'flex',
         'align-items': 'center',
         'justify-content': 'space-between',
-        'padding-inline': '16px',
-        'padding-block': '12px'
+        'padding-inline': 'var(--q-space-lg)',
+        'padding-block': 'var(--q-space-md)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__top .q-table__control`,
@@ -533,7 +533,7 @@ export const tableRules = [
         'justify-content': 'space-between',
         'font-size': '12px',
         color: onSurfaceText,
-        'padding-block': '4px',
+        'padding-block': 'var(--q-space-xs)',
         'padding-left': '16px',
         'padding-right': '14px',
         'min-height': '50px',

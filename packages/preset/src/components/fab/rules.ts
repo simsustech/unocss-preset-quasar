@@ -82,7 +82,7 @@ export const fabRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__label--external`,
-        'padding-inline': '8px',
+        'padding-inline': 'var(--q-space-sm)',
         'padding-block': '0',
         'background-color': 'transparent',
         transition: 'opacity 0.18s cubic-bezier(0.65, 0.815, 0.735, 0.395)',

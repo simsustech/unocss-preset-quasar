@@ -287,9 +287,9 @@ export const timeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__actions`,
-        'padding-inline': '16px',
+        'padding-inline': 'var(--q-space-lg)',
         'padding-top': '0',
-        'padding-bottom': '16px'
+        'padding-bottom': 'var(--q-space-lg)'
       }
       yield {
         [symbols.selector]: (selector) =>

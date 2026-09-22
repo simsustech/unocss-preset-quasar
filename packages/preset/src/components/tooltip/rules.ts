@@ -46,8 +46,8 @@ export const tooltipRules = [
           'color-mix(in oklab, var(--light-inverse-on-surface) var(--un-text-opacity), transparent)',
         'line-height': 'var(--leading-normal)',
         'font-weight': 'var(--fontWeight-normal)',
-        'padding-inline': '8px',
-        'padding-block': '4px',
+        'padding-inline': 'var(--q-space-sm)',
+        'padding-block': 'var(--q-space-xs)',
         'border-radius': 'var(--shape-corner-small)',
         'background-color':
           'color-mix(in oklab, var(--light-inverse-surface) var(--un-bg-opacity), transparent)',

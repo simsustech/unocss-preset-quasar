@@ -18,7 +18,7 @@ export const chipRules = [
         color:
           'color-mix(in oklab, var(--light-on-surface-variant) var(--un-text-opacity), transparent)',
         margin: '4px',
-        'padding-inline': '12px',
+        'padding-inline': 'var(--q-space-md)',
         'padding-block': '0',
         'vertical-align': 'middle',
         'outline-style': 'solid',

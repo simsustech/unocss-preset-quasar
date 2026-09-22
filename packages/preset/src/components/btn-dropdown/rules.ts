@@ -26,7 +26,7 @@ export const btnDropdownRules = [
         [symbols.selector]: (selector) =>
           `${selector}--split .q-btn-dropdown__arrow-container`,
         // Logical padding longhands, as the reference states them.
-        'padding-inline': '4px',
+        'padding-inline': 'var(--q-space-xs)',
         'padding-block': 'calc(var(--spacing) * 0)'
       }
       yield {

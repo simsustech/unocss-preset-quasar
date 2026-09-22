@@ -226,7 +226,7 @@ export const treeRules = [
           `${selector}__node--parent> .q-tree__node-collapsible> .q-tree__node-body`,
         'padding-top': '5px',
         'padding-right': '0',
-        'padding-bottom': '8px',
+        'padding-bottom': 'var(--q-space-sm)',
         'padding-left': '27px'
       }
       yield {
@@ -316,7 +316,7 @@ export const treeRules = [
         [symbols.selector]: (selector) => `${selector}__node-body`,
         'padding-top': '5px',
         'padding-right': '0',
-        'padding-bottom': '8px',
+        'padding-bottom': 'var(--q-space-sm)',
         'padding-left': '5px'
       }
       yield {

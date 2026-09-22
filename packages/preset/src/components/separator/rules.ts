@@ -51,7 +51,7 @@ export const separatorRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--spaced + .q-item__label--header`,
-        'padding-top': '8px'
+        'padding-top': 'var(--q-space-sm)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--horizontal-inset`,
@@ -83,7 +83,7 @@ export const separatorRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--padding .q-item__label--header`,
-        'padding-top': '8px'
+        'padding-top': 'var(--q-space-sm)'
       }
     }
   ]

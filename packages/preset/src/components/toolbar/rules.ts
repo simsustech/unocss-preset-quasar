@@ -9,7 +9,7 @@ export const toolbarRules = [
         display: 'flex',
         'align-items': 'center',
         // Reference states the box model as logical longhands and a 50px track.
-        'padding-inline': '12px',
+        'padding-inline': 'var(--q-space-md)',
         'padding-block': '0',
         'min-height': '50px',
         position: 'relative'
@@ -38,7 +38,7 @@ export const toolbarRules = [
         'font-size': '21px',
         'letter-spacing': '0.01em',
         'font-weight': 'var(--fontWeight-normal)',
-        'padding-inline': '12px',
+        'padding-inline': 'var(--q-space-md)',
         'padding-block': '0',
         'min-width': '1px',
         'max-width': '100%',

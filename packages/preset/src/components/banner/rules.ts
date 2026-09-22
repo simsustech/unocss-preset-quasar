@@ -33,7 +33,7 @@ export const bannerRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense.q-banner--top-padding`,
-        'padding-top': '12px'
+        'padding-top': 'var(--q-space-md)'
       }
       yield {
         [symbols.selector]: (selector) =>

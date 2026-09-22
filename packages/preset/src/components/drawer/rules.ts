@@ -103,7 +103,7 @@ export const drawerRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__content > .q-list`,
-        'padding-inline': '12px'
+        'padding-inline': 'var(--q-space-md)'
       }
       yield {
         [symbols.selector]: (selector) =>

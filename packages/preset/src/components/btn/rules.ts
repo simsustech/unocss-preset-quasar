@@ -27,7 +27,7 @@ export const btnRules = [
         height: 'auto',
         cursor: 'default',
         'padding-inline': 'var(--q-btn-padding-x)',
-        'padding-block': '4px',
+        'padding-block': 'var(--q-space-xs)',
         'min-height': 'var(--q-btn-min-height)',
         'min-width': 'var(--q-btn-min-width)',
         'border-radius': 'var(--q-btn-radius)',

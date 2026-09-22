@@ -36,7 +36,7 @@ export const tabsRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--vertical .q-tab`,
-        'padding-inline': '8px',
+        'padding-inline': 'var(--q-space-sm)',
         'padding-block': '0'
       }
       yield {
@@ -324,7 +324,7 @@ export const tabsRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__content`,
         'padding-inline': '0',
-        'padding-block': '4px',
+        'padding-block': 'var(--q-space-xs)',
         'min-width': '40px',
         height: 'inherit',
         position: 'relative',

@@ -67,7 +67,7 @@ export const notificationRules: Rule[] = [
         [symbols.selector]: (selector) => `${selector}__message`,
         // Reference states the message padding as logical longhands.
         'padding-inline': '0',
-        'padding-block': '8px'
+        'padding-block': 'var(--q-space-sm)'
       }
       // .q-notification__caption
       yield {
@@ -120,8 +120,8 @@ export const notificationRules: Rule[] = [
       yield {
         [symbols.selector]: (selector) => `${selector}__badge`,
         // Reference states the padding as logical longhands.
-        'padding-inline': '8px',
-        'padding-block': '4px',
+        'padding-inline': 'var(--q-space-sm)',
+        'padding-block': 'var(--q-space-xs)',
         position: 'absolute',
         'box-shadow':
           '0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12)',
@@ -209,7 +209,7 @@ export const notificationRules: Rule[] = [
       yield {
         [symbols.selector]: (selector) => `${selector}--standard`,
         'min-height': '48px',
-        'padding-inline': '16px',
+        'padding-inline': 'var(--q-space-lg)',
         'padding-block': '0'
       }
       yield {
@@ -224,8 +224,8 @@ export const notificationRules: Rule[] = [
       yield {
         [symbols.selector]: (selector) => `${selector}--multi-line`,
         'min-height': '68px',
-        'padding-inline': '16px',
-        'padding-block': '8px'
+        'padding-inline': 'var(--q-space-lg)',
+        'padding-block': 'var(--q-space-sm)'
       }
       yield {
         [symbols.selector]: (selector) =>

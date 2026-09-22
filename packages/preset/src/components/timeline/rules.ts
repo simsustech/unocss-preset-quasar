@@ -131,7 +131,7 @@ export const timelineRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__content`,
         'padding-left': 'var(--q-space-md)',
-        'padding-bottom': '24px'
+        'padding-bottom': 'var(--q-space-xl)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__subtitle`,
@@ -158,7 +158,7 @@ export const timelineRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__entry--icon .q-timeline__subtitle`,
-        'padding-top': '8px'
+        'padding-top': 'var(--q-space-sm)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -256,7 +256,7 @@ export const timelineRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--comfortable .q-timeline__entry--icon .q-timeline__content`,
-        'padding-top': '8px'
+        'padding-top': 'var(--q-space-sm)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -390,7 +390,7 @@ export const timelineRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--loose .q-timeline__entry`,
-        'padding-bottom': '24px',
+        'padding-bottom': 'var(--q-space-xl)',
         overflow: 'hidden'
       }
       yield {
@@ -406,7 +406,7 @@ export const timelineRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--loose .q-timeline__entry--icon .q-timeline__content`,
-        'padding-top': '8px'
+        'padding-top': 'var(--q-space-sm)'
       }
       yield {
         [symbols.selector]: (selector) =>

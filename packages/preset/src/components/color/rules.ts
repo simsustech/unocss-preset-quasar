@@ -305,7 +305,7 @@ export const colorRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__sliders`,
-        'padding-inline': '16px',
+        'padding-inline': 'var(--q-space-lg)',
         'padding-block': '0'
       }
       yield {

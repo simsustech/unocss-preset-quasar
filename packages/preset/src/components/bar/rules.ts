@@ -9,7 +9,7 @@ export const barRules = [
         display: 'flex',
         'align-items': 'center',
         'justify-content': 'space-between',
-        'padding-inline': '12px',
+        'padding-inline': 'var(--q-space-md)',
         'padding-block': 'calc(var(--spacing) * 0)',
         'min-height': '32px',
         // Reference `.q-bar`: a 20% tint of the dark surface, which reads as a
@@ -57,7 +57,7 @@ export const barRules = [
         [symbols.selector]: (selector) => `${selector}--dense`,
         // Reference `.q-bar--dense`: 14px type, 24px track, no block padding.
         'font-size': '14px',
-        'padding-inline': '8px',
+        'padding-inline': 'var(--q-space-sm)',
         'padding-block': 'calc(var(--spacing) * 0)',
         height: '24px',
         'min-height': '24px'
@@ -78,7 +78,7 @@ export const barRules = [
         [symbols.selector]: (selector) => `${selector}--standard`,
         // Reference `.q-bar--standard`: 18px type, 32px track, 12px inline.
         'font-size': '18px',
-        'padding-inline': '12px',
+        'padding-inline': 'var(--q-space-md)',
         'padding-block': 'calc(var(--spacing) * 0)',
         height: '32px'
       }

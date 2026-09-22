@@ -308,7 +308,7 @@ export const sliderRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__track-container--h`,
         'padding-inline': '0',
-        'padding-block': '12px'
+        'padding-block': 'var(--q-space-md)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__track-container--v`,
@@ -322,7 +322,7 @@ export const sliderRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__track-container--v`,
-        'padding-inline': '12px',
+        'padding-inline': 'var(--q-space-md)',
         'padding-block': '0'
       }
       yield {
@@ -530,7 +530,7 @@ export const sliderRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__text-container`,
-        'padding-inline': '8px',
+        'padding-inline': 'var(--q-space-sm)',
         'padding-block': '2px',
         'text-align': 'center',
         'border-radius': 'var(--q-corner-extra-small)',

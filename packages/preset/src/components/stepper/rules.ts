@@ -102,7 +102,7 @@ export const stepperRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--vertical`,
         'padding-inline': '0',
-        'padding-block': '16px'
+        'padding-block': 'var(--q-space-lg)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -130,13 +130,13 @@ export const stepperRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--vertical .q-stepper__step:last-child .q-stepper__step-inner`,
-        'padding-bottom': '8px'
+        'padding-bottom': 'var(--q-space-sm)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--vertical .q-stepper__tab`,
-        'padding-inline': '24px',
-        'padding-block': '12px'
+        'padding-inline': 'var(--q-space-xl)',
+        'padding-block': 'var(--q-space-md)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -146,8 +146,8 @@ export const stepperRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--vertical > .q-stepper__nav`,
-        'padding-inline': '24px',
-        'padding-top': '24px',
+        'padding-inline': 'var(--q-space-xl)',
+        'padding-top': 'var(--q-space-xl)',
         'padding-bottom': '0'
       }
       yield {
@@ -236,7 +236,7 @@ export const stepperRules = [
         [symbols.selector]: (selector) => `${selector}__nav`,
         display: 'flex',
         'justify-content': 'space-between',
-        'padding-top': '24px',
+        'padding-top': 'var(--q-space-xl)',
         'margin-top': 'var(--q-space-md)'
       }
       yield {
@@ -314,7 +314,7 @@ export const stepperRules = [
         [symbols.selector]: (selector) =>
           `${selector}__header--alternative-labels .q-stepper__tab`,
         'padding-inline': '32px',
-        'padding-block': '24px',
+        'padding-block': 'var(--q-space-xl)',
         'flex-direction': 'column',
         'min-height': '104px',
         'justify-content': 'flex-start'
@@ -363,9 +363,9 @@ export const stepperRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--horizontal > .q-stepper__nav`,
-        'padding-inline': '24px',
+        'padding-inline': 'var(--q-space-xl)',
         'padding-top': '0',
-        'padding-bottom': '24px'
+        'padding-bottom': 'var(--q-space-xl)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -404,8 +404,8 @@ export const stepperRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__tab`,
         'font-size': '14px',
-        'padding-inline': '24px',
-        'padding-block': '8px',
+        'padding-inline': 'var(--q-space-xl)',
+        'padding-block': 'var(--q-space-sm)',
         'flex-direction': 'row',
         color: 'var(--q-on-surface-variant)'
       }
