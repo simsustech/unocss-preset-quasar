@@ -11,11 +11,12 @@ export const chipRules = [
         // Reference `.q-chip`: MD3 label-large type scale, `4px` block margin,
         // `12px` inline padding and a 32px track. Values are transcribed from
         // `specs/reference/raw/reference-bundle.css.txt`.
-        'font-size': '14px',
+        // The chip label is the MD3 label-large role (500 14px/20px); the
+        // shorthand also carries Roboto, and `--q-label-large` is style-forked,
+        // so MD2 and `unstyled` get their own label-large.
+        font: 'var(--q-label-large)',
         color:
           'color-mix(in oklab, var(--light-on-surface-variant) var(--un-text-opacity), transparent)',
-        'line-height': '20px',
-        'font-weight': '500',
         margin: '4px',
         'padding-inline': '12px',
         'padding-block': '0',
