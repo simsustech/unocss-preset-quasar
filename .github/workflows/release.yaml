@@ -22,19 +22,20 @@ jobs:
     if: github.repository == 'simsustech/unocss-preset-quasar'
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v6
         with:
           version: 11
 
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 24
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install
@@ -42,13 +43,17 @@ jobs:
       - name: Build Packages
         run: pnpm run build
 
+      # v2 renamed the inputs: publish -> publish-script, commit ->
+      # commit-message, title -> pr-title. Tagging and the GitHub release are on
+      # by default (push-git-tags, create-github-releases).
       - name: Create Release Pull Request or Publish to npm
         id: changesets
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
-          publish: pnpm run publish
-          commit: 'chore: release package(s)'
-          title: 'chore: release package(s)'
+          publish-script: pnpm run publish
+          commit-message: 'chore: release package(s)'
+          pr-title: 'chore: release package(s)'
+          create-github-releases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
