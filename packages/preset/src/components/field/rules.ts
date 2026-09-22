@@ -124,10 +124,13 @@ export const fieldRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__native`,
-        'font-size': '16px',
-        'line-height': '24px',
+        // The native control is exactly the MD3 body-large role (16px/24px, 400
+        // and Roboto), so it takes the role token instead of restating it. The
+        // declaration order matters: the `font` shorthand resets letter-spacing,
+        // so the tracking is declared after it (UnoCSS keeps a yield's
+        // declaration order, it only reorders yields).
+        font: 'var(--q-body-large)',
         'letter-spacing': 'var(--q-body-large-tracking)',
-        'font-weight': '400',
         'padding-inline': '0',
         'outline-style': 'none !important',
         'border-radius': '0',

@@ -680,6 +680,35 @@ export async function buildParityReport() {
     }
   }
 
+  // A role may be stated as a font shorthand (`font: var(--q-body-large)`) and
+  // the browser expands that into font-weight/size/line-height/family. The
+  // reference writes the longhands, so expand ours identically — otherwise a
+  // declaration the browser applies reads as absent and the ratchet flags it.
+  const FONT_SHORTHAND =
+    /^(?:(\d{3})\s+)?(\d+(?:\.\d+)?(?:px|em|rem))\s*(?:\/\s*([^\s]+))?\s+(.+)$/
+  const resolveVar = (value) => {
+    const match = /^var\((--[\w-]+)\)$/.exec(value.trim())
+    return match ? emittedVars.get(match[1]) : undefined
+  }
+  const expandFontShorthand = (target) => {
+    const shorthand = target.get('font')
+    if (shorthand === undefined) return
+    const resolved = resolveVar(shorthand) ?? shorthand
+    const match = FONT_SHORTHAND.exec(resolved.trim())
+    if (match === null) return
+    const [, weight, size, lineHeight, family] = match
+    if (weight !== undefined && !target.has('font-weight')) {
+      target.set('font-weight', weight)
+    }
+    if (!target.has('font-size')) target.set('font-size', size)
+    if (lineHeight !== undefined && !target.has('line-height')) {
+      target.set('line-height', lineHeight)
+    }
+    if (!target.has('font-family')) target.set('font-family', family)
+  }
+
+  for (const target of have.values()) expandFontShorthand(target)
+
   const modules = new Map()
   const referenceKeys = new Set()
   let present = 0
