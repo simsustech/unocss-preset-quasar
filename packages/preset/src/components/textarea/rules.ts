@@ -15,7 +15,7 @@ export const textareaRules = [
       // .q-textarea
       yield {
         [symbols.selector]: (selector) => `${selector} .q-field__control`,
-        'min-height': '56px',
+        'min-height': 'var(--q-size-lg)',
         height: 'auto'
       }
       yield {
@@ -90,7 +90,7 @@ export const textareaRules = [
         [symbols.selector]: (selector) =>
           `${selector}.q-field--dense.q-field--labeled .q-field__native`,
         'padding-top': '3px',
-        'min-height': '24px'
+        'min-height': 'var(--q-size-sm)'
       }
       yield {
         [symbols.selector]: (selector) =>

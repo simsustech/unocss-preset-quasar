@@ -184,7 +184,7 @@ export const fabRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__icon-holder`,
         'min-width': '24px',
-        'min-height': '24px',
+        'min-height': 'var(--q-size-sm)',
         position: 'relative'
       }
       yield {

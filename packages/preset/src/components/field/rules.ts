@@ -872,7 +872,7 @@ export const fieldRules = [
         [symbols.selector]: (selector) =>
           `${selector}--auto-height.q-field--labeled .q-field__native`,
         'padding-top': '0',
-        'min-height': '24px',
+        'min-height': 'var(--q-size-sm)',
         // Quasar orders these two the other way round in sass (`&--labeled` at
         // 2673, `&--auto-height` at 2742), so on a field that is both, the
         // auto-height rule's `line-height: 18px` is the one that applies — a
@@ -897,7 +897,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--auto-height.q-field--dense.q-field--labeled .q-field__native`,
-        'min-height': '24px'
+        'min-height': 'var(--q-size-sm)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -1370,7 +1370,7 @@ export const fieldRules = [
         'user-select': 'auto',
         '-webkit-user-select': 'auto',
         height: '0',
-        'min-height': '24px'
+        'min-height': 'var(--q-size-sm)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__input:autofill`,

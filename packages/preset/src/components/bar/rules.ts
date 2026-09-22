@@ -60,7 +60,7 @@ export const barRules = [
         'padding-inline': 'var(--q-space-sm)',
         'padding-block': 'calc(var(--spacing) * 0)',
         height: '24px',
-        'min-height': '24px'
+        'min-height': 'var(--q-size-sm)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense .q-btn`,
