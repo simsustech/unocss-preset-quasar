@@ -16,12 +16,14 @@ export const messageRules: Rule[] = [
   [
     /^q-message$/,
     function* (_, { symbols }) {
+      // .q-message
       yield {
         position: 'relative',
         'margin-bottom': '8px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:first-child .q-message-label`,
+        [symbols.selector]: (selector) =>
+          `${selector}:first-child .q-message-label`,
         'margin-top': '0'
       }
     }
@@ -29,40 +31,48 @@ export const messageRules: Rule[] = [
   [
     /^q-message-name$/,
     function* (_, { symbols }) {
+      // .q-message-name
       yield {
         'font-weight': '500',
         'font-size': '14px',
         color: 'var(--q-on-surface-variant)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--sent`,
+        [symbols.selector]: (selector) => `${selector}--sent`,
         'text-align': 'right'
       }
     }
   ],
   [
     /^q-message-label$/,
-    () => ({
-      color: 'var(--q-on-surface-variant)',
-      'font-size': '12px',
-      'margin-block': '24px',
-      'margin-inline': '0',
-      'text-align': 'center'
-    })
+    function* (_, { symbols }) {
+      // .q-message-label
+      yield {
+        color: 'var(--q-on-surface-variant)',
+        'font-size': '12px',
+        'margin-block': '24px',
+        'margin-inline': '0',
+        'text-align': 'center'
+      }
+    }
   ],
   [
     /^q-message-stamp$/,
-    () => ({
-      color: 'inherit',
-      'font-size': '11px',
-      'margin-top': '4px',
-      opacity: '0.6',
-      display: 'none'
-    })
+    function* (_, { symbols }) {
+      // .q-message-stamp
+      yield {
+        color: 'inherit',
+        'font-size': '11px',
+        'margin-top': '4px',
+        opacity: '0.6',
+        display: 'none'
+      }
+    }
   ],
   [
     /^q-message-text$/,
     function* (_, { symbols }) {
+      // .q-message-text
       yield {
         position: 'relative',
         'line-height': '1.2',
@@ -70,15 +80,15 @@ export const messageRules: Rule[] = [
         'background-color': 'currentColor'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} + .q-message-text`,
+        [symbols.selector]: (selector) => `${selector} + .q-message-text`,
         'margin-top': '3px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:last-child`,
+        [symbols.selector]: (selector) => `${selector}:last-child`,
         'min-height': '48px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:last-child:before`,
+        [symbols.selector]: (selector) => `${selector}:last-child:before`,
         content: '""',
         position: 'absolute',
         bottom: '0',
@@ -86,62 +96,63 @@ export const messageRules: Rule[] = [
         height: '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:last-child .q-message-stamp`,
+        [symbols.selector]: (selector) =>
+          `${selector}:last-child .q-message-stamp`,
         display: 'block'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--received:last-child:before`,
+        [symbols.selector]: (selector) =>
+          `${selector}--received:last-child:before`,
         right: '100%',
         'border-right': '0 solid transparent',
         'border-left': '8px solid transparent',
         'border-bottom': '8px solid currentColor'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--sent:last-child:before`,
+        [symbols.selector]: (selector) => `${selector}--sent:last-child:before`,
         left: '100%',
         'border-left': '0 solid transparent',
         'border-right': '8px solid transparent',
         'border-bottom': '8px solid currentColor'
       }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--sent`,
+        color: 'var(--q-on-primary)',
+        'background-color': 'var(--q-primary)',
+        'border-top-left-radius': '4px',
+        'border-top-right-radius': '4px',
+        'border-bottom-left-radius': '4px',
+        'border-bottom-right-radius': '0'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--received`,
+        color: 'var(--q-on-surface)',
+        'background-color': 'var(--q-surface-container-high)',
+        'border-top-left-radius': '4px',
+        'border-top-right-radius': '4px',
+        'border-bottom-left-radius': '0',
+        'border-bottom-right-radius': '4px'
+      }
     }
   ],
   [
-    /^q-message-text--sent$/,
-    () => ({
-      color: 'var(--q-on-primary)',
-      'background-color': 'var(--q-primary)',
-      'border-top-left-radius': '4px',
-      'border-top-right-radius': '4px',
-      'border-bottom-left-radius': '4px',
-      'border-bottom-right-radius': '0'
-    })
-  ],
-  [
-    /^q-message-text--received$/,
-    () => ({
-      color: 'var(--q-on-surface)',
-      'background-color': 'var(--q-surface-container-high)',
-      'border-top-left-radius': '4px',
-      'border-top-right-radius': '4px',
-      'border-bottom-left-radius': '0',
-      'border-bottom-right-radius': '4px'
-    })
-  ],
-  [
-    /^q-message-text-content--sent$/,
-    () => ({
-      color: 'var(--q-on-primary)'
-    })
-  ],
-  [
-    /^q-message-text-content--received$/,
-    () => ({
-      color: 'var(--q-on-surface)'
-    })
+    /^q-message-text-content$/,
+    function* (_, { symbols }) {
+      // .q-message-text-content
+      yield {
+        [symbols.selector]: (selector) => `${selector}--sent`,
+        color: 'var(--q-on-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--received`,
+        color: 'var(--q-on-surface)'
+      }
+    }
   ],
   [
     /^q-message-avatar$/,
     function* (_, { symbols }) {
+      // .q-message-avatar
       yield {
         'border-radius': '50%',
         width: '48px',
@@ -149,19 +160,23 @@ export const messageRules: Rule[] = [
         'min-width': '48px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--sent`,
+        [symbols.selector]: (selector) => `${selector}--sent`,
         'margin-left': '8px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--received`,
+        [symbols.selector]: (selector) => `${selector}--received`,
         'margin-right': '8px'
       }
     }
   ],
   [
-    /^q-message-container--sent$/,
-    () => ({
-      'flex-direction': 'row-reverse'
-    })
+    /^q-message-container$/,
+    function* (_, { symbols }) {
+      // .q-message-container
+      yield {
+        [symbols.selector]: (selector) => `${selector}--sent`,
+        'flex-direction': 'row-reverse'
+      }
+    }
   ]
 ] as Rule[]

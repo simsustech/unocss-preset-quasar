@@ -8,8 +8,10 @@ export const noSsrRules = [
   [
     /^q-no-ssr$/,
     function* (_, { symbols }) {
+      // .q-no-ssr
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }

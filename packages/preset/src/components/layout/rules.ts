@@ -3,64 +3,49 @@ import type { Rule } from '@unocss/core'
 export const layoutRules = [
   [
     /^q-layout$/,
-    () => ({
-      display: 'flex',
-      'flex-direction': 'column',
-      'min-height': '100vh',
-      // Reference: `outline-style: var(--un-outline-style)` (wind4's `solid`
-      // default), `outline-width: 0px; width: 100%; position: relative`.
-      'outline-style': 'solid',
-      'outline-width': '0px',
-      width: '100%',
-      position: 'relative'
-    })
-  ],
-  [
-    /^q-layout--containerized$/,
     function* (_, { symbols }) {
-      // On iOS the container is not a fixed-height box: Quasar measures the
-      // visual viewport instead, so the container's own positioning is dropped.
+      // .q-layout
       yield {
-        [symbols.selector]: (sel) => `body.platform-ios ${sel}`,
+        display: 'flex',
+        'flex-direction': 'column',
+        'min-height': '100vh',
+        // Reference: `outline-style: var(--un-outline-style)` (wind4's `solid`
+        // default), `outline-width: 0px; width: 100%; position: relative`.
+        'outline-style': 'solid',
+        'outline-width': '0px',
+        width: '100%',
+        position: 'relative'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `body.platform-ios ${selector}--containerized`,
         position: 'unset !important'
       }
-    }
-  ],
-  [
-    /^q-layout--view$/,
-    () => ({
-      // View
-    })
-  ],
-  [
-    /^q-layout__section$/,
-    () => ({
-      display: 'flex',
-      'flex-direction': 'row'
-    })
-  ],
-  [
-    /^q-layout__container$/,
-    () => ({
-      flex: '1',
-      display: 'flex',
-      'flex-direction': 'column'
-    })
-  ],
-  [
-    /^q-layout__content$/,
-    () => ({
-      // Content
-    })
-  ],
-  [
-    /^q-layout__shadow$/,
-    function* (_, { symbols }) {
-      // Reference: the shadow container is full width and stretched over the
-      // layout; without this the `:after` shadow only covered its own box.
-      yield { width: '100%' }
       yield {
-        [symbols.selector]: (sel) => `${sel}:after`,
+        [symbols.selector]: (selector) => `${selector}--view`
+        // View
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__section`,
+        display: 'flex',
+        'flex-direction': 'row'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__container`,
+        flex: '1',
+        display: 'flex',
+        'flex-direction': 'column'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__content`
+        // Content
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__shadow`,
+        width: '100%'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__shadow:after`,
         content: '""',
         position: 'absolute',
         top: '0',
@@ -71,148 +56,128 @@ export const layoutRules = [
           '0 0 10px 2px rgba(0, 0, 0, 0.2), 0 0px 10px rgba(0, 0, 0, 0.24)'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}:after`,
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__shadow:after`,
         'box-shadow':
           '0 0 10px 2px rgba(255, 255, 255, 0.2), 0 0px 10px rgba(255, 255, 255, 0.24)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__section--marginal`,
+        'background-color': 'var(--q-surface-container-low)',
+        color: 'var(--q-on-surface)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__section--marginal`,
+        color: 'var(--q-on-surface)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `body:not(.q-body--layout-animate) ${selector}--prevent-focus`,
+        visibility: 'hidden'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `body.q-ios-padding ${selector}--standard .q-header > .q-toolbar:nth-child(1)`,
+        'padding-top': 'env(safe-area-inset-top)',
+        'min-height': 'calc(env(safe-area-inset-top) + 50px)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `body.q-ios-padding ${selector}--standard .q-header > .q-tabs:nth-child(1) .q-tabs__content`,
+        'padding-top': 'env(safe-area-inset-top)',
+        'min-height': 'calc(env(safe-area-inset-top) + 50px)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `body.q-ios-padding ${selector}--standard .q-footer > .q-toolbar:last-child`,
+        'padding-bottom': 'env(safe-area-inset-bottom)',
+        'min-height': 'calc(env(safe-area-inset-bottom) + 50px)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `body.q-ios-padding ${selector}--standard .q-footer > .q-tabs:nth-last-child(1 of :not(.q-layout__shadow)) .q-tabs__content`,
+        'padding-bottom': 'env(safe-area-inset-bottom)',
+        'min-height': 'calc(env(safe-area-inset-bottom) + 50px)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `body.q-ios-padding ${selector}--standard .q-drawer--top-padding .q-drawer__content`,
+        'padding-top': 'env(safe-area-inset-top)',
+        'min-height': 'calc(env(safe-area-inset-top) + 50px)'
       }
     }
   ],
   [
     /^q-layout-container$/,
     function* (_, { symbols }) {
+      // .q-layout-container
       yield {
         position: 'relative',
         width: '100%',
         height: '100%'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-layout`,
+        [symbols.selector]: (selector) => `${selector} .q-layout`,
         'min-height': '100%'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div`,
+        [symbols.selector]: (selector) => `${selector} > div`,
         transform: 'translate3d(0, 0, 0)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div > div`,
+        [symbols.selector]: (selector) => `${selector} > div > div`,
         'min-height': '0',
         'max-height': '100%'
       }
     }
   ],
   [
-    /^q-layout__section--marginal$/,
-    function* (_, { symbols }) {
-      // Spec: md.sys.color.surface-container-low (same token the navigation
-      // drawer uses). Was painting --q-primary with white text, and the class
-      // was missing from the safelist so it never emitted at all.
-      yield {
-        'background-color': 'var(--q-surface-container-low)',
-        color: 'var(--q-on-surface)'
-      }
-      // Dark: marginal section colour.
-      yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
-        color: 'var(--q-on-surface)'
-      }
-    }
-  ],
-  // NOTE: /^q-header$/ and /^q-footer$/ were declared here as well as in the
-  // header/footer modules. The engine keeps one rule per regex, so the later
-  // declarations won and the bases were lost — do not reintroduce them here.
-  [
     /^q-page$/,
-    function* () {
+    function* (_, { symbols }) {
+      // .q-page
       yield { position: 'relative' }
     }
   ],
-
-  // --- Reference parity: body state classes, iOS padding, layout media ---
   [
-    /^q-body--dialog$/,
-    () => ({
-      overflow: 'hidden'
-    })
-  ],
-  [
-    /^q-body--drawer-toggle$/,
-    () => ({
-      overflow: 'hidden !important'
-    })
-  ],
-  [
-    /^q-body--layout-animate$/,
+    /^q-body$/,
     function* (_, { symbols }) {
-      // While the layout animates, every moving part transitions together.
+      // .q-body
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-drawer`,
+        [symbols.selector]: (selector) => `${selector}--dialog`,
+        overflow: 'hidden'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--drawer-toggle`,
+        overflow: 'hidden !important'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--layout-animate .q-drawer`,
         transition:
           'transform 0.12s, width 0.12s, top 0.12s, bottom 0.12s !important'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-drawer__backdrop`,
+        [symbols.selector]: (selector) =>
+          `${selector}--layout-animate .q-drawer__backdrop`,
         transition: 'background-color 0.12s !important'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-layout__section--marginal`,
+        [symbols.selector]: (selector) =>
+          `${selector}--layout-animate .q-layout__section--marginal`,
         transition: 'transform 0.12s, left 0.12s, right 0.12s !important'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-page-container`,
+        [symbols.selector]: (selector) =>
+          `${selector}--layout-animate .q-page-container`,
         transition:
           'padding-top 0.12s, padding-right 0.12s, padding-bottom 0.12s, padding-left 0.12s !important'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-page-sticky`,
+        [symbols.selector]: (selector) =>
+          `${selector}--layout-animate .q-page-sticky`,
         transition:
           'transform 0.12s, left 0.12s, right 0.12s, top 0.12s, bottom 0.12s !important'
-      }
-    }
-  ],
-  [
-    /^q-layout--prevent-focus$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `body:not(.q-body--layout-animate) ${sel}`,
-        visibility: 'hidden'
-      }
-    }
-  ],
-  [
-    /^q-layout--standard$/,
-    function* (_, { symbols }) {
-      // iOS safe-area padding: Quasar adds `q-ios-padding` to <body> and the
-      // layout's first/last bars grow by the inset. `env()` is the only way to
-      // read the inset, and the 20px/70px fallbacks are Quasar's own numbers.
-      yield {
-        [symbols.selector]: (sel) =>
-          `body.q-ios-padding ${sel} .q-header > .q-toolbar:nth-child(1)`,
-        'padding-top': 'env(safe-area-inset-top)',
-        'min-height': 'calc(env(safe-area-inset-top) + 50px)'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `body.q-ios-padding ${sel} .q-header > .q-tabs:nth-child(1) .q-tabs__content`,
-        'padding-top': 'env(safe-area-inset-top)',
-        'min-height': 'calc(env(safe-area-inset-top) + 50px)'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `body.q-ios-padding ${sel} .q-footer > .q-toolbar:last-child`,
-        'padding-bottom': 'env(safe-area-inset-bottom)',
-        'min-height': 'calc(env(safe-area-inset-bottom) + 50px)'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `body.q-ios-padding ${sel} .q-footer > .q-tabs:nth-last-child(1 of :not(.q-layout__shadow)) .q-tabs__content`,
-        'padding-bottom': 'env(safe-area-inset-bottom)',
-        'min-height': 'calc(env(safe-area-inset-bottom) + 50px)'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `body.q-ios-padding ${sel} .q-drawer--top-padding .q-drawer__content`,
-        'padding-top': 'env(safe-area-inset-top)',
-        'min-height': 'calc(env(safe-area-inset-top) + 50px)'
       }
     }
   ]

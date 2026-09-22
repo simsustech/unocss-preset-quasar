@@ -4,6 +4,7 @@ export const badgeRules = [
   [
     /^q-badge$/,
     function* (_, { symbols }) {
+      // .q-badge
       yield {
         display: 'inline-flex',
         'align-items': 'center',
@@ -20,11 +21,12 @@ export const badgeRules = [
         'text-align': 'center'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}`,
         'background-color': 'var(--q-primary)'
       }
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
@@ -44,25 +46,23 @@ export const badgeRules = [
         height: '16px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--outline`,
+        [symbols.selector]: (selector) => `${selector}--outline`,
         'border-color': 'currentColor',
         'border-style': 'solid',
         'background-color': 'transparent',
         'border-width': '1px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--transparent`,
+        [symbols.selector]: (selector) => `${selector}--transparent`,
         opacity: '80%'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--multi-line`,
+        [symbols.selector]: (selector) => `${selector}--multi-line`,
         'word-break': 'break-all',
         'word-wrap': 'break-word'
       }
-      // A floating badge hangs off the top-right corner of its anchor and must
-      // paint above it without inheriting the anchor's stacking context.
       yield {
-        [symbols.selector]: (sel) => `${sel}--floating`,
+        [symbols.selector]: (selector) => `${selector}--floating`,
         cursor: 'inherit',
         top: '-4px !important',
         right: '-3px',
@@ -70,68 +70,52 @@ export const badgeRules = [
         'z-index': '10',
         isolation: 'isolate'
       }
-    }
-  ],
-  [
-    /^q-badge--floating$/,
-    () => ({
-      // The reference pins the floating badge above its anchor; the full rule
-      // (cursor, stacking isolation) follows in the parity block below.
-      position: 'absolute !important',
-      top: '-4px !important',
-      right: '-3px',
-      'z-index': '10',
-      isolation: 'isolate'
-    })
-  ],
-  [
-    /^q-badge--outline$/,
-    () => ({
-      'background-color': 'transparent',
-      color: 'var(--q-primary)',
-      border: '1px solid var(--q-primary)'
-    })
-  ],
-  [
-    /^q-badge--rounded$/,
-    () => ({
-      'border-radius': 'var(--q-radius-md)'
-    })
-  ],
-  [
-    /^q-badge--transparent$/,
-    () => ({
-      'background-color': 'transparent',
-      color: 'var(--q-primary)'
-    })
-  ],
-  [
-    /^q-badge--multi-line$/,
-    () => ({
-      'white-space': 'normal',
-      padding: '4px 8px'
-    })
-  ],
-  [
-    /^q-badge--dark$/,
-    () => ({
-      // Dark mode
-    })
-  ],
-  [
-    /^q-badge--dot$/,
-    () => ({
-      width: '8px',
-      height: '8px',
-      padding: 0,
-      'min-width': '8px',
-      'min-height': '8px'
-    })
-  ],
-  [
-    /^q-badge--single-line$/,
-    function* () {
-      yield { 'white-space': 'nowrap' }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--floating`,
+        // The reference pins the floating badge above its anchor; the full rule
+        // (cursor, stacking isolation) follows in the parity block below.
+        position: 'absolute !important',
+        top: '-4px !important',
+        right: '-3px',
+        'z-index': '10',
+        isolation: 'isolate'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--outline`,
+        'background-color': 'transparent',
+        color: 'var(--q-primary)',
+        border: '1px solid var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--rounded`,
+        'border-radius': 'var(--q-radius-md)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--transparent`,
+        'background-color': 'transparent',
+        color: 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--multi-line`,
+        'white-space': 'normal',
+        padding: '4px 8px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--dark`
+        // Dark mode
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--dot`,
+        width: '8px',
+        height: '8px',
+        padding: 0,
+        'min-width': '8px',
+        'min-height': '8px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--single-line`,
+        'white-space': 'nowrap'
+      }
     }
   ]
 ] as Rule[]

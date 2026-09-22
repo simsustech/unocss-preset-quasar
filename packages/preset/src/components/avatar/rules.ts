@@ -4,6 +4,7 @@ export const avatarRules = [
   [
     /^q-avatar$/,
     function* (_, { symbols }) {
+      // .q-avatar
       yield {
         display: 'inline-flex',
         'align-items': 'center',
@@ -25,46 +26,36 @@ export const avatarRules = [
         position: 'relative',
         'line-height': 1
       }
-      // Reference `.q-avatar img:not(.q-icon):not(.q-img__image)`: media inside an
-      // avatar fills it without inheriting the circle. Emitted from the `q-avatar`
-      // matcher — UnoCSS matches class tokens, so a descendant selector cannot be
-      // its own matcher.
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} img:not(.q-icon):not(.q-img__image)`,
+        [symbols.selector]: (selector) =>
+          `${selector} img:not(.q-icon):not(.q-img__image)`,
         'border-radius': 'inherit',
         width: 'inherit',
         height: 'inherit'
       }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__content`,
+        // Reference: `.q-avatar__content { font-size:0.5em; line-height:0.5em;
+        // border-radius:inherit; height:inherit; width:inherit }`. Without the
+        // 0.5em font-size the content inherits the avatar's own size (40px in a
+        // list row), so the letter rendered enormous and clipped the circle.
+        'font-size': '0.5em',
+        'line-height': '0.5em',
+        'border-radius': 'inherit',
+        width: 'inherit',
+        height: 'inherit',
+        'object-fit': 'cover'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__icon`,
+        'font-size': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--square`,
+        // `var(--radius-none)` verbatim: the reference names the wind4 theme token,
+        // and `components/date/rules.ts` already relies on the same variable.
+        'border-radius': 'var(--radius-none)'
+      }
     }
-  ],
-  [
-    /^q-avatar__content$/,
-    () => ({
-      // Reference: `.q-avatar__content { font-size:0.5em; line-height:0.5em;
-      // border-radius:inherit; height:inherit; width:inherit }`. Without the
-      // 0.5em font-size the content inherits the avatar's own size (40px in a
-      // list row), so the letter rendered enormous and clipped the circle.
-      'font-size': '0.5em',
-      'line-height': '0.5em',
-      'border-radius': 'inherit',
-      width: 'inherit',
-      height: 'inherit',
-      'object-fit': 'cover'
-    })
-  ],
-  [
-    /^q-avatar__icon$/,
-    () => ({
-      'font-size': 'inherit'
-    })
-  ],
-  [
-    /^q-avatar--square$/,
-    () => ({
-      // `var(--radius-none)` verbatim: the reference names the wind4 theme token,
-      // and `components/date/rules.ts` already relies on the same variable.
-      'border-radius': 'var(--radius-none)'
-    })
   ]
 ] as Rule[]

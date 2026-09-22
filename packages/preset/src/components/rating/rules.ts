@@ -4,12 +4,14 @@ export const ratingRules = [
   [
     /^q-rating$/,
     function* (_, { symbols }) {
+      // .q-rating
       yield {
         display: 'inline-flex',
         'align-items': 'center'
       }
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
@@ -18,30 +20,20 @@ export const ratingRules = [
           'color-mix(in oklab, #ffeb3b var(--un-text-opacity), transparent)',
         'vertical-align': 'middle'
       }
-    }
-  ],
-  [
-    /^q-rating--dark$/,
-    () => ({
-      // Dark mode
-    })
-  ],
-  [
-    /^q-rating--editable$/,
-    () => ({
-      cursor: 'pointer'
-    })
-  ],
-  [
-    /^q-rating--no-reset$/,
-    () => ({
-      // No reset
-    })
-  ],
-  [
-    /^q-rating__icon$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--dark`
+        // Dark mode
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--editable`,
+        cursor: 'pointer'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--no-reset`
+        // No reset
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__icon`,
         'font-size': '1.5em',
         cursor: 'pointer'
         // `color` and the transition come from the yield below: the reference's
@@ -49,6 +41,7 @@ export const ratingRules = [
         // used to sit here recoloured every star after the fold.
       }
       yield {
+        [symbols.selector]: (selector) => `${selector}__icon`,
         color: 'currentColor',
         opacity: '40%',
         'text-shadow':
@@ -57,75 +50,67 @@ export const ratingRules = [
         position: 'relative'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--active`,
+        [symbols.selector]: (selector) => `${selector}__icon--active`,
         opacity: '100%'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--exselected`,
+        [symbols.selector]: (selector) => `${selector}__icon--exselected`,
         opacity: '70%'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--hovered`,
+        [symbols.selector]: (selector) => `${selector}__icon--hovered`,
         transform: 'scale(1.3)'
       }
       yield {
-        [symbols.selector]: (sel) => `.q-rating--no-dimming ${sel}`,
+        [symbols.selector]: (selector) =>
+          `.q-rating--no-dimming ${selector}__icon`,
         opacity: '100%'
       }
-    }
-  ],
-  [
-    /^q-rating__icon--active$/,
-    () => ({
-      color: '#f9a825'
-    })
-  ],
-  [
-    /^q-rating__icon--inactive$/,
-    () => ({
-      color: 'var(--q-surface-container-highest)'
-    })
-  ],
-  [
-    /^q-rating__icon-container$/,
-    function* (_, { symbols }) {
-      yield { height: '1em', outline: '0' }
       yield {
-        [symbols.selector]: (sel) => `${sel} + .q-rating__icon-container`,
+        [symbols.selector]: (selector) => `${selector}__icon--active`,
+        color: '#f9a825'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__icon--inactive`,
+        color: 'var(--q-surface-container-highest)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__icon-container`,
+        height: '1em',
+        outline: '0'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__icon-container + .q-rating__icon-container`,
         'margin-left': '2px'
       }
       yield {
+        [symbols.selector]: (selector) => `${selector}__icon-container`,
         'outline-style': 'solid',
         'outline-width': '0px',
         height: '1em'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} + ${sel}`,
+        [symbols.selector]: (selector) =>
+          `${selector}__icon-container + ${selector}__icon-container`,
         'margin-left': '2px'
       }
       yield {
-        [symbols.selector]: (sel) => `.q-rating--editable ${sel}`,
+        [symbols.selector]: (selector) =>
+          `.q-rating--editable ${selector}__icon-container`,
         cursor: 'pointer !important'
       }
-    }
-  ],
-  [
-    /^q-rating__icon--hovered$/,
-    function* () {
-      yield { transform: 'scale(1.3)' }
-    }
-  ],
-  [
-    /^q-rating__icon--exselected$/,
-    function* () {
-      yield { opacity: '0.7' }
-    }
-  ],
-  [
-    /^q-rating--no-dimming$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-rating__icon`,
+        [symbols.selector]: (selector) => `${selector}__icon--hovered`,
+        transform: 'scale(1.3)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__icon--exselected`,
+        opacity: '0.7'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--no-dimming .q-rating__icon`,
         opacity: '1'
       }
     }

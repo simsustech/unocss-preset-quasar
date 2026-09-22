@@ -3,167 +3,129 @@ import type { Rule } from '@unocss/core'
 export const colorRules = [
   [
     /^q-color$/,
-    () => ({
-      display: 'flex',
-      'flex-direction': 'column',
-      'max-width': '300px'
-    })
-  ],
-  [
-    /^q-color__header$/,
-    () => ({
-      display: 'flex',
-      'align-items': 'center',
-      'justify-content': 'space-between',
-      'margin-bottom': 'var(--q-space-sm)'
-    })
-  ],
-  [
-    /^q-color__header-content$/,
-    () => ({
-      // Header content
-    })
-  ],
-  [
-    /^q-color__header-bg$/,
-    () => ({
-      // Header background
-    })
-  ],
-  [
-    /^q-color__spectrum$/,
-    () => ({
-      position: 'relative',
-      width: '100%',
-      height: '200px',
-      'border-radius': 'var(--q-radius-sm)',
-      overflow: 'hidden'
-    })
-  ],
-  [
-    /^q-color__spectrum-tab$/,
-    () => ({
-      // Spectrum tab
-    })
-  ],
-  [
-    /^q-color__spectrum-white$/,
-    () => ({
-      // White gradient
-    })
-  ],
-  [
-    /^q-color__spectrum-black$/,
-    () => ({
-      // Black gradient
-    })
-  ],
-  [
-    /^q-color__hue$/,
-    () => ({
-      width: '100%',
-      height: '12px',
-      'margin-top': 'var(--q-space-sm)'
-    })
-  ],
-  [
-    /^q-color__alpha$/,
-    () => ({
-      width: '100%',
-      height: '12px',
-      'margin-top': 'var(--q-space-sm)'
-    })
-  ],
-  [
-    /^q-color__footer$/,
-    () => ({
-      display: 'flex',
-      'justify-content': 'flex-end',
-      gap: 'var(--q-space-sm)',
-      'margin-top': 'var(--q-space-sm)'
-    })
-  ],
-  [
-    /^q-color__buttons$/,
-    () => ({
-      // Buttons
-    })
-  ],
-  [
-    /^q-color__field$/,
-    () => ({
-      // Field
-    })
-  ],
-  [
-    /^q-color__field-tab$/,
-    () => ({
-      // Field tab
-    })
-  ],
-  [
-    /^q-color__field-hex$/,
-    () => ({
-      // Hex field
-    })
-  ],
-  [
-    /^q-color__field-rgb$/,
-    () => ({
-      // RGB field
-    })
-  ],
-  [
-    /^q-color__field-hsl$/,
-    () => ({
-      // HSL field
-    })
-  ],
-  [
-    /^q-color__field-hsv$/,
-    () => ({
-      // HSV field
-    })
-  ],
-  [
-    /^q-color__field-cmyk$/,
-    () => ({
-      // CMYK field
-    })
-  ],
-  [
-    /^q-color__field-input$/,
-    () => ({
-      width: '100%'
-    })
-  ],
-  [
-    /^q-color__field-label$/,
-    () => ({
-      'font-size': '0.75em'
-    })
-  ],
-  [
-    /^q-color__field-prefix$/,
-    () => ({
-      // Prefix
-    })
-  ],
-  [
-    /^q-color__field-suffix$/,
-    () => ({
-      // Suffix
-    })
-  ],
-  [
-    /^q-color-picker__header-content--dark$/,
     function* (_, { symbols }) {
+      // .q-color
       yield {
+        display: 'flex',
+        'flex-direction': 'column',
+        'max-width': '300px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__header`,
+        display: 'flex',
+        'align-items': 'center',
+        'justify-content': 'space-between',
+        'margin-bottom': 'var(--q-space-sm)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__header-content`
+        // Header content
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__header-bg`
+        // Header background
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__spectrum`,
+        position: 'relative',
+        width: '100%',
+        height: '200px',
+        'border-radius': 'var(--q-radius-sm)',
+        overflow: 'hidden'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__spectrum-tab`
+        // Spectrum tab
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__spectrum-white`
+        // White gradient
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__spectrum-black`
+        // Black gradient
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__hue`,
+        width: '100%',
+        height: '12px',
+        'margin-top': 'var(--q-space-sm)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__alpha`,
+        width: '100%',
+        height: '12px',
+        'margin-top': 'var(--q-space-sm)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__footer`,
+        display: 'flex',
+        'justify-content': 'flex-end',
+        gap: 'var(--q-space-sm)',
+        'margin-top': 'var(--q-space-sm)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__buttons`
+        // Buttons
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__field`
+        // Field
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__field-tab`
+        // Field tab
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__field-hex`
+        // Hex field
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__field-rgb`
+        // RGB field
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__field-hsl`
+        // HSL field
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__field-hsv`
+        // HSV field
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__field-cmyk`
+        // CMYK field
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__field-input`,
+        width: '100%'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__field-label`,
+        'font-size': '0.75em'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__field-prefix`
+        // Prefix
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__field-suffix`
+        // Suffix
+      }
+    }
+  ],
+  [
+    /^q-color-picker$/,
+    function* (_, { symbols }) {
+      // .q-color-picker
+      yield {
+        [symbols.selector]: (selector) => `${selector}__header-content--dark`,
         // Reference states the label colour on the container itself.
         color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab--inactive:before`,
+        [symbols.selector]: (selector) =>
+          `${selector}__header-content--dark .q-tab--inactive:before`,
         content: '""',
         position: 'absolute',
         top: '0',
@@ -172,17 +134,14 @@ export const colorRules = [
         left: '0',
         background: 'rgba(255, 255, 255, 0.2)'
       }
-    }
-  ],
-  [
-    /^q-color-picker__alpha$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-slider__track-container`,
+        [symbols.selector]: (selector) =>
+          `${selector}__alpha .q-slider__track-container`,
         'padding-top': 'calc(var(--spacing) * 0)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-slider__track:before`,
+        [symbols.selector]: (selector) =>
+          `${selector}__alpha .q-slider__track:before`,
         content: 'var(--un-content)',
         position: 'absolute',
         top: '0',
@@ -193,11 +152,6 @@ export const colorRules = [
         'background-image':
           'linear-gradient(90deg, rgba(255, 255, 255, 0), #757575)'
       }
-    }
-  ],
-  [
-    /^q-color-picker$/,
-    function* (_, { symbols }) {
       yield {
         overflow: 'hidden',
         background: '#fff',
@@ -209,11 +163,11 @@ export const colorRules = [
           '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab`,
+        [symbols.selector]: (selector) => `${selector} .q-tab`,
         padding: '0 !important'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} input`,
+        [symbols.selector]: (selector) => `${selector} input`,
         color: 'inherit',
         // Reference states the colour reset as `background-color`.
         'background-color': 'transparent',
@@ -221,164 +175,121 @@ export const colorRules = [
         'text-align': 'center'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-tabs`,
+        [symbols.selector]: (selector) => `${selector} .q-tabs`,
         overflow: 'hidden'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab--active`,
+        [symbols.selector]: (selector) => `${selector} .q-tab--active`,
         'box-shadow': '0 0 14px 3px rgba(0, 0, 0, 0.2)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab--active .q-focus-helper`,
+        [symbols.selector]: (selector) =>
+          `${selector} .q-tab--active .q-focus-helper`,
         display: 'none'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab__indicator`,
+        [symbols.selector]: (selector) => `${selector} .q-tab__indicator`,
         display: 'none'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab-panels`,
+        [symbols.selector]: (selector) => `${selector} .q-tab-panels`,
         background: 'inherit'
       }
-      // Reference `body.quasar-style-unstyled .q-color-picker`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-    }
-  ],
-  [
-    /^q-color-picker--bordered$/,
-    function* () {
-      // Longhands: the reference names `border-width`/`border-style` separately.
       yield {
+        [symbols.selector]: (selector) => `${selector}--bordered`,
         'border-style': 'solid',
         'border-width': '1px',
         'border-color':
           'color-mix(in oklab, rgba(0,0,0,0.12) var(--un-border-opacity), transparent)'
       }
-    }
-  ],
-  [
-    /^q-color-picker__header-tabs$/,
-    function* () {
-      yield { height: '32px' }
-    }
-  ],
-  [
-    /^q-color-picker__header-banner$/,
-    function* () {
-      yield { height: '36px' }
-    }
-  ],
-  [
-    /^q-color-picker__header$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} input`,
+        [symbols.selector]: (selector) => `${selector}__header-tabs`,
+        height: '32px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__header-banner`,
+        height: '36px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__header input`,
         'line-height': '24px',
         border: '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab`,
+        [symbols.selector]: (selector) => `${selector}__header .q-tab`,
         'min-height': '32px !important',
         height: '32px !important'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab--inactive`,
+        [symbols.selector]: (selector) =>
+          `${selector}__header .q-tab--inactive`,
         'background-image':
           'linear-gradient( to top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 25%, rgba(0, 0, 0, 0.1) )'
       }
-    }
-  ],
-  [
-    /^q-color-picker__error-icon$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__error-icon`,
         bottom: '2px',
         right: '2px',
         'font-size': '24px',
         opacity: '0',
         transition: 'opacity 0.3s ease-in'
       }
-    }
-  ],
-  [
-    /^q-color-picker__header-content$/,
-    function* () {
-      yield { position: 'relative', background: '#fff' }
-    }
-  ],
-  [
-    /^q-color-picker__header-content--light$/,
-    function* () {
-      yield { color: '#000' }
-    }
-  ],
-  [
-    /^q-color-picker__header-bg$/,
-    function* () {
-      // Full 8x8 checkerboard PNG, the same asset the reference ships. This
-      // was a truncated stub ('url("data:image/png') that stayed invisible
-      // until the class was safelisted, then broke the whole CSS build with
-      // `CssSyntaxError: Unclosed string`.
       yield {
+        [symbols.selector]: (selector) => `${selector}__header-content`,
+        position: 'relative',
+        background: '#fff'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__header-content--light`,
+        color: '#000'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__header-bg`,
         background: '#fff',
         'background-image':
           'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAH0lEQVQoU2NkYGAwZkAFZ5G5jPRRgOYEVDeB3EBjBQBOZwTVugIGyAAAAABJRU5ErkJggg==")'
       }
-    }
-  ],
-  [
-    /^q-color-picker__footer$/,
-    function* (_, { symbols }) {
-      yield { height: '36px' }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab`,
+        [symbols.selector]: (selector) => `${selector}__footer`,
+        height: '36px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__footer .q-tab`,
         'min-height': '36px !important',
         height: '36px !important'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab--inactive`,
+        [symbols.selector]: (selector) =>
+          `${selector}__footer .q-tab--inactive`,
         'background-image':
           'linear-gradient( to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 25%, rgba(0, 0, 0, 0.1) )'
       }
-    }
-  ],
-  [
-    /^q-color-picker__spectrum$/,
-    function* () {
-      yield { width: '100%', height: '100%' }
-    }
-  ],
-  [
-    /^q-color-picker__spectrum-tab$/,
-    function* () {
-      yield { padding: '0 !important' }
-    }
-  ],
-  [
-    /^q-color-picker__spectrum-white$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__spectrum`,
+        width: '100%',
+        height: '100%'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__spectrum-tab`,
+        padding: '0 !important'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__spectrum-white`,
         'background-image':
           'linear-gradient(to right, #fff, rgba(255, 255, 255, 0))'
       }
-    }
-  ],
-  [
-    /^q-color-picker__spectrum-black$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__spectrum-black`,
         'background-image': 'linear-gradient(to top, #000, rgba(0, 0, 0, 0))'
       }
-    }
-  ],
-  [
-    /^q-color-picker__spectrum-circle$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__spectrum-circle`,
         width: '10px',
         height: '10px',
         'box-shadow':
@@ -386,49 +297,40 @@ export const colorRules = [
         'border-radius': '50%',
         transform: 'translate(-5px, -5px)'
       }
-    }
-  ],
-  [
-    /^q-color-picker__hue$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-slider__track`,
+        [symbols.selector]: (selector) => `${selector}__hue .q-slider__track`,
         'background-image':
           'linear-gradient( to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100% ) !important',
         opacity: '100%'
       }
-    }
-  ],
-  [
-    /^q-color-picker__sliders$/,
-    function* (_, { symbols }) {
-      // Reference states the padding as logical longhands.
-      yield { 'padding-inline': '16px', 'padding-block': '0' }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-slider__thumb`,
+        [symbols.selector]: (selector) => `${selector}__sliders`,
+        'padding-inline': '16px',
+        'padding-block': '0'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__sliders .q-slider__thumb`,
         color: '#424242'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-slider__thumb path`,
+        [symbols.selector]: (selector) =>
+          `${selector}__sliders .q-slider__thumb path`,
         'stroke-width': '2px',
         fill: 'transparent'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-slider--active path`,
+        [symbols.selector]: (selector) =>
+          `${selector}__sliders .q-slider--active path`,
         'stroke-width': '3px'
       }
-    }
-  ],
-  [
-    /^q-color-picker__tune-tab$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-slider`,
+        [symbols.selector]: (selector) => `${selector}__tune-tab .q-slider`,
         'margin-left': '18px',
         'margin-right': '18px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} input`,
+        [symbols.selector]: (selector) => `${selector}__tune-tab input`,
         'font-size': '11px',
         'border-style': 'solid',
         'border-width': '1px',
@@ -437,45 +339,35 @@ export const colorRules = [
         'border-radius': '4px',
         width: '3.5em'
       }
-    }
-  ],
-  [
-    /^q-color-picker__palette-tab$/,
-    function* () {
-      yield { padding: '0 !important' }
-    }
-  ],
-  [
-    /^q-color-picker__palette-rows--editable$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-color-picker__cube`,
+        [symbols.selector]: (selector) => `${selector}__palette-tab`,
+        padding: '0 !important'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__palette-rows--editable .q-color-picker__cube`,
         cursor: 'pointer'
       }
-    }
-  ],
-  [
-    /^q-color-picker__cube$/,
-    function* () {
-      yield { 'padding-bottom': '10%', width: '10% !important' }
-    }
-  ],
-  [
-    /^q-color-picker--dark$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__cube`,
+        'padding-bottom': '10%',
+        width: '10% !important'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--dark`,
         'box-shadow':
           '0 1px 5px rgba(255, 255, 255, 0.2), 0 2px 2px rgba(255, 255, 255, 0.14), 0 3px 1px -2px rgba(255, 255, 255, 0.12)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-color-picker__tune-tab input`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dark .q-color-picker__tune-tab input`,
         'border-style': 'solid',
         'border-width': '1px',
         'border-color':
           'color-mix(in oklab, rgba(255,255,255,0.3) var(--un-border-opacity), transparent)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-slider__thumb`,
+        [symbols.selector]: (selector) => `${selector}--dark .q-slider__thumb`,
         color: '#fafafa'
       }
     }

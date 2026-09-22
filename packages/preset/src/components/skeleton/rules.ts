@@ -4,87 +4,68 @@ export const skeletonRules = [
   [
     /^q-skeleton$/,
     function* (_, { symbols }) {
+      // .q-skeleton
       yield {
         background: 'var(--q-surface-container-highest)',
         'border-radius': 'var(--q-radius-sm)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:before`,
+        [symbols.selector]: (selector) => `${selector}:before`,
         content: '" "'
       }
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-    }
-  ],
-  [
-    /^q-skeleton--dark$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--dark`,
         background: 'var(--q-surface-variant)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}.q-skeleton--anim-wave:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dark.q-skeleton--anim-wave:after`,
         background:
           'linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0))'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}.q-skeleton--anim-blink:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dark.q-skeleton--anim-blink:after`,
         background: 'rgba(255, 255, 255, 0.2)'
       }
-    }
-  ],
-  [
-    /^q-skeleton--anim$/,
-    () => ({
-      animation: 'q-skeleton-blink 1.5s infinite'
-    })
-  ],
-  [
-    /^q-skeleton--bordered$/,
-    () => ({
-      border: '1px solid var(--q-outline-variant)'
-    })
-  ],
-  [
-    /^q-skeleton--text$/,
-    () => ({
-      height: '1em',
-      'border-radius': 'var(--q-radius-xs)'
-    })
-  ],
-  [
-    /^q-skeleton--rect$/,
-    () => ({
-      'border-radius': 'var(--q-radius-sm)'
-    })
-  ],
-  [
-    /^q-skeleton--circle$/,
-    () => ({
-      'border-radius': '50%'
-    })
-  ],
-  [
-    /^q-skeleton--square$/,
-    () => ({
-      'border-radius': '0'
-    })
-  ],
-  [
-    /^q-skeleton--type$/,
-    () => ({
-      // Type
-    })
-  ],
-  [
-    /^q-skeleton--anim-wave$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:after, .q-skeleton--anim-blink:after, .q-skeleton--anim-pop:after`,
+        [symbols.selector]: (selector) => `${selector}--anim`,
+        animation: 'q-skeleton-blink 1.5s infinite'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--bordered`,
+        border: '1px solid var(--q-outline-variant)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--text`,
+        height: '1em',
+        'border-radius': 'var(--q-radius-xs)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--rect`,
+        'border-radius': 'var(--q-radius-sm)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--circle`,
+        'border-radius': '50%'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--square`,
+        'border-radius': '0'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--type`
+        // Type
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--anim-wave:after, .q-skeleton--anim-blink:after, .q-skeleton--anim-pop:after`,
         content: '""',
         position: 'absolute',
         top: '0',
@@ -94,167 +75,106 @@ export const skeletonRules = [
         'z-index': '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:after`,
+        [symbols.selector]: (selector) => `${selector}--anim-wave:after`,
         background:
           'linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0))',
         animation:
           'q-skeleton--wave var(--q-skeleton-speed) linear 0.5s infinite'
       }
-    }
-  ],
-  [
-    /^q-skeleton--anim-blink$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel}:after`,
+        [symbols.selector]: (selector) => `${selector}--anim-blink:after`,
         background: 'rgba(255, 255, 255, 0.7)',
         animation:
           'q-skeleton--fade var(--q-skeleton-speed) linear 0.5s infinite'
       }
-    }
-  ],
-  [
-    /^q-skeleton--type-text$/,
-    function* () {
-      yield { transform: 'scale(1, 0.5)' }
-    }
-  ],
-  [
-    /^q-skeleton--type-circle$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}--type-text`,
+        transform: 'scale(1, 0.5)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--type-circle`,
         height: '48px',
         width: '48px',
         'border-radius': '50%'
       }
-    }
-  ],
-  [
-    /^q-skeleton--type-QAvatar$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}--type-QAvatar`,
         height: '48px',
         width: '48px',
         'border-radius': '50%'
       }
-    }
-  ],
-  [
-    /^q-skeleton--type-QBtn$/,
-    function* () {
-      yield { width: '90px', height: '36px' }
-    }
-  ],
-  [
-    /^q-skeleton--type-QBadge$/,
-    function* () {
-      yield { width: '70px', height: '16px' }
-    }
-  ],
-  [
-    /^q-skeleton--type-QChip$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}--type-QBtn`,
+        width: '90px',
+        height: '36px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--type-QBadge`,
+        width: '70px',
+        height: '16px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--type-QChip`,
         width: '90px',
         height: '28px',
         'border-radius': '16px'
       }
-    }
-  ],
-  [
-    /^q-skeleton--type-QToolbar$/,
-    function* () {
-      yield { height: '50px' }
-    }
-  ],
-  [
-    /^q-skeleton--type-QCheckbox$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}--type-QToolbar`,
+        height: '50px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--type-QCheckbox`,
         width: '40px',
         height: '40px',
         'border-radius': '50%'
       }
-    }
-  ],
-  [
-    /^q-skeleton--type-QRadio$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}--type-QRadio`,
         width: '40px',
         height: '40px',
         'border-radius': '50%'
       }
-    }
-  ],
-  [
-    /^q-skeleton--type-QToggle$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}--type-QToggle`,
         width: '56px',
         height: '40px',
         'border-radius': '7px'
       }
-    }
-  ],
-  [
-    /^q-skeleton--type-QSlider$/,
-    function* () {
-      yield { height: '40px' }
-    }
-  ],
-  [
-    /^q-skeleton--type-QRange$/,
-    function* () {
-      yield { height: '40px' }
-    }
-  ],
-  [
-    /^q-skeleton--type-QInput$/,
-    function* () {
-      yield { height: '56px' }
-    }
-  ],
-  [
-    /^q-skeleton--anim-fade$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}--type-QSlider`,
+        height: '40px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--type-QRange`,
+        height: '40px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--type-QInput`,
+        height: '56px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--anim-fade`,
         animation:
           'q-skeleton--fade var(--q-skeleton-speed) linear 0.5s infinite'
       }
-    }
-  ],
-  [
-    /^q-skeleton--anim-pulse$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}--anim-pulse`,
         animation:
           'q-skeleton--pulse var(--q-skeleton-speed) ease-in-out 0.5s infinite'
       }
-    }
-  ],
-  [
-    /^q-skeleton--anim-pulse-x$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}--anim-pulse-x`,
         animation:
           'q-skeleton--pulse-x var(--q-skeleton-speed) ease-in-out 0.5s infinite'
       }
-    }
-  ],
-  [
-    /^q-skeleton--anim-pulse-y$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}--anim-pulse-y`,
         animation:
           'q-skeleton--pulse-y var(--q-skeleton-speed) ease-in-out 0.5s infinite'
       }
-    }
-  ],
-  [
-    /^q-skeleton--anim-pop$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}--anim-pop`,
         position: 'relative',
         overflow: 'hidden',
         'z-index': '1'

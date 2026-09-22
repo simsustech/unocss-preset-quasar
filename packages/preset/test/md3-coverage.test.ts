@@ -7,6 +7,7 @@
 import { describe, it, expect } from 'vitest'
 import { createGenerator } from 'unocss'
 import { QuasarPreset } from '../src/index.js'
+import { isSupplied, suppliedBy } from './supplied.js'
 import { quasarSafelist } from '../src/safelist.js'
 
 async function cssFor(tokens: string): Promise<string> {
@@ -33,7 +34,9 @@ describe('md3 coverage (reference parity)', () => {
     expect(css).toMatch(
       /\.body--dark\{[^}]*background:[^}]*var\(--q-dark-page\)/
     )
-    expect(quasarSafelist).toContain('body--dark')
+    // A runtime global: Quasar toggles it on `<body>`, nothing in an app's
+    // markup writes it, so it is spread into the preset's safelist.
+    expect(isSupplied('body--dark')).toBe(true)
   })
 
   it('sizes icons inside buttons via a .q-btn .q-icon descendant rule', async () => {
@@ -43,8 +46,10 @@ describe('md3 coverage (reference parity)', () => {
   })
 
   it('safelists dynamically-rendered modifier/part tokens', async () => {
-    expect(quasarSafelist).toContain('q-toggle__thumb')
-    expect(quasarSafelist).toContain('q-btn--no-uppercase')
+    // Both come from their component's vocabulary now, not from a hand list.
+    for (const name of ['q-toggle__thumb', 'q-btn--no-uppercase']) {
+      expect(isSupplied(name), `${name}: ${suppliedBy(name)}`).toBe(true)
+    }
   })
 
   it('does not center item content (no align-items on q-item blocks)', async () => {

@@ -38,6 +38,7 @@ export const dialogRules = [
   [
     /^q-dialog$/,
     function* (_, { symbols }) {
+      // .q-dialog
       yield {
         position: 'fixed',
         inset: '0',
@@ -47,30 +48,26 @@ export const dialogRules = [
         'z-index': 6000
       }
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-    }
-  ],
-  [
-    /^q-dialog__backdrop$/,
-    () => ({
-      position: 'absolute',
-      inset: '0',
-      // The reference states `var(--dark-surface) 32%` — a surface role that
-      // stays dark in both schemes, which is what `--q-dark` carries.
-      'background-color': 'color-mix(in oklab, var(--q-dark) 32%, transparent)',
-      'pointer-events': 'all !important',
-      'outline-style': 'var(--un-outline-style)',
-      'outline-width': '0px',
-      'z-index': '-1'
-    })
-  ],
-  [
-    /^q-dialog__inner$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__backdrop`,
+        position: 'absolute',
+        inset: '0',
+        // The reference states `var(--dark-surface) 32%` — a surface role that
+        // stays dark in both schemes, which is what `--q-dark` carries.
+        'background-color':
+          'color-mix(in oklab, var(--q-dark) 32%, transparent)',
+        'pointer-events': 'all !important',
+        'outline-style': 'var(--un-outline-style)',
+        'outline-width': '0px',
+        'z-index': '-1'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__inner`,
         position: 'relative',
         display: 'flex',
         'flex-direction': 'column',
@@ -83,10 +80,8 @@ export const dialogRules = [
         'outline-style': 'var(--un-outline-style)',
         'outline-width': '0px'
       }
-      // The content box the caller slots in carries the dialog's own box: the
-      // padding, the radius scale and the width band.
       yield {
-        [symbols.selector]: (sel) => `${sel}>div`,
+        [symbols.selector]: (selector) => `${selector}__inner>div`,
         'pointer-events': 'all !important',
         padding: '24px',
         'border-radius': 'var(--q-corner-extra-large)',
@@ -95,7 +90,7 @@ export const dialogRules = [
         overflow: 'auto'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}>.q-card`,
+        [symbols.selector]: (selector) => `${selector}__inner>.q-card`,
         'background-color':
           'color-mix(in oklab, var(--q-surface-container-high) var(--un-bg-opacity), transparent)',
         // Cancel the card's own shadow: inside a dialog the card is a panel,
@@ -104,22 +99,18 @@ export const dialogRules = [
           'var(--un-inset-shadow), var(--un-inset-ring-shadow), var(--un-ring-offset-shadow), var(--un-ring-shadow), var(--un-shadow)'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}>.q-card>.q-card__actions .q-btn--rectangle`,
+        [symbols.selector]: (selector) =>
+          `${selector}__inner>.q-card>.q-card__actions .q-btn--rectangle`,
         'min-width': '64px'
       }
-    }
-  ],
-  [
-    /^q-dialog__inner--maximized$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__inner--maximized`,
         'max-width': '100vw',
         'max-height': '100vh',
         'border-radius': '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}>div`,
+        [symbols.selector]: (selector) => `${selector}__inner--maximized>div`,
         'border-radius': '0 !important',
         height: '100%',
         width: '100%',
@@ -128,149 +119,100 @@ export const dialogRules = [
         top: '0 !important',
         left: '0 !important'
       }
-    }
-  ],
-  [
-    /^q-dialog__inner--bottom$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__inner--bottom`,
         'align-self': 'flex-end',
         'padding-top': '0 !important',
         'padding-bottom': '0 !important'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:not(.q-dialog__inner--animating)>div`,
+        [symbols.selector]: (selector) =>
+          `${selector}__inner--bottom:not(.q-dialog__inner--animating)>div`,
         'border-bottom-left-radius': '0',
         'border-bottom-right-radius': '0'
       }
-    }
-  ],
-  [
-    /^q-dialog__inner--top$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__inner--top`,
         'align-self': 'flex-start',
         'padding-top': '0 !important',
         'padding-bottom': '0 !important'
       }
-    }
-  ],
-  [
-    /^q-dialog__inner--left$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__inner--left`,
         'justify-self': 'flex-start',
         'padding-top': '0 !important',
         'padding-bottom': '0 !important'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:not(.q-dialog__inner--animating)>div`,
+        [symbols.selector]: (selector) =>
+          `${selector}__inner--left:not(.q-dialog__inner--animating)>div`,
         'border-top-left-radius': '0',
         'border-bottom-left-radius': '0'
       }
-    }
-  ],
-  [
-    /^q-dialog__inner--right$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__inner--right`,
         'justify-self': 'flex-end',
         'padding-top': '0 !important',
         'padding-bottom': '0 !important'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:not(.q-dialog__inner--animating)>div`,
+        [symbols.selector]: (selector) =>
+          `${selector}__inner--right:not(.q-dialog__inner--animating)>div`,
         'border-top-right-radius': '0',
         'border-bottom-right-radius': '0'
       }
-    }
-  ],
-  [
-    /^q-dialog__inner--center$/,
-    () => ({
-      'align-self': 'center'
-    })
-  ],
-  [
-    /^q-dialog__inner--full$/,
-    () => ({
-      'max-width': '100vw',
-      'max-height': '100vh',
-      'border-radius': '0'
-    })
-  ],
-  [
-    /^q-dialog--modal$/,
-    () => ({
-      // Modal dialog
-    })
-  ],
-  [
-    /^q-dialog--seamless$/,
-    () => ({
-      // Seamless dialog
-    })
-  ],
-  [
-    /^q-dialog--inner$/,
-    () => ({
-      // Inner dialog
-    })
-  ],
-  [
-    /^q-dialog__title$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__inner--center`,
+        'align-self': 'center'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__inner--full`,
+        'max-width': '100vw',
+        'max-height': '100vh',
+        'border-radius': '0'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--modal`
+        // Modal dialog
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--seamless`
+        // Seamless dialog
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--inner`
+        // Inner dialog
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__title`,
         'font-size': '1.25rem',
         'font-weight': '500',
         'line-height': '1.75rem',
         'letter-spacing': '0.0125em'
       }
-    }
-  ],
-  [
-    /^q-dialog__progress$/,
-    function* () {
-      yield { 'font-size': '4rem' }
-    }
-  ],
-  [
-    /^q-dialog__inner--square$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel}>div`,
+        [symbols.selector]: (selector) => `${selector}__progress`,
+        'font-size': '4rem'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__inner--square>div`,
         'border-radius': '0 !important'
       }
-    }
-  ],
-  [
-    /^q-dialog__inner--minimized$/,
-    function* (_, { symbols }) {
-      yield { padding: '24px' }
       yield {
-        [symbols.selector]: (sel) => `${sel}>div`,
+        [symbols.selector]: (selector) => `${selector}__inner--minimized`,
+        padding: '24px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__inner--minimized>div`,
         'max-height': 'calc(100vh - 48px)'
       }
-    }
-  ],
-  [
-    /^q-dialog__inner--fullwidth$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel}>div`,
+        [symbols.selector]: (selector) => `${selector}__inner--fullwidth>div`,
         width: '100% !important',
         'max-width': '100% !important'
       }
-    }
-  ],
-  [
-    /^q-dialog__inner--fullheight$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel}>div`,
+        [symbols.selector]: (selector) => `${selector}__inner--fullheight>div`,
         height: '100% !important',
         'max-height': '100% !important'
       }
@@ -279,6 +221,7 @@ export const dialogRules = [
   [
     /^q-dialog-plugin$/,
     function* (_, { symbols }) {
+      // .q-dialog-plugin
       yield {
         width: '400px',
         // Reference `.q-dialog-plugin { min-width: 280px }`: below that the
@@ -286,31 +229,27 @@ export const dialogRules = [
         'min-width': '280px'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-card__section + .q-card__section`,
+        [symbols.selector]: (selector) =>
+          `${selector} .q-card__section + .q-card__section`,
         'padding-top': '0'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__form`,
+        'max-height': '50vh'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--progress`,
+        'text-align': 'center'
       }
     }
   ],
   [
-    /^q-dialog-plugin__form$/,
-    function* () {
-      yield { 'max-height': '50vh' }
-    }
-  ],
-  [
-    /^q-dialog-plugin--progress$/,
-    function* () {
-      yield { 'text-align': 'center' }
-    }
-  ],
-  [
-    // QBottomSheet renders `q-dialog q-bottom-sheet`; the reference overrides the
-    // unstyled entry for it, and that override has no other owner in `src/`.
     /^q-bottom-sheet$/,
     function* (_, { symbols }) {
+      // .q-bottom-sheet
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }

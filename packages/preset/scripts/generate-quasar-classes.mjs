@@ -213,7 +213,14 @@ for (const entry of fs.readdirSync(componentsDir, { withFileTypes: true })) {
  * The classes Quasar applies without a component being named: its stylesheets,
  * plugins (Notify, Loading, LoadingBar) and directives.
  */
-const globalDirs = ['css', 'directives', 'plugins', 'composables', 'utils']
+const globalDirs = [
+  'css',
+  'directives',
+  'platform',
+  'plugins',
+  'composables',
+  'utils'
+]
   .map((dir) => path.join(quasarRoot, 'src', dir))
   .filter((dir) => fs.existsSync(dir))
 const globalClasses = classesIn(globalDirs.flatMap((dir) => walk(dir))).filter(

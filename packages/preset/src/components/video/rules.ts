@@ -4,6 +4,7 @@ export const videoRules = [
   [
     /^q-video$/,
     function* (_, { symbols }) {
+      // .q-video
       yield {
         // Reference `.q-video { border-radius: inherit; position: relative;
         // overflow: hidden }` — the video inherits the corner of whatever hosts
@@ -12,47 +13,49 @@ export const videoRules = [
         position: 'relative',
         overflow: 'hidden'
       }
-      // Reference `.q-video embed`, `.q-video iframe`, `.q-video object`: the
-      // embedded document fills the box.
-      for (const tag of ['iframe', 'object', 'embed']) {
-        yield {
-          [symbols.selector]: (sel) => `${sel} ${tag}`,
-          width: '100%',
-          height: '100%'
-        }
-      }
-      // Reference `body.quasar-style-unstyled .q-video`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) => `${selector} iframe`,
+        width: '100%',
+        height: '100%'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector} object`,
+        width: '100%',
+        height: '100%'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector} embed`,
+        width: '100%',
+        height: '100%'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-    }
-  ],
-  [
-    /^q-video--ratio$/,
-    () => ({
-      // Ratio
-    })
-  ],
-  [
-    /^q-video--responsive$/,
-    function* (_, { symbols }) {
-      yield { height: '0' }
       yield {
-        [symbols.selector]: (sel) => `${sel} iframe`,
+        [symbols.selector]: (selector) => `${selector}--ratio`
+        // Ratio
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--responsive`,
+        height: '0'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--responsive iframe`,
         position: 'absolute',
         top: '0',
         left: '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} object`,
+        [symbols.selector]: (selector) => `${selector}--responsive object`,
         position: 'absolute',
         top: '0',
         left: '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} embed`,
+        [symbols.selector]: (selector) => `${selector}--responsive embed`,
         position: 'absolute',
         top: '0',
         left: '0'

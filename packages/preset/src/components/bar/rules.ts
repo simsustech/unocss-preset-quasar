@@ -4,6 +4,7 @@ export const barRules = [
   [
     /^q-bar$/,
     function* (_, { symbols }) {
+      // .q-bar
       yield {
         display: 'flex',
         'align-items': 'center',
@@ -18,42 +19,42 @@ export const barRules = [
         color: 'var(--q-on-surface)',
         gap: 'var(--q-space-sm)'
       }
-      // Reference `.q-bar > …`: every child is offset from its left neighbour by
-      // 2px (buttons/icons) or 8px (text), and the first child has no offset.
-      for (const child of ['.q-btn', '.q-icon']) {
-        yield {
-          [symbols.selector]: (sel) => `${sel}>${child}`,
-          'margin-left': '2px'
-        }
-        yield {
-          [symbols.selector]: (sel) => `${sel}>${child}:first-child`,
-          'margin-left': 'calc(var(--spacing) * 0)'
-        }
+      yield {
+        [symbols.selector]: (selector) => `${selector}>.q-btn`,
+        'margin-left': '2px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}>div`,
-        'margin-left': '8px'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel}>div:first-child`,
+        [symbols.selector]: (selector) => `${selector}>.q-btn:first-child`,
         'margin-left': 'calc(var(--spacing) * 0)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}>div+.q-icon`,
+        [symbols.selector]: (selector) => `${selector}>.q-icon`,
+        'margin-left': '2px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}>.q-icon:first-child`,
+        'margin-left': 'calc(var(--spacing) * 0)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}>div`,
         'margin-left': '8px'
       }
-      // Reference `body.quasar-style-unstyled .q-bar`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) => `${selector}>div:first-child`,
+        'margin-left': 'calc(var(--spacing) * 0)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}>div+.q-icon`,
+        'margin-left': '8px'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-    }
-  ],
-  [
-    /^q-bar--dense$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--dense`,
         // Reference `.q-bar--dense`: 14px type, 24px track, no block padding.
         'font-size': '14px',
         'padding-inline': '8px',
@@ -62,27 +63,19 @@ export const barRules = [
         'min-height': '24px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-btn`,
+        [symbols.selector]: (selector) => `${selector}--dense .q-btn`,
         'font-size': '8px'
       }
-    }
-  ],
-  [
-    /^q-bar--dark$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}--dark`,
         // Dark roles rather than the `--q-*` aliases, which follow the body
         // class: a `q-bar--dark` on a light body kept the light surface.
         'background-color': 'var(--dark-surface-container)',
         color:
           'color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)'
       }
-    }
-  ],
-  [
-    /^q-bar--standard$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--standard`,
         // Reference `.q-bar--standard`: 18px type, 32px track, 12px inline.
         'font-size': '18px',
         'padding-inline': '12px',
@@ -90,11 +83,11 @@ export const barRules = [
         height: '32px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}>div`,
+        [symbols.selector]: (selector) => `${selector}--standard>div`,
         'font-size': '16px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-btn`,
+        [symbols.selector]: (selector) => `${selector}--standard .q-btn`,
         'font-size': '11px'
       }
     }

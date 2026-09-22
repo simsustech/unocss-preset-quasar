@@ -10,14 +10,20 @@ import type { Rule } from '@unocss/core'
  * (`QDrawer`'s `width`, `QMenu`'s `min-width`) is written inline by the runtime.
  */
 export const panelParentRules = [
-  [/^q-panel-parent$/, () => ({ position: 'relative', overflow: 'hidden' })],
+  [
+    /^q-panel-parent$/,
+    function* (_, { symbols }) {
+      // .q-panel-parent
+      yield { position: 'relative', overflow: 'hidden' }
+    }
+  ],
   [
     /^q-panel$/,
     function* (_, { symbols }) {
+      // .q-panel
       yield { height: '100%', width: '100%' }
-      // Reference `.q-panel>div` (written without a space in the bundle).
       yield {
-        [symbols.selector]: (sel) => `${sel}>div`,
+        [symbols.selector]: (selector) => `${selector}>div`,
         height: '100%',
         width: '100%'
       }

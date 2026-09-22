@@ -8,16 +8,22 @@ export const tabPanelsRules = [
   [
     /^q-tab-panels$/,
     function* (_, { symbols }) {
+      // .q-tab-panels
       yield { 'background-color': 'inherit' }
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
     }
   ],
-  // --- Reference parity: every panel keeps the 16px gutter ---
-  [/^q-tab-panel$/, () => ({ padding: '16px' })],
-  // --- Reference parity: every panel keeps the 16px gutter ---
-  [/^q-tab-panel$/, () => ({ padding: '16px' })]
+  [
+    /^q-tab-panel$/,
+    function* (_, { symbols }) {
+      // .q-tab-panel
+      yield { padding: '16px' }
+      yield { padding: '16px' }
+    }
+  ]
 ] as Rule[]

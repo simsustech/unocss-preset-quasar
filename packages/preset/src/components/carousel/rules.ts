@@ -4,6 +4,7 @@ export const carouselRules = [
   [
     /^q-carousel$/,
     function* (_, { symbols }) {
+      // .q-carousel
       yield {
         position: 'relative',
         overflow: 'hidden',
@@ -12,16 +13,12 @@ export const carouselRules = [
         'background-color':
           'color-mix(in oklab, var(--light-surface) var(--un-bg-opacity), transparent)'
       }
-      // Reference `.q-carousel .q-carousel--padding { padding: 16px }` — the
-      // padding modifier is a *descendant* of the carousel in the bundle.
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
+        [symbols.selector]: (selector) => `${selector} .q-carousel--padding`,
         padding: '16px'
       }
-      // Reference `.q-carousel .q-carousel__thumbnail` family: the strip of
-      // preview frames under the slides.
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-carousel__thumbnail`,
+        [symbols.selector]: (selector) => `${selector} .q-carousel__thumbnail`,
         margin: '2px',
         'vertical-align': 'middle',
         'border-style': 'solid',
@@ -36,77 +33,61 @@ export const carouselRules = [
         transition: 'opacity 0.3s'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-carousel__thumbnail--active`,
+        [symbols.selector]: (selector) =>
+          `${selector} .q-carousel__thumbnail--active`,
         'border-color': 'currentColor',
         opacity: '100%',
         cursor: 'default'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-carousel__thumbnail:hover`,
+        [symbols.selector]: (selector) =>
+          `${selector} .q-carousel__thumbnail:hover`,
         opacity: '100%'
       }
-      // Reference `body.quasar-style-unstyled .q-carousel`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-    }
-  ],
-  [
-    /^q-carousel--dark$/,
-    () => ({
-      // Dark mode
-    })
-  ],
-  [
-    /^q-carousel--arrows$/,
-    () => ({
-      // Show arrows
-    })
-  ],
-  [
-    /^q-carousel--navigation$/,
-    () => ({
-      // Show navigation
-    })
-  ],
-  [
-    /^q-carousel--padding$/,
-    () => ({
-      padding: 'var(--q-space-md)'
-    })
-  ],
-  [
-    /^q-carousel--vertical$/,
-    () => ({
-      // Vertical layout
-    })
-  ],
-  [
-    /^q-carousel--fullscreen$/,
-    () => ({
-      position: 'fixed',
-      inset: 0,
-      'z-index': 6000
-    })
-  ],
-  [
-    /^q-carousel__slide$/,
-    () => ({
-      'min-height': '100%',
-      // Reference `.q-carousel__slide { background-position: 50%; height: 400px;
-      // background-size: cover; background-repeat: no-repeat }`.
-      'background-position': '50%',
-      height: '400px',
-      'background-size': 'cover',
-      'background-repeat': 'no-repeat'
-    })
-  ],
-  [
-    /^q-carousel__navigation$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--dark`
+        // Dark mode
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--arrows`
+        // Show arrows
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--navigation`
+        // Show navigation
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--padding`,
+        padding: 'var(--q-space-md)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--vertical`
+        // Vertical layout
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--fullscreen`,
+        position: 'fixed',
+        inset: 0,
+        'z-index': 6000
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__slide`,
+        'min-height': '100%',
+        // Reference `.q-carousel__slide { background-position: 50%; height: 400px;
+        // background-size: cover; background-repeat: no-repeat }`.
+        'background-position': '50%',
+        height: '400px',
+        'background-size': 'cover',
+        'background-repeat': 'no-repeat'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__navigation`,
         position: 'absolute',
         bottom: 'var(--q-space-sm)',
         left: '50%',
@@ -114,146 +95,104 @@ export const carouselRules = [
         display: 'flex',
         gap: 'var(--q-space-xs)'
       }
-      // Reference `.q-carousel__navigation .q-btn`.
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-btn`,
+        [symbols.selector]: (selector) => `${selector}__navigation .q-btn`,
         'margin-inline': '4px',
         'margin-block': '6px',
         padding: '5px'
       }
-    }
-  ],
-  [
-    /^q-carousel__navigation-icon$/,
-    () => ({
-      width: '8px',
-      height: '8px',
-      'border-radius': '50%',
-      'background-color': 'rgba(255, 255, 255, 0.5)',
-      cursor: 'pointer',
-      transition:
-        'background-color var(--q-duration-short) var(--q-easing-standard)'
-    })
-  ],
-  [
-    /^q-carousel__navigation-icon--active$/,
-    () => ({
-      'background-color': 'var(--q-primary)'
-    })
-  ],
-  [
-    /^q-carousel__next$/,
-    () => ({
-      position: 'absolute',
-      right: 'var(--q-space-sm)',
-      top: '50%',
-      transform: 'translateY(-50%)'
-    })
-  ],
-  [
-    /^q-carousel__prev$/,
-    () => ({
-      position: 'absolute',
-      left: 'var(--q-space-sm)',
-      top: '50%',
-      transform: 'translateY(-50%)'
-    })
-  ],
-  [
-    /^q-carousel__control$/,
-    () => ({
-      // Reference `.q-carousel__control { color: color-mix(in oklab, #fff …) }`.
-      color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)'
-    })
-  ],
-  [
-    /^q-carousel__slides-container$/,
-    function* () {
-      yield { height: '100%' }
-    }
-  ],
-  [
-    /^q-carousel__arrow$/,
-    function* (_, { symbols }) {
-      yield { 'pointer-events': 'none' }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-icon`,
+        [symbols.selector]: (selector) => `${selector}__navigation-icon`,
+        width: '8px',
+        height: '8px',
+        'border-radius': '50%',
+        'background-color': 'rgba(255, 255, 255, 0.5)',
+        cursor: 'pointer',
+        transition:
+          'background-color var(--q-duration-short) var(--q-easing-standard)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__navigation-icon--active`,
+        'background-color': 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__next`,
+        position: 'absolute',
+        right: 'var(--q-space-sm)',
+        top: '50%',
+        transform: 'translateY(-50%)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__prev`,
+        position: 'absolute',
+        left: 'var(--q-space-sm)',
+        top: '50%',
+        transform: 'translateY(-50%)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__control`,
+        // Reference `.q-carousel__control { color: color-mix(in oklab, #fff …) }`.
+        color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__slides-container`,
+        height: '100%'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__arrow`,
+        'pointer-events': 'none'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__arrow .q-icon`,
         'font-size': '28px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-btn`,
+        [symbols.selector]: (selector) => `${selector}__arrow .q-btn`,
         'pointer-events': 'all'
       }
-    }
-  ],
-  [
-    /^q-carousel__prev-arrow--horizontal$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__prev-arrow--horizontal`,
         top: '16px',
         bottom: '16px',
         left: '16px'
       }
-    }
-  ],
-  [
-    /^q-carousel__next-arrow--horizontal$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__next-arrow--horizontal`,
         top: '16px',
         bottom: '16px',
         right: '16px'
       }
-    }
-  ],
-  [
-    /^q-carousel__prev-arrow--vertical$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__prev-arrow--vertical`,
         left: '16px',
         right: '16px',
         top: '16px'
       }
-    }
-  ],
-  [
-    /^q-carousel__next-arrow--vertical$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__next-arrow--vertical`,
         left: '16px',
         right: '16px',
         bottom: '16px'
       }
-    }
-  ],
-  [
-    /^q-carousel__navigation--top$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__navigation--top`,
         left: '16px',
         right: '16px',
         'overflow-x': 'auto',
         'overflow-y': 'hidden',
         top: '16px'
       }
-    }
-  ],
-  [
-    /^q-carousel__navigation--bottom$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__navigation--bottom`,
         left: '16px',
         right: '16px',
         'overflow-x': 'auto',
         'overflow-y': 'hidden',
         bottom: '16px'
       }
-    }
-  ],
-  [
-    /^q-carousel__navigation--left$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__navigation--left`,
         top: '16px',
         bottom: '16px',
         'overflow-x': 'hidden',
@@ -261,15 +200,12 @@ export const carouselRules = [
         left: '16px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-carousel__navigation-inner`,
+        [symbols.selector]: (selector) =>
+          `${selector}__navigation--left > .q-carousel__navigation-inner`,
         'flex-direction': 'column'
       }
-    }
-  ],
-  [
-    /^q-carousel__navigation--right$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__navigation--right`,
         top: '16px',
         bottom: '16px',
         'overflow-x': 'hidden',
@@ -277,121 +213,97 @@ export const carouselRules = [
         right: '16px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-carousel__navigation-inner`,
+        [symbols.selector]: (selector) =>
+          `${selector}__navigation--right > .q-carousel__navigation-inner`,
         'flex-direction': 'column'
       }
-    }
-  ],
-  [
-    /^q-carousel__navigation-inner$/,
-    function* () {
-      yield { flex: '1 1 auto' }
-    }
-  ],
-  [
-    /^q-carousel__navigation-icon--inactive$/,
-    function* () {
-      yield { opacity: '0.7' }
-    }
-  ],
-  [
-    /^q-carousel--navigation-top$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}.q-carousel--with-padding .q-carousel__slide`,
+        [symbols.selector]: (selector) => `${selector}__navigation-inner`,
+        flex: '1 1 auto'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__navigation-icon--inactive`,
+        opacity: '0.7'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--navigation-top.q-carousel--with-padding .q-carousel__slide`,
         'padding-top': '60px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
-        'padding-top': '60px'
-      }
-    }
-  ],
-  [
-    /^q-carousel--arrows-vertical$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel}.q-carousel--with-padding .q-carousel__slide`,
+        [symbols.selector]: (selector) =>
+          `${selector}--navigation-top .q-carousel--padding`,
         'padding-top': '60px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
+        [symbols.selector]: (selector) =>
+          `${selector}--arrows-vertical.q-carousel--with-padding .q-carousel__slide`,
         'padding-top': '60px'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}.q-carousel--with-padding .q-carousel__slide`,
+        [symbols.selector]: (selector) =>
+          `${selector}--arrows-vertical .q-carousel--padding`,
+        'padding-top': '60px'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--arrows-vertical.q-carousel--with-padding .q-carousel__slide`,
         'padding-bottom': '60px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
-        'padding-bottom': '60px'
-      }
-    }
-  ],
-  [
-    /^q-carousel--navigation-bottom$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel}.q-carousel--with-padding .q-carousel__slide`,
+        [symbols.selector]: (selector) =>
+          `${selector}--arrows-vertical .q-carousel--padding`,
         'padding-bottom': '60px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
+        [symbols.selector]: (selector) =>
+          `${selector}--navigation-bottom.q-carousel--with-padding .q-carousel__slide`,
         'padding-bottom': '60px'
       }
-    }
-  ],
-  [
-    /^q-carousel--navigation-left$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}.q-carousel--with-padding .q-carousel__slide`,
+        [symbols.selector]: (selector) =>
+          `${selector}--navigation-bottom .q-carousel--padding`,
+        'padding-bottom': '60px'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--navigation-left.q-carousel--with-padding .q-carousel__slide`,
         'padding-left': '60px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
-        'padding-left': '60px'
-      }
-    }
-  ],
-  [
-    /^q-carousel--arrows-horizontal$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel}.q-carousel--with-padding .q-carousel__slide`,
+        [symbols.selector]: (selector) =>
+          `${selector}--navigation-left .q-carousel--padding`,
         'padding-left': '60px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
+        [symbols.selector]: (selector) =>
+          `${selector}--arrows-horizontal.q-carousel--with-padding .q-carousel__slide`,
         'padding-left': '60px'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}.q-carousel--with-padding .q-carousel__slide`,
+        [symbols.selector]: (selector) =>
+          `${selector}--arrows-horizontal .q-carousel--padding`,
+        'padding-left': '60px'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--arrows-horizontal.q-carousel--with-padding .q-carousel__slide`,
         'padding-right': '60px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
-        'padding-right': '60px'
-      }
-    }
-  ],
-  [
-    /^q-carousel--navigation-right$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel}.q-carousel--with-padding .q-carousel__slide`,
+        [symbols.selector]: (selector) =>
+          `${selector}--arrows-horizontal .q-carousel--padding`,
         'padding-right': '60px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-carousel--padding`,
+        [symbols.selector]: (selector) =>
+          `${selector}--navigation-right.q-carousel--with-padding .q-carousel__slide`,
+        'padding-right': '60px'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--navigation-right .q-carousel--padding`,
         'padding-right': '60px'
       }
     }

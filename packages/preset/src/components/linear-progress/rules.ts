@@ -4,6 +4,7 @@ export const linearProgressRules = [
   [
     /^q-linear-progress$/,
     function* (_, { symbols }) {
+      // .q-linear-progress
       yield {
         // Reference `.q-linear-progress { font-size: 4px; … height: 1em }`: the
         // bar's thickness is em-based so a taller bar only needs `font-size`.
@@ -19,66 +20,47 @@ export const linearProgressRules = [
         'background-color': 'var(--q-surface-container-highest)'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}`,
         color: 'var(--q-primary)'
       }
       yield {
         [symbols.selector]: () => '.body--dark .q-linear-progress__track',
         'background-color': 'var(--q-surface-container-highest)'
       }
-      // Reference `body.quasar-style-unstyled .q-linear-progress`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-    }
-  ],
-  [
-    /^q-linear-progress--dark$/,
-    () => ({
-      'background-color': 'var(--q-surface-variant)'
-    })
-  ],
-  [
-    /^q-linear-progress--reverse$/,
-    function* (_, { symbols }) {
-      // Reference turns both the model and the track around; the preset only
-      // flipped nothing at all, so a reversed bar grew from the right when it
-      // should have grown from the left.
-      for (const part of [
-        '.q-linear-progress__model',
-        '.q-linear-progress__track'
-      ]) {
-        yield {
-          [symbols.selector]: (sel) => `${sel} ${part}`,
-          'transform-origin': '0 100%'
-        }
-      }
-    }
-  ],
-  [
-    /^q-linear-progress--rounded$/,
-    () => ({
-      // Rounded
-    })
-  ],
-  [
-    /^q-linear-progress--stripe$/,
-    () => ({
-      // Stripe
-    })
-  ],
-  [
-    /^q-linear-progress--striped$/,
-    () => ({
-      // Striped
-    })
-  ],
-  [
-    /^q-linear-progress__track$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--dark`,
+        'background-color': 'var(--q-surface-variant)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--reverse .q-linear-progress__model`,
+        'transform-origin': '0 100%'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--reverse .q-linear-progress__track`,
+        'transform-origin': '0 100%'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--rounded`
+        // Rounded
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--stripe`
+        // Stripe
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--striped`
+        // Striped
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__track`,
         position: 'absolute',
         inset: '0',
         'transform-origin': '0 0',
@@ -86,37 +68,62 @@ export const linearProgressRules = [
         // the whole rail with the accent colour.
         'background-color': 'var(--q-surface-container-highest)'
       }
-      // The per-scheme variants the reference states name the role directly.
       yield {
-        [symbols.selector]: (sel) => `${sel}--light`,
+        [symbols.selector]: (selector) => `${selector}__track--light`,
         'background-color': 'var(--light-surface-container-highest)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--dark`,
+        [symbols.selector]: (selector) => `${selector}__track--dark`,
         'background-color': 'var(--dark-surface-container-highest)'
       }
-    }
-  ],
-  [
-    /^q-linear-progress__model$/,
-    () => ({
-      // Reference `.q-linear-progress__model { transform-origin: 0 0 }`.
-      'transform-origin': '0 0'
-    })
-  ],
-  [
-    // One matcher per regex: the three entries this replaces were merged by
-    // `mergeDuplicateRules`, but the merge put their combined declarations before
-    // the scoped yields, which reordered the emitted blocks.
-    /^q-linear-progress__model--indeterminate$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__model`,
+        // Reference `.q-linear-progress__model { transform-origin: 0 0 }`.
+        'transform-origin': '0 0'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__model--with-transition`,
+        transition: 'transform var(--q-linear-progress-speed)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__track--with-transition`,
+        transition: 'transform var(--q-linear-progress-speed)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__model--determinate`,
+        'background-color': 'currentColor'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__model--query`,
+        transition: 'none'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__track--light`,
+        background: 'rgba(0, 0, 0, 0.26)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__track--dark`,
+        background: 'rgba(255, 255, 255, 0.6)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__stripe`,
+        'background-image':
+          'linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0)) !important',
+        'background-size': '40px 40px !important'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__stripe--with-transition`,
+        transition: 'width var(--q-linear-progress-speed)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__model--indeterminate`,
         // Reference `.q-linear-progress__model--indeterminate { transition: none }`.
         transition: 'none'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:before, ${sel}:after, .q-linear-progress__model--query:before, .q-linear-progress__model--query:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}__model--indeterminate:before, ${selector}__model--indeterminate:after, .q-linear-progress__model--query:before, .q-linear-progress__model--query:after`,
         'background-color': 'currentColor',
         content: '""',
         position: 'absolute',
@@ -127,71 +134,19 @@ export const linearProgressRules = [
         'transform-origin': '0 0'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:before, .q-linear-progress__model--query:before`,
+        [symbols.selector]: (selector) =>
+          `${selector}__model--indeterminate:before, .q-linear-progress__model--query:before`,
         animation:
           'q-linear-progress--indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:after, .q-linear-progress__model--query:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}__model--indeterminate:after, .q-linear-progress__model--query:after`,
         transform: 'translate3d(-101%, 0, 0) scale3d(1, 1, 1)',
         animation:
           'q-linear-progress--indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite',
         'animation-delay': '1.15s'
       }
-    }
-  ],
-  [
-    /^q-linear-progress__model--with-transition$/,
-    function* () {
-      yield { transition: 'transform var(--q-linear-progress-speed)' }
-    }
-  ],
-  [
-    /^q-linear-progress__track--with-transition$/,
-    function* () {
-      yield { transition: 'transform var(--q-linear-progress-speed)' }
-    }
-  ],
-  [
-    /^q-linear-progress__model--determinate$/,
-    function* () {
-      yield { 'background-color': 'currentColor' }
-    }
-  ],
-  [
-    /^q-linear-progress__model--query$/,
-    function* () {
-      yield { transition: 'none' }
-    }
-  ],
-  [
-    /^q-linear-progress__track--light$/,
-    function* () {
-      yield { background: 'rgba(0, 0, 0, 0.26)' }
-    }
-  ],
-  [
-    /^q-linear-progress__track--dark$/,
-    function* () {
-      yield { background: 'rgba(255, 255, 255, 0.6)' }
-    }
-  ],
-  [
-    /^q-linear-progress__stripe$/,
-    function* () {
-      yield {
-        'background-image':
-          'linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0)) !important',
-        'background-size': '40px 40px !important'
-      }
-    }
-  ],
-  [
-    /^q-linear-progress__stripe--with-transition$/,
-    function* () {
-      yield { transition: 'width var(--q-linear-progress-speed)' }
     }
   ]
 ] as Rule[]

@@ -4,6 +4,7 @@ export const markupTableRules: Rule[] = [
   [
     /^q-markup-table$/,
     function* (_, { symbols }) {
+      // .q-markup-table
       yield {
         'border-collapse': 'collapse',
         'border-spacing': '0',
@@ -17,12 +18,12 @@ export const markupTableRules: Rule[] = [
           'color-mix(in oklab, var(--light-surface-container) var(--un-bg-opacity), transparent)'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}`,
         color: 'var(--q-on-surface)'
       }
-      // Reference `body.quasar-style-unstyled .q-markup-table`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }

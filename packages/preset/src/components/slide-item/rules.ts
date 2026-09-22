@@ -4,23 +4,20 @@ export const slideItemRules = [
   [
     /^q-slide-item$/,
     function* (_, { symbols }) {
+      // .q-slide-item
       yield { position: 'relative', background: 'white' }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}`,
         'background-color': 'var(--q-surface)'
       }
-      // Reference `body.quasar-style-unstyled .q-slide-item`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-    }
-  ],
-  [
-    /^q-slide-item__left$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__left`,
         visibility: 'hidden',
         'font-size': '14px',
         color: '#fff',
@@ -30,19 +27,15 @@ export const slideItemRules = [
         'padding-block': '8px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-icon`,
+        [symbols.selector]: (selector) => `${selector}__left .q-icon`,
         'font-size': '1.714em'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div`,
+        [symbols.selector]: (selector) => `${selector}__left > div`,
         'transform-origin': 'left center'
       }
-    }
-  ],
-  [
-    /^q-slide-item__right$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__right`,
         visibility: 'hidden',
         'font-size': '14px',
         color: '#fff',
@@ -51,19 +44,15 @@ export const slideItemRules = [
         'padding-block': '8px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-icon`,
+        [symbols.selector]: (selector) => `${selector}__right .q-icon`,
         'font-size': '1.714em'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div`,
+        [symbols.selector]: (selector) => `${selector}__right > div`,
         'transform-origin': 'right center'
       }
-    }
-  ],
-  [
-    /^q-slide-item__top$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__top`,
         visibility: 'hidden',
         'font-size': '14px',
         color: '#fff',
@@ -72,19 +61,15 @@ export const slideItemRules = [
         'padding-block': '16px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-icon`,
+        [symbols.selector]: (selector) => `${selector}__top .q-icon`,
         'font-size': '1.714em'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div`,
+        [symbols.selector]: (selector) => `${selector}__top > div`,
         'transform-origin': 'top center'
       }
-    }
-  ],
-  [
-    /^q-slide-item__bottom$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__bottom`,
         visibility: 'hidden',
         'font-size': '14px',
         color: '#fff',
@@ -93,19 +78,15 @@ export const slideItemRules = [
         'padding-block': '16px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-icon`,
+        [symbols.selector]: (selector) => `${selector}__bottom .q-icon`,
         'font-size': '1.714em'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div`,
+        [symbols.selector]: (selector) => `${selector}__bottom > div`,
         'transform-origin': 'bottom center'
       }
-    }
-  ],
-  [
-    /^q-slide-item__content$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__content`,
         background: 'inherit',
         transition: 'transform 0.2s ease-in',
         'user-select': 'none',

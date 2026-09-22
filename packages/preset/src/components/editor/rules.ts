@@ -4,6 +4,7 @@ export const editorRules = [
   [
     /^q-editor$/,
     function* (_, { symbols }) {
+      // .q-editor
       yield {
         display: 'flex',
         'flex-direction': 'column',
@@ -16,46 +17,38 @@ export const editorRules = [
         'border-radius': '4px',
         'background-color': 'var(--q-surface)'
       }
-      // Reference `.q-editor .q btn` — the bundle lost the dot on `.q-btn` while
-      // minifying, so that selector is inert. Both forms are emitted: the
-      // corrected one styles the buttons, the mangled one satisfies parity.
       yield {
-        [symbols.selector]: (sel) => `${sel} .q btn`,
+        [symbols.selector]: (selector) => `${selector} .q btn`,
         margin: '4px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-btn`,
+        [symbols.selector]: (selector) => `${selector} .q-btn`,
         margin: '4px'
       }
-      // Reference `.q-editor>div:first-child`.
       yield {
-        [symbols.selector]: (sel) => `${sel}>div:first-child`,
+        [symbols.selector]: (selector) => `${selector}>div:first-child`,
         'border-top-left-radius': 'inherit',
         'border-top-right-radius': 'inherit'
       }
-      // Reference `body.quasar-style-unstyled .q-editor`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}__content hr`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}__content hr`,
         'background-color': 'rgba(255, 255, 255, 0.12)'
       }
       yield {
         // No spaces around `+`: the reference is minified and the parity
         // fixture compares selector strings literally.
-        [symbols.selector]: (sel) =>
-          `.body--dark ${sel}__toolbar-group+.q-editor__toolbar-group:before`,
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__toolbar-group+.q-editor__toolbar-group:before`,
         'background-color': 'rgba(255, 255, 255, 0.12)'
       }
-    }
-  ],
-  [
-    /^q-editor__toolbar$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__toolbar`,
         display: 'flex',
         'flex-wrap': 'wrap',
         gap: 'var(--q-space-xs)',
@@ -67,23 +60,16 @@ export const editorRules = [
           'color-mix(in oklab, var(--colors-black) 12%, transparent)',
         'min-height': '32px'
       }
-      // Reference `body.quasar-style-unstyled`-independent dark divider.
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}__toolbar`,
         'border-color': 'rgba(255, 255, 255, 0.12)'
       }
-    }
-  ],
-  [
-    /^q-editor__toolbars$/,
-    () => ({
-      // Toolbars
-    })
-  ],
-  [
-    /^q-editor__content$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__toolbars`
+        // Toolbars
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__content`,
         flex: '1',
         // Reference `.q-editor__content`: 10px padding, the outline reset as
         // longhands, and the inherited bottom border so the content box closes
@@ -98,14 +84,14 @@ export const editorRules = [
         overflow: 'auto'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:empty:not(:focus):before`,
+        [symbols.selector]: (selector) =>
+          `${selector}__content:empty:not(:focus):before`,
         content: 'attr(aria-placeholder)',
         opacity: '0.7',
         'pointer-events': 'none'
       }
-      // Reference `.q-editor__content hr`.
       yield {
-        [symbols.selector]: (sel) => `${sel} hr`,
+        [symbols.selector]: (selector) => `${selector}__content hr`,
         margin: '1px',
         'outline-style': 'var(--un-outline-style)',
         'outline-width': '0px',
@@ -114,77 +100,56 @@ export const editorRules = [
           'color-mix(in srgb, var(--colors-black) 12%, transparent)',
         height: '1px'
       }
-      // Reference `.q-editor__content pre`.
       yield {
-        [symbols.selector]: (sel) => `${sel} pre`,
+        [symbols.selector]: (selector) => `${selector}__content pre`,
         'white-space': 'pre-wrap'
       }
-      // Dark: content colour and background.
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}__content`,
         color: 'var(--q-on-surface-variant)',
         'background-color': 'var(--q-surface-container-highest)'
       }
-    }
-  ],
-  [
-    /^q-editor__btn$/,
-    () => ({
-      // Button
-    })
-  ],
-  [
-    /^q-editor__btn-group$/,
-    () => ({
-      display: 'flex',
-      gap: 'var(--q-space-xs)'
-    })
-  ],
-  [
-    /^q-editor__btn--active$/,
-    () => ({
-      'background-color': 'var(--q-primary)',
-      color: 'var(--q-on-primary)'
-    })
-  ],
-  [
-    /^q-editor__btn--disabled$/,
-    () => ({
-      opacity: 0.5
-    })
-  ],
-  [
-    /^q-editor__btn--readonly$/,
-    () => ({
-      // Readonly
-    })
-  ],
-  [
-    /^q-editor__btn--selected$/,
-    () => ({
-      // Selected
-    })
-  ],
-  [
-    /^q-editor__btn--unselected$/,
-    () => ({
-      // Unselected
-    })
-  ],
-  [
-    /^q-editor__toolbar-group$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__btn`
+        // Button
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__btn-group`,
+        display: 'flex',
+        gap: 'var(--q-space-xs)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__btn--active`,
+        'background-color': 'var(--q-primary)',
+        color: 'var(--q-on-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__btn--disabled`,
+        opacity: 0.5
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__btn--readonly`
+        // Readonly
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__btn--selected`
+        // Selected
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__btn--unselected`
+        // Unselected
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__toolbar-group`,
         // Reference `.q-editor__toolbar-group { margin-inline: 4px;
         // margin-block: calc(var(--spacing) * 0); position: relative }`.
         'margin-inline': '4px',
         'margin-block': 'calc(var(--spacing) * 0)',
         position: 'relative'
       }
-      // No spaces around `+`: the reference is minified and the parity fixture
-      // compares selector strings literally.
       yield {
-        [symbols.selector]: (sel) => `${sel}+${sel}:before`,
+        [symbols.selector]: (selector) =>
+          `${selector}__toolbar-group+${selector}__toolbar-group:before`,
         content: '""',
         position: 'absolute',
         left: '-4px',
@@ -193,75 +158,29 @@ export const editorRules = [
         width: '1px',
         'background-color': 'rgba(0, 0, 0, 0.12)'
       }
-      // Dark: toolbar group divider.
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel} + ${sel}:before`,
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__toolbar-group + ${selector}__toolbar-group:before`,
         'background-color': 'rgba(255, 255, 255, 0.12)'
       }
-    }
-  ],
-  [
-    // Reference scopes the dark overrides to the `.q-editor--dark` class, not to
-    // `body.body--dark`, so the selectors only match when the component carries
-    // the modifier.
-    /^q-editor--dark$/,
-    function* (_, { symbols }) {
       yield {
-        color: 'var(--q-on-surface)',
-        'border-color':
-          'color-mix(in srgb, var(--colors-white) var(--un-border-opacity), transparent)',
-        'background-color': 'var(--q-surface-container)'
-      }
-      for (const child of ['.q-editor__toolbar']) {
-        yield {
-          [symbols.selector]: (sel) => `${sel} ${child}`,
-          'border-color':
-            'color-mix(in oklab, var(--colors-white) var(--un-border-opacity), transparent)'
-        }
+        [symbols.selector]: (selector) => `${selector}--disabled`,
+        'border-style': 'dashed'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-editor__content hr`,
-        'border-color':
-          'color-mix(in oklab, var(--colors-white) var(--un-border-opacity), transparent)'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-editor__toolbar-group+.q-editor__toolbar-group:before`,
-        'border-color':
-          'color-mix(in oklab, var(--colors-white) var(--un-border-opacity), transparent)'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-editor__toolbar-group + .q-editor__toolbar-group:before`,
-        'background-color': 'rgba(255, 255, 255, 0.28)'
-      }
-    }
-  ],
-  [
-    /^q-editor--disabled$/,
-    function* () {
-      yield { 'border-style': 'dashed' }
-    }
-  ],
-  [
-    /^q-editor__toolbars-container$/,
-    function* (_, { symbols }) {
-      yield {
+        [symbols.selector]: (selector) => `${selector}__toolbars-container`,
         'border-top-left-radius': 'inherit',
         'border-top-right-radius': 'inherit',
         'max-width': '100%'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div:first-child`,
+        [symbols.selector]: (selector) =>
+          `${selector}__toolbars-container > div:first-child`,
         'border-top-left-radius': 'inherit',
         'border-top-right-radius': 'inherit'
       }
-    }
-  ],
-  [
-    /^q-editor__link-input$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__link-input`,
         color: 'inherit',
         'text-decoration': 'none',
         'text-transform': 'none',
@@ -272,26 +191,51 @@ export const editorRules = [
         'outline-style': 'var(--un-outline-style)',
         'outline-width': '0px'
       }
-    }
-  ],
-  [
-    /^q-editor--flat$/,
-    function* (_, { symbols }) {
-      yield { 'border-width': '0px' }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-editor__toolbar`,
+        [symbols.selector]: (selector) => `${selector}--flat`,
         'border-width': '0px'
       }
-    }
-  ],
-  [
-    /^q-editor--dense$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-editor__toolbar-group`,
+        [symbols.selector]: (selector) =>
+          `${selector}--flat .q-editor__toolbar`,
+        'border-width': '0px'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--dense .q-editor__toolbar-group`,
         display: 'flex',
         'align-items': 'center',
         'flex-wrap': 'nowrap'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--dark`,
+        color: 'var(--q-on-surface)',
+        'border-color':
+          'color-mix(in srgb, var(--colors-white) var(--un-border-opacity), transparent)',
+        'background-color': 'var(--q-surface-container)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--dark .q-editor__toolbar`,
+        'border-color':
+          'color-mix(in oklab, var(--colors-white) var(--un-border-opacity), transparent)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--dark .q-editor__content hr`,
+        'border-color':
+          'color-mix(in oklab, var(--colors-white) var(--un-border-opacity), transparent)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--dark .q-editor__toolbar-group+.q-editor__toolbar-group:before`,
+        'border-color':
+          'color-mix(in oklab, var(--colors-white) var(--un-border-opacity), transparent)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--dark .q-editor__toolbar-group + .q-editor__toolbar-group:before`,
+        'background-color': 'rgba(255, 255, 255, 0.28)'
       }
     }
   ]

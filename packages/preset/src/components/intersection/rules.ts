@@ -4,27 +4,24 @@ export const intersectionRules = [
   [
     /^q-intersection$/,
     function* (_, { symbols }) {
+      // .q-intersection
       yield {
         position: 'relative'
       }
-      // Reference `body.quasar-style-unstyled .q-intersection`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--once`
+        // Once
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--disable`
+        // Disable
+      }
     }
-  ],
-  [
-    /^q-intersection--once$/,
-    () => ({
-      // Once
-    })
-  ],
-  [
-    /^q-intersection--disable$/,
-    () => ({
-      // Disable
-    })
   ]
 ] as Rule[]

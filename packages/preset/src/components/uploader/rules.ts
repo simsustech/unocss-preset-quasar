@@ -24,6 +24,7 @@ export const uploaderRules = [
   [
     /^q-uploader$/,
     function* (_, { symbols }) {
+      // .q-uploader
       yield {
         display: 'flex',
         'flex-direction': 'column',
@@ -37,58 +38,46 @@ export const uploaderRules = [
         position: 'relative'
       }
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-    }
-  ],
-  [
-    /^q-uploader--dark$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--dark`,
         'border-color': darkBorder,
         'box-shadow': darkBoxShadow
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-uploader__dnd`,
+        [symbols.selector]: (selector) => `${selector}--dark .q-uploader__dnd`,
         'background-color':
           'color-mix(in oklab, rgba(255, 255, 255, 0.3) var(--un-bg-opacity), transparent)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-uploader__file`,
+        [symbols.selector]: (selector) => `${selector}--dark .q-uploader__file`,
         'border-color': darkBorder
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-uploader__overlay`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dark .q-uploader__overlay`,
         color: whiteText,
         'background-color':
           'color-mix(in oklab, rgba(255, 255, 255, 0.3) var(--un-bg-opacity), transparent)'
       }
-    }
-  ],
-  [
-    /^q-uploader--disabled$/,
-    () => ({
-      opacity: 0.5
-    })
-  ],
-  [
-    /^q-uploader--readonly$/,
-    () => ({
-      // Readonly
-    })
-  ],
-  [
-    /^q-uploader--square$/,
-    () => ({
-      'border-radius': '0'
-    })
-  ],
-  [
-    /^q-uploader__header$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--disabled`,
+        opacity: 0.5
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--readonly`
+        // Readonly
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--square`,
+        'border-radius': '0'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__header`,
         display: 'flex',
         'align-items': 'center',
         'justify-content': 'space-between',
@@ -100,37 +89,28 @@ export const uploaderRules = [
         position: 'relative'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-uploader__header-content`,
+        [symbols.selector]: (selector) =>
+          `${selector}__header .q-uploader__header-content`,
         padding: '8px'
       }
-    }
-  ],
-  [
-    /^q-uploader__header-content$/,
-    () => ({
-      padding: '8px'
-    })
-  ],
-  [
-    /^q-uploader__list$/,
-    () => ({
-      display: 'flex',
-      'flex-direction': 'column',
-      gap: 'var(--q-space-sm)',
-      padding: '8px',
-      flex: '1 1 auto',
-      'min-height': '60px',
-      'border-bottom-left-radius': 'inherit',
-      'border-bottom-right-radius': 'inherit',
-      position: 'relative'
-    })
-  ],
-  [
-    /^q-uploader__file$/,
-    function* (_, { symbols }) {
-      // The row's corners are asymmetric: the leading pair is rounded, the
-      // trailing pair square, matching the reference's longhands.
       yield {
+        [symbols.selector]: (selector) => `${selector}__header-content`,
+        padding: '8px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__list`,
+        display: 'flex',
+        'flex-direction': 'column',
+        gap: 'var(--q-space-sm)',
+        padding: '8px',
+        flex: '1 1 auto',
+        'min-height': '60px',
+        'border-bottom-left-radius': 'inherit',
+        'border-bottom-right-radius': 'inherit',
+        position: 'relative'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__file`,
         display: 'flex',
         'align-items': 'center',
         gap: 'var(--q-space-sm)',
@@ -143,7 +123,7 @@ export const uploaderRules = [
         'border-width': '1px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:before`,
+        [symbols.selector]: (selector) => `${selector}__file:before`,
         'background-color': 'currentColor',
         opacity: '0.04',
         'pointer-events': 'none',
@@ -157,75 +137,57 @@ export const uploaderRules = [
         position: 'absolute'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} + .q-uploader__file`,
+        [symbols.selector]: (selector) =>
+          `${selector}__file + .q-uploader__file`,
         'margin-top': '8px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-circular-progress`,
+        [symbols.selector]: (selector) =>
+          `${selector}__file .q-circular-progress`,
         'font-size': '24px'
       }
-    }
-  ],
-  [
-    /^q-uploader__add$/,
-    () => ({
-      // Add
-    })
-  ],
-  [
-    /^q-uploader__badge$/,
-    () => ({
-      // Badge
-    })
-  ],
-  [
-    /^q-uploader__btn$/,
-    () => ({
-      // Button
-    })
-  ],
-  [
-    /^q-uploader__clear$/,
-    () => ({
-      // Clear
-    })
-  ],
-  [
-    /^q-uploader__dnd$/,
-    () => ({
-      // `outline: 1px dashed currentColor` in the source bundle: the minifier
-      // folded the shorthand into `outline-color`, so the width/style are
-      // restated here and the colour longhand keeps the reference's shape.
-      'outline-color':
-        'color-mix(in oklab, 1px dashed currentColor var(--un-outline-opacity), transparent)',
-      'outline-width': '1px',
-      'outline-style': 'dashed',
-      'outline-offset': '-4px',
-      'background-color': dndSurface
-    })
-  ],
-  [
-    /^q-uploader__drop-zone$/,
-    () => ({
-      // Drop zone
-    })
-  ],
-  [
-    /^q-uploader__progress$/,
-    () => ({
-      // Progress
-    })
-  ],
-  [
-    /^q-uploader__status$/,
-    () => ({
-      // Status
-    })
-  ],
-  [
-    /^q-uploader__file--img$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__add`
+        // Add
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__badge`
+        // Badge
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__btn`
+        // Button
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__clear`
+        // Clear
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__dnd`,
+        // `outline: 1px dashed currentColor` in the source bundle: the minifier
+        // folded the shorthand into `outline-color`, so the width/style are
+        // restated here and the colour longhand keeps the reference's shape.
+        'outline-color':
+          'color-mix(in oklab, 1px dashed currentColor var(--un-outline-opacity), transparent)',
+        'outline-width': '1px',
+        'outline-style': 'dashed',
+        'outline-offset': '-4px',
+        'background-color': dndSurface
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__drop-zone`
+        // Drop zone
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__progress`
+        // Progress
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__status`
+        // Status
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__file--img`,
         color: whiteText,
         // The reference's own value is a mangled `color-mix` (`50% 50%` is not
         // a colour), so the declaration drops in the reference too.
@@ -236,36 +198,30 @@ export const uploaderRules = [
         'background-repeat': 'no-repeat'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:before`,
+        [symbols.selector]: (selector) => `${selector}__file--img:before`,
         content: 'none'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-circular-progress`,
+        [symbols.selector]: (selector) =>
+          `${selector}__file--img .q-circular-progress`,
         color: whiteText
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-uploader__file-header`,
+        [symbols.selector]: (selector) =>
+          `${selector}__file--img .q-uploader__file-header`,
         'padding-bottom': '24px',
         'background-image':
           'linear-gradient( to bottom, rgba(0, 0, 0, 0.7) 20%, rgba(255, 255, 255, 0) )'
       }
-    }
-  ],
-  [
-    /^q-uploader--bordered$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}--bordered`,
         'border-color':
           'color-mix(in oklab, rgba(0,0,0,0.12) var(--un-border-opacity), transparent)',
         'border-style': 'solid',
         'border-width': '1px'
       }
-    }
-  ],
-  [
-    /^q-uploader__input$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__input`,
         opacity: '0',
         width: '100%',
         height: '100%',
@@ -273,59 +229,45 @@ export const uploaderRules = [
         'z-index': '1'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}::file-selector-button`,
+        [symbols.selector]: (selector) =>
+          `${selector}__input::file-selector-button`,
         cursor: 'pointer'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}::-webkit-file-upload-button`,
+        [symbols.selector]: (selector) =>
+          `${selector}__input::-webkit-file-upload-button`,
         cursor: 'pointer !important'
       }
-    }
-  ],
-  [
-    /^q-uploader__spinner$/,
-    function* () {
-      yield { 'font-size': '24px', 'margin-right': '4px' }
-    }
-  ],
-  [
-    /^q-uploader__overlay$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__spinner`,
+        'font-size': '24px',
+        'margin-right': '4px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__overlay`,
         'font-size': '36px',
         color: '#000',
         'background-color': 'rgba(255, 255, 255, 0.6)'
       }
-    }
-  ],
-  [
-    /^q-uploader__file-header$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__file-header`,
         position: 'relative',
         'padding-inline': '8px',
         'padding-block': '4px',
         'border-top-left-radius': 'inherit',
         'border-top-right-radius': 'inherit'
       }
-    }
-  ],
-  [
-    /^q-uploader__file-header-content$/,
-    function* () {
-      yield { 'padding-right': '8px' }
-    }
-  ],
-  [
-    /^q-uploader__file-status$/,
-    function* () {
-      yield { 'font-size': '24px', 'margin-right': '4px' }
-    }
-  ],
-  [
-    /^q-uploader__title$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__file-header-content`,
+        'padding-right': '8px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__file-status`,
+        'font-size': '24px',
+        'margin-right': '4px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__title`,
         'font-size': '14px',
         // The gate resolves the reference's `var(--fontWeight-bold)` to its
         // numeric weight, so the literal is stated rather than `bold`.
@@ -333,23 +275,19 @@ export const uploaderRules = [
         'line-height': '1.285714',
         'word-break': 'break-word'
       }
-    }
-  ],
-  [
-    /^q-uploader__subtitle$/,
-    function* () {
-      yield { 'font-size': '12px', 'line-height': '1.5' }
-    }
-  ],
-  [
-    /^q-uploader--disable$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-uploader__header`,
+        [symbols.selector]: (selector) => `${selector}__subtitle`,
+        'font-size': '12px',
+        'line-height': '1.5'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--disable .q-uploader__header`,
         'pointer-events': 'none'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-uploader__list`,
+        [symbols.selector]: (selector) =>
+          `${selector}--disable .q-uploader__list`,
         'pointer-events': 'none'
       }
     }

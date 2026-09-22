@@ -37,7 +37,8 @@ describe('QList spec conformance', () => {
   })
 
   it('gives bordered lists a border', async () => {
-    const css = await cssFor('q-list--bordered')
+    // The family is covered by the root rule, so the root is the candidate.
+    const css = await cssFor('q-list q-list--bordered')
     // The reference states the border as longhands, so the port does too: the
     // gate compares the declaration it names, and a `border` shorthand would
     // leave `border-style`/`border-width` absent.

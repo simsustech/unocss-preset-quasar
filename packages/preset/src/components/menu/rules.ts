@@ -4,6 +4,7 @@ export const menuRules = [
   [
     /^q-menu$/,
     function* (_, { symbols }) {
+      // .q-menu
       yield {
         // Reference `.q-menu`: a fixed, scrollable popup surface. The preset used
         // to leave it `absolute` at z-index 9500, which pushed menus under
@@ -26,30 +27,26 @@ export const menuRules = [
         'overflow-x': 'hidden'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}`,
         color: 'var(--q-on-surface)'
       }
-      // Reference `body.quasar-style-unstyled .q-menu`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--square`,
+        'border-radius': '0'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--dark`,
+        'background-color': 'var(--q-surface-variant)',
+        // Reference overrides the elevation with the light-coloured shadow pair.
+        'box-shadow':
+          '0 1px 5px rgba(255, 255, 255, 0.2), 0 2px 2px rgba(255, 255, 255, 0.14), 0 3px 1px -2px rgba(255, 255, 255, 0.12)'
+      }
     }
-  ],
-  [
-    /^q-menu--square$/,
-    () => ({
-      'border-radius': '0'
-    })
-  ],
-  [
-    /^q-menu--dark$/,
-    () => ({
-      'background-color': 'var(--q-surface-variant)',
-      // Reference overrides the elevation with the light-coloured shadow pair.
-      'box-shadow':
-        '0 1px 5px rgba(255, 255, 255, 0.2), 0 2px 2px rgba(255, 255, 255, 0.14), 0 3px 1px -2px rgba(255, 255, 255, 0.12)'
-    })
   ]
 ] as Rule[]

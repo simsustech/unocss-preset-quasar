@@ -4,12 +4,14 @@ export const formRules = [
   [
     /^q-form$/,
     function* (_, { symbols }) {
+      // .q-form
       yield {
         display: 'flex',
         'flex-direction': 'column'
       }
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }

@@ -4,6 +4,7 @@ export const tooltipRules = [
   [
     /^q-tooltip$/,
     function* (_, { symbols }) {
+      // .q-tooltip
       yield {
         // Reference `.q-tooltip`: fixed and scrollable, with the tooltip's own
         // padding only up to 40rem — the smaller `padding-inline`/`padding-block`
@@ -28,24 +29,18 @@ export const tooltipRules = [
         [symbols.selector]: () => '.body--dark .q-tooltip--style',
         color: 'var(--q-inverse-on-surface)'
       }
-      // Reference `body.quasar-style-unstyled .q-tooltip`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-    }
-  ],
-  [
-    /^q-tooltip--dark$/,
-    () => ({
-      // Dark mode
-    })
-  ],
-  [
-    /^q-tooltip--style$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}--dark`
+        // Dark mode
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--style`,
         'font-size': '10px',
         color:
           'color-mix(in oklab, var(--light-inverse-on-surface) var(--un-text-opacity), transparent)',

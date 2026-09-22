@@ -27,6 +27,7 @@ export const stepperRules = [
   [
     /^q-stepper$/,
     function* (_, { symbols }) {
+      // .q-stepper
       yield {
         display: 'flex',
         'flex-direction': 'column',
@@ -35,121 +36,123 @@ export const stepperRules = [
         'box-shadow': lightBoxShadow
       }
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}`,
         'background-color': 'var(--q-surface)',
         'box-shadow': darkBoxShadow
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}__label`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}__label`,
         'background-color': 'var(--q-surface)'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}__tab--active`,
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__tab--active`,
         color: 'var(--q-primary)'
       }
-    }
-  ],
-  [
-    /^q-stepper--dark$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--dark`,
         'box-shadow': darkBoxShadow
       }
-      // Disabled tabs and the border rows are the two places the dark stepper
-      // states a translucent grey that no surface role covers.
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__tab--disabled`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dark .q-stepper__tab--disabled`,
         color: darkDisabledText
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-stepper__tab--disabled .q-stepper__dot`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dark .q-stepper__tab--disabled .q-stepper__dot`,
         'background-color': darkDisabledDot
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-stepper__tab--disabled .q-stepper__label`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dark .q-stepper__tab--disabled .q-stepper__label`,
         color: darkDisabledLabel
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__header--border`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dark .q-stepper__header--border`,
         'border-color': darkBorder
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__dot span`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dark .q-stepper__dot span`,
         color: 'color-mix(in oklab, #000 var(--un-text-opacity), transparent)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}.q-stepper--bordered`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dark.q-stepper--bordered`,
         'border-color': darkBorder
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}.q-stepper--horizontal .q-stepper__line:before, ${sel}.q-stepper--horizontal .q-stepper__line:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dark.q-stepper--horizontal .q-stepper__line:before, ${selector}--dark.q-stepper--horizontal .q-stepper__line:after`,
         background: 'rgba(255, 255, 255, 0.28)'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}.q-stepper--vertical .q-stepper__dot:before, ${sel}.q-stepper--vertical .q-stepper__dot:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dark.q-stepper--vertical .q-stepper__dot:before, ${selector}--dark.q-stepper--vertical .q-stepper__dot:after`,
         background: 'rgba(255, 255, 255, 0.28)'
       }
-    }
-  ],
-  [
-    /^q-stepper--vertical$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--vertical`,
         'padding-inline': '0',
         'padding-block': '16px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__dot`,
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical .q-stepper__dot`,
         'margin-right': '12px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__step`,
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical .q-stepper__step`,
         overflow: 'hidden'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__step-inner`,
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical .q-stepper__step-inner`,
         'padding-top': '0',
         'padding-right': '24px',
         'padding-bottom': '32px',
         'padding-left': '60px'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-stepper__step:last-child .q-stepper__dot:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical .q-stepper__step:last-child .q-stepper__dot:after`,
         display: 'none'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-stepper__step:last-child .q-stepper__step-inner`,
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical .q-stepper__step:last-child .q-stepper__step-inner`,
         'padding-bottom': '8px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__tab`,
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical .q-stepper__tab`,
         'padding-inline': '24px',
         'padding-block': '12px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__title`,
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical .q-stepper__title`,
         'line-height': '18px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-stepper__nav`,
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical > .q-stepper__nav`,
         'padding-inline': '24px',
         'padding-top': '24px',
         'padding-bottom': '0'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-stepper__dot:before, ${sel} .q-stepper__dot:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical .q-stepper__dot:before, ${selector}--vertical .q-stepper__dot:after`,
         content: '""',
         position: 'absolute',
         left: '50%',
@@ -158,54 +161,42 @@ export const stepperRules = [
         background: 'rgba(0, 0, 0, 0.12)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__dot:before`,
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical .q-stepper__dot:before`,
         bottom: '100%',
         'margin-bottom': '8px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__dot:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical .q-stepper__dot:after`,
         top: '100%',
         'margin-top': '8px'
       }
-      // A trailing comma makes the whole selector list invalid and the browser
-      // drops the rule, so the connector hangs off the first step.
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-stepper__step:first-child .q-stepper__dot:before`,
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical .q-stepper__step:first-child .q-stepper__dot:before`,
         display: 'none'
       }
-    }
-  ],
-  [
-    /^q-stepper__step$/,
-    () => ({
-      display: 'flex',
-      'align-items': 'flex-start',
-      gap: 'var(--q-space-md)'
-    })
-  ],
-  [
-    /^q-stepper__step--disabled$/,
-    () => ({
-      opacity: 0.5
-    })
-  ],
-  [
-    /^q-stepper__step--error$/,
-    () => ({
-      color: 'var(--q-error)'
-    })
-  ],
-  [
-    /^q-stepper__step--done$/,
-    () => ({
-      // Done state
-    })
-  ],
-  [
-    /^q-stepper__dot$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__step`,
+        display: 'flex',
+        'align-items': 'flex-start',
+        gap: 'var(--q-space-md)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__step--disabled`,
+        opacity: 0.5
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__step--error`,
+        color: 'var(--q-error)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__step--done`
+        // Done state
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__dot`,
         'font-size': '14px',
         'margin-right': '8px',
         'border-radius': '50%',
@@ -220,201 +211,170 @@ export const stepperRules = [
         'font-weight': 600
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} span`,
+        [symbols.selector]: (selector) => `${selector}__dot span`,
         color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)'
       }
-    }
-  ],
-  [
-    /^q-stepper__line$/,
-    () => ({
-      width: '2px',
-      flex: '1',
-      'background-color': 'var(--q-outline-variant)',
-      'margin-top': 'var(--q-space-xs)'
-    })
-  ],
-  [
-    /^q-stepper__content$/,
-    () => ({
-      flex: '1',
-      'padding-bottom': 'var(--q-space-md)'
-    })
-  ],
-  [
-    /^q-stepper__caption$/,
-    () => ({
-      'font-size': '12px',
-      'line-height': '1.16667',
-      color: 'var(--q-on-surface-variant)'
-    })
-  ],
-  [
-    /^q-stepper__nav$/,
-    () => ({
-      display: 'flex',
-      'justify-content': 'space-between',
-      'padding-top': '24px',
-      'margin-top': 'var(--q-space-md)'
-    })
-  ],
-  [
-    /^q-stepper__header$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel}`,
+        [symbols.selector]: (selector) => `${selector}__line`,
+        width: '2px',
+        flex: '1',
+        'background-color': 'var(--q-outline-variant)',
+        'margin-top': 'var(--q-space-xs)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__content`,
+        flex: '1',
+        'padding-bottom': 'var(--q-space-md)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__caption`,
+        'font-size': '12px',
+        'line-height': '1.16667',
+        color: 'var(--q-on-surface-variant)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__nav`,
+        display: 'flex',
+        'justify-content': 'space-between',
+        'padding-top': '24px',
+        'margin-top': 'var(--q-space-md)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__header`,
         'border-top-left-radius': 'inherit',
         'border-top-right-radius': 'inherit'
       }
-    }
-  ],
-  [
-    /^q-stepper__step-content$/,
-    () => ({
-      // Step content
-    })
-  ],
-  [
-    /^q-stepper__step-inner$/,
-    () => ({
-      // Step inner
-    })
-  ],
-  [
-    /^q-stepper__step-icon$/,
-    () => ({
-      // Step icon
-    })
-  ],
-  [
-    /^q-stepper__step-label$/,
-    () => ({
-      // Step label
-    })
-  ],
-  [
-    /^q-stepper__step-title$/,
-    () => ({
-      'font-weight': 500
-    })
-  ],
-  [
-    /^q-stepper__label$/,
-    () => ({
-      'background-color': surfaceMix
-    })
-  ],
-  [
-    /^q-stepper__header--standard-labels$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__dot:after`,
+        [symbols.selector]: (selector) => `${selector}__step-content`
+        // Step content
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__step-inner`
+        // Step inner
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__step-icon`
+        // Step icon
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__step-label`
+        // Step label
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__step-title`,
+        'font-weight': 500
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__label`,
+        'background-color': surfaceMix
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__header--standard-labels .q-stepper__dot:after`,
         display: 'none'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__tab`,
+        [symbols.selector]: (selector) =>
+          `${selector}__header--standard-labels .q-stepper__tab`,
         'min-height': '72px',
         'justify-content': 'center'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__tab:first-child`,
+        [symbols.selector]: (selector) =>
+          `${selector}__header--standard-labels .q-stepper__tab:first-child`,
         'justify-content': 'flex-start'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__tab:last-child`,
+        [symbols.selector]: (selector) =>
+          `${selector}__header--standard-labels .q-stepper__tab:last-child`,
         'justify-content': 'flex-end'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__tab:only-child`,
+        [symbols.selector]: (selector) =>
+          `${selector}__header--standard-labels .q-stepper__tab:only-child`,
         'justify-content': 'center'
       }
-    }
-  ],
-  [
-    /^q-stepper__header--alternative-labels$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-stepper__label:before, ${sel} .q-stepper__label:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}__header--alternative-labels .q-stepper__label:before, ${selector}__header--alternative-labels .q-stepper__label:after`,
         display: 'none'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__dot`,
+        [symbols.selector]: (selector) =>
+          `${selector}__header--alternative-labels .q-stepper__dot`,
         'margin-right': '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__label`,
+        [symbols.selector]: (selector) =>
+          `${selector}__header--alternative-labels .q-stepper__label`,
         'margin-top': '8px',
         'text-align': 'center'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__tab`,
+        [symbols.selector]: (selector) =>
+          `${selector}__header--alternative-labels .q-stepper__tab`,
         'padding-inline': '32px',
         'padding-block': '24px',
         'flex-direction': 'column',
         'min-height': '104px',
         'justify-content': 'flex-start'
       }
-    }
-  ],
-  [
-    /^q-stepper__header--contracted$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-stepper__tab:not(:last-child) .q-stepper__dot:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}__header--contracted .q-stepper__tab:not(:last-child) .q-stepper__dot:after`,
         display: 'block !important'
       }
-    }
-  ],
-  [
-    /^q-stepper--horizontal$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__line`,
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal .q-stepper__line`,
         contain:
           'var(--un-contain-size) var(--un-contain-layout) var(--un-contain-paint) var(--un-contain-style)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__step-inner`,
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal .q-stepper__step-inner`,
         padding: '24px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__tab`,
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal .q-stepper__tab`,
         overflow: 'hidden'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__tab:first-child`,
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal .q-stepper__tab:first-child`,
         'border-top-left-radius': 'inherit'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__tab:last-child`,
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal .q-stepper__tab:last-child`,
         'border-top-right-radius': 'inherit'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-stepper__tab:last-child .q-stepper__dot:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal .q-stepper__tab:last-child .q-stepper__dot:after`,
         display: 'none'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-stepper__tab:last-child .q-stepper__label:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal .q-stepper__tab:last-child .q-stepper__label:after`,
         display: 'none'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-stepper__nav`,
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal > .q-stepper__nav`,
         'padding-inline': '24px',
         'padding-top': '0',
         'padding-bottom': '24px'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-stepper__tab:first-child .q-stepper__dot:before`,
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal .q-stepper__tab:first-child .q-stepper__dot:before`,
         display: 'none'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-stepper__line:before, ${sel} .q-stepper__line:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal .q-stepper__line:before, ${selector}--horizontal .q-stepper__line:after`,
         position: 'absolute',
         top: '50%',
         height: '1px',
@@ -422,129 +382,102 @@ export const stepperRules = [
         background: 'rgba(0, 0, 0, 0.12)'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-stepper__label:after, ${sel} .q-stepper__dot:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal .q-stepper__label:after, ${selector}--horizontal .q-stepper__dot:after`,
         content: '""',
         left: '100%',
         'margin-left': '8px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__dot:before`,
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal .q-stepper__dot:before`,
         content: '""',
         right: '100%',
         'margin-right': '8px'
       }
-    }
-  ],
-  [
-    /^q-stepper__title$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__title`,
         'font-size': '14px',
         'line-height': '1.285714',
         'letter-spacing': '0.1px'
       }
-    }
-  ],
-  [
-    /^q-stepper__tab$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__tab`,
         'font-size': '14px',
         'padding-inline': '24px',
         'padding-block': '8px',
         'flex-direction': 'row',
         color: 'var(--q-on-surface-variant)'
       }
-    }
-  ],
-  [
-    /^q-stepper__tab--navigation$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__tab--navigation`,
         'user-select': 'none',
         '-webkit-user-select': 'none',
         cursor: 'pointer'
       }
-    }
-  ],
-  [
-    /^q-stepper__tab--active$/,
-    function* (_, { symbols }) {
-      yield { color: 'var(--q-primary)' }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__dot`,
+        [symbols.selector]: (selector) => `${selector}__tab--active`,
+        color: 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__tab--active .q-stepper__dot`,
         'text-shadow': '0 0 0 currentColor'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__label`,
-        'text-shadow': '0 0 0 currentColor'
-      }
-    }
-  ],
-  [
-    /^q-stepper__tab--done$/,
-    function* (_, { symbols }) {
-      yield { color: 'var(--q-primary)' }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__dot`,
+        [symbols.selector]: (selector) =>
+          `${selector}__tab--active .q-stepper__label`,
         'text-shadow': '0 0 0 currentColor'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__label`,
+        [symbols.selector]: (selector) => `${selector}__tab--done`,
+        color: 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__tab--done .q-stepper__dot`,
         'text-shadow': '0 0 0 currentColor'
       }
-    }
-  ],
-  [
-    /^q-stepper__tab--disabled$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__dot`,
+        [symbols.selector]: (selector) =>
+          `${selector}__tab--done .q-stepper__label`,
+        'text-shadow': '0 0 0 currentColor'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__tab--disabled .q-stepper__dot`,
         background: 'rgba(0, 0, 0, 0.22)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__label`,
+        [symbols.selector]: (selector) =>
+          `${selector}__tab--disabled .q-stepper__label`,
         color: 'rgba(0, 0, 0, 0.32)'
       }
-    }
-  ],
-  [
-    /^q-stepper__tab--error$/,
-    function* () {
-      yield { color: 'var(--q-negative)' }
-    }
-  ],
-  [
-    /^q-stepper__tab--error-with-icon$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__dot`,
+        [symbols.selector]: (selector) => `${selector}__tab--error`,
+        color: 'var(--q-negative)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__tab--error-with-icon .q-stepper__dot`,
         'background-color': 'transparent !important'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-stepper__dot span`,
+        [symbols.selector]: (selector) =>
+          `${selector}__tab--error-with-icon .q-stepper__dot span`,
         color: 'currentColor',
         'font-size': '24px'
       }
-    }
-  ],
-  [
-    /^q-stepper__header--border$/,
-    function* () {
-      yield { 'border-bottom': '1px solid rgba(0, 0, 0, 0.12)' }
-    }
-  ],
-  [
-    /^q-stepper--flat$/,
-    function* () {
-      yield { 'box-shadow': 'none' }
-    }
-  ],
-  [
-    /^q-stepper--bordered$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__header--border`,
+        'border-bottom': '1px solid rgba(0, 0, 0, 0.12)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--flat`,
+        'box-shadow': 'none'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--bordered`,
         'border-color': lightBorder,
         'border-style': 'solid',
         'border-width': '1px'

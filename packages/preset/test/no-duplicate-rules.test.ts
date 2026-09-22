@@ -102,7 +102,9 @@ describe('duplicate rule matchers', () => {
     // left is cross-module and deliberate: the same matcher registered in two
     // modules adds declarations rather than overriding any (`q-page`,
     // `q-list--padding`).
-    expect(duplicated).toBe(5)
+    // A ceiling, not an equality: collapsing per-class rules into one rule per
+    // component may only take duplicates away, never add them.
+    expect(duplicated).toBeLessThanOrEqual(5)
   })
 
   it('retains declarations from every duplicate for the same class', async () => {

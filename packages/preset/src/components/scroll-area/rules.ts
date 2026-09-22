@@ -13,98 +13,77 @@ import type { Rule } from '@unocss/core'
 export const scrollAreaRules = [
   [
     /^q-scrollarea$/,
-    () => ({
-      contain: 'strict',
-      position: 'relative'
-    })
-  ],
-  [
-    /^q-scrollarea__content$/,
-    () => ({
-      'min-height': '100%',
-      width: '100%'
-    })
-  ],
-  [
-    /^q-scrollarea__bar$/,
-    () => ({
-      opacity: 0.2,
-      transition: 'opacity 0.3s'
-    })
-  ],
-  [
-    /^q-scrollarea__thumb$/,
     function* (_, { symbols }) {
+      // .q-scrollarea
       yield {
+        contain: 'strict',
+        position: 'relative'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__content`,
+        'min-height': '100%',
+        width: '100%'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__bar`,
+        opacity: 0.2,
+        transition: 'opacity 0.3s'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__thumb`,
         'border-radius': '3px',
         'background-color': '#000',
         opacity: 0.2,
         transition: 'opacity 0.3s'
       }
-      // Dark styling swaps the thumb to white (was `.q-scrollarea--dark
-      // .q-scrollarea__thumb`).
       yield {
-        [symbols.selector]: (sel) => `.q-scrollarea--dark ${sel}`,
+        [symbols.selector]: (selector) =>
+          `.q-scrollarea--dark ${selector}__thumb`,
         'background-color': '#fff'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__bar--h`,
+        height: '10px',
+        bottom: 0
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__thumb--h`,
+        height: '10px',
+        bottom: 0
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__bar--v`,
+        width: '10px',
+        right: 0
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__thumb--v`,
+        width: '10px',
+        right: 0
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__bar--invisible`,
+        opacity: '0 !important',
+        'pointer-events': 'none'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__thumb--invisible`,
+        opacity: '0 !important',
+        'pointer-events': 'none'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--dark`
+        // Colour overrides hang off the thumb rule above via symbols.selector.
       }
     }
   ],
   [
-    /^q-scrollarea__bar--h$/,
-    () => ({
-      height: '10px',
-      bottom: 0
-    })
-  ],
-  [
-    /^q-scrollarea__thumb--h$/,
-    () => ({
-      height: '10px',
-      bottom: 0
-    })
-  ],
-  [
-    /^q-scrollarea__bar--v$/,
-    () => ({
-      width: '10px',
-      right: 0
-    })
-  ],
-  [
-    /^q-scrollarea__thumb--v$/,
-    () => ({
-      width: '10px',
-      right: 0
-    })
-  ],
-  [
-    /^q-scrollarea__bar--invisible$/,
-    () => ({
-      opacity: '0 !important',
-      'pointer-events': 'none'
-    })
-  ],
-  [
-    /^q-scrollarea__thumb--invisible$/,
-    () => ({
-      opacity: '0 !important',
-      'pointer-events': 'none'
-    })
-  ],
-  [
-    // Quasar zeroes the inline padding when a scroll area fills a drawer.
-    /^q-scrollarea--dark$/,
-    () => ({
-      // Colour overrides hang off the thumb rule above via symbols.selector.
-    })
-  ],
-
-  // The unstyled style entry drops the component's own surface.
-  [
     /^q-scroll-area$/,
     function* (_, { symbols }) {
+      // .q-scroll-area
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }

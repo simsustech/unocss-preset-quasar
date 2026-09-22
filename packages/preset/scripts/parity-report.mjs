@@ -596,9 +596,16 @@ export async function buildParityReport() {
   const fixture = JSON.parse(readFileSync(FIXTURE, 'utf8'))
   const { createGenerator } = await import('unocss')
   const { QuasarPreset } = await import('../src/index.js')
-  const { quasarSafelist } = await import('../src/safelist.js')
+  const { quasarSafelist, pluginSafelistMap } =
+    await import('../src/safelist.js')
+  // The reference was built from a Quasar app that used these plugins, so the
+  // gate declares them all — it verifies the full configured surface, while a
+  // default consumer still opts into plugins one at a time.
+  const allPlugins = Object.keys(pluginSafelistMap)
 
-  const gen = await createGenerator({ presets: [QuasarPreset({})] })
+  const gen = await createGenerator({
+    presets: [QuasarPreset({ plugins: allPlugins })]
+  })
   // Content is the safelist *plus* a mention of every component: the classes a
   // component composes at runtime reach the sheet through
   // `quasarComponentExtractor` (derived from Quasar's own source) rather than
@@ -615,6 +622,7 @@ export async function buildParityReport() {
   const { css } = await gen.generate(
     [
       ...quasarSafelist,
+      ...Object.values(pluginSafelistMap).flat(),
       ...Object.keys(componentClasses),
       ...componentMarkers
     ].join(' '),

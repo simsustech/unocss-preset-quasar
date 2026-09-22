@@ -2,6 +2,10 @@ import { createGenerator } from 'unocss'
 import { describe, expect, it } from 'vitest'
 import { QuasarPreset } from '../src/index.js'
 import { quasarSafelist } from '../src/safelist.js'
+import {
+  componentClasses,
+  globalClasses
+} from '../src/generated/quasar-classes.js'
 import { runtimeVariables } from '../src/theme/runtime-variables.js'
 
 /**
@@ -14,7 +18,14 @@ import { runtimeVariables } from '../src/theme/runtime-variables.js'
 describe('variables the sheet references but does not define', () => {
   it('is exactly the set Quasar and wind4 set at runtime', async () => {
     const gen = await createGenerator({ presets: [QuasarPreset({})] })
-    const { css } = await gen.generate(quasarSafelist.join(' '), {
+    // Every class any mechanism supplies: the point is which variables the
+    // emitted rules reference, so content must reach all of them.
+    const content = [
+      ...quasarSafelist,
+      ...Object.values(componentClasses).flat(),
+      ...globalClasses
+    ].join(' ')
+    const { css } = await gen.generate(content, {
       preflights: true
     })
 

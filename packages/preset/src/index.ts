@@ -9,6 +9,7 @@ import type { IconsOptions } from '@unocss/preset-icons'
 import type { WebFontsOptions } from '@unocss/preset-web-fonts'
 import presetWind4 from '@unocss/preset-wind4'
 import type { Preset, Rule } from '@unocss/core'
+import type { QuasarPlugins } from 'quasar'
 import { generateTheme } from './theme/quasar-theme.js'
 import { mergeDuplicateRules } from './rules/merge.js'
 import { animatedUno } from 'animated-unocss'
@@ -18,7 +19,7 @@ import { createTokenPreflight } from './theme/preflight.js'
 import { builtinStyles } from './theme/index.js'
 import type { QuasarStyleEntry } from './styles/index.js'
 import { quasarComponentExtractor, quasarValueExtractor } from './extractor.js'
-import { quasarSafelist } from './safelist.js'
+import { quasarSafelist, pluginSafelistMap } from './safelist.js'
 import * as componentModules from './components/index.js'
 import * as coreModules from './core/index.js'
 import { platformMediaCss, responsiveVisibilityCss } from './core/index.js'
@@ -115,6 +116,14 @@ export interface QuasarPresetOptions {
    * in this map is otherwise never generated.
    */
   iconSet?: unknown
+  /**
+   * The Quasar plugins the app drives through their API rather than a tag
+   * (`$q.dialog()`, `$q.notify()`, …). Each plugin's safelist classes join the
+   * list only when the plugin is declared, so an app that never calls
+   * `$q.notify()` never carries the notification classes — the same coupling
+   * `main` makes through `pluginSafelistMap`.
+   */
+  plugins?: (keyof QuasarPlugins)[]
 }
 
 /** Every `i-*` class value in the icon set, at any depth. */
@@ -218,8 +227,15 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
     // they are derived from the markup instead — see extractor.ts.
     extractors: [quasarComponentExtractor, quasarValueExtractor],
     // The icon set's classes join the safelist: they are app configuration, not
-    // markup, and Quasar applies them without any source mentioning them.
-    safelist: [...quasarSafelist, ...iconSetClasses(options?.iconSet)],
+    // markup, and Quasar applies them without any source mentioning them. A
+    // plugin's classes join only when the app declares that plugin.
+    safelist: [
+      ...quasarSafelist,
+      ...(options?.plugins ?? []).flatMap(
+        (plugin) => pluginSafelistMap[plugin as string] ?? []
+      ),
+      ...iconSetClasses(options?.iconSet)
+    ],
     // The Quasar palette has to reach wind4's theme, not just our own token
     // preflight: wind4 emits `--colors-<name>` and generates the colour
     // utilities (`bg-grey-8`, `text-deep-orange`, …) from the theme, so without

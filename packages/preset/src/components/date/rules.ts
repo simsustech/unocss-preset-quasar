@@ -4,6 +4,7 @@ export const dateRules = [
   [
     /^q-date$/,
     function* (_, { symbols }) {
+      // .q-date
       yield {
         // The reference's own values are in the yields below — `display:
         // inline-flex`, `max-width: 100%` and the `surface-container-high` mix.
@@ -15,47 +16,74 @@ export const dateRules = [
         'border-radius': '4px'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}`,
         'background-color': 'var(--q-surface-container-high)'
       }
-      for (const container of [
-        'calendar-item--in',
-        'months-item',
-        'years-item'
-      ]) {
-        yield {
-          [symbols.selector]: (sel) =>
-            `.body--dark ${sel}__${container} .q-btn--flat`,
-          color: 'var(--q-on-surface)'
-        }
-        yield {
-          [symbols.selector]: (sel) =>
-            `.body--dark ${sel}__${container} .q-btn`,
-          color: 'var(--q-on-primary)',
-          'background-color': 'var(--q-primary)'
-        }
-      }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}__navigation .q-btn`,
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__calendar-item--in .q-btn--flat`,
         color: 'var(--q-on-surface)'
       }
-      for (const range of [
-        'edit-range',
-        'edit-range-from',
-        'edit-range-to',
-        'edit-range-from-to'
-      ]) {
-        yield {
-          [symbols.selector]: (sel) => `.body--dark ${sel}__${range}:after`,
-          'border-color': 'var(--q-primary)'
-        }
-      }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}__event`,
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__calendar-item--in .q-btn`,
+        color: 'var(--q-on-primary)',
         'background-color': 'var(--q-primary)'
       }
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__months-item .q-btn--flat`,
+        color: 'var(--q-on-surface)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__months-item .q-btn`,
+        color: 'var(--q-on-primary)',
+        'background-color': 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__years-item .q-btn--flat`,
+        color: 'var(--q-on-surface)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__years-item .q-btn`,
+        color: 'var(--q-on-primary)',
+        'background-color': 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__navigation .q-btn`,
+        color: 'var(--q-on-surface)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__edit-range:after`,
+        'border-color': 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__edit-range-from:after`,
+        'border-color': 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__edit-range-to:after`,
+        'border-color': 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__edit-range-from-to:after`,
+        'border-color': 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `.body--dark ${selector}__event`,
+        'background-color': 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
@@ -71,12 +99,12 @@ export const dateRules = [
           '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}`,
         'background-color':
           'color-mix(in oklab, var(--q-surface-container-high) var(--un-bg-opacity), transparent)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--dark`,
+        [symbols.selector]: (selector) => `${selector}--dark`,
         color: 'var(--q-on-surface)',
         'border-color': 'rgba(255, 255, 255, 0.28)',
         'background-color':
@@ -85,69 +113,67 @@ export const dateRules = [
           '0 1px 5px rgba(255, 255, 255, 0.2), 0 2px 2px rgba(255, 255, 255, 0.14), 0 3px 1px -2px rgba(255, 255, 255, 0.12)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--bordered`,
+        [symbols.selector]: (selector) => `${selector}--bordered`,
         'border-color': 'rgba(0, 0, 0, 0.12)',
         'border-style': 'solid',
         'border-width': '1px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--portrait`,
+        [symbols.selector]: (selector) => `${selector}--portrait`,
         'flex-direction': 'column'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--landscape`,
+        [symbols.selector]: (selector) => `${selector}--landscape`,
         'flex-direction': 'row',
         'min-width': '420px',
         'align-items': 'stretch'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--landscape > div`,
+        [symbols.selector]: (selector) => `${selector}--landscape > div`,
         display: 'flex',
         flex: '1 1 auto',
         'flex-direction': 'column'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--landscape .q-date__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--landscape .q-date__content`,
         height: '100%'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}--portrait-minimal .q-date__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--portrait-minimal .q-date__content`,
         height: '100%'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}--landscape-standard .q-date__header`,
+        [symbols.selector]: (selector) =>
+          `${selector}--landscape-standard .q-date__header`,
         'max-width': '110px'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}--landscape-standard .q-date__header-title`,
+        [symbols.selector]: (selector) =>
+          `${selector}--landscape-standard .q-date__header-title`,
         'flex-direction': 'column'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}--landscape-standard .q-date__header-today`,
+        [symbols.selector]: (selector) =>
+          `${selector}--landscape-standard .q-date__header-today`,
         'margin-top': '12px',
         'margin-left': '-8px'
       }
-    }
-  ],
-  [
-    /^q-date__header$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__header`,
         display: 'flex',
         'align-items': 'center',
         'justify-content': 'space-between'
         // padding comes from the yield below: the reference's 12px
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}__header`,
         color: 'var(--q-on-surface)',
         'background-color': 'var(--q-surface-container-high)'
       }
       yield {
+        [symbols.selector]: (selector) => `${selector}__header`,
         color:
           'color-mix(in oklab, var(--q-on-primary) var(--un-text-opacity), transparent)',
         padding: '12px',
@@ -156,52 +182,39 @@ export const dateRules = [
         'border-top-left-radius': 'inherit'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}__header`,
         color:
           'color-mix(in oklab, var(--q-on-surface) var(--un-text-opacity), transparent)',
         'background-color':
           'color-mix(in oklab, var(--q-surface-container-high) var(--un-bg-opacity), transparent)'
       }
-    }
-  ],
-  [
-    /^q-date__calendar$/,
-    () => ({
-      display: 'grid',
-      'grid-template-columns': 'repeat(7, 1fr)',
-      gap: '2px',
-      padding: '8px'
-    })
-  ],
-  [
-    /^q-date__day$/,
-    () => ({
-      display: 'flex',
-      'align-items': 'center',
-      'justify-content': 'center',
-      'aspect-ratio': '1',
-      'border-radius': '50%',
-      cursor: 'pointer'
-    })
-  ],
-  [
-    /^q-date__day--selected$/,
-    () => ({
-      'background-color': 'var(--q-primary)',
-      color: 'var(--q-on-primary)'
-    })
-  ],
-  [
-    /^q-date__day--today$/,
-    () => ({
-      border: '1px solid var(--q-primary)'
-    })
-  ],
-  [
-    /^q-date__calendar-item$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel}:after`,
+        [symbols.selector]: (selector) => `${selector}__calendar`,
+        display: 'grid',
+        'grid-template-columns': 'repeat(7, 1fr)',
+        gap: '2px',
+        padding: '8px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__day`,
+        display: 'flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        'aspect-ratio': '1',
+        'border-radius': '50%',
+        cursor: 'pointer'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__day--selected`,
+        'background-color': 'var(--q-primary)',
+        color: 'var(--q-on-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__day--today`,
+        border: '1px solid var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__calendar-item:after`,
         content: '""',
         position: 'absolute',
         'pointer-events': 'none',
@@ -214,6 +227,7 @@ export const dateRules = [
         'border-width': '1px'
       }
       yield {
+        [symbols.selector]: (selector) => `${selector}__calendar-item`,
         'vertical-align': 'middle',
         display: 'inline-flex',
         width: '14.285% !important',
@@ -222,10 +236,8 @@ export const dateRules = [
         'justify-content': 'center',
         position: 'relative'
       }
-      // The dashed drop-target outline is painted by a pseudo element, with a
-      // radius that matches the circular day cell it wraps.
       yield {
-        [symbols.selector]: (sel) => `${sel}:after`,
+        [symbols.selector]: (selector) => `${selector}__calendar-item:after`,
         'border-width': '1px',
         'border-color': 'transparent',
         'border-style': 'dashed',
@@ -238,11 +250,11 @@ export const dateRules = [
         position: 'absolute'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > button`,
+        [symbols.selector]: (selector) => `${selector}__calendar-item > button`,
         'line-height': '22px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div`,
+        [symbols.selector]: (selector) => `${selector}__calendar-item > div`,
         'line-height': '30px',
         'text-align': 'center',
         'border-radius': '50%',
@@ -250,23 +262,17 @@ export const dateRules = [
         height: '30px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} button`,
+        [symbols.selector]: (selector) => `${selector}__calendar-item button`,
         'border-radius': '50%',
         width: '30px',
         height: '30px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--out`,
+        [symbols.selector]: (selector) => `${selector}__calendar-item--out`,
         opacity: '0.18'
       }
-    }
-  ],
-  [
-    /^q-date__range$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:before, .q-date__range-from:before, .q-date__range-to:before`,
+        [symbols.selector]: (selector) => `${selector}__range:before`,
         content: '""',
         'background-color': 'currentColor',
         position: 'absolute',
@@ -277,19 +283,19 @@ export const dateRules = [
         opacity: '0.3'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:nth-child(7n-6):before, .q-date__range-from:nth-child(7n-6):before, .q-date__range-to:nth-child(7n-6):before`,
+        [symbols.selector]: (selector) =>
+          `${selector}__range:nth-child(7n-6):before, .q-date__range-from:nth-child(7n-6):before, .q-date__range-to:nth-child(7n-6):before`,
         'border-top-left-radius': '0',
         'border-bottom-left-radius': '0'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:nth-child(7n):before, .q-date__range-from:nth-child(7n):before, .q-date__range-to:nth-child(7n):before`,
+        [symbols.selector]: (selector) =>
+          `${selector}__range:nth-child(7n):before, .q-date__range-from:nth-child(7n):before, .q-date__range-to:nth-child(7n):before`,
         'border-top-right-radius': '0',
         'border-bottom-right-radius': '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:before`,
+        [symbols.selector]: (selector) => `${selector}__range:before`,
         'background-color': 'currentColor',
         opacity: '30%',
         content: '""',
@@ -300,26 +306,23 @@ export const dateRules = [
         position: 'absolute'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:nth-child(7n-6):before`,
+        [symbols.selector]: (selector) =>
+          `${selector}__range:nth-child(7n-6):before`,
         'border-top-left-radius': 'var(--radius-none)',
         'border-bottom-left-radius': 'var(--radius-none)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:nth-child(7n):before`,
+        [symbols.selector]: (selector) =>
+          `${selector}__range:nth-child(7n):before`,
         'border-top-right-radius': 'var(--radius-none)',
         'border-bottom-right-radius': 'var(--radius-none)'
       }
-    }
-  ],
-  [
-    /^q-date__range-from$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel}:before`,
+        [symbols.selector]: (selector) => `${selector}__range-from:before`,
         left: '50%'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:before`,
+        [symbols.selector]: (selector) => `${selector}__range-from:before`,
         'background-color': 'currentColor',
         opacity: '30%',
         content: '""',
@@ -330,26 +333,23 @@ export const dateRules = [
         position: 'absolute'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:nth-child(7n-6):before`,
+        [symbols.selector]: (selector) =>
+          `${selector}__range-from:nth-child(7n-6):before`,
         'border-top-left-radius': 'var(--radius-none)',
         'border-bottom-left-radius': 'var(--radius-none)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:nth-child(7n):before`,
+        [symbols.selector]: (selector) =>
+          `${selector}__range-from:nth-child(7n):before`,
         'border-top-right-radius': 'var(--radius-none)',
         'border-bottom-right-radius': 'var(--radius-none)'
       }
-    }
-  ],
-  [
-    /^q-date__range-to$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel}:before`,
+        [symbols.selector]: (selector) => `${selector}__range-to:before`,
         right: '50%'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:before`,
+        [symbols.selector]: (selector) => `${selector}__range-to:before`,
         'background-color': 'currentColor',
         opacity: '30%',
         content: '""',
@@ -360,64 +360,60 @@ export const dateRules = [
         position: 'absolute'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:nth-child(7n-6):before`,
+        [symbols.selector]: (selector) =>
+          `${selector}__range-to:nth-child(7n-6):before`,
         'border-top-left-radius': 'var(--radius-none)',
         'border-bottom-left-radius': 'var(--radius-none)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:nth-child(7n):before`,
+        [symbols.selector]: (selector) =>
+          `${selector}__range-to:nth-child(7n):before`,
         'border-top-right-radius': 'var(--radius-none)',
         'border-bottom-right-radius': 'var(--radius-none)'
       }
-    }
-  ],
-  [
-    /^q-date__edit-range$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel}:after`,
+        [symbols.selector]: (selector) => `${selector}__edit-range:after`,
         'border-color': 'currentColor transparent'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:nth-child(7n-6):after`,
+        [symbols.selector]: (selector) =>
+          `${selector}__edit-range:nth-child(7n-6):after`,
         'border-top-left-radius': '0',
         'border-bottom-left-radius': '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:nth-child(7n):after`,
+        [symbols.selector]: (selector) =>
+          `${selector}__edit-range:nth-child(7n):after`,
         'border-top-right-radius': '0',
         'border-bottom-right-radius': '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:after`,
+        [symbols.selector]: (selector) => `${selector}__edit-range:after`,
         'border-color':
           'color-mix(in oklab, var(--q-primary) var(--un-border-opacity), transparent)',
         'border-left-color': 'transparent',
         'border-right-color': 'transparent'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:nth-child(7n-6):after`,
+        [symbols.selector]: (selector) =>
+          `${selector}__edit-range:nth-child(7n-6):after`,
         'border-top-left-radius': 'var(--radius-none)',
         'border-bottom-left-radius': 'var(--radius-none)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:nth-child(7n):after`,
+        [symbols.selector]: (selector) =>
+          `${selector}__edit-range:nth-child(7n):after`,
         'border-top-right-radius': 'var(--radius-none)',
         'border-bottom-right-radius': 'var(--radius-none)'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}:after`,
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__edit-range:after`,
         'border-color':
           'color-mix(in oklab, var(--q-primary) var(--un-border-opacity), transparent)'
       }
-    }
-  ],
-  [
-    /^q-date__edit-range-from$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:after, .q-date__edit-range-from-to:after`,
+        [symbols.selector]: (selector) => `${selector}__edit-range-from:after`,
         left: '4px',
         'border-left-color': 'currentColor',
         'border-top-color': 'currentColor',
@@ -426,7 +422,7 @@ export const dateRules = [
         'border-bottom-left-radius': '28px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:after`,
+        [symbols.selector]: (selector) => `${selector}__edit-range-from:after`,
         'border-right-width': '0px',
         'border-color':
           'color-mix(in oklab, var(--q-primary) var(--un-border-opacity), transparent)',
@@ -434,14 +430,8 @@ export const dateRules = [
         'border-bottom-left-radius': '28px',
         left: '4px'
       }
-    }
-  ],
-  [
-    /^q-date__edit-range-to$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:after, .q-date__edit-range-from-to:after`,
+        [symbols.selector]: (selector) => `${selector}__edit-range-to:after`,
         right: '4px',
         'border-right-color': 'currentColor',
         'border-top-color': 'currentColor',
@@ -450,7 +440,7 @@ export const dateRules = [
         'border-bottom-right-radius': '28px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:after`,
+        [symbols.selector]: (selector) => `${selector}__edit-range-to:after`,
         'border-color':
           'color-mix(in oklab, var(--q-primary) var(--un-border-opacity), transparent)',
         'border-left-color': 'transparent',
@@ -458,226 +448,218 @@ export const dateRules = [
         'border-bottom-right-radius': '28px',
         right: '4px'
       }
-    }
-  ],
-  [
-    /^q-date--bordered$/,
-    function* () {
-      yield { border: '1px solid rgba(0, 0, 0, 0.12)' }
-    }
-  ],
-  [
-    /^q-date__actions$/,
-    function* (_, { symbols }) {
-      yield { padding: '0 16px 16px' }
       yield {
+        [symbols.selector]: (selector) => `${selector}--bordered`,
+        border: '1px solid rgba(0, 0, 0, 0.12)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions`,
+        padding: '0 16px 16px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions`,
         'padding-inline': '16px',
         'padding-top': '0',
         'padding-bottom': '16px'
       }
-    }
-  ],
-  [
-    /^q-date__content$/,
-    function* (_, { symbols }) {
-      yield { outline: '0' }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-btn`,
+        [symbols.selector]: (selector) => `${selector}__content`,
+        outline: '0'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__content .q-btn`,
         'font-weight': 'normal'
       }
-      yield { 'outline-style': 'solid', 'outline-width': '0px' }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-btn`,
+        [symbols.selector]: (selector) => `${selector}__content`,
+        'outline-style': 'solid',
+        'outline-width': '0px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__content .q-btn`,
         'font-weight': 'var(--fontWeight-normal)'
       }
-    }
-  ],
-  [
-    /^q-date__main$/,
-    function* (_, { symbols }) {
-      yield { outline: '0' }
-      yield { 'outline-style': 'solid', 'outline-width': '0px' }
-    }
-  ],
-  [
-    /^q-date__header-link$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__main`,
+        outline: '0'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__main`,
+        'outline-style': 'solid',
+        'outline-width': '0px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__header-link`,
         opacity: '0.64',
         outline: '0',
         transition: 'opacity 0.3s ease-out'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:hover`,
+        [symbols.selector]: (selector) => `${selector}__header-link:hover`,
         opacity: '1'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:focus`,
+        [symbols.selector]: (selector) => `${selector}__header-link:focus`,
         opacity: '1'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:focus-visible`,
+        [symbols.selector]: (selector) =>
+          `${selector}__header-link:focus-visible`,
         opacity: '1',
         outline: '2px solid currentColor',
         'outline-offset': '2px'
       }
       yield {
+        [symbols.selector]: (selector) => `${selector}__header-link`,
         'outline-style': 'solid',
         'outline-width': '0px',
         opacity: '0.64',
         transition: 'opacity 0.3s ease-out'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}--active`,
+        [symbols.selector]: (selector) => `${selector}__header-link--active`,
         opacity: '100%'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:hover`,
+        [symbols.selector]: (selector) => `${selector}__header-link:hover`,
         opacity: '100%'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:focus`,
+        [symbols.selector]: (selector) => `${selector}__header-link:focus`,
         opacity: '100%'
       }
-    }
-  ],
-  [
-    /^q-date__header-link--active$/,
-    function* () {
-      yield { opacity: '1' }
-    }
-  ],
-  [
-    /^q-date__header-subtitle$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__header-link--active`,
+        opacity: '1'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__header-subtitle`,
         'font-size': '14px',
         'line-height': '1.75',
         'letter-spacing': '0.00938em'
       }
       yield {
+        [symbols.selector]: (selector) => `${selector}__header-subtitle`,
         'font-size': '14px',
         'line-height': '1.75',
         'letter-spacing': '0.00938em'
       }
-    }
-  ],
-  [
-    /^q-date__header-title-label$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__header-title-label`,
         'font-size': '24px',
         'line-height': '1.2',
         'letter-spacing': '0.00735em'
       }
       yield {
+        [symbols.selector]: (selector) => `${selector}__header-title-label`,
         'font-size': '24px',
         'line-height': '1.2',
         'letter-spacing': '0.00735em'
       }
-    }
-  ],
-  [
-    /^q-date__view$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__view`,
         height: '100%',
         width: '100%',
         'min-height': '290px',
         padding: '16px'
       }
-      yield { padding: '12px', 'min-height': '160px' }
-    }
-  ],
-  [
-    /^q-date__navigation$/,
-    function* (_, { symbols }) {
-      yield { height: '12.5%' }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div:first-child`,
+        [symbols.selector]: (selector) => `${selector}__view`,
+        padding: '12px',
+        'min-height': '160px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__navigation`,
+        height: '12.5%'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__navigation > div:first-child`,
         width: '8%',
         'min-width': '24px',
         'justify-content': 'flex-end'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div:last-child`,
+        [symbols.selector]: (selector) =>
+          `${selector}__navigation > div:last-child`,
         width: '8%',
         'min-width': '24px',
         'justify-content': 'flex-start'
       }
-      yield { height: '12.5%' }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div:first-child`,
+        [symbols.selector]: (selector) => `${selector}__navigation`,
+        height: '12.5%'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__navigation > div:first-child`,
         width: '8%',
         'min-width': '24px',
         'justify-content': 'flex-end'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div:last-child`,
+        [symbols.selector]: (selector) =>
+          `${selector}__navigation > div:last-child`,
         width: '8%',
         'min-width': '24px',
         'justify-content': 'flex-start'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-btn`,
+        [symbols.selector]: (selector) => `${selector}__navigation .q-btn`,
         color:
           'color-mix(in oklab, var(--q-on-surface) var(--un-text-opacity), transparent)'
       }
-    }
-  ],
-  [
-    /^q-date__calendar-weekdays$/,
-    function* (_, { symbols }) {
-      yield { height: '12.5%' }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div`,
+        [symbols.selector]: (selector) => `${selector}__calendar-weekdays`,
+        height: '12.5%'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__calendar-weekdays > div`,
         opacity: '0.38',
         'font-size': '12px'
       }
-      yield { height: '12.5%' }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div`,
+        [symbols.selector]: (selector) => `${selector}__calendar-weekdays`,
+        height: '12.5%'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__calendar-weekdays > div`,
         'font-size': '12px',
         opacity: '0.38'
       }
-    }
-  ],
-  [
-    /^q-date__calendar-item--out$/,
-    function* () {
-      yield { opacity: '0.18' }
-    }
-  ],
-  [
-    /^q-date__calendar-item--fill$/,
-    function* () {
-      yield { visibility: 'hidden' }
-    }
-  ],
-  [
-    /^q-date__calendar-days-container$/,
-    function* (_, { symbols }) {
-      yield { height: '75%', 'min-height': '192px' }
-      yield { 'padding-top': '12px', height: '75%', 'min-height': '192px' }
-    }
-  ],
-  [
-    /^q-date__calendar-days$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} > div`,
+        [symbols.selector]: (selector) => `${selector}__calendar-item--out`,
+        opacity: '0.18'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__calendar-item--fill`,
+        visibility: 'hidden'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__calendar-days-container`,
+        height: '75%',
+        'min-height': '192px'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__calendar-days-container`,
+        'padding-top': '12px',
+        height: '75%',
+        'min-height': '192px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__calendar-days > div`,
         height: '16.66% !important'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div`,
+        [symbols.selector]: (selector) => `${selector}__calendar-days > div`,
         height: '16.6666666667% !important'
       }
-    }
-  ],
-  [
-    /^q-date__event$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__event`,
         position: 'absolute',
         bottom: '2px',
         left: '50%',
@@ -688,6 +670,7 @@ export const dateRules = [
         transform: 'translate3d(-50%, 0, 0)'
       }
       yield {
+        [symbols.selector]: (selector) => `${selector}__event`,
         'border-radius': '5px',
         'background-color':
           'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)',
@@ -699,36 +682,34 @@ export const dateRules = [
         position: 'absolute'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}__event`,
         'background-color':
           'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)'
       }
-    }
-  ],
-  [
-    /^q-date__today$/,
-    function* () {
-      yield { 'box-shadow': '0 0 1px 0 currentColor' }
-    }
-  ],
-  [
-    /^q-date__years-content$/,
-    function* (_, { symbols }) {
-      yield { padding: '0 8px' }
       yield {
+        [symbols.selector]: (selector) => `${selector}__today`,
+        'box-shadow': '0 0 1px 0 currentColor'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__years-content`,
+        padding: '0 8px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__years-content`,
         'padding-inline': '8px',
         'padding-block': '0',
         'row-gap': '0.5em'
       }
-    }
-  ],
-  [
-    /^q-date__years-item$/,
-    function* (_, { symbols }) {
-      yield { flex: '0 0 33.3333%' }
-      yield { flex: '0 0 33.3333%' }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-btn`,
+        [symbols.selector]: (selector) => `${selector}__years-item`,
+        flex: '0 0 33.3333%'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__years-item`,
+        flex: '0 0 33.3333%'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__years-item .q-btn`,
         color:
           'color-mix(in oklab, var(--q-on-primary) var(--un-text-opacity), transparent)',
         'background-color':
@@ -737,181 +718,157 @@ export const dateRules = [
         width: '60px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-btn--flat`,
+        [symbols.selector]: (selector) =>
+          `${selector}__years-item .q-btn--flat`,
         color:
           'color-mix(in oklab, var(--q-on-surface) var(--un-text-opacity), transparent)',
         height: '30px',
         width: '60px'
       }
-    }
-  ],
-  [
-    /^q-date__months-item$/,
-    function* (_, { symbols }) {
-      yield { flex: '0 0 33.3333%' }
-      yield { flex: '0 0 33.3333%' }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-btn`,
+        [symbols.selector]: (selector) => `${selector}__months-item`,
+        flex: '0 0 33.3333%'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__months-item`,
+        flex: '0 0 33.3333%'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__months-item .q-btn`,
         color:
           'color-mix(in oklab, var(--q-on-primary) var(--un-text-opacity), transparent)',
         'background-color':
           'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-btn--flat`,
+        [symbols.selector]: (selector) =>
+          `${selector}__months-item .q-btn--flat`,
         color:
           'color-mix(in oklab, var(--q-on-surface) var(--un-text-opacity), transparent)'
       }
-    }
-  ],
-  [
-    /^q-date--readonly$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-date__header`,
+        [symbols.selector]: (selector) =>
+          `${selector}--readonly .q-date__header`,
         'pointer-events': 'none'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-date__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--readonly .q-date__content`,
         'pointer-events': 'none'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-date__navigation`,
+        [symbols.selector]: (selector) =>
+          `${selector}--readonly .q-date__navigation`,
         display: 'none'
       }
-    }
-  ],
-  [
-    /^q-date--portrait$/,
-    function* () {
-      yield { 'flex-direction': 'column' }
-    }
-  ],
-  [
-    /^q-date--portrait-standard$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-date__content`,
+        [symbols.selector]: (selector) => `${selector}--portrait`,
+        'flex-direction': 'column'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--portrait-standard .q-date__content`,
         height: 'calc(100% - 86px)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-date__header`,
+        [symbols.selector]: (selector) =>
+          `${selector}--portrait-standard .q-date__header`,
         'border-top-right-radius': 'inherit',
         height: '86px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-date__header-title`,
+        [symbols.selector]: (selector) =>
+          `${selector}--portrait-standard .q-date__header-title`,
         'align-items': 'center',
         height: '30px'
       }
-    }
-  ],
-  [
-    /^q-date--portrait-minimal$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-date__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--portrait-minimal .q-date__content`,
         height: '100%'
       }
-    }
-  ],
-  [
-    /^q-date--landscape$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--landscape`,
         'flex-direction': 'row',
         'align-items': 'stretch',
         'min-width': '420px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div`,
+        [symbols.selector]: (selector) => `${selector}--landscape > div`,
         display: 'flex',
         'flex-direction': 'column'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-date__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--landscape .q-date__content`,
         height: '100%'
       }
-    }
-  ],
-  [
-    /^q-date--landscape-standard$/,
-    function* (_, { symbols }) {
-      yield { 'min-width': '420px' }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-date__header`,
+        [symbols.selector]: (selector) => `${selector}--landscape-standard`,
+        'min-width': '420px'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--landscape-standard .q-date__header`,
         'border-bottom-left-radius': 'inherit',
         'min-width': '110px',
         width: '110px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-date__header-title`,
+        [symbols.selector]: (selector) =>
+          `${selector}--landscape-standard .q-date__header-title`,
         'flex-direction': 'column'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-date__header-today`,
+        [symbols.selector]: (selector) =>
+          `${selector}--landscape-standard .q-date__header-today`,
         'margin-top': '12px',
         'margin-left': '-8px'
       }
-    }
-  ],
-  [
-    /^q-date--landscape-minimal$/,
-    function* () {
-      yield { width: '310px' }
-    }
-  ],
-  [
-    /^q-date--dark$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}--landscape-minimal`,
+        width: '310px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--dark`,
         'box-shadow':
           '0 1px 5px rgba(255, 255, 255, 0.2), 0 2px 2px rgba(255, 255, 255, 0.14), 0 3px 1px -2px rgba(255, 255, 255, 0.12)',
         'border-color': 'rgba(255, 255, 255, 0.28)'
       }
-    }
-  ],
-  [
-    /^q-date__arrow$/,
-    function* (_, { symbols }) {
-      yield { flex: '0 1 auto' }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}.q-date__arrow:has(+.q-date__arrow)`,
+        [symbols.selector]: (selector) => `${selector}__arrow`,
+        flex: '0 1 auto'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__arrow.q-date__arrow:has(+.q-date__arrow)`,
         'padding-right': '40px'
       }
-    }
-  ],
-  [
-    /^q-date__calendar-item--in$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-btn`,
+        [symbols.selector]: (selector) =>
+          `${selector}__calendar-item--in .q-btn`,
         color:
           'color-mix(in oklab, var(--q-on-primary) var(--un-text-opacity), transparent)',
         'background-color':
           'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-btn--flat`,
+        [symbols.selector]: (selector) =>
+          `${selector}__calendar-item--in .q-btn--flat`,
         color:
           'color-mix(in oklab, var(--q-on-surface) var(--un-text-opacity), transparent)'
       }
-    }
-  ],
-  [
-    /^q-date__months$/,
-    function* () {
-      yield { 'flex-wrap': 'wrap' }
-    }
-  ],
-  [
-    /^q-date__edit-range-from-to$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel}:after`,
+        [symbols.selector]: (selector) => `${selector}__months`,
+        'flex-wrap': 'wrap'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__edit-range-from-to:after`,
         'border-right-color': 'transparent',
         'border-left-color': 'transparent',
+        'border-top-color': 'currentColor',
+        'border-bottom-color': 'currentColor',
         'border-top-left-radius': '28px',
         'border-bottom-left-radius': '28px',
         'border-top-right-radius': '28px',

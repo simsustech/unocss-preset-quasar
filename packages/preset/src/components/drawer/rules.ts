@@ -4,6 +4,7 @@ export const drawerRules = [
   [
     /^q-drawer$/,
     function* (_, { symbols }) {
+      // .q-drawer
       yield {
         // Reference: `border-start-end-radius: var(--shape-corner-large);
         // border-end-end-radius: …; background-color: …surface-container-low;
@@ -27,236 +28,222 @@ export const drawerRules = [
         'z-index': '1000'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}`,
         'border-color': 'rgba(255, 255, 255, 0.28)',
         'background-color': 'var(--q-surface-container-low)'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `.body--dark ${sel}__content .q-list > .q-router-link--active`,
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__content .q-list > .q-router-link--active`,
         color: 'var(--q-primary)'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `.body--dark ${sel}__content .q-list .q-router-link--active`,
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__content .q-list .q-router-link--active`,
         'background-color': 'var(--q-secondary-container)'
       }
-      // The unstyled style entry drops the drawer's surface.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-    }
-  ],
-  [
-    /^q-drawer--left$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--left`,
         transform: 'translateX(-100%)',
         left: '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-layout__shadow:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}--left .q-layout__shadow:after`,
         right: '10px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-layout__shadow`,
+        [symbols.selector]: (selector) => `${selector}--left .q-layout__shadow`,
         left: '10px',
         right: '-10px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}.q-drawer--bordered`,
+        [symbols.selector]: (selector) =>
+          `${selector}--left.q-drawer--bordered`,
         'border-right': '1px solid rgba(0, 0, 0, 0.12)'
       }
-    }
-  ],
-  [
-    /^q-drawer--right$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--right`,
         transform: 'translateX(100%)',
         right: '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-layout__shadow:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}--right .q-layout__shadow:after`,
         left: '10px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-layout__shadow`,
+        [symbols.selector]: (selector) =>
+          `${selector}--right .q-layout__shadow`,
         left: '-10px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}.q-drawer--bordered`,
+        [symbols.selector]: (selector) =>
+          `${selector}--right.q-drawer--bordered`,
         'border-left': '1px solid rgba(0, 0, 0, 0.12)'
       }
-    }
-  ],
-  [
-    /^q-drawer__content$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__content`,
         height: '100%',
         'overflow-y': 'auto'
       }
-      yield { 'padding-block': '14px' }
       yield {
-        [symbols.selector]: (sel) => `${sel} > *`,
+        [symbols.selector]: (selector) => `${selector}__content`,
+        'padding-block': '14px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__content > *`,
         'padding-inline': '28px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-list`,
+        [symbols.selector]: (selector) => `${selector}__content > .q-list`,
         'padding-inline': '12px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-scrollarea`,
+        [symbols.selector]: (selector) =>
+          `${selector}__content > .q-scrollarea`,
         'padding-inline': '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-list .q-item`,
+        [symbols.selector]: (selector) =>
+          `${selector}__content .q-list .q-item`,
         'border-radius': '32px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-list > .q-router-link--active`,
+        [symbols.selector]: (selector) =>
+          `${selector}__content .q-list > .q-router-link--active`,
         color: 'var(--q-primary)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-list .q-router-link--active`,
+        [symbols.selector]: (selector) =>
+          `${selector}__content .q-list .q-router-link--active`,
         'background-color': 'var(--q-secondary-container)'
       }
-    }
-  ],
-  [
-    /^q-drawer--on-top$/,
-    function* () {
-      // Reference: 7000 (above the drawer container's 3000 stack).
-      yield { 'z-index': '7000' }
-    }
-  ],
-  [
-    /^q-drawer-container$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:not(.q-drawer--mini-animate) .q-drawer--mini`,
-        padding: '0 !important'
+        [symbols.selector]: (selector) => `${selector}--on-top`,
+        'z-index': '7000'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:not(.q-drawer--mini-animate) .q-drawer--mini .q-item`,
-        'text-align': 'center',
-        'justify-content': 'center',
-        'padding-left': '0',
-        'padding-right': '0',
-        'min-width': '0'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:not(.q-drawer--mini-animate) .q-drawer--mini .q-item__section`,
-        'text-align': 'center',
-        'justify-content': 'center',
-        'padding-left': '0',
-        'padding-right': '0',
-        'min-width': '0'
-      }
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:not(.q-drawer--mini-animate) .q-drawer--mini .q-item__label`,
+        [symbols.selector]: (selector) =>
+          `${selector}--mini .q-mini-drawer-hide`,
         display: 'none'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:not(.q-drawer--mini-animate) .q-drawer--mini .q-item__section--main`,
+        [symbols.selector]: (selector) =>
+          `${selector}--mini .q-expansion-item__content`,
         display: 'none'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:not(.q-drawer--mini-animate) .q-drawer--mini .q-item__section--side ~ .q-item__section--side`,
-        display: 'none'
-      }
-    }
-  ],
-  [
-    /^q-drawer--mini$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-mini-drawer-hide`,
-        display: 'none'
+        [symbols.selector]: (selector) => `${selector}--mini`,
+        'border-radius': '0 !important'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-expansion-item__content`,
-        display: 'none'
-      }
-      yield { 'border-radius': '0 !important' }
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-tab__label`,
+        [symbols.selector]: (selector) => `${selector}--mini .q-tab__label`,
         'font-size': '12px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-tabs--vertical .q-tab`,
+        [symbols.selector]: (selector) =>
+          `${selector}--mini .q-tabs--vertical .q-tab`,
         'padding-inline': '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-drawer__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--mini > .q-drawer__content`,
         'padding-block': '9px !important'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-drawer__content > *`,
+        [symbols.selector]: (selector) =>
+          `${selector}--mini > .q-drawer__content > *`,
         'padding-inline': '4px !important'
       }
-    }
-  ],
-  [
-    /^q-drawer--mini-animate$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-drawer__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--mini-animate .q-drawer__content`,
         'overflow-x': 'hidden !important',
         'white-space': 'nowrap'
       }
-    }
-  ],
-  [
-    /^q-drawer--standard$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-mini-drawer-only`,
-        display: 'none'
-      }
-    }
-  ],
-  [
-    /^q-drawer--mobile$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-mini-drawer-only`,
+        [symbols.selector]: (selector) =>
+          `${selector}--standard .q-mini-drawer-only`,
         display: 'none'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-mini-drawer-hide`,
+        [symbols.selector]: (selector) =>
+          `${selector}--mobile .q-mini-drawer-only`,
         display: 'none'
       }
       yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--mobile .q-mini-drawer-hide`,
+        display: 'none'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--mobile`,
         'border-start-end-radius': 'var(--q-corner-large)',
         'border-end-end-radius': 'var(--q-corner-large)'
       }
-    }
-  ],
-  [
-    /^q-drawer__backdrop$/,
-    function* () {
-      yield { 'z-index': '6999', 'will-change': 'background-color' }
-    }
-  ],
-  [
-    /^q-drawer__opener$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__backdrop`,
+        'z-index': '6999',
+        'will-change': 'background-color'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__opener`,
         'z-index': '2001',
         height: '100%',
         width: '15px',
         'user-select': 'none',
         '-webkit-user-select': 'none'
+      }
+    }
+  ],
+  [
+    /^q-drawer-container$/,
+    function* (_, { symbols }) {
+      // .q-drawer-container
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}:not(.q-drawer--mini-animate) .q-drawer--mini`,
+        padding: '0 !important'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}:not(.q-drawer--mini-animate) .q-drawer--mini .q-item`,
+        'text-align': 'center',
+        'justify-content': 'center',
+        'padding-left': '0',
+        'padding-right': '0',
+        'min-width': '0'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}:not(.q-drawer--mini-animate) .q-drawer--mini .q-item__section`,
+        'text-align': 'center',
+        'justify-content': 'center',
+        'padding-left': '0',
+        'padding-right': '0',
+        'min-width': '0'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}:not(.q-drawer--mini-animate) .q-drawer--mini .q-item__label`,
+        display: 'none'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}:not(.q-drawer--mini-animate) .q-drawer--mini .q-item__section--main`,
+        display: 'none'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}:not(.q-drawer--mini-animate) .q-drawer--mini .q-item__section--side ~ .q-item__section--side`,
+        display: 'none'
       }
     }
   ]

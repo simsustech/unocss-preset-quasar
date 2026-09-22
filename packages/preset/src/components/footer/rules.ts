@@ -12,57 +12,47 @@ export const footerRules = [
   [
     /^q-footer$/,
     function* (_, { symbols }) {
+      // .q-footer
       yield {
         position: 'relative',
         'z-index': 2000
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-layout__shadow:after`,
+        [symbols.selector]: (selector) => `${selector} .q-layout__shadow:after`,
         top: '10px'
       }
-      // Reference `.q-footer .q-layout__shadow { top: -10px }` — the shadow track
-      // itself sits above the footer.
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-layout__shadow`,
+        [symbols.selector]: (selector) => `${selector} .q-layout__shadow`,
         top: '-10px'
       }
-      // Reference `body.quasar-style-unstyled .q-footer`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-      // Dark: footer border.
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}`,
         'border-color': 'rgba(255, 255, 255, 0.28)'
       }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--bordered`,
+        'border-top': '1px solid rgba(0, 0, 0, 0.12)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--elevated`,
+        'box-shadow': 'var(--q-elevation-level2)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--hidden`,
+        // Reference slides the section out of view rather than removing it from the
+        // flow: the layout keeps the space until the transition finishes.
+        transform: 'translateY(110%)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--reveal`
+        // Reveal
+      }
     }
-  ],
-  [
-    /^q-footer--bordered$/,
-    () => ({
-      'border-top': '1px solid rgba(0, 0, 0, 0.12)'
-    })
-  ],
-  [
-    /^q-footer--elevated$/,
-    () => ({
-      'box-shadow': 'var(--q-elevation-level2)'
-    })
-  ],
-  [
-    /^q-footer--hidden$/,
-    () => ({
-      // Reference slides the section out of view rather than removing it from the
-      // flow: the layout keeps the space until the transition finishes.
-      transform: 'translateY(110%)'
-    })
-  ],
-  [
-    /^q-footer--reveal$/,
-    () => ({
-      // Reveal
-    })
   ]
 ] as Rule[]

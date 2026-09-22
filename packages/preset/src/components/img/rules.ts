@@ -4,6 +4,7 @@ export const imgRules = [
   [
     /^q-img$/,
     function* (_, { symbols }) {
+      // .q-img
       yield {
         display: 'inline-block',
         // Reference `.q-img { vertical-align: middle; width: 100%; display:
@@ -13,27 +14,21 @@ export const imgRules = [
         position: 'relative',
         overflow: 'hidden'
       }
-      // Reference `body.quasar-style-unstyled .q-img`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-    }
-  ],
-  [
-    /^q-img__image$/,
-    () => ({
-      width: '100%',
-      height: '100%',
-      'border-radius': 'inherit',
-      'object-fit': 'cover'
-    })
-  ],
-  [
-    /^q-img__content$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__image`,
+        width: '100%',
+        height: '100%',
+        'border-radius': 'inherit',
+        'object-fit': 'cover'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__content`,
         position: 'absolute',
         inset: '0',
         overflow: 'auto',
@@ -44,7 +39,7 @@ export const imgRules = [
         'border-radius': 'inherit'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div`,
+        [symbols.selector]: (selector) => `${selector}__content > div`,
         'pointer-events': 'all !important',
         color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)',
         padding: '16px',
@@ -52,22 +47,16 @@ export const imgRules = [
           'color-mix(in oklab, rgba(0, 0, 0, 0.47) var(--un-bg-opacity), transparent)',
         position: 'absolute'
       }
-    }
-  ],
-  [
-    /^q-img__error$/,
-    () => ({
-      display: 'flex',
-      'align-items': 'center',
-      'justify-content': 'center',
-      'background-color': 'var(--q-surface-container-high)',
-      color: 'var(--q-on-surface-variant)'
-    })
-  ],
-  [
-    /^q-img__loading$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__error`,
+        display: 'flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        'background-color': 'var(--q-surface-container-high)',
+        color: 'var(--q-on-surface-variant)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__loading`,
         position: 'absolute',
         inset: 0,
         display: 'flex',
@@ -75,54 +64,40 @@ export const imgRules = [
         'justify-content': 'center',
         'background-color': 'var(--q-surface-container-high)'
       }
-      // Reference `.q-img__loading .q-spinner { font-size: 50px }`.
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-spinner`,
+        [symbols.selector]: (selector) => `${selector}__loading .q-spinner`,
         'font-size': '50px'
       }
-    }
-  ],
-  [
-    /^q-img--contain$/,
-    () => ({
-      'object-fit': 'contain'
-    })
-  ],
-  [
-    /^q-img--no-menu$/,
-    function* (_, { symbols }) {
-      // Reference `.q-img--no-menu .q-img__image` /
-      // `.q-img--no-menu .q-img__placeholder { pointer-events: none }`.
-      for (const child of ['.q-img__image', '.q-img__placeholder']) {
-        yield {
-          [symbols.selector]: (sel) => `${sel} ${child}`,
-          'pointer-events': 'none'
-        }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--contain`,
+        'object-fit': 'contain'
       }
-    }
-  ],
-  [
-    /^q-img--rounded$/,
-    () => ({
-      'border-radius': 'var(--q-radius-md)'
-    })
-  ],
-  [
-    /^q-img__container$/,
-    function* () {
-      yield { 'border-radius': 'inherit', 'font-size': '0' }
-    }
-  ],
-  [
-    /^q-img__image--with-transition$/,
-    function* () {
-      yield { transition: 'opacity 0.28s ease-in' }
-    }
-  ],
-  [
-    /^q-img__image--loaded$/,
-    function* () {
-      yield { opacity: '1' }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--no-menu .q-img__image`,
+        'pointer-events': 'none'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--no-menu .q-img__placeholder`,
+        'pointer-events': 'none'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--rounded`,
+        'border-radius': 'var(--q-radius-md)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__container`,
+        'border-radius': 'inherit',
+        'font-size': '0'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__image--with-transition`,
+        transition: 'opacity 0.28s ease-in'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__image--loaded`,
+        opacity: '1'
+      }
     }
   ]
 ] as Rule[]

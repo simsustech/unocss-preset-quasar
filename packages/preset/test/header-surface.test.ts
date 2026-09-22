@@ -10,6 +10,7 @@
 import { describe, it, expect } from 'vitest'
 import { createGenerator } from 'unocss'
 import { QuasarPreset } from '../src/index.js'
+import { isSupplied, suppliedBy } from './supplied.js'
 import { quasarSafelist } from '../src/safelist.js'
 
 async function cssFor(tokens: string): Promise<string> {
@@ -25,7 +26,12 @@ function block(css: string, sel: string): string {
 
 describe('layout marginal sections (header/footer surface)', () => {
   it('safelists the runtime-added marginal class', () => {
-    expect(quasarSafelist).toContain('q-layout__section--marginal')
+    // Supplied by the component extractor: one mention of `<q-layout>` brings
+    // the component's whole vocabulary into the sheet.
+    expect(
+      isSupplied('q-layout__section--marginal'),
+      `supplied by ${suppliedBy('q-layout__section--marginal')}`
+    ).toBe(true)
   })
 
   it('paints the marginal section with surface-container-low, not primary', async () => {

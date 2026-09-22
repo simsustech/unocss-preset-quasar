@@ -4,6 +4,7 @@ export const responsiveRules = [
   [
     /^q-responsive$/,
     function* (_, { symbols }) {
+      // .q-responsive
       yield {
         // Reference: `max-width: 100%; max-height: 100%; position: relative` (no
         // `overflow: hidden` — that was the rewrite's own addition).
@@ -12,35 +13,28 @@ export const responsiveRules = [
         position: 'relative'
       }
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-    }
-  ],
-  [
-    /^q-responsive--ratio$/,
-    () => ({
-      // Ratio
-    })
-  ],
-  [
-    /^q-responsive__filler$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}--ratio`
+        // Ratio
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__filler`,
         width: 'inherit',
         'max-width': 'inherit',
         height: 'inherit',
         'max-height': 'inherit'
       }
-    }
-  ],
-  [
-    /^q-responsive__content$/,
-    function* (_, { symbols }) {
-      yield { 'border-radius': 'inherit' }
       yield {
-        [symbols.selector]: (sel) => `${sel} > *`,
+        [symbols.selector]: (selector) => `${selector}__content`,
+        'border-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__content > *`,
         width: '100% !important',
         height: '100% !important',
         'max-height': '100% !important',

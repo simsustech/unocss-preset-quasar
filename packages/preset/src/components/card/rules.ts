@@ -4,6 +4,7 @@ export const cardRules = [
   [
     /^q-card$/,
     function* (_, { symbols }) {
+      // .q-card
       yield {
         display: 'flex',
         'flex-direction': 'column',
@@ -18,40 +19,58 @@ export const cardRules = [
         'box-shadow': 'var(--q-elevation-level1)',
         position: 'relative'
       }
-      // Reference family `.q-card > div|img`: children lose their own radius so
-      // only the card's corners show, the first and last of the run inherit them
-      // back, and an image spans the card.
-      for (const child of ['div', 'img']) {
-        yield {
-          [symbols.selector]: (sel) =>
-            `${sel} > ${child}:not(.q--avoid-card-border)`,
-          'border-top-left-radius': 'var(--radius-none)',
-          'border-top-right-radius': 'var(--radius-none)',
-          'border-bottom-left-radius': 'var(--radius-none)',
-          'border-bottom-right-radius': 'var(--radius-none)'
-        }
-        yield {
-          [symbols.selector]: (sel) =>
-            `${sel} > ${child}:nth-child(1 of :not(.q--avoid-card-border))`,
-          'border-top': '0',
-          'border-top-left-radius': 'inherit',
-          'border-top-right-radius': 'inherit'
-        }
-        yield {
-          [symbols.selector]: (sel) =>
-            `${sel} > ${child}:nth-last-child(1 of :not(.q--avoid-card-border))`,
-          'border-bottom': '0',
-          'border-bottom-left-radius': 'inherit',
-          'border-bottom-right-radius': 'inherit'
-        }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector} > div:not(.q--avoid-card-border)`,
+        'border-top-left-radius': 'var(--radius-none)',
+        'border-top-right-radius': 'var(--radius-none)',
+        'border-bottom-left-radius': 'var(--radius-none)',
+        'border-bottom-right-radius': 'var(--radius-none)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div:not(.q--avoid-card-border)`,
+        [symbols.selector]: (selector) =>
+          `${selector} > div:nth-child(1 of :not(.q--avoid-card-border))`,
+        'border-top': '0',
+        'border-top-left-radius': 'inherit',
+        'border-top-right-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector} > div:nth-last-child(1 of :not(.q--avoid-card-border))`,
+        'border-bottom': '0',
+        'border-bottom-left-radius': 'inherit',
+        'border-bottom-right-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector} > img:not(.q--avoid-card-border)`,
+        'border-top-left-radius': 'var(--radius-none)',
+        'border-top-right-radius': 'var(--radius-none)',
+        'border-bottom-left-radius': 'var(--radius-none)',
+        'border-bottom-right-radius': 'var(--radius-none)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector} > img:nth-child(1 of :not(.q--avoid-card-border))`,
+        'border-top': '0',
+        'border-top-left-radius': 'inherit',
+        'border-top-right-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector} > img:nth-last-child(1 of :not(.q--avoid-card-border))`,
+        'border-bottom': '0',
+        'border-bottom-left-radius': 'inherit',
+        'border-bottom-right-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector} > div:not(.q--avoid-card-border)`,
         'border-left': '0',
         'border-right': '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > img`,
+        [symbols.selector]: (selector) => `${selector} > img`,
         'border-color':
           'color-mix(in oklab, 0 var(--un-border-opacity), transparent)',
         width: '100%',
@@ -59,20 +78,20 @@ export const cardRules = [
         display: 'block'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}.disabled`,
+        [symbols.selector]: (selector) => `${selector}.disabled`,
         opacity: '38%'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:not(.disabled):focus`,
+        [symbols.selector]: (selector) => `${selector}:not(.disabled):focus`,
         'background-color':
           'color-mix(in oklab, var(--light-secondary) var(--un-bg-opacity), transparent)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:not(.disabled):hover`,
+        [symbols.selector]: (selector) => `${selector}:not(.disabled):hover`,
         'box-shadow': 'var(--q-elevation-level2)'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}`,
         'background-color': 'var(--q-surface-container-low)'
       }
       yield {
@@ -81,25 +100,23 @@ export const cardRules = [
         'border-color': 'var(--q-outline-variant)'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark .q-dialog__inner>${sel}`,
+        [symbols.selector]: (selector) =>
+          `.body--dark .q-dialog__inner>${selector}`,
         'background-color': 'var(--q-surface-container-high)'
       }
-      // Reference `body.quasar-style-unstyled .q-card`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}:not(.disabled):focus`,
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}:not(.disabled):focus`,
         'background-color': 'var(--q-secondary)'
       }
-    }
-  ],
-  [
-    /^q-card--dark$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--dark`,
         // The component-level dark variant names the dark roles directly: the
         // `--q-*` aliases follow the *body* class, so using them here left a
         // `.q-card--dark` on a light body with light surfaces.
@@ -109,184 +126,181 @@ export const cardRules = [
         'border-color':
           'color-mix(in srgb, var(--colors-white) 28%, transparent)'
       }
-    }
-  ],
-  [
-    /^q-card--horizontal$/,
-    () => ({
-      'flex-direction': 'row'
-    })
-  ],
-  [
-    /^q-card__section$/,
-    () => ({
-      padding: 'var(--q-space-md)',
-      position: 'relative'
-    })
-  ],
-  [
-    /^q-card__section--vertical$/,
-    () => ({
-      padding: 'var(--q-space-sm) var(--q-space-md)'
-    })
-  ],
-  [
-    /^q-card__section--img$/,
-    () => ({
-      display: 'block',
-      'object-fit': 'cover'
-    })
-  ],
-  [
-    /^q-card__actions$/,
-    () => ({
-      display: 'flex',
-      'align-items': 'center',
-      gap: 'var(--q-space-sm)',
-      // Reference `.q-card__actions { padding: 8px }`.
-      padding: '8px'
-    })
-  ],
-  [
-    /^q-card__actions--horizontal$/,
-    () => ({
-      'flex-direction': 'row'
-    })
-  ],
-  [
-    /^q-card__actions--vertical$/,
-    () => ({
-      'flex-direction': 'column'
-    })
-  ],
-  [
-    /^q-card__actions--align-start$/,
-    () => ({ 'justify-content': 'flex-start' })
-  ],
-  [/^q-card__actions--align-center$/, () => ({ 'justify-content': 'center' })],
-  [/^q-card__actions--align-end$/, () => ({ 'justify-content': 'flex-end' })],
-  [
-    /^q-card__actions--align-between$/,
-    () => ({ 'justify-content': 'space-between' })
-  ],
-  [
-    /^q-card__actions--align-around$/,
-    () => ({ 'justify-content': 'space-around' })
-  ],
-  [
-    /^q-card__actions--align-evenly$/,
-    () => ({ 'justify-content': 'space-evenly' })
-  ],
-  [/^q-card__actions--items-start$/, () => ({ 'align-items': 'flex-start' })],
-  [/^q-card__actions--items-center$/, () => ({ 'align-items': 'center' })],
-  [/^q-card__actions--items-end$/, () => ({ 'align-items': 'flex-end' })],
-  [/^q-card__actions--items-stretch$/, () => ({ 'align-items': 'stretch' })],
-  [/^q-card__actions--items-baseline$/, () => ({ 'align-items': 'baseline' })],
-  [
-    /^q-card--bordered$/,
-    function* () {
-      // Longhands: the reference names `border-width`/`border-style` separately.
       yield {
+        [symbols.selector]: (selector) => `${selector}--horizontal`,
+        'flex-direction': 'row'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__section`,
+        padding: 'var(--q-space-md)',
+        position: 'relative'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__section--vertical`,
+        padding: 'var(--q-space-sm) var(--q-space-md)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__section--img`,
+        display: 'block',
+        'object-fit': 'cover'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions`,
+        display: 'flex',
+        'align-items': 'center',
+        gap: 'var(--q-space-sm)',
+        // Reference `.q-card__actions { padding: 8px }`.
+        padding: '8px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions--horizontal`,
+        'flex-direction': 'row'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions--vertical`,
+        'flex-direction': 'column'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions--align-start`,
+        'justify-content': 'flex-start'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions--align-center`,
+        'justify-content': 'center'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions--align-end`,
+        'justify-content': 'flex-end'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions--align-between`,
+        'justify-content': 'space-between'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions--align-around`,
+        'justify-content': 'space-around'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions--align-evenly`,
+        'justify-content': 'space-evenly'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions--items-start`,
+        'align-items': 'flex-start'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions--items-center`,
+        'align-items': 'center'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions--items-end`,
+        'align-items': 'flex-end'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions--items-stretch`,
+        'align-items': 'stretch'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__actions--items-baseline`,
+        'align-items': 'baseline'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--bordered`,
         'border-style': 'solid',
         'border-width': '1px',
         'border-color':
           'color-mix(in oklab, var(--light-outline-variant) var(--un-border-opacity), transparent)'
       }
-    }
-  ],
-  [
-    /^q-card__section--vert$/,
-    function* () {
-      yield { padding: '16px' }
-    }
-  ],
-  [
-    /^q-card__section--horiz$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} > div:not(.q--avoid-card-border)`,
+        [symbols.selector]: (selector) => `${selector}__section--vert`,
+        padding: '16px'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__section--horiz > div:not(.q--avoid-card-border)`,
         'border-top-left-radius': '0',
         'border-bottom-left-radius': '0',
         'border-top-right-radius': '0',
         'border-bottom-right-radius': '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > img:not(.q--avoid-card-border)`,
+        [symbols.selector]: (selector) =>
+          `${selector}__section--horiz > img:not(.q--avoid-card-border)`,
         'border-top-left-radius': '0',
         'border-bottom-left-radius': '0',
         'border-top-right-radius': '0',
         'border-bottom-right-radius': '0'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} > div:nth-child(1 of :not(.q--avoid-card-border))`,
+        [symbols.selector]: (selector) =>
+          `${selector}__section--horiz > div:nth-child(1 of :not(.q--avoid-card-border))`,
         'border-top-left-radius': 'inherit',
         'border-bottom-left-radius': 'inherit'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} > img:nth-child(1 of :not(.q--avoid-card-border))`,
+        [symbols.selector]: (selector) =>
+          `${selector}__section--horiz > img:nth-child(1 of :not(.q--avoid-card-border))`,
         'border-top-left-radius': 'inherit',
         'border-bottom-left-radius': 'inherit'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} > div:nth-last-child(1 of :not(.q--avoid-card-border))`,
+        [symbols.selector]: (selector) =>
+          `${selector}__section--horiz > div:nth-last-child(1 of :not(.q--avoid-card-border))`,
         'border-top-right-radius': 'inherit',
         'border-bottom-right-radius': 'inherit'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} > img:nth-last-child(1 of :not(.q--avoid-card-border))`,
+        [symbols.selector]: (selector) =>
+          `${selector}__section--horiz > img:nth-last-child(1 of :not(.q--avoid-card-border))`,
         'border-top-right-radius': 'inherit',
         'border-bottom-right-radius': 'inherit'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > div:not(.q--avoid-card-border)`,
+        [symbols.selector]: (selector) =>
+          `${selector}__section--horiz > div:not(.q--avoid-card-border)`,
         'border-top': '0',
         'border-bottom': '0',
         'box-shadow': 'none'
       }
-    }
-  ],
-  [
-    /^q-card__actions--horiz$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-btn-item + .q-btn-item`,
+        [symbols.selector]: (selector) =>
+          `${selector}__actions--horiz > .q-btn-item + .q-btn-item`,
         'margin-left': '8px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-btn-group + .q-btn-item`,
+        [symbols.selector]: (selector) =>
+          `${selector}__actions--horiz > .q-btn-group + .q-btn-item`,
         'margin-left': '8px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-btn-item + .q-btn-group`,
+        [symbols.selector]: (selector) =>
+          `${selector}__actions--horiz > .q-btn-item + .q-btn-group`,
         'margin-left': '8px'
       }
-    }
-  ],
-  [
-    /^q-card__actions--vert$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-btn-item.q-btn--round`,
+        [symbols.selector]: (selector) =>
+          `${selector}__actions--vert > .q-btn-item.q-btn--round`,
         'align-self': 'center'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-btn-item + .q-btn-item`,
+        [symbols.selector]: (selector) =>
+          `${selector}__actions--vert > .q-btn-item + .q-btn-item`,
         'margin-top': '4px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-btn-group + .q-btn-item`,
+        [symbols.selector]: (selector) =>
+          `${selector}__actions--vert > .q-btn-group + .q-btn-item`,
         'margin-top': '4px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-btn-item + .q-btn-group`,
+        [symbols.selector]: (selector) =>
+          `${selector}__actions--vert > .q-btn-item + .q-btn-group`,
         'margin-top': '4px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-btn-group > .q-btn-item`,
+        [symbols.selector]: (selector) =>
+          `${selector}__actions--vert > .q-btn-group > .q-btn-item`,
         'flex-grow': '1'
       }
     }

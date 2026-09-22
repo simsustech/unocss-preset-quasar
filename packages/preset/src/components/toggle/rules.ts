@@ -24,10 +24,11 @@ export const toggleRules = [
   [
     /^q-toggle$/,
     function* (_, { symbols }) {
+      // .q-toggle
       yield { 'vertical-align': 'middle' }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:not(.disabled) .q-toggle__thumb:before`,
+        [symbols.selector]: (selector) =>
+          `${selector}:not(.disabled) .q-toggle__thumb:before`,
         content: '""',
         position: 'absolute',
         top: 0,
@@ -42,84 +43,76 @@ export const toggleRules = [
           'transform var(--q-toggle-duration) cubic-bezier(0, 0, 0.2, 1)'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:not(.disabled):focus-visible .q-toggle__thumb:before`,
+        [symbols.selector]: (selector) =>
+          `${selector}:not(.disabled):focus-visible .q-toggle__thumb:before`,
         transform: 'scale3d(2, 2, 1)'
       }
-      // Quasar gates hover in @media(any-hover:hover); emitted un-gated —
-      // harmless on touch, required for desktop parity. Source: quasar.css:5932.
       yield {
-        [symbols.selector]: (sel: string) =>
-          `${sel}:not(.disabled):hover .q-toggle__thumb:before`,
+        [symbols.selector]: (selector: string) =>
+          `${selector}:not(.disabled):hover .q-toggle__thumb:before`,
         // Alpha is declared here as well as on the base rule because the
         // reference states it on the hover selector.
         opacity: '12%',
         transform: 'scale(2)'
       }
-      // The unstyled style entry is inert: no surface, inherit the text colour.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}.disabled`,
+        [symbols.selector]: (selector) => `${selector}.disabled`,
         opacity: '75% !important'
       }
-      // MD3 tints the on-state interaction layer with primary (MD2 keeps
-      // currentColor, so this is a no-op there via the token).
       yield {
-        [symbols.selector]: (sel: string) =>
-          `${sel} .q-toggle__inner--truthy .q-toggle__thumb:before`,
+        [symbols.selector]: (selector: string) =>
+          `${selector} .q-toggle__inner--truthy .q-toggle__thumb:before`,
         'background-color': 'var(--q-toggle-state-layer-color-active)'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}__thumb`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}__thumb`,
         color: 'var(--q-surface-container-highest)'
       }
-      // Keep the selectors the reference declares, but take the token: md3's
-      // tokens resolve to the same roles the reference names, and md2 states its
-      // own dark values (white-30 track, grey-400 handle).
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}__thumb:after`,
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__thumb:after`,
         'background-color': 'var(--q-toggle-thumb-bg)'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `.body--dark ${sel}__inner--truthy .q-toggle__thumb`,
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__inner--truthy .q-toggle__thumb`,
         color: 'var(--q-on-primary-container)'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `.body--dark ${sel}__inner--truthy .q-toggle__track`,
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__inner--truthy .q-toggle__track`,
         'background-color': 'var(--q-toggle-track-bg-active)'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `.body--dark ${sel}__inner--truthy .q-toggle__thumb:after`,
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__inner--truthy .q-toggle__thumb:after`,
         // the token: md3's is `on-primary`, md2's is the spec's `secondary`
         'background-color': 'var(--q-toggle-thumb-bg-active) !important'
       }
-    }
-  ],
-  [/^q-toggle__native$/, () => ({ width: '1px', height: '1px' })],
-  [
-    /^q-toggle__inner$/,
-    () => ({
-      'font-size': 'var(--q-toggle-font-size)',
-      width: 'var(--q-toggle-inner-width)',
-      'min-width': 'var(--q-toggle-inner-width)',
-      height: '1em',
-      padding: 'var(--q-toggle-inner-padding)',
-      'print-color-adjust': 'exact',
-      '-webkit-print-color-adjust': 'exact',
-      position: 'relative'
-    })
-  ],
-  [
-    /^q-toggle__track$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__native`,
+        width: '1px',
+        height: '1px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__inner`,
+        'font-size': 'var(--q-toggle-font-size)',
+        width: 'var(--q-toggle-inner-width)',
+        'min-width': 'var(--q-toggle-inner-width)',
+        height: '1em',
+        padding: 'var(--q-toggle-inner-padding)',
+        'print-color-adjust': 'exact',
+        '-webkit-print-color-adjust': 'exact',
+        position: 'relative'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__track`,
         height: 'var(--q-toggle-track-height)',
         'border-radius': 'var(--q-toggle-track-border-radius)',
         opacity: 'var(--q-toggle-track-opacity)',
@@ -134,21 +127,11 @@ export const toggleRules = [
         '-webkit-print-color-adjust': 'exact'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}__track`,
         opacity: '1'
       }
-    }
-  ],
-  [
-    /^q-toggle__thumb$/,
-    function* (_, { symbols }) {
-      // Absolute positioning is required: without it the :after circle
-      // positions against .q-toggle__inner (observed 56px blowout) and the icon
-      // drops below the toolbar. The reference ships absolute too.
-      // Centring is expressed as calc(50% - size/2) so the same rule centres
-      // the 16px md3 resting handle, the 24px md3 active handle and Quasar's
-      // 20px md2 handle without per-state top offsets.
       yield {
+        [symbols.selector]: (selector) => `${selector}__thumb`,
         position: 'absolute',
         top: 'calc(50% - var(--q-toggle-thumb-size) / 2)',
         left: 'var(--q-toggle-thumb-offset)',
@@ -162,7 +145,7 @@ export const toggleRules = [
         'z-index': 0
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:after`,
+        [symbols.selector]: (selector) => `${selector}__thumb:after`,
         content: '""',
         position: 'absolute',
         top: 0,
@@ -176,33 +159,26 @@ export const toggleRules = [
         'box-shadow':
           '0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12)'
       }
-      // Icon inside the handle (md3: 16px check, on-primary-container).
       yield {
-        [symbols.selector]: (sel: string) => `${sel} .q-icon`,
+        [symbols.selector]: (selector: string) => `${selector}__thumb .q-icon`,
         'font-size': 'var(--q-toggle-icon-size)',
         'min-width': '1em',
         color: 'var(--q-toggle-icon-color)',
         opacity: '0.54',
         'z-index': 2
       }
-    }
-  ],
-  [
-    /^q-toggle__inner--indet$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__thumb`,
+        [symbols.selector]: (selector) =>
+          `${selector}__inner--indet .q-toggle__thumb`,
         left: 'var(--q-toggle-thumb-offset-indet)'
       }
-    }
-  ],
-  [
-    /^q-toggle__inner--truthy$/,
-    function* (_, { symbols }) {
-      // Keeps currentColor-based MD2 pieces (track fill, md2 handle) in sync.
-      yield { color: 'var(--q-primary)' }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__track`,
+        [symbols.selector]: (selector) => `${selector}__inner--truthy`,
+        color: 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__inner--truthy .q-toggle__track`,
         background: 'var(--q-toggle-track-bg-active)',
         opacity: 'var(--q-toggle-track-opacity-active)',
         'outline-width': 'var(--q-toggle-track-outline-width-active)',
@@ -210,53 +186,45 @@ export const toggleRules = [
         'outline-color': 'var(--q-toggle-track-outline-color-active)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__thumb`,
+        [symbols.selector]: (selector) =>
+          `${selector}__inner--truthy .q-toggle__thumb`,
         width: 'var(--q-toggle-thumb-size-active)',
         height: 'var(--q-toggle-thumb-size-active)',
         top: 'calc(50% - var(--q-toggle-thumb-size-active) / 2)',
         left: 'var(--q-toggle-thumb-offset-active)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__thumb:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}__inner--truthy .q-toggle__thumb:after`,
         'background-color': 'var(--q-toggle-thumb-bg-active)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__thumb .q-icon`,
+        [symbols.selector]: (selector) =>
+          `${selector}__inner--truthy .q-toggle__thumb .q-icon`,
         color: 'var(--q-toggle-icon-color-active)',
         opacity: '100%'
       }
-    }
-  ],
-  [/^q-toggle.disabled$/, () => ({ opacity: '0.75 !important' })],
-  [
-    /^q-toggle--dark$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__inner`,
+        [symbols.selector]: (selector) => `${selector}--dark .q-toggle__inner`,
         color: '#fff'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__inner--truthy`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dark .q-toggle__inner--truthy`,
         color: 'var(--q-primary)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__thumb:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dark .q-toggle__thumb:after`,
         'box-shadow': 'none'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__thumb:before`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dark .q-toggle__thumb:before`,
         opacity: '0.32 !important'
       }
-    }
-  ],
-  [
-    /^q-toggle--dense$/,
-    function* (_, { symbols }) {
-      // Densities are not part of the M3 spec; this keeps Quasar's dense
-      // proportion (0.8em x 0.5em of the dense font size) and re-derives the
-      // handle in em so it scales with it instead of the px tokens.
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__inner`,
+        [symbols.selector]: (selector) => `${selector}--dense .q-toggle__inner`,
         'font-size': 'var(--q-toggle-dense-font-size)',
         width: 'var(--q-toggle-inner-width)',
         'min-width': 'var(--q-toggle-inner-width)',
@@ -266,58 +234,57 @@ export const toggleRules = [
         'padding-block': '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__thumb`,
+        [symbols.selector]: (selector) => `${selector}--dense .q-toggle__thumb`,
         width: '0.5em',
         height: '0.5em',
         top: 'calc(50% - 0.25em)',
         left: '0'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-toggle__inner--indet .q-toggle__thumb`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dense .q-toggle__inner--indet .q-toggle__thumb`,
         left: '0.15em'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-toggle__inner--truthy .q-toggle__thumb`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dense .q-toggle__inner--truthy .q-toggle__thumb`,
         width: '0.5em',
         height: '0.5em',
         top: 'calc(50% - 0.25em)',
         left: '0.3em'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__label`,
+        [symbols.selector]: (selector) => `${selector}--dense .q-toggle__label`,
         'padding-left': '0.5em'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel}:not(.disabled):focus-visible .q-toggle__thumb:before`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dense:not(.disabled):focus-visible .q-toggle__thumb:before`,
         transform: 'scale3d(1.5, 1.5, 1)'
       }
-    }
-  ],
-  [
-    /^q-toggle--dense.reverse$/,
-    function* (_, { symbols }) {
+      // Label offset from the control. Missing entirely before, which left the
+      // MD3 toggle label glued to the track (reference: `.q-toggle
+      // .q-toggle__label { padding-left: .5em }`, `.reverse` swaps sides).
+      // .q-toggle__label
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__label`,
+        [symbols.selector]: (selector) => `.q-toggle ${selector}__label`,
+        'padding-left': '0.5em'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `.q-toggle.reverse ${selector}__label`,
         'padding-left': 0,
         'padding-right': '0.5em'
       }
     }
   ],
+  [/^q-toggle.disabled$/, () => ({ opacity: '0.75 !important' })],
+  ,
   [
-    // Label offset from the control. Missing entirely before, which left the
-    // MD3 toggle label glued to the track (reference: `.q-toggle
-    // .q-toggle__label { padding-left: .5em }`, `.reverse` swaps sides).
-    /^q-toggle__label$/,
+    /^q-toggle--dense.reverse$/,
     function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `.q-toggle ${sel}`,
-        'padding-left': '0.5em'
-      }
-      yield {
-        [symbols.selector]: (sel) => `.q-toggle.reverse ${sel}`,
+        [symbols.selector]: (sel) => `${sel} .q-toggle__label`,
         'padding-left': 0,
         'padding-right': '0.5em'
       }

@@ -4,10 +4,11 @@ export const spaceRules = [
   [
     /^q-space$/,
     function* (_, { symbols }) {
+      // .q-space
       yield { flex: '1', 'flex-grow': 1 }
-      // The unstyled style entry drops the component's own surface.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }

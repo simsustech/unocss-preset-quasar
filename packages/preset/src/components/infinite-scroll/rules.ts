@@ -2,29 +2,25 @@ import type { Rule } from '@unocss/core'
 
 export const infiniteScrollRules = [
   [
-    /^q-infinite-scroll__sentinel$/,
-    function* () {
+    /^q-infinite-scroll$/,
+    function* (_, { symbols }) {
+      // .q-infinite-scroll
       yield {
+        [symbols.selector]: (selector) => `${selector}__sentinel`,
         height: '1px',
         'margin-top': '-1px',
         'pointer-events': 'none'
       }
-    }
-  ],
-  [
-    /^q-infinite-scroll--reverse$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-infinite-scroll__sentinel`,
+        [symbols.selector]: (selector) =>
+          `${selector}--reverse .q-infinite-scroll__sentinel`,
         'margin-top': '0',
         'margin-bottom': '-1px'
       }
-    }
-  ],
-  [
-    /^q-infinite-scroll--no-anchoring$/,
-    function* () {
-      yield { 'overflow-anchor': 'none' }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--no-anchoring`,
+        'overflow-anchor': 'none'
+      }
     }
   ]
 ] as Rule[]

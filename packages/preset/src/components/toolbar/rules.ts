@@ -4,6 +4,7 @@ export const toolbarRules = [
   [
     /^q-toolbar$/,
     function* (_, { symbols }) {
+      // .q-toolbar
       yield {
         display: 'flex',
         'align-items': 'center',
@@ -13,34 +14,24 @@ export const toolbarRules = [
         'min-height': '50px',
         position: 'relative'
       }
-      // Source: quasar.css `.q-toolbar .q-avatar`.
       yield {
-        [symbols.selector]: (sel: string) => `${sel} .q-avatar`,
+        [symbols.selector]: (selector: string) => `${selector} .q-avatar`,
         'font-size': '38px'
       }
-      // Reference `body.quasar-style-unstyled .q-toolbar`.
       yield {
-        [symbols.selector]: (sel: string) =>
-          `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector: string) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-    }
-  ],
-  [
-    /^q-toolbar--inset$/,
-    () => ({
-      // Reference `.q-toolbar--inset { padding-left: 58px }` (physical, as the
-      // bundle states it).
-      'padding-left': '58px'
-    })
-  ],
-  [
-    /^q-toolbar__title$/,
-    // Single entry (duplicate matchers drop earlier ones). First/last-child
-    // padding from quasar.css.
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--inset`,
+        // Reference `.q-toolbar--inset { padding-left: 58px }` (physical, as the
+        // bundle states it).
+        'padding-left': '58px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__title`,
         // Reference `.q-toolbar__title`: title-large type scale, `flex: 0 1 auto`
         // so it shrinks instead of pushing the actions out.
         flex: '0 1 auto',
@@ -56,11 +47,13 @@ export const toolbarRules = [
         'white-space': 'nowrap'
       }
       yield {
-        [symbols.selector]: (sel: string) => `${sel}:first-child`,
+        [symbols.selector]: (selector: string) =>
+          `${selector}__title:first-child`,
         'padding-left': 0
       }
       yield {
-        [symbols.selector]: (sel: string) => `${sel}:last-child`,
+        [symbols.selector]: (selector: string) =>
+          `${selector}__title:last-child`,
         'padding-right': 0
       }
     }

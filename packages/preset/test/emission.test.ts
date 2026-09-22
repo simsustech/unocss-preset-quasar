@@ -26,6 +26,7 @@ import { dirname, join } from 'node:path'
 import { createGenerator } from 'unocss'
 import { QuasarPreset } from '../src/index.js'
 import { quasarSafelist } from '../src/safelist.js'
+import { isSupplied, suppliedBy } from './supplied.js'
 import * as componentModules from '../src/components/index.js'
 import * as coreModules from '../src/core/index.js'
 // @ts-expect-error -- plain-JS helper; `tsc` only covers src/, vitest resolves it
@@ -124,9 +125,8 @@ describe('emission integrity', () => {
     expect(displays.at(-1)).toBe('flex')
   })
 
-  it('safelists the responsive, platform and colour classes the reference emits', () => {
+  it('supplies the responsive, platform and colour classes the reference emits', () => {
     const names = colorNames(FIXTURE.variables)
-    const safelist = new Set(quasarSafelist)
     // Scope classes are not utilities: `.quasar-style-*` and `.body--dark` are
     // emitted by the preset's preflight, not by a utility rule.
     const scopeClasses = new Set(['body--dark', 'quasar-style-unstyled'])
@@ -140,14 +140,16 @@ describe('emission integrity', () => {
         const cls = match[1]
         if (cls.startsWith('q-') || scopeClasses.has(cls)) continue
         if (cls.startsWith('quasar-style-')) continue
-        if (safelist.has(cls)) continue
+        // Supplied by some mechanism — the safelist, Quasar's runtime globals, a
+        // component vocabulary or a value — not necessarily by the safelist.
+        if (isSupplied(cls)) continue
         missing.set(cls, [...(missing.get(cls) ?? []), module])
       }
     }
-    const list = [...missing].map(([cls, modules]) => `${cls} (${modules[0]})`)
-    expect(
-      list,
-      `classes missing from the safelist: ${list.join(', ')}`
-    ).toEqual([])
+    const list = [...missing].map(
+      ([cls, modules]) =>
+        `${cls} (${modules[0]}, supplied by ${suppliedBy(cls)})`
+    )
+    expect(list, `classes nothing supplies: ${list.join(', ')}`).toEqual([])
   })
 })

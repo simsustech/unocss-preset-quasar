@@ -17,62 +17,49 @@ export const headerRules = [
   [
     /^q-header$/,
     function* (_, { symbols }) {
+      // .q-header
       yield {
         position: 'relative',
         'z-index': 2000
       }
-      // Shadow hook: the reveal/elevate helper sits inside the header and
-      // overflows below it (quasar.css `.q-header .q-layout__shadow:after`).
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-layout__shadow:after`,
+        [symbols.selector]: (selector) => `${selector} .q-layout__shadow:after`,
         bottom: '10px'
       }
-      // Reference `.q-header .q-layout__shadow { bottom: -10px }`.
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-layout__shadow`,
+        [symbols.selector]: (selector) => `${selector} .q-layout__shadow`,
         bottom: '-10px'
       }
-      // Reference `.q-header .q-toolbar__title { flex-grow: 1000 }`: the title
-      // absorbs the toolbar's free space so the actions stay right-aligned.
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-toolbar__title`,
+        [symbols.selector]: (selector) => `${selector} .q-toolbar__title`,
         'flex-grow': '1000'
       }
-      // Reference `body.quasar-style-unstyled .q-header`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-      // Dark: header border.
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}`,
         'border-color': 'rgba(255, 255, 255, 0.28)'
       }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--bordered`,
+        'border-bottom': '1px solid rgba(0, 0, 0, 0.12)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--elevated`,
+        'box-shadow': 'var(--q-elevation-level2)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--hidden`,
+        transform: 'translateY(-110%)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--reveal`
+        // Reveal
+      }
     }
-  ],
-  [
-    /^q-header--bordered$/,
-    () => ({
-      'border-bottom': '1px solid rgba(0, 0, 0, 0.12)'
-    })
-  ],
-  [
-    /^q-header--elevated$/,
-    () => ({
-      'box-shadow': 'var(--q-elevation-level2)'
-    })
-  ],
-  [
-    /^q-header--hidden$/,
-    () => ({
-      transform: 'translateY(-110%)'
-    })
-  ],
-  [
-    /^q-header--reveal$/,
-    () => ({
-      // Reveal
-    })
   ]
 ] as Rule[]

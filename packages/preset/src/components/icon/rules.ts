@@ -2,10 +2,121 @@ import type { Rule } from '@unocss/core'
 
 export const iconRules = [
   [
-    // One matcher per regex: the file previously registered `/^q-icon$/` twice and
-    // UnoCSS silently dropped the first entry's declarations.
+    /^material-icons$/,
+    function* (_, { symbols }) {
+      // .material-icons
+      yield {
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
+        cursor: 'inherit',
+        'font-size': 'inherit',
+        display: 'inline-flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        'vertical-align': 'middle'
+      }
+    }
+  ],
+  [
+    /^material-icons-outlined$/,
+    function* (_, { symbols }) {
+      // .material-icons-outlined
+      yield {
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
+        cursor: 'inherit',
+        'font-size': 'inherit',
+        display: 'inline-flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        'vertical-align': 'middle'
+      }
+    }
+  ],
+  [
+    /^material-icons-round$/,
+    function* (_, { symbols }) {
+      // .material-icons-round
+      yield {
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
+        cursor: 'inherit',
+        'font-size': 'inherit',
+        display: 'inline-flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        'vertical-align': 'middle'
+      }
+    }
+  ],
+  [
+    /^material-icons-sharp$/,
+    function* (_, { symbols }) {
+      // .material-icons-sharp
+      yield {
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
+        cursor: 'inherit',
+        'font-size': 'inherit',
+        display: 'inline-flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        'vertical-align': 'middle'
+      }
+    }
+  ],
+  [
+    /^material-symbols-outlined$/,
+    function* (_, { symbols }) {
+      // .material-symbols-outlined
+      yield {
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
+        cursor: 'inherit',
+        'font-size': 'inherit',
+        display: 'inline-flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        'vertical-align': 'middle'
+      }
+    }
+  ],
+  [
+    /^material-symbols-rounded$/,
+    function* (_, { symbols }) {
+      // .material-symbols-rounded
+      yield {
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
+        cursor: 'inherit',
+        'font-size': 'inherit',
+        display: 'inline-flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        'vertical-align': 'middle'
+      }
+    }
+  ],
+  [
+    /^material-symbols-sharp$/,
+    function* (_, { symbols }) {
+      // .material-symbols-sharp
+      yield {
+        'user-select': 'none',
+        '-webkit-user-select': 'none',
+        cursor: 'inherit',
+        'font-size': 'inherit',
+        display: 'inline-flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        'vertical-align': 'middle'
+      }
+    }
+  ],
+  [
     /^q-icon$/,
     function* (_, { symbols }) {
+      // .q-icon
       yield {
         display: 'inline-flex',
         'align-items': 'center',
@@ -30,127 +141,20 @@ export const iconRules = [
         position: 'relative',
         overflow: 'visible'
       }
-      // A media child fills the 1em box, as Quasar's own CSS states
-      // (`.q-icon > svg, .q-icon > img { width: 100%; height: 100% }`). Without
-      // it an <img> keeps its intrinsic size, so a logo inside a q-icon — e.g.
-      // a `q-item__section--avatar` — never scales to the icon.
       yield {
-        [symbols.selector]: (sel) => `${sel} > svg, ${sel} > img`,
+        [symbols.selector]: (selector) =>
+          `${selector} > svg, ${selector} > img`,
         width: '100%',
         height: '100%'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:before, ${sel}:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}:before, ${selector}:after`,
         width: '100%',
         height: '100%',
         display: 'flex !important',
         'align-items': 'center',
         'justify-content': 'center'
-      }
-    }
-  ],
-  [
-    /^material-icons$/,
-    function* () {
-      yield {
-        'user-select': 'none',
-        '-webkit-user-select': 'none',
-        cursor: 'inherit',
-        'font-size': 'inherit',
-        display: 'inline-flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'vertical-align': 'middle'
-      }
-    }
-  ],
-  [
-    /^material-icons-outlined$/,
-    function* () {
-      yield {
-        'user-select': 'none',
-        '-webkit-user-select': 'none',
-        cursor: 'inherit',
-        'font-size': 'inherit',
-        display: 'inline-flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'vertical-align': 'middle'
-      }
-    }
-  ],
-  [
-    /^material-icons-round$/,
-    function* () {
-      yield {
-        'user-select': 'none',
-        '-webkit-user-select': 'none',
-        cursor: 'inherit',
-        'font-size': 'inherit',
-        display: 'inline-flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'vertical-align': 'middle'
-      }
-    }
-  ],
-  [
-    /^material-icons-sharp$/,
-    function* () {
-      yield {
-        'user-select': 'none',
-        '-webkit-user-select': 'none',
-        cursor: 'inherit',
-        'font-size': 'inherit',
-        display: 'inline-flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'vertical-align': 'middle'
-      }
-    }
-  ],
-  [
-    /^material-symbols-outlined$/,
-    function* () {
-      yield {
-        'user-select': 'none',
-        '-webkit-user-select': 'none',
-        cursor: 'inherit',
-        'font-size': 'inherit',
-        display: 'inline-flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'vertical-align': 'middle'
-      }
-    }
-  ],
-  [
-    /^material-symbols-rounded$/,
-    function* () {
-      yield {
-        'user-select': 'none',
-        '-webkit-user-select': 'none',
-        cursor: 'inherit',
-        'font-size': 'inherit',
-        display: 'inline-flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'vertical-align': 'middle'
-      }
-    }
-  ],
-  [
-    /^material-symbols-sharp$/,
-    function* () {
-      yield {
-        'user-select': 'none',
-        '-webkit-user-select': 'none',
-        cursor: 'inherit',
-        'font-size': 'inherit',
-        display: 'inline-flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'vertical-align': 'middle'
       }
     }
   ]

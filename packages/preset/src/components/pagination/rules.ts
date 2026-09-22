@@ -4,6 +4,7 @@ export const paginationRules = [
   [
     /^q-pagination$/,
     function* (_, { symbols }) {
+      // .q-pagination
       yield {
         display: 'inline-flex',
         'align-items': 'center',
@@ -11,39 +12,33 @@ export const paginationRules = [
         flex: '0 1 auto',
         gap: 'var(--q-space-xs)'
       }
-      // Reference `.q-pagination input` and its spin-button reset.
       yield {
-        [symbols.selector]: (sel) => `${sel} input`,
+        [symbols.selector]: (selector) => `${selector} input`,
         'text-align': 'center'
       }
-      for (const pseudo of [
-        '::-webkit-inner-spin-button',
-        '::-webkit-outer-spin-button'
-      ]) {
-        yield {
-          [symbols.selector]: (sel) => `${sel} input${pseudo}`,
-          margin: 'calc(var(--spacing) * 0)'
-        }
-      }
-      // Reference `body.quasar-style-unstyled .q-pagination`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `${selector} input::-webkit-inner-spin-button`,
+        margin: 'calc(var(--spacing) * 0)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector} input::-webkit-outer-spin-button`,
+        margin: 'calc(var(--spacing) * 0)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-    }
-  ],
-  [
-    /^q-pagination--disabled$/,
-    () => ({
-      opacity: 0.5,
-      'pointer-events': 'none'
-    })
-  ],
-  [
-    /^q-pagination__content$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--disabled`,
+        opacity: 0.5,
+        'pointer-events': 'none'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__content`,
         display: 'flex',
         'align-items': 'center',
         // Reference `.q-pagination__content`: the gutter is the parent's, and the
@@ -52,51 +47,39 @@ export const paginationRules = [
         'margin-top': 'var(--q-pagination-gutter-parent)',
         'margin-left': 'var(--q-pagination-gutter-parent)'
       }
-      for (const child of ['.q-btn', '.q-input']) {
-        yield {
-          [symbols.selector]: (sel) => `${sel} > ${child}`,
-          'margin-top': 'var(--q-pagination-gutter-child)',
-          'margin-left': 'var(--q-pagination-gutter-child)'
-        }
-      }
-    }
-  ],
-  [
-    /^q-pagination__drop$/,
-    () => ({
-      // Drop zone
-    })
-  ],
-  [
-    /^q-pagination__ellipsis$/,
-    () => ({
-      // Ellipsis
-    })
-  ],
-  [
-    /^q-pagination__goto$/,
-    () => ({
-      // Go to page
-    })
-  ],
-  [
-    /^q-pagination__input$/,
-    () => ({
-      width: '3em',
-      'text-align': 'center'
-    })
-  ],
-  [
-    /^q-pagination__range$/,
-    () => ({
-      // Range
-    })
-  ],
-  [
-    /^q-pagination__middle$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} > .q-btn`,
+        [symbols.selector]: (selector) => `${selector}__content > .q-btn`,
+        'margin-top': 'var(--q-pagination-gutter-child)',
+        'margin-left': 'var(--q-pagination-gutter-child)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__content > .q-input`,
+        'margin-top': 'var(--q-pagination-gutter-child)',
+        'margin-left': 'var(--q-pagination-gutter-child)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__drop`
+        // Drop zone
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__ellipsis`
+        // Ellipsis
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__goto`
+        // Go to page
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__input`,
+        width: '3em',
+        'text-align': 'center'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__range`
+        // Range
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__middle > .q-btn`,
         'margin-top': 'var(--q-pagination-gutter-child)',
         'margin-left': 'var(--q-pagination-gutter-child)'
       }

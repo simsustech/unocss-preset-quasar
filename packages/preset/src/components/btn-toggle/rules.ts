@@ -4,6 +4,7 @@ export const btnToggleRules = [
   [
     /^q-btn-toggle$/,
     function* (_, { symbols }) {
+      // .q-btn-toggle
       yield {
         display: 'inline-flex',
         // Reference `.q-btn-toggle { position: relative }` — the pressed-state
@@ -11,9 +12,9 @@ export const btnToggleRules = [
         position: 'relative',
         'border-radius': 'var(--q-btn-radius)'
       }
-      // Reference `body.quasar-style-unstyled .q-btn-toggle`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }

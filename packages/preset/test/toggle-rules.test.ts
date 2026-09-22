@@ -7,21 +7,58 @@ import { toggleRules } from '../src/components/toggle/rules.js'
  * matched by the given class name.
  */
 function collectYielded(rules: any[], className: string): any[] {
+  // One rule per component: the root matches and every family member is yielded
+  // with a selector function, so a member is looked up through its root.
+  const root = className.split(/__|--/)[0]
   for (const entry of rules) {
     const regex = entry[0]
     const matcher = entry[1]
     if (
       regex instanceof RegExp &&
-      regex.test(className) &&
+      regex.test(root) &&
       typeof matcher === 'function'
     ) {
       const gen = matcher([className], { symbols })
       // Generator rules yield; plain rules return a single declaration object.
-      if (gen && typeof gen[Symbol.iterator] === 'function') return [...gen]
-      return gen ? [gen] : []
+      const all =
+        gen && typeof gen[Symbol.iterator] === 'function'
+          ? [...gen]
+          : gen
+            ? [gen]
+            : []
+      return all.filter((obj) => {
+        const rewrite = obj?.[symbols.selector]
+        // A yield with no selector function is the root class's own declarations.
+        if (typeof rewrite !== 'function') return className === root
+        const resolved = rewrite(`.${root}`)
+        const at = resolved.indexOf(`.${className}`)
+        if (at === -1) return false
+        // `.q-toggle__inner` must not claim `.q-toggle__inner--truthy`, but the
+        // dark variant `.body--dark .q-toggle__thumb:after` does belong to it.
+        const next = resolved[at + className.length + 1]
+        return next === undefined || !/[-\w]/.test(next)
+      })
     }
   }
   return []
+}
+
+/**
+ * The selector a yielded object lands on for this class: the rewrite runs
+ * against the root selector, which is what the matched rule carries.
+ */
+function landed(obj: any, className: string): string {
+  const root = className.split(/__|--/)[0]
+  return typeof obj[symbols.selector] === 'function'
+    ? obj[symbols.selector](`.${root}`)
+    : `.${className}`
+}
+
+/** The yield whose selector *is* the member: a class's own base declarations. */
+function baseOf(rules: any[], className: string): any {
+  return collectYielded(rules, className).find(
+    (obj) => landed(obj, className) === `.${className}`
+  )
 }
 
 /** Every declared value string in a rule's yielded objects. */
@@ -33,29 +70,33 @@ function allValues(rules: any[], className: string): string[] {
 
 describe('toggleRules', () => {
   it('registers a rule for q-toggle__thumb', () => {
-    const matched = toggleRules.some(
-      (entry) => entry[0] instanceof RegExp && entry[0].test('q-toggle__thumb')
-    )
-    expect(matched).toBe(true)
+    // The root rule owns the whole family now, so ask it to produce the member.
+    expect(
+      collectYielded(toggleRules, 'q-toggle__thumb').length
+    ).toBeGreaterThan(0)
   })
 
   it('yields a [symbols.selector] entry that transforms to .q-toggle__thumb:after', () => {
     const yielded = collectYielded(toggleRules, 'q-toggle__thumb')
     expect(yielded.length).toBeGreaterThan(0)
 
+    // Several yields carry a rewrite (before/after); pick the one that lands on :after.
     const afterEntry = yielded.find(
-      (obj) => obj && typeof obj[symbols.selector] === 'function'
+      (obj) =>
+        obj &&
+        typeof obj[symbols.selector] === 'function' &&
+        landed(obj, 'q-toggle__thumb') === '.q-toggle__thumb:after'
     )
     expect(afterEntry).toBeDefined()
 
-    const transformed = afterEntry[symbols.selector]('.q-toggle__thumb')
+    const transformed = landed(afterEntry, 'q-toggle__thumb')
     expect(transformed).toBe('.q-toggle__thumb:after')
   })
 
   it('produces the thumb circle declarations on the :after selector', () => {
     const yielded = collectYielded(toggleRules, 'q-toggle__thumb')
     const afterEntry = yielded.find(
-      (obj) => obj && typeof obj[symbols.selector] === 'function'
+      (obj) => landed(obj, 'q-toggle__thumb') === '.q-toggle__thumb:after'
     )
     expect(afterEntry).toBeDefined()
     expect(afterEntry.content).toBe('""')
@@ -74,18 +115,20 @@ describe('toggleRules', () => {
     // .q-toggle__inner--truthy .q-toggle__thumb:after — regex on owning class,
     // symbols.selector reproduces the full descendant selector
     const yielded = collectYielded(toggleRules, 'q-toggle__inner--truthy')
-    const compoundEntry = yielded.find(
+    const compound = yielded.filter(
       (obj) =>
         obj &&
         typeof obj[symbols.selector] === 'function' &&
-        obj[symbols.selector]('.q-toggle__inner--truthy').includes(
-          '.q-toggle__thumb:after'
-        )
+        landed(obj, 'q-toggle__inner--truthy') ===
+          '.q-toggle__inner--truthy .q-toggle__thumb:after'
     )
-    expect(compoundEntry).toBeDefined()
-    expect(compoundEntry['background-color']).toBe(
-      'var(--q-toggle-thumb-bg-active)'
-    )
+    expect(compound.length).toBeGreaterThan(0)
+    // The base value sits alongside its !important override, both landing here.
+    expect(
+      compound.some(
+        (obj) => obj['background-color'] === 'var(--q-toggle-thumb-bg-active)'
+      )
+    ).toBe(true)
   })
 
   it('reproduces full selector with pseudo-class for focus ring', () => {
@@ -113,7 +156,7 @@ describe('toggleRules', () => {
  */
 describe('toggleRules MD3 token wiring', () => {
   it('drives the chassis box from tokens, not md2 em literals', () => {
-    const inner = collectYielded(toggleRules, 'q-toggle__inner')[0]
+    const inner = baseOf(toggleRules, 'q-toggle__inner')
     expect(inner['font-size']).toBe('var(--q-toggle-font-size)')
     expect(inner.width).toBe('var(--q-toggle-inner-width)')
     expect(inner['min-width']).toBe('var(--q-toggle-inner-width)')
@@ -121,7 +164,7 @@ describe('toggleRules MD3 token wiring', () => {
   })
 
   it('drives the track geometry and outline from tokens', () => {
-    const track = collectYielded(toggleRules, 'q-toggle__track')[0]
+    const track = baseOf(toggleRules, 'q-toggle__track')
     expect(track.height).toBe('var(--q-toggle-track-height)')
     expect(track['border-radius']).toBe('var(--q-toggle-track-border-radius)')
     expect(track.background).toBe('var(--q-toggle-track-bg)')
@@ -135,7 +178,7 @@ describe('toggleRules MD3 token wiring', () => {
   })
 
   it('drives the 16px resting handle off tokens and centres it by calc', () => {
-    const thumb = collectYielded(toggleRules, 'q-toggle__thumb')[0]
+    const thumb = baseOf(toggleRules, 'q-toggle__thumb')
     expect(thumb.width).toBe('var(--q-toggle-thumb-size)')
     expect(thumb.height).toBe('var(--q-toggle-thumb-size)')
     expect(thumb.left).toBe('var(--q-toggle-thumb-offset)')
@@ -148,7 +191,7 @@ describe('toggleRules MD3 token wiring', () => {
       (obj) =>
         obj &&
         typeof obj[symbols.selector] === 'function' &&
-        obj[symbols.selector]('.q-toggle__inner--truthy') ===
+        obj[symbols.selector]('.q-toggle') ===
           '.q-toggle__inner--truthy .q-toggle__thumb'
     )
     expect(thumbEntry).toBeDefined()
@@ -166,7 +209,7 @@ describe('toggleRules MD3 token wiring', () => {
       (obj) =>
         obj &&
         typeof obj[symbols.selector] === 'function' &&
-        obj[symbols.selector]('.q-toggle__inner--truthy') ===
+        obj[symbols.selector]('.q-toggle') ===
           '.q-toggle__inner--truthy .q-toggle__track'
     )
     expect(trackEntry).toBeDefined()
@@ -206,7 +249,10 @@ describe('toggleRules MD3 token wiring', () => {
       'q-toggle__track',
       'q-toggle__thumb'
     ]) {
-      for (const value of allValues(toggleRules, cls)) {
+      const base = baseOf(toggleRules, cls) ?? {}
+      for (const value of Object.values(base).filter(
+        (v) => typeof v === 'string'
+      )) {
         const looksLikeSize = /^[\d.]+(px|em|rem)$/.test(String(value))
         if (!looksLikeSize) continue
         expect(ported.has(String(value)), `${cls}: ${value}`).toBe(true)
