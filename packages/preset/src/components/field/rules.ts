@@ -84,10 +84,11 @@ export const fieldRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__label`,
-        'font-size': '16px',
+        'font-size': 'var(--q-body-large-size)',
+        // quasar: 1.25 is Quasar's label line-height, not a type role
         'line-height': '1.25',
         'letter-spacing': 'var(--q-body-large-tracking)',
-        'font-weight': '400',
+        'font-weight': 'var(--fontWeight-normal)',
         'max-width': '100%',
         'transform-origin': 'left top',
         color: 'var(--q-on-surface-variant)',
@@ -103,6 +104,7 @@ export const fieldRules = [
         [symbols.selector]: (selector) => `${selector}__label--floating`,
         top: '8px',
         transform: 'translateY(0)',
+        // quasar: relative scaling: an absolute role size would change nested contexts
         'font-size': '0.75em'
       }
       yield {
@@ -146,6 +148,7 @@ export const fieldRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__native[type='file']`,
+        // quasar: Quasar's file-input line-height
         'line-height': '1em'
       }
       yield {
@@ -218,7 +221,8 @@ export const fieldRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__bottom`,
-        'font-size': '12px',
+        'font-size': 'var(--q-body-small-size)',
+        // quasar: Quasar's message line-height
         'line-height': '1',
         'margin-top': '4px',
         'padding-inline': 'var(--q-space-md)',
@@ -575,17 +579,18 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector: string) =>
           `${selector}--dense .q-field__label`,
-        'font-size': '14px',
+        'font-size': 'var(--q-body-medium-size)',
         top: '10px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense .q-field__bottom`,
+        // quasar: Quasar's dense supporting size: neither body-small nor a label role
         'font-size': '11px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__marginal .q-avatar`,
-        'font-size': '24px'
+        'font-size': 'var(--q-size-icon)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -632,6 +637,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__native + .q-field__label`,
+        // quasar: relative scaling: an absolute role size would change nested contexts
         'font-size': '0.75em',
         transform: 'translateY(-40%) scale(0.75)'
       }
@@ -722,7 +728,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector: string) =>
           `${selector}--labeled .q-field__native, ${selector}--labeled .q-field__prefix, ${selector}--labeled .q-field__suffix`,
-        'line-height': '24px',
+        'line-height': 'var(--q-body-large-line-height)',
         'padding-top': 'var(--q-space-xl)',
         'padding-bottom': 'var(--q-space-sm)'
       }
@@ -834,6 +840,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--auto-height .q-field__native`,
+        // quasar: Quasar's tight auto-height line
         'line-height': '18px',
         'min-height': 'var(--q-size-lg)',
         'align-items': 'center'
@@ -841,11 +848,13 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--auto-height .q-field__prefix`,
+        // quasar: Quasar's tight auto-height line
         'line-height': '18px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--auto-height .q-field__suffix`,
+        // quasar: Quasar's tight auto-height line
         'line-height': '18px'
       }
       yield {
@@ -872,6 +881,7 @@ export const fieldRules = [
         // `--labeled`, so relying on order here would hand the win to the
         // labeled rule's 24px. Expressing it on the compound keeps the cascade
         // identical to quasar.css without depending on emission order.
+        // quasar: Quasar's tight auto-height line
         'line-height': '18px'
       }
       yield {
@@ -1117,7 +1127,7 @@ export const fieldRules = [
         height: '56px',
         // The reference states this as a role; this black-54% literal was the
         // parity copy and won over `var(--q-on-surface-variant)`.
-        'font-size': '24px'
+        'font-size': 'var(--q-size-icon)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__marginal > * + *`,
@@ -1125,11 +1135,12 @@ export const fieldRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__marginal .q-avatar`,
+        // quasar: Quasar's dense avatar size
         'font-size': '32px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__marginal`,
-        'font-size': '24px',
+        'font-size': 'var(--q-size-icon)',
         color: 'var(--q-on-surface-variant)'
       }
       yield {
@@ -1197,6 +1208,7 @@ export const fieldRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__messages`,
+        // quasar: Quasar's message line-height
         'line-height': '1'
       }
       yield {
@@ -1212,6 +1224,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__counter`,
         'padding-left': '8px',
+        // quasar: Quasar's counter line-height
         'line-height': '1'
       }
       yield {
@@ -1249,7 +1262,8 @@ export const fieldRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__prefix`,
-        'font-weight': '400',
+        'font-weight': 'var(--fontWeight-normal)',
+        // quasar: Quasar's prefix/suffix line-box alignment
         'line-height': '28px',
         'letter-spacing': 'var(--q-body-large-tracking)',
         'text-decoration': 'inherit',
@@ -1270,9 +1284,10 @@ export const fieldRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__prefix`,
+        // quasar: Quasar's prefix/suffix line-box alignment
         'line-height': '28px',
         'letter-spacing': 'var(--q-body-large-tracking)',
-        'font-weight': '400',
+        'font-weight': 'var(--fontWeight-normal)',
         'padding-inline': '0',
         'padding-block': '6px',
         'padding-right': '4px',
@@ -1293,7 +1308,8 @@ export const fieldRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__suffix`,
-        'font-weight': '400',
+        'font-weight': 'var(--fontWeight-normal)',
+        // quasar: Quasar's prefix/suffix line-box alignment
         'line-height': '28px',
         'letter-spacing': 'var(--q-body-large-tracking)',
         'text-decoration': 'inherit',
@@ -1314,9 +1330,10 @@ export const fieldRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__suffix`,
+        // quasar: Quasar's prefix/suffix line-box alignment
         'line-height': '28px',
         'letter-spacing': 'var(--q-body-large-tracking)',
-        'font-weight': '400',
+        'font-weight': 'var(--fontWeight-normal)',
         'padding-inline': '0',
         'padding-block': '6px',
         'padding-left': '4px',
@@ -1337,8 +1354,8 @@ export const fieldRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__input`,
-        'font-weight': '400',
-        'line-height': '24px',
+        'font-weight': 'var(--fontWeight-normal)',
+        'line-height': 'var(--q-body-large-line-height)',
         'letter-spacing': 'var(--q-body-large-tracking)',
         'text-decoration': 'inherit',
         'text-transform': 'inherit',
@@ -1375,9 +1392,9 @@ export const fieldRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__input`,
-        'line-height': '24px',
+        'line-height': 'var(--q-body-large-line-height)',
         'letter-spacing': 'var(--q-body-large-tracking)',
-        'font-weight': '400',
+        'font-weight': 'var(--fontWeight-normal)',
         'padding-inline': '0',
         'padding-block': '6px',
         'outline-style': 'none !important',
