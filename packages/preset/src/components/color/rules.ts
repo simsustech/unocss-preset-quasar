@@ -158,7 +158,7 @@ export const colorRules = [
         'max-width': '350px',
         'vertical-align': 'top',
         'min-width': '180px',
-        'border-radius': '4px',
+        'border-radius': 'var(--q-corner-extra-small)',
         'box-shadow':
           '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
       }
@@ -336,7 +336,7 @@ export const colorRules = [
         'border-width': '1px',
         'border-color':
           'color-mix(in oklab, #e0e0e0 var(--un-border-opacity), transparent)',
-        'border-radius': '4px',
+        'border-radius': 'var(--q-corner-extra-small)',
         width: '3.5em'
       }
       yield {

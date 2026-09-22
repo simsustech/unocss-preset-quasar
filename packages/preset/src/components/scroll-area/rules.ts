@@ -31,6 +31,7 @@ export const scrollAreaRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__thumb`,
+        // quasar: Quasar's scrollbar-thumb corner (3px is MD2's extra-small, not MD3's 4px)
         'border-radius': '3px',
         'background-color': '#000',
         opacity: 0.2,

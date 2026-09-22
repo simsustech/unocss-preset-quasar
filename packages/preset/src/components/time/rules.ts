@@ -61,6 +61,7 @@ export const timeRules = [
       yield {
         'outline-color':
           'color-mix(in oklab, 0 var(--un-outline-opacity), transparent)',
+        // quasar: this rule reproduces Quasar's own 4px corner
         'border-radius': '4px',
         'background-color':
           'color-mix(in oklab, var(--q-surface-container-high) var(--un-bg-opacity), transparent)',

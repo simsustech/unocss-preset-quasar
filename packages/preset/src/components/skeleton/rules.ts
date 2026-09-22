@@ -117,7 +117,7 @@ export const skeletonRules = [
         [symbols.selector]: (selector) => `${selector}--type-QChip`,
         width: '90px',
         height: '28px',
-        'border-radius': '16px'
+        'border-radius': 'var(--q-corner-large)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--type-QToolbar`,
@@ -139,6 +139,7 @@ export const skeletonRules = [
         [symbols.selector]: (selector) => `${selector}--type-QToggle`,
         width: '56px',
         height: '40px',
+        // quasar: Quasar's toggle-skeleton corner (7px is not the MD3 medium, 12px)
         'border-radius': '7px'
       }
       yield {

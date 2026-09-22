@@ -28,11 +28,11 @@ export const fabRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--form-rounded`,
-        'border-radius': '28px'
+        'border-radius': 'var(--q-corner-extra-large)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--form-square`,
-        'border-radius': '4px'
+        'border-radius': 'var(--q-corner-extra-small)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__icon`,

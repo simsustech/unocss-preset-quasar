@@ -14,7 +14,7 @@ export const menuRules = [
         display: 'inline-block',
         'outline-style': 'var(--un-outline-style)',
         'outline-width': '0px',
-        'border-radius': '4px',
+        'border-radius': 'var(--q-corner-extra-small)',
         'background-color':
           'color-mix(in oklab, var(--light-surface-container) var(--un-bg-opacity), transparent)',
         color:

@@ -43,6 +43,7 @@ export const badgeRules = [
         'padding-block': '0',
         'vertical-align': 'baseline',
         // quasar: unstyled badge reproduces Quasar's 4px corner
+        // quasar: this rule reproduces Quasar's own 4px corner
         'border-radius': '4px',
         'background-color':
           'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)',

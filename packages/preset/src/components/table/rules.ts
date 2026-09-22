@@ -278,7 +278,7 @@ export const tableRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--grid`,
-        'border-radius': '4px',
+        'border-radius': 'var(--q-corner-extra-small)',
         'box-shadow': 'none'
       }
       yield {
@@ -594,7 +594,7 @@ export const tableRules = [
         [symbols.selector]: (selector) => `${selector}__card`,
         color: 'var(--q-on-surface)',
         'background-color': 'var(--q-surface-container)',
-        'border-radius': '4px',
+        'border-radius': 'var(--q-corner-extra-small)',
         'box-shadow':
           '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
       }

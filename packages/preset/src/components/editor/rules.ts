@@ -14,7 +14,7 @@ export const editorRules = [
         'border-width': '1px',
         'border-style': 'solid',
         'border-color': 'var(--q-outline)',
-        'border-radius': '4px',
+        'border-radius': 'var(--q-corner-extra-small)',
         'background-color': 'var(--q-surface)'
       }
       yield {

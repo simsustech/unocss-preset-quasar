@@ -13,7 +13,7 @@ export const dateRules = [
         'flex-direction': 'column',
         // 4px, not `var(--q-radius-md)` (12px in md3): the reference states the
         // date picker's corner as 4px and the token would round it threefold.
-        'border-radius': '4px'
+        'border-radius': 'var(--q-corner-extra-small)'
       }
       yield {
         [symbols.selector]: (selector) => `.body--dark ${selector}`,
@@ -88,6 +88,7 @@ export const dateRules = [
         color: 'inherit'
       }
       yield {
+        // quasar: this rule reproduces Quasar's own 4px corner
         'border-radius': '4px',
         'background-color':
           'color-mix(in oklab, var(--q-surface-container-high) var(--un-bg-opacity), transparent)',

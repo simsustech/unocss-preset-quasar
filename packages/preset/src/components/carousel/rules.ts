@@ -24,7 +24,7 @@ export const carouselRules = [
         'border-style': 'solid',
         'border-width': '1px',
         'border-color': 'transparent',
-        'border-radius': '4px',
+        'border-radius': 'var(--q-corner-extra-small)',
         opacity: '70%',
         height: '50px',
         width: 'auto',

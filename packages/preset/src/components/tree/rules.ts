@@ -266,7 +266,7 @@ export const treeRules = [
         padding: '4px',
         'outline-color':
           'color-mix(in oklab, 0 var(--un-outline-opacity), transparent)',
-        'border-radius': '4px'
+        'border-radius': 'var(--q-corner-extra-small)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__node-header:before`,

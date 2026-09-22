@@ -49,7 +49,7 @@ export const sliderRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__track`,
         color: 'var(--q-primary)',
-        'border-radius': '4px',
+        'border-radius': 'var(--q-corner-extra-small)',
         'background-color':
           'color-mix(in oklab, var(--q-secondary-container) 30%, transparent)',
         width: 'inherit',
@@ -523,7 +523,7 @@ export const sliderRules = [
         [symbols.selector]: (selector) => `${selector}__text-container`,
         'min-height': '25px',
         padding: '2px 8px',
-        'border-radius': '4px',
+        'border-radius': 'var(--q-corner-extra-small)',
         background: 'currentColor',
         position: 'relative',
         'text-align': 'center'
@@ -533,7 +533,7 @@ export const sliderRules = [
         'padding-inline': '8px',
         'padding-block': '2px',
         'text-align': 'center',
-        'border-radius': '4px',
+        'border-radius': 'var(--q-corner-extra-small)',
         'background-color': 'currentColor',
         'min-height': '25px',
         position: 'relative'

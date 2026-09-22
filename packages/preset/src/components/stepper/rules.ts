@@ -31,7 +31,7 @@ export const stepperRules = [
       yield {
         display: 'flex',
         'flex-direction': 'column',
-        'border-radius': '4px',
+        'border-radius': 'var(--q-corner-extra-small)',
         'background-color': surfaceMix,
         'box-shadow': lightBoxShadow
       }

@@ -12,7 +12,7 @@ export const btnGroupRules = [
         // whose resolved pair differs.
         'vertical-align': 'middle',
         flex: '0 1 auto',
-        'border-radius': '28px',
+        'border-radius': 'var(--q-corner-extra-large)',
         'box-shadow':
           '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
       }
@@ -139,6 +139,7 @@ export const btnGroupRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--push`,
+        // quasar: Quasar's push-button corner (7px is not the MD3 medium, 12px)
         'border-radius': '7px'
       }
       yield {
@@ -172,7 +173,7 @@ export const btnGroupRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--rounded`,
-        'border-radius': '28px'
+        'border-radius': 'var(--q-corner-extra-large)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--square`,

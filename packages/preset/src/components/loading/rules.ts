@@ -40,7 +40,7 @@ export const loadingRules: Rule[] = [
         [symbols.selector]: (selector) => `${selector}__box`,
         color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)',
         padding: '18px',
-        'border-radius': '4px',
+        'border-radius': 'var(--q-corner-extra-small)',
         'max-width': '450px'
       }
       yield {

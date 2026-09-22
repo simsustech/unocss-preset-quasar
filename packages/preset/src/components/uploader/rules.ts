@@ -29,7 +29,7 @@ export const uploaderRules = [
         display: 'flex',
         'flex-direction': 'column',
         'vertical-align': 'top',
-        'border-radius': '4px',
+        'border-radius': 'var(--q-corner-extra-small)',
         'background-color':
           'color-mix(in oklab, #fff var(--un-bg-opacity), transparent)',
         width: '320px',
