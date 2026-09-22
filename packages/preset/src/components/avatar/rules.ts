@@ -21,6 +21,7 @@ export const avatarRules = [
         // position: relative }`. The context rules that shrink the avatar are
         // separate selectors (`.q-item .q-avatar`, `.q-toolbar .q-avatar`) on both
         // sides, so the base value is the reference's literal.
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '48px',
         'vertical-align': 'middle',
         position: 'relative',
@@ -39,6 +40,7 @@ export const avatarRules = [
         // border-radius:inherit; height:inherit; width:inherit }`. Without the
         // 0.5em font-size the content inherits the avatar's own size (40px in a
         // list row), so the letter rendered enormous and clipped the circle.
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '0.5em',
         'line-height': '0.5em',
         'border-radius': 'inherit',

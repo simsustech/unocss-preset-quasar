@@ -38,11 +38,13 @@ export const sliderRules = [
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-slider__track-container--h`,
         'padding-inline': '0',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-block': '6px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-slider__track-container--v`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-inline': '6px',
         'padding-block': '0'
       }
@@ -118,6 +120,7 @@ export const sliderRules = [
         [symbols.selector]: (selector) => `${selector}__hint`,
         position: 'absolute',
         top: '-1.5em',
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '0.75em',
         'white-space': 'nowrap'
       }
@@ -521,6 +524,7 @@ export const sliderRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__text-container`,
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '25px',
         padding: '2px 8px',
         'border-radius': 'var(--q-corner-extra-small)',
@@ -531,6 +535,7 @@ export const sliderRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__text-container`,
         'padding-inline': 'var(--q-space-sm)',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-block': '2px',
         'text-align': 'center',
         'border-radius': 'var(--q-corner-extra-small)',

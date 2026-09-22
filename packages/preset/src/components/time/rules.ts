@@ -114,6 +114,7 @@ export const timeRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--portrait .q-time__header`,
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '86px',
         'border-top-right-radius': 'inherit'
       }
@@ -175,6 +176,7 @@ export const timeRules = [
         'justify-content': 'center',
         // padding comes from the yield below: the reference's 16px (the space
         // scale's md is 12px, which the fold would have substituted)
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '2em'
       }
       yield {
@@ -198,6 +200,7 @@ export const timeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header-label`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '48px',
         'line-height': 'var(--leading-none)',
         'letter-spacing': '-0.00833em',
@@ -211,6 +214,7 @@ export const timeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header-ampm`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '16px',
         'letter-spacing': 'var(--tracking-widest)',
         flex: '0 1 auto !important'
@@ -459,6 +463,7 @@ export const timeRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__clock-position`,
         position: 'absolute',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '32px',
         width: '32px',
         height: '32px',
@@ -472,6 +477,7 @@ export const timeRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__clock-position`,
         'font-size': 'var(--q-body-small-size)',
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '32px',
         margin: '0',
         padding: '0',
@@ -767,6 +773,7 @@ export const timeRules = [
         [symbols.selector]: (selector) =>
           `${selector}--portrait .q-time__header`,
         'border-top-right-radius': 'inherit',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '86px'
       }
       yield {

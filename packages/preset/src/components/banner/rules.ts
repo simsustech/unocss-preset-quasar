@@ -20,6 +20,7 @@ export const bannerRules = [
         color: 'inherit'
       }
       yield {
+        // quasar: this value is Quasar's own, not a forked token
         'padding-inline': '16px',
         'padding-block': '8px',
         'background-color': 'transparent',
@@ -28,6 +29,7 @@ export const bannerRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--dense`,
         padding: '8px',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '32px'
       }
       yield {
@@ -43,11 +45,13 @@ export const bannerRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-banner__avatar > .q-avatar`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '28px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-banner__avatar > .q-icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '28px'
       }
       yield {
@@ -61,11 +65,13 @@ export const bannerRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense`,
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '32px',
         padding: '8px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '1.5em',
         'margin-right': 'var(--q-space-md)',
         'flex-shrink': 0
@@ -106,6 +112,7 @@ export const bannerRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__avatar > .q-avatar`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '46px'
       }
       yield {
@@ -119,6 +126,7 @@ export const bannerRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--top-padding`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '14px'
       }
       yield {

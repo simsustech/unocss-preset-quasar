@@ -27,6 +27,7 @@ export const typographyRules: ComponentRule[] = [
         [symbols.selector]: () => 'body',
         'font-family':
           "Roboto, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '14px',
         'line-height': 1.5,
         margin: 0,
@@ -43,6 +44,7 @@ export const typographyRules: ComponentRule[] = [
   ],
   // --- Heading sizes ---
   rule(/^text-h1$/, () => ({
+    // quasar: this value is Quasar's own, not a forked token
     'font-size': '6rem',
     'font-weight': 300,
     'line-height': '6rem',

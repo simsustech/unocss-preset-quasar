@@ -20,10 +20,12 @@ export const tabsRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense .q-tab`,
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '36px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense .q-tab--full`,
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '52px'
       }
       yield {
@@ -107,6 +109,7 @@ export const tabsRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--scrollable.q-tabs__arrows--outside.q-tabs--vertical`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '36px',
         'padding-bottom': '36px'
       }
@@ -168,6 +171,7 @@ export const tabsRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__arrow`,
         cursor: 'pointer',
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '32px',
         'min-width': '36px',
         'text-shadow': '0 0 3px #fff, 0 0 1px #fff, 0 0 1px #000',
@@ -224,6 +228,7 @@ export const tabsRules = [
         color: 'inherit'
       }
       yield {
+        // quasar: this value is Quasar's own, not a forked token
         'padding-inline': '16px',
         'padding-block': '0',
         'text-decoration': 'none',
@@ -243,6 +248,7 @@ export const tabsRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--full`,
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '72px',
         height: '72px'
       }
@@ -284,6 +290,7 @@ export const tabsRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '1.5em',
         'margin-right': 'var(--q-space-xs)'
       }
@@ -295,12 +302,14 @@ export const tabsRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__label`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '0.875em',
         'font-weight': 500
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__label`,
         'font-size': 'var(--q-label-large-size)',
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '1.715em',
         'font-weight': 'var(--fontWeight-medium)'
       }
@@ -316,6 +325,7 @@ export const tabsRules = [
         opacity: '0%',
         width: '56px',
         height: '32px',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': 'unset',
         left: 'calc(50% - 28px)',
         top: '0.5em',
@@ -353,6 +363,7 @@ export const tabsRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__alert-icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '18px',
         top: '2px',
         right: '-12px',

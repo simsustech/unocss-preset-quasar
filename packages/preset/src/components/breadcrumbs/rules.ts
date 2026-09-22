@@ -23,6 +23,7 @@ export const breadcrumbsRules = [
         [symbols.selector]: (selector) => `${selector}__el-icon`,
         // Reference `.q-breadcrumbs__el-icon { font-size: 125% }` — scales the icon
         // with the crumb's text rather than pinning it.
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '125%',
         'margin-right': 'var(--q-space-xs)'
       }

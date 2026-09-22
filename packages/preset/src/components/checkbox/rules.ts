@@ -67,6 +67,7 @@ export const checkboxRules = [
         left: '0',
         right: '0',
         bottom: '0',
+        // quasar: this value is Quasar's own, not a forked token
         'border-radius': '12.5rem',
         'background-color': 'currentColor',
         opacity: '12%',
@@ -94,6 +95,7 @@ export const checkboxRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__inner`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '36px',
         'margin-right': '2px',
         'border-radius': '50%',
@@ -137,10 +139,12 @@ export const checkboxRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__icon`,
         color: 'var(--q-on-primary)',
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '0.7em'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '0.5em',
         color: 'currentColor'
       }
@@ -150,6 +154,7 @@ export const checkboxRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '0.8em'
       }
       yield {
@@ -207,6 +212,7 @@ export const checkboxRules = [
         'margin-left': '-2px',
         'margin-top': '-2px',
         'border-color': 'currentColor',
+        // quasar: this value is Quasar's own, not a forked token
         'border-radius': '2px',
         'border-style': 'solid',
         width: '50%',

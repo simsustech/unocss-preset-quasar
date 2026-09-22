@@ -58,6 +58,7 @@ export const editorRules = [
         'border-bottom-style': 'solid',
         'border-color':
           'color-mix(in oklab, var(--colors-black) 12%, transparent)',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '32px'
       }
       yield {
@@ -79,6 +80,7 @@ export const editorRules = [
         'outline-width': '0px',
         'border-bottom-style': 'inherit',
         'background-color': 'var(--q-surface-container-highest)',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '10em',
         'max-width': '100%',
         overflow: 'auto'

@@ -11,6 +11,7 @@ export const circularProgressRules = [
         'vertical-align': 'middle',
         width: '1em',
         height: '1em',
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '1',
         'content-visibility': 'auto'
       }
@@ -35,6 +36,7 @@ export const circularProgressRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__text`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '0.25em'
       }
       yield {

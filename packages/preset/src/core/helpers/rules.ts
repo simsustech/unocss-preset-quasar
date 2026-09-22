@@ -146,6 +146,7 @@ export const helpersRules: ComponentRule[] = [
       }
       yield {
         [symbols.selector]: (sel: string) => `body.desktop ${sel}--rounded`,
+        // quasar: this value is Quasar's own, not a forked token
         'border-radius': '4px'
       }
       // Hover ring: NOT `opacity: 0.15` alone — with no :before/:after overlay

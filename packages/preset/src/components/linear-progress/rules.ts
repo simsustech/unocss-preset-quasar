@@ -8,6 +8,7 @@ export const linearProgressRules = [
       yield {
         // Reference `.q-linear-progress { font-size: 4px; … height: 1em }`: the
         // bar's thickness is em-based so a taller bar only needs `font-size`.
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '4px',
         color:
           'color-mix(in oklab, var(--light-primary) var(--un-text-opacity), transparent)',

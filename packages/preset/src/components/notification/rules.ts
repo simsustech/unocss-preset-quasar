@@ -72,6 +72,7 @@ export const notificationRules: Rule[] = [
       // .q-notification__caption
       yield {
         [symbols.selector]: (selector) => `${selector}__caption`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '0.9em',
         opacity: '0.7'
       }
@@ -89,6 +90,7 @@ export const notificationRules: Rule[] = [
       // .q-notification__avatar
       yield {
         [symbols.selector]: (selector) => `${selector}__avatar`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '32px'
       }
       // .q-notification__avatar--additional
@@ -99,6 +101,7 @@ export const notificationRules: Rule[] = [
       // .q-notification__spinner
       yield {
         [symbols.selector]: (selector) => `${selector}__spinner`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '32px'
       }
       // .q-notification__spinner--additional
@@ -129,6 +132,7 @@ export const notificationRules: Rule[] = [
         'font-size': 'var(--q-body-small-size)',
         // Reference states the radius once, as a shorthand (`border-radius: 4px`).
         'border-radius': 'var(--q-corner-extra-small)',
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '12px',
         // Needs `@keyframes q-notif-badge`, which this preset does not emit yet;
         // inert until then, but it is what quasar.css declares.
@@ -208,6 +212,7 @@ export const notificationRules: Rule[] = [
       // .q-notification--standard
       yield {
         [symbols.selector]: (selector) => `${selector}--standard`,
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '48px',
         'padding-inline': 'var(--q-space-lg)',
         'padding-block': '0'
@@ -216,6 +221,7 @@ export const notificationRules: Rule[] = [
         [symbols.selector]: (selector) =>
           `${selector}--standard .q-notification__actions`,
         'margin-right': '-8px',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-block': '6px',
         'padding-left': '8px',
         'padding-right': '0'
@@ -223,6 +229,7 @@ export const notificationRules: Rule[] = [
       // .q-notification--multi-line
       yield {
         [symbols.selector]: (selector) => `${selector}--multi-line`,
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '68px',
         'padding-inline': 'var(--q-space-lg)',
         'padding-block': 'var(--q-space-sm)'

@@ -237,10 +237,12 @@ export const dateRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__calendar-item > button`,
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '22px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__calendar-item > div`,
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '30px',
         'text-align': 'center',
         'border-radius': '50%',
@@ -521,24 +523,28 @@ export const dateRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__header-subtitle`,
         'font-size': 'var(--q-body-medium-size)',
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '1.75',
         'letter-spacing': '0.00938em'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header-subtitle`,
         'font-size': 'var(--q-body-medium-size)',
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '1.75',
         'letter-spacing': '0.00938em'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header-title-label`,
         'font-size': 'var(--q-headline-small-size)',
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '1.2',
         'letter-spacing': '0.00735em'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header-title-label`,
         'font-size': 'var(--q-headline-small-size)',
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '1.2',
         'letter-spacing': '0.00735em'
       }
@@ -546,12 +552,14 @@ export const dateRules = [
         [symbols.selector]: (selector) => `${selector}__view`,
         height: '100%',
         width: '100%',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '290px',
         padding: '16px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__view`,
         padding: '12px',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '160px'
       }
       yield {
@@ -627,6 +635,7 @@ export const dateRules = [
         [symbols.selector]: (selector) =>
           `${selector}__calendar-days-container`,
         height: '75%',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '192px'
       }
       yield {
@@ -634,6 +643,7 @@ export const dateRules = [
           `${selector}__calendar-days-container`,
         'padding-top': 'var(--q-space-md)',
         height: '75%',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '192px'
       }
       yield {
@@ -651,12 +661,14 @@ export const dateRules = [
         left: '50%',
         height: '5px',
         width: '8px',
+        // quasar: this value is Quasar's own, not a forked token
         'border-radius': '5px',
         // background comes from the yield below: the reference's primary mix
         transform: 'translate3d(-50%, 0, 0)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__event`,
+        // quasar: this value is Quasar's own, not a forked token
         'border-radius': '5px',
         'background-color':
           'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)',

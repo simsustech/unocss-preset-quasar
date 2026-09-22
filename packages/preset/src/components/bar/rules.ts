@@ -11,6 +11,7 @@ export const barRules = [
         'justify-content': 'space-between',
         'padding-inline': 'var(--q-space-md)',
         'padding-block': 'calc(var(--spacing) * 0)',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '32px',
         // Reference `.q-bar`: a 20% tint of the dark surface, which reads as a
         // raised rail; a surface-container role is lighter than that.
@@ -64,6 +65,7 @@ export const barRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense .q-btn`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '8px'
       }
       yield {
@@ -77,6 +79,7 @@ export const barRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--standard`,
         // Reference `.q-bar--standard`: 18px type, 32px track, 12px inline.
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '18px',
         'padding-inline': 'var(--q-space-md)',
         'padding-block': 'calc(var(--spacing) * 0)',
@@ -84,6 +87,7 @@ export const barRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--standard>div`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '16px'
       }
       yield {

@@ -102,6 +102,7 @@ export const colorRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__field-label`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '0.75em'
       }
       yield {
@@ -218,11 +219,13 @@ export const colorRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header input`,
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '24px',
         border: '0'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header .q-tab`,
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '32px !important',
         height: '32px !important'
       }
@@ -261,6 +264,7 @@ export const colorRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__footer .q-tab`,
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '36px !important',
         height: '36px !important'
       }
@@ -350,6 +354,7 @@ export const colorRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__cube`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-bottom': '10%',
         width: '10% !important'
       }

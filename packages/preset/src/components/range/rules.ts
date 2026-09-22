@@ -68,6 +68,7 @@ export const rangeRules = [
         [symbols.selector]: (selector) => `${selector}__hint`,
         position: 'absolute',
         top: '-1.5em',
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '0.75em',
         'white-space': 'nowrap'
       }

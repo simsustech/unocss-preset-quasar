@@ -13,6 +13,7 @@ export const tooltipRules = [
         position: 'fixed',
         'z-index': 9000,
         'pointer-events': 'none',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-inline': '10px',
         'padding-block': '6px',
         'max-width': '95vw',
@@ -41,6 +42,7 @@ export const tooltipRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--style`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '10px',
         color:
           'color-mix(in oklab, var(--light-inverse-on-surface) var(--un-text-opacity), transparent)',

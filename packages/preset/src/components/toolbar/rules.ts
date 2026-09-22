@@ -11,11 +11,13 @@ export const toolbarRules = [
         // Reference states the box model as logical longhands and a 50px track.
         'padding-inline': 'var(--q-space-md)',
         'padding-block': '0',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '50px',
         position: 'relative'
       }
       yield {
         [symbols.selector]: (selector: string) => `${selector} .q-avatar`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '38px'
       }
       yield {
@@ -35,6 +37,7 @@ export const toolbarRules = [
         // Reference `.q-toolbar__title`: title-large type scale, `flex: 0 1 auto`
         // so it shrinks instead of pushing the actions out.
         flex: '0 1 auto',
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '21px',
         'letter-spacing': '0.01em',
         'font-weight': 'var(--fontWeight-normal)',

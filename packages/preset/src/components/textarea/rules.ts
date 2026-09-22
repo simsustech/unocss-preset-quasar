@@ -21,11 +21,13 @@ export const textareaRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector} .q-field__control-container`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '2px',
         'padding-bottom': '2px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector} .q-field__native`,
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '18px',
         'padding-top': '17px',
         'min-height': '52px',
@@ -33,10 +35,12 @@ export const textareaRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector} .q-field__prefix`,
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '18px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector} .q-field__suffix`,
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '18px'
       }
       yield {
@@ -47,11 +51,13 @@ export const textareaRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}.q-field--labeled .q-field__control-container`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '26px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}.q-field--labeled .q-field__native`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '1px',
         'min-height': '26px'
       }
@@ -73,33 +79,39 @@ export const textareaRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}.q-field--dense .q-field__control`,
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '36px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}.q-field--dense .q-field__native`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '9px',
         'min-height': '36px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}.q-field--dense.q-field--labeled .q-field__control-container`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '14px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}.q-field--dense.q-field--labeled .q-field__native`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '3px',
         'min-height': 'var(--q-size-sm)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}.q-field--dense.q-field--labeled .q-field__prefix`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '2px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}.q-field--dense.q-field--labeled .q-field__suffix`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '2px'
       }
       yield {

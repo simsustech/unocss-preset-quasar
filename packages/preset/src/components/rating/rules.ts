@@ -34,6 +34,7 @@ export const ratingRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '1.5em',
         cursor: 'pointer'
         // `color` and the transition come from the yield below: the reference's

@@ -66,6 +66,7 @@ export const imgRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__loading .q-spinner`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '50px'
       }
       yield {

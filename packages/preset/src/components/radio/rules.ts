@@ -114,6 +114,7 @@ export const radioRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '0.8em'
       }
       yield {
@@ -188,6 +189,7 @@ export const radioRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '0.5em',
         color: 'currentColor'
       }

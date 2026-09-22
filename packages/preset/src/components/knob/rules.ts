@@ -12,6 +12,7 @@ export const knobRules = [
         'justify-content': 'center',
         // Reference `.q-knob { font-size: 48px }`: the SVG geometry is em-based,
         // so this is the knob's diameter.
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '48px'
       }
       yield {

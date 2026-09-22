@@ -35,6 +35,7 @@ export const tableRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector} tbody td`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '13px',
         height: '48px',
         position: 'relative'
@@ -62,6 +63,7 @@ export const tableRules = [
       yield {
         [symbols.selector]: (selector) => `${selector} td`,
         'padding-inline': 'var(--q-space-lg)',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-block': '7px',
         ...cellBox
       }
@@ -71,6 +73,7 @@ export const tableRules = [
         color: onSurfaceVariantText,
         'font-weight': 'var(--fontWeight-medium)',
         'padding-inline': 'var(--q-space-lg)',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-block': '7px',
         'user-select': 'none',
         '-webkit-user-select': 'none',
@@ -298,6 +301,7 @@ export const tableRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--grid .q-table__middle`,
         'margin-bottom': '4px',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '2px'
       }
       yield {
@@ -365,6 +369,7 @@ export const tableRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense .q-table__bottom`,
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '33px'
       }
       yield {
@@ -392,11 +397,13 @@ export const tableRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-table__sort-icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '110%'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense .q-table__top`,
         'padding-inline': 'var(--q-space-lg)',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-block': '6px'
       }
       yield {
@@ -487,6 +494,7 @@ export const tableRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__container > .q-inner-loading`,
+        // quasar: this value is Quasar's own, not a forked token
         'border-radius': 'inherit!important'
       }
       yield {
@@ -536,6 +544,7 @@ export const tableRules = [
         'padding-block': 'var(--q-space-xs)',
         'padding-left': '16px',
         'padding-right': '14px',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '50px',
         'border-top': '1px solid var(--q-outline-variant)'
       }
@@ -582,6 +591,7 @@ export const tableRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__sort-icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '120%',
         opacity: '0%',
         transition: 'transform 0.3s cubic-bezier(0.25, 0.8, 0.5, 1)'
@@ -617,6 +627,7 @@ export const tableRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__title`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '20px',
         'letter-spacing': '0.005em',
         'font-weight': 'var(--fontWeight-normal)'
@@ -642,6 +653,7 @@ export const tableRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__bottom-nodata-icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '200%',
         'margin-right': '8px'
       }
@@ -702,6 +714,7 @@ export const tableRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__grid-item-value`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '13px'
       }
       yield {

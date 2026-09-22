@@ -32,6 +32,7 @@ export const chatRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__stamp`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '0.7em',
         opacity: 0.6,
         'margin-top': '2px'

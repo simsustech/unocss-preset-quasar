@@ -75,6 +75,7 @@ export const messageRules: Rule[] = [
       // .q-message-text
       yield {
         position: 'relative',
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '1.2',
         padding: '8px',
         'background-color': 'currentColor'
@@ -85,6 +86,7 @@ export const messageRules: Rule[] = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}:last-child`,
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '48px'
       }
       yield {

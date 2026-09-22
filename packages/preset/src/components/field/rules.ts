@@ -216,6 +216,7 @@ export const fieldRules = [
         [symbols.selector]: (selector) => `${selector}__bottom`,
         display: 'flex',
         'justify-content': 'space-between',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '20px',
         padding: '4px 12px 0'
       }
@@ -574,6 +575,7 @@ export const fieldRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense`,
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '32px'
       }
       yield {
@@ -609,6 +611,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field--with-bottom`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-bottom': '19px'
       }
       yield {
@@ -619,18 +622,21 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense.q-field--labeled.q-field--dense .q-field__native`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '14px',
         'padding-bottom': '2px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense.q-field--labeled.q-field--dense .q-field__prefix`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '14px',
         'padding-bottom': '2px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense.q-field--labeled.q-field--dense .q-field__suffix`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '14px',
         'padding-bottom': '2px'
       }
@@ -902,6 +908,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--auto-height.q-field--dense.q-field--labeled .q-field__control-container`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '10px'
       }
       yield {
@@ -965,6 +972,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--square .q-field__control`,
+        // quasar: this value is Quasar's own, not a forked token
         'border-radius': '0 !important'
       }
       yield {
@@ -1396,6 +1404,7 @@ export const fieldRules = [
         'letter-spacing': 'var(--q-body-large-tracking)',
         'font-weight': 'var(--fontWeight-normal)',
         'padding-inline': '0',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-block': '6px',
         'outline-style': 'none !important',
         'border-radius': '0',

@@ -28,6 +28,7 @@ export const slideItemRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__left .q-icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '1.714em'
       }
       yield {
@@ -45,6 +46,7 @@ export const slideItemRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__right .q-icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '1.714em'
       }
       yield {
@@ -62,6 +64,7 @@ export const slideItemRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__top .q-icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '1.714em'
       }
       yield {
@@ -79,6 +82,7 @@ export const slideItemRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__bottom .q-icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '1.714em'
       }
       yield {

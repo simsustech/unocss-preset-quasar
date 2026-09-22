@@ -111,6 +111,7 @@ export const dialogRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__inner--maximized>div`,
+        // quasar: this value is Quasar's own, not a forked token
         'border-radius': '0 !important',
         height: '100%',
         width: '100%',
@@ -122,6 +123,7 @@ export const dialogRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__inner--bottom`,
         'align-self': 'flex-end',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '0 !important',
         'padding-bottom': '0 !important'
       }
@@ -134,12 +136,14 @@ export const dialogRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__inner--top`,
         'align-self': 'flex-start',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '0 !important',
         'padding-bottom': '0 !important'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__inner--left`,
         'justify-self': 'flex-start',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '0 !important',
         'padding-bottom': '0 !important'
       }
@@ -152,6 +156,7 @@ export const dialogRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__inner--right`,
         'justify-self': 'flex-end',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '0 !important',
         'padding-bottom': '0 !important'
       }
@@ -185,6 +190,7 @@ export const dialogRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__title`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '1.25rem',
         'font-weight': 'var(--fontWeight-medium)',
         'line-height': '1.75rem',
@@ -192,10 +198,12 @@ export const dialogRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__progress`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '4rem'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__inner--square>div`,
+        // quasar: this value is Quasar's own, not a forked token
         'border-radius': '0 !important'
       }
       yield {

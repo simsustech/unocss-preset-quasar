@@ -8,6 +8,7 @@ export const layoutRules = [
       yield {
         display: 'flex',
         'flex-direction': 'column',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '100vh',
         // Reference: `outline-style: var(--un-outline-style)` (wind4's `solid`
         // default), `outline-width: 0px; width: 100%; position: relative`.
@@ -79,30 +80,35 @@ export const layoutRules = [
       yield {
         [symbols.selector]: (selector) =>
           `body.q-ios-padding ${selector}--standard .q-header > .q-toolbar:nth-child(1)`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': 'env(safe-area-inset-top)',
         'min-height': 'calc(env(safe-area-inset-top) + 50px)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `body.q-ios-padding ${selector}--standard .q-header > .q-tabs:nth-child(1) .q-tabs__content`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': 'env(safe-area-inset-top)',
         'min-height': 'calc(env(safe-area-inset-top) + 50px)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `body.q-ios-padding ${selector}--standard .q-footer > .q-toolbar:last-child`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-bottom': 'env(safe-area-inset-bottom)',
         'min-height': 'calc(env(safe-area-inset-bottom) + 50px)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `body.q-ios-padding ${selector}--standard .q-footer > .q-tabs:nth-last-child(1 of :not(.q-layout__shadow)) .q-tabs__content`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-bottom': 'env(safe-area-inset-bottom)',
         'min-height': 'calc(env(safe-area-inset-bottom) + 50px)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `body.q-ios-padding ${selector}--standard .q-drawer--top-padding .q-drawer__content`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': 'env(safe-area-inset-top)',
         'min-height': 'calc(env(safe-area-inset-top) + 50px)'
       }

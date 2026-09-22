@@ -104,6 +104,7 @@ export const uploaderRules = [
         gap: 'var(--q-space-sm)',
         padding: '8px',
         flex: '1 1 auto',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '60px',
         'border-bottom-left-radius': 'inherit',
         'border-bottom-right-radius': 'inherit',
@@ -245,6 +246,7 @@ export const uploaderRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__overlay`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '36px',
         color: '#000',
         'background-color': 'rgba(255, 255, 255, 0.6)'
@@ -272,12 +274,14 @@ export const uploaderRules = [
         // The gate resolves the reference's `var(--fontWeight-bold)` to its
         // numeric weight, so the literal is stated rather than `bold`.
         'font-weight': 'var(--fontWeight-bold)',
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '1.285714',
         'word-break': 'break-word'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__subtitle`,
         'font-size': 'var(--q-body-small-size)',
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '1.5'
       }
       yield {

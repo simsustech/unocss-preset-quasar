@@ -119,6 +119,7 @@ export const stepperRules = [
           `${selector}--vertical .q-stepper__step-inner`,
         'padding-top': '0',
         'padding-right': '24px',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-bottom': '32px',
         'padding-left': '60px'
       }
@@ -141,6 +142,7 @@ export const stepperRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--vertical .q-stepper__title`,
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '18px'
       }
       yield {
@@ -229,6 +231,7 @@ export const stepperRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__caption`,
         'font-size': 'var(--q-body-small-size)',
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '1.16667',
         color: 'var(--q-on-surface-variant)'
       }
@@ -276,6 +279,7 @@ export const stepperRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__header--standard-labels .q-stepper__tab`,
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '72px',
         'justify-content': 'center'
       }
@@ -313,6 +317,7 @@ export const stepperRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__header--alternative-labels .q-stepper__tab`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-inline': '32px',
         'padding-block': 'var(--q-space-xl)',
         'flex-direction': 'column',
@@ -398,6 +403,7 @@ export const stepperRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__title`,
         'font-size': 'var(--q-body-medium-size)',
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '1.285714',
         'letter-spacing': '0.1px'
       }

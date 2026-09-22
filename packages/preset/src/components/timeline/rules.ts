@@ -49,6 +49,7 @@ export const timelineRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__entry`,
         position: 'relative',
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '22px',
         'padding-bottom': 'var(--q-space-md)'
       }
@@ -79,6 +80,7 @@ export const timelineRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__dot .q-icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '16px',
         color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)',
         'line-height': '38px',
@@ -240,6 +242,7 @@ export const timelineRules = [
         [symbols.selector]: (selector) =>
           `${selector}--comfortable .q-timeline__heading`,
         display: 'table-row',
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '200%'
       }
       yield {
@@ -401,6 +404,7 @@ export const timelineRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--loose .q-timeline__entry--icon .q-timeline__subtitle`,
+        // quasar: this value is Quasar's own, not a forked token
         'line-height': '38px'
       }
       yield {
@@ -451,6 +455,7 @@ export const timelineRules = [
         // Reference states the vertical padding as logical longhands.
         margin: 'calc(var(--spacing) * 0)',
         'padding-inline': '0',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-block': '32px'
       }
       yield {

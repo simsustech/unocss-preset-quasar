@@ -155,6 +155,7 @@ export const fabRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__label--internal-top`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-bottom': '0.12em'
       }
       yield {
@@ -164,6 +165,7 @@ export const fabRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__label--internal-bottom`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '0.12em'
       }
       yield {

@@ -47,6 +47,7 @@ export const chipRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector} .q-avatar`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '2em',
         'margin-left': '-0.45em',
         'margin-right': '0.2em',
@@ -74,6 +75,7 @@ export const chipRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-inline': '0.4em',
         'padding-block': '0',
         'border-radius': 'var(--shape-corner-medium)',
@@ -81,6 +83,7 @@ export const chipRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense .q-avatar`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '1.5em',
         'margin-left': '-0.27em',
         'margin-right': '0.1em',
@@ -88,6 +91,7 @@ export const chipRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense .q-chip__icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '1.25em'
       }
       yield {
@@ -138,6 +142,7 @@ export const chipRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '1.40625em',
         // Reference states the primary role through the colour-mix pair, so the
         // token stays the canonical name for the component while the resolved
@@ -149,12 +154,14 @@ export const chipRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__close`,
         cursor: 'pointer',
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '1.2em',
         opacity: 0.7,
         transition: 'opacity var(--q-duration-short) var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__content`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '1.25em',
         'white-space': 'nowrap'
       }

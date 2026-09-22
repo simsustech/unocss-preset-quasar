@@ -70,6 +70,7 @@ export const treeRules = [
           `${selector}--dense .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-body`,
         'padding-top': '0',
         'padding-right': '0',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-bottom': '2px',
         'padding-left': '20px'
       }
@@ -121,6 +122,7 @@ export const treeRules = [
         gap: 'var(--q-space-xs)',
         'padding-top': '0',
         'padding-right': '0',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-bottom': '3px',
         'padding-left': '22px'
       }
@@ -224,6 +226,7 @@ export const treeRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__node--parent> .q-tree__node-collapsible> .q-tree__node-body`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '5px',
         'padding-right': '0',
         'padding-bottom': 'var(--q-space-sm)',
@@ -302,6 +305,7 @@ export const treeRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__node-header-content .q-avatar`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '28px',
         'border-radius': '50%',
         width: '28px',
@@ -310,10 +314,12 @@ export const treeRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__node-header-content .q-icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '21px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__node-body`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '5px',
         'padding-right': '0',
         'padding-bottom': 'var(--q-space-sm)',
@@ -327,6 +333,7 @@ export const treeRules = [
         [symbols.selector]: (selector) => `${selector}__arrow`,
         width: '1em',
         height: '1em',
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '16px',
         'margin-right': '4px',
         transition: 'transform 0.3s'
@@ -396,15 +403,18 @@ export const treeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '21px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__img`,
         height: '42px',
+        // quasar: this value is Quasar's own, not a forked token
         'border-radius': '2px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__avatar`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '28px',
         'border-radius': '50%',
         width: '28px',
@@ -412,6 +422,7 @@ export const treeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__spinner`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '16px',
         'margin-right': '4px'
       }
@@ -421,6 +432,7 @@ export const treeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__vnode`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-bottom': '3px'
       }
       yield {

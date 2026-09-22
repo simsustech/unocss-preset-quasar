@@ -95,10 +95,12 @@ export const drawerRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__content`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-block': '14px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__content > *`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-inline': '28px'
       }
       yield {
@@ -113,6 +115,7 @@ export const drawerRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__content .q-list .q-item`,
+        // quasar: this value is Quasar's own, not a forked token
         'border-radius': '32px'
       }
       yield {
@@ -141,6 +144,7 @@ export const drawerRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--mini`,
+        // quasar: this value is Quasar's own, not a forked token
         'border-radius': '0 !important'
       }
       yield {
@@ -155,11 +159,13 @@ export const drawerRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--mini > .q-drawer__content`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-block': '9px !important'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--mini > .q-drawer__content > *`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-inline': '4px !important'
       }
       yield {

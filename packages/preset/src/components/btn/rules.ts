@@ -36,6 +36,7 @@ export const btnRules = [
       yield {
         [symbols.selector]: (selector: string) =>
           `${selector} .q-icon, ${selector} .q-spinner`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '1.715em'
       }
       yield {
@@ -177,6 +178,7 @@ export const btnRules = [
         'border-radius': 'var(--q-btn-round-radius)',
         // Reference `.q-btn--round`: a 3em square with no box padding.
         'min-width': '3em',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '3em',
         padding: 'calc(var(--spacing) * 0)'
       }
@@ -187,6 +189,7 @@ export const btnRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--dense`,
         padding: 'var(--q-btn-dense-padding)',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '2em'
       }
       yield {
@@ -200,6 +203,7 @@ export const btnRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--dense.q-btn--round`,
         padding: 'calc(var(--spacing) * 0)',
+        // quasar: this value is Quasar's own, not a forked token
         'min-height': '2.4em',
         'min-width': '2.4em'
       }

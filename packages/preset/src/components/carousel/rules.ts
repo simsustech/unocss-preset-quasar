@@ -145,6 +145,7 @@ export const carouselRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__arrow .q-icon`,
+        // quasar: this value is Quasar's own, not a forked token
         'font-size': '28px'
       }
       yield {
@@ -229,41 +230,49 @@ export const carouselRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--navigation-top.q-carousel--with-padding .q-carousel__slide`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '60px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--navigation-top .q-carousel--padding`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '60px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--arrows-vertical.q-carousel--with-padding .q-carousel__slide`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '60px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--arrows-vertical .q-carousel--padding`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-top': '60px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--arrows-vertical.q-carousel--with-padding .q-carousel__slide`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-bottom': '60px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--arrows-vertical .q-carousel--padding`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-bottom': '60px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--navigation-bottom.q-carousel--with-padding .q-carousel__slide`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-bottom': '60px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--navigation-bottom .q-carousel--padding`,
+        // quasar: this value is Quasar's own, not a forked token
         'padding-bottom': '60px'
       }
       yield {

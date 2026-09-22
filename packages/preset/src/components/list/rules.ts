@@ -78,6 +78,7 @@ export const listRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--dense > .q-item`,
         'padding-inline': 'var(--q-space-lg)',
+        // quasar: this value is Quasar's own, not a forked token
         'padding-block': '2px',
         'min-height': 'var(--q-item-dense-min-height)'
       }
