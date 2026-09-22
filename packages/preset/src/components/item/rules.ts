@@ -127,6 +127,7 @@ export const itemRules = [
         // inline value is the space token, the 2px block inset is Quasar's own
         // density (not part of the md3 list spec).
         'padding-inline': 'var(--q-space-lg)',
+        // quasar: Quasar's dense item padding
         'padding-block': '2px'
       }
       yield {
@@ -175,12 +176,12 @@ export const itemRules = [
       yield {
         [symbols.selector]: (selector: string) =>
           `${selector}__section--side > .q-avatar`,
-        'font-size': '40px'
+        'font-size': 'var(--q-size-md)'
       }
       yield {
         [symbols.selector]: (selector: string) =>
           `${selector}__section--side > .q-icon`,
-        'font-size': '24px'
+        'font-size': 'var(--q-size-icon)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__section--side`,
@@ -200,11 +201,13 @@ export const itemRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__section--main:has(> :last-child:nth-child(2))`,
+        // quasar: Quasar's line-box height for the main section
         'min-height': '36px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__section--main:has(> :last-child:nth-child(3))`,
+        // quasar: Quasar's line-box height for the main section
         'min-height': '44px'
       }
       yield {
@@ -222,11 +225,13 @@ export const itemRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__section--main:has(>:last-child:nth-child(2))`,
+        // quasar: Quasar's line-box height for the main section
         'min-height': '36px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__section--main:has(>:last-child:nth-child(3))`,
+        // quasar: Quasar's line-box height for the main section
         'min-height': '44px'
       }
       yield {
@@ -256,6 +261,7 @@ export const itemRules = [
         'white-space': 'nowrap',
         // Reference sets 1.2em!important here; without it the label inherits
         // the typography line-height (21px instead of 16.8px at 14px).
+        // quasar: Quasar's item label line-height
         'line-height': '1.2em'
       }
       yield {
@@ -265,11 +271,13 @@ export const itemRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__label`,
+        // quasar: Quasar's item label line-height
         'line-height': '1.2em !important',
         'max-width': '100%'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__label--caption`,
+        // quasar: relative caption scaling, not a type role
         'font-size': '0.75em',
         // Spec: supporting text is on-surface-variant (was a 70% currentColor
         // opacity, which washed out against the label colour).
@@ -278,7 +286,9 @@ export const itemRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__label--header`,
         // Spec (md3-lists.json overline): label-small + on-surface-variant.
+        // quasar: Quasar's header label size
         'font-size': '0.875rem',
+        // quasar: Quasar's header label line-height
         'line-height': '1.25rem',
         'letter-spacing': '0.01786em',
         padding: 'var(--q-space-lg)',
@@ -286,7 +296,9 @@ export const itemRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__label--header`,
+        // quasar: Quasar's header label size
         'font-size': '0.875rem',
+        // quasar: wind4 spacing calc, not a type role
         'line-height': 'calc(var(--spacing) * 5)',
         'letter-spacing': '0.01786em',
         padding: '16px',

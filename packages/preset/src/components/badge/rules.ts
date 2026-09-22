@@ -12,10 +12,11 @@ export const badgeRules = [
         'border-radius': 'var(--q-radius-full)',
         'background-color': 'var(--q-primary)',
         color: 'var(--q-on-primary)',
-        'font-size': '12px',
+        'font-size': 'var(--q-label-medium-size)',
         'font-weight': 'var(--q-badge-font-weight)',
         'line-height': 1,
         padding: '3px 7px',
+        // quasar: Quasar's badge min-height
         'min-height': '20px',
         'min-width': '20px',
         'text-align': 'center'
@@ -37,9 +38,11 @@ export const badgeRules = [
         color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)',
         'line-height': 'var(--leading-none)',
         'font-weight': 'var(--fontWeight-normal)',
+        // quasar: Quasar's badge padding
         'padding-inline': '6px',
         'padding-block': '0',
         'vertical-align': 'baseline',
+        // quasar: unstyled badge reproduces Quasar's 4px corner
         'border-radius': '4px',
         'background-color':
           'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)',
@@ -110,6 +113,7 @@ export const badgeRules = [
         height: '8px',
         padding: 0,
         'min-width': '8px',
+        // quasar: Quasar's dot badge size
         'min-height': '8px'
       }
       yield {

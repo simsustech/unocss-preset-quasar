@@ -35,7 +35,7 @@ export const toggleRules = [
         right: 0,
         bottom: 0,
         left: 0,
-        'border-radius': '50%',
+        'border-radius': 'var(--q-radius-circle)',
         'background-color': 'var(--q-toggle-state-layer-color)',
         opacity: '0%',
         transform: 'scale3d(0, 0, 1)',
@@ -152,7 +152,7 @@ export const toggleRules = [
         right: 0,
         bottom: 0,
         left: 0,
-        'border-radius': '50%',
+        'border-radius': 'var(--q-radius-circle)',
         background: 'var(--q-toggle-thumb-bg)',
         // Reference literal: the md3 elevation-1 shadow stack (the md2 token is
         // a different stack and only applies to the md2 style entry).
