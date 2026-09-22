@@ -7,6 +7,14 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+# changesets/action needs to push the release tag, create the GitHub release and
+# open the Release PR. With a read-only GITHUB_TOKEN the publish step still ran
+# (NPM_TOKEN is separate) but tagging silently failed — 0.5.5 reached npm with no
+# tag or release, which is what this block fixes.
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   release:
     name: Release
