@@ -1,17 +1,39 @@
-# Handoff: `unocss-preset-quasar` parity port — step 7 done, steps 8/9/10 open
+# Handoff: `unocss-preset-quasar` rewrite — replacing quasar.css/sass
 
-> **Newest handoff is at the bottom** — "Session 2026-09-22: rule correctness, the
-> token program, workflows". It supersedes this header's status line.
+Branch `preset-rewrite` · worktree `/home/stefan/Projects/unocss-preset-quasar/.worktrees/rules` ·
+plan `/home/stefan/.pi/plans/2026-09-21-new-preset-looks.md` · evaluation
+`/home/stefan/.pi/plans/2026-09-21-new-preset-looks.evaluation.md` · consumers
+`~/Projects/petboarding` (the app) and `~/Projects/quasar-testing-harness` (verification surface;
+the vendored reference bundle lives under `specs/reference`).
 
-Branch: `preset-rewrite`
-Worktree: `/home/stefan/Projects/unocss-preset-quasar/.worktrees/rules`
-Plan: `/home/stefan/.pi/plans/2026-09-21-new-preset-looks.md`
-Evaluation: `/home/stefan/.pi/plans/2026-09-21-new-preset-looks.evaluation.md`
-Related: `~/Projects/petboarding` (consumer), `~/Projects/quasar-testing-harness` (verification surface)
+**Tree is clean and everything here is committed.** Position: preset **204/204** tests, gate
+`present 2212/2430 (91.0%)` (missing 218, absent 42, mismatch 30, extra 722). The arbiters are
+Quasar's own source and the MD3/MD2 specs — the vendored bundle is a regression fixture, not the
+target.
 
-**Working tree is clean; everything below is committed.**
+How to read this file:
+
+- **"Session 2026-09-22"** (nearest the end) is the current state, what that session changed, and
+  the open list. Start there.
+- **"Background: earlier sessions"** below it is reference, and still accurate where it deals with
+  mechanics: the `dist`-staleness warning, the per-module loop, the commit rules, the helper
+  scripts, the spec-adherence notes.
+- The open list in that background (its section 9) is the _earlier_ plan's and is superseded by the
+  session section's open list.
 
 ---
+
+# Background: earlier sessions
+
+Historical record. Read it for mechanics, which are still accurate — the
+`dist`-staleness warning (§0), the standing traps (§5), the per-module loop (§6),
+the commit rules (§7), the helper scripts (§8) and the spec-adherence notes (§8b).
+
+The status-flavoured sections are records of where the port stood _then_ and have
+been overtaken: §1 "where the port stands", §2 the harness run and its failures,
+§4 "the colour/geometry layer that step 8 is about", §4b's "missing wind4 runtime
+layer", and §9's open list — the current status and open items are in the session
+section at the end of this file.
 
 ## 0. Read this first: `dist` goes stale and nothing warns you
 
@@ -711,6 +733,9 @@ carrying it is not captured (`.q-fab` lost `vertical-align`). Only the sheet
 diff catches either.
 
 ## 9. What is left, in plan order
+
+> Superseded: this is the _earlier_ plan's open list. The current one is in the
+> session section at the end of this file.
 
 Done since this handoff was written: the duplicate sweep above; the spec pass on
 the three components the vendored specs cover (switches, lists, dividers — both
