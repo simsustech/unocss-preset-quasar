@@ -351,11 +351,18 @@ export const fieldRules = [
         'border-bottom-left-radius': '0',
         'border-bottom-right-radius': '0'
       }
-      yield {
-        [symbols.selector]: (selector) => `${selector}--outlined`,
-        'background-color': 'transparent',
-        border: '1px solid var(--q-outline)'
-      }
+      // The field's surface belongs to `.q-field__control`, never to the root.
+      // These four variants used to paint the whole field — root included — so
+      // every `--standard` field (the interaction app's login form, the agenda's
+      // filters, …) rendered as a grey slab: the background covered the
+      // `.q-field__bottom` hint strip too, and `--outlined` drew its border on
+      // the root, a pixel outside the control the reference outlines.
+      // The reference has no root-level rule for any of them:
+      //   `.q-field--standard .q-field__control`  carries the surface,
+      //   `.q-field--standout .q-field__control`  already carried it here,
+      //   `.q-field--outlined .q-field__control:before` draws the outline,
+      //   `.body--dark .q-field--* .q-field__control` handle dark mode.
+      // `test/field-root-surface.test.ts` keeps the root bare.
       yield {
         [symbols.selector]: (selector: string) =>
           `${selector}--outlined .q-field__control`,
@@ -441,10 +448,6 @@ export const fieldRules = [
         'margin-bottom': '1px'
       }
       yield {
-        [symbols.selector]: (selector) => `${selector}--standard`,
-        'background-color': 'var(--q-surface-container-highest)'
-      }
-      yield {
         [symbols.selector]: (selector) =>
           `${selector}--standard .q-field__control:before`,
         'border-bottom': '1px solid rgba(0, 0, 0, 0.24)',
@@ -513,10 +516,6 @@ export const fieldRules = [
           `${selector}--standard.q-field--dense .q-field__control`,
         'padding-left': '0',
         'padding-right': '0'
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}--dark`,
-        'background-color': 'var(--q-surface-variant)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -921,10 +920,10 @@ export const fieldRules = [
           `${selector}--item-aligned .q-field__before`,
         'min-width': '56px'
       }
-      yield {
-        [symbols.selector]: (selector) => `${selector}--borderless`,
-        border: 'none'
-      }
+      // `--borderless` needs no root rule: it removes padding from the bottom
+      // hint and the dense control (`.q-field--borderless .q-field__bottom`,
+      // `.q-field--borderless.q-field--dense .q-field__control`), which the
+      // preset emits, and no field root carries a border any more.
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--borderless .q-field__bottom`,
@@ -949,10 +948,6 @@ export const fieldRules = [
         [symbols.selector]: (selector) =>
           `${selector}--square .q-field__control`,
         'border-radius': '0 !important'
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}--standout`,
-        'background-color': 'var(--q-surface-container-highest)'
       }
       yield {
         [symbols.selector]: (selector) =>
