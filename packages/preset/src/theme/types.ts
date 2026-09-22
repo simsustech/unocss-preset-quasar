@@ -68,6 +68,8 @@ export interface TypographyTokens {
   titleMedium: string
   titleSmall: string
   bodyLarge: string
+  /** MD3 body-large tracking (letter-spacing); no role shorthand carries it. */
+  bodyLargeTracking: string
   bodyMedium: string
   bodySmall: string
   labelLarge: string

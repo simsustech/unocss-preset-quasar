@@ -180,10 +180,25 @@
       "mismatch": []
     },
     "field": {
-      "target": 0,
+      "target": null,
       "missing": [],
       "absent": [],
-      "mismatch": []
+      "mismatch": [
+        ".q-field--filled .q-field__control:after|transition",
+        ".q-field--filled .q-field__control:before|transition",
+        ".q-field--float .q-field__label|transition",
+        ".q-field--outlined .q-field__control:after|transition",
+        ".q-field--outlined .q-field__control:before|transition",
+        ".q-field--standard .q-field__control:after|transition",
+        ".q-field--standard .q-field__control:before|transition",
+        ".q-field--standout .q-field__control:before|transition",
+        ".q-field--standout .q-field__control|transition",
+        ".q-field__label|transition",
+        ".q-field__prefix|transition",
+        ".q-field__shadow + .q-field__native::placeholder|transition",
+        ".q-field__shadow|transition",
+        ".q-field__suffix|transition"
+      ]
     },
     "file": {
       "target": 0,

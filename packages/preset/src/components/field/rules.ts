@@ -34,7 +34,7 @@ export const fieldRules = [
         'align-items': 'center',
         position: 'relative',
         'border-radius': 'var(--q-radius-sm)',
-        'min-height': '40px'
+        'min-height': 'var(--q-size-md)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__control:before`,
@@ -86,7 +86,7 @@ export const fieldRules = [
         [symbols.selector]: (selector) => `${selector}__label`,
         'font-size': '16px',
         'line-height': '1.25',
-        'letter-spacing': '0.00937em',
+        'letter-spacing': 'var(--q-body-large-tracking)',
         'font-weight': '400',
         'max-width': '100%',
         'transform-origin': 'left top',
@@ -94,7 +94,7 @@ export const fieldRules = [
         'text-decoration': 'inherit',
         'text-transform': 'inherit',
         transition:
-          'transform 0.36s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.324s cubic-bezier(0.4, 0, 0.2, 1)',
+          'transform 0.36s var(--q-easing-standard), max-width 0.324s var(--q-easing-standard)',
         'backface-visibility': 'hidden',
         left: '0',
         top: '18px'
@@ -126,7 +126,7 @@ export const fieldRules = [
         [symbols.selector]: (selector) => `${selector}__native`,
         'font-size': '16px',
         'line-height': '24px',
-        'letter-spacing': '0.00937em',
+        'letter-spacing': 'var(--q-body-large-tracking)',
         'font-weight': '400',
         'padding-inline': '0',
         'outline-style': 'none !important',
@@ -218,7 +218,7 @@ export const fieldRules = [
         'font-size': '12px',
         'line-height': '1',
         'margin-top': '4px',
-        'padding-inline': '12px',
+        'padding-inline': 'var(--q-space-md)',
         'padding-bottom': '0',
         'background-color': 'transparent',
         color: 'var(--q-on-surface-variant)',
@@ -238,7 +238,8 @@ export const fieldRules = [
         // quasar.sass &--filled: `border-radius: $generic-border-radius
         // $generic-border-radius 0 0`. The MD3 filled text field rounds its top
         // corners only (4dp), so a filled field is not a square box.
-        'border-radius': '4px 4px 0 0'
+        'border-radius':
+          'var(--q-corner-extra-small) var(--q-corner-extra-small) 0 0'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -247,7 +248,7 @@ export const fieldRules = [
         'border-bottom': '1px solid rgba(0, 0, 0, 0.42)',
         opacity: '0',
         transition:
-          'opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1), background 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+          'opacity 0.36s var(--q-easing-standard), background 0.36s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -262,7 +263,7 @@ export const fieldRules = [
         'transform-origin': 'center bottom',
         transform: 'scale3d(0, 1, 1)',
         background: 'currentColor',
-        transition: 'transform 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'transform 0.36s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -302,7 +303,7 @@ export const fieldRules = [
         [symbols.selector]: (selector) =>
           `${selector}--filled > .q-field__inner > .q-field__control`,
         color: 'var(--q-on-surface-variant)',
-        'padding-inline': '16px',
+        'padding-inline': 'var(--q-space-lg)',
         'padding-block': '0',
         'border-top-left-radius': '4px',
         'border-top-right-radius': '4px',
@@ -317,7 +318,7 @@ export const fieldRules = [
         opacity: '0%',
         'border-bottom': '1px solid rgba(0, 0, 0, 0.42)',
         transition:
-          'opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1), background 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+          'opacity 0.36s var(--q-easing-standard), background 0.36s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -326,7 +327,7 @@ export const fieldRules = [
         height: '2px',
         'transform-origin': 'center bottom',
         transform: 'scale3d(0, 1, 1)',
-        transition: 'transform 0.36s cubic-bezier(0.4, 0, 0.2, 1)',
+        transition: 'transform 0.36s var(--q-easing-standard)',
         top: 'auto'
       }
       yield {
@@ -370,14 +371,14 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector: string) =>
           `${selector}--outlined .q-field__control`,
-        'border-radius': '4px',
+        'border-radius': 'var(--q-corner-extra-small)',
         padding: '0 12px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--outlined .q-field__control:before`,
         border: '1px solid rgba(0, 0, 0, 0.24)',
-        transition: 'border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'border-color 0.36s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -390,7 +391,7 @@ export const fieldRules = [
         height: 'inherit',
         'border-radius': 'inherit',
         border: '2px solid transparent',
-        transition: 'border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'border-color 0.36s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -412,9 +413,9 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--outlined .q-field__control`,
-        'padding-inline': '12px',
+        'padding-inline': 'var(--q-space-md)',
         'padding-block': '0',
-        'border-radius': '4px'
+        'border-radius': 'var(--q-corner-extra-small)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -422,7 +423,7 @@ export const fieldRules = [
         'border-color': 'rgba(0, 0, 0, 0.24)',
         'border-style': 'solid',
         'border-width': '1px',
-        transition: 'border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'border-color 0.36s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -432,12 +433,12 @@ export const fieldRules = [
         height: 'inherit',
         'border-radius': 'inherit',
         'border-width': '2px',
-        transition: 'border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'border-color 0.36s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--outlined.q-field--rounded .q-field__control`,
-        'border-radius': '28px'
+        'border-radius': 'var(--q-corner-extra-large)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -455,7 +456,7 @@ export const fieldRules = [
         [symbols.selector]: (selector) =>
           `${selector}--standard .q-field__control:before`,
         'border-bottom': '1px solid rgba(0, 0, 0, 0.24)',
-        transition: 'border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'border-color 0.36s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -472,7 +473,7 @@ export const fieldRules = [
         'transform-origin': 'center bottom',
         transform: 'scale3d(0, 1, 1)',
         background: 'currentColor',
-        transition: 'transform 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'transform 0.36s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -492,7 +493,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--standard .q-field__control`,
-        'padding-inline': '12px',
+        'padding-inline': 'var(--q-space-md)',
         'background-color': 'var(--q-surface-container-highest)',
         'border-top-left-radius': 'inherit',
         'border-top-right-radius': 'inherit'
@@ -506,7 +507,7 @@ export const fieldRules = [
         'border-bottom-left-radius': 'inherit',
         'border-bottom-right-radius': 'inherit',
         transform: 'scale3d(0, 1, 1)',
-        transition: 'transform 0.36s cubic-bezier(0.4, 0, 0.2, 1)',
+        transition: 'transform 0.36s var(--q-easing-standard)',
         top: 'auto'
       }
       yield {
@@ -719,8 +720,8 @@ export const fieldRules = [
         [symbols.selector]: (selector: string) =>
           `${selector}--labeled .q-field__native, ${selector}--labeled .q-field__prefix, ${selector}--labeled .q-field__suffix`,
         'line-height': '24px',
-        'padding-top': '24px',
-        'padding-bottom': '8px'
+        'padding-top': 'var(--q-space-xl)',
+        'padding-bottom': 'var(--q-space-sm)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -753,7 +754,7 @@ export const fieldRules = [
         'max-width': '133%',
         transform: 'translateY(-40%) scale(0.75)',
         transition:
-          'transform 0.36s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.396s cubic-bezier(0.4, 0, 0.2, 1)'
+          'transform 0.36s var(--q-easing-standard), max-width 0.396s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--error`,
@@ -831,7 +832,7 @@ export const fieldRules = [
         [symbols.selector]: (selector) =>
           `${selector}--auto-height .q-field__native`,
         'line-height': '18px',
-        'min-height': '56px',
+        'min-height': 'var(--q-size-lg)',
         'align-items': 'center'
       }
       yield {
@@ -848,12 +849,12 @@ export const fieldRules = [
         [symbols.selector]: (selector) =>
           `${selector}--auto-height .q-field__control`,
         height: 'auto',
-        'min-height': '56px'
+        'min-height': 'var(--q-size-lg)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--auto-height.q-field--labeled .q-field__control-container`,
-        'padding-top': '24px'
+        'padding-top': 'var(--q-space-xl)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -873,12 +874,12 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--auto-height.q-field--dense .q-field__control`,
-        'min-height': '40px'
+        'min-height': 'var(--q-size-md)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--auto-height.q-field--dense .q-field__native`,
-        'min-height': '40px'
+        'min-height': 'var(--q-size-md)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -916,8 +917,8 @@ export const fieldRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--item-aligned`,
-        'padding-inline': '16px',
-        'padding-block': '8px'
+        'padding-inline': 'var(--q-space-lg)',
+        'padding-block': 'var(--q-space-sm)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -959,7 +960,7 @@ export const fieldRules = [
         background: 'rgba(0, 0, 0, 0.07)',
         opacity: '0',
         transition:
-          'opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1), background 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+          'opacity 0.36s var(--q-easing-standard), background 0.36s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -992,12 +993,12 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--standout .q-field__control`,
-        'padding-inline': '12px',
+        'padding-inline': 'var(--q-space-md)',
         'padding-block': '0',
-        'border-radius': '4px',
+        'border-radius': 'var(--q-corner-extra-small)',
         'background-color': 'var(--q-surface-container-highest)',
         transition:
-          'box-shadow 0.36s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+          'box-shadow 0.36s var(--q-easing-standard), background-color 0.36s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -1071,7 +1072,7 @@ export const fieldRules = [
         'background-color': 'rgba(0, 0, 0, 0.07)',
         opacity: '0%',
         transition:
-          'opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1), background 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+          'opacity 0.36s var(--q-easing-standard), background 0.36s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -1100,7 +1101,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--standout.q-field--rounded .q-field__control`,
-        'border-radius': '28px'
+        'border-radius': 'var(--q-corner-extra-large)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -1231,12 +1232,12 @@ export const fieldRules = [
         opacity: '0',
         overflow: 'hidden',
         'white-space': 'pre-wrap',
-        transition: 'opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'opacity 0.36s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__shadow + .q-field__native::placeholder`,
-        transition: 'opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'opacity 0.36s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -1247,7 +1248,7 @@ export const fieldRules = [
         [symbols.selector]: (selector) => `${selector}__prefix`,
         'font-weight': '400',
         'line-height': '28px',
-        'letter-spacing': '0.00937em',
+        'letter-spacing': 'var(--q-body-large-tracking)',
         'text-decoration': 'inherit',
         'text-transform': 'inherit',
         border: 'none',
@@ -1256,7 +1257,7 @@ export const fieldRules = [
         color: 'rgba(0, 0, 0, 0.87)',
         outline: '0',
         padding: '6px 0',
-        transition: 'opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1)',
+        transition: 'opacity 0.36s var(--q-easing-standard)',
         'white-space': 'nowrap',
         'padding-right': '4px'
       }
@@ -1267,7 +1268,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__prefix`,
         'line-height': '28px',
-        'letter-spacing': '0.00937em',
+        'letter-spacing': 'var(--q-body-large-tracking)',
         'font-weight': '400',
         'padding-inline': '0',
         'padding-block': '6px',
@@ -1280,7 +1281,7 @@ export const fieldRules = [
         'text-decoration': 'inherit',
         'text-transform': 'inherit',
         color: 'var(--q-on-surface)',
-        transition: 'opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'opacity 0.36s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -1291,7 +1292,7 @@ export const fieldRules = [
         [symbols.selector]: (selector) => `${selector}__suffix`,
         'font-weight': '400',
         'line-height': '28px',
-        'letter-spacing': '0.00937em',
+        'letter-spacing': 'var(--q-body-large-tracking)',
         'text-decoration': 'inherit',
         'text-transform': 'inherit',
         border: 'none',
@@ -1300,7 +1301,7 @@ export const fieldRules = [
         color: 'rgba(0, 0, 0, 0.87)',
         outline: '0',
         padding: '6px 0',
-        transition: 'opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1)',
+        transition: 'opacity 0.36s var(--q-easing-standard)',
         'white-space': 'nowrap',
         'padding-left': '4px'
       }
@@ -1311,7 +1312,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__suffix`,
         'line-height': '28px',
-        'letter-spacing': '0.00937em',
+        'letter-spacing': 'var(--q-body-large-tracking)',
         'font-weight': '400',
         'padding-inline': '0',
         'padding-block': '6px',
@@ -1324,7 +1325,7 @@ export const fieldRules = [
         'text-decoration': 'inherit',
         'text-transform': 'inherit',
         color: 'var(--q-on-surface)',
-        transition: 'opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'opacity 0.36s var(--q-easing-standard)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -1335,7 +1336,7 @@ export const fieldRules = [
         [symbols.selector]: (selector) => `${selector}__input`,
         'font-weight': '400',
         'line-height': '24px',
-        'letter-spacing': '0.00937em',
+        'letter-spacing': 'var(--q-body-large-tracking)',
         'text-decoration': 'inherit',
         'text-transform': 'inherit',
         border: 'none',
@@ -1372,7 +1373,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__input`,
         'line-height': '24px',
-        'letter-spacing': '0.00937em',
+        'letter-spacing': 'var(--q-body-large-tracking)',
         'font-weight': '400',
         'padding-inline': '0',
         'padding-block': '6px',
