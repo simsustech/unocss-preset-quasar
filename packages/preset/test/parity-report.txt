@@ -1,6 +1,6 @@
-=== PARITY: 844/2401 (35%) ===
+=== PARITY: 450/2401 (19%) ===
 (2441 in fixture; 40 env-gated)
-Missing 1557 selectors:
+Missing 1951 selectors:
   ::backdrop
   :root
   :host
@@ -57,6 +57,7 @@ Missing 1557 selectors:
   object
   #q-app
   img.responsive
+  body.quasar-style-unstyled .q-btn
   body.quasar-style-unstyled .q-field
   body.quasar-style-unstyled .q-input
   body.quasar-style-unstyled .q-select
@@ -64,6 +65,7 @@ Missing 1557 selectors:
   body.quasar-style-unstyled .q-badge
   body.quasar-style-unstyled .q-banner
   body.quasar-style-unstyled .q-bar
+  body.quasar-style-unstyled .q-item
   body.quasar-style-unstyled .q-expansion-item
   body.quasar-style-unstyled .q-stepper
   body.quasar-style-unstyled .q-tab
@@ -73,13 +75,16 @@ Missing 1557 selectors:
   body.quasar-style-unstyled .q-slider
   body.quasar-style-unstyled .q-toggle
   body.quasar-style-unstyled .q-checkbox
+  body.quasar-style-unstyled .q-radio
   body.quasar-style-unstyled .q-knob
+  body.quasar-style-unstyled .q-rating
   body.quasar-style-unstyled .q-linear-progress
   body.quasar-style-unstyled .q-circular-progress
   body.quasar-style-unstyled .q-spinner
   body.quasar-style-unstyled .q-pagination
   body.quasar-style-unstyled .q-btn-toggle
   body.quasar-style-unstyled .q-btn-dropdown
+  body.quasar-style-unstyled .q-btn-group
   body.quasar-style-unstyled .q-header
   body.quasar-style-unstyled .q-footer
   body.quasar-style-unstyled .q-drawer
@@ -92,8 +97,11 @@ Missing 1557 selectors:
   body.quasar-style-unstyled .q-uploader
   body.quasar-style-unstyled .q-table
   body.quasar-style-unstyled .q-tree
+  body.quasar-style-unstyled .q-timeline
   body.quasar-style-unstyled .q-editor
   body.quasar-style-unstyled .q-color-picker
+  body.quasar-style-unstyled .q-date
+  body.quasar-style-unstyled .q-time
   body.quasar-style-unstyled .q-skeleton
   body.quasar-style-unstyled .q-markup-table
   body.quasar-style-unstyled .q-form
@@ -327,9 +335,12 @@ Missing 1557 selectors:
   .q-fab__actions--opened
   .q-img__content > div
   .q-notification
+  .q-avatar
+  .q-avatar__content
   .q-badge
   .q-banner__avatar > .q-avatar
   .q-banner__avatar > .q-icon
+  .q-item__section--side > .q-avatar
   .q-banner--dense .q-banner__avatar > .q-avatar
   .q-banner--dense .q-banner__avatar > .q-icon
   .q-carousel__arrow .q-icon
@@ -340,9 +351,15 @@ Missing 1557 selectors:
   .q-field--dense .q-field__bottom
   .q-bar--standard>div
   .q-breadcrumbs__el-icon
+  .q-btn .q-icon
+  .q-btn .q-spinner
+  .q-btn--fab .q-icon
+  .q-btn--fab-mini .q-icon
   .q-field--dense .q-field__marginal .q-avatar
+  .q-item__section--side > .q-icon
   .q-uploader__file .q-circular-progress
   .q-checkbox__icon
+  .q-radio__icon
   .q-checkbox__inner
   .q-chip
   .q-chip .q-avatar
@@ -352,6 +369,9 @@ Missing 1557 selectors:
   .q-circular-progress__text
   .q-color-picker__error-icon
   .q-color-picker__tune-tab input
+  .q-date__calendar-weekdays > div
+  .q-date__header-subtitle
+  .q-date__header-title-label
   .q-drawer--mini .q-tab__label
   .q-field
   .q-field__bottom
@@ -363,11 +383,13 @@ Missing 1557 selectors:
   .q-field__native
   .q-field--dense .q-field__label
   .q-img__loading .q-spinner
+  .q-item__label--header
   .q-knob
   .q-linear-progress
   .q-notification__badge
   .q-notification__caption
   .q-notification__icon
+  .q-radio__inner
   .q-slide-item__bottom
   .q-slide-item__bottom .q-icon
   .q-slide-item__left .q-icon
@@ -395,6 +417,13 @@ Missing 1557 selectors:
   .q-table__title
   .q-table--dense .q-table__sort-icon
   .q-tabs__arrow
+  .q-time__clock
+  .q-time__clock-position
+  .q-time__header-ampm
+  .q-time__header-label
+  .q-timeline__dot .q-icon
+  .q-timeline__subtitle
+  .q-timeline--comfortable .q-timeline__heading
   .q-toggle__thumb .q-icon
   .q-toolbar .q-avatar
   .q-toolbar__title
@@ -416,13 +445,28 @@ Missing 1557 selectors:
   .body--dark .q-table__card
   .q-bar--dark
   .q-chip--dark
+  .q-btn
+  .q-btn--fab
+  .q-btn--fab-mini
+  .q-btn--flat
+  .q-btn--outline
+  .body--dark .q-btn-group > .q-btn-item
+  .body--dark .q-date__calendar-item--in .q-btn--flat
+  .body--dark .q-date__months-item .q-btn--flat
+  .body--dark .q-date__navigation .q-btn
+  .body--dark .q-date__years-item .q-btn--flat
   .body--dark .q-field--standout.q-field--dark.q-field--highlighted .q-field__inpu
+  .body--dark .q-time__now-button
   .q-field--standout.q-field--dark.q-field--highlighted .q-field__input
+  .body--dark .q-btn-group > .q-btn-item.bg-primary
+  .q-btn-group > .q-btn-item
   .q-field--standout.q-field--dark.q-field--highlighted .q-field__input > .q-btn-i
+  .q-btn-group > .q-btn-item.bg-primary
   .q-carousel__control
   .q-checkbox__svg
   .q-color-picker__header-content--dark
   .q-stepper__dot span
+  .q-timeline--dark
   .q-uploader__file--img .q-circular-progress
   .body--dark .q-checkbox__inner--indet
   .body--dark .q-checkbox__inner--truthy
@@ -432,12 +476,17 @@ Missing 1557 selectors:
   .body--dark .q-circular-progress
   .body--dark .q-drawer__content .q-list > .q-router-link--active
   .body--dark .q-field__control
+  .body--dark .q-item--active
+  .body--dark .q-item.q-router-link--active
   .body--dark .q-linear-progress
   .body--dark .q-notification__actions
   .body--dark .q-pull-to-refresh__puller
+  .body--dark .q-radio__check
+  .body--dark .q-radio--dark .q-radio__inner--truthy
   .body--dark .q-slider__thumb
   .body--dark .q-stepper__tab--active
   .body--dark .q-tab--active
+  .body--dark .q-time__clock-pointer
   .q-field--standout.q-field--dark.q-field--highlighted .q-field__append
   .q-field--standout.q-field--dark.q-field--highlighted .q-field__native
   .q-field--standout.q-field--dark.q-field--highlighted .q-field__prefix
@@ -453,10 +502,16 @@ Missing 1557 selectors:
   .q-field--standout.q-field--highlighted .q-field__prefix
   .q-field--standout.q-field--highlighted .q-field__prepend
   .q-field--standout.q-field--highlighted .q-field__suffix
+  .q-item--active
+  .q-item.q-router-link--active
   .q-notification__actions
+  .q-radio--dark .q-radio__inner--truthy
   .q-stepper__tab--active
   .q-tab--active
   .q-checkbox--dark .q-checkbox__inner
+  .q-item--dark .q-item__section--side:not(.q-item__section--avatar)
+  .q-list--dark .q-item__section--side:not(.q-item__section--avatar)
+  .q-radio--dark .q-radio__inner
   .body--dark .q-chip
   .q-circular-progress
   .q-color-picker__header-content--light
@@ -464,13 +519,30 @@ Missing 1557 selectors:
   .q-color-picker__sliders .q-slider__thumb
   .q-color-picker--dark
   .q-color-picker--dark .q-slider__thumb
+  .q-dark
+  .body--dark .q-date__calendar-item--in .q-btn
+  .body--dark .q-date__months-item .q-btn
+  .body--dark .q-date__years-item .q-btn
+  .body--dark .q-time__clock-position--active
+  .q-date__calendar-item--in .q-btn
+  .q-date__months-item .q-btn
+  .q-time__clock-position--active
+  .q-date__calendar-item--in .q-btn--flat
+  .q-date__months-item .q-btn--flat
+  .q-date__navigation .q-btn
   .q-field--standout.q-field--highlighted .q-field__input
+  .body--dark .q-date__header
+  .q-date__header
+  .q-date__years-item .q-btn
+  .q-date__years-item .q-btn--flat
+  .q-date--dark
   .body--dark .q-editor__content
   .body--dark .q-field--filled > .q-field__inner > .q-field__control
   .q-editor__content
   .q-editor--dark
   .q-fab__label--internal-hidden
   .body--dark .q-field__append > .q-icon
+  .body--dark .q-radio__inner
   .q-field--dark .q-field__input
   .q-field--dark .q-field__native
   .q-field--dark .q-field__prefix
@@ -486,6 +558,14 @@ Missing 1557 selectors:
   .q-field--labeled:not(.q-field--float) .q-field__input::placeholder
   .q-field--labeled:not(.q-field--float) .q-field__native::placeholder
   .q-img__container
+  .q-item--dark
+  .q-list--dark
+  .q-item--dark .q-item__label--caption
+  .q-item--dark .q-item__label--overline
+  .q-list--dark .q-item__label--caption
+  .q-list--dark .q-item__label--overline
+  .q-item--dark .q-item__label--header
+  .q-list--dark .q-item__label--header
   .body--dark .q-layout__section--marginal
   .q-layout__section--marginal
   .q-loading
@@ -500,6 +580,9 @@ Missing 1557 selectors:
   .body--dark .q-notification
   .body--dark .q-tooltip--style
   .q-pull-to-refresh__puller
+  .q-radio__check
+  .q-rating
+  .q-rating__icon
   .q-slider__thumb
   .body--dark .q-slider__track
   .q-slider__track
@@ -513,6 +596,14 @@ Missing 1557 selectors:
   .q-table tbody tr.selected td
   .body--dark .q-table__bottom
   .q-table__card
+  .q-time__clock-pointer
+  .body--dark .q-time__header
+  .q-time__header
+  .body--dark .q-time__link
+  .q-time__link
+  .body--dark .q-time__link--active
+  .q-time__link--active
+  .q-time__now-button
   .body--dark .q-toggle__inner--truthy .q-toggle__thumb
   .q-toggle__inner--truthy .q-toggle__thumb
   .q-toggle__inner--truthy .q-toggle__thumb .q-icon
@@ -525,7 +616,10 @@ Missing 1557 selectors:
   .q-chip--colored .q-chip__icon
   .q-chip--dark .q-chip__icon
   .q-editor__link-input
+  .q-icon
   .q-color-picker__header input
+  .q-date__calendar-item > button
+  .q-date__calendar-item > div
   .q-field__counter
   .q-field__input
   .q-field__messages
@@ -541,8 +635,12 @@ Missing 1557 selectors:
   .q-field--labeled .q-field__native
   .q-field--labeled .q-field__prefix
   .q-field--labeled .q-field__suffix
+  .q-item__label
   .q-message-text
   .q-textarea .q-field__native
+  .q-timeline__entry
+  .q-timeline--loose .q-timeline__entry--icon .q-timeline__subtitle
+  .q-date__content .q-btn
   .q-carousel .q-carousel__thumbnail
   .q-editor .q btn
   .q-editor__content hr
@@ -551,23 +649,33 @@ Missing 1557 selectors:
   .q-pagination input::-webkit-inner-spin-button
   .q-pagination input::-webkit-outer-spin-button
   .q-separator
+  .q-time__clock-center
+  .q-timeline__heading-title
+  .q-timeline--loose .q-timeline__content
+  .q-timeline--loose .q-timeline__subtitle
+  .q-timeline--loose .q-timeline__dot
+  .q-timeline--loose .q-timeline__entry
   .q-carousel__navigation .q-btn
   .q-editor__toolbar-group
   .q-loading__message
   .q-table__grid-item-card .q-separator
+  .q-time--portrait.q-time--bordered .q-time__content
   .on-left
   .q-stepper--vertical .q-stepper__dot
   .on-right
+  .q-time--portrait .q-time__header-ampm
   .q-banner__actions.col-all .q-btn-item
   .q-bar>.q-btn
   .q-bar>.q-icon
   .q-field__marginal > * + *
+  .q-rating__icon-container + .q-rating__icon-container
   .q-bar>.q-btn:first-child
   .q-bar>.q-icon:first-child
   .q-bar>div:first-child
   .q-bar>div
   .q-bar>div+.q-icon
   .q-btn-dropdown--simple+.q-btn-dropdown__arrow
+  .q-item__section--main + .q-item__section--main
   .q-message-avatar--sent
   .q-popup-edit__buttons .q-btn + .q-btn
   .q-breadcrumbs__el-icon--with-label
@@ -575,7 +683,12 @@ Missing 1557 selectors:
   .q-notification__avatar--additional
   .q-notification__spinner--additional
   .q-table--dense .q-table__bottom-item
+  .q-btn--dense .on-left
+  .q-btn--dense .on-right
+  .q-btn-group--push > .q-btn--push.q-btn--actionable:active .q-btn__content
+  .q-btn-group--push__> .q-btn--push.q-btn--actionable.q-btn--active__.q-btn__cont
   .q-field__messages > div + div
+  .q-item__label + .q-item__label
   .q-checkbox__bg
   .q-chip__icon--left
   .q-chip__icon--remove
@@ -583,6 +696,7 @@ Missing 1557 selectors:
   .q-chip--dense .q-chip__icon--left
   .q-chip--dense .q-chip__icon--remove
   .q-color-picker__tune-tab .q-slider
+  .q-date--landscape-standard .q-date__header-today
   .q-expansion-item__toggle-focus + .q-expansion-item__toggle-icon
   .q-fab__actions--down
   .q-fab__actions--left
@@ -595,6 +709,9 @@ Missing 1557 selectors:
   .q-popup-edit__buttons
   .q-table__grid-item-row + .q-table__grid-item-row
   .q-uploader__file + .q-uploader__file
+  .q-item > .q-focus-helper + .q-item__section--thumbnail
+  .q-item > .q-item__section--thumbnail:first-child
+  .q-item > .q-item__section--thumbnail:last-of-type
   .q-message
   .q-message:first-child .q-message-label
   .q-message-text + .q-message-text
@@ -629,18 +746,30 @@ Missing 1557 selectors:
   .q-stepper--vertical .q-stepper__dot:before
   .q-table__sort-icon--center
   .q-table__sort-icon--left
+  .q-time__header-label > div + div
   .q-table__sort-icon--right
   .q-tree__tickbox
   .q-table--grid .q-table__middle
+  .q-time--landscape .q-time__header-ampm
+  .q-timeline__title
+  .q-timeline--comfortable--left .q-timeline__heading .q-timeline__heading-title
+  .q-timeline--loose .q-timeline__entry--icon .q-timeline__dot
+  .q-timeline--loose .q-timeline__heading-title
   .q-tree__node-header
   .q-banner--dense
+  .q-btn--dense
+  .q-btn--dense.q-btn--round
+  .q-btn--round
   .q-carousel .q-carousel--padding
   .q-tab-panel
+  .q-time__container-parent
+  .q-time__content
   .q-color-picker .q-tab
   .q-color-picker__palette-tab
   .q-color-picker__spectrum-tab
   .q-drawer-container:not(.q-drawer--mini-animate) .q-drawer--mini
   .q-table .q-virtual-scroll__padding td
+  .q-date__view
   .q-stepper--horizontal .q-stepper__step-inner
   .q-fab__actions
   .q-fab__label--internal
@@ -655,12 +784,17 @@ Missing 1557 selectors:
   .q-table__progress th
   .q-table--dense .q-table__select .q-field__control
   .q-table--dense .q-table__select .q-field__native
+  .q-timeline
+  .q-timeline--comfortable .q-timeline__entry
   .q-uploader__header-content
   .q-uploader__list
   .q-banner
   .q-btn-dropdown--split .q-btn-dropdown__arrow-container
   .q-chip--dense
   .q-color-picker__sliders
+  .q-date__actions
+  .q-time__actions
+  .q-date__years-content
   .q-drawer__content
   .q-drawer__content > .q-list
   .q-drawer__content > .q-scrollarea
@@ -674,6 +808,10 @@ Missing 1557 selectors:
   .q-field--outlined .q-field__control
   .q-field--standard .q-field__control
   .q-field--standout .q-field__control
+  .q-item
+  .q-item--dense
+  .q-list--dense > .q-item
+  .q-list--padding
   .q-notification__message
   .q-notification--multi-line
   .q-notification--standard
@@ -716,8 +854,10 @@ Missing 1557 selectors:
   .q-carousel--navigation-right .q-carousel--padding
   .q-carousel--navigation-top .q-carousel--padding
   .q-checkbox--dense q-checkbox__label
+  .q-radio--dense .q-radio__label
   .q-toggle .q-toggle__label
   .q-checkbox--dense.reverse q-checkbox__label
+  .q-radio--dense.reverse .q-radio__label
   .q-toggle.reverse .q-toggle__label
   .q-color-picker__alpha .q-slider__track-container
   .q-field--auto-height .q-field__control-container
@@ -725,7 +865,11 @@ Missing 1557 selectors:
   .q-field--auto-height.q-field--labeled .q-field__suffix
   .q-textarea.q-field--labeled .q-field__prefix
   .q-textarea.q-field--labeled .q-field__suffix
+  .q-timeline__heading:first-child .q-timeline__heading-title
   .q-color-picker__cube
+  .q-date__arrow.q-date__arrow:has(+.q-date__arrow)
+  .q-timeline--dense--left .q-timeline__entry
+  .q-date__calendar-days-container
   .q-drawer-container:not(.q-drawer--mini-animate) .q-drawer--mini .q-item
   .q-drawer-container:not(.q-drawer--mini-animate) .q-drawer--mini .q-item__sectio
   .q-fab__label--internal-bottom
@@ -752,7 +896,13 @@ Missing 1557 selectors:
   .q-field--dense.q-field--labeled.q-field--dense .q-field__native
   .q-field--dense.q-field--labeled.q-field--dense .q-field__prefix
   .q-field--dense.q-field--labeled.q-field--dense .q-field__suffix
+  .q-item__section--main ~ .q-item__section--side
+  .q-item__section--side
+  .q-list--padding .q-item__label--header
   .q-separator--spaced + .q-item__label--header
+  .q-timeline__entry--icon .q-timeline__subtitle
+  .q-timeline--comfortable .q-timeline__entry--icon .q-timeline__content
+  .q-timeline--loose .q-timeline__entry--icon .q-timeline__content
   .q-notification--multi-line .q-notification__actions--with-media
   .q-tree__children
   .q-select .q-field__input
@@ -772,6 +922,19 @@ Missing 1557 selectors:
   .q-textarea.q-field--dense.q-field--labeled .q-field__suffix
   .q-textarea.q-field--labeled .q-field__control-container
   .q-textarea.q-field--labeled .q-field__native
+  .q-time__content:before
+  .q-timeline__content
+  .q-timeline__entry:last-child
+  .q-timeline__heading:last-child .q-timeline__heading-title
+  .q-timeline--comfortable--left .q-timeline__content
+  .q-timeline--comfortable--right .q-timeline__subtitle
+  .q-timeline--comfortable--left .q-timeline__subtitle
+  .q-timeline--comfortable--right .q-timeline__content
+  .q-timeline--dense--right .q-timeline__entry
+  .q-timeline--loose .q-timeline__entry--left .q-timeline__content
+  .q-timeline--loose .q-timeline__entry--right .q-timeline__subtitle
+  .q-timeline--loose .q-timeline__entry--left .q-timeline__subtitle
+  .q-timeline--loose .q-timeline__entry--right .q-timeline__content
   .q-toolbar__title:first-child
   .q-toolbar__title:last-child
   .q-toolbar--inset
@@ -787,21 +950,42 @@ Missing 1557 selectors:
   .q-tabs--vertical .q-tabs__arrow
   .q-field__inner
   .q-message-name--sent
+  .q-timeline--comfortable--left .q-timeline__heading
+  .q-timeline--comfortable--left .q-timeline__title
+  .q-timeline--dense--left .q-timeline__content
+  .q-timeline--dense--left .q-timeline__heading
+  .q-timeline--dense--left .q-timeline__subtitle
+  .q-timeline--dense--left .q-timeline__title
+  .q-btn-group
   .q-checkbox
+  .q-radio
   .q-spinner
   .q-toggle
   .q-color-picker
+  .q-date__calendar-item
   .q-fab
   .q-img
+  .q-timeline--comfortable .q-timeline__content
+  .q-timeline--comfortable .q-timeline__dot
+  .q-timeline--comfortable .q-timeline__subtitle
   .q-uploader
+  .disabled
   .disabled *
+  .q-date__content
+  .q-date__main
+  .q-focus-helper
+  .q-focusable
+  .q-manual-focusable
   .q-slider__track-container
+  .q-date__header-link
   .q-layout
+  .q-rating__icon-container
   .q-toggle__track
   .q-field--disabled .q-field__control > div
   .q-field--disabled .q-field__control > div *
   .q-file__dnd
   .q-knob--editable
+  .q-time
   .body--dark .q-toggle__track
   .q-uploader__dnd
   .q-virtual-scroll__content
@@ -812,6 +996,7 @@ Missing 1557 selectors:
   .q-slider__track-container--v .q-slider__selection
   .q-table--grid .q-table__middle thead
   .q-table--grid .q-table__middle thead th
+  .q-date__calendar-item:after
   .q-editor
   .q-editor--flat
   .q-editor--flat .q-editor__toolbar
@@ -819,6 +1004,7 @@ Missing 1557 selectors:
   .q-table thead
   .q-btn-dropdown--split .q-btn-dropdown__arrow-container:not(.q-btn--outline)
   .q-btn-dropdown--split .q-btn-dropdown__arrow-container.q-btn--outline
+  .q-date__edit-range-from:after
   .q-editor__toolbar
   .q-table--cell-separator tbody tr:not(:last-child) > td
   .q-table--cell-separator thead th
@@ -833,6 +1019,7 @@ Missing 1557 selectors:
   .q-table--vertical-separator td
   .q-table--vertical-separator th
   .q-badge--outline
+  .q-btn--outline:before
   .body--dark .q-table td
   .body--dark .q-table thead
   .body--dark .q-table tr
@@ -847,10 +1034,20 @@ Missing 1557 selectors:
   .q-carousel .q-carousel__thumbnail--active
   .q-chip--outline
   .q-color-picker--bordered
+  .q-date--bordered
   .q-expansion-item--popup > .q-expansion-item__container
+  .q-list--bordered
   .q-stepper--bordered
+  .q-time--bordered
   .q-uploader--bordered
   .q-color-picker--dark .q-color-picker__tune-tab input
+  .body--dark .q-date__edit-range-from:after
+  .body--dark .q-date__edit-range-to:after
+  .body--dark .q-date__edit-range:after
+  .q-date__edit-range:after
+  .body--dark .q-date__edit-range-from-to:after
+  .q-date__edit-range-from-to:after
+  .q-date__edit-range-to:after
   .body--dark .q-editor__toolbar
   .q-editor--dark .q-editor__content hr
   .q-editor--dark .q-editor__toolbar
@@ -871,23 +1068,38 @@ Missing 1557 selectors:
   .q-table__card--dark
   .q-table--dark
   .q-table--bordered
+  .q-time--dark
   .q-uploader--dark
+  .q-timeline__dot:before
   .q-uploader__file
+  .q-btn--push.q-btn--actionable:active:before
+  .q-btn--push.q-btn--actionable.q-btn--active:before
   .q-tree__node:after
   .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-body:after
   .q-tree__node-header:before
   .fullscreen
   .q-drawer--mini
   .q-field--square .q-field__control
+  .q-avatar--square
+  .q-btn-group--square
   .q-menu--square
   .q-table--square
   .q-badge--rounded
+  .q-btn--push
+  .q-btn--rounded
+  .q-btn--square
+  .q-btn-group--push
+  .q-btn-group--rounded
   .q-fab--form-rounded
   .q-field--outlined.q-field--rounded .q-field__control
   .q-field--standout.q-field--rounded .q-field__control
+  .q-btn-group--stretch
   .q-checkbox:not(.disabled):hover q-checkbox__inner:before
   .q-chip--square
   .q-color-picker__spectrum-circle
+  .q-date
+  .q-date__calendar-item button
+  .q-date__event
   .q-drawer__content .q-list .q-item
   .q-expansion-item__content > .q-card
   .q-fab--form-square
@@ -900,11 +1112,26 @@ Missing 1557 selectors:
   .q-tab__alert
   .q-tab__indicator
   .q-table--grid
+  .q-time__clock-pointer:after
+  .q-time__clock-pointer:before
+  .q-time__container-child
+  .q-timeline__dot-img
   .q-toggle:not(.disabled) .q-toggle__thumb:before
   .q-toggle__thumb:after
   .q-tree__img
+  .q-btn-group > .q-btn-group:not(:first-child) > .q-btn:first-child
   .q-drawer
   .q-drawer--mobile
+  .q-btn-group > .q-btn-item:not(:first-child)
+  .q-date__edit-range:nth-child(7n-6):after
+  .q-date__range-from:nth-child(7n-6):before
+  .q-date__range-to:nth-child(7n-6):before
+  .q-date__range:nth-child(7n-6):before
+  .q-btn-group > .q-btn-item:not(:last-child)
+  .q-date__edit-range:nth-child(7n):after
+  .q-date__range-from:nth-child(7n):before
+  .q-date__range-to:nth-child(7n):before
+  .q-date__range:nth-child(7n):before
   .q-chip--square .q-avatar
   .q-editor>div:first-child
   .q-stepper__header
@@ -914,8 +1141,18 @@ Missing 1557 selectors:
   .q-field--outlined.q-field--readonly .q-field__control:before
   .q-toggle__inner--truthy .q-toggle__track
   .body--dark .q-badge
+  .body--dark .q-date__event
   .body--dark .q-toggle__inner--truthy .q-toggle__track
+  .q-btn-group--glossy > .q-btn-item
   .q-bar
+  .q-btn__progress--dark .q-btn__progress-indicator
+  .q-btn__progress-indicator
+  .q-btn--flat .q-btn__progress-indicator
+  .q-btn--outline .q-btn__progress-indicator
+  .body--dark .q-btn-group > .q-btn
+  .body--dark .q-btn-group > .q-btn-group:first-child > .q-btn--active
+  .q-btn-group > .q-btn
+  .q-btn-group > .q-btn-group:first-child > .q-btn--active
   .body--dark .q-drawer
   .q-carousel
   .q-carousel__slide
@@ -931,6 +1168,11 @@ Missing 1557 selectors:
   .q-color-picker__hue .q-slider__track
   .q-color-picker__spectrum-black
   .q-color-picker__spectrum-white
+  .body--dark .q-date
+  .body--dark .q-time
+  .q-date__range:before
+  .q-date__range-from:before
+  .q-date__range-to:before
   .body--dark .q-drawer__content .q-list .q-router-link--active
   .body--dark .q-tab__indicator
   .body--dark .q-table tbody td:after
@@ -945,6 +1187,7 @@ Missing 1557 selectors:
   .q-field--filled.q-field--readonly .q-field__control:before
   .body--dark .q-field--standard .q-field__control
   .body--dark .q-linear-progress__track
+  .body--dark .q-time__container-child
   .q-field--standout.q-field--dark .q-field__control
   .q-field--standout.q-field--dark.q-field--highlighted .q-field__control
   .q-linear-progress__track--dark
@@ -990,6 +1233,9 @@ Missing 1557 selectors:
   .q-stepper--horizontal .q-stepper__line:before
   .q-tab-panels
   .q-table tbody td:after
+  .body--dark .q-time__header-ampm .q-time__link--active
+  .q-time__header-ampm .q-time__link--active
+  .q-timeline__dot:after
   .body--dark .q-toggle__inner--truthy .q-toggle__thumb:after
   .q-toggle__inner--truthy .q-toggle__thumb:after
   .body--dark .q-toggle__thumb:after
@@ -998,25 +1244,39 @@ Missing 1557 selectors:
   .q-virtual-scroll__padding
   .q-virtual-scroll--horizontal .q-virtual-scroll__padding
   .q-badge--transparent
+  .q-btn.disabled
+  .q-btn__content--hidden
   .q-fab__label--external-hidden
   .q-carousel .q-carousel__thumbnail:hover
   .q-chip__icon--remove:focus
   .q-chip__icon--remove:hover
+  .q-date__header-link--active
+  .q-date__header-link:focus
+  .q-date__header-link:hover
   .q-field__focusable-action:focus
   .q-field__focusable-action:hover
   .q-field--filled .q-field__control:hover:before
   .q-field--standout .q-field__control:hover:before
   .q-img__image--loaded
+  .q-rating__icon--active
+  .q-rating--no-dimming .q-rating__icon
   .q-slider--focus .q-slider__inner
   .q-slider--focus .q-slider__selection
   .q-slider--focus .q-slider__thumb
   .q-slider--label .q-slider--focus .q-slider__pin
   .q-tab--active .q-tab__indicator
+  .q-time__link:focus
+  .q-time__link:hover
   .q-carousel__navigation-icon--inactive
+  .q-rating__icon--exselected
+  .q-timeline--dark .q-timeline__subtitle
   .q-checkbox.disabled
+  .q-radio.disabled
   .q-toggle.disabled
   .q-checkbox--dark .q-checkbox__inner:before
+  .q-radio--dark .q-radio__inner:before
   .q-toggle--dark .q-toggle__thumb:before
+  .q-date__calendar-item--out
   .q-editor__content:empty:not(:focus):before
   .q-expansion-item__border
   .q-expansion-item:first-child > div > .q-expansion-item__border--top
@@ -1068,6 +1328,7 @@ Missing 1557 selectors:
   .q-table th.sortable:hover .q-table__sort-icon
   .q-table th.sorted .q-table__sort-icon
   .q-tabs--scrollable.q-tabs__arrows--outside .q-tabs__arrow--faded
+  .q-time__clock-position--disable
   .q-toggle:not(.disabled):hover .q-toggle__thumb:before
   .q-tree__node--disabled> .disabled
   .q-tree__node--disabled>div
@@ -1077,11 +1338,23 @@ Missing 1557 selectors:
   .q-layout__shadow
   .q-slider--h
   .q-splitter--horizontal > .q-splitter__panel
+  .q-btn-group--spread > .q-btn-group
+  .q-date--landscape > div
   .q-editor--dense .q-editor__toolbar-group
+  .q-item__section
   .q-table__control
+  .q-time__clock-circle
+  .q-time--landscape > div
   .q-virtual-scroll--horizontal
   .q-virtual-scroll--horizontal .q-virtual-scroll__content
   .row
+  .q-time--landscape
+  .q-time--portrait
+  .q-btn-group--spread > .q-btn-item
+  .q-btn-group--spread__> .q-btn-group > .q-btn-item:not(.q-btn-dropdown__arrow-co
+  .q-item__section--main
+  .q-date__months-item
+  .q-date__years-item
   .q-table__card .q-table__bottom
   .q-table__card .q-table__top
   .q-virtual-scroll--horizontal .q-virtual-scroll__content > *
@@ -1091,25 +1364,36 @@ Missing 1557 selectors:
   .q-tabs__content--align-justify .q-tab
   .q-tabs__content
   .q-banner__avatar
+  .q-date__arrow
+  .q-item__section--avatar
+  .q-item__section--thumbnail
   .q-pagination
   .q-tabs
   .col
   .q-btn-dropdown--current
   .q-header .q-toolbar__title
   .q-space
+  .q-date--landscape
   .row.reverse
   .q-carousel__navigation--left > .q-carousel__navigation-inner
   .q-carousel__navigation--right > .q-carousel__navigation-inner
+  .q-date--landscape-standard .q-date__header-title
+  .q-date--portrait
+  .q-date__months
   .q-table__top .q-table__control
   .q-gutter-sm
   .q-banner__content
   .q-carousel__slides-container
+  .q-date--landscape .q-date__content
+  .q-date--portrait-minimal .q-date__content
   .q-splitter--vertical > .q-splitter__panel
   .q-tabs--horizontal .q-tabs__arrow
   .q-tabs--vertical .q-tabs--not-scrollable .q-tabs__content
   .q-checkbox__native
+  .q-radio__native
   .q-toggle__native
   .q-checkbox--dense .q-checkbox__inner
+  .q-radio--dense .q-radio__inner
   .q-checkbox--dense q-checkbox__bg
   .q-circular-progress__svg
   .q-color-picker__spectrum
@@ -1122,6 +1406,17 @@ Missing 1557 selectors:
   .q-color-picker__footer .q-tab
   .q-color-picker__header .q-tab
   .q-color-picker__header-tabs
+  .q-date__calendar-days > div
+  .q-date__calendar-weekdays
+  .q-date__navigation
+  .q-date__navigation > div:first-child
+  .q-date__navigation > div:last-child
+  .q-date--landscape-minimal
+  .q-date--landscape-standard
+  .q-date--landscape-standard .q-date__header
+  .q-date--portrait-standard .q-date__content
+  .q-date--portrait-standard .q-date__header
+  .q-date--portrait-standard .q-date__header-title
   .q-drawer__opener
   .q-editor__toolbars-container
   .q-table__middle
@@ -1136,13 +1431,18 @@ Missing 1557 selectors:
   .q-field--float .q-field__label
   .q-field--item-aligned .q-field__before
   .q-img__image
+  .q-item__section--main:has(>:last-child:nth-child(2))
   .q-tabs--dense .q-tab
   .q-textarea.q-field--dense .q-field__control
+  .q-item__section--main:has(>:last-child:nth-child(3))
+  .q-item__section--thumbnail img
   .q-layout-container
   .q-layout-container .q-layout
   .q-layout-container > div > div
   .q-message-text:last-child
   .q-message-text:last-child:before
+  .q-radio__bg
+  .q-radio--dense .q-radio__bg
   .q-responsive
   .q-responsive__content > *
   .q-separator--horizontal
@@ -1175,16 +1475,26 @@ Missing 1557 selectors:
   .q-tabs--vertical .q-tab__indicator
   .q-tabs--vertical .q-tabs--dense .q-tab__content
   .q-textarea .q-field__control
+  .q-time--landscape .q-time__header
+  .q-time--portrait .q-time__header
+  .q-timeline__dot
+  .q-timeline__dot .q-icon > img
+  .q-timeline__dot .q-icon > svg
+  .q-timeline__entry--icon .q-timeline__dot
+  .q-timeline__entry--icon .q-timeline__dot:before
   .q-toggle__inner
   .q-tree__node--parent> .q-tree__node-header:before
   .q-video--responsive
+  .q-btn:before
   .q-message-text:last-child .q-message-stamp
   .q-stepper__header--contracted .q-stepper__tab:not(:last-child) .q-stepper__dot:
   .q-option-group--inline > div
   .q-page-sticky--shrink > div
+  .q-btn-group--outline > .q-separator
   .q-chip--selected .q-avatar
   .q-color-picker .q-tab__indicator
   .q-color-picker .q-tab--active .q-focus-helper
+  .q-date--readonly .q-date__navigation
   .q-drawer--mini .q-expansion-item__content
   .q-drawer--mini .q-mini-drawer-hide
   .q-drawer--mobile .q-mini-drawer-hide
@@ -1213,8 +1523,11 @@ Missing 1557 selectors:
   .q-tree--no-connectors .q-tree__node-body:after
   .q-tree--no-connectors .q-tree__node-header:before
   .q-tree--no-connectors .q-tree__node:after
+  .q-date__calendar-item--fill
+  .q-btn--actionable
   .q-color-picker__palette-rows--editable .q-color-picker__cube
   .q-file .q-field__input::-webkit-file-upload-button
+  .q-rating--editable .q-rating__icon-container
   .q-select--without-input .q-field__control
   .q-table th.sortable
   .q-tree__node--link
@@ -1237,10 +1550,16 @@ Missing 1557 selectors:
   .no-pointer-events--children
   .no-pointer-events--children *
   .q-carousel__arrow
+  .q-date--readonly .q-date__content
+  .q-date--readonly .q-date__header
   .q-field--disabled .q-field__control
   .q-img--no-menu .q-img__image
   .q-img--no-menu .q-img__placeholder
   .q-page-sticky--shrink
+  .q-time--readonly .q-time__content
+  .q-time--readonly .q-time__header-ampm
+  .q-time.disabled .q-time__content
+  .q-time.disabled .q-time__header-ampm
   .q-tree__node--disabled
   .q-uploader--disable .q-uploader__header
   .q-uploader--disable .q-uploader__list
@@ -1250,20 +1569,24 @@ Missing 1557 selectors:
   .q-textarea--autogrow .q-field__native
   .q-textarea.disabled .q-field__native
   .q-checkbox__icon-container
+  .q-radio__icon-container
   .ellipsis
   .q-badge--single-line
+  .q-item__section--nowrap
   .q-table--no-wrap td
   .q-table--no-wrap th
   .q-drawer--mini-animate .q-drawer__content
   .q-editor__content pre
   .q-slider__label
   .q-table tbody tr.selected td:after
+  .q-timeline__entry:last-child .q-timeline__dot:after
   .q-uploader__file--img:before
   .q-fab__icon-holder:before
   .q-layout__shadow:after
   .q-field__messages > div
   .q-badge--multi-line
   .q-file .q-field__native
+  .q-btn--no-uppercase
   .q-tab--no-caps
   .q-checkbox__indet
   .q-circular-progress--indeterminate .q-circular-progress__svg
@@ -1275,6 +1598,8 @@ Missing 1557 selectors:
   .q-slide-item__right > div
   .q-slide-item__top > div
   .q-spinner-mat
+  .q-btn--push.q-btn--actionable:active
+  .q-btn--push.q-btn--actionable.q-btn--active
   .q-fab__label--external-bottom
   .q-fab__label--external-top
   .q-slider__label--h
@@ -1321,10 +1646,12 @@ Missing 1557 selectors:
   .q-field--dense .q-field__native[type='time'] + .q-field__label
   .q-field--dense .q-field__native[type='week'] + .q-field__label
   .q-field--dense.q-field--float .q-field__label
+  .q-rating__icon--hovered
   .q-slider--active .q-slider__focus-ring
   .q-slider--active .q-slider__thumb-shape
   .q-table__grid-item--selected
   .q-checkbox:not(.disabled):focus q-checkbox__inner:before
+  .q-btn-group--push > .q-btn--push.q-btn--actionable
   .q-btn-dropdown__arrow
   .q-linear-progress__model--indeterminate
   .q-linear-progress__model--query
@@ -1332,21 +1659,44 @@ Missing 1557 selectors:
   .q-responsive__content
   .q-tabs--not-scrollable .q-tabs__content
   .hide-scrollbar
+  .q-avatar img:not(.q-icon):not(.q-img__image)
   .q-badge--floating
+  .q-btn__content
+  .q-btn__progress
+  .q-btn--actionable.q-btn--standard:active:before
+  .q-btn--actionable.q-btn--standard:before
+  .q-btn--actionable.q-btn--standard.q-btn--active:before
+  .q-btn--flat:before
+  .q-btn--unelevated:before
+  .q-btn-group > .q-btn-group
+  .q-btn-group > .q-btn-item:before
+  .q-btn-group--outline
   .q-field__input:invalid
   .q-field__native:invalid
   .q-table--flat
   .q-toggle--dark .q-toggle__thumb:after
+  .q-btn--push:before
+  .q-btn--push.q-btn--actionable
+  .q-btn--push.q-btn--actionable:before
+  .q-btn--standard:before
+  .q-btn-group > .q-btn-group:first-child > .q-btn:first-child
+  .q-btn-group > .q-btn-group:not(:last-child) > .q-btn:last-child:before
+  .q-btn-group--outline > .q-btn-item:not(:last-child):before
+  .q-btn-group--flat
+  .q-btn-group--unelevated
   .q-stepper--flat
+  .q-btn-group--outline > .q-btn-item + .q-btn-item:before
   .q-table--cell-separator td:first-child
   .q-table--cell-separator th:first-child
   .q-table--vertical-separator td:first-child
   .q-table--vertical-separator th:first-child
+  .q-btn-group--push > .q-btn--push.q-btn--actionable .q-btn__content
   .q-checkbox__inner--truthy path
   .q-checkbox__truthy
   .q-color-picker .q-tab--active
   .q-color-picker .q-tab-panels
   .q-table--grid.fullscreen
+  .q-date__today
   .q-drawer--left
   .q-drawer--left.q-drawer--bordered
   .q-drawer--right
@@ -1362,16 +1712,21 @@ Missing 1557 selectors:
   .q-field__shadow + .q-field__native::placeholder
   .q-field--filled > * > .q-field--highlighted .q-field__control:after
   .q-field--standard.q-field--highlighted .q-field__control:after
+  .q-radio__inner--truthy .q-radio__check
   .q-field--standard .q-field__control:before
   .q-field--standard.q-field--readonly .q-field__control:before
   .q-field--standout.q-field--highlighted .q-field__control
   .q-knob--editable:focus:before
   .q-footer--bordered
+  .q-list--separator > .q-item-type + .q-item-type
+  .q-list--separator > .q-virtual-scroll__content > .q-item-type + .q-item-type
   .q-footer--hidden
   .q-header--bordered
   .q-stepper__header--border
   .q-header--hidden
   .q-img__image--with-transition
+  .q-item__label--caption
+  .q-item__label--overline
   .q-tree__node--selected .q-tree__node--selected .q-tree__node-header-content
   .q-layout-container > div
   .q-linear-progress__model--with-transition
@@ -1406,6 +1761,7 @@ Missing 1557 selectors:
   .q-table--cell-separator .q-table__top
   .q-table--vertical-separator .q-table__top
   .q-table--grid .q-table__bottom
+  .q-timeline h6
   .q-tree
   .q-tree__arrow--rotate
   .q-tree__node-header-content
@@ -1420,6 +1776,7 @@ Missing 1557 selectors:
   .q-video--responsive embed
   .q-video--responsive iframe
   .q-video--responsive object
+  .q-btn-group > .q-btn-item .q-badge--floating
   .q-carousel__navigation--bottom
   .q-carousel__navigation--left
   .q-carousel__navigation--right
@@ -1481,6 +1838,38 @@ Missing 1557 selectors:
   .q-tabs--vertical .q-tabs__arrow--left
   .q-textarea .q-field__shadow
   .q-textarea.q-field--labeled .q-field__shadow
+  .q-time__clock-pos-0
+  .q-time__clock-pos-1
+  .q-time__clock-pos-10
+  .q-time__clock-pos-11
+  .q-time__clock-pos-12
+  .q-time__clock-pos-13
+  .q-time__clock-pos-14
+  .q-time__clock-pos-15
+  .q-time__clock-pos-16
+  .q-time__clock-pos-17
+  .q-time__clock-pos-18
+  .q-time__clock-pos-19
+  .q-time__clock-pos-2
+  .q-time__clock-pos-20
+  .q-time__clock-pos-21
+  .q-time__clock-pos-22
+  .q-time__clock-pos-23
+  .q-time__clock-pos-3
+  .q-time__clock-pos-4
+  .q-time__clock-pos-5
+  .q-time__clock-pos-6
+  .q-time__clock-pos-7
+  .q-time__clock-pos-8
+  .q-time__clock-pos-9
+  .q-timeline__entry--icon .q-timeline__dot:after
+  .q-timeline--comfortable--left .q-timeline__dot
+  .q-timeline--dense--left .q-timeline__entry--icon .q-timeline__dot
+  .q-timeline--comfortable--left .q-timeline__entry--icon .q-timeline__dot
+  .q-timeline--dense--left .q-timeline__dot
+  .q-timeline--comfortable--right .q-timeline__entry--icon .q-timeline__dot
+  .q-timeline--dense--right .q-timeline__entry--icon .q-timeline__dot
+  .q-timeline--dense--right .q-timeline__dot
   .q-toggle__inner--indet .q-toggle__thumb
   .q-tree--dense .q-tree__node--parent> .q-tree__node-collapsible> .q-tree__node-b
   .q-stepper__header--standard-labels .q-stepper__tab:first-child
@@ -1496,8 +1885,10 @@ Missing 1557 selectors:
   .q-pull-to-refresh
   .q-slider
   .q-table__container
+  .q-timeline__heading
   .q-slider__marker-labels
   .q-splitter__panel
+  .q-btn-group > .q-btn-item.q-btn--standard:before
   .q-drawer__backdrop
   .q-drawer--on-top
   .q-footer
@@ -1509,12 +1900,15 @@ Missing 1557 selectors:
   .q-splitter__before
   .scroll
   .q-color-picker__sliders .q-slider__thumb path
+  .q-radio__bg path
   .q-slider__thumb-shape path
   .q-color-picker__sliders .q-slider--active path
   .q-circular-progress--indeterminate .q-circular-progress__circle
   .q-expansion-item--expanded .q-textarea--autogrow textarea
   .q-field--error .q-field__label
   .q-spinner-mat .path
+  .q-timeline--comfortable
+  .q-timeline--comfortable .q-timeline__heading > div
   .q-field--error .q-field__bottom
   .q-editor
   .body--dark .q-editor__toolbar
@@ -1560,16 +1954,21 @@ Missing 1557 selectors:
   .animated
 
 --- BREAKDOWN ---
-  other: 284
+  other: 285
   field: 203
   table: 122
+  btn: 90
+  date: 90
   slider: 83
   stepper: 74
+  time: 73
+  timeline: 66
   notification: 57
   tree: 51
   color: 44
   drawer: 40
   editor: 35
+  item: 33
   carousel: 31
   checkbox: 31
   fab: 31
@@ -1578,6 +1977,7 @@ Missing 1557 selectors:
   toggle: 27
   chip: 24
   tab: 22
+  radio: 21
   linear: 21
   textarea: 20
   message: 18
@@ -1589,7 +1989,8 @@ Missing 1557 selectors:
   layout: 13
   select: 12
   img: 11
-  btn: 10
+  list: 11
+  rating: 10
   separator: 10
   badge: 9
   pagination: 9
@@ -1609,6 +2010,7 @@ Missing 1557 selectors:
   spinner: 4
   inner: 4
   breadcrumbs: 4
+  avatar: 4
   pull: 4
   loading: 4
   notifications: 4
@@ -1622,6 +2024,11 @@ Missing 1557 selectors:
   input: 1
   bottom: 1
   skeleton: 1
+  dark: 1
+  icon: 1
   ma: 1
   position: 1
+  focus: 1
+  focusable: 1
+  manual: 1
   gutter: 1

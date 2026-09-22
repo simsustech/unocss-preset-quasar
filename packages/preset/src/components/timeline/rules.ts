@@ -1,12 +1,12 @@
 import type { Rule } from '@unocss/core'
 
 export const timelineRules = [
-  // Reference `.q-timeline h6 { line-height: inherit }`.
   [
     /^q-timeline$/,
     function* (_, { symbols }) {
+      // .q-timeline
       yield {
-        [symbols.selector]: (sel) => `${sel} h6`,
+        [symbols.selector]: (selector) => `${selector} h6`,
         'line-height': 'inherit'
       }
       yield {
@@ -19,76 +19,55 @@ export const timelineRules = [
         width: '100%',
         'list-style': 'none'
       }
-      // Reference `body.quasar-style-unstyled .q-timeline`.
       yield {
-        [symbols.selector]: (sel) => `body.quasar-style-unstyled ${sel}`,
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
       }
-    }
-  ],
-  [
-    /^q-timeline--dark$/,
-    function* (_, { symbols }) {
-      // Reference `.q-timeline--dark { color: color-mix(in oklab, #fff …) }`
-      // and its dimmed subtitle.
       yield {
+        [symbols.selector]: (selector) => `${selector}--dark`,
         color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__subtitle`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dark .q-timeline__subtitle`,
         opacity: '70%'
       }
-    }
-  ],
-  [
-    /^q-timeline--dense$/,
-    () => ({
-      // Dense
-    })
-  ],
-  [
-    /^q-timeline--responsive$/,
-    () => ({
-      // Responsive
-    })
-  ],
-  [
-    /^q-timeline--reverse$/,
-    () => ({
-      // Reverse
-    })
-  ],
-  [
-    /^q-timeline__entry$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}--dense`
+        // Dense
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--responsive`
+        // Responsive
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--reverse`
+        // Reverse
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__entry`,
         position: 'relative',
         'line-height': '22px',
         'padding-bottom': 'var(--q-space-md)'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:last-child .q-timeline__dot:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}__entry:last-child .q-timeline__dot:after`,
         content: 'none'
       }
-      // Reference `.q-timeline__entry:last-child`.
       yield {
-        [symbols.selector]: (sel) => `${sel}:last-child`,
+        [symbols.selector]: (selector) => `${selector}__entry:last-child`,
         'padding-bottom': 'calc(var(--spacing) * 0) !important'
       }
-    }
-  ],
-  [
-    /^q-timeline__heading$/,
-    () => ({
-      // Reference `.q-timeline__heading { position: relative }`.
-      position: 'relative'
-    })
-  ],
-  [
-    /^q-timeline__dot$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__heading`,
+        // Reference `.q-timeline__heading { position: relative }`.
+        position: 'relative'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__dot`,
         position: 'absolute',
         left: '-24px',
         top: 0,
@@ -98,9 +77,8 @@ export const timelineRules = [
         'border-radius': '50%',
         'background-color': 'var(--q-primary)'
       }
-      // Reference `.q-timeline__dot .q-icon` and its media children.
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-icon`,
+        [symbols.selector]: (selector) => `${selector}__dot .q-icon`,
         'font-size': '16px',
         color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)',
         'line-height': '38px',
@@ -111,22 +89,26 @@ export const timelineRules = [
         right: '0',
         position: 'absolute'
       }
-      for (const media of ['img', 'svg']) {
-        yield {
-          [symbols.selector]: (sel) => `${sel} .q-icon > ${media}`,
-          width: '1em',
-          height: '1em'
-        }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__dot .q-icon > img`,
+        width: '1em',
+        height: '1em'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:before, ${sel}:after`,
+        [symbols.selector]: (selector) => `${selector}__dot .q-icon > svg`,
+        width: '1em',
+        height: '1em'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__dot:before, ${selector}__dot:after`,
         content: 'var(--un-content)',
         'background-color': 'currentColor',
         display: 'block',
         position: 'absolute'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:before`,
+        [symbols.selector]: (selector) => `${selector}__dot:before`,
         // Reference states the ring as longhands with a 1px border.
         'border-style': 'solid',
         'border-width': '1px',
@@ -139,70 +121,58 @@ export const timelineRules = [
         transition: 'background 0.3s ease-in-out, border 0.3s ease-in-out'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel}:after`,
+        [symbols.selector]: (selector) => `${selector}__dot:after`,
         width: '3px',
         opacity: '0.4',
         top: '24px',
         bottom: '0',
         left: '6px'
       }
-    }
-  ],
-  [
-    /^q-timeline__content$/,
-    () => ({
-      'padding-left': 'var(--q-space-md)',
-      'padding-bottom': '24px'
-    })
-  ],
-  [
-    /^q-timeline__subtitle$/,
-    () => ({
-      // Reference `.q-timeline__subtitle`: overline typography at 60% opacity.
-      'font-size': '12px',
-      'letter-spacing': '1px',
-      'font-weight': 'var(--fontWeight-bold)',
-      'margin-bottom': '8px',
-      opacity: '60%',
-      'text-transform': 'uppercase',
-      color: 'var(--q-on-surface-variant)'
-    })
-  ],
-  [
-    /^q-timeline__entry--icon$/,
-    function* (_, { symbols }) {
-      // Reference `.q-timeline__entry--icon .q-timeline__dot { width: 31px }`
-      // and the 30px ring inside it.
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__dot`,
+        [symbols.selector]: (selector) => `${selector}__content`,
+        'padding-left': 'var(--q-space-md)',
+        'padding-bottom': '24px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__subtitle`,
+        // Reference `.q-timeline__subtitle`: overline typography at 60% opacity.
+        'font-size': '12px',
+        'letter-spacing': '1px',
+        'font-weight': 'var(--fontWeight-bold)',
+        'margin-bottom': '8px',
+        opacity: '60%',
+        'text-transform': 'uppercase',
+        color: 'var(--q-on-surface-variant)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__entry--icon .q-timeline__dot`,
         width: '31px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__dot:before`,
+        [symbols.selector]: (selector) =>
+          `${selector}__entry--icon .q-timeline__dot:before`,
         height: '30px',
         width: '30px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__subtitle`,
+        [symbols.selector]: (selector) =>
+          `${selector}__entry--icon .q-timeline__subtitle`,
         'padding-top': '8px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__dot:after`,
+        [symbols.selector]: (selector) =>
+          `${selector}__entry--icon .q-timeline__dot:after`,
         top: '41px',
         left: '14px'
       }
-    }
-  ],
-  [
-    /^q-timeline__title$/,
-    function* () {
-      yield { 'margin-top': '0', 'margin-bottom': '16px' }
-    }
-  ],
-  [
-    /^q-timeline__dot-img$/,
-    function* () {
       yield {
+        [symbols.selector]: (selector) => `${selector}__title`,
+        'margin-top': '0',
+        'margin-bottom': '16px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__dot-img`,
         position: 'absolute',
         top: '4px',
         left: '0',
@@ -212,286 +182,291 @@ export const timelineRules = [
         'background-color': 'currentColor',
         'border-radius': '50%'
       }
-    }
-  ],
-  [
-    /^q-timeline__heading-title$/,
-    function* (_, { symbols }) {
       yield {
-        // Reference states the vertical padding as logical longhands.
-        margin: 'calc(var(--spacing) * 0)',
-        'padding-inline': '0',
-        'padding-block': '32px'
-      }
-      for (const [pseudo, axis] of [
-        [':first-child', 'padding-top'],
-        [':last-child', 'padding-bottom']
-      ] as const) {
-        yield {
-          [symbols.selector]: (sel) =>
-            `${sel.replace(/__heading-title$/, '__heading')}${pseudo} .q-timeline__heading-title`,
-          [axis]: 'calc(var(--spacing) * 0)'
-        }
-      }
-    }
-  ],
-  [
-    /^q-timeline--dense--right$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__entry`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dense--right .q-timeline__entry`,
         'padding-left': '40px'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-timeline__entry--icon .q-timeline__dot`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dense--right .q-timeline__entry--icon .q-timeline__dot`,
         left: '-8px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__dot`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dense--right .q-timeline__dot`,
         left: '0'
       }
-    }
-  ],
-  [
-    /^q-timeline--dense--left$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__heading`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dense--left .q-timeline__heading`,
         'text-align': 'right'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__entry`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dense--left .q-timeline__entry`,
         'padding-right': '40px'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-timeline__entry--icon .q-timeline__dot`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dense--left .q-timeline__entry--icon .q-timeline__dot`,
         right: '-8px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dense--left .q-timeline__content`,
         'text-align': 'right'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__title`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dense--left .q-timeline__title`,
         'text-align': 'right'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__subtitle`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dense--left .q-timeline__subtitle`,
         'text-align': 'right'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__dot`,
+        [symbols.selector]: (selector) =>
+          `${selector}--dense--left .q-timeline__dot`,
         right: '0'
       }
-    }
-  ],
-  [
-    /^q-timeline--comfortable$/,
-    function* (_, { symbols }) {
-      yield { display: 'table' }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__heading`,
+        [symbols.selector]: (selector) => `${selector}--comfortable`,
+        display: 'table'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable .q-timeline__heading`,
         display: 'table-row',
         'font-size': '200%'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__heading > div`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable .q-timeline__heading > div`,
         display: 'table-cell'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__entry`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable .q-timeline__entry`,
         display: 'table-row',
         padding: '0'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-timeline__entry--icon .q-timeline__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable .q-timeline__entry--icon .q-timeline__content`,
         'padding-top': '8px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__subtitle`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable .q-timeline__subtitle`,
         display: 'table-cell',
         'vertical-align': 'top'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__dot`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable .q-timeline__dot`,
         display: 'table-cell',
         'vertical-align': 'top'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable .q-timeline__content`,
         display: 'table-cell',
         'vertical-align': 'top'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__subtitle`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable .q-timeline__subtitle`,
         width: '35%'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__dot`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable .q-timeline__dot`,
         position: 'relative',
         'min-width': '31px'
       }
-    }
-  ],
-  [
-    /^q-timeline--comfortable--right$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-timeline__heading .q-timeline__heading-title`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable--right .q-timeline__heading .q-timeline__heading-title`,
         'margin-left': '-50px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__subtitle`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable--right .q-timeline__subtitle`,
         'text-align': 'right',
         'padding-right': '30px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable--right .q-timeline__content`,
         'padding-left': '30px'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-timeline__entry--icon .q-timeline__dot`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable--right .q-timeline__entry--icon .q-timeline__dot`,
         left: '-8px'
       }
-    }
-  ],
-  [
-    /^q-timeline--comfortable--left$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__heading`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable--left .q-timeline__heading`,
         'text-align': 'right'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-timeline__heading .q-timeline__heading-title`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable--left .q-timeline__heading .q-timeline__heading-title`,
         'margin-right': '-50px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__subtitle`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable--left .q-timeline__subtitle`,
         'padding-left': '30px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable--left .q-timeline__content`,
         'padding-right': '30px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable--left .q-timeline__content`,
         'text-align': 'right'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__title`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable--left .q-timeline__title`,
         'text-align': 'right'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-timeline__entry--icon .q-timeline__dot`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable--left .q-timeline__entry--icon .q-timeline__dot`,
         right: '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__dot`,
+        [symbols.selector]: (selector) =>
+          `${selector}--comfortable--left .q-timeline__dot`,
         right: '-8px'
       }
-    }
-  ],
-  [
-    /^q-timeline--loose$/,
-    function* (_, { symbols }) {
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__heading-title`,
+        [symbols.selector]: (selector) =>
+          `${selector}--loose .q-timeline__heading-title`,
         'text-align': 'center',
         'margin-left': '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__entry`,
+        [symbols.selector]: (selector) =>
+          `${selector}--loose .q-timeline__entry`,
         display: 'block',
         margin: '0',
         padding: '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__subtitle`,
+        [symbols.selector]: (selector) =>
+          `${selector}--loose .q-timeline__subtitle`,
         display: 'block',
         margin: '0',
         padding: '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__dot`,
+        [symbols.selector]: (selector) => `${selector}--loose .q-timeline__dot`,
         display: 'block',
         margin: '0',
         padding: '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--loose .q-timeline__content`,
         display: 'block',
         margin: '0',
         padding: '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__dot`,
+        [symbols.selector]: (selector) => `${selector}--loose .q-timeline__dot`,
         position: 'absolute',
         left: '50%',
         'margin-left': '-7.15px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__entry`,
+        [symbols.selector]: (selector) =>
+          `${selector}--loose .q-timeline__entry`,
         'padding-bottom': '24px',
         overflow: 'hidden'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-timeline__entry--icon .q-timeline__dot`,
+        [symbols.selector]: (selector) =>
+          `${selector}--loose .q-timeline__entry--icon .q-timeline__dot`,
         'margin-left': '-15px'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-timeline__entry--icon .q-timeline__subtitle`,
+        [symbols.selector]: (selector) =>
+          `${selector}--loose .q-timeline__entry--icon .q-timeline__subtitle`,
         'line-height': '38px'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-timeline__entry--icon .q-timeline__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--loose .q-timeline__entry--icon .q-timeline__content`,
         'padding-top': '8px'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-timeline__entry--left .q-timeline__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--loose .q-timeline__entry--left .q-timeline__content`,
         float: 'left',
         'padding-right': '30px',
         'text-align': 'right'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-timeline__entry--right .q-timeline__subtitle`,
+        [symbols.selector]: (selector) =>
+          `${selector}--loose .q-timeline__entry--right .q-timeline__subtitle`,
         float: 'left',
         'padding-right': '30px',
         'text-align': 'right'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-timeline__entry--left .q-timeline__subtitle`,
+        [symbols.selector]: (selector) =>
+          `${selector}--loose .q-timeline__entry--left .q-timeline__subtitle`,
         float: 'right',
         'text-align': 'left',
         'padding-left': '30px'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-timeline__entry--right .q-timeline__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--loose .q-timeline__entry--right .q-timeline__content`,
         float: 'right',
         'text-align': 'left',
         'padding-left': '30px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__subtitle`,
+        [symbols.selector]: (selector) =>
+          `${selector}--loose .q-timeline__subtitle`,
         width: '50%'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-timeline__content`,
+        [symbols.selector]: (selector) =>
+          `${selector}--loose .q-timeline__content`,
         width: '50%'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__heading-title`,
+        // Reference states the vertical padding as logical longhands.
+        margin: 'calc(var(--spacing) * 0)',
+        'padding-inline': '0',
+        'padding-block': '32px'
+      }
+      yield {
+        // The heading's first/last child zeroes one side of the heading's own
+        // padding. The reference rewrites the member to its sibling
+        // `.q-timeline__heading` (sel.replace(/__heading-title$/, '__heading')),
+        // which the mechanical root+suffix widening cannot express, so the
+        // sibling selector is written out here.
+        [symbols.selector]: (selector) =>
+          `${selector}__heading:first-child .q-timeline__heading-title`,
+        'padding-top': 'calc(var(--spacing) * 0)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__heading:last-child .q-timeline__heading-title`,
+        'padding-bottom': 'calc(var(--spacing) * 0)'
       }
     }
   ]

@@ -25,28 +25,6 @@ const POSITIONS: [
   ['center', 'rotateX(90deg)', 'top']
 ]
 
-const transitionRules: Rule[] = POSITIONS.flatMap(
-  ([position, offset, edge]) => {
-    const hidden = () => ({
-      opacity: '0',
-      transform: offset,
-      'z-index': '9499'
-    })
-    const pinned = () => ({
-      position: 'absolute',
-      'z-index': '9499',
-      'margin-left': '0',
-      'margin-right': '0',
-      ...(edge ? { [edge]: '0' } : {})
-    })
-    return [
-      [new RegExp(`^q-notification--${position}-enter-from$`), hidden],
-      [new RegExp(`^q-notification--${position}-leave-to$`), hidden],
-      [new RegExp(`^q-notification--${position}-leave-active$`), pinned]
-    ] as Rule[]
-  }
-)
-
 /** Quasar's notification box, verbatim (quasar.css `.q-notification`). */
 const NOTIFICATION_SHADOW =
   '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
@@ -55,25 +33,11 @@ const NOTIFICATION_SHADOW =
  * Badge offsets. The base `.q-notification__badge--*` sits 6px outside; the
  * `--multi-line` variant pushes it to 15px because that box is taller.
  */
-const BADGE_OFFSETS: [
-  modifier: string,
-  property: 'top' | 'bottom',
-  value: string
-][] = [
-  ['--top-left', 'top', '-6px'],
-  ['--top-right', 'top', '-6px'],
-  ['--bottom-left', 'bottom', '-6px'],
-  ['--bottom-right', 'bottom', '-6px'],
-  ['--top-left', 'top', '-15px'],
-  ['--top-right', 'top', '-15px'],
-  ['--bottom-left', 'bottom', '-15px'],
-  ['--bottom-right', 'bottom', '-15px']
-]
-
 export const notificationRules: Rule[] = [
   [
     /^q-notification$/,
     function* (_, { symbols }) {
+      // .q-notification
       yield {
         // `!important` so the notification stays clickable even when an
         // ancestor disables pointer events, as Quasar's own
@@ -94,48 +58,67 @@ export const notificationRules: Rule[] = [
         'z-index': '9500'
       }
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `.body--dark ${selector}`,
         color: 'var(--q-inverse-on-surface)',
         'background-color': 'var(--q-inverse-surface)'
       }
-    }
-  ],
-  // Sub-elements the plugin renders. Without these the message and caption had
-  // no padding or typography at all.
-  [
-    /^q-notification__message$/,
-    () => ({
-      // Reference states the message padding as logical longhands.
-      'padding-inline': '0',
-      'padding-block': '8px'
-    })
-  ],
-  [
-    /^q-notification__caption$/,
-    () => ({ 'font-size': '0.9em', opacity: '0.7' })
-  ],
-  [/^q-notification__icon$/, () => ({ 'font-size': '24px', flex: '0 0 1em' })],
-  [/^q-notification__icon--additional$/, () => ({ 'margin-right': '16px' })],
-  [/^q-notification__avatar$/, () => ({ 'font-size': '32px' })],
-  [/^q-notification__avatar--additional$/, () => ({ 'margin-right': '8px' })],
-  [/^q-notification__spinner$/, () => ({ 'font-size': '32px' })],
-  [/^q-notification__spinner--additional$/, () => ({ 'margin-right': '8px' })],
-  [
-    /^q-notification__actions$/,
-    function* (_, { symbols }) {
-      // `margin-left: auto` right-aligns the actions: Quasar gets that from its
-      // `.q-notification__content`, which this preset does not emit.
-      yield { color: 'var(--q-primary)', 'margin-left': 'auto' }
+      // .q-notification__message
       yield {
-        [symbols.selector]: (sel) => `.body--dark ${sel}`,
+        [symbols.selector]: (selector) => `${selector}__message`,
+        // Reference states the message padding as logical longhands.
+        'padding-inline': '0',
+        'padding-block': '8px'
+      }
+      // .q-notification__caption
+      yield {
+        [symbols.selector]: (selector) => `${selector}__caption`,
+        'font-size': '0.9em',
+        opacity: '0.7'
+      }
+      // .q-notification__icon
+      yield {
+        [symbols.selector]: (selector) => `${selector}__icon`,
+        'font-size': '24px',
+        flex: '0 0 1em'
+      }
+      // .q-notification__icon--additional
+      yield {
+        [symbols.selector]: (selector) => `${selector}__icon--additional`,
+        'margin-right': '16px'
+      }
+      // .q-notification__avatar
+      yield {
+        [symbols.selector]: (selector) => `${selector}__avatar`,
+        'font-size': '32px'
+      }
+      // .q-notification__avatar--additional
+      yield {
+        [symbols.selector]: (selector) => `${selector}__avatar--additional`,
+        'margin-right': '8px'
+      }
+      // .q-notification__spinner
+      yield {
+        [symbols.selector]: (selector) => `${selector}__spinner`,
+        'font-size': '32px'
+      }
+      // .q-notification__spinner--additional
+      yield {
+        [symbols.selector]: (selector) => `${selector}__spinner--additional`,
+        'margin-right': '8px'
+      }
+      // .q-notification__actions
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions`,
+        color: 'var(--q-primary)',
+        'margin-left': 'auto'
+      }
+      yield {
+        [symbols.selector]: (selector) => `.body--dark ${selector}__actions`,
         color: 'var(--q-primary)'
       }
-    }
-  ],
-  [
-    /^q-notification__badge$/,
-    function* (_, { symbols }) {
+      // .q-notification__badge
       yield {
+        [symbols.selector]: (selector) => `${selector}__badge`,
         // Reference states the padding as logical longhands.
         'padding-inline': '8px',
         'padding-block': '4px',
@@ -151,28 +134,53 @@ export const notificationRules: Rule[] = [
         // inert until then, but it is what quasar.css declares.
         animation: 'q-notif-badge 0.42s'
       }
-      for (const [modifier, property, value] of BADGE_OFFSETS) {
-        const multiLine = value === '-15px'
-        // Both offsets in ONE yield: two yields with the same scoped selector
-        // collide, and the later block (the side) silently replaced the
-        // vertical offset — so no badge ever got `top`/`bottom`, and
-        // `q-notification__badge--top-left` shipped with `left` only.
-        const side = modifier.endsWith('-left') ? 'left' : 'right'
-        yield {
-          [symbols.selector]: (sel) =>
-            multiLine
-              ? `.q-notification--multi-line ${sel}${modifier}`
-              : `${sel}${modifier}`,
-          [property]: value,
-          [side]: '-22px'
-        }
-      }
-    }
-  ],
-  [
-    /^q-notification__progress$/,
-    function* (_, { symbols }) {
       yield {
+        [symbols.selector]: (selector) => `${selector}__badge--top-left`,
+        top: '-6px',
+        left: '-22px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__badge--top-right`,
+        top: '-6px',
+        right: '-22px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__badge--bottom-left`,
+        bottom: '-6px',
+        left: '-22px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__badge--bottom-right`,
+        bottom: '-6px',
+        right: '-22px'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `.q-notification--multi-line ${selector}__badge--top-left`,
+        top: '-15px',
+        left: '-22px'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `.q-notification--multi-line ${selector}__badge--top-right`,
+        top: '-15px',
+        right: '-22px'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `.q-notification--multi-line ${selector}__badge--bottom-left`,
+        bottom: '-15px',
+        left: '-22px'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `.q-notification--multi-line ${selector}__badge--bottom-right`,
+        bottom: '-15px',
+        right: '-22px'
+      }
+      // .q-notification__progress
+      yield {
+        [symbols.selector]: (selector) => `${selector}__progress`,
         'z-index': '-1',
         position: 'absolute',
         height: '3px',
@@ -193,65 +201,104 @@ export const notificationRules: Rule[] = [
         transform: 'scaleX(0)'
       }
       yield {
-        [symbols.selector]: (sel) => `.q-notification--multi-line ${sel}`,
+        [symbols.selector]: (selector) =>
+          `.q-notification--multi-line ${selector}__progress`,
         bottom: '-8px'
       }
-    }
-  ],
-  [
-    /^q-notification--standard$/,
-    function* (_, { symbols }) {
+      // .q-notification--standard
       yield {
+        [symbols.selector]: (selector) => `${selector}--standard`,
         'min-height': '48px',
         'padding-inline': '16px',
         'padding-block': '0'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-notification__actions`,
+        [symbols.selector]: (selector) =>
+          `${selector}--standard .q-notification__actions`,
         'margin-right': '-8px',
         'padding-block': '6px',
         'padding-left': '8px',
         'padding-right': '0'
       }
-    }
-  ],
-  [
-    /^q-notification--multi-line$/,
-    function* (_, { symbols }) {
+      // .q-notification--multi-line
       yield {
+        [symbols.selector]: (selector) => `${selector}--multi-line`,
         'min-height': '68px',
         'padding-inline': '16px',
         'padding-block': '8px'
       }
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-notification__actions`,
+        [symbols.selector]: (selector) =>
+          `${selector}--multi-line .q-notification__actions`,
         padding: '0'
       }
       yield {
-        [symbols.selector]: (sel) =>
-          `${sel} .q-notification__actions--with-media`,
+        [symbols.selector]: (selector) =>
+          `${selector}--multi-line .q-notification__actions--with-media`,
         'padding-left': '25px'
+      }
+
+      // Transition states Quasar adds per position ($q.notify({ position })). The
+      // member classes are yielded here — one loop — instead of the spread of
+      // computed rules `...transitionRules` this file used to carry, so the base
+      // keeps the single /^q-notification$/ regex.
+      for (const [position, offset, edge] of POSITIONS) {
+        yield {
+          [symbols.selector]: (selector) =>
+            `${selector}--${position}-enter-from`,
+          opacity: '0',
+          transform: offset,
+          'z-index': '9499'
+        }
+        yield {
+          [symbols.selector]: (selector) => `${selector}--${position}-leave-to`,
+          opacity: '0',
+          transform: offset,
+          'z-index': '9499'
+        }
+        yield {
+          [symbols.selector]: (selector) =>
+            `${selector}--${position}-leave-active`,
+          position: 'absolute',
+          'z-index': '9499',
+          'margin-left': '0',
+          'margin-right': '0',
+          ...(edge ? { [edge]: '0' } : {})
+        }
       }
     }
   ],
-  // The plugin wraps each stack in `.q-notifications__list`. Without it the
-  // notifications have no stacking context or anchor and fall into the page
-  // flow, so it is part of the component, not of the host page.
   [
-    /^q-notifications__list$/,
-    () => ({
-      'z-index': '9500',
-      'pointer-events': 'none',
-      left: '0',
-      right: '0',
-      'margin-bottom': '10px',
-      position: 'relative'
-    })
-  ],
-  [/^q-notifications__list--center$/, () => ({ top: '0', bottom: '0' })],
-  [/^q-notifications__list--top$/, () => ({ top: '0' })],
-  [/^q-notifications__list--bottom$/, () => ({ bottom: '0' })],
-  ...transitionRules
+    /^q-notifications$/,
+    function* (_, { symbols }) {
+      // .q-notifications__list
+      yield {
+        [symbols.selector]: (selector) => `${selector}__list`,
+        'z-index': '9500',
+        'pointer-events': 'none',
+        left: '0',
+        right: '0',
+        'margin-bottom': '10px',
+        position: 'relative'
+      }
+      // .q-notifications__list--center
+      yield {
+        [symbols.selector]: (selector) => `${selector}__list--center`,
+        top: '0',
+        bottom: '0'
+      }
+      // .q-notifications__list--top
+      yield {
+        [symbols.selector]: (selector) => `${selector}__list--top`,
+        top: '0'
+      }
+      // .q-notifications__list--bottom
+      yield {
+        [symbols.selector]: (selector) => `${selector}__list--bottom`,
+        bottom: '0'
+      }
+    }
+  ]
 ] as Rule[]
 
 /**

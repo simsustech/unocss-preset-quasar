@@ -262,10 +262,6 @@ export const toggleRules = [
           `${selector}--dense:not(.disabled):focus-visible .q-toggle__thumb:before`,
         transform: 'scale3d(1.5, 1.5, 1)'
       }
-      // Label offset from the control. Missing entirely before, which left the
-      // MD3 toggle label glued to the track (reference: `.q-toggle
-      // .q-toggle__label { padding-left: .5em }`, `.reverse` swaps sides).
-      // .q-toggle__label
       yield {
         [symbols.selector]: (selector) => `.q-toggle ${selector}__label`,
         'padding-left': '0.5em'
