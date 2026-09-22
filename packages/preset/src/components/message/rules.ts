@@ -33,7 +33,7 @@ export const messageRules: Rule[] = [
     function* (_, { symbols }) {
       // .q-message-name
       yield {
-        'font-weight': '500',
+        'font-weight': 'var(--fontWeight-medium)',
         'font-size': '14px',
         color: 'var(--q-on-surface-variant)'
       }

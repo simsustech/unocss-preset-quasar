@@ -619,7 +619,7 @@ export const tableRules = [
         [symbols.selector]: (selector) => `${selector}__title`,
         'font-size': '20px',
         'letter-spacing': '0.005em',
-        'font-weight': '400'
+        'font-weight': 'var(--fontWeight-normal)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__separator`,
@@ -697,7 +697,7 @@ export const tableRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__grid-item-title`,
         opacity: '0.54',
-        'font-weight': '500',
+        'font-weight': 'var(--fontWeight-medium)',
         'font-size': '12px'
       }
       yield {

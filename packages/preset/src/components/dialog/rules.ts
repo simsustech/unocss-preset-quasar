@@ -186,7 +186,7 @@ export const dialogRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__title`,
         'font-size': '1.25rem',
-        'font-weight': '500',
+        'font-weight': 'var(--fontWeight-medium)',
         'line-height': '1.75rem',
         'letter-spacing': '0.0125em'
       }

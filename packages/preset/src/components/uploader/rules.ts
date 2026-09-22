@@ -271,7 +271,7 @@ export const uploaderRules = [
         'font-size': '14px',
         // The gate resolves the reference's `var(--fontWeight-bold)` to its
         // numeric weight, so the literal is stated rather than `bold`.
-        'font-weight': '700',
+        'font-weight': 'var(--fontWeight-bold)',
         'line-height': '1.285714',
         'word-break': 'break-word'
       }
