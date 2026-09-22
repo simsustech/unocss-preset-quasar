@@ -188,31 +188,16 @@ export const dateRules = [
         'background-color':
           'color-mix(in oklab, var(--q-surface-container-high) var(--un-bg-opacity), transparent)'
       }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__calendar`,
-        display: 'grid',
-        'grid-template-columns': 'repeat(7, 1fr)',
-        gap: '2px',
-        padding: '8px'
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__day`,
-        display: 'flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'aspect-ratio': '1',
-        'border-radius': '50%',
-        cursor: 'pointer'
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__day--selected`,
-        'background-color': 'var(--q-primary)',
-        color: 'var(--q-on-primary)'
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__day--today`,
-        border: '1px solid var(--q-primary)'
-      }
+      // No `__calendar` grid, and no `__day*` rules. Quasar lays the calendar out
+      // through `.q-date__calendar-days-container` (height 75%, min-height 192px),
+      // `.q-date__calendar-days > div` (one week row, 16.66% tall) and
+      // `.q-date__calendar-item` — all of which the preset already emits. On the
+      // view element, `q-date__calendar` is a marker class with no rule in
+      // Quasar, and `__day`, `__day--selected` and `__day--today` do not exist in
+      // Quasar at all. The invented grid was actively harmful: `display: grid` on
+      // the view turned `.q-date__calendar-days-container` into a size-to-content
+      // grid item, so it collapsed to width 0 and /availability rendered a date
+      // picker whose day grid was invisible.
       yield {
         [symbols.selector]: (selector) => `${selector}__calendar-item:after`,
         content: '""',
