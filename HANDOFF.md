@@ -1,5 +1,8 @@
 # Handoff: `unocss-preset-quasar` parity port — step 7 done, steps 8/9/10 open
 
+> **Newest handoff is at the bottom** — "Session 2026-09-22: rule correctness, the
+> token program, workflows". It supersedes this header's status line.
+
 Branch: `preset-rewrite`
 Worktree: `/home/stefan/Projects/unocss-preset-quasar/.worktrees/rules`
 Plan: `/home/stefan/.pi/plans/2026-09-21-new-preset-looks.md`
@@ -748,3 +751,142 @@ Left, roughly by value:
 7. **Harness visual coverage.** The 13 screenshot tests are capture-only: they
    pass but assert nothing, so they cannot catch a visual regression. Worth
    adding baseline comparison if that should fail CI.
+
+---
+
+# Session 2026-09-22: rule correctness, the token program, workflows
+
+## State
+
+- Branch `preset-rewrite`, worktree `.worktrees/rules`, **tree clean**; 20 commits
+  this session (`3936dc0` … `25096fa`).
+- Preset **204/204** tests; gate `present 2212/2430 (91.0%)` — missing 218,
+  absent 42, mismatch 30 (14 of them the recorded MD3-easing forks), extra 722;
+  `tsc`/build/format clean.
+- Petboarding dev server restarted several times (see "Verification loops"); the
+  harness on 3100 was left alone.
+
+## Goal, as restated by the user
+
+Replace `quasar.css`/sass. **Quasar's own source and the MD3/MD2 specs are the
+arbiters**; the vendored reference bundle is a regression fixture, not the target.
+
+## Rule-correctness fixes (each measured on the running app)
+
+| commit    | defect                                                                                                                                                                                                                                                                                                                                                                        |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `3936dc0` | `::-ms-clear`/`::-ms-reveal` are invalid in Chrome, and an invalid selector discards the **whole merged rule** (uno merges equal declarations) → the drawer chevron drew over the first rail tab and mini+full drawer content both rendered (two Home entries). Gate now skips browser-rejected reference selectors; `test/no-invalid-selectors.test.ts` fails if one returns |
+| `5827e34` | field native: dropped hand-rolled `padding: 16px 12px 8px`; pinned the auto-height line to 18px (sass orders `&--labeled` 2673 before `&--auto-height` 2742; alphabetical yield order can't express that, so the compound states it)                                                                                                                                          |
+| `0f8efe7` | removed the invented `.q-date__calendar` grid and `__day*` rules — `/availability`'s day cells were invisible (container 0 wide, content overflowing)                                                                                                                                                                                                                         |
+| `d9f532d` | field surface moved from the field root to `.q-field__control` (Quasar's place) — the root background covered `.q-field__bottom` (grey slab + phantom strip) and `--outlined` drew its border a pixel outside the control                                                                                                                                                     |
+| `dfb8316` | filled control's top corners (4dp, per quasar.sass + MD3)                                                                                                                                                                                                                                                                                                                     |
+| `25096fa` | removed the invented unfloated `translateY(-50%)` on `.q-field__label` — it was the 10px that kept the label off the control's centre and nearly cancelled the float's `translateY(-40%)`, so the label shrank in place instead of rising                                                                                                                                     |
+
+## Token program ("then the tokens are incomplete?")
+
+- `81cc578` — `renderTokenBlock` (`src/theme/preflight.ts`) derives
+  `--q-<role>-{size,line-height,weight,family}` from each role shorthand; scoped to
+  the typography category and string values; skips non-shorthands (`fontFamily`,
+  the state opacities) and non-`size/line-height family` values.
+- Wiring, one family per commit, the gate as referee: `f510c33` field type scale ·
+  `589c366` badge/item/toggle · `1213c6c` corner radii (22 refs; 6 marked) ·
+  `8b36b2f` spacing (74) · `12d48f8` heights (11) · `da437d2` glyph/avatar sizes
+  (13; 2 corrected to a type role) · `1206dda` weights (6) · `cb409ea` text roles
+  (33; 1 left literal by judgement).
+- `7febfff` — 198 `// quasar:` markers (the guard's allowlist) plus
+  `test/no-role-literals.test.ts`: watches eleven properties, permits `var(--q-…)`
+  and marked declarations, exempts `0/auto/none/inherit/normal/percentages`, and
+  self-falsifies (stripping a file's markers must surface its literals again).
+- `4d600bd` also added `bodyLargeTracking` (roles are shorthands and never carry
+  tracking) and pointed 29 easing literals at `var(--q-easing-standard)` — the one
+  deliberate value change (MD2's curve → MD3's, per the token); it shows as 14
+  recorded `mismatch` entries, and `field` moved from "complete" (target 0) to
+  ratcheted.
+
+## Workflows, release, hygiene
+
+- `7dcc078` — CI re-enables `pnpm run test`; node 24 + pnpm 12 everywhere; actions
+  bumped (checkout v7, setup-node v7, pnpm/action-setup v6, configure-pages v6,
+  upload-pages-artifact v5); `permissions` added (ci `contents: read`; release
+  `contents: write` + `pull-requests: write` — the "0.5.5 published but never
+  tagged" bug); **changesets/action v1 → v2 with renamed inputs**
+  (`publish-script`, `commit-message`, `pr-title`) — bumping without renaming
+  silently stops publishing.
+- `79f3de7` pnpm 12 (lockfile stays `9.0`, store v11; host pnpm is 12.4.1).
+- `f8da605` preset version corrected to the released 0.5.6, stray root key
+  removed; a locally backfilled 0.5.5 tag was later **deleted** — releases are
+  changesets' job, no hand-made tags.
+- Verified with **act**: `ci.yaml` ran end to end — 194/194 tests, pnpm 12.5.1,
+  node 24, cache saved. `release.yaml`/`deploy-docs.yml` dry-run only (they need
+  `NPM_TOKEN`/Pages and would publish or deploy).
+
+## Verification loops
+
+Preset: `npx tsc --noEmit` → `node scripts/parity-report.mjs` (`--module <name>`,
+`--update`, `PARITY_UPDATE_BASELINE=1`, `PARITY_DUMP_CSS=/tmp/x.css`) →
+`pnpm vitest run` → `pnpm exec oxfmt --write <files>` → `pnpm build` → conventional
+commit (≤100 cols, `type(scope): subject`).
+
+Petboarding: `cd packages/api && pnpm run start:dev-server` (https://localhost:3000);
+restart = kill the 3000 listener, wait for the port to free, start detached, poll
+until 200. **Clear `node_modules/.vite` when a preset change doesn't show.** App
+guards: `PETBOARDING_E2E_BASE_URL=https://localhost:3000
+PLAYWRIGHT_ALLOW_SCREENSHOTS=1 pnpm exec playwright test
+tests/e2e/screenshots-rewrite.spec.ts` (6/6) — logs in as
+`admin@petboarding.app` / `qjiNWdT8L`, the same flow as `administrator.spec.ts`.
+
+Harness: port 3100, `fuser -k 3100/tcp` (not `pkill`, which kills its own shell).
+
+Probes: Playwright + CDP `CSS.getMatchedStylesForNode` is the only reliable way to
+see which rule **wins**. Text greps of the CSS are not evidence.
+
+## Lessons that cost time
+
+1. **The CSS text can lie.** A merged rule containing any invalid selector is
+   discarded whole, while the served text still shows it. Verify with the browser.
+2. **Values are not evidence of roles.** The sheet holds every style's token block;
+   reading it as one pool produced three wrong radius mappings (`3px`, `7px`) that
+   the ratchet caught (mismatch 30→32→30). Read the map **per style** — unscoped
+   blocks are MD3.
+3. **Values can't disambiguate roles.** `500 14px/20px` is both label-large and
+   title-small; 24px is both `--q-size-icon` and `--headline-small-size`. Decide by
+   meaning: the date header's 24px is a _type_ role; the field's dense 11px is
+   neither body-small nor a label.
+4. **Uno sorts yields alphabetically within one rule**, so equal-specificity
+   conflicts need specificity (compound selectors), not ordering.
+5. **Never commit before the suite finishes.** I did twice; both times an amend
+   folded the fix in. Gate the commit command on the test result.
+6. **Tests and gates must resolve what the browser resolves** — the gate now
+   expands `font:` shorthands and `var(--q-…)`; the cascade test resolves tokens
+   through the style entry.
+
+## Open, in order
+
+1. **The QField label is still 10px high in the running app.** Our own transform is
+   gone (the preset's sheet has none — verified through the gate dump), yet the live
+   page applies `translateY(-50%)`; another stylesheet or a stale consumer artefact
+   supplies it. Next: rewrite the CDP probe cleanly (query `.q-field__label`, print
+   each matched rule and the sheet it came from). Expected behaviour: label centre =
+   control centre in place; risen and smaller when floating.
+2. **Remaining wiring**: leftover `line-height`/relative sizes → `// quasar:` markers
+   (mechanical), after which the guard's allowlist covers them.
+3. **Sweep**: ~28 of the 44 captured pages (`/tmp/pbsweep/` with `report.json`) are
+   still unreviewed.
+4. **Login page palette** (`/interaction/login`, `@modular-api/oidc-interactions`):
+   that app passes `process.env.SOURCE_COLOR`, which nothing sets, so it renders the
+   preset's default blue instead of `#4EBDC2`. The preset's API already matches
+   `main` (`sourceColor?: string`, default `#1976d2`, plus `applySourceColor`), so
+   this is that app's config's call — my edit there was **reverted** (preset fixes
+   only).
+5. `q-badge` emits both `border-radius: 4px` and `var(--q-radius-full)` — confirm the
+   4px is style-scoped, not a conflict.
+6. The gate judges values, not meaning, so a value-identical-but-wrong-role change
+   slips past it (the date header case was caught by review).
+
+## Constraints
+
+- `main` is read-only here: read it with `git show main:<path>`.
+- No SSH to `origin`, no `GITHUB_TOKEN`, no `gh` — cannot push, tag, or release from
+  this sandbox; tags and releases belong to changesets.
+- Two consumers link this worktree: petboarding (dev resolves the preset's `source`
+  condition; production uses `dist`) and the harness (`dist`).
