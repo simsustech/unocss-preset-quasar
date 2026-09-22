@@ -110,8 +110,13 @@ export const fieldRules = [
         width: '100%',
         border: 'none',
         outline: 'none',
-        background: 'transparent',
-        padding: '16px 12px 8px'
+        background: 'transparent'
+        // No `padding` here. This yield used to carry the hand-rolled
+        // `padding: 16px 12px 8px`, which fought the reference's per-variant
+        // padding (`padding-inline: 0` on the base native, `padding-top: 24px;
+        // padding-bottom: 8px` for `--labeled`): the shorthand's 12px inline
+        // padding won on every field, so the native sat 12px in from the
+        // reference position.
       }
       yield {
         [symbols.selector]: (selector) => `.body--dark ${selector}__native`,
@@ -851,7 +856,16 @@ export const fieldRules = [
         [symbols.selector]: (selector) =>
           `${selector}--auto-height.q-field--labeled .q-field__native`,
         'padding-top': '0',
-        'min-height': '24px'
+        'min-height': '24px',
+        // Quasar orders these two the other way round in sass (`&--labeled` at
+        // 2673, `&--auto-height` at 2742), so on a field that is both, the
+        // auto-height rule's `line-height: 18px` is the one that applies — a
+        // select in auto-height mode keeps the tighter line. UnoCSS emits the
+        // yields of one rule alphabetically, and `--auto-height` sorts before
+        // `--labeled`, so relying on order here would hand the win to the
+        // labeled rule's 24px. Expressing it on the compound keeps the cascade
+        // identical to quasar.css without depending on emission order.
+        'line-height': '18px'
       }
       yield {
         [symbols.selector]: (selector) =>
