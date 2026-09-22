@@ -253,16 +253,38 @@ export function tokenValue(
   return value
 }
 
+/** Role shorthand: `[weight] size[/line-height] family`. */
+const FONT_ROLE =
+  /^(?:(\d{3})\s+)?(\d+(?:\.\d+)?(?:px|em|rem))\s*(?:\/\s*([^\s]+))?\s+(.+)$/
+
 function renderTokenBlock(
   selector: string,
   tokens: Partial<TokenCategories> | TokenCategories,
   mode: 'light' | 'dark' = 'light'
 ): string {
   const lines: string[] = []
-  for (const [_category, categoryTokens] of Object.entries(tokens)) {
+  for (const [category, categoryTokens] of Object.entries(tokens)) {
     if (!categoryTokens) continue
     for (const [key, value] of Object.entries(asRecord(categoryTokens))) {
       lines.push(`  --q-${kebab(key)}: ${tokenValue(value, mode)};`)
+      if (category !== 'typography' || typeof value !== 'string') continue
+      // A typography role is a font shorthand (`400 16px/24px Roboto`) and the
+      // components need its parts individually — a rule that sets only
+      // `font-size` cannot reference a shorthand. The parts are derived here
+      // rather than restated per style, so a role stays the single source of
+      // truth for every style. Keys that are not shorthands (`fontFamily`, the
+      // state opacities) simply do not match the pattern.
+      const role = FONT_ROLE.exec(value)
+      if (role === null) continue
+      const [, weight, size, lineHeight, family] = role
+      if (weight !== undefined) {
+        lines.push(`  --q-${kebab(key)}-weight: ${weight};`)
+      }
+      lines.push(`  --q-${kebab(key)}-size: ${size};`)
+      if (lineHeight !== undefined) {
+        lines.push(`  --q-${kebab(key)}-line-height: ${lineHeight};`)
+      }
+      lines.push(`  --q-${kebab(key)}-family: ${family};`)
     }
   }
   return `${selector} {\n${lines.join('\n')}\n}`
