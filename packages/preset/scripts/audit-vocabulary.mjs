@@ -47,6 +47,19 @@ const CLASSES = join(PKG, 'src', 'generated', 'quasar-classes.ts')
  * entries: a new pattern needs a new rationale.
  */
 const ALLOWLIST = [
+  // Emitted by this preset's own app-extension port (src/app-extensions/), whose
+  // rules came from the libraries' SCSS via the port codemod — the vocabulary
+  // generator's sources do not include those stylesheets, so these classes are
+  // ours by construction rather than scraped from Quasar.
+  {
+    re: /^q-calendar-month__day--(content|label)$/,
+    why: 'emitted by src/app-extensions/qcalendar (ported from QCalendarMonthMini.scss)'
+  },
+  {
+    re: /^q-markdown--note--(info|tip|warning|danger)$/,
+    why: 'emitted by src/app-extensions/qmarkdown (ported from QMarkdown.scss note blocks)'
+  },
+
   // plan (b)1 explicit entries
   {
     re: /^body--dark$/,

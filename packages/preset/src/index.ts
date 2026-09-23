@@ -1,13 +1,11 @@
-import {
-  definePreset,
-  presetIcons,
-  presetWebFonts,
-  transformerDirectives,
-  transformerVariantGroup
-} from 'unocss'
+import presetIcons from '@unocss/preset-icons'
+import presetWebFonts from '@unocss/preset-web-fonts'
+import transformerDirectives from '@unocss/transformer-directives'
+import transformerVariantGroup from '@unocss/transformer-variant-group'
 import type { IconsOptions } from '@unocss/preset-icons'
 import type { WebFontsOptions } from '@unocss/preset-web-fonts'
 import presetMini from '@unocss/preset-mini'
+import { definePreset } from '@unocss/core'
 import type { Preset, Rule } from '@unocss/core'
 import type { QuasarPlugins } from 'quasar'
 import { generateTheme } from './theme/quasar-theme.js'

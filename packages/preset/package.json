@@ -70,13 +70,12 @@
   },
   "dependencies": {
     "@poupe/material-color-utilities": "^0.4.1",
-    "@unocss/core": "^66.10.1",
-    "@unocss/preset-mini": "66.10.1",
-    "@unocss/preset-uno": "^66.10.1",
-    "@unocss/preset-web-fonts": "66.10.1",
-    "@unocss/preset-wind": "^66.10.1",
-    "animated-unocss": "^0.0.6",
-    "unocss": "66.10.1"
+    "@unocss/preset-icons": "^66.10.1",
+    "@unocss/preset-mini": "^66.10.1",
+    "@unocss/preset-web-fonts": "^66.10.1",
+    "@unocss/transformer-directives": "^66.10.1",
+    "@unocss/transformer-variant-group": "^66.10.1",
+    "animated-unocss": "^0.0.6"
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.2.3",
@@ -85,14 +84,23 @@
     "@quasar/quasar-ui-qmarkdown": "^4.2.1",
     "@quasar/quasar-ui-qmediaplayer": "^3.0.1",
     "@types/node": "^26.5.0",
+    "@unocss/core": "^66.10.1",
     "@unocss/preset-icons": "^66.10.1",
-    "@unocss/preset-wind4": "66.10.1",
+    "@unocss/preset-mini": "^66.10.1",
+    "@unocss/preset-uno": "^66.10.1",
+    "@unocss/preset-web-fonts": "^66.10.1",
+    "@unocss/preset-wind": "^66.10.1",
+    "@unocss/preset-wind4": "^66.10.1",
+    "@unocss/transformer-directives": "^66.10.1",
+    "@unocss/transformer-variant-group": "^66.10.1",
     "quasar": "^2.31.0",
     "sass": "^1.104.1",
     "typescript": "^7.0.2",
+    "unocss": "^66.10.1",
     "vitest": "^5.0.0"
   },
   "peerDependencies": {
+    "@unocss/core": "^66.10.1",
     "quasar": "^2.31.0"
   },
   "peerDependenciesMeta": {
