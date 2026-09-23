@@ -51,14 +51,21 @@ export const badgeRules = [
         'background-color': 'transparent',
         'border-width': '1px'
       }
+      // AUD-024 fold: `--transparent` and `--multi-line` were each declared twice
+      // with *disjoint* properties (the reset here, the opacity/word-break pair
+      // below), so each pair is a single yield now.
       yield {
         [symbols.selector]: (selector) => `${selector}--transparent`,
-        opacity: '80%'
+        opacity: '80%',
+        'background-color': 'transparent',
+        color: 'var(--q-primary)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--multi-line`,
         'word-break': 'break-all',
-        'word-wrap': 'break-word'
+        'word-wrap': 'break-word',
+        'white-space': 'normal',
+        padding: '4px 8px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--floating`,
@@ -88,16 +95,6 @@ export const badgeRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--rounded`,
         'border-radius': 'var(--q-radius-md)'
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}--transparent`,
-        'background-color': 'transparent',
-        color: 'var(--q-primary)'
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}--multi-line`,
-        'white-space': 'normal',
-        padding: '4px 8px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dark`

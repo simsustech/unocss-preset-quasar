@@ -67,30 +67,13 @@ export const pullToRefreshRules = [
           `${selector}--right .q-pull-to-refresh__sentinel`,
         right: '0'
       }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__puller`,
-        'border-radius': '50%',
-        width: '40px',
-        height: '40px',
-        color: 'var(--q-primary)',
-        background: '#fff',
-        'box-shadow': '0 0 4px 0 rgba(0, 0, 0, 0.3)'
-      }
+      // AUD-024 fold: three yields targeted `__puller` — this literal one and two
+      // byte-identical color-mix copies below it. Every declaration the literal
+      // contributed exists in the color-mix yield, and its `color`/`background` are
+      // precisely what the reference does not state, so it is the copy that goes.
       yield {
         [symbols.selector]: (selector) => `.body--dark ${selector}__puller`,
         color: 'var(--q-primary)'
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__puller`,
-        color:
-          'color-mix(in oklab, var(--q-primary) var(--un-text-opacity), transparent)',
-        'border-radius': '50%',
-        'background-color':
-          'color-mix(in oklab, #fff var(--un-bg-opacity), transparent)',
-        flex: '0 1 auto !important',
-        width: '40px',
-        height: '40px',
-        'box-shadow': '0 0 4px 0 rgba(0, 0, 0, 0.3)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__puller`,

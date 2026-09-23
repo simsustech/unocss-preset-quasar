@@ -167,14 +167,16 @@ async function blocksFor(token: string, selector: string): Promise<string[]> {
  * remaining AUD-024 work; a row must disappear, never grow.
  */
 const PENDING_MERGE: Record<string, number> = {
-  '.q-pull-to-refresh__puller': 2,
+  // Folding these four would settle a token-versus-literal conflict, which is a
+  // product decision, not sheet hygiene: the surviving declaration would be either
+  // MD3's role token (`--q-surface-container-high` on the banner,
+  // `--q-radius-xs`/`50%` on the checkbox and radio inner, the tab's token
+  // padding) or the reference's literal. The rendered value matches the reference
+  // at all four today, so they are pinned rather than guessed at.
   '.q-banner': 2,
-  '.q-banner--dense': 2,
   '.q-checkbox__inner': 2,
   '.q-radio__inner': 2,
-  '.q-tab': 2,
-  '.q-badge--multi-line': 2,
-  '.q-badge--transparent': 2
+  '.q-tab': 2
 }
 
 describe('duplicate-yield folds keep the reference value (AUD-024)', () => {

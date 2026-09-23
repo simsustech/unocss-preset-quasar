@@ -26,12 +26,8 @@ export const bannerRules = [
         'background-color': 'transparent',
         'min-height': '54px'
       }
-      yield {
-        [symbols.selector]: (selector) => `${selector}--dense`,
-        padding: '8px',
-        // quasar: this value is Quasar's own, not a forked token
-        'min-height': '32px'
-      }
+      // AUD-024 fold: `--dense` declared the same `padding` + `min-height` twice,
+      // in two orders. The surviving yield below is the one kept.
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense.q-banner--top-padding`,
