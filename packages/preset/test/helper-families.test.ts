@@ -287,9 +287,6 @@ describe('helper families (dist-derived)', () => {
     expect(declFor(await sheet('responsive'), 'img.responsive')).toBe(
       'max-width:100%;height:auto'
     )
-    expect(declFor(await sheet('bg-brown'), '.bg-brown')).toBe(
-      'background:#795548 !important'
-    )
     expect(
       declFor(await sheet('scroll--mobile'), 'body.mobile .scroll--mobile')
     ).toBe('overflow:auto')
@@ -345,5 +342,59 @@ describe('helper families (dist-derived)', () => {
     expect(await fullSheet('q-field__messages--animated')).toContain(
       '@keyframes q-field-message'
     )
+  })
+  // These bare names are in the *theme palette*, not hand-written rules: wind4 has no
+  // `brown` in any form and spells its own palette `gray`, so every Quasar-named colour
+  // utility exists only because `paletteColors()` hands it our palette. The shaded forms
+  // (`brown-5`) were already there; the bare entries were commented out in
+  // `quasar-theme.ts`, which is why the coverage sweep's "emitted on demand by content
+  // scanning" allowance never held for them.
+  //
+  // Asserting the palette form, not dist's literal: our utility resolves
+  // `var(--colors-<name>)` so UnoCSS opacity modifiers work, and the *value* the
+  // variable resolves to is dist's. Both halves are checked.
+  it('emits the bare Quasar colours wind4 has no name for, from the theme palette', async () => {
+    const cases: [string, string, string, string][] = [
+      ['bg-brown', 'background-color', 'brown', '#795548'],
+      ['text-brown', 'color', 'brown', '#795548'],
+      ['bg-grey', 'background-color', 'grey', '#9e9e9e'],
+      ['text-grey', 'color', 'grey', '#9e9e9e'],
+      ['bg-separator', 'background-color', 'separator', 'rgba(0, 0, 0, 0.12)'],
+      ['text-separator', 'color', 'separator', 'rgba(0, 0, 0, 0.12)'],
+      [
+        'bg-dark-separator',
+        'background-color',
+        'dark-separator',
+        'rgba(255, 255, 255, 0.28)'
+      ],
+      [
+        'text-dark-separator',
+        'color',
+        'dark-separator',
+        'rgba(255, 255, 255, 0.28)'
+      ]
+    ]
+    for (const [token, property, name, value] of cases) {
+      const css = await sheet(token)
+      const block = blocks(css).filter((b) => b.selectors.includes(`.${token}`))
+      // two blocks is the normal shape here: our palette is handed to wind4 *and*
+      // used by this sheet's own colours module, so a colour utility emits an sRGB
+      // and an oklab copy. Only the declaration and the resolved value matter.
+      expect(block.length, `${token} block count`).toBeGreaterThan(0)
+      const declaring = block.filter((b) =>
+        b.body.includes(`var(--colors-${name})`)
+      )
+      expect(
+        declaring.length,
+        `${token} declares var(--colors-${name})`
+      ).toBeGreaterThan(0)
+      expect(declaring[0].body, `${token} property`).toContain(`${property}:`)
+      // the theme supplies dist's value — this is what the utility resolves to
+      const declared = await fullSheet(token)
+      const defined = declared.match(
+        new RegExp(`--colors-${name}\\s*:\\s*([^;}]+)`)
+      )
+      expect(defined?.[1]?.trim(), `--colors-${name}`).toBe(value)
+    }
   })
 })

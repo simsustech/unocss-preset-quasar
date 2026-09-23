@@ -25,10 +25,6 @@ function rule(
  */
 const residueRules: ComponentRule[] = [
   rule(/^z-fab$/, () => ({ 'z-index': 990 })),
-  // Quasar's legacy named colour: dist hardcodes it, the theme palette carries
-  // only the `brown-N` shades, and wind4 has no `brown` at all — so `bg-brown`
-  // was safelisted with nothing behind it (AUD-023).
-  rule(/^bg-brown$/, () => ({ background: '#795548 !important' })),
   [
     /^hide-scrollbar$/,
     function* (_, { symbols }) {

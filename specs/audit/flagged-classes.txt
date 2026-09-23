@@ -1,6 +1,3 @@
-bg-dark-separator
-bg-grey
-bg-separator
 col-lg-0
 col-md-0
 col-sm-0
@@ -67,7 +64,3 @@ shadow-up-6
 shadow-up-7
 shadow-up-8
 shadow-up-9
-text-brown
-text-dark-separator
-text-grey
-text-separator

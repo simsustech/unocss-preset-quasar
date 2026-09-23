@@ -338,7 +338,7 @@ export interface QuasarTheme {
     'deep-orange-12': string
     'deep-orange-13': string
     'deep-orange-14': string
-    // brown: string
+    brown: string
     'brown-1': string
     'brown-2': string
     'brown-3': string
@@ -353,7 +353,9 @@ export interface QuasarTheme {
     'brown-12': string
     'brown-13': string
     'brown-14': string
-    // grey: string
+    grey: string
+    separator: string
+    'dark-separator': string
     'grey-1': string
     'grey-2': string
     'grey-3': string
@@ -1583,7 +1585,7 @@ const defaultTheme: QuasarTheme = {
     'deep-orange-12': '#ff6e40',
     'deep-orange-13': '#ff3d00',
     'deep-orange-14': '#dd2c00',
-    // brown: '#795548',
+    brown: '#795548',
     'brown-1': '#efebe9',
     'brown-2': '#d7ccc8',
     'brown-3': '#bcaaa4',
@@ -1598,7 +1600,7 @@ const defaultTheme: QuasarTheme = {
     'brown-12': '#bcaaa4',
     'brown-13': '#8d6e63',
     'brown-14': '#5d4037',
-    // grey: '#9e9e9e',
+    grey: '#9e9e9e',
     'grey-1': '#fafafa',
     'grey-2': '#f5f5f5',
     'grey-3': '#eeeeee',
@@ -1613,6 +1615,8 @@ const defaultTheme: QuasarTheme = {
     'grey-12': '#eeeeee',
     'grey-13': '#bdbdbd',
     'grey-14': '#616161',
+    separator: 'rgba(0, 0, 0, 0.12)',
+    'dark-separator': 'rgba(255, 255, 255, 0.28)',
     'blue-grey': '#607d8b',
     'blue-grey-1': '#eceff1',
     'blue-grey-2': '#cfd8dc',
