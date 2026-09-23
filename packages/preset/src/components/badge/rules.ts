@@ -17,7 +17,11 @@ export const badgeRules = [
         color: 'var(--q-on-primary)',
         // MD3 label-small is 11px, Quasar's own 12px; the token reads 11px in
         // md3 and md2 alike (and `inherit` when unstyled).
-        'font-size': 'var(--q-label-small-size)',
+        // quasar: dist states 12px here, not MD3's label-small token (11px).
+        // The harness's rewrite-style-switcher spec caught the difference: the
+        // adjudication in the fix plan's Revision 3 read the MD3 token, and
+        // Quasar's own shipped CSS disagrees.
+        'font-size': '12px',
         'font-weight': 'var(--q-badge-font-weight)',
         'line-height': 'var(--leading-none)',
         // quasar: Quasar's badge box is 16px tall (dist) / 12px min-height
