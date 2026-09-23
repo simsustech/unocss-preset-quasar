@@ -17,7 +17,7 @@ export const ratingRules = [
       }
       yield {
         color:
-          'color-mix(in oklab, #ffeb3b var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, #ffeb3b var(--q-text-opacity), transparent)',
         'vertical-align': 'middle'
       }
       yield {
@@ -82,7 +82,7 @@ export const ratingRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__icon-container`,
-        'outline-style': 'var(--un-outline-style)',
+        'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
         'outline-width': '0px',
         height: '1em'
       }

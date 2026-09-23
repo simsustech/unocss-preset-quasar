@@ -13,9 +13,9 @@ export const markupTableRules: Rule[] = [
         // inside its own box instead of pushing the page.
         overflow: 'auto',
         color:
-          'color-mix(in oklab, var(--light-on-surface) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--light-on-surface) var(--q-text-opacity), transparent)',
         'background-color':
-          'color-mix(in oklab, var(--light-surface-container) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, var(--light-surface-container) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `.body--dark ${selector}`,

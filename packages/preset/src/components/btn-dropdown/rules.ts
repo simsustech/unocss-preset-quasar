@@ -41,8 +41,8 @@ export const btnDropdownRules = [
           `${selector}--split .q-btn-dropdown__arrow-container:not(.q-btn--outline)`,
         'border-left-width': '1px',
         'border-left-color':
-          'color-mix(in oklab, var(--colors-white) var(--un-border-left-opacity), transparent)',
-        '--un-border-left-opacity': 'var(--un-border-opacity)',
+          'color-mix(in oklab, var(--colors-white, #fff) var(--q-border-left-opacity), transparent)',
+        '--q-border-left-opacity': 'var(--q-border-opacity)',
         'border-left-style': 'solid'
       }
       yield {

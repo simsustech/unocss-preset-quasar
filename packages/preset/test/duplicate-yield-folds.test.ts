@@ -70,28 +70,48 @@ async function effectiveDecls(
 /**
  * Where this preset tokenizes a value the reference spells literally, the two
  * resolve identically, so the fold's guarantee is the *deterministic single
- * declaration*, not textual equality with the fixture. Both aliases are
- * deliberate and recorded here: `--q-primary` is this preset's role token for
- * the colour the reference reaches through wind4's `--light-primary`, and
- * `--q-size-md` resolves to the reference's `40px`.
+ * declaration*, not textual equality with the fixture: `--q-size-md` resolves to
+ * the reference's `40px`. (The other former entry, `--q-primary` against the
+ * reference's `--light-primary`, is handled by `normaliseReads` below.)
  */
 const ALIASES: [actual: string, expected: string][] = [
-  [
-    'color-mix(in oklab, var(--q-primary) var(--un-text-opacity), transparent)',
-    'color-mix(in oklab, var(--light-primary) var(--un-text-opacity), transparent)'
-  ],
   ['var(--q-size-md)', '40px']
 ]
 
+/**
+ * Our engine-internal reads spell the same value two ways the reference does not:
+ * they name our own default (`var(--un-X, var(--q-X))`, `var(--colors-white, #fff)`) and
+ * the opacity quartet reads our own name outright (`--q-text-opacity`), because the
+ * engine's is a number under mini where the reference's is a percentage. Both spellings
+ * resolve to the reference's value — which `engine-reads.test.ts` guarantees — so
+ * normalise them back before comparing the declaration itself. `--q-primary` is
+ * this preset's role token for the colour the reference reaches through wind4's
+ * `--light-primary`, which is the same aliasing in a different name.
+ */
+const normaliseReads = (value: string): string =>
+  value
+    .replace(/var\(--q-primary\)/g, 'var(--light-primary)')
+    .replace(/var\((--un-[\w-]+), var\(--q-[\w-]+\)\)/g, 'var($1)')
+    .replace(/var\((--colors-[\w-]+), [^)]+\)/g, 'var($1)')
+    .replace(
+      /var\(--q-(bg|text|border|border-left|outline)-opacity\)/g,
+      'var(--un-$1-opacity)'
+    )
+
 /** Values that differ in spelling but not in effect. */
-const equivalent = (actual: string | undefined, expected: string): boolean =>
-  actual === expected ||
-  (actual != null &&
-    actual.replace(/\s+/g, '') === expected.replace(/\s+/g, '')) ||
-  // wind4's spacing math for a literal zero
-  (expected === 'calc(var(--spacing) * 0)' && actual === '0') ||
-  (expected === '0' && actual === 'calc(var(--spacing) * 0)') ||
-  (actual != null && ALIASES.some(([a, e]) => a === actual && e === expected))
+const equivalent = (actual: string | undefined, expected: string): boolean => {
+  const ours = normaliseReads(actual ?? '')
+  const theirs = normaliseReads(expected)
+  return (
+    actual === expected ||
+    (actual != null &&
+      ours.replace(/\s+/g, '') === theirs.replace(/\s+/g, '')) ||
+    // wind4's spacing math for a literal zero
+    (expected === 'calc(var(--spacing) * 0)' && actual === '0') ||
+    (expected === '0' && actual === 'calc(var(--spacing) * 0)') ||
+    (actual != null && ALIASES.some(([a, e]) => a === actual && e === expected))
+  )
+}
 
 /**
  * Each entry is one folded site: the token that reaches the selector, the

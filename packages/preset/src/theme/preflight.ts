@@ -1,7 +1,7 @@
 import type { Preflight } from '@unocss/core'
 import type { ColorBlock } from './colors.js'
-import type { StyleEntry, TokenBlock } from './types.js'
-import { wind4NamespaceTokens } from './wind4.js'
+import type { StyleEntry, TokenBlock, TokenValue } from './types.js'
+import { engineNamespaceTokens, quasarDefaults } from './engine.js'
 
 /**
  * Emit CSS custom properties.
@@ -42,12 +42,16 @@ export function createTokenPreflight(params: {
       parts.push(renderRoleBlock(':root', params.colors.dark, 'dark'))
       // 1a. Shape roles, as the md3 entry states them.
       parts.push(renderShapeRoles(':root', params.defaultStyle.tokens))
-      // 1b. wind4's theme namespaces. Our rules reference these
-      // (`calc(var(--spacing) * N)`, `var(--radius-none)`, the font weights),
-      // but wind4 only emits them once one of *its* utilities generates — so a
-      // Quasar-only page would leave every one of those declarations invalid.
-      // See `wind4NamespaceTokens` for the measurements.
-      parts.push(renderNamespaceBlock(':root'))
+      // 1b. The engine's theme namespaces, plus the defaults we own for the
+      // declarations that read engine-internal names. Our rules reference
+      // `--spacing` and friends (`calc(var(--spacing) * N)`, the corner radii,
+      // the font weights) and a Quasar-only page never makes the engine emit
+      // them — it emits a different block, or none at all. See
+      // `engineNamespaceTokens` / `quasarDefaults` for the measurements.
+      parts.push(
+        renderNamespaceBlock(':root'),
+        renderQuasarDefaultsBlock(':root')
+      )
       // 2. Default style tokens on body (NOT :root: runtime setThemeColors
       // writes --light-*/--dark-* onto document.body, so --q-* aliases that
       // reference them must resolve against body to pick up the overrides)
@@ -173,9 +177,17 @@ function renderShapeRoles(selector: string, tokens: TokenCategories): string {
   return `${selector} {\n${lines.join('\n')}\n}`
 }
 
-/** wind4's theme namespaces, which wind4 itself emits only on demand. */
+/** The engine's theme namespaces, which it emits only alongside its own utilities. */
 function renderNamespaceBlock(selector: string): string {
-  const lines = Object.entries(wind4NamespaceTokens).map(
+  const lines = Object.entries(engineNamespaceTokens).map(
+    ([prop, value]) => `  ${prop}: ${value};`
+  )
+  return `${selector} {\n${lines.join('\n')}\n}`
+}
+
+/** Our own defaults for the declarations that read engine-internal names. */
+function renderQuasarDefaultsBlock(selector: string): string {
+  const lines = Object.entries(quasarDefaults).map(
     ([prop, value]) => `  ${prop}: ${value};`
   )
   return `${selector} {\n${lines.join('\n')}\n}`
@@ -237,11 +249,17 @@ type TokenCategories = Omit<TokenBlock, 'color'>
 const asRecord = (o: unknown): Record<string, string> =>
   o as Record<string, string>
 
-/** The light or dark side of a token value. */
+/**
+ * The light or dark side of a token value.
+ *
+ * SAFETY: token records are indexed as `unknown`, so the parameter is widened at
+ * the boundary, but every value inside a `TokenBlock` is a `TokenValue` and a
+ * value that is not a `{ light, dark }` pair is returned unchanged.
+ */
 export function tokenValue(
   value: unknown,
   mode: 'light' | 'dark' = 'light'
-): unknown {
+): TokenValue {
   if (
     value !== null &&
     typeof value === 'object' &&
@@ -250,7 +268,9 @@ export function tokenValue(
   ) {
     return (value as { light: string; dark: string })[mode]
   }
-  return value
+  // SAFETY: a value that is not a pair is one the `TokenBlock` already stored as
+  // a `TokenValue` (see the signature note above); the cast only restores that.
+  return value as TokenValue
 }
 
 /** Role shorthand: `[weight] size[/line-height] family`. */

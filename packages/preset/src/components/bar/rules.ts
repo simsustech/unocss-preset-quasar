@@ -74,7 +74,7 @@ export const barRules = [
         // class: a `q-bar--dark` on a light body kept the light surface.
         'background-color': 'var(--dark-surface-container)',
         color:
-          'color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)'
+          'color-mix(in oklab, var(--dark-on-surface) var(--q-text-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--standard`,

@@ -6,13 +6,13 @@ import type { Rule } from '@unocss/core'
  * from `specs/reference/raw/reference-bundle.css.txt`.
  */
 const outlineVariant =
-  'color-mix(in oklab, var(--q-outline-variant) var(--un-border-opacity), transparent)'
+  'color-mix(in oklab, var(--q-outline-variant) var(--q-border-opacity), transparent)'
 const onSurfaceText =
-  'color-mix(in oklab, var(--q-on-surface) var(--un-text-opacity), transparent)'
+  'color-mix(in oklab, var(--q-on-surface) var(--q-text-opacity), transparent)'
 const onSurfaceVariantText =
-  'color-mix(in oklab, var(--q-on-surface-variant) var(--un-text-opacity), transparent)'
+  'color-mix(in oklab, var(--q-on-surface-variant) var(--q-text-opacity), transparent)'
 const selectedText =
-  'color-mix(in oklab, var(--q-on-secondary-container) var(--un-text-opacity), transparent)'
+  'color-mix(in oklab, var(--q-on-secondary-container) var(--q-text-opacity), transparent)'
 
 /** The cell box: zero border width, a solid style and the outline role. */
 const cellBox = {
@@ -142,7 +142,7 @@ export const tableRules = [
       yield {
         [symbols.selector]: (selector) => `${selector} tbody td:after`,
         'background-color':
-          'color-mix(in oklab, var(--q-secondary-container) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, var(--q-secondary-container) var(--q-bg-opacity), transparent)',
         'pointer-events': 'none',
         top: '0',
         left: '0',
@@ -153,14 +153,14 @@ export const tableRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector} tbody tr.selected td:after`,
-        '--un-content': "''",
-        content: 'var(--un-content)'
+        '--q-content': "''",
+        content: 'var(--q-content)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `.body--dark ${selector} tbody td:after`,
         'background-color':
-          'color-mix(in oklab, var(--q-secondary-container) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, var(--q-secondary-container) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `.body--dark ${selector} td`,
@@ -430,7 +430,7 @@ export const tableRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--dark tbody td:after`,
         'background-color':
-          'color-mix(in oklab, var(--q-secondary-container) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, var(--q-secondary-container) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dark td`,

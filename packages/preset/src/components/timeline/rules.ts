@@ -27,7 +27,7 @@ export const timelineRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dark`,
-        color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)'
+        color: 'color-mix(in oklab, #fff var(--q-text-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -82,7 +82,7 @@ export const timelineRules = [
         [symbols.selector]: (selector) => `${selector}__dot .q-icon`,
         // quasar: this value is Quasar's own, not a forked token
         'font-size': '16px',
-        color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)',
+        color: 'color-mix(in oklab, #fff var(--q-text-opacity), transparent)',
         'line-height': '38px',
         height: '38px',
         width: '100%',
@@ -104,8 +104,8 @@ export const timelineRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__dot:before, ${selector}__dot:after`,
-        '--un-content': "''",
-        content: 'var(--un-content)',
+        '--q-content': "''",
+        content: 'var(--q-content)',
         'background-color': 'currentColor',
         display: 'block',
         position: 'absolute'

@@ -59,6 +59,9 @@ importers:
       '@unocss/core':
         specifier: ^66.10.1
         version: 66.10.1
+      '@unocss/preset-mini':
+        specifier: 66.10.1
+        version: 66.10.1
       '@unocss/preset-uno':
         specifier: ^66.10.1
         version: 66.10.1
@@ -67,9 +70,6 @@ importers:
         version: 66.10.1
       '@unocss/preset-wind':
         specifier: ^66.10.1
-        version: 66.10.1
-      '@unocss/preset-wind4':
-        specifier: 66.10.1
         version: 66.10.1
       animated-unocss:
         specifier: ^0.0.6
@@ -84,6 +84,9 @@ importers:
       '@quasar/extras':
         specifier: ^2.0.4
         version: 2.0.4
+      '@quasar/quasar-ui-qcalendar':
+        specifier: ^5.3.0
+        version: 5.3.0
       '@quasar/quasar-ui-qmarkdown':
         specifier: ^4.2.1
         version: 4.2.1
@@ -96,7 +99,7 @@ importers:
       '@unocss/preset-icons':
         specifier: ^66.10.1
         version: 66.10.1
-      '@unocss/preset-mini':
+      '@unocss/preset-wind4':
         specifier: 66.10.1
         version: 66.10.1
       quasar:
@@ -1026,6 +1029,10 @@ packages:
   '@quasar/extras@2.0.4':
     resolution: {integrity: sha512-JWls5J+xkgEn6u86NSBLRUXf92RSTlImmYNcF77JtbOwuZgQfQTg7RpLskqRTmzpU3Kkpd3TLDcVT0xwWwiphA==}
 
+  '@quasar/quasar-ui-qcalendar@5.3.0':
+    resolution: {integrity: sha512-i8sp5GFLYW7Szy0ZLmsfITvChnkMEThdollAEsHFx4BdtgxvOZ3Q4KtQlJ6/rwl8mkp6v9ejxPLwatwz//Aw6Q==}
+    engines: {node: '>=22.13', pnpm: '>=11.5.0'}
+
   '@quasar/quasar-ui-qmarkdown@4.2.1':
     resolution: {integrity: sha512-a7kpSmdj3diYUquDrs21Ywup/NneGPPYZYtqPpDIe1QC4l1/e/2ipl/UoqAI4YPetReXabRzc6eoLh4PqV7kow==}
     engines: {node: '>=22.13', pnpm: '>=11.5.0'}
@@ -1333,6 +1340,10 @@ packages:
 
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
+
+  '@timestamp-js/core@1.0.0':
+    resolution: {integrity: sha512-Wed8du4NBL/j4fItmrn1TCXedFdUse//nTVlWiJzJzs3vXFbTCbxFaWQd0xQQkzGor+lrQTKw7xJSUwsr1/N5g==}
+    engines: {node: '>=22.13', pnpm: '>=11.5.0'}
 
   '@tybys/wasm-util@0.10.3':
     resolution: {integrity: sha512-F3fo1MYrRJYL3zER0OUOmkutjr1Vp23m7OsSgp7nq4SP6OqX6C/56XFIPAl5bt3zaBRjmW7SGz3u/6LwFpYcOg==}
@@ -4089,6 +4100,10 @@ snapshots:
 
   '@quasar/extras@2.0.4': {}
 
+  '@quasar/quasar-ui-qcalendar@5.3.0':
+    dependencies:
+      '@timestamp-js/core': 1.0.0
+
   '@quasar/quasar-ui-qmarkdown@4.2.1':
     dependencies:
       markdown-it: 15.0.1
@@ -4308,6 +4323,8 @@ snapshots:
   '@simple-libs/stream-utils@2.0.0': {}
 
   '@standard-schema/spec@1.1.0': {}
+
+  '@timestamp-js/core@1.0.0': {}
 
   '@tybys/wasm-util@0.10.3':
     dependencies:

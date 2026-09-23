@@ -91,7 +91,7 @@ export const dateRules = [
         // quasar: this rule reproduces Quasar's own 4px corner
         'border-radius': '4px',
         'background-color':
-          'color-mix(in oklab, var(--q-surface-container-high) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, var(--q-surface-container-high) var(--q-bg-opacity), transparent)',
         display: 'inline-flex',
         width: '290px',
         'min-width': '290px',
@@ -102,14 +102,14 @@ export const dateRules = [
       yield {
         [symbols.selector]: (selector) => `.body--dark ${selector}`,
         'background-color':
-          'color-mix(in oklab, var(--q-surface-container-high) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, var(--q-surface-container-high) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dark`,
         color: 'var(--q-on-surface)',
         'border-color': 'rgba(255, 255, 255, 0.28)',
         'background-color':
-          'color-mix(in oklab, var(--q-surface-container) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, var(--q-surface-container) var(--q-bg-opacity), transparent)',
         'box-shadow':
           '0 1px 5px rgba(255, 255, 255, 0.2), 0 2px 2px rgba(255, 255, 255, 0.14), 0 3px 1px -2px rgba(255, 255, 255, 0.12)'
       }
@@ -176,18 +176,18 @@ export const dateRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__header`,
         color:
-          'color-mix(in oklab, var(--q-on-primary) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--q-on-primary) var(--q-text-opacity), transparent)',
         padding: '12px',
         'background-color':
-          'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, var(--q-primary) var(--q-bg-opacity), transparent)',
         'border-top-left-radius': 'inherit'
       }
       yield {
         [symbols.selector]: (selector) => `.body--dark ${selector}__header`,
         color:
-          'color-mix(in oklab, var(--q-on-surface) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--q-on-surface) var(--q-text-opacity), transparent)',
         'background-color':
-          'color-mix(in oklab, var(--q-surface-container-high) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, var(--q-surface-container-high) var(--q-bg-opacity), transparent)'
       }
       // No `__calendar` grid, and no `__day*` rules. Quasar lays the calendar out
       // through `.q-date__calendar-days-container` (height 75%, min-height 192px),
@@ -378,7 +378,7 @@ export const dateRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__edit-range:after`,
         'border-color':
-          'color-mix(in oklab, var(--q-primary) var(--un-border-opacity), transparent)',
+          'color-mix(in oklab, var(--q-primary) var(--q-border-opacity), transparent)',
         'border-left-color': 'transparent',
         'border-right-color': 'transparent'
       }
@@ -398,7 +398,7 @@ export const dateRules = [
         [symbols.selector]: (selector) =>
           `.body--dark ${selector}__edit-range:after`,
         'border-color':
-          'color-mix(in oklab, var(--q-primary) var(--un-border-opacity), transparent)'
+          'color-mix(in oklab, var(--q-primary) var(--q-border-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__edit-range-from:after`,
@@ -413,7 +413,7 @@ export const dateRules = [
         [symbols.selector]: (selector) => `${selector}__edit-range-from:after`,
         'border-right-width': '0px',
         'border-color':
-          'color-mix(in oklab, var(--q-primary) var(--un-border-opacity), transparent)',
+          'color-mix(in oklab, var(--q-primary) var(--q-border-opacity), transparent)',
         'border-top-left-radius': '28px',
         'border-bottom-left-radius': '28px',
         left: '4px'
@@ -430,7 +430,7 @@ export const dateRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__edit-range-to:after`,
         'border-color':
-          'color-mix(in oklab, var(--q-primary) var(--un-border-opacity), transparent)',
+          'color-mix(in oklab, var(--q-primary) var(--q-border-opacity), transparent)',
         'border-left-color': 'transparent',
         'border-top-right-radius': '28px',
         'border-bottom-right-radius': '28px',
@@ -601,7 +601,7 @@ export const dateRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__navigation .q-btn`,
         color:
-          'color-mix(in oklab, var(--q-on-surface) var(--un-text-opacity), transparent)'
+          'color-mix(in oklab, var(--q-on-surface) var(--q-text-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__calendar-weekdays`,
@@ -671,7 +671,7 @@ export const dateRules = [
         // quasar: this value is Quasar's own, not a forked token
         'border-radius': '5px',
         'background-color':
-          'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, var(--q-primary) var(--q-bg-opacity), transparent)',
         height: '5px',
         width: '8px',
         transform: 'translate3d(-50%, 0, 0)',
@@ -682,7 +682,7 @@ export const dateRules = [
       yield {
         [symbols.selector]: (selector) => `.body--dark ${selector}__event`,
         'background-color':
-          'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, var(--q-primary) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__today`,
@@ -709,9 +709,9 @@ export const dateRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__years-item .q-btn`,
         color:
-          'color-mix(in oklab, var(--q-on-primary) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--q-on-primary) var(--q-text-opacity), transparent)',
         'background-color':
-          'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, var(--q-primary) var(--q-bg-opacity), transparent)',
         height: '30px',
         width: '60px'
       }
@@ -719,7 +719,7 @@ export const dateRules = [
         [symbols.selector]: (selector) =>
           `${selector}__years-item .q-btn--flat`,
         color:
-          'color-mix(in oklab, var(--q-on-surface) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--q-on-surface) var(--q-text-opacity), transparent)',
         height: '30px',
         width: '60px'
       }
@@ -734,15 +734,15 @@ export const dateRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__months-item .q-btn`,
         color:
-          'color-mix(in oklab, var(--q-on-primary) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--q-on-primary) var(--q-text-opacity), transparent)',
         'background-color':
-          'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, var(--q-primary) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__months-item .q-btn--flat`,
         color:
-          'color-mix(in oklab, var(--q-on-surface) var(--un-text-opacity), transparent)'
+          'color-mix(in oklab, var(--q-on-surface) var(--q-text-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -846,15 +846,15 @@ export const dateRules = [
         [symbols.selector]: (selector) =>
           `${selector}__calendar-item--in .q-btn`,
         color:
-          'color-mix(in oklab, var(--q-on-primary) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--q-on-primary) var(--q-text-opacity), transparent)',
         'background-color':
-          'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, var(--q-primary) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__calendar-item--in .q-btn--flat`,
         color:
-          'color-mix(in oklab, var(--q-on-surface) var(--un-text-opacity), transparent)'
+          'color-mix(in oklab, var(--q-on-surface) var(--q-text-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__months`,

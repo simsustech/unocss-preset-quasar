@@ -8,17 +8,16 @@ import type { Rule } from '@unocss/core'
  * them, and `.q-uploader__dnd` carries the dashed drop hint instead.
  */
 const fileBorder =
-  'color-mix(in oklab, rgba(0,0,0,0.12) var(--un-border-opacity), transparent)'
+  'color-mix(in oklab, rgba(0,0,0,0.12) var(--q-border-opacity), transparent)'
 const darkBorder =
-  'color-mix(in oklab, rgba(255, 255, 255, 0.28) var(--un-border-opacity), transparent)'
-const whiteText =
-  'color-mix(in oklab, #fff var(--un-text-opacity), transparent)'
+  'color-mix(in oklab, rgba(255, 255, 255, 0.28) var(--q-border-opacity), transparent)'
+const whiteText = 'color-mix(in oklab, #fff var(--q-text-opacity), transparent)'
 const lightBoxShadow =
   '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
 const darkBoxShadow =
   '0 1px 5px rgba(255, 255, 255, 0.2), 0 2px 2px rgba(255, 255, 255, 0.14), 0 3px 1px -2px rgba(255, 255, 255, 0.12)'
 const dndSurface =
-  'color-mix(in oklab, rgba(255, 255, 255, 0.6) var(--un-bg-opacity), transparent)'
+  'color-mix(in oklab, rgba(255, 255, 255, 0.6) var(--q-bg-opacity), transparent)'
 
 export const uploaderRules = [
   [
@@ -31,7 +30,7 @@ export const uploaderRules = [
         'vertical-align': 'top',
         'border-radius': 'var(--q-corner-extra-small)',
         'background-color':
-          'color-mix(in oklab, #fff var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, #fff var(--q-bg-opacity), transparent)',
         width: '320px',
         'max-height': '320px',
         'box-shadow': lightBoxShadow,
@@ -51,7 +50,7 @@ export const uploaderRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--dark .q-uploader__dnd`,
         'background-color':
-          'color-mix(in oklab, rgba(255, 255, 255, 0.3) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, rgba(255, 255, 255, 0.3) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dark .q-uploader__file`,
@@ -62,7 +61,7 @@ export const uploaderRules = [
           `${selector}--dark .q-uploader__overlay`,
         color: whiteText,
         'background-color':
-          'color-mix(in oklab, rgba(255, 255, 255, 0.3) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, rgba(255, 255, 255, 0.3) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--disabled`,
@@ -128,8 +127,8 @@ export const uploaderRules = [
         'background-color': 'currentColor',
         opacity: '0.04',
         'pointer-events': 'none',
-        '--un-content': "''",
-        content: 'var(--un-content)',
+        '--q-content': "''",
+        content: 'var(--q-content)',
         'border-top-left-radius': 'inherit',
         'border-top-right-radius': 'inherit',
         top: '0',
@@ -170,7 +169,7 @@ export const uploaderRules = [
         // folded the shorthand into `outline-color`, so the width/style are
         // restated here and the colour longhand keeps the reference's shape.
         'outline-color':
-          'color-mix(in oklab, 1px dashed currentColor var(--un-outline-opacity), transparent)',
+          'color-mix(in oklab, 1px dashed currentColor var(--q-outline-opacity), transparent)',
         'outline-width': '1px',
         'outline-style': 'dashed',
         'outline-offset': '-4px',
@@ -194,7 +193,7 @@ export const uploaderRules = [
         // The reference's own value is a mangled `color-mix` (`50% 50%` is not
         // a colour), so the declaration drops in the reference too.
         'background-color':
-          'color-mix(in oklab, 50% 50% var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, 50% 50% var(--q-bg-opacity), transparent)',
         height: '200px',
         'min-width': '200px',
         'background-repeat': 'no-repeat'
@@ -218,7 +217,7 @@ export const uploaderRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--bordered`,
         'border-color':
-          'color-mix(in oklab, rgba(0,0,0,0.12) var(--un-border-opacity), transparent)',
+          'color-mix(in oklab, rgba(0,0,0,0.12) var(--q-border-opacity), transparent)',
         'border-style': 'solid',
         'border-width': '1px'
       }

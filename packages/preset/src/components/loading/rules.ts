@@ -26,7 +26,7 @@ export const loadingRules: Rule[] = [
         // wind4's spacing step, behind the box, and click-through when the plugin
         // does not want to intercept.
         'background-color':
-          'color-mix(in oklab, #000 var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, #000 var(--q-bg-opacity), transparent)',
         opacity: '50%',
         transition: 'background-color 0.28s',
         top: 'calc(var(--spacing) * 0)',
@@ -38,7 +38,7 @@ export const loadingRules: Rule[] = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__box`,
-        color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)',
+        color: 'color-mix(in oklab, #fff var(--q-text-opacity), transparent)',
         padding: '18px',
         'border-radius': 'var(--q-corner-extra-small)',
         'max-width': '450px'

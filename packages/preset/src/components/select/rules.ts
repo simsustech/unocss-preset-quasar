@@ -80,7 +80,8 @@ export const selectRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__focus-target`,
         padding: '0',
-        'outline-style': 'var(--un-outline-style) !important',
+        'outline-style':
+          'var(--un-outline-style, var(--q-outline-style)) !important',
         'outline-width': '0px !important',
         'border-width': '0px',
         opacity: '0%',
@@ -92,7 +93,8 @@ export const selectRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__autocomplete-input`,
         padding: '0',
-        'outline-style': 'var(--un-outline-style) !important',
+        'outline-style':
+          'var(--un-outline-style, var(--q-outline-style)) !important',
         'outline-width': '0px !important',
         'border-width': '0px',
         opacity: '0%',

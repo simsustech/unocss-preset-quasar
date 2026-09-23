@@ -122,7 +122,7 @@ export const colorRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__header-content--dark`,
         // Reference states the label colour on the container itself.
-        color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)'
+        color: 'color-mix(in oklab, #fff var(--q-text-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -143,8 +143,8 @@ export const colorRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__alpha .q-slider__track:before`,
-        '--un-content': "''",
-        content: 'var(--un-content)',
+        '--q-content': "''",
+        content: 'var(--q-content)',
         position: 'absolute',
         top: '0',
         right: '0',
@@ -208,7 +208,7 @@ export const colorRules = [
         'border-style': 'solid',
         'border-width': '1px',
         'border-color':
-          'color-mix(in oklab, rgba(0,0,0,0.12) var(--un-border-opacity), transparent)'
+          'color-mix(in oklab, rgba(0,0,0,0.12) var(--q-border-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header-tabs`,
@@ -340,7 +340,7 @@ export const colorRules = [
         'border-style': 'solid',
         'border-width': '1px',
         'border-color':
-          'color-mix(in oklab, #e0e0e0 var(--un-border-opacity), transparent)',
+          'color-mix(in oklab, #e0e0e0 var(--q-border-opacity), transparent)',
         'border-radius': 'var(--q-corner-extra-small)',
         width: '3.5em'
       }
@@ -370,7 +370,7 @@ export const colorRules = [
         'border-style': 'solid',
         'border-width': '1px',
         'border-color':
-          'color-mix(in oklab, rgba(255,255,255,0.3) var(--un-border-opacity), transparent)'
+          'color-mix(in oklab, rgba(255,255,255,0.3) var(--q-border-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dark .q-slider__thumb`,

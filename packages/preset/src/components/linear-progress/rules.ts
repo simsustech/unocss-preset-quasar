@@ -11,7 +11,7 @@ export const linearProgressRules = [
         // quasar: this value is Quasar's own, not a forked token
         'font-size': '4px',
         color:
-          'color-mix(in oklab, var(--light-primary) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--light-primary) var(--q-text-opacity), transparent)',
         width: '100%',
         height: '1em',
         transform: 'scale3d(1, 1, 1)',

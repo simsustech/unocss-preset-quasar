@@ -25,7 +25,7 @@ export const separatorRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--dark`,
         'background-color':
-          'color-mix(in oklab, rgba(255, 255, 255, 0.28) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, rgba(255, 255, 255, 0.28) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--horizontal`,

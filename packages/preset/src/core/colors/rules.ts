@@ -1,4 +1,5 @@
 import type { ComponentRule } from '../../rules/types.js'
+import { defaultTheme } from '../../theme/quasar-theme.js'
 
 /**
  * Color utilities — ported from core/colors.unocss.ts as self-contained CSS.
@@ -124,11 +125,34 @@ const plainColorTokens = colorTokens.filter(
   (name) => !(darkScopedColorTokens as readonly string[]).includes(name)
 )
 
+// --- The one name the engine shadows with its own family ---
+//
+// mini's `light-blue` is a second spelling of its Tailwind `sky` family
+// (`lightblue` / `lightBlue` / `sky` are a single theme entry whose `DEFAULT` is
+// `#38bdf8`), and it resolves the *bare* name against that family instead of our
+// palette — which is why the reference's `#03a9f4` never reached the class. The
+// suffixed keys are unaffected: `bg-light-blue-5` looks our own key up directly.
+//
+// The preset therefore emits these two classes itself. `enforce: 'post'`
+// displaces the engine's rule for exactly them (measured: one rule per class,
+// ours, in either preset order), so nothing is duplicated. The value comes from
+// the palette rather than a literal, and the `--q-*-opacity` reads keep the
+// opacity modifier working the way the engine's own utility had it.
+const lightBlue = defaultTheme.colors['light-blue']
+
 export const colorRules: ComponentRule[] = [
   // --- Quasar color tokens ---
   ...generateColorRules(plainColorTokens),
   ...generateColorRules(darkScopedColorTokens, true),
 
   // --- MD3 color role tokens ---
-  ...generateColorRules(md3Tokens)
+  ...generateColorRules(md3Tokens),
+
+  // --- Names the engine would otherwise resolve itself ---
+  rule(/^bg-light-blue$/, () => ({
+    'background-color': `color-mix(in srgb, ${lightBlue} var(--q-bg-opacity), transparent)`
+  })),
+  rule(/^text-light-blue$/, () => ({
+    color: `color-mix(in srgb, ${lightBlue} var(--q-text-opacity), transparent)`
+  }))
 ]

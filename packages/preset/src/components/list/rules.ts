@@ -29,7 +29,7 @@ export const listRules = [
         'border-style': 'solid',
         'border-width': '1px',
         'border-color':
-          'color-mix(in oklab, rgba(0, 0, 0, 0.12) var(--un-border-opacity), transparent)'
+          'color-mix(in oklab, rgba(0, 0, 0, 0.12) var(--q-border-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--padding`,
@@ -45,25 +45,25 @@ export const listRules = [
         [symbols.selector]: (selector) =>
           `${selector}--dark .q-item__label--caption`,
         color:
-          'color-mix(in oklab, rgba(255, 255, 255, 0.8) var(--un-text-opacity), transparent)'
+          'color-mix(in oklab, rgba(255, 255, 255, 0.8) var(--q-text-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dark .q-item__label--overline`,
         color:
-          'color-mix(in oklab, rgba(255, 255, 255, 0.8) var(--un-text-opacity), transparent)'
+          'color-mix(in oklab, rgba(255, 255, 255, 0.8) var(--q-text-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dark .q-item__label--header`,
         color:
-          'color-mix(in oklab, rgba(255, 255, 255, 0.64) var(--un-text-opacity), transparent)'
+          'color-mix(in oklab, rgba(255, 255, 255, 0.64) var(--q-text-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dark .q-item__section--side:not(.q-item__section--avatar)`,
         color:
-          'color-mix(in oklab, rgba(255, 255, 255, 0.7) var(--un-text-opacity), transparent)'
+          'color-mix(in oklab, rgba(255, 255, 255, 0.7) var(--q-text-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) =>

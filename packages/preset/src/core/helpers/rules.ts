@@ -198,11 +198,11 @@ export const helpersRules: ComponentRule[] = [
   ],
 
   // --- Link ---
-  // Reference `.q-link { outline-style: var(--un-outline-style); outline-width: 0px;
+  // Reference `.q-link { outline-style: var(--un-outline-style, var(--q-outline-style)); outline-width: 0px;
   // text-decoration: none }` — the longhands, not the `outline` shorthand, so the
   // reset lines up with every other focusable surface.
   rule(/^q-link$/, () => ({
-    'outline-style': 'var(--un-outline-style)',
+    'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
     'outline-width': '0px',
     'text-decoration': 'none'
   })),
@@ -242,7 +242,7 @@ export const helpersRules: ComponentRule[] = [
     function* (_, { symbols }: any): Generator<any, void, any> {
       yield {
         [symbols.selector]: (sel: string) => `${sel}`,
-        'outline-style': 'var(--un-outline-style)',
+        'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
         'outline-width': '0px',
         background: 'transparent'
       }
@@ -315,7 +315,7 @@ export const helpersRules: ComponentRule[] = [
     function* (_, { symbols }: any): Generator<any, void, any> {
       yield {
         [symbols.selector]: (sel: string) => `${sel}`,
-        'outline-style': 'var(--un-outline-style)',
+        'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
         'outline-width': '0px'
       }
       for (const state of [':focus', ':focus-visible']) {
@@ -343,7 +343,7 @@ export const helpersRules: ComponentRule[] = [
     function* (_, { symbols }: any): Generator<any, void, any> {
       yield {
         [symbols.selector]: (sel: string) => `${sel}`,
-        'outline-style': 'var(--un-outline-style)',
+        'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
         'outline-width': '0px'
       }
       yield {
@@ -369,7 +369,7 @@ export const helpersRules: ComponentRule[] = [
     function* (_, { symbols }: any): Generator<any, void, any> {
       yield {
         [symbols.selector]: (sel: string) => `${sel}`,
-        'outline-style': 'var(--un-outline-style)',
+        'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
         'outline-width': '0px'
       }
     }

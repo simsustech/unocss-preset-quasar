@@ -319,7 +319,7 @@ export const tabsRules = [
         [symbols.selector]: (selector) => `${selector}__indicator`,
         'border-radius': 'var(--radius-2xl)',
         'background-color':
-          'color-mix(in oklab, var(--q-secondary-container) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, var(--q-secondary-container) var(--q-bg-opacity), transparent)',
         opacity: '0%',
         width: '56px',
         height: '32px',

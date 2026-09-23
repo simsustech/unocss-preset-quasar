@@ -268,7 +268,7 @@ export const treeRules = [
         'margin-top': '3px',
         padding: '4px',
         'outline-color':
-          'color-mix(in oklab, 0 var(--un-outline-opacity), transparent)',
+          'color-mix(in oklab, 0 var(--q-outline-opacity), transparent)',
         'border-radius': 'var(--q-corner-extra-small)'
       }
       yield {

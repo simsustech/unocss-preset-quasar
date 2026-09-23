@@ -78,10 +78,10 @@ export const pullToRefreshRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__puller`,
         color:
-          'color-mix(in oklab, var(--q-primary) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--q-primary) var(--q-text-opacity), transparent)',
         'border-radius': '50%',
         'background-color':
-          'color-mix(in oklab, #fff var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, #fff var(--q-bg-opacity), transparent)',
         flex: '0 1 auto !important',
         width: '40px',
         height: '40px',

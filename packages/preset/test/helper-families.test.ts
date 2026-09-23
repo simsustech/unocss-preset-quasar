@@ -343,17 +343,17 @@ describe('helper families (dist-derived)', () => {
       '@keyframes q-field-message'
     )
   })
-  // These bare names are in the *theme palette*, not hand-written rules: wind4 has no
-  // `brown` in any form and spells its own palette `gray`, so every Quasar-named colour
-  // utility exists only because `paletteColors()` hands it our palette. The shaded forms
-  // (`brown-5`) were already there; the bare entries were commented out in
-  // `quasar-theme.ts`, which is why the coverage sweep's "emitted on demand by content
-  // scanning" allowance never held for them.
+  // These bare names are in the *theme palette*, not hand-written rules: the engine
+  // has no `brown` in any form and spells its own palette `gray`, so every
+  // Quasar-named colour utility exists only because `paletteColors()` hands it our
+  // palette. The shaded forms (`brown-5`) were already there; the bare entries were
+  // commented out in `quasar-theme.ts`, which is why the coverage sweep's "emitted
+  // on demand by content scanning" allowance never held for them.
   //
-  // Asserting the palette form, not dist's literal: our utility resolves
-  // `var(--colors-<name>)` so UnoCSS opacity modifiers work, and the *value* the
-  // variable resolves to is dist's. Both halves are checked.
-  it('emits the bare Quasar colours wind4 has no name for, from the theme palette', async () => {
+  // Asserting the *colour*, not the emission form: mini resolves the palette entry
+  // into a literal, wind4 into `var(--colors-<name>)` declared on `:root`. Both
+  // spell dist's colour, so whichever form the engine emits is resolved first.
+  it('emits the bare Quasar colours the engine has no name for, from the theme palette', async () => {
     const cases: [string, string, string, string][] = [
       ['bg-brown', 'background-color', 'brown', '#795548'],
       ['text-brown', 'color', 'brown', '#795548'],
@@ -374,27 +374,61 @@ describe('helper families (dist-derived)', () => {
         'rgba(255, 255, 255, 0.28)'
       ]
     ]
+
+    // The numeric components of a colour, so `#795548` and `rgb(121 85 72)` compare
+    // equal whatever notation the engine chose.
+    const components = (colour: string): string => {
+      const hex = colour.match(/^#([0-9a-f]{6})$/i)
+      if (hex) {
+        const int = Number.parseInt(hex[1], 16)
+        return [int >> 16, (int >> 8) & 255, int & 255]
+          .map((channel) => String(channel & 255))
+          .join(',')
+      }
+      const channels = (colour.match(/-?[\d.]+/g) ?? []).map(Number)
+      // `rgb(121 85 72 / 1)` is the opaque spelling of `#795548`.
+      return (
+        channels.length === 4 && channels[3] === 1
+          ? channels.slice(0, 3)
+          : channels
+      ).join(',')
+    }
+
     for (const [token, property, name, value] of cases) {
       const css = await sheet(token)
       const block = blocks(css).filter((b) => b.selectors.includes(`.${token}`))
-      // two blocks is the normal shape here: our palette is handed to wind4 *and*
-      // used by this sheet's own colours module, so a colour utility emits an sRGB
-      // and an oklab copy. Only the declaration and the resolved value matter.
       expect(block.length, `${token} block count`).toBeGreaterThan(0)
-      const declaring = block.filter((b) =>
-        b.body.includes(`var(--colors-${name})`)
+      const declarations = block
+        .flatMap((b) => b.body.split(';'))
+        .filter((declaration) => declaration.trim().startsWith(`${property}:`))
+        .map((declaration) =>
+          declaration.slice(declaration.indexOf(':') + 1).trim()
+        )
+      expect(
+        declarations.length,
+        `${token} declares ${property}`
+      ).toBeGreaterThan(0)
+      // The engine may leave the opacity to a variable it declares in the same
+      // block (`--un-bg-opacity: 0.12`) or take the whole colour from the theme
+      // (`var(--colors-brown)`), so both are substituted before comparing: what
+      // matters is the colour the declaration resolves to.
+      const full = await fullSheet(token)
+      const blockBody = block.map((b) => b.body).join(';')
+      const lookup = (name: string): string | undefined =>
+        blockBody.match(new RegExp(`${name}\\s*:\\s*([^;]+)`))?.[1]?.trim() ??
+        full.match(new RegExp(`${name}\\s*:\\s*([^;}]+)`))?.[1]?.trim()
+      const resolved = declarations.map((declaration) =>
+        declaration
+          .replace(
+            /var\((--[\w-]+)(?:\s*,[^)]*)?\)/g,
+            (whole, name: string) => lookup(name) ?? whole
+          )
+          .replace(/\s*!important$/, '')
       )
       expect(
-        declaring.length,
-        `${token} declares var(--colors-${name})`
-      ).toBeGreaterThan(0)
-      expect(declaring[0].body, `${token} property`).toContain(`${property}:`)
-      // the theme supplies dist's value — this is what the utility resolves to
-      const declared = await fullSheet(token)
-      const defined = declared.match(
-        new RegExp(`--colors-${name}\\s*:\\s*([^;}]+)`)
-      )
-      expect(defined?.[1]?.trim(), `--colors-${name}`).toBe(value)
+        resolved.map(components),
+        `${token} resolves to ${value}`
+      ).toContain(components(value))
     }
   })
 })

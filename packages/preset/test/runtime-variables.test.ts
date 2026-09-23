@@ -15,12 +15,14 @@ import { runtimeVariables } from '../src/theme/runtime-variables.js'
  * unresolved references are exactly the variables Quasar's own JavaScript sets
  * at runtime, so a rule naming anything else fails here.
  *
- * wind4's `--un-*` are out of scope: wind4 ships their defaults in any real
- * build (its `*, ::before, ::after` block plus the matching `@property`
- * registrations) and this generator runs the preset alone.
+ * Every reference without a fallback has to be one of them. A `var(--x, fallback)`
+ * is fine by definition, and that is now the form our engine-internal reads take:
+ * the fallback is our own `--q-*` value, so an engine that states nothing (mini
+ * emits no `--colors-*` and states `--un-outline-style` only per utility) still
+ * leaves the declaration valid.
  */
 describe('variables the sheet references but does not define', () => {
-  it('is exactly the set Quasar sets at runtime (wind4 vars excluded)', async () => {
+  it('is exactly the set Quasar sets at runtime', async () => {
     const gen = await createGenerator({ presets: [QuasarPreset({})] })
     // Every class any mechanism supplies: the point is which variables the
     // emitted rules reference, so content must reach all of them.
@@ -43,7 +45,7 @@ describe('variables the sheet references but does not define', () => {
           .filter((m) => m[2] === ')')
           .map((m) => m[1])
       )
-    ].filter((name) => !defined.has(name) && !name.startsWith('--un-'))
+    ].filter((name) => !defined.has(name))
 
     expect(unresolved.filter((n) => !(n in runtimeVariables)).sort()).toEqual(
       []

@@ -16,7 +16,7 @@ export const chipRules = [
         // so MD2 and `unstyled` get their own label-large.
         font: 'var(--q-label-large)',
         color:
-          'color-mix(in oklab, var(--light-on-surface-variant) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--light-on-surface-variant) var(--q-text-opacity), transparent)',
         margin: '4px',
         'padding-inline': 'var(--q-space-md)',
         'padding-block': '0',
@@ -24,10 +24,10 @@ export const chipRules = [
         'outline-style': 'solid',
         'outline-width': '1px',
         'outline-color':
-          'color-mix(in oklab, var(--light-outline) var(--un-outline-opacity), transparent)',
+          'color-mix(in oklab, var(--light-outline) var(--q-outline-opacity), transparent)',
         'border-radius': 'var(--shape-corner-small)',
         'background-color':
-          'color-mix(in oklab, var(--light-surface-container-low) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, var(--light-surface-container-low) var(--q-bg-opacity), transparent)',
         flex: '0 1 auto',
         height: '32px',
         'max-width': '100%',
@@ -36,9 +36,9 @@ export const chipRules = [
       yield {
         [symbols.selector]: (selector) => `.body--dark ${selector}`,
         color:
-          'color-mix(in oklab, var(--dark-on-secondary-container) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--dark-on-secondary-container) var(--q-text-opacity), transparent)',
         'background-color':
-          'color-mix(in oklab, var(--dark-secondary-container) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, var(--dark-secondary-container) var(--q-bg-opacity), transparent)',
         'outline-color': 'var(--dark-outline)'
       }
       yield {
@@ -122,7 +122,7 @@ export const chipRules = [
         // Dark roles, not the `--q-*` aliases: those follow the body class.
         'background-color': 'var(--dark-surface-container)',
         color:
-          'color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)'
+          'color-mix(in oklab, var(--dark-on-surface) var(--q-text-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dark .q-chip__icon`,
@@ -148,7 +148,7 @@ export const chipRules = [
         // token stays the canonical name for the component while the resolved
         // value matches the reference.
         color:
-          'color-mix(in oklab, var(--light-primary) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--light-primary) var(--q-text-opacity), transparent)',
         margin: '-0.2em'
       }
       yield {

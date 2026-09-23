@@ -13,7 +13,7 @@ export const cardRules = [
         'border-radius': 'var(--q-card-radius)',
         // The style token stays authoritative: the reference's own
         // `color-mix(… var(--light-surface-container-low) …)` is not compared by
-        // the gate (`var(--un-bg-opacity)` is skipped), and md2/unstyled must
+        // the gate (`var(--q-bg-opacity)` is skipped), and md2/unstyled must
         // keep resolving through the token.
         'background-color': 'var(--q-card-surface)',
         'box-shadow': 'var(--q-elevation-level1)',
@@ -72,7 +72,7 @@ export const cardRules = [
       yield {
         [symbols.selector]: (selector) => `${selector} > img`,
         'border-color':
-          'color-mix(in oklab, 0 var(--un-border-opacity), transparent)',
+          'color-mix(in oklab, 0 var(--q-border-opacity), transparent)',
         width: '100%',
         'max-width': '100%',
         display: 'block'
@@ -84,7 +84,7 @@ export const cardRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}:not(.disabled):focus`,
         'background-color':
-          'color-mix(in oklab, var(--light-secondary) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, var(--light-secondary) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}:not(.disabled):hover`,
@@ -122,9 +122,9 @@ export const cardRules = [
         // `.q-card--dark` on a light body with light surfaces.
         'background-color': 'var(--dark-surface-container)',
         color:
-          'color-mix(in oklab, var(--dark-on-surface) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--dark-on-surface) var(--q-text-opacity), transparent)',
         'border-color':
-          'color-mix(in srgb, var(--colors-white) 28%, transparent)'
+          'color-mix(in srgb, var(--colors-white, #fff) 28%, transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--horizontal`,
@@ -210,7 +210,7 @@ export const cardRules = [
         'border-style': 'solid',
         'border-width': '1px',
         'border-color':
-          'color-mix(in oklab, var(--light-outline-variant) var(--un-border-opacity), transparent)'
+          'color-mix(in oklab, var(--light-outline-variant) var(--q-border-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__section--vert`,

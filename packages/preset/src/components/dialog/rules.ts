@@ -65,7 +65,7 @@ export const dialogRules = [
         'background-color':
           'color-mix(in oklab, var(--q-dark) 32%, transparent)',
         'pointer-events': 'all !important',
-        'outline-style': 'var(--un-outline-style)',
+        'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
         'outline-width': '0px',
         'z-index': '-1'
       }
@@ -80,7 +80,7 @@ export const dialogRules = [
         'background-color': 'var(--q-surface)',
         // interfaces_and_modals.json: outer_ambient_shadow_mapping = level_3.
         'box-shadow': 'var(--q-elevation-level3)',
-        'outline-style': 'var(--un-outline-style)',
+        'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
         'outline-width': '0px'
       }
       yield {
@@ -95,11 +95,11 @@ export const dialogRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__inner>.q-card`,
         'background-color':
-          'color-mix(in oklab, var(--q-surface-container-high) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, var(--q-surface-container-high) var(--q-bg-opacity), transparent)',
         // Cancel the card's own shadow: inside a dialog the card is a panel,
         // not a floating surface. wind4's shadow chain resolves to none.
         'box-shadow':
-          'var(--un-inset-shadow), var(--un-inset-ring-shadow), var(--un-ring-offset-shadow), var(--un-ring-shadow), var(--un-shadow)'
+          'var(--un-inset-shadow, var(--q-inset-shadow)), var(--un-inset-ring-shadow, var(--q-inset-ring-shadow)), var(--un-ring-offset-shadow, var(--q-ring-offset-shadow)), var(--un-ring-shadow, var(--q-ring-shadow)), var(--un-shadow, var(--q-shadow))'
       }
       yield {
         [symbols.selector]: (selector) =>

@@ -11,7 +11,7 @@ export const carouselRules = [
         // Reference `.q-carousel { … height: 400px }` and its surface role.
         height: '400px',
         'background-color':
-          'color-mix(in oklab, var(--light-surface) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, var(--light-surface) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector} .q-carousel--padding`,
@@ -133,7 +133,7 @@ export const carouselRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__control`,
         // Reference `.q-carousel__control { color: color-mix(in oklab, #fff …) }`.
-        color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)'
+        color: 'color-mix(in oklab, #fff var(--q-text-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__slides-container`,

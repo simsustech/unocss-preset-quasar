@@ -39,7 +39,7 @@ export const itemRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}.q-router-link--active`,
         color:
-          'color-mix(in oklab, var(--q-primary) var(--un-text-opacity), transparent)'
+          'color-mix(in oklab, var(--q-primary) var(--q-text-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -60,7 +60,7 @@ export const itemRules = [
         // Dark overrides without a scheme-token equivalent stay literal, as the
         // reference emits them.
         [symbols.selector]: (selector) => `${selector}--dark`,
-        color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)',
+        color: 'color-mix(in oklab, #fff var(--q-text-opacity), transparent)',
         'border-color': 'rgba(255, 255, 255, 0.28)'
       }
       yield {

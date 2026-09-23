@@ -12,13 +12,13 @@ export const menuRules = [
         position: 'fixed',
         'z-index': 6000,
         display: 'inline-block',
-        'outline-style': 'var(--un-outline-style)',
+        'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
         'outline-width': '0px',
         'border-radius': 'var(--q-corner-extra-small)',
         'background-color':
-          'color-mix(in oklab, var(--light-surface-container) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, var(--light-surface-container) var(--q-bg-opacity), transparent)',
         color:
-          'color-mix(in oklab, var(--light-on-surface) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--light-on-surface) var(--q-text-opacity), transparent)',
         'max-width': '95vw',
         'max-height': '65vh',
         'box-shadow':

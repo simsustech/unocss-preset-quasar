@@ -7,7 +7,7 @@ import {
 } from 'unocss'
 import type { IconsOptions } from '@unocss/preset-icons'
 import type { WebFontsOptions } from '@unocss/preset-web-fonts'
-import presetWind4 from '@unocss/preset-wind4'
+import presetMini from '@unocss/preset-mini'
 import type { Preset, Rule } from '@unocss/core'
 import type { QuasarPlugins } from 'quasar'
 import { generateTheme } from './theme/quasar-theme.js'
@@ -85,12 +85,12 @@ const coreShortcuts = pickBySuffix(coreModules, 'Shortcuts')
 const componentShortcuts = pickBySuffix(componentModules, 'Shortcuts')
 
 /**
- * The flat Quasar palette out of the public theme, for wind4.
+ * The flat Quasar palette out of the public theme, for the engine's theme.
  *
  * `colors.light` / `colors.dark` are *scheme objects*, not colours — spreading
- * them into a colour namespace would make wind4 treat each role as a palette
- * entry (`--colors-light-primary`). The roles reach CSS through the token
- * preflight instead. Everything else (the Quasar palette plus the brand
+ * them into a colour namespace would make the engine treat each role as a
+ * palette entry (`--colors-light-primary`). The roles reach CSS through the
+ * token preflight instead. Everything else (the Quasar palette plus the brand
  * aliases) is a colour name that utilities address directly.
  */
 function paletteColors(theme: { colors: Record<string, unknown> }) {
@@ -101,7 +101,7 @@ function paletteColors(theme: { colors: Record<string, unknown> }) {
     out[key] = value
   }
   // The reference also exposes the light scheme's primary as a palette colour:
-  // `.text-light-primary` resolves `var(--colors-light-primary)`, so it is a
+  // `.text-light-primary` resolves `var(--colors-light-primary, var(--light-primary))`, so it is a
   // utility-addressed colour rather than a role.
   const light = theme.colors.light
   if (light && typeof light === 'object') {
@@ -168,7 +168,7 @@ export type QuasarPresetFactory = Preset & {
 const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
   const sourceColor = options?.sourceColor ?? '#1976d2'
   const colors = generateColorTokens(sourceColor)
-  // The public theme: wind4 needs the palette on the UnoCSS theme (see
+  // The public theme: the engine needs the palette on the UnoCSS theme (see
   // `extendTheme` below), and it is the same generator behind our preflight.
   const theme = generateTheme(sourceColor)
   const defaultStyle = options?.style ?? builtinStyles[0] // md3 default
@@ -176,14 +176,18 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
 
   return {
     name: 'quasar',
-    // Enforce AFTER nested presets (wind4/icons): UnoCSS matches dynamic
-    // rules first-match-wins in reverse preset order, so without this Wind4's
-    // generic rules (e.g. grid `col-N` -> grid-column) would shadow Quasar's
-    // component semantics (flexbox `col-N`, `.flex` combos).
+    // Enforce AFTER nested presets (engine/icons): UnoCSS matches dynamic
+    // rules first-match-wins in reverse preset order, so without this an
+    // engine's generic rules (e.g. wind4's grid `col-N` -> grid-column, or the
+    // `p-*` family) would shadow Quasar's component semantics.
     enforce: 'post',
     presets: [
-      presetWind4({
-        preflights: { reset: false },
+      // The nested engine is mini: it states its defaults eagerly (no
+      // on-demand `@property` registrations for a Quasar-only page to
+      // reference), ships no base reset to clobber Quasar's controls, and has
+      // no bare `col-N` grid rule. Consumers who prefer wind4 add it themselves
+      // — see `quasarWind4Options`.
+      presetMini({
         dark: { light: '.body--light', dark: '.body--dark' }
       }),
       // Icons are not optional here: Quasar takes an icon *name* as a prop
@@ -194,6 +198,9 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
       presetIcons(options?.presetIcons ?? {}),
       // animated-unocss brings the `une*` keyframes and the `.animated-*`
       // classes that name them; the reference build was made with it in place.
+      // SAFETY: animated-unocss types its result against its own copy of the
+      // UnoCSS `Preset` shape; at runtime it is a plain preset and this entry
+      // only ever sits in the `presets` array, where UnoCSS reads name/rules.
       animatedUno() as unknown as Preset,
       presetWebFonts(
         options?.presetWebFonts ?? {
@@ -243,10 +250,10 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
       ),
       ...iconSetClasses(options?.iconSet)
     ],
-    // The Quasar palette has to reach wind4's theme, not just our own token
-    // preflight: wind4 emits `--colors-<name>` and generates the colour
-    // utilities (`bg-grey-8`, `text-deep-orange`, …) from the theme, so without
-    // this the palette classes the safelist names resolve to nothing.
+    // The Quasar palette has to reach the engine's theme, not just our own
+    // token preflight: the engine emits `--colors-<name>` and generates the
+    // colour utilities (`bg-grey-8`, `text-deep-orange`, …) from the theme, so
+    // without this the palette classes the safelist names resolve to nothing.
     extendTheme: (themeArg: { colors?: Record<string, unknown> }) => ({
       ...themeArg,
       colors: {
@@ -258,7 +265,38 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
   }
 })
 
+// SAFETY: `definePreset` types its result as a plain `Preset`, which has no
+// call signature. The runtime object is callable — that is how `options`
+// reaches the factory at all — see `QuasarPresetFactory` above.
 export const QuasarPreset = quasarPreset as unknown as QuasarPresetFactory
+
+/**
+ * The wind4 options this preset used to nest itself.
+ *
+ * Consumers who want wind4’s vocabulary add it themselves —
+ * `presets: [presetWind4(quasarWind4Options), QuasarPreset()]` — and passing this
+ * fragment keeps the two behaviours the nesting set up for them:
+ *
+ * - `preflights: { reset: false }` — wind4’s base reset ships a `*`/`::backdrop`
+ *   block plus its `@supports` fallbacks that clobbers Quasar’s own control
+ *   styling (`INVESTIGATION.md` has the measurements).
+ * - `dark: { light: '.body--light', dark: '.body--dark' }` — wind4 maps `dark:`
+ *   to Tailwind’s `.dark` class by default, and Quasar never sets that class, so
+ *   every `dark:*` utility would be dead CSS.
+ *
+ * The rest is up to the consumer: the palette arrives through this preset’s
+ * `extendTheme` regardless of engine, and Quasar-owned class names stay ours in
+ * either array order because the preset carries `enforce: 'post'`.
+ *
+ * Deliberately not frozen: wind4's factory normalises the options it is given by
+ * assigning to them (`options.dark = options.dark ?? 'class'`, measured at
+ * `@unocss/preset-wind4/dist/index.mjs`), so a frozen fragment throws. Spread it
+ * if you want to hand wind4 a private copy.
+ */
+export const quasarWind4Options = {
+  preflights: { reset: false },
+  dark: { light: '.body--light', dark: '.body--dark' }
+}
 
 export type { QuasarStyleEntry } from './styles/index.js'
 export {

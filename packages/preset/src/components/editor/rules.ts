@@ -10,7 +10,7 @@ export const editorRules = [
         'flex-direction': 'column',
         // Reference states the border as longhands and a 4px corner. The colour
         // stays the `--q-*` token: the reference reaches it through
-        // `color-mix(… var(--un-border-opacity) …)`, which the gate skips.
+        // `color-mix(… var(--q-border-opacity) …)`, which the gate skips.
         'border-width': '1px',
         'border-style': 'solid',
         'border-color': 'var(--q-outline)',
@@ -57,7 +57,7 @@ export const editorRules = [
         'border-bottom-width': '1px',
         'border-bottom-style': 'solid',
         'border-color':
-          'color-mix(in oklab, var(--colors-black) 12%, transparent)',
+          'color-mix(in srgb, var(--colors-black, #000) 12%, transparent)',
         // quasar: this value is Quasar's own, not a forked token
         'min-height': '32px'
       }
@@ -76,7 +76,7 @@ export const editorRules = [
         // longhands, and the inherited bottom border so the content box closes
         // the toolbar's divider.
         padding: '10px',
-        'outline-style': 'var(--un-outline-style)',
+        'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
         'outline-width': '0px',
         'border-bottom-style': 'inherit',
         'background-color': 'var(--q-surface-container-highest)',
@@ -95,11 +95,11 @@ export const editorRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__content hr`,
         margin: '1px',
-        'outline-style': 'var(--un-outline-style)',
+        'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
         'outline-width': '0px',
         'border-style': 'none',
         'background-color':
-          'color-mix(in srgb, var(--colors-black) 12%, transparent)',
+          'color-mix(in srgb, var(--colors-black, #000) 12%, transparent)',
         height: '1px'
       }
       yield {
@@ -190,7 +190,7 @@ export const editorRules = [
         'border-style': 'none',
         'border-radius': '0',
         'background-image': 'none',
-        'outline-style': 'var(--un-outline-style)',
+        'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
         'outline-width': '0px'
       }
       yield {
@@ -213,26 +213,26 @@ export const editorRules = [
         [symbols.selector]: (selector) => `${selector}--dark`,
         color: 'var(--q-on-surface)',
         'border-color':
-          'color-mix(in srgb, var(--colors-white) var(--un-border-opacity), transparent)',
+          'color-mix(in srgb, var(--colors-white, #fff) var(--q-border-opacity), transparent)',
         'background-color': 'var(--q-surface-container)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dark .q-editor__toolbar`,
         'border-color':
-          'color-mix(in oklab, var(--colors-white) var(--un-border-opacity), transparent)'
+          'color-mix(in oklab, var(--colors-white, #fff) var(--q-border-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dark .q-editor__content hr`,
         'border-color':
-          'color-mix(in oklab, var(--colors-white) var(--un-border-opacity), transparent)'
+          'color-mix(in oklab, var(--colors-white, #fff) var(--q-border-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dark .q-editor__toolbar-group+.q-editor__toolbar-group:before`,
         'border-color':
-          'color-mix(in oklab, var(--colors-white) var(--un-border-opacity), transparent)'
+          'color-mix(in oklab, var(--colors-white, #fff) var(--q-border-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) =>

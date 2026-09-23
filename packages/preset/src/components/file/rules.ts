@@ -42,7 +42,7 @@ export const fileRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__dnd`,
         'outline-color':
-          'color-mix(in oklab, 1px dashed currentColor var(--un-outline-opacity), transparent)',
+          'color-mix(in oklab, 1px dashed currentColor var(--q-outline-opacity), transparent)',
         'outline-offset': '-4px'
       }
     }

@@ -69,12 +69,12 @@ export const btnGroupRules = [
         [symbols.selector]: (selector) =>
           `${selector} > .q-btn-group:first-child > .q-btn--active`,
         'background-color':
-          'color-mix(in oklab, var(--light-secondary-container) var(--un-bg-opacity), transparent) !important'
+          'color-mix(in oklab, var(--light-secondary-container) var(--q-bg-opacity), transparent) !important'
       }
       yield {
         [symbols.selector]: (selector) => `${selector} > .q-btn-item`,
         color:
-          'color-mix(in oklab, var(--light-on-surface) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--light-on-surface) var(--q-text-opacity), transparent)',
         'align-self': 'stretch'
       }
       yield {
@@ -98,9 +98,9 @@ export const btnGroupRules = [
         [symbols.selector]: (selector) =>
           `${selector} > .q-btn-item.bg-primary`,
         color:
-          'color-mix(in oklab, var(--light-on-primary) var(--un-text-opacity), transparent) !important',
+          'color-mix(in oklab, var(--light-on-primary) var(--q-text-opacity), transparent) !important',
         'background-color':
-          'color-mix(in oklab, var(--light-primary) var(--un-bg-opacity), transparent) !important'
+          'color-mix(in oklab, var(--light-primary) var(--q-bg-opacity), transparent) !important'
       }
       yield {
         [symbols.selector]: (selector) =>

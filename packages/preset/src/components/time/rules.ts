@@ -60,11 +60,11 @@ export const timeRules = [
       }
       yield {
         'outline-color':
-          'color-mix(in oklab, 0 var(--un-outline-opacity), transparent)',
+          'color-mix(in oklab, 0 var(--q-outline-opacity), transparent)',
         // quasar: this rule reproduces Quasar's own 4px corner
         'border-radius': '4px',
         'background-color':
-          'color-mix(in oklab, var(--q-surface-container-high) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, var(--q-surface-container-high) var(--q-bg-opacity), transparent)',
         width: '290px',
         'min-width': '290px',
         'max-width': '100%',
@@ -187,11 +187,11 @@ export const timeRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__header`,
         color:
-          'color-mix(in oklab, var(--q-on-primary) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--q-on-primary) var(--q-text-opacity), transparent)',
         'font-weight': 'var(--fontWeight-light)',
         padding: '16px',
         'background-color':
-          'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, var(--q-primary) var(--q-bg-opacity), transparent)',
         'border-top-left-radius': 'inherit'
       }
       yield {
@@ -223,7 +223,7 @@ export const timeRules = [
         [symbols.selector]: (selector) =>
           `${selector}__header-ampm .q-time__link--active`,
         'background-color':
-          'color-mix(in oklab, var(--q-tertiary-container) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, var(--q-tertiary-container) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__clock`,
@@ -320,7 +320,7 @@ export const timeRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__clock-pointer`,
         color:
-          'color-mix(in oklab, var(--q-primary) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--q-primary) var(--q-text-opacity), transparent)',
         'background-color': 'currentColor',
         width: '2px',
         height: '50%',
@@ -383,21 +383,21 @@ export const timeRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__link`,
         color:
-          'color-mix(in oklab, var(--q-on-surface) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--q-on-surface) var(--q-text-opacity), transparent)',
         padding: '6px',
         'outline-color':
-          'color-mix(in oklab, 0 var(--un-outline-opacity), transparent)',
+          'color-mix(in oklab, 0 var(--q-outline-opacity), transparent)',
         'background-color':
-          'color-mix(in oklab, var(--q-surface-container-highest) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, var(--q-surface-container-highest) var(--q-bg-opacity), transparent)',
         opacity: '0.56',
         transition: 'opacity 0.3s ease-out'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__link--active`,
         color:
-          'color-mix(in oklab, var(--q-on-primary-container) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--q-on-primary-container) var(--q-text-opacity), transparent)',
         'background-color':
-          'color-mix(in oklab, var(--q-primary-container) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, var(--q-primary-container) var(--q-bg-opacity), transparent)',
         opacity: '100%'
       }
       yield {
@@ -429,7 +429,7 @@ export const timeRules = [
         [symbols.selector]: (selector) => `${selector}__container-child`,
         'border-radius': '50%',
         'background-color':
-          'color-mix(in oklab, var(--q-surface-container-highest) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, var(--q-surface-container-highest) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__clock-circle`,
@@ -491,9 +491,9 @@ export const timeRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__clock-position--active`,
         color:
-          'color-mix(in oklab, var(--q-on-primary) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--q-on-primary) var(--q-text-opacity), transparent)',
         'background-color':
-          'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, var(--q-primary) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -760,7 +760,7 @@ export const timeRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__now-button`,
         color:
-          'color-mix(in oklab, var(--q-on-surface) var(--un-text-opacity), transparent)',
+          'color-mix(in oklab, var(--q-on-surface) var(--q-text-opacity), transparent)',
         top: '12px',
         right: '12px'
       }

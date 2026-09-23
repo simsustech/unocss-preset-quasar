@@ -43,7 +43,7 @@ export const knobRules = [
         [symbols.selector]: (selector) => `${selector}--editable`,
         cursor: 'pointer',
         'outline-color':
-          'color-mix(in oklab, 0 var(--un-outline-opacity), transparent)'
+          'color-mix(in oklab, 0 var(--q-outline-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--editable:before`,

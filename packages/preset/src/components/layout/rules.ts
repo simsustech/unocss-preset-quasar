@@ -10,7 +10,7 @@ export const layoutRules = [
         'flex-direction': 'column',
         // quasar: this value is Quasar's own, not a forked token
         'min-height': '100vh',
-        // Reference: `outline-style: var(--un-outline-style)` (wind4's `solid`
+        // Reference: `outline-style: var(--un-outline-style, var(--q-outline-style))` (wind4's `solid`
         // default), `outline-width: 0px; width: 100%; position: relative`.
         'outline-style': 'solid',
         'outline-width': '0px',

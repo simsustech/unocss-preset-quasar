@@ -14,7 +14,7 @@ export const splitterRules = [
         [symbols.selector]: (selector) =>
           `${selector}--dark .q-splitter__separator`,
         'background-color':
-          'color-mix(in oklab, rgba(255, 255, 255, 0.28) var(--un-bg-opacity), transparent)'
+          'color-mix(in oklab, rgba(255, 255, 255, 0.28) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--horizontal`,
@@ -104,7 +104,7 @@ export const splitterRules = [
         // Reference `.q-splitter__separator`: the cursor is direction-specific, so
         // it is not set here.
         'background-color':
-          'color-mix(in oklab, rgba(0, 0, 0, 0.12) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, rgba(0, 0, 0, 0.12) var(--q-bg-opacity), transparent)',
         '-webkit-user-select': 'none',
         'user-select': 'none',
         position: 'relative'

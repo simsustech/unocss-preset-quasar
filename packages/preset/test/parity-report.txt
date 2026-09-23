@@ -1,6 +1,6 @@
-=== PARITY: 451/2401 (19%) ===
+=== PARITY: 450/2401 (19%) ===
 (2441 in fixture; 40 env-gated)
-Missing 1950 selectors:
+Missing 1951 selectors:
   ::backdrop
   :root
   :host
@@ -1947,13 +1947,14 @@ Missing 1950 selectors:
   .border
   .rounded
   .visible
+  .invisible
   .italic
   .transform
   .relative
   .animated
 
 --- BREAKDOWN ---
-  other: 284
+  other: 285
   field: 203
   table: 122
   btn: 90

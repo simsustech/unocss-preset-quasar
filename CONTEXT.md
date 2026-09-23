@@ -29,13 +29,34 @@ Dispositions are `fix` (a defect, and the row names the commit), `wind4-covered`
 `equivalent` (dist's selector form is covered by a different selector this sheet
 emits) and `deferred` (recorded work, with the reason).
 
-## Delegation rule
+## Engine
 
-wind4 ships part of Quasar's utility surface. This preset never re-declares a
-class wind4 already emits **with the same declaration**; it does emit the class
-when wind4's value differs (dist's `!important`, dist's 12px label). Every
-disposition in `specs/audit/DISPOSITION.md` that says `wind4-covered` was
-measured by generating wind4 alone, never inferred from the name.
+The nested UnoCSS preset that supplies every class this sheet does not own
+(`flex`, `p-4`, the palette utilities). It is `@unocss/preset-mini` (ADR 0003),
+and a consumer may add a second engine — usually wind4 — with the exported
+`quasarWind4Options` fragment. Three things are worth knowing before reading any
+rule that references an engine name:
+
+- **The engine is not the arbiter of Quasar's semantics.** `enforce: 'post'` and
+  the rule order keep `col-6`, `row` and the palette this preset's. Where a class
+  names a colour Quasar also owns (`light-blue`), the preset emits it rather than
+  letting the engine's own family win.
+- **Engine-internal `--un-*` names are read engine-first with our `--q-*` fallback**
+  (`var(--un-outline-style, var(--q-outline-style))`), except the opacity quartet,
+  which reads `--q-*-opacity` outright because the two engines disagree about the
+  _type_ of the same name (ADR 0004).
+- **`--colors-*` is the engine's theme namespace**, filled by this preset's
+  `extendTheme` from the public theme; the palette has exactly one authority, so a
+  rule may read `var(--colors-<name>, <literal>)` but never re-declare a palette
+  entry.
+
+The engine ships part of Quasar's utility surface. This preset never re-declares a
+class the engine already emits **with the same declaration**; it does emit the
+class when the engine's value differs (dist's `!important`, dist's 12px label).
+Every disposition in `specs/audit/DISPOSITION.md` that says `wind4-covered` was
+measured by generating wind4 alone, never inferred from the name — that label is
+historical (wind4 was the nested engine until ADR 0003) and still means "the
+engine emits this, identically".
 
 ## Reference-quirk shim
 

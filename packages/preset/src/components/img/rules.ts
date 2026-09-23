@@ -41,10 +41,10 @@ export const imgRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__content > div`,
         'pointer-events': 'all !important',
-        color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)',
+        color: 'color-mix(in oklab, #fff var(--q-text-opacity), transparent)',
         padding: '16px',
         'background-color':
-          'color-mix(in oklab, rgba(0, 0, 0, 0.47) var(--un-bg-opacity), transparent)',
+          'color-mix(in oklab, rgba(0, 0, 0, 0.47) var(--q-bg-opacity), transparent)',
         position: 'absolute'
       }
       yield {

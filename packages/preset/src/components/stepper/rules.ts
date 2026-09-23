@@ -7,17 +7,17 @@ import type { Rule } from '@unocss/core'
  * box shadow, the translucent disabled greys and the dark `--dark` variants).
  */
 const surfaceMix =
-  'color-mix(in oklab, var(--q-surface) var(--un-bg-opacity), transparent)'
+  'color-mix(in oklab, var(--q-surface) var(--q-bg-opacity), transparent)'
 const darkDisabledText =
-  'color-mix(in oklab, rgba(255, 255, 255, 0.28) var(--un-text-opacity), transparent)'
+  'color-mix(in oklab, rgba(255, 255, 255, 0.28) var(--q-text-opacity), transparent)'
 const darkDisabledLabel =
-  'color-mix(in oklab, rgba(255, 255, 255, 0.54) var(--un-text-opacity), transparent)'
+  'color-mix(in oklab, rgba(255, 255, 255, 0.54) var(--q-text-opacity), transparent)'
 const darkDisabledDot =
-  'color-mix(in oklab, rgba(255, 255, 255, 0.28) var(--un-bg-opacity), transparent)'
+  'color-mix(in oklab, rgba(255, 255, 255, 0.28) var(--q-bg-opacity), transparent)'
 const darkBorder =
-  'color-mix(in oklab, rgba(255, 255, 255, 0.28) var(--un-border-opacity), transparent)'
+  'color-mix(in oklab, rgba(255, 255, 255, 0.28) var(--q-border-opacity), transparent)'
 const lightBorder =
-  'color-mix(in oklab, rgba(0,0,0,0.12) var(--un-border-opacity), transparent)'
+  'color-mix(in oklab, rgba(0,0,0,0.12) var(--q-border-opacity), transparent)'
 const lightBoxShadow =
   '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
 const darkBoxShadow =
@@ -82,7 +82,7 @@ export const stepperRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dark .q-stepper__dot span`,
-        color: 'color-mix(in oklab, #000 var(--un-text-opacity), transparent)'
+        color: 'color-mix(in oklab, #000 var(--q-text-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -214,7 +214,7 @@ export const stepperRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__dot span`,
-        color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)'
+        color: 'color-mix(in oklab, #fff var(--q-text-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__line`,

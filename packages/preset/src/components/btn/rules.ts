@@ -11,7 +11,7 @@ export const btnRules = [
         'align-items': 'stretch',
         position: 'relative',
         // Reference states the resets as longhands, not shorthands.
-        'outline-style': 'var(--un-outline-style)',
+        'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
         'outline-width': '0px',
         'border-width': '0px',
         'vertical-align': 'middle',
@@ -157,12 +157,14 @@ export const btnRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--push.q-btn--actionable:active`,
-        translate: 'var(--un-translate-x) var(--un-translate-y)'
+        translate:
+          'var(--un-translate-x, var(--q-translate-x)) var(--un-translate-y, var(--q-translate-y))'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--push.q-btn--actionable.q-btn--active`,
-        translate: 'var(--un-translate-x) var(--un-translate-y)'
+        translate:
+          'var(--un-translate-x, var(--q-translate-x)) var(--un-translate-y, var(--q-translate-y))'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--rounded`,
