@@ -246,12 +246,7 @@ export const checkboxRules = [
         'stroke-dasharray': '29.78334',
         stroke: 'currentColor'
       }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__indet`,
-        fill: 'currentColor',
-        'transform-origin': '50% 50%',
-        transform: 'rotate(-280deg) scale(0)'
-      }
+      // AUD-024 fold: `__indet`'s `transform: rotate(...) scale(0)` copy is gone; the reference states the `rotate`/`scale` longhands the other yield declares.
       yield {
         [symbols.selector]: (selector) => `${selector}__indet`,
         'transform-origin': '50% 50%',

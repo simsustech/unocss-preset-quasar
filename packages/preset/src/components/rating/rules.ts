@@ -100,10 +100,7 @@ export const ratingRules = [
         [symbols.selector]: (selector) => `${selector}__icon--hovered`,
         transform: 'scale(1.3)'
       }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__icon--exselected`,
-        opacity: '0.7'
-      }
+      // AUD-024 fold: the `0.7` copy of `__icon--exselected`'s opacity is gone; the reference states `70%`.
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--no-dimming .q-rating__icon`,

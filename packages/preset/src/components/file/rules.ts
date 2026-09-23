@@ -30,13 +30,7 @@ export const fileRules = [
         left: 0,
         right: 0
       }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__filler`,
-        visibility: 'hidden',
-        width: '100%',
-        border: 'none',
-        padding: '0'
-      }
+      // AUD-024 fold: `__filler`'s shorthand-first copy is gone; the longhand yield below matches the reference (`border-style: none`).
       yield {
         [symbols.selector]: (selector) => `${selector}__filler`,
         padding: '0',
@@ -44,11 +38,7 @@ export const fileRules = [
         width: '100%',
         visibility: 'hidden'
       }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__dnd`,
-        outline: '1px dashed currentColor',
-        'outline-offset': '-4px'
-      }
+      // AUD-024 fold: the correct-looking `outline` yield is gone: the reference states the (malformed) `outline-color: color-mix(...)` form, kept below as the HANDOFF §5 parity shim.
       yield {
         [symbols.selector]: (selector) => `${selector}__dnd`,
         'outline-color':

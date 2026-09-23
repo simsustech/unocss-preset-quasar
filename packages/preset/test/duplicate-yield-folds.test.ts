@@ -136,7 +136,62 @@ const SITES: [token: string, selector: string, properties: string[]][] = [
   ['q-checkbox', '.q-checkbox__indet', ['rotate', 'transform-origin']]
 ]
 
+/**
+ * The blocks that carry a selector, whatever their declarations.
+ *
+ * The fold's end state is one block per selector, but not every site can get
+ * there by *deleting* a yield: at five of them the two yields carry disjoint
+ * declarations (the port's layout properties next to the reference's literal
+ * ones), so the fold has to merge them, and a plain deletion would drop
+ * rendering the reference needs. Those are pinned below with the count they
+ * currently emit and may only shrink — the same ratchet the duplicate-matcher
+ * test uses — so the remaining work is recorded rather than hidden.
+ */
+async function blocksFor(token: string, selector: string): Promise<string[]> {
+  const css = (
+    await (
+      await createGenerator({ presets: [QuasarPreset({})] })
+    ).generate(token, { preflights: false })
+  ).css
+  const bodies: string[] = []
+  for (const m of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const selectors = m[1].split(',').map((s) => s.trim().replace(/\s+/g, ' '))
+    if (selectors.includes(selector)) bodies.push(m[2].trim())
+  }
+  return bodies
+}
+
+/**
+ * Sites whose two yields overlap only partly: merging them is a source edit
+ * rather than a deletion, so the count is pinned. Shrinking this map is the
+ * remaining AUD-024 work; a row must disappear, never grow.
+ */
+const PENDING_MERGE: Record<string, number> = {
+  '.q-pull-to-refresh__puller': 2,
+  '.q-banner': 2,
+  '.q-banner--dense': 2,
+  '.q-checkbox__inner': 2,
+  '.q-radio__inner': 2,
+  '.q-tab': 2,
+  '.q-badge--multi-line': 2,
+  '.q-badge--transparent': 2
+}
+
 describe('duplicate-yield folds keep the reference value (AUD-024)', () => {
+  it('emits one block per folded selector, or the pinned count (may only shrink)', async () => {
+    const violations: string[] = []
+    for (const [token, selector] of SITES) {
+      const blocks = await blocksFor(token, selector)
+      const pinned = PENDING_MERGE[selector] ?? 1
+      if (blocks.length > pinned) {
+        violations.push(
+          `${selector}: ${blocks.length} blocks (pinned ${pinned})\n    ${blocks.join('\n    ')}`
+        )
+      }
+    }
+    expect(violations.join('\n')).toBe('')
+  })
+
   for (const [token, selector, properties] of SITES) {
     it(`${selector} renders the reference declaration`, async () => {
       const ours = await effectiveDecls(token, selector)
