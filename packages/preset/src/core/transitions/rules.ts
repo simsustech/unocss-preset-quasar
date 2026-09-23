@@ -311,5 +311,16 @@ export const transitionsRules: ComponentRule[] = [
   })),
   rule(/^q-transition--flip-down-leave-from$/, () => ({
     transform: 'perspective(400px) rotate3d(1, 1, 0, 0deg)'
+  })),
+  // AUD-023: dist defines the duration/easing vars for the whole family,
+  // including the direction-less `flip` pair the module had skipped.
+  rule(/^q-transition--flip-enter-active$/, () => ({
+    '--q-transition-duration': '.3s',
+    '--q-transition-easing': 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+  })),
+  rule(/^q-transition--flip-leave-active$/, () => ({
+    '--q-transition-duration': '.3s',
+    '--q-transition-easing': 'cubic-bezier(0.215, 0.61, 0.355, 1)',
+    position: 'absolute'
   }))
 ]

@@ -15,7 +15,18 @@ import type { ComponentRule } from '../../rules/types.js'
  * Reference bodies are `display: none !important` throughout.
  */
 
-const PLATFORMS = ['desktop', 'mobile', 'touch', 'electron'] as const
+const PLATFORMS = [
+  'desktop',
+  'mobile',
+  'touch',
+  'electron',
+  // Quasar's remaining environment hints (AUD-020). Each one is a body class
+  // with the same `-hide`/`-only` pair; dist declares all eight bodies.
+  'native-mobile',
+  'capacitor',
+  'cordova',
+  'within-iframe'
+] as const
 
 /** `*-hide`: hidden while the platform class is present. */
 const hideRules: ComponentRule[] = PLATFORMS.map((platform) => [
@@ -52,10 +63,24 @@ const platformHideRules: ComponentRule[] = ['ios', 'android'].map(
   ]
 )
 
+/** The `-only` half of the iOS/Android pair (AUD-020 shipped only `-hide`). */
+const platformOnlyRules: ComponentRule[] = ['ios', 'android'].map(
+  (platform) => [
+    new RegExp(`^platform-${platform}-only$`),
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel) => `body:not(.platform-${platform}) ${sel}`,
+        display: 'none !important'
+      }
+    }
+  ]
+)
+
 export const platformRules: ComponentRule[] = [
   ...hideRules,
   ...onlyRules,
-  ...platformHideRules
+  ...platformHideRules,
+  ...platformOnlyRules
 ]
 
 /**

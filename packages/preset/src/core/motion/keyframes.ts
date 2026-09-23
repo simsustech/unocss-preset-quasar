@@ -49,5 +49,6 @@ export const quasarKeyframesCss = [
   '@keyframes q-notif-badge { 15% { transform: translateX(-25%) rotate(-5deg); } 30% { transform: translateX(20%) rotate(3deg); } 45% { transform: translateX(-15%) rotate(-3deg); } 60% { transform: translateX(10%) rotate(2deg); } 75% { transform: translateX(-5%) rotate(-1deg); }  }',
   '@keyframes q-notif-progress { 0% { transform: scaleX(1); } 100% { transform: scaleX(0); }  }',
   '@keyframes q-scale { 0% { transform: scale(1); } 50% { transform: scale(1.04); } 100% { transform: scale(1); }  }',
-  '@keyframes q-fade { 0% { opacity: 0; } 100% { opacity: 1; }  }'
+  '@keyframes q-fade { 0% { opacity: 0; } 100% { opacity: 1; }  }',
+  '@keyframes q-field-message { from { opacity: 0; transform: translateY(-10px); }  }'
 ].join('\n')

@@ -22,7 +22,14 @@ import { quasarComponentExtractor, quasarValueExtractor } from './extractor.js'
 import { quasarSafelist, pluginSafelistMap } from './safelist.js'
 import * as componentModules from './components/index.js'
 import * as coreModules from './core/index.js'
-import { platformMediaCss, responsiveVisibilityCss } from './core/index.js'
+import {
+  animationHelperMediaCss,
+  animationHelperStaticCss,
+  animationHelperTokenCss,
+  mouseHelperCss,
+  platformMediaCss,
+  responsiveVisibilityCss
+} from './core/index.js'
 import { layoutMediaCss } from './components/layout/rules.js'
 import { tooltipMediaCss } from './components/tooltip/rules.js'
 import { notificationMediaCss } from './components/notification/rules.js'
@@ -206,7 +213,7 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
       // so the reference emits them unconditionally — here, once, as text.
       {
         getCSS: () =>
-          `${responsiveVisibilityCss}\n${platformMediaCss}\n${layoutMediaCss}\n${tooltipMediaCss}\n${notificationMediaCss}\n${dialogMediaCss}\n${dialogPlatformCss}\n${quasarKeyframesCss}`
+          `${responsiveVisibilityCss}\n${platformMediaCss}\n${layoutMediaCss}\n${tooltipMediaCss}\n${notificationMediaCss}\n${dialogMediaCss}\n${dialogPlatformCss}\n${quasarKeyframesCss}\n${animationHelperMediaCss}\n${mouseHelperCss}\n${animationHelperStaticCss}\n${animationHelperTokenCss}`
       }
     ],
     // Rule order matters twice over:

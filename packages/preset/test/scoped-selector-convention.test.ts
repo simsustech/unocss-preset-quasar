@@ -40,6 +40,13 @@ const ALLOWED: Allowed[] = [
     file: 'src/components/chip/rules.ts',
     selector: '.body--dark .q-chip__icon'
   },
+  // dist states this one from the negative side: the border belongs to every
+  // bottom bar *except* the nodata one, and the class that reaches the rule is
+  // `q-table__bottom--nodata` — so `${sel}` would invert the meaning (AUD-023).
+  {
+    file: 'src/components/table/rules.ts',
+    selector: '.q-table__bottom:not(.q-table__bottom--nodata)'
+  },
   {
     file: 'src/components/linear-progress/rules.ts',
     selector: '.body--dark .q-linear-progress__track'

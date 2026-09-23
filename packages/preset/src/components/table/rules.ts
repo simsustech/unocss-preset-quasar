@@ -728,5 +728,28 @@ export const tableRules = [
         transform: 'scale(0.95)'
       }
     }
+  ],
+  //
+  // AUD-023 residue: dist states the empty-state pair from the negative side
+  // (the border belongs to every bottom bar *except* the nodata one), so the
+  // emitted selector is the `:not()` form even though the class that reaches it
+  // is `q-table__bottom--nodata`.
+  [
+    /^q-table__bottom--nodata$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: () =>
+          '.q-table__bottom:not(.q-table__bottom--nodata)',
+        'border-top': '1px solid rgba(0, 0, 0, 0.12)'
+      }
+    }
+  ],
+  [
+    /^q-table__bottom-nodata-icon$/,
+    () => ({
+      // quasar: dist's empty-state icon is twice the base size with an 8px gap.
+      'font-size': '200%',
+      'margin-right': '8px'
+    })
   ]
 ] as Rule[]

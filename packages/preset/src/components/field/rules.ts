@@ -1499,5 +1499,12 @@ export const fieldRules = [
         opacity: '1'
       }
     }
+  ],
+  [
+    /^q-field__messages--animated$/,
+    () => ({
+      // dist: 0.6s with the same easing curve as the label transition.
+      animation: 'q-field-message 0.6s cubic-bezier(0.86, 0, 0.07, 1)'
+    })
   ]
 ] as Rule[]

@@ -61,6 +61,10 @@ const ALLOWLIST = [
     why: 'transitions module classes (plan (b))'
   },
   {
+    re: /^q-(field__messages--animated|table__bottom--nodata)$/,
+    why: 'runtime-applied helper modifiers: quasar/dist/quasar.css styles both, the scraper vocabulary does not carry them (AUD-023 residue, components/{field,table}/rules.ts)'
+  },
+  {
     re: /^q-ripple__inner--(enter|leave)$/,
     why: 'ripple directive runtime modifier: quasar/dist/quasar.css styles both, the scraper vocabulary does not carry them (src/components/ripple/rules.ts)'
   },

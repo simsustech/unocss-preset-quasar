@@ -644,5 +644,17 @@ export const sliderRules = [
         opacity: '1'
       }
     }
+  ],
+  [
+    // AUD-011: hovering the enabled track reveals the pin. dist scopes it to
+    // `.q-slider.q-slider--enabled`, so the emitted selector carries both.
+    /^q-slider--enabled$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel: string) =>
+          `.q-slider${sel} .q-slider__track-container:hover .q-slider__pin`,
+        opacity: '1'
+      }
+    }
   ]
 ] as Rule[]

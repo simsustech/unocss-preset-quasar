@@ -1,3 +1,4 @@
+import type { Rule } from '@unocss/core'
 import type { ComponentRule } from '../../rules/types.js'
 
 /**
@@ -36,4 +37,45 @@ export const mouseRules: ComponentRule[] = [
   // --- Cursor ---
   rule(/^cursor-inherit$/, () => ({ cursor: 'inherit' })),
   rule(/^cursor-pointer$/, () => ({ cursor: 'pointer' }))
+  // `cursor-none` / `cursor-not-allowed` are Quasar's too (docs: Other helper
+  // classes) but wind4 already emits both, so they stay delegated — see the
+  // disposition table. dist carries `!important` on them and wind4 does not;
+  // that divergence is recorded there instead of being duplicated here.
 ]
+
+/**
+ * Documented pointer helpers no other module owns (AUD-002, AUD-021).
+ *
+ * dist carries `!important` on both: `all-pointer-events` has to beat component
+ * rules that set `pointer-events`, and `no-pointer-events--children` has to
+ * reach every descendant — which needs a second selector, so the companion is
+ * yielded rather than composed.
+ */
+export const mouseHelperRules: Rule[] = [
+  [
+    /^no-pointer-events--children$/,
+    function* (_, { symbols }) {
+      yield { 'pointer-events': 'none !important' }
+      yield {
+        [symbols.selector]: (sel: string) => `${sel} *`,
+        'pointer-events': 'none !important'
+      }
+    }
+  ]
+]
+
+/**
+ * `all-pointer-events` cannot travel through the rule pipeline (AUD-002).
+ *
+ * Measured, not assumed: as a dynamic rule the candidate is dropped before any
+ * matcher runs, as a static rule (`rulesStaticMap`, which is consulted first for
+ * an exact candidate) it is dropped as well, and an injected top-level rule in
+ * the same composition is dropped too — while `zzz-test`, `pointer-events-all`
+ * and `no-pointer-events--children` all emit. UnoCSS's `TokenProcessor.parse`
+ * consults the shortcut layer before the rule layer and `all-*` never reaches
+ * `parseUtil` in this preset's composition. The class is safelisted and dist
+ * styles it unconditionally, so it ships through the static CSS channel used by
+ * the media-query families and the keyframes.
+ */
+export const mouseHelperCss: string =
+  '.all-pointer-events{pointer-events:all !important}'

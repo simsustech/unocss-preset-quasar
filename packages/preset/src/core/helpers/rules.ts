@@ -18,7 +18,92 @@ function rule(
   return [regex, matcher]
 }
 
+/**
+ * Residue no family owned yet (AUD-008, AUD-015, AUD-023): every declaration is
+ * verbatim from `quasar/dist/quasar.css`, and none of these names is provided by
+ * wind4 (measured, not assumed), so they have to come from this sheet.
+ */
+const residueRules: ComponentRule[] = [
+  rule(/^z-fab$/, () => ({ 'z-index': 990 })),
+  // Quasar's legacy named colour: dist hardcodes it, the theme palette carries
+  // only the `brown-N` shades, and wind4 has no `brown` at all — so `bg-brown`
+  // was safelisted with nothing behind it (AUD-023).
+  rule(/^bg-brown$/, () => ({ background: '#795548 !important' })),
+  [
+    /^hide-scrollbar$/,
+    function* (_, { symbols }) {
+      yield { 'scrollbar-width': 'none' }
+      yield {
+        [symbols.selector]: (sel: string) => `${sel}::-webkit-scrollbar`,
+        width: '0',
+        height: '0',
+        display: 'none'
+      }
+    }
+  ],
+  [
+    /^scroll--mobile$/,
+    function* (_, { symbols }) {
+      // dist scopes it to the mobile platform hint, not to the class alone.
+      yield {
+        [symbols.selector]: (sel: string) => `body.mobile ${sel}`,
+        overflow: 'auto'
+      }
+    }
+  ],
+  [
+    /^responsive$/,
+    function* (_, { symbols }) {
+      // dist: `img.responsive { max-width: 100%; height: auto }`
+      yield {
+        [symbols.selector]: (sel: string) => `img${sel}`,
+        'max-width': '100%',
+        height: 'auto'
+      }
+    }
+  ],
+  [
+    /^q-safe-area-padding$/,
+    function* (_, { symbols }) {
+      // The class sits on the body and (re)defines the insets the dialog and
+      // layout padding rules consume (AUD-015).
+      yield {
+        [symbols.selector]: (sel: string) => `body${sel}`,
+        '--q-safe-area-inset-top':
+          'var(--safe-area-inset-top, env(safe-area-inset-top, 0px))',
+        '--q-safe-area-inset-bottom':
+          'var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px))'
+      }
+    }
+  ],
+  ...(['inset-shadow', 'inset-shadow-down'] as const).map(
+    (cls): ComponentRule => [
+      new RegExp(`^${cls}$`),
+      function* (_, { symbols }) {
+        const geometry =
+          cls === 'inset-shadow' ? '0 7px 9px -7px' : '0 -7px 9px -7px'
+        yield { 'box-shadow': `${geometry} var(--q-shadow-inset) inset` }
+        yield {
+          [symbols.selector]: (sel: string) => `.body--dark ${sel}`,
+          'box-shadow': `${geometry} var(--q-dark-shadow-inset) inset`
+        }
+      }
+    ]
+  ),
+  ...(['internal', 'invisible'] as const).map((variant): ComponentRule => [
+    new RegExp(`^q-morph--${variant}$`),
+    () => ({
+      opacity: '0 !important',
+      'pointer-events': 'none !important',
+      position: 'fixed !important',
+      right: '200vw !important',
+      bottom: '200vh !important'
+    })
+  ])
+]
+
 export const helpersRules: ComponentRule[] = [
+  ...residueRules,
   // --- Border radius ---
   rule(/^rounded-borders$/, () => ({ 'border-radius': '4px' })),
   rule(/^border-radius-inherit$/, () => ({ 'border-radius': 'inherit' })),
