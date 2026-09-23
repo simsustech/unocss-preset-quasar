@@ -18,8 +18,8 @@ export const btnRules = [
         'font-size': 'var(--q-btn-font-size)',
         'line-height': 'var(--q-btn-line-height)',
         'text-decoration': 'none',
-        color: 'inherit',
-        'background-color': 'transparent',
+        color: 'var(--q-btn-color)',
+        background: 'var(--q-btn-bg)',
         'font-weight': 'var(--q-btn-font-weight)',
         'text-transform': 'var(--q-btn-text-transform)',
         'text-align': 'center',
@@ -86,11 +86,6 @@ export const btnRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--no-uppercase`,
         'text-transform': 'none'
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}--standard`,
-        background: 'var(--q-btn-bg)',
-        color: 'var(--q-btn-color)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--standard:before`,
