@@ -83,15 +83,11 @@ export const listRules = [
         'min-height': 'var(--q-item-dense-min-height)'
       }
     }
-  ],
-  [
-    /^q-list--bordered.q-list--separator$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) =>
-          `${sel} > .q-item-type + .q-item-type:last-of-type`,
-        'border-bottom': '0'
-      }
-    }
   ]
 ] as Rule[]
+
+// AUD-026: a matcher whose regex demands `a.b` as one token never fires — the
+// extractor splits `class="a b"` into single tokens and the safelist carries no
+// combined entries. The `q-list--bordered.q-list--separator` rule was not only
+// dead but invented: dist states `.q-list--bordered` alone and the reference
+// stylesheet has no such selector, so it was removed rather than re-targeted.

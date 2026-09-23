@@ -129,13 +129,11 @@ export const textareaRules = [
           `${selector}--autogrow .q-field__native`,
         resize: 'none'
       }
-    }
-  ],
-  [
-    /^q-textarea\.disabled$/,
-    function* (_, { symbols }) {
+      // AUD-026 repair: this compound state cannot be a candidate, so it rides in
+      // the emitted selector (dist: `.q-textarea.disabled .q-field__native
+      // { resize: none }`, stated beside the mobile form).
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-field__native`,
+        [symbols.selector]: (sel: string) => `${sel}.disabled .q-field__native`,
         resize: 'none'
       }
     }

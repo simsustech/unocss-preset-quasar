@@ -317,19 +317,11 @@ export const itemRules = [
         color: 'var(--q-on-surface-variant)'
       }
     }
-  ],
-  [
-    // Reference bleeds a leading/trailing thumbnail to the row edge.
-    /^q-item > .q-item__section--thumbnail$/,
-    function* (_, { symbols }) {
-      yield {
-        [symbols.selector]: (sel) => `${sel}:first-child`,
-        'margin-left': 'calc(var(--q-space-lg) * -1)'
-      }
-      yield {
-        [symbols.selector]: (sel) => `${sel}:last-of-type`,
-        'margin-right': 'calc(var(--q-space-lg) * -1)'
-      }
-    }
   ]
 ] as Rule[]
+
+// AUD-026: the dead `q-item > .q-item__section--thumbnail` matcher was removed
+// rather than re-targeted — the `q-item` matcher already emits dist's own
+// declarations for both edges (`.q-item > .q-item__section--thumbnail:first-child`
+// and the focus-helper sibling at -16px), so the combinator matcher was a
+// duplicate leftover whose only effect was to fight that cascade.

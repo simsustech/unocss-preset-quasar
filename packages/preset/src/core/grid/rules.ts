@@ -77,38 +77,6 @@ export const gridRules = [
       }
     }
   ],
-  [
-    /^row-reverse$/,
-    function* () {
-      yield {
-        display: 'flex',
-        'flex-direction': 'row-reverse',
-        'flex-wrap': 'wrap'
-        // No `flex: 1 1 auto` here: Quasar's flex addon is
-        // `.row,.column,.flex { display: flex; flex-wrap: wrap }`, and the
-        // extra growth made every row/column in a consumer fill its parent —
-        // in petboarding it stretched the drawer's content column to the full
-        // drawer height, padding out the top of the drawer. Growth belongs to
-        // `.col`/`.col-grow`.
-      }
-    }
-  ],
-  [
-    /^column-reverse$/,
-    function* () {
-      yield {
-        display: 'flex',
-        'flex-direction': 'column-reverse',
-        'flex-wrap': 'wrap'
-        // No `flex: 1 1 auto` here: Quasar's flex addon is
-        // `.row,.column,.flex { display: flex; flex-wrap: wrap }`, and the
-        // extra growth made every row/column in a consumer fill its parent —
-        // in petboarding it stretched the drawer's content column to the full
-        // drawer height, padding out the top of the drawer. Growth belongs to
-        // `.col`/`.col-grow`.
-      }
-    }
-  ],
 
   [
     /^col$/,
@@ -173,6 +141,10 @@ export const gridRules = [
       }
     }
   ],
+  // AUD-003: the standalone `row-reverse` / `column-reverse` matchers are gone.
+  // Quasar's grammar is the *combined* class — `.row.reverse` — which the `row`
+  // and `column` rules already emit as `${sel}.reverse`; the standalone form
+  // existed only because the port read Quasar's flex addon as a utility list.
   // Bare breakpoint columns (`col-xs` … `col-xl`) grow to fill the line, like
   // `col`. dist states `flex: 10000 1 0%` for each of them plus the row-scoped
   // reset (`.row > .col-xs { width: auto; min-width: 0; max-width: 100% }`); this

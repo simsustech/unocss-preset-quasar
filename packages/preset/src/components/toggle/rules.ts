@@ -272,15 +272,16 @@ export const toggleRules = [
         'padding-left': 0,
         'padding-right': '0.5em'
       }
-    }
-  ],
-  [/^q-toggle.disabled$/, () => ({ opacity: '0.75 !important' })],
-  ,
-  [
-    /^q-toggle--dense.reverse$/,
-    function* (_, { symbols }) {
+      // AUD-026 repair: both compound states ride in the emitted selector; the
+      // matcher stays on the component token (dist: `opacity: .75 !important`
+      // and the reversed dense label's padding).
       yield {
-        [symbols.selector]: (sel) => `${sel} .q-toggle__label`,
+        [symbols.selector]: (sel: string) => `${sel}.disabled`,
+        opacity: '0.75 !important'
+      }
+      yield {
+        [symbols.selector]: (sel: string) =>
+          `${sel}--dense.reverse .q-toggle__label`,
         'padding-left': 0,
         'padding-right': '0.5em'
       }

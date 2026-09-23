@@ -210,9 +210,23 @@ export const helpersRules: ComponentRule[] = [
     'outline-width': '0px',
     'text-decoration': 'none'
   })),
-  rule(/^q-link--focusable:focus-visible$/, () => ({
-    outline: 'auto'
-  })),
+  // AUD-014 repair: `:focus-visible` cannot be part of a candidate either — the
+  // matcher is on the bare token the class line produces, and the state rides in
+  // the emitted selector. dist states the underline there
+  // (`.q-link--focusable:focus-visible { text-decoration: underline dashed
+  // currentColor 1px }`); the `outline: auto` is the reference's own reset and
+  // stays, so neither sheet loses a declaration.
+  [
+    /^q-link--focusable$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (sel: string) => `${sel}:focus-visible`,
+        outline: 'auto',
+        'text-decoration': 'underline dashed currentColor 1px',
+        '-webkit-text-decoration': 'underline dashed currentColor 1px'
+      }
+    }
+  ],
 
   // --- Focus helpers ---
   //
