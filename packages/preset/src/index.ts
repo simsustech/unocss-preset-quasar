@@ -34,6 +34,10 @@ import { layoutMediaCss } from './components/layout/rules.js'
 import { tooltipMediaCss } from './components/tooltip/rules.js'
 import { notificationMediaCss } from './components/notification/rules.js'
 import { dialogMediaCss, dialogPlatformCss } from './components/dialog/rules.js'
+import {
+  appExtensionModules,
+  type AppExtensionName
+} from './app-extensions/index.js'
 
 const pickBySuffix = (
   mod: Record<string, unknown>,
@@ -131,6 +135,15 @@ export interface QuasarPresetOptions {
    * `main` makes through `pluginSafelistMap`.
    */
   plugins?: (keyof QuasarPlugins)[]
+  /**
+   * The third-party Quasar UI libraries whose CSS the app uses. Each one's
+   * selectors and tokens join the output only when it is declared, so an app
+   * that uses none of them carries none of their CSS — the same coupling
+   * `plugins` makes for the plugin safelists. The libraries' classes reach the
+   * extractor's vocabulary either way; a class with no declared extension
+   * simply matches no rule.
+   */
+  appExtensions?: AppExtensionName[]
 }
 
 /** Every `i-*` class value in the icon set, at any depth. */
@@ -173,6 +186,18 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
   const theme = generateTheme(sourceColor)
   const defaultStyle = options?.style ?? builtinStyles[0] // md3 default
   const allStyles = builtinStyles // always include all built-ins for setStyle() to work
+  // App-extension output is opt-in and collected by export suffix, exactly as
+  // the core and component collections above are.
+  const appExtensionSources = (options?.appExtensions ?? []).map(
+    (name) => appExtensionModules[name]
+  )
+  const appPreflights = appExtensionSources.flatMap((mod) =>
+    pickBySuffix(mod, 'Preflights')
+  )
+  const appRules = appExtensionSources.flatMap((mod) => pickRules(mod, 'Rules'))
+  const appShortcuts = appExtensionSources.flatMap((mod) =>
+    pickBySuffix(mod, 'Shortcuts')
+  )
 
   return {
     name: 'quasar',
@@ -221,7 +246,10 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
       {
         getCSS: () =>
           `${responsiveVisibilityCss}\n${platformMediaCss}\n${layoutMediaCss}\n${tooltipMediaCss}\n${notificationMediaCss}\n${dialogMediaCss}\n${dialogPlatformCss}\n${quasarKeyframesCss}\n${animationHelperMediaCss}\n${mouseHelperCss}\n${animationHelperStaticCss}\n${animationHelperTokenCss}`
-      }
+      },
+      // App-extension tokens last: they reference `--q-*` and the style tokens
+      // the blocks above state, and they are present only when declared.
+      ...appPreflights
     ],
     // Rule order matters twice over:
     //  - grid/container utilities first, so component layout wins on equal
@@ -234,9 +262,10 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
     rules: mergeDuplicateRules([
       ...gridRules,
       ...componentRules,
+      ...appRules,
       ...nonGridCoreRules
     ]),
-    shortcuts: [...coreShortcuts, ...componentShortcuts],
+    shortcuts: [...coreShortcuts, ...componentShortcuts, ...appShortcuts],
     // Values that name classes (icons, transitions) cannot be safelisted, so
     // they are derived from the markup instead — see extractor.ts.
     extractors: [quasarComponentExtractor, quasarValueExtractor],

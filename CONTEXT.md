@@ -76,3 +76,13 @@ so a visual diff points at the component rather than at surrounding page layout.
 One Playwright run per component, PNGs plus ffmpeg frames for the animated ones,
 recorded in a manifest — the mechanism the post-fix re-verification and the
 harness's class-coverage baseline both build on.
+
+## App extensions
+
+**app extensions** — third-party Quasar UI libraries (QCalendar/QMarkdown/QMediaPlayer)
+whose CSS the preset ports as selector-keyed rules behind the `appExtensions` option.
+Their tokens live in the same `--q-*` namespace as the preset's own defaults
+(`--q-calendar-*`, `--q-mediaplayer-*`), themed through the style tokens and colour
+roles rather than upstream's palette, and their rules are gated so an app that declares
+none carries none of their CSS. See `docs/adr/0005-opt-in-selector-keyed-app-extension-css.md`
+for why they are rules rather than preflights or a separate package.

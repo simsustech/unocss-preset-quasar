@@ -88,6 +88,7 @@
     "@unocss/preset-icons": "^66.10.1",
     "@unocss/preset-wind4": "66.10.1",
     "quasar": "^2.31.0",
+    "sass": "^1.104.1",
     "typescript": "^7.0.2",
     "vitest": "^5.0.0"
   },
