@@ -56,27 +56,24 @@ importers:
       '@poupe/material-color-utilities':
         specifier: ^0.4.1
         version: 0.4.1
-      '@unocss/core':
+      '@unocss/preset-icons':
         specifier: ^66.10.1
         version: 66.10.1
       '@unocss/preset-mini':
-        specifier: 66.10.1
-        version: 66.10.1
-      '@unocss/preset-uno':
         specifier: ^66.10.1
         version: 66.10.1
       '@unocss/preset-web-fonts':
-        specifier: 66.10.1
+        specifier: ^66.10.1
         version: 66.10.1
-      '@unocss/preset-wind':
+      '@unocss/transformer-directives':
+        specifier: ^66.10.1
+        version: 66.10.1
+      '@unocss/transformer-variant-group':
         specifier: ^66.10.1
         version: 66.10.1
       animated-unocss:
         specifier: ^0.0.6
         version: 0.0.6(animate.css@4.1.1)(unocss@66.10.1(@devframes/hub@0.9.15(crossws@0.4.12(srvx@1.0.4))(devframe@0.9.15(cac@7.0.0)(srvx@1.0.4)))(cac@7.0.0)(crossws@0.4.12(srvx@1.0.4))(rolldown@1.2.7)(rollup@4.63.1)(srvx@1.0.4)(vite@8.2.2(@types/node@26.5.0)(jiti@2.7.0)(sass@1.104.1)(yaml@2.9.0)))
-      unocss:
-        specifier: 66.10.1
-        version: 66.10.1(@devframes/hub@0.9.15(crossws@0.4.12(srvx@1.0.4))(devframe@0.9.15(cac@7.0.0)(srvx@1.0.4)))(cac@7.0.0)(crossws@0.4.12(srvx@1.0.4))(rolldown@1.2.7)(rollup@4.63.1)(srvx@1.0.4)(vite@8.2.2(@types/node@26.5.0)(jiti@2.7.0)(sass@1.104.1)(yaml@2.9.0))
     devDependencies:
       '@iconify-json/mdi':
         specifier: ^1.2.3
@@ -96,11 +93,17 @@ importers:
       '@types/node':
         specifier: ^26.5.0
         version: 26.5.0
-      '@unocss/preset-icons':
+      '@unocss/core':
+        specifier: ^66.10.1
+        version: 66.10.1
+      '@unocss/preset-uno':
+        specifier: ^66.10.1
+        version: 66.10.1
+      '@unocss/preset-wind':
         specifier: ^66.10.1
         version: 66.10.1
       '@unocss/preset-wind4':
-        specifier: 66.10.1
+        specifier: ^66.10.1
         version: 66.10.1
       quasar:
         specifier: ^2.31.0
@@ -111,6 +114,9 @@ importers:
       typescript:
         specifier: ^7.0.2
         version: 7.0.2
+      unocss:
+        specifier: ^66.10.1
+        version: 66.10.1(@devframes/hub@0.9.15(crossws@0.4.12(srvx@1.0.4))(devframe@0.9.15(cac@7.0.0)(srvx@1.0.4)))(cac@7.0.0)(crossws@0.4.12(srvx@1.0.4))(rolldown@1.2.7)(rollup@4.63.1)(srvx@1.0.4)(vite@8.2.2(@types/node@26.5.0)(jiti@2.7.0)(sass@1.104.1)(yaml@2.9.0))
       vitest:
         specifier: ^5.0.0
         version: 5.0.0(@types/node@26.5.0)(vite@8.2.2(@types/node@26.5.0)(jiti@2.7.0)(sass@1.104.1)(yaml@2.9.0))
