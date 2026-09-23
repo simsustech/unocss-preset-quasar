@@ -7,7 +7,6 @@ col-sm-0
 col-xl-0
 col-xs-0
 q-dialog__inner--keyboard
-q-link--focusable
 q-notifications__list
 q-notifications__list--bottom
 q-notifications__list--center
