@@ -128,6 +128,7 @@ export const uploaderRules = [
         'background-color': 'currentColor',
         opacity: '0.04',
         'pointer-events': 'none',
+        '--un-content': "''",
         content: 'var(--un-content)',
         'border-top-left-radius': 'inherit',
         'border-top-right-radius': 'inherit',

@@ -42,6 +42,7 @@ export const btnDropdownRules = [
         'border-left-width': '1px',
         'border-left-color':
           'color-mix(in oklab, var(--colors-white) var(--un-border-left-opacity), transparent)',
+        '--un-border-left-opacity': 'var(--un-border-opacity)',
         'border-left-style': 'solid'
       }
       yield {

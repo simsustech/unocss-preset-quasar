@@ -332,8 +332,13 @@ export const stepperRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--horizontal .q-stepper__line`,
-        contain:
-          'var(--un-contain-size) var(--un-contain-layout) var(--un-contain-paint) var(--un-contain-style)'
+        // Quasar's own declaration (quasar.css: `.q-stepper__tab--horizontal
+        // .q-stepper__line { contain: layout }`). The reference's four-slot
+        // `var(--un-contain-*)` form is a wind4 `contain-layout` utility
+        // emission whose `@property` companions were never ported, so with only
+        // `--un-contain-size` set it is invalid at computed-value time and
+        // computes to `none`.
+        contain: 'layout'
       }
       yield {
         [symbols.selector]: (selector) =>

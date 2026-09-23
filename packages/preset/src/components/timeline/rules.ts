@@ -104,6 +104,7 @@ export const timelineRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__dot:before, ${selector}__dot:after`,
+        '--un-content': "''",
         content: 'var(--un-content)',
         'background-color': 'currentColor',
         display: 'block',

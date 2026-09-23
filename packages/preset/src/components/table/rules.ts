@@ -153,6 +153,7 @@ export const tableRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector} tbody tr.selected td:after`,
+        '--un-content': "''",
         content: 'var(--un-content)'
       }
       yield {

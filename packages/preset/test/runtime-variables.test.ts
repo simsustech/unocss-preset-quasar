@@ -12,11 +12,15 @@ import { runtimeVariables } from '../src/theme/runtime-variables.js'
  * A `var()` with no definition and no fallback makes the declaration invalid at
  * computed-value time — the property falls back to its initial value, which is
  * how the elevation aliases silently rendered nothing. This asserts the sheet's
- * unresolved references are exactly the variables Quasar (or wind4) sets at
- * runtime, so a rule naming anything else fails here.
+ * unresolved references are exactly the variables Quasar's own JavaScript sets
+ * at runtime, so a rule naming anything else fails here.
+ *
+ * wind4's `--un-*` are out of scope: wind4 ships their defaults in any real
+ * build (its `*, ::before, ::after` block plus the matching `@property`
+ * registrations) and this generator runs the preset alone.
  */
 describe('variables the sheet references but does not define', () => {
-  it('is exactly the set Quasar and wind4 set at runtime', async () => {
+  it('is exactly the set Quasar sets at runtime (wind4 vars excluded)', async () => {
     const gen = await createGenerator({ presets: [QuasarPreset({})] })
     // Every class any mechanism supplies: the point is which variables the
     // emitted rules reference, so content must reach all of them.
@@ -39,7 +43,7 @@ describe('variables the sheet references but does not define', () => {
           .filter((m) => m[2] === ')')
           .map((m) => m[1])
       )
-    ].filter((name) => !defined.has(name))
+    ].filter((name) => !defined.has(name) && !name.startsWith('--un-'))
 
     expect(unresolved.filter((n) => !(n in runtimeVariables)).sort()).toEqual(
       []

@@ -143,6 +143,7 @@ export const colorRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__alpha .q-slider__track:before`,
+        '--un-content': "''",
         content: 'var(--un-content)',
         position: 'absolute',
         top: '0',
