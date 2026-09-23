@@ -194,6 +194,12 @@ export const quasarSafelist: string[] = [
   'q-pb-xs',
   'q-px-sm',
   'q-range',
+  // Ripple directive: injected at runtime, so the safelist is the only candidate
+  // source (src/components/ripple/rules.ts).
+  'q-ripple',
+  'q-ripple__inner',
+  'q-ripple__inner--enter',
+  'q-ripple__inner--leave',
   'q-scroll-area',
   'q-touch',
   'q-touch-x',
@@ -295,7 +301,25 @@ export const quasarSafelist: string[] = [
  * the notification classes.
  */
 export const pluginSafelistMap: Record<string, string[]> = {
-  BottomSheet: ['q-bottom-sheet'],
+  // The sheet renders list or grid mode (and its avatar/empty-icon parts) from
+  // the plugin API, so its members need candidates too.
+  BottomSheet: [
+    'q-bottom-sheet',
+    'q-bottom-sheet__avatar',
+    'q-bottom-sheet__item',
+    'q-bottom-sheet__empty-icon',
+    'q-bottom-sheet--list',
+    'q-bottom-sheet--grid'
+  ],
+  // QAjaxBar / the LoadingBar plugin: the bar and its four position variants are
+  // applied by the plugin at runtime (src/components/ajax-bar/rules.ts).
+  LoadingBar: [
+    'q-loading-bar',
+    'q-loading-bar--top',
+    'q-loading-bar--bottom',
+    'q-loading-bar--left',
+    'q-loading-bar--right'
+  ],
   Dialog: ['q-dialog'],
   Loading: ['q-loading'],
   Notify: ['q-notification', 'q-notifications']

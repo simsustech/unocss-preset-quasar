@@ -61,6 +61,10 @@ const ALLOWLIST = [
     why: 'transitions module classes (plan (b))'
   },
   {
+    re: /^q-ripple__inner--(enter|leave)$/,
+    why: 'ripple directive runtime modifier: quasar/dist/quasar.css styles both, the scraper vocabulary does not carry them (src/components/ripple/rules.ts)'
+  },
+  {
     re: /^(row|column|flex|inline-flex|wrap|no-wrap|reverse-wrap|grow|shrink)$/,
     why: '.row/.column flex-grid utilities (plan (b); parity-report FLEX_GRID)'
   },

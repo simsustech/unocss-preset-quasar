@@ -16,7 +16,10 @@ export const dialogMediaCss =
   '.q-dialog__inner--top > div{width:100% !important}' +
   '.q-dialog__inner--bottom > div{width:100% !important}' +
   '}' +
-  '@media (min-width: 600px){.q-dialog__inner--minimized > div{max-width:560px}}'
+  '@media (min-width: 600px){.q-dialog__inner--minimized > div{max-width:560px}}' +
+  // The bottom sheet ships through this plugin too (see the q-bottom-sheet rules
+  // below): its grid item widens to a quarter above the same breakpoint.
+  '@media (min-width: 600px){.q-bottom-sheet__item{flex:0 0 25%}}'
 
 /**
  * Platform and safe-area overrides. These selectors are keyed off runtime body
@@ -254,12 +257,63 @@ export const dialogRules = [
   [
     /^q-bottom-sheet$/,
     function* (_, { symbols }) {
-      // .q-bottom-sheet
+      // .q-bottom-sheet and its members. The sheet ships through the Dialog
+      // plugin, so its classes are safelisted per plugin (pluginSafelistMap)
+      // rather than reached through the scanned source. Declarations mirror
+      // quasar/dist/quasar.css verbatim.
+      yield {
+        // quasar: this value is Quasar's own, not a forked token
+        'padding-bottom': '8px'
+      }
       yield {
         [symbols.selector]: (selector) =>
           `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__avatar`,
+        'border-radius': '50%'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--list`,
+        width: '400px'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--list .q-icon, ${selector}--list img`,
+        // quasar: this value is Quasar's own, not a forked token
+        'font-size': '24px',
+        width: '24px',
+        height: '24px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--grid`,
+        width: '700px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--grid ${selector}__item`,
+        // quasar: these values are Quasar's own, not forked tokens
+        padding: '8px',
+        'text-align': 'center',
+        'min-width': '100px'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--grid .q-icon, ${selector}--grid img, ${selector}--grid ${selector}__empty-icon`,
+        // quasar: these values are Quasar's own, not forked tokens
+        'font-size': '48px',
+        width: '48px',
+        height: '48px',
+        'margin-bottom': '8px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}--grid .q-separator`,
+        margin: '12px 0'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__item`,
+        flex: '0 0 33.3333%'
       }
     }
   ]
