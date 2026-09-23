@@ -1,6 +1,6 @@
 import { createGenerator } from 'unocss'
 import { describe, expect, it } from 'vitest'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 import { quasarSafelist } from '../src/safelist.js'
 import {
   componentClasses,
@@ -23,7 +23,9 @@ import { runtimeVariables } from '../src/theme/runtime-variables.js'
  */
 describe('variables the sheet references but does not define', () => {
   it('is exactly the set Quasar sets at runtime', async () => {
-    const gen = await createGenerator({ presets: [QuasarPreset({})] })
+    const gen = await createGenerator({
+      presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+    })
     // Every class any mechanism supplies: the point is which variables the
     // emitted rules reference, so content must reach all of them.
     const content = [

@@ -39,12 +39,6 @@ export const badgeRules = [
         'background-color': 'var(--q-primary)'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}--outline`,
         'border-color': 'currentColor',
         'border-style': 'solid',

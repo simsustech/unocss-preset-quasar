@@ -1,7 +1,7 @@
 import { createGenerator } from 'unocss'
 import presetWind4 from '@unocss/preset-wind4'
 import { describe, expect, it } from 'vitest'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 import { generateTheme } from '../src/theme/quasar-theme.js'
 
 /**
@@ -142,8 +142,14 @@ const tokens = paletteKeys.flatMap((key) => [`bg-${key}`, `text-${key}`])
 describe('palette classes resolve to the same colour on either engine', () => {
   it('agrees class for class, including the alpha-carrying names', async () => {
     const [mini, wind4] = await Promise.all([
-      resolveColours([QuasarPreset({})], tokens),
-      resolveColours([presetWind4(wind4Options), QuasarPreset({})], tokens)
+      resolveColours([QuasarPreset({ styles: QuasarStyleEntries })], tokens),
+      resolveColours(
+        [
+          presetWind4(wind4Options),
+          QuasarPreset({ styles: QuasarStyleEntries })
+        ],
+        tokens
+      )
     ])
 
     const differing: string[] = []
@@ -172,7 +178,7 @@ describe('palette classes resolve to the same colour on either engine', () => {
 
   it('resolves the sampled classes to Quasar’s values, not the engine’s', async () => {
     const mini = await resolveColours(
-      [QuasarPreset({})],
+      [QuasarPreset({ styles: QuasarStyleEntries })],
       [
         'bg-brown',
         'bg-separator',

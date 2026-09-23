@@ -16,7 +16,7 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, it, expect } from 'vitest'
 import { createGenerator } from 'unocss'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const FIXTURE = join(HERE, 'fixtures', 'reference-selectors.json')
@@ -51,7 +51,9 @@ async function effectiveDecls(
 ): Promise<Map<string, string>> {
   const css = (
     await (
-      await createGenerator({ presets: [QuasarPreset({})] })
+      await createGenerator({
+        presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+      })
     ).generate(token, { preflights: false })
   ).css
   const out = new Map<string, string>()
@@ -170,7 +172,9 @@ const SITES: [token: string, selector: string, properties: string[]][] = [
 async function blocksFor(token: string, selector: string): Promise<string[]> {
   const css = (
     await (
-      await createGenerator({ presets: [QuasarPreset({})] })
+      await createGenerator({
+        presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+      })
     ).generate(token, { preflights: false })
   ).css
   const bodies: string[] = []

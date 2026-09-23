@@ -15,13 +15,20 @@
 import { describe, it, expect } from 'vitest'
 import { createGenerator } from 'unocss'
 import presetWind4 from '@unocss/preset-wind4'
-import { QuasarPreset, quasarWind4Options } from '../src/index.js'
+import {
+  QuasarPreset,
+  quasarWind4Options,
+  QuasarStyleEntries
+} from '../src/index.js'
 
 const sheet = async (tokens: string): Promise<string> =>
   (
     await (
       await createGenerator({
-        presets: [presetWind4(quasarWind4Options), QuasarPreset({})]
+        presets: [
+          presetWind4(quasarWind4Options),
+          QuasarPreset({ styles: QuasarStyleEntries })
+        ]
       })
     ).generate(tokens)
   ).css
@@ -54,7 +61,10 @@ describe('quasarWind4Options', () => {
     const reversed = (
       await (
         await createGenerator({
-          presets: [QuasarPreset({}), presetWind4(quasarWind4Options)]
+          presets: [
+            QuasarPreset({ styles: QuasarStyleEntries }),
+            presetWind4(quasarWind4Options)
+          ]
         })
       ).generate('q-btn')
     ).css

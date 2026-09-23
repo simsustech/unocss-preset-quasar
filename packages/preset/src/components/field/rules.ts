@@ -11,12 +11,6 @@ export const fieldRules = [
         position: 'relative'
       }
       yield { 'font-size': '14px' }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
       // Reference: `.q-field ::-ms-clear, .q-field ::-ms-reveal { display: none }`.
       // Deliberately NOT emitted. `::-ms-clear`/`::-ms-reveal` are invalid
       // selectors outside IE/legacy Edge, and one invalid selector discards the

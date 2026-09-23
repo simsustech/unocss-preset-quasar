@@ -7,12 +7,16 @@
 // Expected literals come from the spec files, not from the rules under test.
 import { describe, it, expect } from 'vitest'
 import { createGenerator } from 'unocss'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 import { Unstyled, MaterialDesign2 } from '../src/styles/index.js'
 
 async function cssFor(tokens: string, style?: any): Promise<string> {
   const gen = await createGenerator({
-    presets: [style ? QuasarPreset({ style }) : QuasarPreset({})]
+    presets: [
+      style
+        ? QuasarPreset({ style })
+        : QuasarPreset({ styles: QuasarStyleEntries })
+    ]
   })
   const r = await gen.generate(tokens)
   return r.css

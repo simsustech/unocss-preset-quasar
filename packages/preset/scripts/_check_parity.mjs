@@ -1,5 +1,5 @@
 import { createGenerator } from 'unocss'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 import { quasarSafelist } from '../src/safelist.js'
 import { readFileSync } from 'fs'
 
@@ -12,7 +12,9 @@ const fixture = (() => {
     throw new Error('Failed to parse fixture file')
   }
 })()
-const gen = await createGenerator({ presets: [QuasarPreset({})] })
+const gen = await createGenerator({
+  presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+})
 const { css } = await gen.generate(quasarSafelist.join(' '), {
   preflights: false
 })

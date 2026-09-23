@@ -51,12 +51,6 @@ export const dialogRules = [
         'z-index': 6000
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}__backdrop`,
         position: 'absolute',
         inset: '0',
@@ -264,12 +258,6 @@ export const dialogRules = [
       yield {
         // quasar: this value is Quasar's own, not a forked token
         'padding-bottom': '8px'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__avatar`,

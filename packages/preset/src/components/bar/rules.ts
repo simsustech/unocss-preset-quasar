@@ -49,12 +49,6 @@ export const barRules = [
         'margin-left': '8px'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}--dense`,
         // Reference `.q-bar--dense`: 14px type, 24px track, no block padding.
         'font-size': 'var(--q-body-medium-size)',

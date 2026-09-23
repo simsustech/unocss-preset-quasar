@@ -13,7 +13,7 @@
 import { describe, it, expect } from 'vitest'
 import { createGenerator } from 'unocss'
 import presetWind4 from '@unocss/preset-wind4'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 import { platformRules } from '../src/core/platform/rules.js'
 import { animationHelperRules } from '../src/core/motion/animation.js'
 
@@ -49,12 +49,16 @@ const generator = async (presets: unknown[]) =>
 const sheet = async (token: string): Promise<string> =>
   (
     await (
-      await generator([QuasarPreset({})])
+      await generator([QuasarPreset({ styles: QuasarStyleEntries })])
     ).generate(token, { preflights: false })
   ).css
 
 const fullSheet = async (token: string): Promise<string> =>
-  (await (await generator([QuasarPreset({})])).generate(token)).css
+  (
+    await (
+      await generator([QuasarPreset({ styles: QuasarStyleEntries })])
+    ).generate(token)
+  ).css
 
 /** A yielded declaration set, read straight off one of the preset's matchers. */
 type MatcherYield = Record<string, unknown>

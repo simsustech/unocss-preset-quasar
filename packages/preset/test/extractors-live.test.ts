@@ -4,7 +4,7 @@ import {
   quasarComponentExtractor,
   quasarValueExtractor
 } from '../src/extractor.js'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 
 /**
  * Proof that the preset's `extractors` are live, not merely declared.
@@ -20,7 +20,7 @@ import { QuasarPreset } from '../src/index.js'
  */
 describe('extractors', () => {
   it('are declared on the preset', () => {
-    const preset = QuasarPreset({})
+    const preset = QuasarPreset({ styles: QuasarStyleEntries })
     expect(preset.extractors?.map((e) => e.name)).toEqual([
       'quasar-component-extractor',
       'quasar-value-extractor'
@@ -30,7 +30,9 @@ describe('extractors', () => {
   })
 
   it('supply classes the safelist never could', async () => {
-    const gen = await createGenerator({ presets: [QuasarPreset({})] })
+    const gen = await createGenerator({
+      presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+    })
     const sheetFor = async (content: string) =>
       (await gen.generate(content, { preflights: false })).css
 

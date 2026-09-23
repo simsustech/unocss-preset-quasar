@@ -53,6 +53,15 @@ const REPO = join(PKG, '..', '..')
 const FIXTURE = join(PKG, 'test', 'fixtures', 'reference-selectors.json')
 const BASELINE = join(PKG, 'test', 'fixtures', 'parity-baseline.json')
 const REPORT_JSON = join(PKG, 'test', 'parity-report.json')
+
+/** Read JSON with the file named: a missing or malformed file is the usual fault. */
+function readJson(file) {
+  try {
+    return JSON.parse(readFileSync(file, 'utf8'))
+  } catch (error) {
+    throw new Error(`[parity] cannot read ${file}: ${error.message}`)
+  }
+}
 const BUNDLE = join(
   REPO,
   'specs',
@@ -329,15 +338,6 @@ function displayKey(container, selector) {
   return c ? `${selector} (in ${c})` : selector
 }
 
-/** Every `--name: value` in a sheet; the first definition wins. */
-function collectVars(css) {
-  const out = new Map()
-  for (const m of css.matchAll(/(--[\w-]+)\s*:\s*([^;}]+)/g)) {
-    if (!out.has(m[1])) out.set(m[1], m[2].trim())
-  }
-  return out
-}
-
 /**
  * Resolve tokens from their *default-scope* definition.
  *
@@ -612,9 +612,9 @@ function formatArtifacts(paths) {
  * ratchet instead of comparing against it.
  */
 export async function buildParityReport() {
-  const fixture = JSON.parse(readFileSync(FIXTURE, 'utf8'))
+  const fixture = readJson(FIXTURE)
   const { createGenerator } = await import('unocss')
-  const { QuasarPreset } = await import('../src/index.js')
+  const { QuasarPreset, QuasarStyleEntries } = await import('../src/index.js')
   const { quasarSafelist, pluginSafelistMap } =
     await import('../src/safelist.js')
   // The reference was built from a Quasar app that used these plugins, so the
@@ -623,7 +623,7 @@ export async function buildParityReport() {
   const allPlugins = Object.keys(pluginSafelistMap)
 
   const gen = await createGenerator({
-    presets: [QuasarPreset({ plugins: allPlugins })]
+    presets: [QuasarPreset({ styles: QuasarStyleEntries, plugins: allPlugins })]
   })
   // Content is the safelist *plus* a mention of every component: the classes a
   // component composes at runtime reach the sheet through
@@ -873,9 +873,7 @@ export async function buildParityReport() {
  * unless `PARITY_SET_TARGET` names the module (or `all`).
  */
 function writeBaseline(report) {
-  const previous = existsSync(BASELINE)
-    ? JSON.parse(readFileSync(BASELINE, 'utf8'))
-    : null
+  const previous = existsSync(BASELINE) ? readJson(BASELINE) : null
   const requested = (process.env.PARITY_SET_TARGET ?? '')
     .split(',')
     .map((s) => s.trim())
@@ -982,7 +980,7 @@ async function main() {
     console.error('gate produced no report')
     process.exit(res.status ?? 1)
   }
-  printReport(JSON.parse(readFileSync(REPORT_JSON, 'utf8')), moduleName)
+  printReport(readJson(REPORT_JSON), moduleName)
   process.exit(res.status ?? 1)
 }
 

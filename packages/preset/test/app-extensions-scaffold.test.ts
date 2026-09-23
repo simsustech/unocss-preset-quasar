@@ -1,6 +1,6 @@
 import { createGenerator } from 'unocss'
 import { describe, expect, it } from 'vitest'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 
 /**
  * An app extension is opt-in: a consumer names it in `appExtensions` and gets
@@ -18,7 +18,13 @@ type Extension = 'qcalendar' | 'qmarkdown' | 'qmediaplayer'
 
 const sheet = async (appExtensions?: Extension[]): Promise<string> => {
   const gen = await createGenerator({
-    presets: [QuasarPreset(appExtensions ? { appExtensions } : {})]
+    presets: [
+      QuasarPreset(
+        appExtensions
+          ? { styles: QuasarStyleEntries, appExtensions }
+          : { styles: QuasarStyleEntries }
+      )
+    ]
   })
   const { css } = await gen.generate('', { preflights: true })
   return css

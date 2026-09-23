@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { createGenerator } from 'unocss'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 import * as generated from '../src/generated/quasar-classes.js'
 
 /**
@@ -91,7 +91,9 @@ describe('no selector the browser rejects reaches the sheet', () => {
   let css = ''
 
   beforeAll(async () => {
-    const uno = await createGenerator({ presets: [QuasarPreset({})] })
+    const uno = await createGenerator({
+      presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+    })
     css = (await uno.generate(allClassNames().join(' '))).css
   }, 120_000)
 

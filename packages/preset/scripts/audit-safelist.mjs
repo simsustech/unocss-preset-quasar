@@ -33,7 +33,7 @@ import {
   globalClasses,
   knownClasses
 } from '../dist/generated/quasar-classes.js'
-import { QuasarPreset } from '../dist/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../dist/index.js'
 import { quasarSafelist } from '../dist/safelist.js'
 
 const argv = process.argv.slice(2)
@@ -44,7 +44,9 @@ const flag = (name, fallback) => {
 const sampleSize = Number(flag('sample', 14))
 
 const { createGenerator } = await import('unocss')
-const generator = await createGenerator({ presets: [QuasarPreset({})] })
+const generator = await createGenerator({
+  presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+})
 // Preflights included: some of the classes in question (the platform and
 // responsive visibility ones, `body--dark`) come from our preflights rather than
 // from a rule, and with `preflights: false` they looked like dead entries.

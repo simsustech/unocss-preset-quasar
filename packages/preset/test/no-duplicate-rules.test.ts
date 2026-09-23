@@ -13,7 +13,7 @@
 import { describe, it, expect } from 'vitest'
 import { createGenerator } from 'unocss'
 import type { Rule } from '@unocss/core'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 import { mergeDuplicateRules } from '../src/rules/merge.js'
 import * as componentModules from '../src/components/index.js'
 import * as coreModules from '../src/core/index.js'
@@ -40,7 +40,9 @@ function sourceRules(): Rule[] {
 }
 
 async function cssFor(tokens: string): Promise<string> {
-  const gen = await createGenerator({ presets: [QuasarPreset({})] })
+  const gen = await createGenerator({
+    presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+  })
   const r = await gen.generate(tokens, { preflights: false })
   return r.css
 }

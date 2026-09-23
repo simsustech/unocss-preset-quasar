@@ -7,14 +7,8 @@ import type { Rule } from '@unocss/core'
 export const noSsrRules = [
   [
     /^q-no-ssr$/,
-    function* (_, { symbols }) {
+    function* () {
       // .q-no-ssr
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
     }
   ]
 ] as Rule[]

@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { createGenerator } from 'unocss'
 import { describe, expect, it } from 'vitest'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 import { engineNamespaceTokens, quasarDefaults } from '../src/theme/engine.js'
 
 /**
@@ -79,7 +79,9 @@ describe('engine theme namespaces', () => {
   })
 
   it('states them all, and covers every namespace the sheet references', async () => {
-    const gen = await createGenerator({ presets: [QuasarPreset({})] })
+    const gen = await createGenerator({
+      presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+    })
     // Quasar-only content: no engine utility, which is the case that used to
     // leave these unresolved.
     const { css } = await gen.generate('q-gutter-md q-pa-md q-card', {

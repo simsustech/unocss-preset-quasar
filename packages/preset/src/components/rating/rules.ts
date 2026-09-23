@@ -10,12 +10,6 @@ export const ratingRules = [
         'align-items': 'center'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         color:
           'color-mix(in oklab, #ffeb3b var(--q-text-opacity), transparent)',
         'vertical-align': 'middle'

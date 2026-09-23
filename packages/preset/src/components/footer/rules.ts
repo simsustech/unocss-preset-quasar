@@ -26,12 +26,6 @@ export const footerRules = [
         top: '-10px'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `.body--dark ${selector}`,
         'border-color': 'rgba(255, 255, 255, 0.28)'
       }

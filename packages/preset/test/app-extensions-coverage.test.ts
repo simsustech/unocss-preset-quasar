@@ -1,7 +1,7 @@
 import { compile } from 'sass'
 import { createGenerator } from 'unocss'
 import { describe, expect, it } from 'vitest'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 
 /**
  * The app extensions are a port, so the upstream stylesheet is the source of
@@ -79,7 +79,9 @@ const sheet = async (
   extension: 'qcalendar' | 'qmarkdown' | 'qmediaplayer'
 ): Promise<string> => {
   const gen = await createGenerator({
-    presets: [QuasarPreset({ appExtensions: [extension] })]
+    presets: [
+      QuasarPreset({ styles: QuasarStyleEntries, appExtensions: [extension] })
+    ]
   })
   const { css } = await gen.generate(classes.join(' '), { preflights: false })
   return css

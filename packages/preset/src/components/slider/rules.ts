@@ -25,12 +25,6 @@ export const sliderRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
           `${selector}--dark .q-slider__markers`,
         color: 'rgba(255, 255, 255, 0.3)'
       }

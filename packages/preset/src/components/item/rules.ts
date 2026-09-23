@@ -21,12 +21,6 @@ export const itemRules = [
         color: 'var(--q-primary)'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         // The base rule's geometry, kept as the reference's longhands (the gate
         // measures longhands, not the shorthand), but taken from tokens. The
         // `min-height: 28px` that used to sit here was the literal copy that

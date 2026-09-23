@@ -9,12 +9,6 @@ export const btnDropdownRules = [
         display: 'inline-flex'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}__arrow`,
         // Reference states the rotation transition rather than a generic one:
         // `transition-property: transform,translate,scale,rotate; transition-duration: 280ms`.

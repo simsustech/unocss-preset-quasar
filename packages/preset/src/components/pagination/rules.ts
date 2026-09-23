@@ -27,12 +27,6 @@ export const paginationRules = [
         margin: 'calc(var(--spacing) * 0)'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}--disabled`,
         opacity: 0.5,
         'pointer-events': 'none'

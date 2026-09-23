@@ -17,7 +17,7 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, it, expect } from 'vitest'
 import { createGenerator } from 'unocss'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const SRC = join(HERE, '..', 'src')
@@ -51,7 +51,9 @@ function matcherPatterns(source: string): string[] {
 const sheet = async (token: string): Promise<string> =>
   (
     await (
-      await createGenerator({ presets: [QuasarPreset({})] })
+      await createGenerator({
+        presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+      })
     ).generate(token, { preflights: false })
   ).css
 

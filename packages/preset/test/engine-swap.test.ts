@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { createGenerator } from 'unocss'
 import { describe, expect, it } from 'vitest'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 
 /**
  * The nested engine is `@unocss/preset-mini`, and that is public behaviour: it
@@ -17,7 +17,10 @@ import { QuasarPreset } from '../src/index.js'
  */
 describe('the nested engine is preset-mini', () => {
   it('nests preset-mini and no wind4 preset', () => {
-    const names = QuasarPreset({}).presets?.map((p) => p.name) ?? []
+    const names =
+      QuasarPreset({ styles: QuasarStyleEntries }).presets?.map(
+        (p) => p.name
+      ) ?? []
     expect(names).toContain('@unocss/preset-mini')
     expect(
       names.filter((name) => typeof name === 'string' && name.includes('wind4'))
@@ -43,13 +46,17 @@ describe('the nested engine is preset-mini', () => {
   })
 
   it('routes `dark:` through Quasar’s own scheme selectors', async () => {
-    const gen = await createGenerator({ presets: [QuasarPreset({})] })
+    const gen = await createGenerator({
+      presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+    })
     const { css } = await gen.generate('dark:bg-black', { preflights: false })
     expect(css).toMatch(/\.body--dark[^{]*\{[^}]*background-color/)
   })
 
   it('keeps Quasar’s own `col-6`', async () => {
-    const gen = await createGenerator({ presets: [QuasarPreset({})] })
+    const gen = await createGenerator({
+      presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+    })
     const { css } = await gen.generate('col-6', { preflights: false })
     // Quasar's `.col-6` is the flexbox span; a grid-family engine would emit
     // `grid-column: 6` for the same class instead.

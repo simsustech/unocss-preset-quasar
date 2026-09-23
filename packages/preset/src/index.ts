@@ -10,11 +10,11 @@ import type { Preset, Rule } from '@unocss/core'
 import type { QuasarPlugins } from 'quasar'
 import { generateTheme } from './theme/quasar-theme.js'
 import { mergeDuplicateRules } from './rules/merge.js'
+import { scopeRule } from './rules/scope.js'
 import { animatedUno } from 'animated-unocss'
 import { quasarKeyframesCss } from './core/motion/keyframes.js'
 import { generateColorTokens } from './theme/colors.js'
 import { createTokenPreflight } from './theme/preflight.js'
-import { builtinStyles } from './theme/index.js'
 import type { QuasarStyleEntry } from './styles/index.js'
 import { quasarComponentExtractor, quasarValueExtractor } from './extractor.js'
 import { quasarSafelist, pluginSafelistMap } from './safelist.js'
@@ -113,6 +113,22 @@ function paletteColors(theme: { colors: Record<string, unknown> }) {
   return out
 }
 export interface QuasarPresetOptions {
+  /**
+   * The styles that ship. The FIRST entry is the baseline: its tokens land on
+   * `body` and its rules ship unscoped. Every other entry ships only as a
+   * `body.quasar-style-{name}` switch block, so an app carries exactly the
+   * styles it lists and nothing else. The runtime `setStyle()` only switches
+   * between styles this list made switchable.
+   *
+   * `QuasarPreset()` with neither this nor `style` throws: guessing a default
+   * would either ship styles nobody asked for or make `setStyle()` a silent
+   * no-op, and both are surprises an app should choose deliberately.
+   */
+  styles?: QuasarStyleEntry[]
+  /**
+   * Shorthand for `styles: [style]` — the single-entry case. Ignored when
+   * `styles` is given.
+   */
   style?: QuasarStyleEntry
   sourceColor?: string
   presetIcons?: IconsOptions
@@ -165,6 +181,41 @@ export function iconSetClasses(iconSet: unknown): string[] {
 }
 
 /**
+ * The style list a call resolved to: `styles` wins, `style` is the single-entry
+ * shorthand, and neither is an error rather than a guess — a silent default would
+ * either ship styles nobody asked for or make `setStyle()` a no-op (the option's
+ * doc says which).
+ */
+function resolveStyles(options?: QuasarPresetOptions): QuasarStyleEntry[] {
+  if (options?.styles?.length) return options.styles.map(checkStyleEntry)
+  if (options?.style) return [checkStyleEntry(options.style, 0)]
+  throw new Error(
+    'QuasarPreset: no style configured — pass styles: QuasarStyleEntry[] (first entry = baseline) or style'
+  )
+}
+
+/**
+ * A configured entry has to be usable before anything downstream reads it: the
+ * name becomes the `body.quasar-style-{name}` scope and `tokens` the diff source.
+ * A JS consumer can pass neither, and a silent `undefined` diff would emit a
+ * broken sheet instead of a diagnosable error.
+ */
+function checkStyleEntry(
+  entry: QuasarStyleEntry | null | undefined,
+  index: number
+): QuasarStyleEntry {
+  if (entry == null || typeof entry.name !== 'string' || entry.name === '') {
+    throw new Error(
+      `QuasarPreset: styles[${index}] is not a style entry — expected { name, tokens }`
+    )
+  }
+  if (entry.tokens == null || typeof entry.tokens !== 'object') {
+    throw new Error(`QuasarPreset: style entry "${entry.name}" has no tokens`)
+  }
+  return entry
+}
+
+/**
  * The preset, callable and usable directly.
  *
  * Consumers configure it — `QuasarPreset({ style, sourceColor, iconSet })` — and
@@ -182,8 +233,11 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
   // The public theme: the engine needs the palette on the UnoCSS theme (see
   // `extendTheme` below), and it is the same generator behind our preflight.
   const theme = generateTheme(sourceColor)
-  const defaultStyle = options?.style ?? builtinStyles[0] // md3 default
-  const allStyles = builtinStyles // always include all built-ins for setStyle() to work
+  const entries = resolveStyles(options)
+  // The baseline owns the unscoped token block and the shape roles; the rest are
+  // diffs against it. Both come from the list, so an unlisted style is neither
+  // emitted nor switchable.
+  const defaultStyle = entries[0]
   // App-extension output is opt-in and collected by export suffix, exactly as
   // the core and component collections above are.
   const appExtensionSources = (options?.appExtensions ?? []).map(
@@ -195,6 +249,14 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
   const appRules = appExtensionSources.flatMap((mod) => pickRules(mod, 'Rules'))
   const appShortcuts = appExtensionSources.flatMap((mod) =>
     pickBySuffix(mod, 'Shortcuts')
+  )
+  // The styles' own rules — the declarations tokens cannot express. The baseline
+  // entry's ship as authored; every other entry's are scoped to its body class,
+  // so an unlisted style carries none of them.
+  const styleRules = entries.flatMap((entry, index) =>
+    (entry.rules ?? []).map((rule) =>
+      scopeRule(rule, index === 0 ? '' : `body.quasar-style-${entry.name} `)
+    )
   )
 
   return {
@@ -235,7 +297,7 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
     preflights: [
       ...corePreflights,
       ...componentPreflights,
-      createTokenPreflight({ colors, defaultStyle, styles: allStyles }),
+      createTokenPreflight({ colors, defaultStyle, styles: entries }),
       // Media-query families: responsive visibility (`lt-md`, `xs`, …) and the
       // orientation/print platform classes. A UnoCSS rule body cannot carry an
       // at-rule (a nested `'@media …'` key is stringified as `[object Object]`),
@@ -255,12 +317,17 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
     //  - the remaining core utilities (colors, text, spacing) last, so
     //    `bg-*`/`text-*` win — otherwise `.q-btn { background: transparent }`
     //    wins the shorthand and `bg-secondary` buttons render unfilled.
+    // The styles' rules sit between the components and the core utilities: a
+    // style's reset has to come after the base rule it neutralises (equal
+    // specificity, so the later one wins) and before the utilities that are
+    // meant to override either.
     // mergeDuplicateRules collapses repeated matchers: UnoCSS keeps only the
     // last rule per regex, so duplicates silently dropped declarations.
     rules: mergeDuplicateRules([
       ...gridRules,
       ...componentRules,
       ...appRules,
+      ...styleRules,
       ...nonGridCoreRules
     ]),
     shortcuts: [...coreShortcuts, ...componentShortcuts, ...appShortcuts],

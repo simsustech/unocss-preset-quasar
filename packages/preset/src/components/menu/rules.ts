@@ -31,12 +31,6 @@ export const menuRules = [
         color: 'var(--q-on-surface)'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}--square`,
         'border-radius': '0'
       }

@@ -57,12 +57,6 @@ export const chipRules = [
         'border-bottom-left-radius': '3px'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}--square`,
         'border-radius': 'var(--shape-corner-small)'
       }

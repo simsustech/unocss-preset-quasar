@@ -56,12 +56,6 @@ export const treeRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
           `${selector}--dark .q-tree__node-header-content`,
         color: 'var(--q-on-surface)'
       }

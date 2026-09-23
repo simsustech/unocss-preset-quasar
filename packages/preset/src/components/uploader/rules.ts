@@ -37,12 +37,6 @@ export const uploaderRules = [
         position: 'relative'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}--dark`,
         'border-color': darkBorder,
         'box-shadow': darkBoxShadow

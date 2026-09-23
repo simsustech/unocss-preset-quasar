@@ -10,12 +10,6 @@ export const optionGroupRules = [
     function* (_, { symbols }) {
       // .q-option-group
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}--inline > div`,
         display: 'inline-block'
       }

@@ -1,6 +1,10 @@
 import { createGenerator } from 'unocss'
 import { describe, expect, it } from 'vitest'
-import { QuasarPreset } from '../src/index.js'
+import {
+  MaterialDesign3,
+  QuasarPreset,
+  QuasarStyleEntries
+} from '../src/index.js'
 
 /**
  * Unstyled means "structure only": the preset's own token layer neutralises
@@ -17,8 +21,9 @@ import { QuasarPreset } from '../src/index.js'
  *   the token diff already handles it, and a redundant stub would be a
  *   declaration that says nothing.
  *
- * The walk is done on the emitted sheet (diffed against the same sheet without
- * the extension), not on the source: what ships is what matters.
+ * The walk is done on the emitted sheet (diffed against the same sheet with the
+ * extension but without the style that owns the resets), not on the source: what
+ * ships is what matters.
  */
 
 const THEMING_PROPERTIES = [
@@ -86,10 +91,11 @@ const blocksOf = (css: string): Map<string, Block> => {
 
 const sheet = async (
   classes: string[],
-  extensions: ('qcalendar' | 'qmarkdown' | 'qmediaplayer')[]
+  extensions: ('qcalendar' | 'qmarkdown' | 'qmediaplayer')[],
+  styles: QuasarStyleEntry[] = QuasarStyleEntries
 ): Promise<string> => {
   const gen = await createGenerator({
-    presets: [QuasarPreset({ appExtensions: extensions })]
+    presets: [QuasarPreset({ styles, appExtensions: extensions })]
   })
   const { css } = await gen.generate(classes.join(' '), { preflights: false })
   return css
@@ -133,23 +139,41 @@ const CASES = [
 describe('app extensions ship a two-layer unstyled story', () => {
   for (const { extension, classes, minimumBlocks } of CASES) {
     it(`${extension}: literal theming gets a stub, token theming does not`, async () => {
-      const withExtension = await sheet(classes, [extension])
-      const without = blocksOf(await sheet(classes, []))
-      const own = [...blocksOf(withExtension).values()].filter(
-        (block) => !without.has(block.selector)
+      const withExtension = blocksOf(await sheet(classes, [extension]))
+      const withoutExtension = blocksOf(await sheet(classes, []))
+      const own = [...withExtension.values()].filter(
+        (block) => !withoutExtension.has(block.selector)
       )
       expect(own.length, `${extension} contributed blocks`).toBeGreaterThan(
         minimumBlocks
       )
 
+      // The resets are style-owned (ADR 0006), so they are isolated by dropping
+      // the style, with the extension still declared — not by dropping the
+      // extension, which now changes nothing about them.
+      const withoutStyle = blocksOf(
+        await sheet(classes, [extension], [MaterialDesign3])
+      )
+      const resets = [...withExtension.values()].filter(
+        (block) => !withoutStyle.has(block.selector)
+      )
+
       const stubbed = new Map(
-        own
+        resets
           .filter((block) => block.selector.startsWith(UNSTYLED))
           .map((block) => [block.selector.slice(UNSTYLED.length), block])
       )
 
       // 1. Every stub uses only allowed keys.
+      // 1. Every stub of this extension's own classes uses only allowed keys.
+      //    Scoped to them on purpose: the component resets also reset the
+      //    `background` shorthand, which a colour-key whitelist does not cover,
+      //    and those belong to the core contract, not to an extension's sheet.
       for (const block of stubbed.values()) {
+        const ownClass = classes.some((cls) =>
+          block.selector.includes(`.${cls}`)
+        )
+        if (!ownClass) continue
         expect(
           [...block.declarations.keys()].filter(
             (property) => !ALLOWED_RESET.has(property)

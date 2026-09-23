@@ -21,18 +21,8 @@ export const qmarkdownRules = [
         color: '#7d8b99'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector} .token.comment, ${selector} .token.block-comment, ${selector} .token.prolog, ${selector} .token.doctype, ${selector} .token.cdata`,
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector} .token.punctuation`,
         color: '#5f6364'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector} .token.punctuation`,
-        color: 'inherit'
       }
       yield {
         [symbols.selector]: (selector) => `${selector} .token.important`,
@@ -58,27 +48,12 @@ export const qmarkdownRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector} .token.property, ${selector} .token.tag, ${selector} .token.boolean, ${selector} .token.number, ${selector} .token.function-name, ${selector} .token.constant, ${selector} .token.symbol, ${selector} .token.deleted`,
-        color: 'inherit'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
           `${selector} .token.selector, ${selector} .token.attr-name, ${selector} .token.string, ${selector} .token.char, ${selector} .token.function, ${selector} .token.builtin, ${selector} .token.inserted`,
         color: '#2f9c0a'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector} .token.selector, ${selector} .token.attr-name, ${selector} .token.string, ${selector} .token.char, ${selector} .token.function, ${selector} .token.builtin, ${selector} .token.inserted`,
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector} .token.operator`,
         color: '#ff2211'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector} .token.operator`,
-        color: 'inherit'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -87,18 +62,8 @@ export const qmarkdownRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector} .token.entity, ${selector} .token.url, ${selector} .token.variable`,
-        color: 'inherit'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
           `${selector} .token.atrule, ${selector} .token.attr-value, ${selector} .token.keyword, ${selector} .token.class-name`,
         color: '#1990b8'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector} .token.atrule, ${selector} .token.attr-value, ${selector} .token.keyword, ${selector} .token.class-name`,
-        color: 'inherit'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -107,19 +72,9 @@ export const qmarkdownRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector} .token.regex, ${selector} .token.important`,
-        color: 'inherit'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
           `${selector} .language-css .token.string, ${selector} .style .token.string`,
         color: '#a67f59',
         background: 'rgba(255, 255, 255, 0.5)'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector} .language-css .token.string, ${selector} .style .token.string`,
-        color: 'inherit'
       }
       yield {
         [symbols.selector]: (selector) => `${selector} .namespace`,
@@ -129,11 +84,6 @@ export const qmarkdownRules = [
         [symbols.selector]: (selector) =>
           `${selector} .token.tab:not(:empty):before, ${selector} .token.cr:before, ${selector} .token.lf:before`,
         color: '#e0d7d1'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector} .token.tab:not(:empty):before, ${selector} .token.cr:before, ${selector} .token.lf:before`,
-        color: 'inherit'
       }
       // .q-markdown
       yield {
@@ -372,11 +322,6 @@ export const qmarkdownRules = [
         color: 'rgb(48.0392156863%, 48.0392156863%, 48.0392156863%)'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}--note-- .q-markdown--link`,
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}--note--info`,
         'border-left':
           '10px solid rgb(57.2465581977%, 76.1802252816%, 94.9103045474%)',
@@ -392,18 +337,8 @@ export const qmarkdownRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}--note--info .q-markdown--link`,
-        color: 'inherit'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
           `${selector}--note--info .q-markdown--note-title`,
         color: 'rgb(21.5018773467%, 56.2653316646%, 90.6549853984%)'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}--note--info .q-markdown--note-title`,
-        color: 'inherit'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--note--tip`,
@@ -421,18 +356,8 @@ export const qmarkdownRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}--note--tip .q-markdown--link`,
-        color: 'inherit'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
           `${selector}--note--tip .q-markdown--note-title`,
         color: 'rgb(27.6173499703%, 70.0297088532%, 29.5900178253%)'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}--note--tip .q-markdown--note-title`,
-        color: 'inherit'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--note--warning`,
@@ -449,18 +374,8 @@ export const qmarkdownRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}--note--warning .q-markdown--link`,
-        color: 'inherit'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
           `${selector}--note--warning .q-markdown--note-title`,
         color: 'rgb(100%, 41.8226768968%, 10.1960784314%)'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}--note--warning .q-markdown--note-title`,
-        color: 'inherit'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--note--danger`,
@@ -477,18 +392,8 @@ export const qmarkdownRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}--note--danger .q-markdown--link`,
-        color: 'inherit'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
           `${selector}--note--danger .q-markdown--note-title`,
         color: 'rgb(86.2371615313%, 34.939309057%, 34.939309057%)'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}--note--danger .q-markdown--note-title`,
-        color: 'inherit'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--note-title`,
@@ -508,11 +413,6 @@ export const qmarkdownRules = [
         'border-width': '1px',
         'border-style': 'solid',
         'border-color': '#9e9e9e'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}--table`,
-        'border-color': 'currentColor'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--line-numbers-wrapper`,
@@ -547,11 +447,6 @@ export const qmarkdownRules = [
         'line-height': '1.5',
         'tab-size': '4',
         hyphens: 'none'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}--line-number`,
-        color: 'inherit'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--code-wrapper`,
@@ -632,11 +527,6 @@ export const qmarkdownRules = [
         'border-color': '#9e9e9e #009688'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled blockquote${selector}--note`,
-        'border-color': 'currentColor'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}__copy`,
         position: 'absolute',
         top: '15px',
@@ -663,11 +553,6 @@ export const qmarkdownRules = [
         'border-color': '#9e9e9e #9e9e9e',
         background: '#1d1d1d',
         color: 'var(--q-surface-container-low)'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled body.body--dark ${selector} blockquote.q-markdown--note`,
-        'border-color': 'currentColor'
       }
       // Dark-only in upstream: .q-markdown pre
       yield {
@@ -747,21 +632,11 @@ export const qmarkdownRules = [
           `body.body--dark ${selector} .q-markdown--table thead tr th`,
         'background-color': '#1d1d1d'
       }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled body.body--dark ${selector} .q-markdown--table thead tr th`,
-        'background-color': 'transparent'
-      }
       // Dark-only in upstream: .q-markdown .q-markdown--table tbody
       yield {
         [symbols.selector]: (selector) =>
           `body.body--dark ${selector} .q-markdown--table tbody`,
         'background-color': '#1d1d1d'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled body.body--dark ${selector} .q-markdown--table tbody`,
-        'background-color': 'transparent'
       }
       // Dark-only in upstream: .q-markdown .q-markdown--table tbody tr:nth-child(2n+1)
       yield {

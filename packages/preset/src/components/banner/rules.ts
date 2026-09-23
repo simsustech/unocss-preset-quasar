@@ -22,12 +22,6 @@ export const bannerRules = [
         'background-color': 'transparent',
         'min-height': '54px'
       }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
       // AUD-024 fold: `--dense` declared the same `padding` + `min-height` twice,
       // in two orders. The surviving yield below is the one kept.
       yield {

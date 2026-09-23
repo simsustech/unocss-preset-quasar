@@ -107,12 +107,6 @@ export const expansionItemRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
           `${selector}--expanded + .q-expansion-item--expanded > div > .q-expansion-item__border--top`,
         opacity: '0'
       }

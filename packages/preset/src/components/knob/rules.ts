@@ -16,12 +16,6 @@ export const knobRules = [
         'font-size': '48px'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}__inner`,
         position: 'relative',
         width: '1em',

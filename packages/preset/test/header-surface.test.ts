@@ -9,12 +9,14 @@
 //   2. the rule itself painted `--q-primary` with white text.
 import { describe, it, expect } from 'vitest'
 import { createGenerator } from 'unocss'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 import { isSupplied, suppliedBy } from './supplied.js'
 import { quasarSafelist } from '../src/safelist.js'
 
 async function cssFor(tokens: string): Promise<string> {
-  const gen = await createGenerator({ presets: [QuasarPreset({})] })
+  const gen = await createGenerator({
+    presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+  })
   const r = await gen.generate(tokens, { preflights: false })
   return r.css
 }
@@ -42,7 +44,9 @@ describe('layout marginal sections (header/footer surface)', () => {
   })
 
   it('does not duplicate the q-header matcher (last-wins would drop rules)', async () => {
-    const gen = await createGenerator({ presets: [QuasarPreset({})] })
+    const gen = await createGenerator({
+      presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+    })
     const css = (await gen.generate('q-header')).css
     // base header must carry both the section position and its shadow hook,
     // proving the two former entries were merged rather than one being lost.

@@ -80,14 +80,8 @@ export const scrollAreaRules = [
   ],
   [
     /^q-scroll-area$/,
-    function* (_, { symbols }) {
+    function* () {
       // .q-scroll-area
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
     }
   ]
 ] as Rule[]

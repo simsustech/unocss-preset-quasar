@@ -149,11 +149,18 @@ async function allowlistMatchers() {
 async function main() {
   const { createGenerator } = await load('unocss')
   const presetWind4 = await load('@unocss/preset-wind4')
-  const { QuasarPreset } = await import(join(PRESET_DIR, 'dist', 'index.js'))
+  const { QuasarPreset, QuasarStyleEntries } = await import(
+    join(PRESET_DIR, 'dist', 'index.js')
+  )
 
   const dist = distClasses(quasarDistCss())
   const ours = emittedFoo(
-    await emit(await createGenerator({ presets: [QuasarPreset({})] }), dist)
+    await emit(
+      await createGenerator({
+        presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+      }),
+      dist
+    )
   )
   const wind = emittedFoo(
     await emit(await createGenerator({ presets: [presetWind4()] }), dist)

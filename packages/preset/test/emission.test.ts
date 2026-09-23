@@ -24,7 +24,7 @@ import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 import { createGenerator } from 'unocss'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 import { quasarSafelist } from '../src/safelist.js'
 import { isSupplied, suppliedBy } from './supplied.js'
 import * as componentModules from '../src/components/index.js'
@@ -41,7 +41,9 @@ const FIXTURE = JSON.parse(
 }
 
 const generate = async (input: string, preflights = false) => {
-  const gen = await createGenerator({ presets: [QuasarPreset({})] })
+  const gen = await createGenerator({
+    presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+  })
   const { css } = await gen.generate(input, { preflights })
   return css
 }

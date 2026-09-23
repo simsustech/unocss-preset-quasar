@@ -7,20 +7,14 @@ import type { Rule } from '@unocss/core'
 export const tabPanelsRules = [
   [
     /^q-tab-panels$/,
-    function* (_, { symbols }) {
+    function* () {
       // .q-tab-panels
       yield { 'background-color': 'inherit' }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
     }
   ],
   [
     /^q-tab-panel$/,
-    function* (_, { symbols }) {
+    function* () {
       // .q-tab-panel
       yield { padding: '16px' }
       yield { padding: '16px' }

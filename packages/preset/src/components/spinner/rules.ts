@@ -13,12 +13,6 @@ export const spinnerRules = [
         'vertical-align': 'middle'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}--gears`
         // Gears spinner
       }

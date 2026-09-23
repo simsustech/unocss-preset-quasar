@@ -7,12 +7,6 @@ export const pageRules = [
       // .q-page
       yield { padding: 'var(--q-space-md)' }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}--padding`,
         padding: 'var(--q-space-md)'
       }
@@ -23,12 +17,6 @@ export const pageRules = [
     function* (_, { symbols }) {
       // .q-page-sticky
       yield { position: 'fixed', 'z-index': '7000' }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
       yield {
         [symbols.selector]: (selector) => `${selector}--expand`
         // Expand

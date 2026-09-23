@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { createGenerator } from 'unocss'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 import { quasarSafelist } from '../src/safelist.js'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { join, dirname } from 'node:path'
@@ -28,7 +28,7 @@ function normalize(s: string) {
 const ENV_GATED = /\bbody\.(desktop|electron|platform-ios|q-ios-padding)\b/
 
 // @ts-expect-error -- pi-lens infers wrong type; vitest resolves TS correctly
-const preset = QuasarPreset({})
+const preset = QuasarPreset({ styles: QuasarStyleEntries })
 
 describe('parity snapshot', () => {
   it('reports coverage', async () => {

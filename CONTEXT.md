@@ -86,3 +86,17 @@ Their tokens live in the same `--q-*` namespace as the preset's own defaults
 roles rather than upstream's palette, and their rules are gated so an app that declares
 none carries none of their CSS. See `docs/adr/0005-opt-in-selector-keyed-app-extension-css.md`
 for why they are rules rather than preflights or a separate package.
+
+## Styles
+
+**baseline style** — the first entry in `styles`; its tokens land on `body` and
+its rules ship unscoped, so it is active with no body class.
+
+**switchable style** — any other listed entry; scoped under
+`body.quasar-style-{name}`.
+
+**style-specific rules** — `QuasarStyleEntry.rules`: declarations tokens cannot
+express (the unstyled resets), owned by `src/styles/<name>/`.
+
+**tree-shaken inclusion** — an unlisted style ships neither its token diff nor
+its rules.

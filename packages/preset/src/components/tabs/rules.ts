@@ -231,12 +231,6 @@ export const tabsRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
           `${selector}--active .q-tab__indicator`,
         opacity: '100%'
       }

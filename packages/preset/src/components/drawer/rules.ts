@@ -43,12 +43,6 @@ export const drawerRules = [
         'background-color': 'var(--q-secondary-container)'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}--left`,
         transform: 'translateX(-100%)',
         left: '0'

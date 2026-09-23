@@ -1,7 +1,11 @@
 import { createGenerator } from 'unocss'
 import presetWind4 from '@unocss/preset-wind4'
 import { describe, expect, it } from 'vitest'
-import { QuasarPreset, quasarWind4Options } from '../src/index.js'
+import {
+  QuasarPreset,
+  quasarWind4Options,
+  QuasarStyleEntries
+} from '../src/index.js'
 
 /**
  * A consumer that wants wind4 adds it themselves. Two things then depend on
@@ -19,8 +23,20 @@ import { QuasarPreset, quasarWind4Options } from '../src/index.js'
  */
 describe('a consumer’s wind4 is configured by the preset’s fragment', () => {
   const orders = (): [label: string, presets: unknown[]][] => [
-    ['wind4 first', [presetWind4(quasarWind4Options), QuasarPreset({})]],
-    ['wind4 last', [QuasarPreset({}), presetWind4(quasarWind4Options)]]
+    [
+      'wind4 first',
+      [
+        presetWind4(quasarWind4Options),
+        QuasarPreset({ styles: QuasarStyleEntries })
+      ]
+    ],
+    [
+      'wind4 last',
+      [
+        QuasarPreset({ styles: QuasarStyleEntries }),
+        presetWind4(quasarWind4Options)
+      ]
+    ]
   ]
 
   const sheet = async (presets: unknown[], content: string) => {

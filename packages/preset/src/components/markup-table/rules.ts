@@ -21,12 +21,6 @@ export const markupTableRules: Rule[] = [
         [symbols.selector]: (selector) => `.body--dark ${selector}`,
         color: 'var(--q-on-surface)'
       }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
     }
   ]
 ]

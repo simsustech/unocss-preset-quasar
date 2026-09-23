@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { createGenerator } from 'unocss'
 import { describe, expect, it } from 'vitest'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 import { quasarSafelist } from '../src/safelist.js'
 import {
   componentClasses,
@@ -53,7 +53,9 @@ describe('engine-internal reads', () => {
   })
 
   it('emits our default behind every engine-first read', async () => {
-    const gen = await createGenerator({ presets: [QuasarPreset({})] })
+    const gen = await createGenerator({
+      presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+    })
     const content = [
       ...quasarSafelist,
       ...Object.values(componentClasses).flat(),
@@ -90,7 +92,9 @@ describe('engine-internal reads', () => {
   })
 
   it('reads the theme colours with a literal fallback', async () => {
-    const gen = await createGenerator({ presets: [QuasarPreset({})] })
+    const gen = await createGenerator({
+      presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+    })
     const content = [
       ...quasarSafelist,
       ...Object.values(componentClasses).flat(),

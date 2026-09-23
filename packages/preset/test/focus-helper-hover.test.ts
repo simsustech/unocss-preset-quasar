@@ -7,10 +7,12 @@
 // (quasar.css:2903) — the rewrite had dropped it.
 import { describe, it, expect } from 'vitest'
 import { createGenerator } from 'unocss'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 
 async function cssFor(tokens: string): Promise<string> {
-  const gen = await createGenerator({ presets: [QuasarPreset({})] })
+  const gen = await createGenerator({
+    presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+  })
   const r = await gen.generate(tokens, { preflights: false })
   return r.css
 }

@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { gridRules } from '../src/core/grid/rules.js'
 import { createGenerator } from 'unocss'
 import presetWind4 from '@unocss/preset-wind4'
-import { QuasarPreset } from '../src/index.js'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
 
 /** Helper: find a rule by its regex test and invoke the matcher (handles generators) */
 function matchRule(selector: string): Record<string, string> | undefined {
@@ -164,7 +164,9 @@ describe('gridRules', () => {
 //     is still pinned here so the overlap cannot silently diverge from dist.
 describe('grid grammar (dist-derived)', () => {
   const sheet = async (tokens: string): Promise<string> => {
-    const gen = await createGenerator({ presets: [QuasarPreset({})] })
+    const gen = await createGenerator({
+      presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+    })
     return (await gen.generate(tokens)).css
   }
 

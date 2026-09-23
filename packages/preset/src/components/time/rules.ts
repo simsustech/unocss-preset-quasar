@@ -53,12 +53,6 @@ export const timeRules = [
         'background-color': 'var(--q-tertiary-container)'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         'outline-color':
           'color-mix(in oklab, 0 var(--q-outline-opacity), transparent)',
         // quasar: this rule reproduces Quasar's own 4px corner

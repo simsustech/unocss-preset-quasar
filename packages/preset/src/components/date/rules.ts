@@ -82,12 +82,6 @@ export const dateRules = [
         'background-color': 'var(--q-primary)'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         // quasar: this rule reproduces Quasar's own 4px corner
         'border-radius': '4px',
         'background-color':

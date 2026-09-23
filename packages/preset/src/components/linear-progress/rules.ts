@@ -29,12 +29,6 @@ export const linearProgressRules = [
         'background-color': 'var(--q-surface-container-highest)'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}--dark`,
         'background-color': 'var(--q-surface-variant)'
       }

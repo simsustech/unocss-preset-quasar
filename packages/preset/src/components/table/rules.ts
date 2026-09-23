@@ -123,12 +123,6 @@ export const tableRules = [
         height: '0 !important'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `.body--dark ${selector} th`,
         color: 'var(--q-on-surface-variant)',
         'border-color': 'var(--q-outline-variant)'

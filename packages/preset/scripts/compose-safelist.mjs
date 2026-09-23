@@ -105,8 +105,10 @@ const { componentClasses, knownClasses, globalClasses } = await import(
 // whenever the component is used. Such entries are dropped below — they are
 // candidates nothing can consume, e.g. `q-carousel__navigation--top` and the
 // unstyled-but-real `q-breadcrumbs--last`.
-const { QuasarPreset } = await import(path.join(presetDir, 'dist', 'index.js'))
-const matchers = QuasarPreset({})
+const { QuasarPreset, QuasarStyleEntries } = await import(
+  path.join(presetDir, 'dist', 'index.js')
+)
+const matchers = QuasarPreset({ styles: QuasarStyleEntries })
   .rules.filter((r) => Array.isArray(r) && r[0] instanceof RegExp)
   .map((r) => r[0])
 const rootOf = (name) => {
@@ -135,12 +137,21 @@ const PLUGIN_DRIVEN = new Set([
   'q-notification'
 ])
 
+/** Read JSON with the file named: a missing or malformed file is the usual fault. */
+const readJson = (file) => {
+  try {
+    return JSON.parse(fs.readFileSync(file, 'utf8'))
+  } catch (error) {
+    throw new Error(`[compose] cannot read ${file}: ${error.message}`)
+  }
+}
+
 // Two coverage shapes are in circulation: the harness's per-style report
 // (`{dom, unstyled}`, written to `test-results/`) and the recorded baseline
 // (`{md3: {dom}, md2: {dom}}`). Reading the wrong one yields `undefined`, which
 // does not throw — `new Set(undefined)` is empty — so the DOM evidence the
 // derivation rests on disappears silently. Both are accepted; an empty set is not.
-const domJson = JSON.parse(fs.readFileSync(domPath, 'utf8'))
+const domJson = readJson(domPath)
 const domOf = (json) =>
   Array.isArray(json.dom) ? json.dom : (json.md3 ?? json.md2)?.dom
 const domList = domOf(domJson)
@@ -153,11 +164,8 @@ if (!Array.isArray(domList) || domList.length === 0) {
 
 /** Every class the reference bundle's selectors name. */
 const referenced = new Set()
-const fixture = JSON.parse(
-  fs.readFileSync(
-    path.join(presetDir, 'test', 'fixtures', 'reference-selectors.json'),
-    'utf8'
-  )
+const fixture = readJson(
+  path.join(presetDir, 'test', 'fixtures', 'reference-selectors.json')
 )
 for (const rule of fixture.rules) {
   for (const match of rule.selector.matchAll(/\.(-?[a-zA-Z_][\w-]*)/g)) {

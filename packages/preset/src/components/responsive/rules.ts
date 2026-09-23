@@ -13,12 +13,6 @@ export const responsiveRules = [
         position: 'relative'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}--ratio`
         // Ratio
       }

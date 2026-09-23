@@ -104,12 +104,6 @@ export const btnGroupRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
           `.body--dark ${selector} > .q-btn-item.bg-primary`,
         color: 'var(--q-on-primary) !important',
         'background-color': 'var(--q-primary) !important'

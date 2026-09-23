@@ -21,12 +21,6 @@ export const toolbarRules = [
         'font-size': '38px'
       }
       yield {
-        [symbols.selector]: (selector: string) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}--inset`,
         // Reference `.q-toolbar--inset { padding-left: 58px }` (physical, as the
         // bundle states it).
