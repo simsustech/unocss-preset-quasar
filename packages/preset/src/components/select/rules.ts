@@ -72,20 +72,15 @@ export const selectRules = [
           `${selector}--with-input .q-field__control`,
         cursor: 'text'
       }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__focus-target`,
-        position: 'absolute',
-        outline: '0 !important',
-        width: '1px',
-        height: '1px',
-        padding: '0',
-        border: '0',
-        opacity: '0%'
-      }
+      // AUD-024 fold: this shorthand yield and the longhand one below both
+      // targeted the same selector, and the shorthand's `outline: 0` rewrote
+      // `outline-style` to `none`, which is *not* what the reference states. The
+      // longhand yield carries the reference's declarations, so it is the one
+      // kept.
       yield {
         [symbols.selector]: (selector) => `${selector}__focus-target`,
         padding: '0',
-        'outline-style': 'none !important',
+        'outline-style': 'var(--un-outline-style) !important',
         'outline-width': '0px !important',
         'border-width': '0px',
         opacity: '0%',
@@ -93,20 +88,11 @@ export const selectRules = [
         height: '1px',
         position: 'absolute'
       }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__autocomplete-input`,
-        position: 'absolute',
-        outline: '0 !important',
-        width: '1px',
-        height: '1px',
-        padding: '0',
-        border: '0',
-        opacity: '0%'
-      }
+      // Same fold as the focus target above.
       yield {
         [symbols.selector]: (selector) => `${selector}__autocomplete-input`,
         padding: '0',
-        'outline-style': 'none !important',
+        'outline-style': 'var(--un-outline-style) !important',
         'outline-width': '0px !important',
         'border-width': '0px',
         opacity: '0%',

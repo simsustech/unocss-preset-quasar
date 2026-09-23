@@ -62,11 +62,8 @@ export const ratingRules = [
         [symbols.selector]: (selector) => `${selector}__icon--hovered`,
         transform: 'scale(1.3)'
       }
-      yield {
-        [symbols.selector]: (selector) =>
-          `.q-rating--no-dimming ${selector}__icon`,
-        opacity: '100%'
-      }
+      // AUD-024 fold: `opacity: 100%` here and `opacity: 1` in the padding pass
+      // below were the same declaration twice; the later one is kept.
       yield {
         [symbols.selector]: (selector) => `${selector}__icon--active`,
         color: '#f9a825'
@@ -75,11 +72,9 @@ export const ratingRules = [
         [symbols.selector]: (selector) => `${selector}__icon--inactive`,
         color: 'var(--q-surface-container-highest)'
       }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__icon-container`,
-        height: '1em',
-        outline: '0'
-      }
+      // AUD-024 fold: the `outline: 0` yield here and the longhand one below are
+      // one block now — the shorthand wrote `outline-style: none`, the reference
+      // states the wind4 outline variable.
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__icon-container + .q-rating__icon-container`,
@@ -87,7 +82,7 @@ export const ratingRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__icon-container`,
-        'outline-style': 'solid',
+        'outline-style': 'var(--un-outline-style)',
         'outline-width': '0px',
         height: '1em'
       }
