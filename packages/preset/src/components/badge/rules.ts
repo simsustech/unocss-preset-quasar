@@ -9,16 +9,25 @@ export const badgeRules = [
         display: 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'border-radius': 'var(--q-radius-full)',
+        // MD3's badge corner is 8dp and Quasar's own is 4px; the token carries
+        // the per-style value (theme `radiusSm`: md3 8px, md2 4px), which is why
+        // no body-class scoping is needed here.
+        'border-radius': 'var(--q-radius-sm)',
         'background-color': 'var(--q-primary)',
         color: 'var(--q-on-primary)',
-        'font-size': 'var(--q-label-medium-size)',
+        // MD3 label-small is 11px, Quasar's own 12px; the token reads 11px in
+        // md3 and md2 alike (and `inherit` when unstyled).
+        'font-size': 'var(--q-label-small-size)',
         'font-weight': 'var(--q-badge-font-weight)',
-        'line-height': 1,
-        padding: '3px 7px',
-        // quasar: Quasar's badge min-height
-        'min-height': '20px',
-        'min-width': '20px',
+        'line-height': 'var(--leading-none)',
+        // quasar: Quasar's badge box is 16px tall (dist) / 12px min-height
+        // (quasar.css); the design layer's 20px min box fought that `height`.
+        height: '16px',
+        'min-width': '16px',
+        'padding-block': '0',
+        // quasar: Quasar's badge padding (2px 6px)
+        'padding-inline': '6px',
+        'vertical-align': 'baseline',
         'text-align': 'center'
       }
       yield {
@@ -30,24 +39,6 @@ export const badgeRules = [
           `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
-      }
-      yield {
-        // No `font-size` here: the base rule's 12px is Quasar's value (and what
-        // the harness asserts). This parity copy's 11px won the cascade and
-        // rendered every badge a size too small.
-        color: 'color-mix(in oklab, #fff var(--un-text-opacity), transparent)',
-        'line-height': 'var(--leading-none)',
-        'font-weight': 'var(--fontWeight-normal)',
-        // quasar: Quasar's badge padding
-        'padding-inline': '6px',
-        'padding-block': '0',
-        'vertical-align': 'baseline',
-        // quasar: unstyled badge reproduces Quasar's 4px corner
-        // quasar: this rule reproduces Quasar's own 4px corner
-        'border-radius': '4px',
-        'background-color':
-          'color-mix(in oklab, var(--q-primary) var(--un-bg-opacity), transparent)',
-        height: '16px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--outline`,

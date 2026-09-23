@@ -1475,6 +1475,12 @@ export const fieldRules = [
         opacity: '50%'
       }
       yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--focused .q-field__shadow`,
+        // quasar: quasar.css `.q-field--focused .q-field__shadow { opacity: .5 }`
+        opacity: '0.5'
+      }
+      yield {
         [symbols.selector]: (selector) => `${selector}__focusable-action`,
         opacity: '0.6',
         cursor: 'pointer',

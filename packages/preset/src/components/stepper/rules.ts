@@ -342,6 +342,37 @@ export const stepperRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
+          `${selector}--horizontal .q-stepper__tab:first-child .q-stepper__dot:before, ${selector}--horizontal .q-stepper__tab:last-child .q-stepper__label`,
+        // quasar: the first tab drops its connector and the last its label in
+        // the horizontal axis (quasar.css `.q-stepper__tab--horizontal:…`).
+        display: 'none'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical .q-stepper__step`,
+        // quasar: quasar.css `.q-stepper__step--vertical { overflow: hidden }`
+        overflow: 'hidden'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical .q-stepper__step-inner`,
+        // quasar: quasar.css `.q-stepper__step-inner--vertical`'s box
+        padding: '0 24px 32px 60px'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical .q-stepper__step:last-child .q-stepper__step-inner`,
+        // quasar: quasar.css `.q-stepper__step--vertical:last-child … { padding-bottom: 8px }`
+        'padding-bottom': '8px'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__step-content--leaving`,
+        // quasar: quasar.css `.q-stepper__step-content--leaving { top: 0; left: 0 }`
+        top: '0',
+        left: '0'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
           `${selector}--horizontal .q-stepper__step-inner`,
         padding: '24px'
       }

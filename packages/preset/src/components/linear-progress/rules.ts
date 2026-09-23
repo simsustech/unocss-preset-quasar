@@ -99,14 +99,6 @@ export const linearProgressRules = [
         transition: 'none'
       }
       yield {
-        [symbols.selector]: (selector) => `${selector}__track--light`,
-        background: 'rgba(0, 0, 0, 0.26)'
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__track--dark`,
-        background: 'rgba(255, 255, 255, 0.6)'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector}__stripe`,
         'background-image':
           'linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0)) !important',

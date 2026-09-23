@@ -138,12 +138,6 @@ export const checkboxRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__icon`,
-        color: 'var(--q-on-primary)',
-        // quasar: this value is Quasar's own, not a forked token
-        'font-size': '0.7em'
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__icon`,
         // quasar: this value is Quasar's own, not a forked token
         'font-size': '0.5em',
         color: 'currentColor'

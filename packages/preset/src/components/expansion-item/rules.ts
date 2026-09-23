@@ -32,6 +32,14 @@ export const expansionItemRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
+          `.q-item__section--main ~ ${selector}__icon-section`,
+        // quasar: quasar.css `.q-item__section--main ~
+        // .q-expansion-item__icon-section { min-width: 0 }` — without it the
+        // icon section keeps the item's implicit minimum and shoves the label.
+        'min-width': '0'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
           `${selector}__toggle-section--switched.q-item__section--side`,
         'min-width': '56px'
       }

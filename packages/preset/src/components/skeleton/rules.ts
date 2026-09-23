@@ -36,7 +36,10 @@ export const skeletonRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--anim`,
-        animation: 'q-skeleton-blink 1.5s infinite'
+        // quasar: quasar.css states only the cursor here — the blink animation is
+        // `--anim-blink:after`, and a keyframe named `q-skeleton-blink` does not
+        // exist in Quasar at all.
+        cursor: 'wait'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--bordered`,
