@@ -17,7 +17,7 @@
  * list, and the harness's `tests/class-coverage.spec.ts` is what verifies it.
  */
 export const quasarSafelist: string[] = [
-  /** 262 base entries. */
+  /** 266 base entries. */
   'absolute',
   'absolute-bottom',
   'absolute-bottom-left',
@@ -149,6 +149,12 @@ export const quasarSafelist: string[] = [
   'q-body--force-scrollbar-x',
   'q-body--force-scrollbar-y',
   'q-body--prevent-scroll',
+  // Applied to <html> by Quasar 2.31's scroll lock; no source signal, so the
+  // candidate has to come from here (see core/helpers/rules.ts).
+  'q-document--clip-scroll',
+  'q-document--pin-body',
+  'q-document--prevent-scroll',
+  'q-document--reserve-scrollbar',
   'q-dialog-plugin',
   'q-electron-drag',
   'q-electron-drag--exception',

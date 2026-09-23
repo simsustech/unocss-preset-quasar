@@ -51,6 +51,30 @@ export const helpersRules: ComponentRule[] = [
   rule(/^q-body--force-scrollbar-x$/, () => ({ 'overflow-x': 'scroll' })),
   rule(/^q-body--force-scrollbar-y$/, () => ({ 'overflow-y': 'scroll' })),
 
+  // Quasar 2.31's scroll lock writes `q-document--*` on <html>; the older
+  // `q-body--*` mixins above are kept for runtimes that still emit them, since
+  // the class name is chosen by Quasar's JavaScript, not by this sheet.
+  // Declarations mirror quasar/dist/quasar.css verbatim.
+  rule(/^q-document--prevent-scroll$/, () => ({
+    'overscroll-behavior': 'none !important'
+  })),
+  rule(/^q-document--clip-scroll$/, () => ({
+    overflow: 'hidden !important'
+  })),
+  rule(/^q-document--reserve-scrollbar$/, () => ({
+    'scrollbar-gutter': 'stable !important'
+  })),
+  [
+    /^q-document--pin-body$/,
+    function* (_, { symbols }: any): Generator<any, void, any> {
+      yield { 'min-height': '100%' }
+      yield {
+        [symbols.selector]: (sel: string) => `${sel} body`,
+        position: 'fixed !important'
+      }
+    }
+  ],
+
   // --- Input spinner ---
   rule(/^q-no-input-spinner::-webkit-outer-spin-button$/, () => ({
     margin: 0,
