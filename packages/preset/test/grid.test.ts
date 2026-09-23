@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import { gridRules } from '../src/core/grid/rules.js'
+import { createGenerator } from 'unocss'
+import presetWind4 from '@unocss/preset-wind4'
+import { QuasarPreset } from '../src/index.js'
 
 /** Helper: find a rule by its regex test and invoke the matcher (handles generators) */
 function matchRule(selector: string): Record<string, string> | undefined {
@@ -142,5 +145,128 @@ describe('gridRules', () => {
 
   it('returns undefined for unknown selectors', () => {
     expect(matchRule('not-a-real-class')).toBeUndefined()
+  })
+})
+
+// ---------------------------------------------------------------------------
+// Step 6 (AUD-016): the grid grammar gaps, asserted on the emitted sheet —
+// the candidate has to survive rule matching, not just the matcher call above.
+//
+// Verified against quasar/dist/quasar.css (the arbiter) and against
+// `@unocss/preset-wind4` alone (the delegation rule):
+//   * `col-xs-*` and the bare `col-<bp>` names: dist styles them, wind4 emits
+//     nothing, and this preset had no matcher.
+//   * `offset-{0..12}` / `offset-<bp>-{0..12}`: dist nests every one of them
+//     under `.row >`, so the emitted selector is row-qualified.
+//   * `items-*` / `justify-*` / `content-*` / `self-*`: NOT a gap — they are
+//     implemented in `flex-align.ts` and wind4 also provides them; the audit's
+//     "unstyled" claim came from sweeping `grid/rules.ts` alone. The sheet value
+//     is still pinned here so the overlap cannot silently diverge from dist.
+describe('grid grammar (dist-derived)', () => {
+  const sheet = async (tokens: string): Promise<string> => {
+    const gen = await createGenerator({ presets: [QuasarPreset({})] })
+    return (await gen.generate(tokens)).css
+  }
+
+  // UnoCSS merges rules with identical declarations into one multi-selector
+  // list (`.col-lg,\n.col-md,\n.col-xs{…}`), so a rule is looked up by the
+  // selector list it belongs to, not by a `.\.class{` substring.
+  type Block = { selectors: string[]; body: string }
+  const blocks = (css: string): Block[] =>
+    [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map((m) => ({
+      selectors: m[1]
+        .split(',')
+        .map((sel) => sel.trim())
+        .filter(Boolean),
+      body: m[2].trim()
+    }))
+  const declFor = (css: string, selector: string): string | undefined =>
+    blocks(css)
+      .find((b) => b.selectors.includes(selector))
+      ?.body.replace(/;$/, '')
+
+  it('ships the whole xs breakpoint family', async () => {
+    const tokens = [
+      ...Array.from({ length: 12 }, (_, i) => `col-xs-${i + 1}`),
+      'col-xs-auto',
+      'col-xs-grow',
+      'col-xs-shrink'
+    ]
+    const css = await sheet(tokens.join(' '))
+    for (const t of tokens) expect(declFor(css, `.${t}`), t).toBeDefined()
+    // dist's `.col-xs-6 { flex: 0 0 auto }` is the row-scoped counterpart; this
+    // preset's single-class form carries the span in the variable.
+    expect(declFor(css, '.col-xs-6')).toBe(
+      '--q-col-span:6;flex:0 0 calc(var(--q-col-span) / 12 * 100%);max-width:calc(var(--q-col-span) / 12 * 100%)'
+    )
+  })
+
+  it('bare breakpoint columns grow like col', async () => {
+    const css = await sheet('col-xs col-sm col-md col-lg col-xl')
+    for (const bp of ['xs', 'sm', 'md', 'lg', 'xl']) {
+      expect(declFor(css, `.col-${bp}`), bp).toBe(
+        'flex:1 1 0%;flex-grow:1;max-width:100%'
+      )
+    }
+  })
+
+  it('offsets are row-qualified at dist steps', async () => {
+    const expected: Record<string, string> = {
+      'offset-0': '0%',
+      'offset-1': '8.3333%',
+      'offset-2': '16.6667%',
+      'offset-6': '50%',
+      'offset-11': '91.6667%',
+      'offset-12': '100%',
+      'offset-xs-3': '25%',
+      'offset-sm-4': '33.3333%',
+      'offset-md-6': '50%',
+      'offset-lg-9': '75%',
+      'offset-xl-12': '100%'
+    }
+    const css = await sheet(Object.keys(expected).join(' '))
+    for (const [cls, pct] of Object.entries(expected)) {
+      // dist has no bare `.offset-N`: only `.row > .offset-N`.
+      expect(declFor(css, `.row > .${cls}`), cls).toBe(`margin-left:${pct}`)
+    }
+  })
+
+  it('rejects out-of-range steps instead of emitting a broken track', async () => {
+    const css = await sheet('col-xs-13 offset-13 offset-xs-13')
+    expect(css).not.toContain('.col-xs-13')
+    expect(css).not.toContain('.offset-13')
+  })
+
+  it('keeps the already-implemented alignment family at the dist values', async () => {
+    const dist: Record<string, string> = {
+      'items-baseline': 'align-items:baseline',
+      'self-baseline': 'align-self:baseline',
+      'justify-around': 'justify-content:space-around',
+      'justify-evenly': 'justify-content:space-evenly',
+      'content-start': 'align-content:flex-start',
+      'content-end': 'align-content:flex-end',
+      'content-center': 'align-content:center',
+      'content-stretch': 'align-content:stretch',
+      'content-between': 'align-content:space-between',
+      'content-around': 'align-content:space-around'
+    }
+    const css = await sheet(Object.keys(dist).join(' '))
+    for (const [cls, decl] of Object.entries(dist)) {
+      expect(declFor(css, `.${cls}`), cls).toBe(`${decl}`)
+    }
+  })
+
+  it('delegates only the names wind4 does not carry', async () => {
+    const wind = await createGenerator({ presets: [presetWind4()] })
+    const windCss = (await wind.generate('items-baseline justify-around')).css
+    // Asserted as a substring on purpose: these two names declare different
+    // properties, so nothing merges them and the block is stable. (The preset's
+    // own sheet goes through `declFor`, which is merge-agnostic.)
+    expect(windCss).toContain('.items-baseline{align-items:baseline;}')
+    // wind4 has no grid-column grammar for Quasar's col-/offset- names, which is
+    // why they need rules here at all.
+    const windGrid = (await wind.generate('col-xs-6 offset-2 col-sm')).css
+    expect(windGrid).not.toContain('.col-xs-6')
+    expect(windGrid).not.toContain('.offset-2')
   })
 })

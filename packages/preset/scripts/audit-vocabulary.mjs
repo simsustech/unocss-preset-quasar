@@ -73,8 +73,8 @@ const ALLOWLIST = [
   // emitted on demand, not component vocabulary (parity-report
   // classifySelector + REPORTED_REASON.utilities).
   {
-    re: /^col(-(xs|sm|md|lg|xl))?(-\d+|-auto|-grow|-offset-\d+)?$/,
-    why: 'wind4 grid columns (parity-report flex-grid)'
+    re: /^(col(-(xs|sm|md|lg|xl))?(-\d+|-auto|-grow|-shrink)?|offset(-\d+|-xs-\d+|-sm-\d+|-md-\d+|-lg-\d+|-xl-\d+))$/,
+    why: 'wind4 grid columns and Quasar row offsets (parity-report flex-grid; offsets are dist-nested under .row)'
   },
   {
     re: /^(items|justify|self|content|place|order)-/,

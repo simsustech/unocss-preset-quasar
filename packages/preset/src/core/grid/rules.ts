@@ -151,8 +151,11 @@ export const gridRules = [
     }
   ],
   // col-<bp>-N responsive (relies on UnoCSS sm:/md: variants for wrapping; base value here)
+  // `xs` belongs to the family: Quasar's grid documents and styles it exactly
+  // like the other four breakpoints (dist: `.col-xs-6 { flex: 0 0 auto }` + the
+  // row-scoped width), and it was the one breakpoint with no matcher at all.
   [
-    /^col-(sm|md|lg|xl)-(\d+|auto|grow|shrink)$/,
+    /^col-(xs|sm|md|lg|xl)-(\d+|auto|grow|shrink)$/,
     function* ([, , span]: string[]) {
       if (span === 'auto')
         yield { flex: '0 0 auto', width: 'auto', 'max-width': '100%' }
@@ -167,6 +170,31 @@ export const gridRules = [
           flex: '0 0 calc(var(--q-col-span) / 12 * 100%)',
           'max-width': 'calc(var(--q-col-span) / 12 * 100%)'
         }
+      }
+    }
+  ],
+  // Bare breakpoint columns (`col-xs` … `col-xl`) grow to fill the line, like
+  // `col`. dist states `flex: 10000 1 0%` for each of them plus the row-scoped
+  // reset (`.row > .col-xs { width: auto; min-width: 0; max-width: 100% }`); this
+  // preset's single-class form carries the same intent as its `col` rule above,
+  // so `col` and `col-<bp>` stay one behaviour.
+  [
+    /^col-(xs|sm|md|lg|xl)$/,
+    function* () {
+      yield { flex: '1 1 0%', 'flex-grow': 1, 'max-width': '100%' }
+    }
+  ],
+  // Offsets: Quasar only applies them inside a row — dist has no bare
+  // `.offset-2`, only `.row > .offset-2 { margin-left: 16.6667% }` — so the rule
+  // emits that qualified selector. Steps mirror `.col-<bp>-N`'s 12 columns.
+  [
+    /^offset-(?:(\d+)|(xs|sm|md|lg|xl)-(\d+))$/,
+    function* ([, bare, , spanned]: string[], { symbols }: any) {
+      const n = Number(bare ?? spanned)
+      if (!Number.isInteger(n) || n < 0 || n > 12) return
+      yield {
+        [symbols.selector]: (sel: string) => `.row > ${sel}`,
+        'margin-left': `${Number(((n / 12) * 100).toFixed(4))}%`
       }
     }
   ],
