@@ -40,6 +40,62 @@ const ALLOWED: Allowed[] = [
     file: 'src/components/chip/rules.ts',
     selector: '.body--dark .q-chip__icon'
   },
+  // The tree's virtual-scroll family: `q-tree__vnode` and its modifiers exist
+  // only in the DOM of a virtual tree, and dist states every one of these
+  // selectors whole (including the dense/virtual combinations), so they are
+  // emitted from the `q-tree` token verbatim — `${sel}` would name a class the
+  // rule is not about (AUD-023 residue, measured in quasar.client.js).
+  { file: 'src/components/tree/rules.ts', selector: '.q-tree__vnode' },
+  {
+    file: 'src/components/tree/rules.ts',
+    selector: '.q-tree__vnode--parent .q-tree__vguide--connector:after'
+  },
+  {
+    file: 'src/components/tree/rules.ts',
+    selector: '.q-tree--virtual .q-tree__vnode--parent .q-tree__node-header'
+  },
+  {
+    file: 'src/components/tree/rules.ts',
+    selector: '.q-tree--virtual .q-tree__vnode--parent .q-tree__node-body'
+  },
+  {
+    file: 'src/components/tree/rules.ts',
+    selector: '.q-tree--virtual .q-tree__vnode--child .q-tree__node-header'
+  },
+  {
+    file: 'src/components/tree/rules.ts',
+    selector:
+      '.q-tree--virtual .q-tree__vnode--root.q-tree__vnode--parent .q-tree__node-header'
+  },
+  {
+    file: 'src/components/tree/rules.ts',
+    selector:
+      '.q-tree--virtual .q-tree__vnode--root.q-tree__vnode--child .q-tree__node-header'
+  },
+  {
+    file: 'src/components/tree/rules.ts',
+    selector: '.q-tree--dense .q-tree__vnode'
+  },
+  {
+    file: 'src/components/tree/rules.ts',
+    selector:
+      '.q-tree--dense .q-tree__vnode--parent .q-tree__vguide--connector:after'
+  },
+  {
+    file: 'src/components/tree/rules.ts',
+    selector:
+      '.q-tree--dense.q-tree--virtual .q-tree__vnode--child .q-tree__node-header'
+  },
+  {
+    file: 'src/components/tree/rules.ts',
+    selector:
+      '.q-tree--dense.q-tree--virtual .q-tree__vnode--parent .q-tree__node-header'
+  },
+  {
+    file: 'src/components/tree/rules.ts',
+    selector:
+      '.q-tree--dense.q-tree--virtual .q-tree__vnode--parent .q-tree__node-body'
+  },
   // dist states this one from the negative side: the border belongs to every
   // bottom bar *except* the nodata one, and the class that reaches the rule is
   // `q-table__bottom--nodata` — so `${sel}` would invert the meaning (AUD-023).

@@ -441,6 +441,82 @@ export const treeRules = [
         flex: '0 0 25px',
         width: '25px'
       }
+      // AUD-023 residue (specs/audit/DISPOSITION.md, the two `q-tree__vnode` rows):
+      // dist styles a *virtual-scroll* family the runtime only adds when the tree
+      // is virtual (`q-tree__vnode` plus `--parent/--child/--root`). The element
+      // token never carries those classes, so each selector is stated whole from
+      // the component token, verbatim from dist — including the dense/virtual
+      // combinations, which dist writes separately.
+      yield {
+        // quasar: dist `.q-tree__vnode { padding-bottom: 3px }`
+        [symbols.selector]: () => '.q-tree__vnode',
+        'padding-bottom': '3px'
+      }
+      yield {
+        // quasar: dist states the connector nudge for the virtual parent row.
+        [symbols.selector]: () =>
+          '.q-tree__vnode--parent .q-tree__vguide--connector:after',
+        right: '-2px'
+      }
+      yield {
+        // quasar: dist's virtual-scroll header indents.
+        [symbols.selector]: () =>
+          '.q-tree--virtual .q-tree__vnode--parent .q-tree__node-header',
+        'padding-left': '6px'
+      }
+      yield {
+        // quasar: dist's virtual-scroll body indent.
+        [symbols.selector]: () =>
+          '.q-tree--virtual .q-tree__vnode--parent .q-tree__node-body',
+        'padding-left': '27px'
+      }
+      yield {
+        // quasar: dist's virtual-scroll child indent.
+        [symbols.selector]: () =>
+          '.q-tree--virtual .q-tree__vnode--child .q-tree__node-header',
+        'padding-left': '26px'
+      }
+      yield {
+        // quasar: the two root rows dist states as doubled-up modifiers.
+        [symbols.selector]: () =>
+          '.q-tree--virtual .q-tree__vnode--root.q-tree__vnode--parent .q-tree__node-header',
+        'padding-left': '4px'
+      }
+      yield {
+        // quasar: root + child, 24px.
+        [symbols.selector]: () =>
+          '.q-tree--virtual .q-tree__vnode--root.q-tree__vnode--child .q-tree__node-header',
+        'padding-left': '24px'
+      }
+      yield {
+        // quasar: dense resets and re-indents the virtual rows.
+        [symbols.selector]: () => '.q-tree--dense .q-tree__vnode',
+        'padding-bottom': '0'
+      }
+      yield {
+        // quasar: dense connector nudge.
+        [symbols.selector]: () =>
+          '.q-tree--dense .q-tree__vnode--parent .q-tree__vguide--connector:after',
+        right: '0'
+      }
+      yield {
+        // quasar: dense + virtual child indent.
+        [symbols.selector]: () =>
+          '.q-tree--dense.q-tree--virtual .q-tree__vnode--child .q-tree__node-header',
+        'padding-left': '18px'
+      }
+      yield {
+        // quasar: dense + virtual parent indent.
+        [symbols.selector]: () =>
+          '.q-tree--dense.q-tree--virtual .q-tree__vnode--parent .q-tree__node-header',
+        'padding-left': '1px'
+      }
+      yield {
+        // quasar: dense + virtual parent body indent.
+        [symbols.selector]: () =>
+          '.q-tree--dense.q-tree--virtual .q-tree__vnode--parent .q-tree__node-body',
+        'padding-left': '20px'
+      }
     }
   ]
 ] as Rule[]

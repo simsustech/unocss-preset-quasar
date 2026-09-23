@@ -17,8 +17,6 @@ q-stepper__step-inner--horizontal
 q-stepper__step-inner--vertical
 q-stepper__tab--horizontal
 q-stepper__tab--vertical
-q-tree__vnode--child
-q-tree__vnode--root
 shadow-0
 shadow-1
 shadow-10
