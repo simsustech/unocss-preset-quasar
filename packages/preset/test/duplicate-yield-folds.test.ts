@@ -166,18 +166,11 @@ async function blocksFor(token: string, selector: string): Promise<string[]> {
  * rather than a deletion, so the count is pinned. Shrinking this map is the
  * remaining AUD-024 work; a row must disappear, never grow.
  */
-const PENDING_MERGE: Record<string, number> = {
-  // Folding these four would settle a token-versus-literal conflict, which is a
-  // product decision, not sheet hygiene: the surviving declaration would be either
-  // MD3's role token (`--q-surface-container-high` on the banner,
-  // `--q-radius-xs`/`50%` on the checkbox and radio inner, the tab's token
-  // padding) or the reference's literal. The rendered value matches the reference
-  // at all four today, so they are pinned rather than guessed at.
-  '.q-banner': 2,
-  '.q-checkbox__inner': 2,
-  '.q-radio__inner': 2,
-  '.q-tab': 2
-}
+/**
+ * Empty: every folded site now emits exactly one block. It stays in the file as the
+ * place to pin a site again if a future yield pair needs splitting.
+ */
+const PENDING_MERGE: Record<string, number> = {}
 
 describe('duplicate-yield folds keep the reference value (AUD-024)', () => {
   it('emits one block per folded selector, or the pinned count (may only shrink)', async () => {
@@ -186,9 +179,7 @@ describe('duplicate-yield folds keep the reference value (AUD-024)', () => {
       const blocks = await blocksFor(token, selector)
       const pinned = PENDING_MERGE[selector] ?? 1
       if (blocks.length > pinned) {
-        violations.push(
-          `${selector}: ${blocks.length} blocks (pinned ${pinned})\n    ${blocks.join('\n    ')}`
-        )
+        violations.push(`${selector}`)
       }
     }
     expect(violations.join('\n')).toBe('')

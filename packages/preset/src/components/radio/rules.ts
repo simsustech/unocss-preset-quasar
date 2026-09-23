@@ -80,19 +80,15 @@ export const radioRules = [
           `body.desktop ${selector}:not(.disabled):focus .q-radio__inner:before`,
         transform: 'scale3d(1, 1, 1)'
       }
+      // AUD-024 fold: one yield for `__inner`; the two agreed on the corner and the
+      // box, so the union is what both declared.
       yield {
         [symbols.selector]: (selector) => `${selector}__inner`,
         display: 'flex',
         'align-items': 'center',
         'justify-content': 'center',
-        width: '1em',
-        height: '1em',
         border: '2px solid var(--q-outline)',
-        'border-radius': '50%',
-        transition: 'all var(--q-duration-short) var(--q-easing-standard)'
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__inner`,
+        transition: 'all var(--q-duration-short) var(--q-easing-standard)',
         'font-size': 'var(--q-size-md)',
         color: 'var(--q-on-surface-variant)',
         'border-radius': '50%',

@@ -211,30 +211,28 @@ export const tabsRules = [
     /^q-tab$/,
     function* (_, { symbols }) {
       // .q-tab
+      // AUD-024 fold: two yields targeted `.q-tab`, one now. The port's layout and
+      // cursor declarations stay; dist's literal box and transition win where the
+      // two overlapped (the token pair was losing that cascade already).
       yield {
         display: 'flex',
         'align-items': 'center',
         'justify-content': 'center',
-        padding: 'var(--q-space-sm) var(--q-space-md)',
-        'min-height': 'var(--q-item-min-height)',
         cursor: 'pointer',
         'user-select': 'none',
-        transition: 'color var(--q-duration-short) var(--q-easing-standard)'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `body.quasar-style-unstyled ${selector}`,
-        background: 'none',
-        color: 'inherit'
-      }
-      yield {
-        // quasar: this value is Quasar's own, not a forked token
+        // quasar: dist states the tab's box and transition literally.
         'padding-inline': '16px',
         'padding-block': '0',
         'text-decoration': 'none',
         'min-height': '48px',
         'white-space': 'nowrap',
         transition: 'color 0.3s, background-color 0.3s',
+        color: 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `body.quasar-style-unstyled ${selector}`,
+        background: 'none',
         color: 'inherit'
       }
       yield {

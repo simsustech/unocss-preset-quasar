@@ -5,26 +5,28 @@ export const bannerRules = [
     /^q-banner$/,
     function* (_, { symbols }) {
       // .q-banner
+      // AUD-024 fold: two yields targeted `.q-banner`. They are ONE now: the
+      // declarations the literal yield does not carry (layout, colour) stay, and
+      // where the two overlapped dist's literal values win, so nothing renders
+      // differently — the token declarations of `padding`, `min-height` and
+      // `background-color` were losing this cascade already. That the banner keeps
+      // dist's `transparent` rather than MD3's `--q-surface-container-high` surface
+      // is recorded in the fix plan's evaluation as a design call, not a defect.
       yield {
         display: 'flex',
         'align-items': 'center',
-        padding: 'var(--q-space-sm) var(--q-space-md)',
-        'min-height': 'var(--q-banner-min-height)',
-        'background-color': 'var(--q-surface-container-high)',
-        color: 'var(--q-on-surface)'
+        color: 'var(--q-on-surface)',
+        // quasar: dist states the banner's box literally.
+        'padding-inline': '16px',
+        'padding-block': '8px',
+        'background-color': 'transparent',
+        'min-height': '54px'
       }
       yield {
         [symbols.selector]: (selector) =>
           `body.quasar-style-unstyled ${selector}`,
         background: 'none',
         color: 'inherit'
-      }
-      yield {
-        // quasar: this value is Quasar's own, not a forked token
-        'padding-inline': '16px',
-        'padding-block': '8px',
-        'background-color': 'transparent',
-        'min-height': '54px'
       }
       // AUD-024 fold: `--dense` declared the same `padding` + `min-height` twice,
       // in two orders. The surviving yield below is the one kept.

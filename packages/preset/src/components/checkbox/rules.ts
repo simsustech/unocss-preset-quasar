@@ -82,19 +82,17 @@ export const checkboxRules = [
         [symbols.selector]: (selector) => `${selector}.disabled`,
         opacity: '75% !important'
       }
+      // AUD-024 fold: one yield for `__inner` now. The layout, border and
+      // transition the port added stay; the geometry dist states literally
+      // (36px box, 2px gap, fully round) wins where the `--q-radius-xs` corner
+      // used to lose the cascade anyway.
       yield {
         [symbols.selector]: (selector) => `${selector}__inner`,
         display: 'flex',
         'align-items': 'center',
         'justify-content': 'center',
-        width: '1em',
-        height: '1em',
         border: '2px solid var(--q-outline)',
-        'border-radius': 'var(--q-radius-xs)',
-        transition: 'all var(--q-duration-short) var(--q-easing-standard)'
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__inner`,
+        transition: 'all var(--q-duration-short) var(--q-easing-standard)',
         // quasar: this value is Quasar's own, not a forked token
         'font-size': '36px',
         'margin-right': '2px',
