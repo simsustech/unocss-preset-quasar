@@ -128,7 +128,12 @@ export const drawerRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--on-top`,
-        'z-index': '7000'
+        // ADR 0007 (overlay layering scale): an overlay/mobile drawer sits under
+        // the marginals (2000) and the dialog/menu tier (6000), so the app bar
+        // stays visible and hittable while the drawer is open. The reference says
+        // 7000 — drawer above the app bar and above dialogs — which consumers had
+        // to patch out with `!important` and then patch the dialogs out again.
+        'z-index': '1500'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -194,7 +199,8 @@ export const drawerRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__backdrop`,
-        'z-index': '6999',
+        // ADR 0007: one step below the overlay drawer itself (reference: 6999).
+        'z-index': '1499',
         'will-change': 'background-color'
       }
       yield {

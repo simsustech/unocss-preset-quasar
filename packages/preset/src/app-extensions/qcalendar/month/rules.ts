@@ -81,11 +81,16 @@ export const qcalendarMonthRules = [
         'user-select': 'none',
         outline: '0'
       }
+      // `overflow: hidden` is ported from the library and keeps the vertical
+      // contract; the shorthand also clipped the horizontal axis, which left a
+      // month grid wider than its container unreachable rather than scrollable.
+      // Declared after the shorthand so it wins the cascade.
       yield {
         [symbols.selector]: (selector) => `${selector}__body`,
         position: 'relative',
         flex: '1 1 auto',
         overflow: 'hidden',
+        'overflow-x': 'auto',
         display: 'flex',
         'flex-direction': 'column'
       }

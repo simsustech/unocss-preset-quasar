@@ -5,9 +5,17 @@ export const fieldRules = [
     /^q-field$/,
     function* (_, { symbols }) {
       // .q-field
+      // Quasar's own sheet gives the root no flex-direction at all — the root
+      // carries `row no-wrap items-start`, so `.row` resolves it — and the
+      // root's children are `__before`, `__inner`, `__after`: siblings, side by
+      // side. `column` stacked the marginals above the inner, so a field with a
+      // `#before` slot doubled in height and dropped its control off the
+      // toolbar's centre line (petboarding /employee/labels/pets: field 112px,
+      // control centre 28px below the print button's). `row` is what `.row`
+      // already resolves to; the reference declares nothing because it must.
       yield {
         display: 'flex',
-        'flex-direction': 'column',
+        'flex-direction': 'row',
         position: 'relative'
       }
       yield { 'font-size': '14px' }
@@ -1166,6 +1174,14 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__after`,
         'padding-left': '12px'
+      }
+      // `__before` reserves `padding-right: 12px` in Quasar's own sheet, so an
+      // empty `#before` slot leaves a gutter in front of the control. `__after`
+      // and `__append` already collapse while empty; this makes `__before`
+      // symmetric. Divergence from the reference, which never hides it.
+      yield {
+        [symbols.selector]: (selector) => `${selector}__before:empty`,
+        display: 'none'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__after:empty`,

@@ -4,10 +4,12 @@ export const selectRules = [
   [
     /^q-select$/,
     function* (_, { symbols }) {
-      // .q-select
+      // .q-select — this root IS the QField (`q-field q-select …`), so it must
+      // not disagree with the field root: `column` put `__before`/`__after`
+      // above `__inner` and the field grew a second row.
       yield {
         display: 'flex',
-        'flex-direction': 'column',
+        'flex-direction': 'row',
         cursor: 'pointer'
       }
       yield {

@@ -100,3 +100,40 @@ describe('no field variant paints the field root', () => {
     expect(painted.length).toBeGreaterThan(0)
   })
 })
+
+/**
+ * An empty `before` marginal is still laid out: Quasar reserves
+ * `padding-right: 12px` on `.q-field__before` whatever it holds, and the
+ * reference's `min-width: 56px` rides on `q-field__before` unmodified, so an
+ * empty slot leaves a 12px gutter in front of the control. `after` and
+ * `append` do not have that problem — the preset already hides them while
+ * empty, which is why the two are asserted together here: the pair is the
+ * contract, not the single rule.
+ */
+describe('an empty field marginal is not laid out', () => {
+  let blocks: Rule[] = []
+
+  beforeAll(async () => {
+    const uno = await createGenerator({ presets: [], rules: fieldRules })
+    const { css } = await uno.generate(
+      ['q-field', 'q-field__before', 'q-field__after'].join(' '),
+      { preflights: false }
+    )
+    blocks = parse(css)
+  })
+
+  const declarationsFor = (selector: string) =>
+    blocks.find((rule) => rule.selectors.includes(selector))?.declarations
+
+  it('collapses the empty before marginal', () => {
+    expect(declarationsFor('.q-field__before:empty')?.get('display')).toBe(
+      'none'
+    )
+  })
+
+  it('still collapses the empty after marginal (positive control)', () => {
+    expect(declarationsFor('.q-field__after:empty')?.get('display')).toBe(
+      'none'
+    )
+  })
+})

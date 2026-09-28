@@ -216,3 +216,21 @@ describe('app extensions ship a two-layer unstyled story', () => {
     })
   }
 })
+
+/**
+ * `.q-calendar-month__body` is ported verbatim from the library's stylesheet,
+ * `overflow: hidden` included. That clipping is deliberate vertically, but it
+ * also swallows the horizontal overflow on a narrow viewport, where a month
+ * grid wider than its container becomes unreachable rather than scrollable.
+ * `overflow-x: auto` is therefore a deliberate divergence from the ported
+ * stylesheet: the vertical contract is kept, the horizontal one is repaired.
+ */
+describe('the calendar month body scrolls horizontally', () => {
+  it('keeps the library vertical clip and makes x reachable', async () => {
+    const body = blocksOf(await sheet(['q-calendar-month'], ['qcalendar'])).get(
+      '.q-calendar-month__body'
+    )
+    expect(body?.declarations.get('overflow')).toBe('hidden')
+    expect(body?.declarations.get('overflow-x')).toBe('auto')
+  })
+})

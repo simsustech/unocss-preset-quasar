@@ -144,10 +144,10 @@
       "mismatch": []
     },
     "drawer": {
-      "target": 0,
+      "target": null,
       "missing": [],
       "absent": [],
-      "mismatch": []
+      "mismatch": [".q-drawer--on-top|z-index", ".q-drawer__backdrop|z-index"]
     },
     "drawer-container": {
       "target": 0,
