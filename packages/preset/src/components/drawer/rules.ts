@@ -35,7 +35,7 @@ export const drawerRules = [
       yield {
         [symbols.selector]: (selector) =>
           `.body--dark ${selector}__content .q-list > .q-router-link--active`,
-        color: 'var(--q-primary)'
+        color: 'var(--q-item-active-color)' // md3: on-secondary-container
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -115,7 +115,11 @@ export const drawerRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__content .q-list > .q-router-link--active`,
-        color: 'var(--q-primary)'
+        // md3 list spec (specs/reference/normalized/md3-lists.json):
+        // label/selected_text_color_token = md.sys.color.on-secondary-container.
+        // The background above is secondary-container, so primary text was a
+        // token mismatch — this pairs with --q-item-active-bg like .q-item--active.
+        color: 'var(--q-item-active-color)'
       }
       yield {
         [symbols.selector]: (selector) =>
