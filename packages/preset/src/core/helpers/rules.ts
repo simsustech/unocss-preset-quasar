@@ -323,7 +323,7 @@ export const helpersRules: ComponentRule[] = [
           [symbols.selector]: (sel: string) =>
             `body.desktop ${sel}${state} > .q-focus-helper`,
           background: 'currentColor',
-          opacity: 0.15
+          opacity: 0.1 // md3 state layer: focus +10%
         }
         yield {
           [symbols.selector]: (sel: string) =>
@@ -350,7 +350,7 @@ export const helpersRules: ComponentRule[] = [
         [symbols.selector]: (sel: string) =>
           `body.desktop ${sel}:hover > .q-focus-helper`,
         background: 'currentColor',
-        opacity: 0.15
+        opacity: 0.08 // md3 state layer: hover +8% (was 0.15, read as a shadow)
       }
       yield {
         [symbols.selector]: (sel: string) =>
@@ -360,6 +360,21 @@ export const helpersRules: ComponentRule[] = [
       yield {
         [symbols.selector]: (sel: string) =>
           `body.desktop ${sel}:hover > .q-focus-helper:before`,
+        opacity: 0.1
+      }
+      // md3 state layer: press +10%, distinct from hover's +8%.
+      //
+      // The selector carries BOTH `:hover` and `:active` deliberately. These
+      // declarations are identical to the focus rules above, so UnoCSS folds the
+      // yield into that group — and that group is emitted *before* the :hover
+      // rule, which would then win on source order alone (equal specificity). The
+      // extra pseudo-class raises specificity so press beats hover wherever they
+      // meet, independent of emission order. `body.desktop` already scopes this to
+      // pointers, where a press implies the pointer is over the target.
+      yield {
+        [symbols.selector]: (sel: string) =>
+          `body.desktop ${sel}:hover:active > .q-focus-helper`,
+        background: 'currentColor',
         opacity: 0.1
       }
     }
@@ -381,7 +396,7 @@ export const helpersRules: ComponentRule[] = [
         [symbols.selector]: (sel: string) =>
           `body.desktop ${sel} > .q-focus-helper`,
         background: 'currentColor',
-        opacity: 0.15
+        opacity: 0.1 // md3 state layer: focus +10%
       }
       yield {
         [symbols.selector]: (sel: string) =>

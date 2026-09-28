@@ -219,10 +219,10 @@
       "mismatch": []
     },
     "focusable": {
-      "target": 0,
+      "target": 1,
       "missing": [],
       "absent": [],
-      "mismatch": []
+      "mismatch": ["body.desktop .q-focusable:focus > .q-focus-helper|opacity"]
     },
     "footer": {
       "target": 0,
@@ -243,10 +243,10 @@
       "mismatch": []
     },
     "hoverable": {
-      "target": 0,
+      "target": 1,
       "missing": [],
       "absent": [],
-      "mismatch": []
+      "mismatch": ["body.desktop .q-hoverable:hover > .q-focus-helper|opacity"]
     },
     "icon": {
       "target": 0,
@@ -469,10 +469,12 @@
       "mismatch": []
     },
     "manual-focusable": {
-      "target": 0,
+      "target": 1,
       "missing": [],
       "absent": [],
-      "mismatch": []
+      "mismatch": [
+        "body.desktop .q-manual-focusable--focused > .q-focus-helper|opacity"
+      ]
     },
     "markup-table": {
       "target": 0,
@@ -889,7 +891,6 @@
         ".container (in @media (min-width: 80rem))",
         ".container (in @media (min-width: 96rem))",
         ".disabled *",
-        ".italic",
         ".m\\[1\\]",
         ".me",
         ".no-pointer-events--children",

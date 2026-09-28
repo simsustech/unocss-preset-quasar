@@ -51,7 +51,13 @@ describe('focus-helper hover must not tint the page', () => {
     // UnoCSS joins every host variant into one comma-separated rule, so the tint
     // selector is followed by a comma, not the opening brace.
     expect(c).toContain('body.desktop .q-focusable:focus > .q-focus-helper,')
-    expect(c).toContain('background:currentColor;opacity:0.15;')
+    // md3 state layers (m3.material.io/foundations/interaction/states/state-layers):
+    // hover +8%, focus +10%, press +10%. Quasar's reference bundle hardcodes 0.15
+    // for all three; the preset follows md3 instead, and that deliberate divergence
+    // from the reference is recorded in fixtures/parity-baseline.json (the three
+    // focusable/hoverable/manual-focusable modules moved off target 0 for it).
+    // The token above is q-focusable, so this is the focus value.
+    expect(c).toContain('background:currentColor;opacity:0.1;')
     // The pseudo-element layers carry opacity only — no colour of their own.
     expect(c).not.toMatch(
       /q-focus-helper:(before|after)[^{]*\{[^}]*background:/
