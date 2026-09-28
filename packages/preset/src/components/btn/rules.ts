@@ -238,7 +238,13 @@ export const btnRules = [
         // Reference `.q-btn--fab`: a square, centred, no-padding circle.
         color: 'var(--q-btn-color)',
         padding: 'calc(var(--spacing) * 0)',
-        'border-radius': 'var(--q-fab-radius)',
+        // `!important` is load-bearing: Quasar adds `q-btn--rounded` to EVERY fab
+        // (QBtn 2.33: rounded || fab || fabMini), and `.q-btn--rounded` ->
+        // var(--q-btn-rounded-radius) = --q-radius-xl = 28px is emitted after this
+        // rule. Without it a 56px fab computes to 28px radius = a circle instead
+        // of the M3 16px. Main carried the same intent as `!rounded-$q-fab-radius`
+        // (07306d6); the shortcut file it lived in was deleted by this rewrite.
+        'border-radius': 'var(--q-fab-radius) !important',
         'flex-direction': 'row',
         'min-width': 'var(--q-fab-size)',
         'min-height': 'var(--q-fab-size)',
@@ -259,7 +265,10 @@ export const btnRules = [
         [symbols.selector]: (selector) => `${selector}--fab-mini`,
         color: 'var(--q-btn-color)',
         padding: 'calc(var(--spacing) * 0)',
-        'border-radius': 'var(--q-fab-radius)',
+        // Same `!important` reason as the base fab below: Quasar's QBtn adds
+        // `q-btn--rounded` to mini fabs too (rounded || fab || fabMini), and
+        // `.q-btn--rounded` (var(--q-btn-rounded-radius)) is emitted later.
+        'border-radius': 'var(--q-fab-radius) !important',
         'flex-direction': 'row',
         'min-width': 'var(--q-fab-mini-size)',
         'min-height': 'var(--q-fab-mini-size)',
