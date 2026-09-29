@@ -5,7 +5,8 @@ rot, and a completion criterion that can fail.
 
 ## Decision
 
-Two committed scripts, each a gate with a rationale-bearing ledger:
+Three committed scripts, each a gate with a rationale-bearing ledger (the third was
+added 2026-09-29):
 
 1. `packages/preset/scripts/audit-vocabulary.mjs` — matcher tokens versus the
    scraper vocabulary. **Gate:** zero unknown tokens. Runtime-applied classes
@@ -13,8 +14,19 @@ Two committed scripts, each a gate with a rationale-bearing ledger:
 2. `specs/audit/coverage-sweep.mjs` — classes dist styles that the sheet never
    emits. **Gate:** every flagged class has a disposition row in
    `specs/audit/DISPOSITION.md`; the script fails on an undispositioned one.
+3. `specs/audit/md2-value-sweep.mjs` — **added 2026-09-29.** Declarations where
+   `quasar/dist/quasar.css` states an absolute value while this sheet routes it
+   through something that varies by style, and geometry where dist keeps two
+   dimensions equal (a circle) while this sheet's two dimensions resolve
+   differently (an ellipse). **Gate:** every divergence names a bucket of the
+   audit's authority model (`spec-declared`, `dist-only`, `invariant`,
+   `palette-driven`, `preset-policy`); the script exits 1 on an undispositioned
+   one. This is item 2's contract applied to _values_ instead of _classes_, and it
+   exists because that gap was real: AUD-MD2-001 (a floated label overlapping its
+   value) is invisible to a coverage sweep — the class was present and correct,
+   only the value was wrong.
 
-Both replaced `/tmp` worklists. The audit's original sweep lived in a scratch
+All three replaced `/tmp` worklists. The audit's original sweep lived in a scratch
 file and treated "no _new_ flag" as success, which passes on pre-existing residue
 (`float-left`, `inset-shadow`, `q-link--focusable`) — the exact classes the audit
 was looking for.
