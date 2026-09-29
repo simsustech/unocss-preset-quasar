@@ -7,8 +7,23 @@ geometry the spec never contemplates.
 
 Buckets: `spec-declared` · `dist-only` · `invariant` · `palette-driven` · `preset-policy` · `uncovered`.
 
-Registers: `test-results/frontend-audit{,-dark}/<viewport>/*.png` (md2, 123 + 52) against
-`/tmp/pb-md3-frontend-audit{,-dark}/` (md3 baseline, same routes/seed).
+Registers: `test-results/frontend-audit{,-dark}/<viewport>/*.png` (md2, 123 + 52) against the
+md3 baseline of the same routes and seed.
+
+**Where that baseline lives now, because these paths are the first thing to rot.** In the
+final state of this run those two directories hold the **md3** captures again (they were
+restored byte-identically, verified with `diff -r`), so the md3 baseline is
+`packages/api/test-results/frontend-audit{,-dark}/` in petboarding — the same place the
+capture commands write. The copies this run kept are `/tmp/pb-md3-frontend-audit{,-dark}/`
+(baseline) and `/tmp/pb-md2-postfix-frontend-audit{,-dark}/` (md2 after both fixes); both are
+`/tmp`, so re-shoot rather than rely on them. Two crop files cited below
+(`/tmp/cmp-dark-top.png`, `/tmp/tg-cmp2.png`) are transient run evidence — re-create them with
+`magick` from the registers named beside each row.
+
+**Sources used:** `specs/md2/*.json` (the MD2 machine spec) and `quasar/dist/quasar.css`. The
+plan also named `specs/reference/normalized/md2-*.json`; those exist but were **not** used, and
+that is not an omission to paper over — the spec plus dist decided every row, and the
+normalized reference set carries none of the metrics that were at stake.
 
 ---
 
@@ -48,9 +63,13 @@ is missing.
    an md2-only one. dist's rule is
    `.q-field--labeled .q-field__native, … { line-height: 24px; padding-top: 24px; padding-bottom: 8px }`.
 
-**Fix direction:** a dedicated metric value (24px) rather than the style-varying space
-scale, applied to both paths in both entries. **Do not** raise md2's `--q-space-xl`:
-it is used across every component and would reshape every md2 screen.
+**Fix (as shipped):** a dedicated metric value rather than the style-varying space scale,
+applied to both paths in both entries — `--q-field-labeled-padding-top`, **28px in md2** and
+24px in md3. The value is the _invariant's_, not dist's: measured on this geometry dist's own
+24px still intersects the floated label by up to 1.2px, while 28px clears it by +1.8px. (The
+assertion lives in `packages/preset/test/field-native-cascade.test.ts`; the measurements are
+the traffic-light table in the evaluation for this run.) **Do not** raise md2's
+`--q-space-xl`: it is used across every component and would reshape every md2 screen.
 
 ---
 
@@ -83,12 +102,15 @@ not shrink below it); **spec silent on round geometry**, so dist applies:
 _equal dimensions ⇒ circle_. `.q-btn--fab` already resolves 56×56 (matches the spec's
 `default: 56`) and must stay untouched.
 
-**Consequence to verify at the gate:** the decided fix (one 64px side for both
-dimensions) raises today's 19–42px widths to 64px. `--fab` untouched.
+**Verified at the gate:** the fix takes one 64px side for both dimensions
+(`--q-btn-round-min-width` + `--q-btn-round-height`), which the live re-measurement confirms —
+**0 of 56** round instances non-square, every one 64×64, with `min-height` still resolving to
+the 48dp floor and `--fab` untouched at 56×56. See the sweep section below, which reports the
+same thing sheet-side: md2 `64px x 64px square` against md3's `3em x 48px NOT SQUARE`.
 
 ---
 
-## AUD-MD2-003 — occupancy day cells lose their colour (confirm-first)
+## AUD-MD2-003 — occupancy day cells lose their colour (resolved: expected divergence)
 
 **Bucket:** `dist-only` — the md2 spec declares no day-cell colour, and dist states the answer:
 `currentColor`.
