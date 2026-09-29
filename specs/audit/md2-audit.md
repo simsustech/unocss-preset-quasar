@@ -132,6 +132,37 @@ content-sized and round) is an open design call, not something this run may sett
 **Left unfixed and recorded here**, because fixing it would have to decide that call and could
 involve the app's markup — out of scope for a harness-only run.
 
+**Assessment, so the call can be made in one read (added after this run closed).**
+
+_Cause, measured._ `packages/app/src/pages/admin/OccupancyPage.vue:59` renders the day grid as
+`<q-btn rounded>` — the app's own markup, not Quasar's `q-date` internals (that is a separate
+popup on line 20). `rounded` gives `border-radius: 28px`; the base button rule then applies
+md2's `--q-btn-min-width: 64px`, while the height is the 48dp floor → 64×48 → a stadium.
+
+_No arbiter is violated._ dist's `.q-btn--rounded` states only `border-radius: 28px`, and dist
+declares **no** `min-width` anywhere in the `.q-btn` family (checked). md2's 64px is the md2
+spec's `buttons.*.min_width_px: 64`, and in the spec that value sits beside
+`padding_left_right_px` and `typography_token` in the _contained / outlined / text_ variants —
+i.e. text buttons. The spec states no sizing for a rounded/icon button at all. md3 is
+content-sized because its `--q-btn-min-width` is `auto`; dist matches that.
+
+_Options._
+
+1. **Scope the spec width to text buttons** — `min-width: auto` for `--rounded`/`--rectangle`
+   in md2 (a token, not a rule fork). Blast radius is every rounded/rectangle button in any md2
+   consumer (≈20 `rounded` usages across petboarding's components alone), so it needs its own
+   visual pass; it is the principled reading of the spec.
+2. **Accept it** — a 64px-wide, 48px-tall outlined button is spec width plus policy height, and
+   the stadium is the arithmetic consequence of the app asking for `rounded`. Close the row as
+   expected md2 behaviour.
+3. **Change the app** — the date grid could use `round` instead of `rounded`, which would make
+   md2's cells circular without touching the preset. Petboarding is the harness here (nothing is
+   committed in it), and this row is about the preset's md2 path, so option 3 belongs to the app.
+
+_Recommendation:_ option 1 if the spec's `min_width_px` is meant for text buttons (its structure
+says so), option 2 if it is meant for every button — and that is a reading of the spec, not
+something this audit can decide by itself.
+
 ---
 
 ## AUD-MD2-003 — occupancy day cells lose their colour (resolved: expected divergence)
