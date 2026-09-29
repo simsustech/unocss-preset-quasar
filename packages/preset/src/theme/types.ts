@@ -96,6 +96,12 @@ export interface SizingTokens {
   spaceMd: string
   spaceLg: string
   spaceXl: string
+  /**
+   * The labeled-field push-down. A metric, not a space step: quasar.css states
+   * an absolute value for it, so it must not ride the style-varying
+   * `--q-space-*` scale (that is what left md2's value under its label).
+   */
+  fieldLabeledPaddingTop: string
   compIcon: string
   compSm: string
   compMd: string
@@ -134,6 +140,27 @@ export interface ComponentTokens {
   btnTextTransform: string
   btnRadius: string
   btnMinWidth: string
+  /**
+   * The round button's side. A shape metric: `border-radius: 50%` on unequal
+   * dimensions is an ellipse, so both sides must come from one value per style.
+   * md2 = the md2 spec's button `min_width_px` (64px) for both dimensions; md3
+   * keeps 3em x control-height so its own audited rendering does not move.
+   */
+  btnRoundMinWidth: string
+  /**
+   * The round button's square side. `auto` leaves the style's own geometry alone
+   * (md3); a length makes the button square (md2 64px = the spec's button
+   * `min_width_px`). Deliberately NOT `min-height`: the 48dp floor must keep
+   * reading `var(--q-control-height)` as `min-height` (control-height.test.ts).
+   */
+  btnRoundHeight: string
+  /**
+   * The dense round button's own width: dist keeps dense at 2.4em while the plain
+   * round button is 3em, so they cannot share one token (a first attempt did, and
+   * moved md3's dense round width to 3em — caught by the md3 gate). md2 takes the
+   * spec's 64px here too: dense tightens padding, not shape.
+   */
+  btnRoundDenseMinWidth: string
   btnPaddingX: string
   btnFontSize: string
   btnLineHeight: string

@@ -72,6 +72,9 @@ export const md3Style: StyleEntry = {
       spaceMd: '12px',
       spaceLg: '16px',
       spaceXl: '24px',
+      // metric: quasar.css states this push-down absolutely (24px), so it does not
+      // ride --q-space-xl; md3 keeps exactly the value its own audit validated.
+      fieldLabeledPaddingTop: '24px',
       compIcon: '24px',
       compSm: '24px',
       compMd: '40px',
@@ -94,6 +97,9 @@ export const md3Style: StyleEntry = {
       btnColor: 'var(--q-on-primary)',
       btnTextTransform: 'none',
       btnMinWidth: 'auto',
+      btnRoundMinWidth: '3em',
+      btnRoundHeight: 'auto',
+      btnRoundDenseMinWidth: '2.4em',
       btnPaddingX: '24px',
       btnFontSize: '14px',
       btnLineHeight: '1.715em',
@@ -251,6 +257,9 @@ export const md2Style: StyleEntry = {
       spaceMd: '8px',
       spaceLg: '16px',
       spaceXl: '16px',
+      // metric: md2 clears the floated label at 28px (measured +1.8px worst case);
+      // dist's 24px still intersects it by up to 1.2px, so 24px is not enough here.
+      fieldLabeledPaddingTop: '28px',
       compIcon: '32px',
       compSm: '24px',
       compMd: '48px',
@@ -273,6 +282,11 @@ export const md2Style: StyleEntry = {
       btnColor: 'var(--q-on-primary)',
       btnTextTransform: 'uppercase',
       btnMinWidth: '64px',
+      // the md2 spec's button min_width_px (64), taken as the round button's width
+      // and its square height; min-height keeps the 48dp floor token.
+      btnRoundMinWidth: '64px',
+      btnRoundHeight: '64px',
+      btnRoundDenseMinWidth: '64px',
       btnPaddingX: '16px',
       btnFontSize: '14px',
       btnLineHeight: '1.715em',
@@ -438,6 +452,7 @@ export const unstyledStyle: StyleEntry = {
       spaceMd: '0',
       spaceLg: '0',
       spaceXl: '0',
+      fieldLabeledPaddingTop: '0',
       compIcon: '0',
       compSm: '0',
       compMd: '0',
@@ -462,6 +477,9 @@ export const unstyledStyle: StyleEntry = {
       btnTextTransform: 'none',
       btnRadius: '0',
       btnMinWidth: 'auto',
+      btnRoundMinWidth: '3em',
+      btnRoundHeight: 'auto',
+      btnRoundDenseMinWidth: '2.4em',
       btnPaddingX: '0',
       btnFontSize: 'inherit',
       btnLineHeight: 'inherit',

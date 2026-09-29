@@ -167,11 +167,14 @@ export const btnRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--round`,
         'border-radius': 'var(--q-btn-round-radius)',
-        // Reference `.q-btn--round`: a 3em square with no box padding.
-        'min-width': '3em',
-        // 48dp touch target: the reference's 3em (42px) misses the plan's
-        // height floor, so the height forks while the 3em square width stays.
+        // Shape metric: a 50% radius on unequal dimensions is an ellipse, so both
+        // sides take one per-style value. `min-width` is the md2 spec's button
+        // min_width_px (64); `height` is the square side (`auto` on md3 leaves it
+        // exactly as its own audit validated). `min-height` keeps reading the 48dp
+        // floor token — the square only ever raises it, never lowers it.
+        'min-width': 'var(--q-btn-round-min-width)',
         'min-height': 'var(--q-control-height)',
+        height: 'var(--q-btn-round-height)',
         padding: 'calc(var(--spacing) * 0)'
       }
       yield {
@@ -195,9 +198,11 @@ export const btnRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--dense.q-btn--round`,
         padding: 'calc(var(--spacing) * 0)',
-        // 48dp touch target (dense round): height only; min-width keeps 2.4em.
+        // Dense keeps dist's own tighter width (2.4em in md3) but the same square
+        // metric in md2: dense tightens padding, not shape.
         'min-height': 'var(--q-control-height)',
-        'min-width': '2.4em'
+        'min-width': 'var(--q-btn-round-dense-min-width)',
+        height: 'var(--q-btn-round-height)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--disabled`,

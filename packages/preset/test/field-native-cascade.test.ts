@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { createGenerator } from 'unocss'
 import { fieldRules } from '../src/components/field/rules.js'
-import { MaterialDesign3 } from '../src/styles/index.js'
+import { MaterialDesign2, MaterialDesign3 } from '../src/styles/index.js'
 
 /**
  * Quasar decides some field geometry by source order, not specificity. The
@@ -40,9 +40,9 @@ const kebab = (key: string): string =>
     (m, ofs: number) => (ofs ? '-' : '') + m.toLowerCase()
   )
 
-const tokenMap = (): Map<string, string> => {
+const tokenMap = (style: unknown = MaterialDesign3): Map<string, string> => {
   const map = new Map<string, string>()
-  const entry = MaterialDesign3 as unknown as {
+  const entry = style as {
     tokens?: Record<string, unknown>
   }
   for (const group of Object.values(entry.tokens ?? {})) {
@@ -69,9 +69,12 @@ const tokenMap = (): Map<string, string> => {
 const TOKENS = tokenMap()
 
 /** Resolve one level of `var(--q-…)`, leaving anything unknown as written. */
-const resolveVars = (value: string): string => {
+const resolveVars = (
+  value: string,
+  tokens: Map<string, string> = TOKENS
+): string => {
   const match = /^var\((--[\w-]+)\)$/.exec(value.trim())
-  return match ? (TOKENS.get(match[1]) ?? value) : value
+  return match ? (tokens.get(match[1]) ?? value) : value
 }
 
 /** Just the declarations the resolver compares. */
@@ -141,15 +144,17 @@ const parseRules = (css: string): Rule[] => {
 const resolve = (
   rules: Rule[],
   target: string,
-  elementClasses: string[]
+  elementClasses: string[],
+  property: string = PROPERTY,
+  tokens: Map<string, string> = TOKENS
 ): string | undefined => {
   const own = new Set(elementClasses)
   let winner: { specificity: number; order: number; value: string } | undefined
 
   for (const rule of rules) {
-    const raw = rule.declarations.get(PROPERTY)
+    const raw = rule.declarations.get(property)
     if (raw === undefined) continue
-    const value = resolveVars(raw)
+    const value = resolveVars(raw, tokens)
     const applicable = rule.selectors
       .filter((selector) => matchesTarget(selector, target, own))
       .map(specificity)
@@ -206,5 +211,84 @@ describe('the field native line-height resolves as quasar.css does', () => {
     expect(
       resolve(rules, 'q-field__native', ['q-field', 'q-field--auto-height'])
     ).toBe('18px')
+  })
+})
+
+/**
+ * The labeled push-down. quasar.css pushes a labeled field's value clear of the
+ * floated label with an absolute `padding-top: 24px`; the preset expressed the
+ * same thing through the style-varying `--q-space-xl`, so md2 (16px) left the
+ * value underneath the label — measured live at 4-9px of text overlap on every
+ * floated field of the pet edit dialog (2026-09-29).
+ *
+ * The metric now has its own token, so the *rule* stays shared while the value is
+ * a per-style metric: md2 28px clears the floated label box (measured +1.8px worst
+ * case) where dist's 24px does not (measured -1.2px), and md3 keeps the 24px its
+ * own audit validated. Nothing here forks the rule on `style`.
+ */
+describe('the labeled push-down is a metric, not a space step', () => {
+  let rules: Rule[] = []
+
+  beforeAll(async () => {
+    const uno = await createGenerator({ presets: [], rules: fieldRules })
+    const { css } = await uno.generate(
+      [
+        'q-field',
+        'q-field--auto-height',
+        'q-field--labeled',
+        'q-field__native',
+        'q-field__control-container'
+      ].join(' '),
+      { preflights: false }
+    )
+    rules = parseRules(css)
+  })
+
+  const MD3 = tokenMap(MaterialDesign3)
+  const MD2 = tokenMap(MaterialDesign2)
+  const LABELED = ['q-field', 'q-field--labeled']
+  const AUTO_LABELED = ['q-field', 'q-field--auto-height', 'q-field--labeled']
+
+  it('clears the floated label in md2', () => {
+    expect(resolve(rules, 'q-field__native', LABELED, 'padding-top', MD2)).toBe(
+      '28px'
+    )
+  })
+
+  it('leaves md3 where the md3 audit validated it', () => {
+    expect(resolve(rules, 'q-field__native', LABELED, 'padding-top', MD3)).toBe(
+      '24px'
+    )
+  })
+
+  it('gives the auto-height (select) path the same clearance', () => {
+    expect(
+      resolve(
+        rules,
+        'q-field__control-container',
+        AUTO_LABELED,
+        'padding-top',
+        MD2
+      )
+    ).toBe('28px')
+    expect(
+      resolve(
+        rules,
+        'q-field__control-container',
+        AUTO_LABELED,
+        'padding-top',
+        MD3
+      )
+    ).toBe('24px')
+  })
+
+  it('does not borrow a style-varying space step for the metric', () => {
+    const offenders = rules.flatMap((rule) =>
+      [...rule.declarations.entries()].filter(
+        ([property, value]) =>
+          property === 'padding-top' && value.includes('--q-space-xl')
+      )
+    )
+    expect(offenders).toEqual([])
   })
 })

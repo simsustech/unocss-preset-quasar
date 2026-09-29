@@ -737,7 +737,9 @@ export const fieldRules = [
         [symbols.selector]: (selector: string) =>
           `${selector}--labeled .q-field__native, ${selector}--labeled .q-field__prefix, ${selector}--labeled .q-field__suffix`,
         'line-height': 'var(--q-body-large-line-height)',
-        'padding-top': 'var(--q-space-xl)',
+        // metric, not a space step: quasar.css states this push-down absolutely
+        // (24px), and md2's --q-space-xl (16px) left the value under the label.
+        'padding-top': 'var(--q-field-labeled-padding-top)',
         'padding-bottom': 'var(--q-space-sm)'
       }
       yield {
@@ -874,7 +876,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--auto-height.q-field--labeled .q-field__control-container`,
-        'padding-top': 'var(--q-space-xl)'
+        'padding-top': 'var(--q-field-labeled-padding-top)'
       }
       yield {
         [symbols.selector]: (selector) =>

@@ -100,3 +100,17 @@ express (the unstyled resets), owned by `src/styles/<name>/`.
 
 **tree-shaken inclusion** — an unlisted style ships neither its token diff nor
 its rules.
+
+**preset metric token** — a token whose value `quasar.css` (or `specs/md2`) states
+absolutely, so it must not be derived from a scale that varies per style:
+`--q-control-height`, `--q-field-labeled-padding-top`, `--q-btn-round-min-width`.
+A style may hold its own value for one (md2's labeled push-down is 28px where md3's
+is 24px); what it may not do is read it out of `--q-space-*`.
+
+**style scale token** — a token that exists _to_ differ per style: `--q-space-*`,
+`--q-comp-*`, the `--q-size-*` breakpoints. Those values are the style's identity,
+so a divergence there is not a defect — unless the token is being used to express a
+metric the arbiter states absolutely. AUD-MD2-001 is that defect: a 16px push-down
+under a floated label box that ends at 25px.
+
+Avoid: "spacing token" for both, and "size token" for either.
