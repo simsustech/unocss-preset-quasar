@@ -72,10 +72,10 @@ export const md3Style: StyleEntry = {
       spaceMd: '12px',
       spaceLg: '16px',
       spaceXl: '24px',
-      sizeIcon: '24px',
-      sizeSm: '24px',
-      sizeMd: '40px',
-      sizeLg: '56px'
+      compIcon: '24px',
+      compSm: '24px',
+      compMd: '40px',
+      compLg: '56px'
     },
     motion: {
       durationShort: '100ms',
@@ -166,6 +166,8 @@ export const md3Style: StyleEntry = {
       // New tokens for hardcoded value conversion
       btnPaddingY: '4px',
       // 40px at the 14px md3 button font size (md2 is 2.572em = 36px)
+      // 48dp touch target (WCAG): raised at the height declaration only.
+      controlHeight: '48px',
       btnMinHeight: '2.857em',
       btnFontWeight: 500,
       btnContentGap: '4px',
@@ -249,10 +251,10 @@ export const md2Style: StyleEntry = {
       spaceMd: '8px',
       spaceLg: '16px',
       spaceXl: '16px',
-      sizeIcon: '32px',
-      sizeSm: '24px',
-      sizeMd: '48px',
-      sizeLg: '56px'
+      compIcon: '32px',
+      compSm: '24px',
+      compMd: '48px',
+      compLg: '56px'
     },
     motion: {
       durationShort: '100ms',
@@ -349,6 +351,7 @@ export const md2Style: StyleEntry = {
       virtualScrollItemWidth: '100%',
       // New tokens for hardcoded value conversion
       btnPaddingY: '4px',
+      controlHeight: '48px',
       btnMinHeight: '2.572em',
       btnFontWeight: 500,
       btnContentGap: '4px',
@@ -435,10 +438,10 @@ export const unstyledStyle: StyleEntry = {
       spaceMd: '0',
       spaceLg: '0',
       spaceXl: '0',
-      sizeIcon: '0',
-      sizeSm: '0',
-      sizeMd: '0',
-      sizeLg: '0'
+      compIcon: '0',
+      compSm: '0',
+      compMd: '0',
+      compLg: '0'
     },
     motion: {
       durationShort: '0s',
@@ -526,6 +529,7 @@ export const unstyledStyle: StyleEntry = {
       virtualScrollItemWidth: '0',
       // New tokens for hardcoded value conversion
       btnPaddingY: '0',
+      controlHeight: 'auto',
       btnMinHeight: 'auto',
       btnFontWeight: 400,
       btnContentGap: '0',

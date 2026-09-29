@@ -376,13 +376,13 @@ export const tableRules = [
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-table__select .q-field__control`,
         padding: '0',
-        'min-height': 'var(--q-size-sm)'
+        'min-height': 'var(--q-comp-sm)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-table__select .q-field__native`,
         padding: '0',
-        'min-height': 'var(--q-size-sm)'
+        'min-height': 'var(--q-comp-sm)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -546,7 +546,7 @@ export const tableRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__bottom .q-table__control`,
-        'min-height': 'var(--q-size-sm)'
+        'min-height': 'var(--q-comp-sm)'
       }
       yield {
         [symbols.selector]: (selector) => `.body--dark ${selector}__bottom`,

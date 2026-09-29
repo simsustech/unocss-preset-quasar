@@ -36,7 +36,7 @@ export const fieldRules = [
         'align-items': 'center',
         position: 'relative',
         'border-radius': 'var(--q-radius-sm)',
-        'min-height': 'var(--q-size-md)'
+        'min-height': 'var(--q-control-height)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__control:before`,
@@ -594,7 +594,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__marginal .q-avatar`,
-        'font-size': 'var(--q-size-icon)'
+        'font-size': 'var(--q-comp-icon)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -850,7 +850,7 @@ export const fieldRules = [
           `${selector}--auto-height .q-field__native`,
         // quasar: Quasar's tight auto-height line
         'line-height': '18px',
-        'min-height': 'var(--q-size-lg)',
+        'min-height': 'var(--q-comp-lg)',
         'align-items': 'center'
       }
       yield {
@@ -869,7 +869,7 @@ export const fieldRules = [
         [symbols.selector]: (selector) =>
           `${selector}--auto-height .q-field__control`,
         height: 'auto',
-        'min-height': 'var(--q-size-lg)'
+        'min-height': 'var(--q-comp-lg)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -880,7 +880,7 @@ export const fieldRules = [
         [symbols.selector]: (selector) =>
           `${selector}--auto-height.q-field--labeled .q-field__native`,
         'padding-top': '0',
-        'min-height': 'var(--q-size-sm)',
+        'min-height': 'var(--q-comp-sm)',
         // Quasar orders these two the other way round in sass (`&--labeled` at
         // 2673, `&--auto-height` at 2742), so on a field that is both, the
         // auto-height rule's `line-height: 18px` is the one that applies — a
@@ -895,17 +895,17 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--auto-height.q-field--dense .q-field__control`,
-        'min-height': 'var(--q-size-md)'
+        'min-height': 'var(--q-control-height)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--auto-height.q-field--dense .q-field__native`,
-        'min-height': 'var(--q-size-md)'
+        'min-height': 'var(--q-control-height)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--auto-height.q-field--dense.q-field--labeled .q-field__native`,
-        'min-height': 'var(--q-size-sm)'
+        'min-height': 'var(--q-comp-sm)'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -1137,7 +1137,7 @@ export const fieldRules = [
         height: '56px',
         // The reference states this as a role; this black-54% literal was the
         // parity copy and won over `var(--q-on-surface-variant)`.
-        'font-size': 'var(--q-size-icon)'
+        'font-size': 'var(--q-comp-icon)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__marginal > * + *`,
@@ -1150,7 +1150,7 @@ export const fieldRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__marginal`,
-        'font-size': 'var(--q-size-icon)',
+        'font-size': 'var(--q-comp-icon)',
         color: 'var(--q-on-surface-variant)'
       }
       yield {
@@ -1388,7 +1388,7 @@ export const fieldRules = [
         'user-select': 'auto',
         '-webkit-user-select': 'auto',
         height: '0',
-        'min-height': 'var(--q-size-sm)'
+        'min-height': 'var(--q-comp-sm)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__input:autofill`,

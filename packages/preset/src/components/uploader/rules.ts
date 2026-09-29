@@ -139,7 +139,7 @@ export const uploaderRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__file .q-circular-progress`,
-        'font-size': 'var(--q-size-icon)'
+        'font-size': 'var(--q-comp-icon)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__add`
@@ -235,7 +235,7 @@ export const uploaderRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__spinner`,
-        'font-size': 'var(--q-size-icon)',
+        'font-size': 'var(--q-comp-icon)',
         'margin-right': '4px'
       }
       yield {
@@ -259,7 +259,7 @@ export const uploaderRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__file-status`,
-        'font-size': 'var(--q-size-icon)',
+        'font-size': 'var(--q-comp-icon)',
         'margin-right': '4px'
       }
       yield {

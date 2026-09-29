@@ -28,7 +28,7 @@ export const btnRules = [
         cursor: 'default',
         'padding-inline': 'var(--q-btn-padding-x)',
         'padding-block': 'var(--q-space-xs)',
-        'min-height': 'var(--q-btn-min-height)',
+        'min-height': 'var(--q-control-height)',
         'min-width': 'var(--q-btn-min-width)',
         'border-radius': 'var(--q-btn-radius)',
         overflow: 'visible'
@@ -169,8 +169,9 @@ export const btnRules = [
         'border-radius': 'var(--q-btn-round-radius)',
         // Reference `.q-btn--round`: a 3em square with no box padding.
         'min-width': '3em',
-        // quasar: this value is Quasar's own, not a forked token
-        'min-height': '3em',
+        // 48dp touch target: the reference's 3em (42px) misses the plan's
+        // height floor, so the height forks while the 3em square width stays.
+        'min-height': 'var(--q-control-height)',
         padding: 'calc(var(--spacing) * 0)'
       }
       yield {
@@ -180,8 +181,8 @@ export const btnRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--dense`,
         padding: 'var(--q-btn-dense-padding)',
-        // quasar: this value is Quasar's own, not a forked token
-        'min-height': '2em'
+        // 48dp touch target: dense keeps its tighter padding, not a shorter box.
+        'min-height': 'var(--q-control-height)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense .on-left`,
@@ -194,8 +195,8 @@ export const btnRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}--dense.q-btn--round`,
         padding: 'calc(var(--spacing) * 0)',
-        // quasar: this value is Quasar's own, not a forked token
-        'min-height': '2.4em',
+        // 48dp touch target (dense round): height only; min-width keeps 2.4em.
+        'min-height': 'var(--q-control-height)',
         'min-width': '2.4em'
       }
       yield {
@@ -255,7 +256,7 @@ export const btnRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--fab .q-icon`,
-        'font-size': 'var(--q-size-icon)'
+        'font-size': 'var(--q-comp-icon)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--fab .q-icon`,
@@ -278,7 +279,7 @@ export const btnRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--fab-mini .q-icon`,
-        'font-size': 'var(--q-size-icon)'
+        'font-size': 'var(--q-comp-icon)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__content--hidden`,

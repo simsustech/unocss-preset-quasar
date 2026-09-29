@@ -123,7 +123,7 @@ export const iconRules = [
         'justify-content': 'center',
         width: '1em',
         height: '1em',
-        'font-size': 'var(--q-size-icon)',
+        'font-size': 'var(--q-comp-icon)',
         // Reference declares the line box through the wind4 spacing step
         // (`calc(var(--spacing) * 1)` = 4px), not a unitless `1`.
         'line-height': 'calc(var(--spacing) * 1)',

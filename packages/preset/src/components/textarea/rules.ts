@@ -15,7 +15,7 @@ export const textareaRules = [
       // .q-textarea
       yield {
         [symbols.selector]: (selector) => `${selector} .q-field__control`,
-        'min-height': 'var(--q-size-lg)',
+        'min-height': 'var(--q-comp-lg)',
         height: 'auto'
       }
       yield {
@@ -100,7 +100,7 @@ export const textareaRules = [
           `${selector}.q-field--dense.q-field--labeled .q-field__native`,
         // quasar: this value is Quasar's own, not a forked token
         'padding-top': '3px',
-        'min-height': 'var(--q-size-sm)'
+        'min-height': 'var(--q-comp-sm)'
       }
       yield {
         [symbols.selector]: (selector) =>

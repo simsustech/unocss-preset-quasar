@@ -19,7 +19,15 @@ export const btnGroupRules = [
       yield {
         [symbols.selector]: (selector) => `${selector} > .q-btn`,
         'border-radius': '0',
-        'box-shadow': 'none'
+        'box-shadow': 'none',
+        // MD3 segmented: the reference groups carry no fill, but every `.q-btn`
+        // here is filled with `--q-btn-bg` — the unselected Day/Week segment
+        // rendered rgb(0,95,175) primary. Reset both parts of the pair at the
+        // group scope: no fill, text falls back to the page colour. The active
+        // segment is painted below (secondary-container), and `.bg-primary`
+        // keeps winning through its `!important` (specificity 0,3,0 > 0,2,0).
+        'background-color': 'transparent',
+        color: 'inherit'
       }
       yield {
         [symbols.selector]: (selector) => `.body--dark ${selector} > .q-btn`,
@@ -73,8 +81,15 @@ export const btnGroupRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector} > .q-btn-item`,
-        color:
-          'color-mix(in oklab, var(--light-on-surface) var(--q-text-opacity), transparent)',
+        // No `color` here, deliberately. The reference is
+        // `.q-btn-group > .q-btn-item { border-radius: inherit; align-self: stretch }`
+        // — Quasar sets no colour on group items, and every button carries its
+        // own paired tokens through `.q-btn` (`--q-btn-bg` / `--q-btn-color`, or
+        // `transparent` / `inherit` in the unstyled entry). A hardcoded
+        // `--light-on-surface` was only ever right while the base button painted
+        // no fill: once MD3/MD2 filled it with `--q-btn-primary`, this rule won on
+        // specificity (two classes against one) and put dark surface text on the
+        // primary fill — the "dark blue button" contrast defect.
         'align-self': 'stretch'
       }
       yield {
@@ -88,6 +103,22 @@ export const btnGroupRules = [
           `${selector} > .q-btn-item:not(:last-child)`,
         'border-top-right-radius': 'var(--radius-none)',
         'border-bottom-right-radius': 'var(--radius-none)'
+      }
+      // MD3 segmented: the outer edges take the group's pill radius (the
+      // `.q-btn-group > .q-btn` rule above zeroes every corner; the reference's
+      // `border-radius: inherit` is what the first/last items inherit here).
+      // Inner corners stay square via the :not(:first/:last) rules above.
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector} > .q-btn-item:first-child`,
+        'border-top-left-radius': 'inherit',
+        'border-bottom-left-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector} > .q-btn-item:last-child`,
+        'border-top-right-radius': 'inherit',
+        'border-bottom-right-radius': 'inherit'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -107,6 +138,27 @@ export const btnGroupRules = [
           `.body--dark ${selector} > .q-btn-item.bg-primary`,
         color: 'var(--q-on-primary) !important',
         'background-color': 'var(--q-primary) !important'
+      }
+      // MD3 segmented: the selected segment wears secondary-container.
+      // q-btn-toggle marks selection with aria-pressed (its `toggle-color`
+      // additionally paints the active item `bg-primary text-white`), so the
+      // selector keys off the ARIA state: placed after the `.bg-primary`
+      // special-cases and carrying `!important` at equal specificity (0,3,0),
+      // the container pair wins the source-order tie for the pressed segment,
+      // while a non-active `.bg-primary` item keeps its fill untouched.
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector} > .q-btn-item[aria-pressed="true"]`,
+        'background-color':
+          'color-mix(in oklab, var(--light-secondary-container) var(--q-bg-opacity), transparent) !important',
+        color:
+          'color-mix(in oklab, var(--light-on-secondary-container) var(--q-text-opacity), transparent) !important'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector} > .q-btn-item[aria-pressed="true"]`,
+        'background-color': 'var(--q-secondary-container) !important',
+        color: 'var(--q-on-secondary-container) !important'
       }
       yield {
         [symbols.selector]: (selector) =>

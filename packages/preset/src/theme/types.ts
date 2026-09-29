@@ -96,10 +96,10 @@ export interface SizingTokens {
   spaceMd: string
   spaceLg: string
   spaceXl: string
-  sizeIcon: string
-  sizeSm: string
-  sizeMd: string
-  sizeLg: string
+  compIcon: string
+  compSm: string
+  compMd: string
+  compLg: string
 }
 
 export interface MotionTokens {
@@ -204,6 +204,8 @@ export interface ComponentTokens {
   virtualScrollItemWidth: string
   // New tokens for hardcoded value conversion
   btnPaddingY: string
+  /** Dedicated touch-target height for controls (48dp); never share compMd. */
+  controlHeight: string
   btnMinHeight: string
   btnFontWeight: number
   btnContentGap: string

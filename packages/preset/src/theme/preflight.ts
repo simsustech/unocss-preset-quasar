@@ -42,6 +42,14 @@ export function createTokenPreflight(params: {
       parts.push(renderRoleBlock(':root', params.colors.dark, 'dark'))
       // 1a. Shape roles, as the md3 entry states them.
       parts.push(renderShapeRoles(':root', params.defaultStyle.tokens))
+      // 1a′. Quasar's screen breakpoints. The Screen plugin parses
+      // `--q-size-{xs,sm,md,lg,xl}` out of the stylesheet, and for a consumer
+      // who disables Sass this preset replaces quasar.css wholesale — without
+      // these five literals `$q.screen` misreads every breakpoint (the
+      // component scale used to squat on `--q-size-sm` with `24px`, so the
+      // app reported `xl` at every viewport). The component scale lives on
+      // `--q-comp-*`, which Quasar does not reserve.
+      parts.push(renderScreenBreakpoints(':root'))
       // 1b. The engine's theme namespaces, plus the defaults we own for the
       // declarations that read engine-internal names. Our rules reference
       // `--spacing` and friends (`calc(var(--spacing) * N)`, the corner radii,
@@ -180,6 +188,27 @@ function renderShapeRoles(selector: string, tokens: TokenCategories): string {
 /** The engine's theme namespaces, which it emits only alongside its own utilities. */
 function renderNamespaceBlock(selector: string): string {
   const lines = Object.entries(engineNamespaceTokens).map(
+    ([prop, value]) => `  ${prop}: ${value};`
+  )
+  return `${selector} {\n${lines.join('\n')}\n}`
+}
+
+/**
+ * Quasar's screen-breakpoint literals (`ui/src/css/core/size.sass`, the values
+ * the Screen plugin reads by name): 0 / 600 / 1024 / 1440 / 1920px.
+ * Transcribed from the arbiter (`ui/dist/quasar.css`), never derived here.
+ */
+const SCREEN_BREAKPOINTS: [property: string, value: string][] = [
+  ['--q-size-xs', '0'],
+  ['--q-size-sm', '600px'],
+  ['--q-size-md', '1024px'],
+  ['--q-size-lg', '1440px'],
+  ['--q-size-xl', '1920px']
+]
+
+/** The five breakpoints, stated once at `:root` (same mechanism as the shape roles). */
+function renderScreenBreakpoints(selector: string): string {
+  const lines = SCREEN_BREAKPOINTS.map(
     ([prop, value]) => `  ${prop}: ${value};`
   )
   return `${selector} {\n${lines.join('\n')}\n}`

@@ -170,12 +170,12 @@ export const itemRules = [
       yield {
         [symbols.selector]: (selector: string) =>
           `${selector}__section--side > .q-avatar`,
-        'font-size': 'var(--q-size-md)'
+        'font-size': 'var(--q-comp-md)'
       }
       yield {
         [symbols.selector]: (selector: string) =>
           `${selector}__section--side > .q-icon`,
-        'font-size': 'var(--q-size-icon)'
+        'font-size': 'var(--q-comp-icon)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__section--side`,

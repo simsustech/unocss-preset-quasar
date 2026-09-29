@@ -32,7 +32,7 @@ Tokens are organized into four categories, emitted as `--q-{category}-{name}`:
 | ---------- | ------------------------- | -------------------------------------------------------------------- |
 | **Color**  | `--q-`                    | `--q-primary`, `--q-on-primary`, `--q-surface`, `--q-outline`        |
 | **Shape**  | `--q-radius-`             | `--q-radius-xs` (4px), `--q-radius-sm` (8px), `--q-radius-xl` (28px) |
-| **Sizing** | `--q-space-`, `--q-size-` | `--q-space-md` (12px), `--q-size-icon` (24px)                        |
+| **Sizing** | `--q-space-`, `--q-comp-` | `--q-space-md` (12px), `--q-comp-icon` (24px)                        |
 | **Type**   | `--q-font-`               | `--q-font-md` (14px), `--q-font-lead` (1.715em)                      |
 
 ### Body-Class Scoping

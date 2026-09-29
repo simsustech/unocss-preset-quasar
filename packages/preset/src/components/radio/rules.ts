@@ -83,7 +83,7 @@ export const radioRules = [
         'justify-content': 'center',
         border: '2px solid var(--q-outline)',
         transition: 'all var(--q-duration-short) var(--q-easing-standard)',
-        'font-size': 'var(--q-size-md)',
+        'font-size': 'var(--q-comp-md)',
         color: 'var(--q-on-surface-variant)',
         'border-radius': '50%',
         width: '1em',

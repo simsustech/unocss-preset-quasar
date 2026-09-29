@@ -72,12 +72,12 @@ async function effectiveDecls(
 /**
  * Where this preset tokenizes a value the reference spells literally, the two
  * resolve identically, so the fold's guarantee is the *deterministic single
- * declaration*, not textual equality with the fixture: `--q-size-md` resolves to
+ * declaration*, not textual equality with the fixture: `--q-comp-md` resolves to
  * the reference's `40px`. (The other former entry, `--q-primary` against the
  * reference's `--light-primary`, is handled by `normaliseReads` below.)
  */
 const ALIASES: [actual: string, expected: string][] = [
-  ['var(--q-size-md)', '40px']
+  ['var(--q-comp-md)', '40px']
 ]
 
 /**

@@ -502,7 +502,7 @@ export const stepperRules = [
         [symbols.selector]: (selector) =>
           `${selector}__tab--error-with-icon .q-stepper__dot span`,
         color: 'currentColor',
-        'font-size': 'var(--q-size-icon)'
+        'font-size': 'var(--q-comp-icon)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header--border`,

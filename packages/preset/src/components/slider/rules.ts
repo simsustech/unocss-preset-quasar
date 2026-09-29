@@ -328,7 +328,7 @@ export const sliderRules = [
         position: 'relative',
         width: '100%',
         height: '100%',
-        'min-height': 'var(--q-size-sm)',
+        'min-height': 'var(--q-comp-sm)',
         'min-width': '24px'
       }
       yield {
