@@ -230,17 +230,38 @@ async function main() {
     selectors.join(',').match(/\.(q-[\w-]*(?:--|__)[\w-]*)/)?.[1] ?? null
 
   const report = { squares: [], metrics: [], unflagged: [] }
+  /** Swept declarations that appeared in more than one emitted block. */
+  const ambiguous = []
 
   const evaluate = (statement, property) => {
     const ours2 = ourBlocks(md2Rules, statement.selectors)
     const ours3 = ourBlocks(md3Rules, statement.selectors)
+    /**
+     * The declaration CSS would actually use: the LAST block that sets the property,
+     * since a later rule of equal specificity wins.
+     *
+     * Not theoretical. The emitted sheet really does carry selectors in more than one
+     * block with different values: `.q-date__view` declares `min-height: 290px` and
+     * then `160px`, and `.q-date__calendar-days > div` declares `height: 16.66%` and
+     * then `16.6666666667%`. Neither is swept today, so taking the first block happened
+     * to be harmless — it would not have stayed harmless. When a swept selector is
+     * ambiguous the comparison is reported as a note rather than resolved silently, so
+     * a reader can see the verdict rests on cascade order.
+     */
     const pick = (blocks, tokens) => {
+      const hits = []
       for (const b of blocks) {
         const raw = b.decls.get(property)
         if (raw === undefined) continue
-        return { raw, value: resolveValue(raw, tokens) }
+        hits.push({ raw, value: resolveValue(raw, tokens) })
       }
-      return null
+      if (hits.length === 0) return null
+      if (hits.length > 1 && new Set(hits.map((h) => h.value)).size > 1) {
+        ambiguous.push(
+          `${property} of ${blocks[0].selectors[0]}: ${hits.map((h) => h.value).join(' -> ')}`
+        )
+      }
+      return hits[hits.length - 1]
     }
     return { md2: pick(ours2, md2Tokens), md3: pick(ours3, md3Tokens) }
   }
@@ -334,6 +355,16 @@ async function main() {
   const undispositioned = [...report.squares, ...report.metrics].filter(
     (r) => !r.bucket
   )
+  if (ambiguous.length) {
+    lines.push('')
+    lines.push(
+      'note: these swept declarations appear in more than one emitted block;'
+    )
+    lines.push(
+      '      the LAST one was compared, because that is the one CSS would use:'
+    )
+    for (const note of new Set(ambiguous)) lines.push(`        ${note}`)
+  }
   lines.push('')
   lines.push(
     `summary: ${report.squares.length} shape divergence(s), ${report.metrics.length} metric divergence(s), ${undispositioned.length} undispositioned`
