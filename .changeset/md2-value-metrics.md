@@ -4,8 +4,9 @@
 
 md2: a metric token for the labeled push-down, and round buttons that are round
 
-Two values rode a style-varying scale where `quasar.css` states an absolute one, so
-md2 — whose spacing scale is compressed — rendered them wrong.
+Two values disagreed with `quasar.css` for the same underlying reason — neither was
+stated as the absolute length the arbiter states. md2's compressed spacing scale exposed the
+first; a font-relative `3em` paired with an absolute height exposed the second.
 
 **Labeled fields (AUD-MD2-001).** The push-down that clears a floated label was
 `padding-top: var(--q-space-xl)`: 24px in md3, 16px in md2. Every floated field in
