@@ -12,9 +12,16 @@
  *   1. Load `quasar/dist/quasar.css` (the arbiter; same loader as
  *      coverage-sweep.mjs).
  *   2. Parse its rule blocks and keep two classes of statement:
- *        (A) blocks declaring BOTH `min-width` and `min-height` with the SAME
- *            value — dist's way of saying "this is a square";
- *        (B) blocks declaring `padding-top` with an ABSOLUTE length — dist's way
+ *        (A) a *circular* block that keeps two sides equal — dist's way of saying
+ *            "this is a circle". Both ways dist states one are read, because it uses
+ *            both: the min-* pair (`.q-btn--round { min-width: 3em; min-height: 3em }`)
+ *            and the plain pair (`.q-avatar { width: 1em; height: 1em }`). Reading only
+ *            the min-* pair covered 1 of dist's 28 circular rules, so 27 circles —
+ *            avatars, checkboxes, calendar cells, the knob — sat outside a gate whose
+ *            header claimed to check circles. A side is read as the *effective* one: an
+ *            explicit `height`/`width` beats its own min-* floor, and a keyword
+ *            (`auto`) falls through to the floor instead of being reported as a side;
+ *        (B) a block declaring `padding-top` with an ABSOLUTE length — dist's way
  *            of stating a metric outright.
  *   3. Generate this sheet for md2 and md3 (the preset must be built first) and
  *      resolve every `var(--q-*)` through that sheet's own token block.
@@ -107,6 +114,19 @@ function resolveValue(value, tokens, depth = 0) {
 
 const ABSOLUTE = /^-?[\d.]+(px|em|rem)$/
 
+/** Values that are not a length at all — a side stated as one of these falls through. */
+const KEYWORDS = new Set([
+  'auto',
+  'none',
+  'initial',
+  'inherit',
+  'unset',
+  'revert',
+  'min-content',
+  'max-content',
+  'fit-content'
+])
+
 /** Statements of class (A) and (B) that dist states.
  *
  * Restricted to selectors that name a Quasar *modifier* or *part* (`--`, `__`):
@@ -118,15 +138,29 @@ function distStatements(rules) {
   const metrics = []
   for (const rule of rules) {
     if (!rule.selectors.some((s) => /\.[\w-]+(--|__)/.test(s))) continue
-    const w = rule.decls.get('min-width')
-    const h = rule.decls.get('min-height')
     // Equal dims are only a *shape* claim when the rule is circular: dist's
     // `.q-btn--dense` also keeps both at 2.4em, but a 4px radius makes that a
     // minimum size, not a circle, so a rectangle there is correct.
+    //
+    // Both ways dist states a circle are read, because it uses both: the min-*
+    // pair (`.q-btn--round { min-width: 3em; min-height: 3em }`) and the plain
+    // pair (`.q-avatar { width: 1em; height: 1em }`, `.q-date__calendar-item >
+    // div { width: 30px; height: 30px }`). Reading only the min-* pair covered 1
+    // of dist's 28 circular rules; the other 27 stayed outside the gate while its
+    // header claimed to check circles.
     const radius = rule.decls.get('border-radius') ?? ''
     const circular = radius.includes('50%') || radius.includes('infinity')
-    if (circular && w && h && w === h && ABSOLUTE.test(w)) {
-      squares.push({ selectors: rule.selectors, value: w })
+    for (const pair of [
+      ['width', 'height'],
+      ['min-width', 'min-height']
+    ]) {
+      const [a, b] = pair
+      const x = rule.decls.get(a)
+      const y = rule.decls.get(b)
+      if (circular && x && y && x === y && ABSOLUTE.test(x)) {
+        squares.push({ selectors: rule.selectors, pair, value: x })
+        break
+      }
     }
     const pad = rule.decls.get('padding-top')
     if (pad && ABSOLUTE.test(pad)) {
@@ -272,38 +306,57 @@ async function main() {
     // The square side is `height` when a style states one, else `min-height`:
     // the md2 fix keeps `min-height` on the 48dp floor token and puts the square
     // in `height`, so reading min-height alone would misreport it as 64x48.
-    const dims = (style, tokens) => {
-      const w = evaluate(sq, 'min-width')
-      const rawH = evaluate(sq, 'height')
-      const minH = evaluate(sq, 'min-height')
-      const pick =
-        style === 'md2'
-          ? [w.md2, rawH.md2, minH.md2]
-          : [w.md3, rawH.md3, minH.md3]
-      const [width, height, floor] = pick
-      const h =
-        height && ABSOLUTE.test(height.value) ? height.value : floor?.value
-      return { width: width?.value, height: h }
+    // The square side is the *effective* one: an explicit size beats its own
+    // min-* floor. The md2 fix keeps `min-height` on the 48dp floor token and puts
+    // the square in `height`, so reading min-height alone would misreport it as
+    // 64x48 — a false positive of exactly the kind this sweep exists to avoid.
+    const side = (style, property) => {
+      const explicit =
+        property === 'min-height'
+          ? 'height'
+          : property === 'min-width'
+            ? 'width'
+            : null
+      for (const candidate of explicit ? [explicit, property] : [property]) {
+        const hit = evaluate(sq, candidate)
+        const value = style === 'md2' ? hit.md2 : hit.md3
+        if (!value) continue
+        // A keyword is not a side: md3's round button states `height: auto` (its square
+        // side token is deliberately `auto` there), so the rendered side is its
+        // min-height floor. Treating `auto` as the side would report md3 as
+        // `3em x auto` instead of the `3em x 48px` a reader can check.
+        if (KEYWORDS.has(value.value)) continue
+        return value.value
+      }
+      return undefined
     }
-    const m2 = dims('md2', md2Tokens)
-    const m3 = dims('md3', md3Tokens)
+    const m2 = { a: side('md2', sq.pair[0]), b: side('md2', sq.pair[1]) }
+    const m3 = { a: side('md3', sq.pair[0]), b: side('md3', sq.pair[1]) }
     const row = {
       id,
+      pair: sq.pair.join('/'),
       dist: `${sq.value} x ${sq.value}`,
-      md2: `${m2.width ?? '—'} x ${m2.height ?? '—'}`,
-      md3: `${m3.width ?? '—'} x ${m3.height ?? '—'}`
+      md2: `${m2.a ?? '—'} x ${m2.b ?? '—'}`,
+      md3: `${m3.a ?? '—'} x ${m3.b ?? '—'}`
     }
-    const square = (s) => {
-      const [a, b] = s.split(' x ')
-      return a === b || b === '—' || a === '—'
-    }
-    row.ok2 = square(row.md2)
-    row.ok3 = square(row.md3)
-    if (!row.ok2 || !row.ok3) {
+    // A dimension this sheet never states is unverifiable here, not a pass — the
+    // report says so rather than counting it as square.
+    const square = (d) =>
+      d.a === undefined || d.b === undefined
+        ? 'not stated'
+        : d.a === d.b
+          ? 'square'
+          : 'NOT SQUARE'
+    row.verdict2 = square(m2)
+    row.verdict3 = square(m3)
+    if (row.verdict2 === 'NOT SQUARE' || row.verdict3 === 'NOT SQUARE') {
       row.bucket =
         BUCKETS.get(`${id}|min-width|${sq.value}`) ??
-        BUCKETS.get(`${id}|min-height|${sq.value}`)
+        BUCKETS.get(`${id}|min-height|${sq.value}`) ??
+        BUCKETS.get(`${id}|width|${sq.value}`)
       report.squares.push(row)
+    } else if (row.verdict2 === 'not stated' || row.verdict3 === 'not stated') {
+      report.unflagged.push(row)
     }
   }
 
@@ -327,15 +380,25 @@ async function main() {
   lines.push('md2 value sweep — dist vs the emitted sheets')
   lines.push('')
   lines.push(
-    '(A) dist states a square (min-width === min-height), ours may not be:'
+    '(A) dist states a circle (a circular radius with equal sides), ours may not be:'
   )
   if (!report.squares.length)
-    lines.push('    none — every square dist states is square in both styles')
+    lines.push('    none — every circle dist states is square in both styles')
   for (const r of report.squares) {
     lines.push(
-      `    ${r.id.padEnd(26)} dist ${r.dist.padEnd(11)} md2 ${r.md2.padEnd(11)}${r.ok2 ? 'square' : 'NOT SQUARE'} | md3 ${r.md3.padEnd(11)}${r.ok3 ? 'square' : 'NOT SQUARE'}`
+      `    ${r.id.padEnd(26)} ${r.pair.padEnd(18)} dist ${r.dist.padEnd(11)} md2 ${r.md2.padEnd(12)}${r.verdict2.padEnd(13)} | md3 ${r.md3.padEnd(12)}${r.verdict3}`
     )
     lines.push(`        bucket: ${r.bucket ?? 'UNDISPOSITIONED'}`)
+  }
+  if (report.unflagged.length) {
+    lines.push('')
+    lines.push(
+      '    circles whose dimension this sheet never states (unverifiable here, not a pass):'
+    )
+    for (const r of report.unflagged)
+      lines.push(
+        `    ${r.id.padEnd(26)} ${r.pair.padEnd(18)} md2 ${r.verdict2} | md3 ${r.verdict3}`
+      )
   }
   lines.push('')
   lines.push(
