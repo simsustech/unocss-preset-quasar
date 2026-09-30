@@ -163,6 +163,49 @@ _Recommendation:_ option 1 if the spec's `min_width_px` is meant for text button
 says so), option 2 if it is meant for every button — and that is a reading of the spec, not
 something this audit can decide by itself.
 
+_Settled (2026-09-30) — by reading the spec itself, which is what the recommendation above was
+waiting on._ The MD2 source answers which section governs this element:
+
+- **Buttons** (m2.material.io/components/buttons): four types — text, outlined, contained, toggle —
+  measurement diagrams stating height `36` and `min-width: 64dp`, plus the container rule "set the
+  button's width to the size of the text label with 16dp padding": a floor under label+padding _for
+  action buttons_. The spec's own `border_radius_px: 4` means MD2 knows no pill at all.
+- **Date pickers** (m2.material.io/components/date-pickers): a calendar day has its own redline —
+  "Date bounding box: 40 x 40dp", "Selected date: 36 x 36dp", "Padding between dates: 4dp"
+  (mobile), touch targets "as large as possible … minimum … 32 x 32dp".
+- **Implementations**: Quasar v1.22.10 — the md2-era build, fetched from unpkg this day — has
+  **zero** `min-width` rules in any `.q-btn` rule (92 in the file, none on buttons), and dist
+  v2.33.2 declares none either.
+
+So the condition resolves **for option 1, in its `--rounded` half only**:
+
+- The day cell is a _date_, not an action button: the button floor was never its section, and both
+  real Quasar builds render such cells content-sized. Chain per ADR 0008 — spec silent → dist →
+  content width.
+- **The `--rectangle` half of the drafted option is wrong, and the class assembly proves it.**
+  `quasar.umd.js` builds the shape as
+  `round ? 'round' : \`rectangle${rounded ? ' q-btn--rounded' : …}\``—`q-btn--rectangle`sits on
+*every* non-round button, i.e. on the spec's own text/outlined/contained. Scoping the release
+there would delete`min_width_px` from dialog actions and plain label buttons.
+
+**Implemented** (red→green, four new assertions in `test/buttons-spec.test.ts`): `.q-btn--rounded`
+states `min-width: auto`, and the fab/mini-fab rules re-assert their size token with `!important` —
+the same treatment this file already gives their radius, because Quasar adds `q-btn--rounded` to
+every fab and `--rounded` emits after `--fab`. `--rectangle` is untouched and keeps the 64.
+
+**Verified.** Unit: 15/15 in buttons-spec, suite otherwise unchanged (the one red is the recorded
+floor pair), tsc / lint / format:check / build / sweep all clean, every status read without pipe
+masking. Real-engine cascade over the generated md2 CSS: pill `0px` (released — `auto` computes to
+zero on an inline box), plain `64px`, round `64px`, fab `56px` = `--q-fab-size`, mini `40px` =
+`--q-fab-mini-size`, min-height 48 on every non-fab — 6/6. Live md2 (app rebuilt against the
+worktree, DB reseeded): **35 day cells at 48×48 (×22) and 40×48 (×13), radius 28px,
+`min-width: auto`** against the measured 64×48 stadium; the rail's real `<q-btn fab>` measures
+**56×56 with `min-width: 56px`** despite carrying `--rounded` (the `!important` holds in the real
+app); round buttons 64×64; plain label buttons keep `min-width: 64px`. By-eye: both audit suites
+re-captured (123 light / 52 dark; 10/10 + 4/4) and the three-way crop (`/tmp/cmp-days-3way.png`:
+pre-fix md2 | md3 | md2-after) shows md2's cells circular — md3's shape, md2's `currentColor`
+(AUD-MD2-003's expected divergence) — with the 40-wide cells on MD2's own 40dp date box.
+
 ---
 
 ## AUD-MD2-003 — occupancy day cells lose their colour (resolved: expected divergence)
@@ -344,7 +387,7 @@ Recording it is `node scripts/parity-report.mjs --update`, which regenerates `te
 | AUD-MD2-005 — daycare legend labels bunch in md2 | `uncovered` → **out of scope** | app-side (`DaycareLegend.vue` uses no preset token); petboarding is the harness, and no arbiter declaration is implicated |
 | AUD-MD2-006 — banner (dense) top padding 8px vs dist 12px | `preset-policy` | md2's compressed space scale; spacing, not a clearance metric — no clipping observed (see the sweep section) |
 | AUD-MD2-007 — stepper nav top padding 16px vs dist 24px | `preset-policy` | same mechanism and same disposition as 006; found by the sweep, so a future run need not re-derive it |
-| **AUD-MD2-002's own evidence element is still unfixed** — occupancy day cells are `--rectangle --rounded` (64×48, radius 28px → a stadium), not `--round`; md3 renders the same control ≈45×45 | **OPEN — design call** (`preset-policy` vs defect) | md2's 64px is the md2 spec's outlined-button `min_width_px` and the 48px is the 48dp floor, so a rectangle is their arithmetic consequence; md3 and dist both size this control by content instead. The `--round` family _was_ fixed, and the verification of it (0 of 56) was scoped to `--round`/`--fab` — it never covered this element. Settling it decides whether the spec's button width applies to a date-grid cell, and may involve app markup (out of scope here) |
+| **AUD-MD2-002's evidence element — occupancy day cells** (`--rectangle --rounded`, was 64×48 r=28px = a stadium) | **resolved — fixed** (option 1, `--rounded` half) | settled by reading MD2: buttons state 64dp for label action buttons while the date-picker section sizes dates 40×40dp (36×36dp selected, 4dp apart), and both real Quasar builds (v1.22.10, dist v2.33.2) declare no button min-width — so `.q-btn--rounded` now states `min-width: auto`, scoped away from `--rectangle` because QBtn's assembly puts that class on every non-round button. Live: 35 cells 48×48/40×48, rail fab 56×56 pinned `!important`, round 64×64, plain buttons keep 64; three-way crop `/tmp/cmp-days-3way.png` |
 
 ---
 

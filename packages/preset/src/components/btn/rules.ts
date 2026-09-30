@@ -162,7 +162,18 @@ export const btnRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--rounded`,
-        'border-radius': 'var(--q-btn-rounded-radius)'
+        'border-radius': 'var(--q-btn-rounded-radius)',
+        // The pill releases the button floor. md2 states min_width_px (64) on the
+        // variants it names — contained, outlined, text — and its spec knows no
+        // pill at all (border_radius_px: 4), so a pill's width is spec-silent:
+        // the chain in ADR 0008 hands it to dist, which declares no min-width
+        // anywhere in the `.q-btn` family (v1.22.10, the md2-era build, has none
+        // either). Scoped to `--rounded` and never `--rectangle`, because QBtn's
+        // assembly puts `q-btn--rectangle` on every non-round button — that is
+        // the spec's own text/outlined/contained, and it keeps the 64 below.
+        // The occupancy day cell (outline+rounded) is what needed this: it is a
+        // calendar date, and MD2 sizes those 40x40dp in the date-picker section.
+        'min-width': 'auto'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--round`,
@@ -252,7 +263,9 @@ export const btnRules = [
         // (07306d6); the shortcut file it lived in was deleted by this rewrite.
         'border-radius': 'var(--q-fab-radius) !important',
         'flex-direction': 'row',
-        'min-width': 'var(--q-fab-size)',
+        // `!important` again, for the pill release: `.q-btn--rounded` now states
+        // `min-width: auto` (spec-silent pill width) and emits after this rule.
+        'min-width': 'var(--q-fab-size) !important',
         'min-height': 'var(--q-fab-size)',
         height: 'var(--q-fab-size)',
         'align-items': 'center',
@@ -276,7 +289,7 @@ export const btnRules = [
         // `.q-btn--rounded` (var(--q-btn-rounded-radius)) is emitted later.
         'border-radius': 'var(--q-fab-radius) !important',
         'flex-direction': 'row',
-        'min-width': 'var(--q-fab-mini-size)',
+        'min-width': 'var(--q-fab-mini-size) !important',
         'min-height': 'var(--q-fab-mini-size)',
         height: 'var(--q-fab-mini-size)',
         'align-items': 'center',

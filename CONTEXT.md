@@ -114,3 +114,15 @@ metric the arbiter states absolutely. AUD-MD2-001 is that defect: a 16px push-do
 under a floated label box that ends at 25px.
 
 Avoid: "spacing token" for both, and "size token" for either.
+
+**spec-silent width** — a dimension no section of the spec states for the element in
+front of you, which is when the chain in ADR 0008 reads: spec silent → dist →
+(dist silent too) the no-overlap invariant. `min_width_px: 64` is spec-stated for the
+label action buttons (contained/outlined/text, as a floor under label + 16dp padding);
+MD2 knows no pill (`border_radius_px: 4`), so `.q-btn--rounded`'s width is
+spec-silent and follows dist's content width — hence `.q-btn--rounded` now declares
+`min-width: auto`, while `--rectangle`, the class QBtn's assembly puts on _every_
+non-round button (so it is those variants), keeps the floor. The sibling lesson: a
+calendar day is sized by the date-picker section (40x40dp bounding box, 36x36dp
+selected, 4dp apart), not by the buttons section — an action-button width on a date
+cell was the wrong section, not a style divergence.

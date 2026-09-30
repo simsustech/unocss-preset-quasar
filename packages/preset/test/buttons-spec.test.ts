@@ -207,3 +207,68 @@ describe('QBtn round geometry is a square, per the metric its spec states', () =
     expect(fab).not.toContain('--q-btn-round-min')
   })
 })
+
+// The md2 spec states its 64px minimum on the button variants it names —
+// contained, outlined, text (`specs/md2/buttons.*.min_width_px`) — and the spec
+// knows no pill at all: MD2 buttons are 4px-cornered rectangles (border_radius_px
+// = 4), so a pill's width is spec-SILENT. The authority chain (ADR 0008: spec,
+// then dist, then no-overlap) then puts it on dist, which declares no min-width
+// anywhere in the `.q-btn` family. Both real Quasar implementations agree:
+// v1.22.10 — the md2-era build, fetched from unpkg 2026-09-29 — carries zero
+// min-width rules on `.q-btn`, and v2.33.2 dist carries none either.
+//
+// The release must NOT be scoped to `--rectangle`: QBtn's class assembly is
+//   round ? 'round' : `rectangle${rounded ? ' q-btn--rounded' : ...}`
+// so `q-btn--rectangle` sits on EVERY non-round button — it is the spec's
+// text/outlined/contained, and stripping its floor would delete min_width_px
+// from dialog actions and plain label buttons. Only the pill releases.
+//
+// Element this settles: the occupancy day cell (q-btn--outline q-btn--rectangle
+// q-btn--rounded, measured 64x48 — a stadium) is a CALENDAR DATE, and MD2 sizes
+// dates in the date-picker section, not the button section: mobile date bounding
+// box 40x40dp, selected date 36x36dp, 4dp apart (m2.material.io date-pickers).
+//
+// FAB trap, from this file's own fab comment: Quasar adds `q-btn--rounded` to
+// every fab and `--rounded` is emitted AFTER `--fab`, so the fab's min-width
+// must outrank this release — hence `!important`, mirroring the fab's radius.
+describe('QBtn pill releases the md2 button floor (spec-silent width -> dist)', () => {
+  it('states content width on the pill in md2, md3 and unstyled alike', async () => {
+    for (const style of [MaterialDesign2, Unstyled]) {
+      const css = await cssFor('q-btn q-btn--rounded', style)
+      const b = block(css, '.q-btn--rounded')
+      expect(b, `pill in ${style?.name ?? 'style'}`).toContain('min-width:auto')
+    }
+    const md3 = block(await cssFor('q-btn q-btn--rounded'), '.q-btn--rounded')
+    expect(md3).toContain('min-width:auto')
+  })
+
+  it('keeps the spec floor on the plain label button (rectangle is every button)', async () => {
+    const css = await cssFor('q-btn q-btn--rectangle', MaterialDesign2)
+    const b = block(css, '.q-btn--rectangle')
+    // the rule state is the shared radius; the floor keeps coming from the base
+    expect(block(css, '.q-btn')).toContain('min-width:var(--q-btn-min-width)')
+    expect(css).toMatch(/--q-btn-min-width:\s*64px/)
+    expect(b).not.toContain('min-width:auto')
+  })
+
+  it('outranks the release so fabs stay square (rounded emits after fab)', async () => {
+    const css = await cssFor(
+      'q-btn q-btn--rounded q-btn--fab q-btn--fab-mini',
+      MaterialDesign2
+    )
+    expect(block(css, '.q-btn--fab')).toContain(
+      'min-width:var(--q-fab-size) !important'
+    )
+    expect(block(css, '.q-btn--fab-mini')).toContain(
+      'min-width:var(--q-fab-mini-size) !important'
+    )
+  })
+
+  it('emits the pill release after the base floor, or it is inert', async () => {
+    const css = await cssFor('q-btn q-btn--rounded', MaterialDesign2)
+    const base = css.indexOf('.q-btn{')
+    const pill = css.indexOf('.q-btn--rounded{')
+    expect(base).toBeGreaterThanOrEqual(0)
+    expect(pill).toBeGreaterThan(base)
+  })
+})
