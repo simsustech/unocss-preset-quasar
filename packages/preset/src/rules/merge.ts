@@ -4,7 +4,8 @@ import type {
   DynamicMatcher,
   DynamicRule,
   Rule,
-  RuleContext
+  RuleContext,
+  RuleMeta
 } from '@unocss/core'
 
 /**
@@ -69,6 +70,22 @@ const isAsyncMatcher = (matcher: unknown): boolean =>
  * Scoped objects (those carrying a control key, e.g. `$$symbol-selector`) target
  * different selectors, so they are passed through untouched, in order.
  */
+
+/**
+ * Tag a rule list with a UnoCSS layer (the 3rd tuple element UnoCSS reads
+ * for `layer`).
+ *
+ * Non-mutating on purpose: the lists come from module-level constants shared
+ * across the preset's own tests, and a bare-string rule entry (which `Rule`
+ * permits) would throw on property assignment in strict mode.
+ */
+export function rulesInLayer(layer: string, rules: Rule[]): Rule[] {
+  return rules.map((rule) => {
+    if (!Array.isArray(rule)) return rule
+    const [matcher, body, meta] = rule as [Rule[0], Rule[1], RuleMeta?]
+    return [matcher, body, { ...meta, layer }] as unknown as Rule
+  })
+}
 function* delegateMatchers(
   matchers: DynamicMatcher[],
   match: RegExpMatchArray,
@@ -143,10 +160,17 @@ export function mergeDuplicateRules(rules: Rule[]): Rule[] {
     if (group.matchers.length < 2) continue
     if (group.matchers.some(isAsyncMatcher)) continue // asserted absent by tests
     const index = merged.indexOf(group.entry)
-    const entry: DynamicRule = [
-      group.regex,
-      (match, context) => delegateMatchers(group.matchers, match, context)
-    ]
+    // Carry the entry's meta through: `layer` lives there, and a group whose
+    // layer was dropped silently falls back to `default`, which puts a rule in
+    // the wrong band of the sheet.
+    const meta = group.entry[2]
+    const delegate = (
+      match: RegExpMatchArray,
+      context: Readonly<RuleContext>
+    ) => delegateMatchers(group.matchers, match, context)
+    const entry: DynamicRule = meta
+      ? [group.regex, delegate, meta]
+      : [group.regex, delegate]
     merged[index] = entry
   }
 

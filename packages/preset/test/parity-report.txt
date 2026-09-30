@@ -1,6 +1,6 @@
-=== PARITY: 450/2401 (19%) ===
+=== PARITY: 448/2401 (19%) ===
 (2441 in fixture; 40 env-gated)
-Missing 1951 selectors:
+Missing 1953 selectors:
   ::backdrop
   :root
   :host
@@ -1153,6 +1153,7 @@ Missing 1951 selectors:
   .body--dark .q-btn-group > .q-btn-group:first-child > .q-btn--active
   .q-btn-group > .q-btn
   .q-btn-group > .q-btn-group:first-child > .q-btn--active
+  .body--dark .q-card
   .body--dark .q-drawer
   .q-carousel
   .q-carousel__slide
@@ -1338,6 +1339,7 @@ Missing 1951 selectors:
   .q-layout__shadow
   .q-slider--h
   .q-splitter--horizontal > .q-splitter__panel
+  .column
   .q-btn-group--spread > .q-btn-group
   .q-date--landscape > div
   .q-editor--dense .q-editor__toolbar-group
@@ -1954,7 +1956,7 @@ Missing 1951 selectors:
   .animated
 
 --- BREAKDOWN ---
-  other: 285
+  other: 286
   field: 203
   table: 122
   btn: 90
@@ -2031,4 +2033,5 @@ Missing 1951 selectors:
   focus: 1
   focusable: 1
   manual: 1
+  card: 1
   gutter: 1

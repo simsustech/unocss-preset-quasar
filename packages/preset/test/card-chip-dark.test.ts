@@ -39,7 +39,12 @@ describe('Chip dark mode', () => {
     expect(
       block(css, '.body--dark .q-chip') || block(css, '.body--dark .q-chip,')
     ).toContain('var(--dark-on-secondary-container)')
-    expect(css).toContain('.body--dark .q-chip__icon,')
-    expect(css).toContain('color:var(--q-primary)')
+    // Per-block, like the card assertions above: the icon override used to be
+    // merged into a comma list with a sibling, so a sheet-wide `toContain` on
+    // the comma-suffixed literal depended on which rules happened to share a
+    // declaration body — the layer bands changed that grouping.
+    expect(block(css, '.body--dark .q-chip__icon')).toContain(
+      'color:var(--q-primary)'
+    )
   })
 })
