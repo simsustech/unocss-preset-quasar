@@ -8,8 +8,10 @@
 // also `font-size` for banners, list items and radios (raising it would jump
 // body text to 48px).
 //
-// Variants (round 3em = 42px, dense 2em/2.4em = 30/33.6px) are sub-48 control
-// heights too — the header's Menu button is a dense round one.
+// Variants used to be sub-48 control heights (round 3em = 42px, dense 2.4em =
+// 33.6px — the header's Menu button is a dense round one). Round buttons now
+// take this same floor as their width (buttons-spec circle test), so the floor
+// is what makes them square boxes — and with a 50% radius, circles.
 import { describe, it, expect } from 'vitest'
 import { createGenerator } from 'unocss'
 import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'

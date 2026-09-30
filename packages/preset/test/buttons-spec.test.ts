@@ -159,9 +159,13 @@ describe('QBtn corner spec conformance', () => {
 //
 // The md2 spec states the button minimum width outright
 // (`buttons.*.min_width_px: 64`), so md2 takes that as BOTH dimensions — 64x64,
-// the spec's value and therefore a square. md3 keeps its audited 3em/control-height
-// pair so its rendering does not move; that md3's round buttons are equally oval is
-// recorded for a future md3 run rather than changed inside an md2-scoped audit.
+// the spec's value and therefore a square. md3's pair was left byte-identical in the
+// md2 run even though its round buttons are the same ellipse — recorded there,
+// settled 2026-09-30 on the user's call ("round buttons need to be round"): dist pairs
+// 3em with 3em, but our 48dp floor pins the height to an absolute (and md3's own
+// button font is 14px, so 3em = 42 against 48 — an oval at default typography). The
+// width now comes from that same floor, so min-width === min-height === 48 and the
+// button is a circle at any font size.
 describe('QBtn round geometry is a square, per the metric its spec states', () => {
   it('squares md2 round buttons at the spec width (64x64)', async () => {
     const css = await cssFor('q-btn q-btn--round', MaterialDesign2)
@@ -181,19 +185,35 @@ describe('QBtn round geometry is a square, per the metric its spec states', () =
     const css = await cssFor('q-btn q-btn--dense q-btn--round', MaterialDesign2)
     expect(css).toMatch(/--q-btn-round-dense-min-width:\s*64px/)
     const b = block(css, '.q-btn--dense.q-btn--round')
-    // dense keeps its own width token — md3 stays 2.4em there (dist's value)
+    // dense keeps its own width token (md2's metric above; md3's is the floor —
+    // see the circle test below, 2.4em against 48 was an oval at every font)
     expect(b).toContain('min-width:var(--q-btn-round-dense-min-width)')
     expect(b).toContain('height:var(--q-btn-round-height)')
     expect(b).toContain('min-height:var(--q-control-height)')
   })
 
-  it('leaves md3 exactly where its audit validated it (3em x control-height)', async () => {
-    const css = await cssFor('q-btn q-btn--round')
-    expect(css).toMatch(/--q-btn-round-min-width:\s*3em/)
-    // `auto` is what keeps md3's own geometry - no square is imposed on it
-    expect(css).toMatch(/--q-btn-round-height:\s*auto/)
-    const b = block(css, '.q-btn--round')
-    expect(b).toContain('min-height:var(--q-control-height)')
+  it('makes round buttons circular: both sides read one source (the 48dp floor)', async () => {
+    for (const style of [undefined, Unstyled]) {
+      const css = await cssFor('q-btn q-btn--round q-btn--dense', style)
+      // one source for both sides => a circle; `auto` height stays content-driven,
+      // which for square icon content tracks the width at every font size. In md3/
+      // md2 that source is the 48dp floor; unstyled's control height is `auto` by
+      // design (no floor), and the same source still keeps the box symmetric —
+      // verified per style in a real engine (round-circle: 24/24 at 14–24px fonts)
+      expect(css).toMatch(
+        /--q-btn-round-min-width:\s*var\(--q-control-height\)/
+      )
+      expect(css).not.toMatch(/--q-btn-round-min-width:\s*3em/)
+      expect(css).toMatch(
+        /--q-btn-round-dense-min-width:\s*var\(--q-control-height\)/
+      )
+      expect(css).not.toMatch(/--q-btn-round-dense-min-width:\s*2\.4em/)
+      expect(css).toMatch(/--q-btn-round-height:\s*auto/)
+      const b = block(css, '.q-btn--round')
+      // the48dp floor stays declared exactly as control-height.test.ts guards it
+      expect(b).toContain('min-height:var(--q-control-height)')
+      expect(b).toContain('min-width:var(--q-btn-round-min-width)')
+    }
   })
 
   it('leaves the fab and mini-fab on their own square token', async () => {

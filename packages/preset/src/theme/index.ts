@@ -97,9 +97,13 @@ export const md3Style: StyleEntry = {
       btnColor: 'var(--q-on-primary)',
       btnTextTransform: 'none',
       btnMinWidth: 'auto',
-      btnRoundMinWidth: '3em',
+      // Round = circle: width and height from one absolute. dist pairs 3em with
+      // 3em, but the 48dp floor pins min-height to an absolute (and md3's button
+      // font is 14px, so 3em = 42 against 48 — an oval at default typography).
+      // The width takes the floor itself: same source, cannot drift apart.
+      btnRoundMinWidth: 'var(--q-control-height)',
       btnRoundHeight: 'auto',
-      btnRoundDenseMinWidth: '2.4em',
+      btnRoundDenseMinWidth: 'var(--q-control-height)',
       btnPaddingX: '24px',
       btnFontSize: '14px',
       btnLineHeight: '1.715em',
@@ -477,9 +481,13 @@ export const unstyledStyle: StyleEntry = {
       btnTextTransform: 'none',
       btnRadius: '0',
       btnMinWidth: 'auto',
-      btnRoundMinWidth: '3em',
+      // Round = circle: width and height from one absolute. dist pairs 3em with
+      // 3em, but the 48dp floor pins min-height to an absolute (and md3's button
+      // font is 14px, so 3em = 42 against 48 — an oval at default typography).
+      // The width takes the floor itself: same source, cannot drift apart.
+      btnRoundMinWidth: 'var(--q-control-height)',
       btnRoundHeight: 'auto',
-      btnRoundDenseMinWidth: '2.4em',
+      btnRoundDenseMinWidth: 'var(--q-control-height)',
       btnPaddingX: '0',
       btnFontSize: 'inherit',
       btnLineHeight: 'inherit',

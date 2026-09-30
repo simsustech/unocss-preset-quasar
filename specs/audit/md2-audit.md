@@ -366,6 +366,18 @@ same ellipse AUD-MD2-002 describes. md2 was fixed to `64x64` (spec-declared); md
 was deliberately left byte-identical because this run's scope is the md2 path and
 its gate forbids moving md3's rendering. Recorded here so the finding is not lost.
 
+**Closed 2026-09-30, on the user's decision ("round buttons need to be round").** dist
+pairs `min-width: 3em` with `min-height: 3em` — both font-relative, so they scale
+together; our 48dp floor pins the height absolute, so the width must come from the same
+absolute or every context is an ellipse. (md3's own button font is 14px, so `3em` = 42
+against 48 — an oval even at default typography; dense round was `2.4em` against 48 — an
+oval at _every_ size.) md3 and unstyled now declare `--q-btn-round-min-width` and
+`--q-btn-round-dense-min-width` as `var(--q-control-height)`: one source for both sides,
+so the floor cannot drift apart from the width again. Verified in a real engine, per
+style, at 14/16/18/24px fonts: md3 48x48 round _and_ dense, md2 64x64 unchanged,
+unstyled square (its `controlHeight` is `auto` by design — no floor, still symmetric) —
+24/24. The sweep's `NOT SQUARE` md3 line is gone with it: shape divergences 1 → **0**.
+
 ---
 
 ## Recorded, no fix
