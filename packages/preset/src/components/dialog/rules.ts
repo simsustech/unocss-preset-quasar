@@ -54,10 +54,12 @@ export const dialogRules = [
         [symbols.selector]: (selector) => `${selector}__backdrop`,
         position: 'absolute',
         inset: '0',
-        // The reference states `var(--dark-surface) 32%` — a surface role that
-        // stays dark in both schemes, which is what `--q-dark` carries.
-        'background-color':
-          'color-mix(in oklab, var(--q-dark) 32%, transparent)',
+        // The reference's own scrim: `rgba(0, 0, 0, 0.4)`, scheme-independent.
+        // This was `color-mix(… var(--q-dark) 32%, transparent)` on the belief
+        // that `--q-dark` stays dark in both schemes — but it is the MD3 *surface*
+        // role (light `#fcfcff`; `theme/colors.ts` derives dark from light.surface),
+        // so in the light scheme the scrim was a 32% white veil over the page.
+        'background-color': 'rgba(0, 0, 0, 0.4)',
         'pointer-events': 'all !important',
         'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
         'outline-width': '0px',
@@ -71,9 +73,12 @@ export const dialogRules = [
         'max-width': '90vw',
         'max-height': '90vh',
         'border-radius': 'var(--q-radius-lg)',
-        'background-color': 'var(--q-surface)',
-        // interfaces_and_modals.json: outer_ambient_shadow_mapping = level_3.
-        'box-shadow': 'var(--q-elevation-level3)',
+        // No surface here. Quasar renders this box as `… standard fixed-full
+        // flex-center` (QDialog.js), i.e. inset 0 — the whole viewport — and stock
+        // Quasar gives it no background: the card below is the dialog's surface.
+        // Painting `var(--q-surface)` on a box clamped by the max-* declarations
+        // above (90vw x 90vh) put a giant white rounded panel behind every dialog;
+        // its ambient shadow belongs with that surface, so it lives on the card.
         'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
         'outline-width': '0px'
       }
@@ -90,10 +95,15 @@ export const dialogRules = [
         [symbols.selector]: (selector) => `${selector}__inner>.q-card`,
         'background-color':
           'color-mix(in oklab, var(--q-surface-container-high) var(--q-bg-opacity), transparent)',
-        // Cancel the card's own shadow: inside a dialog the card is a panel,
-        // not a floating surface. wind4's shadow chain resolves to none.
+        // The surface carries the MD3 ambient shadow: interfaces_and_modals.json,
+        // outer_ambient_shadow_mapping = level_3. The engine chain used to be the
+        // *whole* value, cancelling the card's shadow while the inner carried the
+        // elevation — wrong surface once the inner stopped painting one. Keeping
+        // the chain alongside level_3 (a) preserves the engine reads that
+        // `engine-reads.test.ts` treats as a contract and (b) paints nothing extra:
+        // in this stack the chain resolves to none.
         'box-shadow':
-          'var(--un-inset-shadow, var(--q-inset-shadow)), var(--un-inset-ring-shadow, var(--q-inset-ring-shadow)), var(--un-ring-offset-shadow, var(--q-ring-offset-shadow)), var(--un-ring-shadow, var(--q-ring-shadow)), var(--un-shadow, var(--q-shadow))'
+          'var(--q-elevation-level3), var(--un-inset-shadow, var(--q-inset-shadow)), var(--un-inset-ring-shadow, var(--q-inset-ring-shadow)), var(--un-ring-offset-shadow, var(--q-ring-offset-shadow)), var(--un-ring-shadow, var(--q-ring-shadow)), var(--un-shadow, var(--q-shadow))'
       }
       yield {
         [symbols.selector]: (selector) =>

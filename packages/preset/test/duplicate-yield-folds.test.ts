@@ -196,6 +196,24 @@ async function blocksFor(token: string, selector: string): Promise<string[]> {
  */
 const PENDING_MERGE: Record<string, number> = {}
 
+/**
+ * Sites where MD3's spec deliberately overrides the reference, with the value
+ * the preset states instead and the reason. Each entry is a decision, not a
+ * convenience: without one the site is asserted against dist value for value.
+ */
+const MD3_DEVIATIONS: Record<
+  string,
+  { reason: string; values: Record<string, string> }
+> = {
+  '.q-checkbox__inner': {
+    reason:
+      "MD3's checkbox is an 18dp box with a 2dp corner. dist states 36px with a " +
+      "50% radius — the radio's shape at double the icon size — which rendered as " +
+      'a circle, and the app needs a checkbox.',
+    values: { 'font-size': '18px', 'border-radius': '2px' }
+  }
+}
+
 describe('duplicate-yield folds keep the reference value (AUD-024)', () => {
   it('emits one block per folded selector, or the pinned count (may only shrink)', async () => {
     const violations: string[] = []
@@ -213,7 +231,16 @@ describe('duplicate-yield folds keep the reference value (AUD-024)', () => {
     it(`${selector} renders the reference declaration`, async () => {
       const ours = await effectiveDecls(token, selector)
       const reference = referenceDecls(selector)
+      const deviation = MD3_DEVIATIONS[selector]
       for (const property of properties) {
+        const md3 = deviation?.values[property]
+        if (md3 !== undefined) {
+          expect(
+            ours.get(property),
+            `${selector} { ${property} } — MD3 deviation: ${deviation?.reason}`
+          ).toBe(md3)
+          continue
+        }
         const expected = reference.get(property)
         expect(expected, `${selector} ${property} in the fixture`).toBeDefined()
         expect(

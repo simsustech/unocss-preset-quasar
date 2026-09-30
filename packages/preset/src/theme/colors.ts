@@ -21,6 +21,23 @@ export interface ColorBlock {
     'dark-page': string
     dark: string
   }
+  /**
+   * The `quasar` block's scheme-aware exceptions. Quasar's aliases are
+   * light-scheme by contract — `renderColorBlock` emits every key verbatim
+   * into `:root` — so the dark side of a status is kept here and emitted by
+   * `renderQuasarDarkBlock` (`--q-positive`/`--q-negative` under
+   * `body.body--dark`).
+   *
+   * Optional for the same reason the `quasar` block is: a hand-built
+   * `ColorBlock` (the preflight specs pass one) carries no status at all, and
+   * the emitter then states no override rather than crashing on the read.
+   * `generateColorTokens` always fills it, and `status-colors.test.ts`
+   * asserts both the derivation and the emission.
+   */
+  quasarDark?: {
+    positive: string
+    negative: string
+  }
 }
 
 /**
@@ -108,6 +125,40 @@ export function generateColorTokens(sourceColor: string): ColorBlock {
   const harmonize = (designColor: string) =>
     hexFromArgb(Blend.harmonize(argbFromHex(designColor), argb))
 
+  /**
+   * The MD3 tone rung each scheme reads a status colour at.
+   *
+   * One Quasar token per status serves both roles — text (`.text-positive` in
+   * the money columns) and fill (`.bg-negative` under a white glyph or label)
+   * — and a single shared hex cannot satisfy both, which is how the audit
+   * measured `text-positive` at 2.33:1 in light and `text-negative` at 2.68:1
+   * in dark.
+   *
+   * Light takes MD3's own light-error rung (40): 6.3:1 as text on `surface`,
+   * 6.5:1 for white on the fill. Dark takes 60, one rung below MD3's dark
+   * error (80) — at 80 the fill drops to 2.1:1 under a white glyph, below
+   * 1.4.11's 3:1, while 60 keeps the text ≥4.5:1 (5.2:1) and the glyph ≥3:1.
+   */
+  const STATUS_TONE = { light: 40, dark: 60 } as const
+
+  /**
+   * A status colour at the rung its scheme needs, from a palette built on the
+   * *harmonized* brand colour. `harmonize` alone only aligned the hue: the hex
+   * it returns is mid-tone (green ~55, red ~35) and clears 4.5:1 against
+   * neither a white nor a near-black surface.
+   */
+  const statusTone = (designColor: string) => {
+    const palette = themeFromSourceColor(argbFromHex(harmonize(designColor)))
+      .palettes.primary
+    return {
+      light: hexFromArgb(palette.tone(STATUS_TONE.light)),
+      dark: hexFromArgb(palette.tone(STATUS_TONE.dark))
+    }
+  }
+
+  const positive = statusTone('#21BA45')
+  const negative = statusTone('#C10015')
+
   const lightSurface = surfaceContainerTokens(theme.palettes.neutral, false)
   const darkSurface = surfaceContainerTokens(theme.palettes.neutral, true)
 
@@ -192,12 +243,19 @@ export function generateColorTokens(sourceColor: string): ColorBlock {
       primary: hexFromArgb(light.primary),
       secondary: hexFromArgb(light.secondary),
       accent: hexFromArgb(light.tertiary),
-      positive: harmonize('#21BA45'),
-      negative: harmonize('#C10015'),
+      positive: positive.light,
+      negative: negative.light,
       info: harmonize('#31CCEC'),
       warning: harmonize('#F2C037'),
       'dark-page': hexFromArgb(light.background),
       dark: hexFromArgb(light.surface)
+    },
+    // The two `quasar` aliases that must NOT be shared between schemes. They
+    // are read as text in the money columns *and* as fills under white labels
+    // (`color="negative"`), so each scheme takes its own rung (STATUS_TONE).
+    quasarDark: {
+      positive: positive.dark,
+      negative: negative.dark
     }
   }
 }

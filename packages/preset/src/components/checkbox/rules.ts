@@ -16,10 +16,12 @@ export const checkboxRules = [
           `${selector}:not(.disabled) .q-checkbox__inner:before`,
         content: '""',
         position: 'absolute',
-        top: '0',
-        right: '0',
-        bottom: '0',
-        left: '0',
+        // quasar: 40dp is MD3's state layer; dist boxes it to the icon.
+        width: '40px',
+        height: '40px',
+        top: '50%',
+        left: '50%',
+        translate: '-50% -50%',
         'border-radius': '50%',
         background: 'currentColor',
         opacity: '0.12',
@@ -87,10 +89,13 @@ export const checkboxRules = [
         'justify-content': 'center',
         border: '2px solid var(--q-outline)',
         transition: 'all var(--q-duration-short) var(--q-easing-standard)',
-        // quasar: this value is Quasar's own, not a forked token
-        'font-size': '36px',
+        // quasar: MD3's checkbox icon is 18dp. dist states 36px here — the
+        // radio's shape at double the icon size — which the `1em` box below
+        // then inherited.
+        'font-size': '18px',
         'margin-right': '2px',
-        'border-radius': '50%',
+        // quasar: MD3's checkbox corner is 2dp; dist's 50% is the radio shape.
+        'border-radius': '2px',
         width: '1em',
         'min-width': '1em',
         height: '1em',
@@ -102,9 +107,27 @@ export const checkboxRules = [
         'background-color': 'var(--q-primary)'
       }
       yield {
-        [symbols.selector]: (selector) =>
-          `${selector}__inner--truthy .q-checkbox__bg`,
-        'background-color': 'currentColor'
+        // The check is drawn over the primary fill, so it takes that fill's
+        // on-colour. `__bg` used to be filled with `currentColor` — the
+        // inherited on-surface-variant — which painted a dark square over the
+        // fill (the truthy state never changes `color`, only border and fill).
+        [symbols.selector]: (selector) => `${selector}__inner--truthy path`,
+        stroke: 'var(--q-on-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__inner--indet path`,
+        stroke: 'var(--q-on-primary)'
+      }
+      yield {
+        // The glyph box fills the 18dp square. Quasar's dist insets it to the
+        // middle 50% with its own 2px border, which is the tiny framed square
+        // that showed through as the "glyph".
+        [symbols.selector]: (selector) => `${selector} .q-checkbox__bg`,
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%',
+        border: 'none'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__inner--truthy path`,

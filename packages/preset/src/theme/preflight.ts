@@ -60,6 +60,10 @@ export function createTokenPreflight(params: {
         renderNamespaceBlock(':root'),
         renderQuasarDefaultsBlock(':root')
       )
+      // 1c. The flex addon's two-class companion. The preset's own `^flex$`
+      // rule states it as well, but the engine claims the `flex` matcher first
+      // and that rule never runs — see renderFlexInlineBlock.
+      parts.push(renderFlexInlineBlock())
       // 2. Default style tokens on body (NOT :root: runtime setThemeColors
       // writes --light-*/--dark-* onto document.body, so --q-* aliases that
       // reference them must resolve against body to pick up the overrides)
@@ -214,6 +218,31 @@ function renderScreenBreakpoints(selector: string): string {
   return `${selector} {\n${lines.join('\n')}\n}`
 }
 
+/**
+ * Quasar's flex addon pairs each base utility with a two-class `.inline`
+ * companion (`ui/src/css/core/flex.sass`): `.row,.column,.flex { display: flex }`
+ * and `.row.inline,.column.inline,.flex.inline { display: inline-flex }`.
+ * Transcribed from the arbiter, like the breakpoints above.
+ *
+ * The preset's own `^flex$` rule yields that companion too, but the engine's
+ * `flex` utility claims the matcher first, so the rule never runs and the
+ * companion never reaches the sheet. `.row`/`.column` have no engine
+ * counterpart, which is why only `flex` was missing. UnoCSS takes the first
+ * rule that matches a token, so no rule of ours can win that race — but the
+ * two-class selector does not need to: 0,2,0 outranks `.flex`'s 0,1,0 wherever
+ * both apply, so position in the sheet is irrelevant.
+ *
+ * QBadge ships `class="q-badge flex inline …"`. Without the companion
+ * `.flex{display: flex}` is its only match, and the badge stretches to its
+ * block parent (287×16 on /admin/invoices at 1440) with its label clipped at
+ * 375 (`scrollWidth 42 > clientWidth 40`).
+ */
+const FLEX_INLINE_SELECTORS = '.row.inline, .column.inline, .flex.inline'
+
+function renderFlexInlineBlock(): string {
+  return `${FLEX_INLINE_SELECTORS} {\n  display: inline-flex;\n}`
+}
+
 /** Our own defaults for the declarations that read engine-internal names. */
 function renderQuasarDefaultsBlock(selector: string): string {
   const lines = Object.entries(quasarDefaults).map(
@@ -254,19 +283,29 @@ function renderColorDarkBlock(
 /**
  * Quasar brand aliases remapped to the dark palette. Mirrors the `quasar`
  * block of generateColorTokens (primary/secondary/accent/dark-page/dark)
- * so --q-dark-page etc. resolve dark under body.body--dark. The harmonized
- * status colors (positive/negative/info/warning) are identical in both
- * schemes, like quasar.css constants, so they are left untouched.
+ * so --q-dark-page etc. resolve dark under body.body--dark. The status
+ * colours are *not* scheme-independent: they carry the money columns' text
+ * *and* the fills under white labels, so dark takes its own rung (see
+ * STATUS_TONE in theme/colors.ts). info/warning stay shared — nothing in the
+ * app renders them, so no contrast measurement covers them.
  */
 function renderQuasarDarkBlock(selector: string, colors: ColorBlock): string {
   const dark = asRecord(colors.dark)
   // NOTE: --q-primary/--q-secondary are already swapped by renderColorDarkBlock
   // above (identical values); only aliases with no Material-key equivalent go here.
-  const pairs: Array<[string, string]> = [
-    ['--q-accent', dark['tertiary']],
+  const pairs: Array<[string, string]> = [['--q-accent', dark['tertiary']]]
+  // A ColorBlock built by hand (the preflight specs pass `quasar: {}`) has no
+  // status rungs; only a real generateColorTokens() carries them.
+  if (colors.quasarDark) {
+    pairs.push(
+      ['--q-positive', colors.quasarDark.positive],
+      ['--q-negative', colors.quasarDark.negative]
+    )
+  }
+  pairs.push(
     ['--q-dark-page', dark['background']],
     ['--q-dark', dark['surface']]
-  ]
+  )
   const lines = pairs.map(([prop, value]) => `  ${prop}: ${value};`)
   return `${selector} {\n${lines.join('\n')}\n}`
 }

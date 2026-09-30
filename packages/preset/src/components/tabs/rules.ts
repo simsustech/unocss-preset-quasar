@@ -234,6 +234,18 @@ export const tabsRules = [
           `${selector}--active .q-tab__indicator`,
         opacity: '100%'
       }
+
+      yield {
+        // The active label takes the palette's primary. Quasar's reference gets
+        // its active colour from the style entry, and this preset already states
+        // it — but as plain `.q-tab--active`, which is 0,1,0 exactly like the
+        // base `.q-tab { color: inherit }` that the sheet emits later, so the
+        // colour loses the cascade and the label computes the inherited black.
+        // Carrying both classes (0,2,0) wins wherever the sheet places it, the
+        // same two-class idiom as the reference's `.flex.inline` companion.
+        [symbols.selector]: (selector) => `${selector}.q-tab--active`,
+        color: 'var(--q-primary)'
+      }
       yield {
         [symbols.selector]: (selector) => `${selector}--inactive`,
         opacity: '0.85'
