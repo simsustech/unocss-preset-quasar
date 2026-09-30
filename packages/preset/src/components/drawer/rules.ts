@@ -200,7 +200,16 @@ export const drawerRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__backdrop`,
         // ADR 0007: one step below the overlay drawer itself (reference: 6999).
-        'z-index': '1499',
+        //
+        // `!important` is the reference's, not decoration. Quasar renders this
+        // element with the `fullscreen` class as well (`.fullscreen` carries
+        // `z-index: 6000`, faithfully ported in core/position/rules.ts), and both
+        // selectors are one class, so without the flag the later `.fullscreen`
+        // wins and the backdrop lands at 6000 — above the app bar at 2000 —
+        // covering the header's controls whenever the drawer is open at mobile
+        // width. Dropping the flag was the port gap; the reference is
+        // `.q-drawer__backdrop { z-index: 2999 !important }`.
+        'z-index': '1499 !important',
         'will-change': 'background-color'
       }
       yield {
