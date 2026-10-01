@@ -100,6 +100,16 @@ export const ratingRules = [
           `${selector}--no-dimming .q-rating__icon`,
         opacity: '1'
       }
-    }
+    },
+    // `noMerge`: UnoCSS's `mergeSelectors` groups selectors that share a body
+    // and re-homes the group to the alphabetically first of them. Every rule
+    // yielding `opacity:100%` collapsed into one group parked beside
+    // `.q-carousel .q-carousel__thumbnail:hover`, i.e. *above* the base
+    // `.q-rating__icon { opacity:40% }` that `.q-rating__icon--active` has to
+    // override — same specificity, earlier position, so the base won and the
+    // selected stars rendered at 40%. Disabling the merge keeps the reference
+    // order (base first, every `--` modifier after it) instead of relying on
+    // where the sheet happens to alphabetise the group.
+    { noMerge: true }
   ]
 ] as Rule[]

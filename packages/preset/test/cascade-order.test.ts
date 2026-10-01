@@ -82,3 +82,33 @@ describe('utility vs component cascade order', () => {
     )
   })
 })
+
+describe('component modifier cascade', () => {
+  it('keeps .q-rating__icon--active after the base rule it overrides', async () => {
+    // UnoCSS's `mergeSelectors` groups selectors that share a declaration body
+    // and parks the group at the alphabetically first of them. Nine components
+    // yield `opacity:100%`, and `.q-carousel .q-carousel__thumbnail:hover` sorts
+    // before `.q-rating__icon` — so the group carrying
+    // `.q-rating__icon--active` landed ABOVE the base
+    // `.q-rating__icon { opacity:40% }`. Equal specificity, earlier position:
+    // the base won and every selected star rendered at 40%.
+    //
+    // `q-carousel` is in the token set on purpose: against `q-rating` alone
+    // there is nothing to merge with, and the inversion cannot reproduce.
+    const css = await cssFor('q-rating q-carousel')
+    const base = indexOfBlock(css, '.q-rating__icon')
+    const active = indexOfBlock(css, '.q-rating__icon--active')
+    expect(base).toBeGreaterThan(-1)
+    expect(active).toBeGreaterThan(base)
+    expect(css).toMatch(/\.q-rating__icon\{[^}]*opacity:40%/)
+    expect(css).toContain('.q-rating__icon--active{opacity:100%;}')
+  })
+
+  it('ships the no-dimming override at opacity 1', async () => {
+    // The other side of the fold: `--no-dimming` still has to win over the
+    // base `opacity:40%` — it does on specificity ((0,2,0) vs (0,1,0)),
+    // whatever order the sheet picks.
+    const css = await cssFor('q-rating')
+    expect(css).toMatch(/\.q-rating--no-dimming \.q-rating__icon\{opacity:1;\}/)
+  })
+})
