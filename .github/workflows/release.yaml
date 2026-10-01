@@ -9,8 +9,8 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 # changesets/action needs to push the release tag, create the GitHub release and
 # open the Release PR. With a read-only GITHUB_TOKEN the publish step still ran
-# (NPM_TOKEN is separate) but tagging silently failed — 0.5.5 reached npm with no
-# tag or release, which is what this block fixes.
+# (NPM_TOKEN is separate) but tagging silently failed, so 0.5.5 reached npm
+# untagged and unreleased, which is what this block fixes.
 permissions:
   contents: write
   pull-requests: write
@@ -43,6 +43,22 @@ jobs:
       - name: Build Packages
         run: pnpm run build
 
+      # pnpm does NOT read the NPM_TOKEN env var — it only reads a
+      # `//registry.npmjs.org/:_authToken=` line from .npmrc. changesets/action
+      # (neither v1 nor v2) writes one. Without this step `changeset publish`
+      # runs `pnpm publish` unauthenticated and npm answers the PUT to the
+      # already-published package with `404 {"error":"Not found"}` — exactly
+      # what the failed 0.6.0 release hit.
+      - name: Configure npm auth
+        run: |
+          if [ -z "${NPM_TOKEN}" ]; then
+            echo "::error::NPM_TOKEN secret is empty or missing"
+            exit 1
+          fi
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       # v2 renamed the inputs: publish -> publish-script, commit ->
       # commit-message, title -> pr-title. Tagging and the GitHub release are on
       # by default (push-git-tags, create-github-releases).
@@ -56,4 +72,6 @@ jobs:
           create-github-releases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Kept for compatibility; the auth that actually reaches pnpm is the
+          # .npmrc written by "Configure npm auth" above.
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
