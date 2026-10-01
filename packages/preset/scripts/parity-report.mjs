@@ -14,6 +14,8 @@
 //   node scripts/parity-report.mjs --module field      # one module in detail
 //   node scripts/parity-report.mjs --update            # regenerate the baseline
 //   node scripts/parity-report.mjs --set-target field,item   # mark modules complete
+//   node scripts/parity-report.mjs --set-target checkbox=3    # accept 3 gaps in a
+//                                                             # finished module
 //   PARITY_DEBUG=1 node scripts/parity-report.mjs             # print every comparison
 //
 // Coverage model
@@ -853,36 +855,83 @@ export async function buildParityReport() {
     }
   }
 
-  if (process.env.PARITY_UPDATE_BASELINE) {
-    report.baselineWritten = writeBaseline(report)
-  }
-
   // `PARITY_DUMP_CSS=<path>` writes the emitted sheet, which is the quickest way
   // to see what a rule actually produced while a module is being ported.
   if (process.env.PARITY_DUMP_CSS)
     writeFileSync(process.env.PARITY_DUMP_CSS, css)
 
   writeFileSync(REPORT_JSON, `${JSON.stringify(report, null, 2)}\n`)
+
+  // The ratchet is written after the report, so that a refusal inside
+  // writeBaseline still leaves a current report on disk for the CLI to print.
+  let refusal = null
+  if (process.env.PARITY_UPDATE_BASELINE) {
+    try {
+      report.baselineWritten = writeBaseline(report)
+    } catch (error) {
+      refusal = error
+    }
+  }
+
   formatArtifacts([REPORT_JSON, BASELINE])
+  if (refusal) throw refusal
   return report
+}
+
+/**
+ * Parse `PARITY_SET_TARGET`: `a,b` marks modules complete (target 0), `a=12`
+ * sets an accepted gap count, `a=null` clears the target.
+ */
+function parseTargets(raw) {
+  const targets = new Map()
+  for (const part of raw
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)) {
+    const [name, value] = part.split('=')
+    if (!name) throw new Error(`[parity] --set-target "${part}" has no module`)
+    if (value === undefined) {
+      targets.set(name, 0)
+    } else if (value === 'null') {
+      targets.set(name, null)
+    } else {
+      const n = Number(value)
+      if (!Number.isInteger(n) || n < 0)
+        throw new Error(
+          `[parity] --set-target "${part}": expected a non-negative integer or "null"`
+        )
+      targets.set(name, n)
+    }
+  }
+  return targets
 }
 
 /**
  * Record the ratchet. `target: 0` marks a module the plan has finished; the gate
  * then refuses any gap in it. Targets already recorded survive a regeneration
- * unless `PARITY_SET_TARGET` names the module (or `all`).
+ * unless `PARITY_SET_TARGET` names the module (or `all`); a bare name means 0.
+ *
+ * Recording a `0` target for a module that still has gaps is refused rather
+ * than written: the gate would fail on it immediately, and the silent write is
+ * what made a plain `--update` look broken (checkbox, 2026-10 — the module had
+ * been marked finished, then two deliberate divergences were recorded).
  */
 function writeBaseline(report) {
   const previous = existsSync(BASELINE) ? readJson(BASELINE) : null
-  const requested = (process.env.PARITY_SET_TARGET ?? '')
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean)
+  const requested = parseTargets(process.env.PARITY_SET_TARGET ?? '')
   const modules = {}
+  const unsatisfiable = []
   for (const [name, entry] of Object.entries(report.modules)) {
     const recorded = previous?.modules?.[name]?.target ?? null
-    const wanted =
-      requested.includes('all') || requested.includes(name) ? 0 : recorded
+    const wanted = requested.has('all')
+      ? 0
+      : requested.has(name)
+        ? requested.get(name)
+        : recorded
+    const gaps =
+      entry.missing.length + entry.absent.length + entry.mismatch.length
+    if (entry.scope === 'preset' && wanted === 0 && gaps > 0)
+      unsatisfiable.push(`${name}=${gaps}`)
     modules[name] = {
       target: entry.scope === 'preset' ? wanted : null,
       missing: entry.missing,
@@ -890,6 +939,13 @@ function writeBaseline(report) {
       mismatch: entry.mismatch
     }
   }
+  if (unsatisfiable.length)
+    throw new Error(
+      `[parity] refusing to record target 0 for ${unsatisfiable.join(', ')} — ` +
+        `the gate refuses any gap in a finished module, so the suite would stay red.\n` +
+        `  record the divergence: node scripts/parity-report.mjs --set-target ${unsatisfiable.join(',')}\n` +
+        `  or close the gap in src/`
+    )
   writeFileSync(
     BASELINE,
     `${JSON.stringify({ bundleHash: report.bundleHash, modules }, null, 2)}\n`
@@ -968,7 +1024,12 @@ async function main() {
 
   const env = { ...process.env }
   if (update) env.PARITY_UPDATE_BASELINE = '1'
-  if (setTarget) env.PARITY_SET_TARGET = setTarget
+  // Recording a target rewrites the ratchet, so --set-target implies --update
+  // (the usage header has always advertised it as a standalone command).
+  if (setTarget) {
+    env.PARITY_SET_TARGET = setTarget
+    env.PARITY_UPDATE_BASELINE ??= '1'
+  }
 
   const res = spawnSync(
     'pnpm',

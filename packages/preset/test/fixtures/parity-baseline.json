@@ -90,10 +90,13 @@
       "mismatch": []
     },
     "checkbox": {
-      "target": 0,
-      "missing": [],
+      "target": 3,
+      "missing": [".q-checkbox__inner--truthy .q-checkbox__bg"],
       "absent": [],
-      "mismatch": []
+      "mismatch": [
+        ".q-checkbox__inner|border-radius",
+        ".q-checkbox__inner|font-size"
+      ]
     },
     "chip": {
       "target": 0,
@@ -184,6 +187,8 @@
       "missing": [],
       "absent": [],
       "mismatch": [
+        ".q-field--auto-height.q-field--dense .q-field__control|min-height",
+        ".q-field--auto-height.q-field--dense .q-field__native|min-height",
         ".q-field--filled .q-field__control:after|transition",
         ".q-field--filled .q-field__control:before|transition",
         ".q-field--float .q-field__label|transition",

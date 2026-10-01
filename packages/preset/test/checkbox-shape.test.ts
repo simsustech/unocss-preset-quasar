@@ -31,13 +31,17 @@ async function cssFor(tokens: string): Promise<string> {
   return (await gen.generate(tokens, { preflights: false })).css
 }
 
-/** The declaration block declaring exactly `needle` as one of its selectors. */
-function block(css: string, needle: string): string {
-  const blocks = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map((m) => [
+/** Every `[selector, declarations]` pair in the sheet. */
+function blocks(css: string): [string, string][] {
+  return [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map((m) => [
     m[1].trim(),
     m[2]
   ])
-  const exact = blocks.find(([selector]) =>
+}
+
+/** The declaration block declaring exactly `needle` as one of its selectors. */
+function block(css: string, needle: string): string {
+  const exact = blocks(css).find(([selector]) =>
     selector.split(',').some((one) => one.trim() === needle)
   )
   return exact ? exact[1].replace(/\s+/g, '') : ''
@@ -71,12 +75,27 @@ describe('checkbox geometry (MD3)', () => {
       'stroke:var(--q-on-primary)'
     )
 
-    // The dark-square cause: the glyph's box must not be filled with the
-    // inherited text colour.
-    const bg = block(css, '.q-checkbox__inner--truthy .q-checkbox__bg')
-    expect(bg, 'no currentColor fill on the glyph box').not.toContain(
-      'currentColor'
-    )
+    // The dark-square cause: the glyph box must never carry a background in
+    // the checked state — only the indeterminate dash fills it, with the
+    // inherited colour. Both checks are exact, so neither can pass on a
+    // selector that silently disappeared from the sheet.
+    expect(
+      block(css, '.q-checkbox .q-checkbox__bg'),
+      'the glyph box geometry must be stated'
+    ).toBeTruthy()
+    const glyphFills = blocks(css)
+      .filter(
+        ([selector, decls]) =>
+          selector.includes('.q-checkbox__bg') &&
+          decls
+            .split(';')
+            .some((decl) => /^background(-color)?:/.test(decl.trim()))
+      )
+      .map(([selector]) => selector.trim())
+    expect(
+      glyphFills,
+      'only the indeterminate dash fills the glyph box'
+    ).toEqual(['.q-checkbox__inner--indet .q-checkbox__bg'])
   })
 
   it('carries a 40dp state layer', async () => {
