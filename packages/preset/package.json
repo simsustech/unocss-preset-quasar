@@ -80,7 +80,7 @@
   "devDependencies": {
     "@iconify-json/mdi": "^1.2.3",
     "@quasar/extras": "^2.1.0",
-    "@quasar/quasar-ui-qcalendar": "^5.3.0",
+    "@quasar/quasar-ui-qcalendar": "^5.3.1",
     "@quasar/quasar-ui-qmarkdown": "^4.2.1",
     "@quasar/quasar-ui-qmediaplayer": "^3.0.2",
     "@types/node": "^26.6.3",
@@ -93,15 +93,15 @@
     "@unocss/preset-wind4": "^66.10.5",
     "@unocss/transformer-directives": "^66.10.5",
     "@unocss/transformer-variant-group": "^66.10.5",
-    "quasar": "^2.33.2",
-    "sass": "^1.105.0",
+    "quasar": "^2.34.0",
+    "sass": "^1.105.1",
     "typescript": "^7.0.2",
     "unocss": "^66.10.5",
-    "vitest": "^5.0.2"
+    "vitest": "^5.0.3"
   },
   "peerDependencies": {
     "@unocss/core": "^66.10.5",
-    "quasar": "^2.33.2"
+    "quasar": "^2.34.0"
   },
   "peerDependenciesMeta": {
     "vite": {

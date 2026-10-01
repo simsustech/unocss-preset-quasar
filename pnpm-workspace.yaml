@@ -12,13 +12,13 @@ minimumReleaseAgeExclude:
   - toml@4.1.2
   - vite@8.1.2 || 8.2.2
   - '@vitest/expect@4.1.10'
-  - '@vitest/mocker@4.1.10'
+  - '@vitest/mocker@4.1.10 || 5.0.3'
   - '@vitest/pretty-format@4.1.10'
   - '@vitest/runner@4.1.10'
   - '@vitest/snapshot@4.1.10'
-  - '@vitest/spy@4.1.10'
+  - '@vitest/spy@4.1.10 || 5.0.3'
   - '@vitest/utils@4.1.10'
-  - vitest@4.1.10
+  - vitest@4.1.10 || 5.0.3
   - '@shikijs/core@4.4.1'
   - '@shikijs/engine-javascript@4.4.1'
   - '@shikijs/engine-oniguruma@4.4.1'
