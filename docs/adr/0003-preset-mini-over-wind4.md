@@ -18,7 +18,7 @@ Measured reasons, each verified by generating the two engines side by side:
   shadow chain was invalid and silently rendered nothing. mini states an eager
   `*, ::before, ::after` block instead.
 - **wind4's reset clobbers Quasar's controls** (`*` + `::backdrop` plus
-  `@supports` fallbacks; `INVESTIGATION.md` has the measurements). mini ships no
+  `@supports` fallbacks). mini ships no
   reset at all, so `preflights: { reset: false }` disappears from the wiring.
 - **wind4's bare `col-N` is a grid rule** (`.col-6 { grid-column: 6 }`) and would
   shadow Quasar's flexbox `.col-6`; mini has no such rule. `enforce: 'post'`

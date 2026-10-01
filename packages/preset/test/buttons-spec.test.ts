@@ -2,7 +2,7 @@
 //
 //   specs/buttons.json           -> corner_shape_token = md.sys.shape.corner.full
 //                                   for every variant (implemented as 28px,
-//                                   "Quasar convention" per SPEC_VERIFICATION_REPORT)
+//                                   "Quasar convention")
 //   specs/md2/...specifications  -> contained/outlined/text button
 //                                   border_radius_px = 4
 // So the corner must come from the style token `--q-btn-radius`, never from a

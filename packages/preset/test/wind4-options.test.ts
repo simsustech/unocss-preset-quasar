@@ -3,7 +3,7 @@
 // because the failure mode of getting them wrong is silent:
 //
 //   - `preflights: { reset: false }` — wind4's base reset clobbers Quasar's own
-//     control styling (measured in INVESTIGATION.md), and a *wrong* value here
+//     control styling, and a *wrong* value here
 //     looks like a Quasar bug rather than a config mistake.
 //   - `dark: { light: '.body--light', dark: '.body--dark' }` — wind4 maps `dark:`
 //     to Tailwind's `.dark` by default, a class Quasar never sets, so every `dark:*`

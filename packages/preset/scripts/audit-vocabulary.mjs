@@ -141,7 +141,7 @@ const ALLOWLIST = [
   // --- step-2 triage confirmations (2026-09-22) --------------------------------
   // Each group's `why` records the arbiter evidence from the triage run: a
   // grep against Quasar's own source/docs, the reference stylesheet class set,
-  // or an AUDIT-BUGS.md row. Remove a `filed:` entry when its fix lands.
+  // or a tracked audit entry. Remove a `filed:` entry when its fix lands.
   {
     re: /^(?:col-shrink|cursor-pointer|q-autofill|q-checkbox__inner--indet|q-checkbox__inner--truthy|q-chip__icon--left|q-chip__icon--remove|q-date__arrow|q-fab__actions--down|q-fab__actions--up|q-field__input--padding|q-item__label--caption|q-item__label--header|q-item__label--overline|q-message-container|q-message-text-content|q-notification__actions--with-media|q-radio__inner--truthy|q-stepper__step|q-stepper__tab--disabled|q-tabs__arrow--left|q-tabs__arrow--right|q-timeline__entry--left|q-timeline__entry--right|q-time__link--active|q-tree__vguide--line|ellipsis-2-lines|ellipsis-3-lines|cursor-inherit)$/,
     why: 'confirmed in Quasar ui source/docs (grep ~/Projects/quasar/ui + docs/src): component string literals, Sass &-composed helpers (css/core/visibility.sass `&-2-lines`, css/core/mouse.sass `.cursor &-inherit`), and documented helper classes — scraper literal-grep gaps'
@@ -168,7 +168,7 @@ const ALLOWLIST = [
   },
   {
     re: /^(?:q-chat-message|row-reverse|column-reverse)$/,
-    why: 'filed as AUD-001/AUD-003 (phantom selectors, tracked in AUDIT-BUGS.md) — remove this entry when the fix plan lands'
+    why: 'filed as AUD-001/AUD-003 (phantom selectors) — remove this entry when the fix plan lands'
   }
 ]
 

@@ -400,7 +400,7 @@ export const QuasarPreset = quasarPreset as unknown as QuasarPresetFactory
  *
  * - `preflights: { reset: false }` — wind4’s base reset ships a `*`/`::backdrop`
  *   block plus its `@supports` fallbacks that clobbers Quasar’s own control
- *   styling (`INVESTIGATION.md` has the measurements).
+ *   styling.
  * - `dark: { light: '.body--light', dark: '.body--dark' }` — wind4 maps `dark:`
  *   to Tailwind’s `.dark` class by default, and Quasar never sets that class, so
  *   every `dark:*` utility would be dead CSS.
