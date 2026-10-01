@@ -1,85 +1,62 @@
 # Colors
 
-The preset provides color utility shortcuts for text and background colors using the Material Design 3 palette. Colors automatically respond to dark mode.
+Color utilities come from two sources: `--q-*` token rules this preset owns, and the palette utilities the engine generates from the shared theme. Both read the same authority — `sourceColor` — so they cannot disagree.
 
-## Text Colors
+## Token-backed utilities (`text-*` / `bg-*`)
 
-```html
-<span class="text-primary">Primary text</span>
-<span class="text-secondary">Secondary text</span>
-<span class="text-accent">Accent text</span>
-<span class="text-positive">Positive/success</span>
-<span class="text-negative">Negative/error</span>
-<span class="text-info">Information</span>
-<span class="text-warning">Warning</span>
-```
+Generated for three groups:
 
-These are shortcuts that expand to light/dark pairs:
-
-```
-.text-primary → text-$light-primary dark:text-$dark-primary
-.text-secondary → text-$light-secondary dark:text-$dark-secondary
-.text-accent → text-$light-tertiary dark:text-$dark-tertiary
-```
-
-## Background Colors
+| Group                | Names                                                                                                                                                                   |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Quasar aliases       | `primary`, `secondary`, `accent`, `positive`, `negative`, `info`, `warning`, `dark`, `dark-page`                                                                        |
+| MD3 scheme roles     | `on-primary`, `primary-container`, `surface-*` (incl. the five container rungs), `outline`, `outline-variant`, `inverse-*`, `error*`, `tertiary*`, `shadow`, `scrim`, … |
+| Light-scheme primary | `light-primary` — the reference exposes it as a utility-addressed color                                                                                                 |
 
 ```html
-<div class="bg-primary">Primary background</div>
-<div class="bg-secondary">Secondary background</div>
-<div class="bg-accent">Accent background</div>
-<div class="bg-positive">Success background</div>
-<div class="bg-negative">Error background</div>
-<div class="bg-info">Info background</div>
-<div class="bg-warning">Warning background</div>
+<span class="text-primary">themed</span>
+<div class="bg-surface-container-high">elevated</div>
+<span class="text-negative">error</span>
 ```
 
-Expands to:
+The brand trio (`primary`, `secondary`, `accent`) additionally emits a `.body--dark` scoped copy — the reference emits that selector, and an app's own dark override has to beat _something_ concrete.
 
-```
-.bg-primary → bg-$light-primary dark:bg-$dark-primary
-```
-
-## Material Design Color Palette
-
-The preset includes the full Material Design 19-color palette with 14 shades each (260+ colors). These are **theme values**, not utility classes. Use them via `theme.colors` in shortcuts:
-
-```ts
-// Available color keys: red, pink, purple, deep-purple, indigo, blue, light-blue,
-// cyan, teal, green, light-green, lime, yellow, amber, orange, deep-orange,
-// brown, grey, blue-grey
-// Each has shades 1-14 plus base (e.g., 'blue', 'blue-1' through 'blue-14')
+```css
+.bg-primary {
+  background-color: var(--q-primary);
+}
+.body--dark .bg-primary {
+  background-color: var(--q-primary);
+}
 ```
 
-## Color Utility Classes (from UnoCSS/Wind)
+## Palette utilities (engine)
 
-The preset inherits all color utilities from `@unocss/preset-wind4`. This includes:
+`extendTheme` feeds the flat Quasar palette — `red-1…red-9`, `grey-1…grey-9`, `blue`, `deep-orange`, `light-green`, … — into the engine's theme, so the classic utility names work:
 
 ```html
-<div class="text-red-500 bg-blue-100">Tailwind-style colors</div>
-<div class="text-[#6750A4] bg-[var(--light-surface)]">Arbitrary colors</div>
-<div class="text-opacity-50">Opacity modifiers</div>
+<div class="bg-grey-8 text-deep-orange">palette</div>
 ```
 
-## Dark Mode
+Two palette names are emitted by the preset itself rather than the engine: `bg-light-blue` / `text-light-blue`. mini spells that family `sky` and would resolve the bare name to `#38bdf8`; the preset takes the class back with Quasar's `#03a9f4` (and `enforce: 'post'` displaces the engine's rule for exactly these two, measured — nothing is duplicated).
 
-All `text-primary`, `text-secondary`, `text-accent`, `bg-primary`, `bg-secondary`, `bg-accent` shortcuts automatically include dark mode variants. The dark mode is triggered by `.body--dark` on the body element (Quasar's Dark plugin convention).
+## Opacity modifiers
 
-## Custom Color Shortcuts
+`bg-primary/50` works: color declarations read `--q-*-opacity` (`--q-bg-opacity`, `--q-text-opacity`, …), which the preset states at `100%` on `:root` and the engine's modifier writes per element. The read is `--q-*`-only by design — mini sets the engine's `--un-bg-opacity` to the _number_ `1` while `color-mix()` needs a percentage, so an engine-first read would invalidate the declaration and inherit the number into the subtree.
 
-You can define additional color shortcuts in your `uno.config.ts`:
+## Dark scheme
 
-```ts
-// uno.config.ts
-import { defineConfig } from 'unocss'
+Dark values are not a second rule set. `body.body--dark` re-declares the same `--q-*` names with dark values, so every utility above flips with the body class. Two variables have their own dark truth independent of the palette:
 
-export default defineConfig({
-  shortcuts: {
-    'text-surface':
-      'text-[var(--light-on-surface)] dark:text-[var(--dark-on-surface)]',
-    'bg-surface': 'bg-[var(--light-surface)] dark:bg-[var(--dark-surface)]',
-    'text-on-primary-container':
-      'text-[var(--light-on-primary-container)] dark:text-[var(--dark-on-primary-container)]'
-  }
-})
+- `--q-dark-page`, `--q-dark-surface` — the dark page background / foreground pair (the `q-dark` utility applies them to a subtree regardless of body class)
+- `--q-positive` / `--q-negative` — status colors keep a scheme-aware variant (light green/red tuned per scheme; `info`/`warning` stay shared)
+
+```html
+<div class="q-dark">forces dark colors on this element only</div>
 ```
+
+## What not to do
+
+- **Don't re-declare palette values.** `var(--colors-white, #fff)` style reads are fine; hard-coding a palette color in a rule forks the authority and the next `sourceColor` change will disagree with it.
+- **Don't expect `text-white` / `text-black` from `--q-*`** — those are engine palette names (`--colors-*`), deliberately not mirrored into the Quasar namespace (a `--q-white` the theme never defines would silently fall back to the inherited color).
+
+Related: [Theming & Tokens](/core/theming) · [Colors API](/api/theme)

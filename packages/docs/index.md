@@ -4,7 +4,7 @@ layout: home
 hero:
   name: 'unocss-preset-quasar'
   text: 'Utility-first Quasar styling'
-  tagline: Drop Quasar's Sass bundle. Use UnoCSS utility classes instead. Material Design 3, Material Design 2, and Unstyled — all tree-shakeable.
+  tagline: Drop Quasar's Sass bundle. One rule tree, token-driven styles — Material Design 3, Material Design 2, and Unstyled, all tree-shakeable and runtime-switchable.
   actions:
     - theme: brand
       text: Get Started
@@ -16,33 +16,33 @@ hero:
 features:
   - icon: 🎨
     title: Material Design 3
-    details: Full MD3 color system with dynamic source color, tonal palettes, elevation levels 1–24, and state layers. Dark and light themes built in.
+    details: Full MD3 color system from one source color — tonal palettes, surface containers, five elevation levels, state layers. Dark and light schemes built in.
   - icon: 🧩
-    title: 70+ Quasar Components
-    details: Every Quasar component styled as UnoCSS shortcuts — QBtn, QCard, QDialog, QTable, QTree, QDate, QTime, and more. Tree-shaken at build time.
+    title: 80+ Quasar Components
+    details: Every Quasar component styled from one shared rule tree — QBtn, QCard, QDialog, QTable, QTree, QDate and more, with the class vocabulary derived from your markup.
   - icon: ⚡
     title: Zero Sass
-    details: Strip Quasar's ~200 KB Sass bundle entirely. The preset replaces all component styles with UnoCSS utilities. Only the CSS you actually use ships.
+    details: Strip Quasar's ~200 KB Sass bundle entirely. UnoCSS generates only the CSS your templates use — component families and all.
   - icon: 🌓
     title: Dark Mode Ready
-    details: Light and dark themes via CSS custom properties. Switch with Quasar's Dark plugin — classes update automatically.
+    details: Both schemes ship as CSS custom properties. Quasar's Dark plugin flips one body class; every token follows.
   - icon: 🔌
     title: Quasar Plugin Support
-    details: Notify, Dialog, Loading, LoadingBar, BottomSheet — all plugin-generated UI gets safelisted so styles are never missing.
+    details: Notify, Dialog, Loading, LoadingBar, BottomSheet — declare the plugins you call and their runtime-generated UI is safelisted, nothing else.
   - icon: 🛠️
     title: Runtime Style Switching
-    details: One preset, all styles. Token entries emit body-class-scoped CSS variables, so switching MD3 → MD2 → Unstyled is a runtime class swap with zero reload.
+    details: Styles are token entries, not parallel CSS. MD3 → MD2 → Unstyled is one body-class swap — and unlisted styles ship zero bytes.
   - icon: 📦
     title: Tree-Shakeable
-    details: UnoCSS scans your templates and only generates CSS for the classes you use. No dead code, no unused component styles.
-  - icon: 🚀
-    title: HMR-Ready Dev
-    details: Edit shortcut files and see changes instantly without rebuilding. Vite aliases map imports to TypeScript sources for live feedback.
+    details: List the styles you use, declare the app extensions you render — inclusion is the switch, for styles, plugins, and libraries alike.
+  - icon: ✅
+    title: Verified, not assumed
+    details: Every class and value is gated against Quasar's own dist bundle and specs — vocabulary sweeps, coverage dispositions, engine parity.
 ---
 
 ## What is unocss-preset-quasar?
 
-`unocss-preset-quasar` is an [UnoCSS](https://unocss.dev) preset that replaces Quasar Framework's Sass-based styling with utility-first, tree-shakeable CSS classes. Instead of importing `quasar/dist/quasar.sass` (~200 KB of CSS you can't tree-shake), you use UnoCSS utilities that are generated on demand from your templates.
+An [UnoCSS](https://unocss.dev) preset that replaces Quasar Framework's Sass-based styling. Instead of importing `quasar/dist/quasar.sass` (~200 KB you can't tree-shake), component styles become CSS-variable-driven rules that are generated on demand from your templates.
 
 ```ts
 // quasar.config.js — replace quasar.sass with virtual:uno.css
@@ -61,25 +61,29 @@ export default defineConfig({
 
 ## How It Works
 
-The preset registers **shortcuts** that map Quasar's BEM class names (`.q-btn`, `.q-card__section`, `.q-dialog__backdrop`) to UnoCSS utility classes. When UnoCSS scans your Vue templates, it detects Quasar components, generates the matching utilities, and includes only the CSS that your app actually uses.
+Four stages — no runtime rebuild at any of them:
 
-### Architecture
-
-```
+```text
 Your Vue Templates
         │
         ▼
-  UnoCSS Scanner ─── QuasarPreset extractor
+  UnoCSS Scanner ─── extractors: component vocabulary + literal values
         │                  │
-        │         detects q-btn, QBtn, etc.
-        ▼                  │
-  Shortcut Resolver ◄──────┘
+        │         q-btn, QBtn, i-mdi-chevron-down, …
+        ▼                  ▼
+  Rules (one shared tree) ──► read var(--q-btn-radius), var(--q-primary), …
         │
         ▼
-  Generated CSS (only used classes)
+  Token preflight ──► :root color roles, body style tokens,
+        │             body.quasar-style-* diffs, body--dark overrides
+        ▼
+  Generated CSS — only the classes your app uses, in cascade bands
+        │
+        ▼
+  setStyle('md2') at runtime ──► one body-class swap, whole app restyles
 ```
 
-The preset also generates **CSS custom properties** for the full Material Design 3 color scheme — light and dark variants of primary, secondary, tertiary, error, surface, and container colors. These are available as `--light-primary`, `--dark-primary`, etc. and used internally by the shortcut system.
+The component rules state structure once and read custom properties for every value a style can vary; the [architecture pages](/architecture/overview) explain the layers, the extractors, and the cascade in detail.
 
 ## Quick Start
 
@@ -94,15 +98,15 @@ import { QuasarPreset } from 'unocss-preset-quasar'
 import { QuasarStyleEntries } from 'unocss-preset-quasar/styles'
 import UnoCSS from 'unocss/vite'
 
-const plugins = ['Dark', 'Dialog', 'Notify', 'LoadingBar' /* ... */]
+const plugins = ['Dark', 'Dialog', 'Notify', 'LoadingBar' /* … */]
 
-export default defineConfig((ctx) => ({
+export default defineConfig(() => ({
   vitePlugins: [
     // Strip the Sass import, replace with UnoCSS
     {
       name: 'quasar-strip-sass',
       enforce: 'pre',
-      transform(code, id) {
+      transform(code) {
         if (code.includes(`import 'quasar/dist/quasar.sass'`)) {
           code = code.replaceAll(
             `import 'quasar/dist/quasar.sass'`,
@@ -113,7 +117,7 @@ export default defineConfig((ctx) => ({
       }
     }
   ],
-  extendViteConf(viteConf, { isClient }) {
+  extendViteConf(viteConf) {
     viteConf.plugins.push(
       UnoCSS({
         enforce: 'pre',

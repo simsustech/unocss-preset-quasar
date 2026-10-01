@@ -1,72 +1,33 @@
-# `QuasarPreset()` <Badge type="tip" text="factory" />
+# `QuasarPreset()`
 
-The main entry point. Creates an UnoCSS preset for Quasar Framework component styles.
+The preset factory. Returns an UnoCSS `Preset` you pass to the `presets` array of the UnoCSS Vite plugin.
 
-## Import
+## Import & signature
 
 ```ts
 import { QuasarPreset } from 'unocss-preset-quasar'
+
+function QuasarPreset(options?: QuasarPresetOptions): Preset
 ```
 
-## Signature
+It is callable and usable directly — `definePreset` types the result as a plain `Preset`, and the factory type (`QuasarPresetFactory`) restores the call signature so option-carrying call sites type-check.
 
-```ts
-function QuasarPreset(options: QuasarPresetOptions): Preset<QuasarTheme>
-```
+## Behaviour
 
-## Parameters
+| Aspect                | Value                                                                                                                                     |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `styles` / `style`    | **Required.** Missing both throws `QuasarPreset: no style configured — pass styles: QuasarStyleEntry[] (first entry = baseline) or style` |
+| Entry validation      | A non-entry in `styles[i]` (no `name`, no `tokens`) throws with its index                                                                 |
+| `sourceColor` default | `'#1976d2'`                                                                                                                               |
+| Nested presets        | `preset-mini` (dark: `.body--light` / `.body--dark`), `preset-icons`, `animated-unocss`, `preset-web-fonts` (Roboto @ Bunny)              |
+| `enforce`             | `'post'` — Quasar class names stay this preset's in either array order                                                                    |
+| Layers                | `quasar.grid` (−4), `quasar.components` (−3), `quasar.app` (−2), `quasar.styles` (−1), `default` (0)                                      |
+| Extractors            | component vocabulary + literal-value derivation                                                                                           |
+| Safelist              | base list + per-declared-plugin roots + `iconSet` classes                                                                                 |
+| Transformers          | `transformerVariantGroup`, `transformerDirectives`                                                                                        |
+| `extendTheme`         | merges the flat Quasar palette into the engine's theme                                                                                    |
 
-### `options.styles`
-
-Style entries — named token specs, one per design system. The preset registers **one** shared component tree and emits a `body.quasar-style-{name}` CSS-variable block per entry, so styles switch at runtime by swapping the body class (see [`setStyle`](/styles/scoping)).
-
-Default: `QuasarStyleEntries` (md3, md2, unstyled).
-
-```ts
-import {
-  MaterialDesign3, // MD3 (Material You)
-  MaterialDesign2, // MD2 (classic Material)
-  Unstyled, // structural only
-  QuasarStyleEntries // all three, bundled
-} from 'unocss-preset-quasar/styles'
-```
-
-Each entry is `{ name, tokens }` — a token spec, not a component tree. Custom entries override individual tokens of a built-in entry.
-
-### `options.sourceColor`
-
-Hex color string driving the MD3 dynamic color palette. Changing it regenerates primary, secondary, tertiary, error, and surface colors for both light and dark themes.
-
-**Default:** `'#1976d2'`
-
-```ts
-QuasarPreset({ styles: QuasarStyleEntries, sourceColor: '#6750A4' })
-```
-
-### `options.plugins`
-
-Array of Quasar plugin names. The preset generates a safelist of CSS classes for plugin-generated UI (dialogs, notifications, loading bars). Must match `framework.plugins` in your Quasar config.
-
-```ts
-QuasarPreset({
-  styles: QuasarStyleEntries,
-  plugins: ['Dialog', 'Notify', 'LoadingBar']
-})
-```
-
-### `options.iconSet`
-
-A Quasar icon set object (e.g., `mdiSet` from `quasar/icon-set`). Icon names are added to the safelist.
-
-### `options.presetWebFonts`
-
-Configuration for `@unocss/preset-web-fonts`. Default loads Roboto from Bunny CDN.
-
-## Returns
-
-An UnoCSS `Preset<QuasarTheme>` object. Pass it to `UnoCSS()` plugin's `presets` array.
-
-## Example
+## Minimal example
 
 ```ts
 import { QuasarPreset } from 'unocss-preset-quasar'
@@ -74,29 +35,42 @@ import { QuasarStyleEntries } from 'unocss-preset-quasar/styles'
 import UnoCSS from 'unocss/vite'
 
 UnoCSS({
+  presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+})
+```
+
+## Full example
+
+```ts
+import { QuasarPreset, quasarWind4Options } from 'unocss-preset-quasar'
+import {
+  MaterialDesign3,
+  MaterialDesign2,
+  Unstyled
+} from 'unocss-preset-quasar/styles'
+import { mdiSet } from 'quasar/icon-set'
+import UnoCSS from 'unocss/vite'
+
+UnoCSS({
   presets: [
     QuasarPreset({
-      styles: QuasarStyleEntries,
+      styles: [MaterialDesign3, MaterialDesign2, Unstyled], // first = baseline
       sourceColor: '#6750A4',
-      plugins: ['Dark', 'Dialog', 'Notify', 'LoadingBar']
+      plugins: ['Dialog', 'Notify', 'Loading', 'LoadingBar', 'BottomSheet'],
+      iconSet: mdiSet,
+      appExtensions: ['qmarkdown'],
+      presetWebFonts: { provider: 'bunny', fonts: { roboto: 'Roboto' } }
     })
   ]
 })
 ```
 
-## What It Sets Up
+Option-by-option: [`QuasarPresetOptions`](/api/quasar-preset-options).
 
-Internally, `QuasarPreset()` configures:
+## Related exports from the root package
 
-| Component        | What                                                                       |
-| ---------------- | -------------------------------------------------------------------------- |
-| **Presets**      | `@unocss/preset-wind4`, `animated-unocss`, `presetIcons`, `presetWebFonts` |
-| **Theme**        | Extended `QuasarTheme` with MD3 color generation                           |
-| **Preflights**   | CSS reset, MD3 color variables, typography, transitions                    |
-| **Rules**        | Mouse rules, helper rules, elevation rules, visibility rules               |
-| **Shortcuts**    | All component shortcuts from the shared tree + core utilities              |
-| **Variants**     | Dark mode, breakpoints                                                     |
-| **Safelist**     | Component classes, plugin classes, icon classes, color classes             |
-| **Extractor**    | Auto-detects Quasar components, transitions, colors, and icons             |
-| **Transformers** | `transformerVariantGroup`, `transformerDirectives`                         |
-| **Layers**       | `components` (-1), `default` (1), `utilities` (2)                          |
+| Export                    | Purpose                                                                   |
+| ------------------------- | ------------------------------------------------------------------------- |
+| `quasarWind4Options`      | Options fragment for adding wind4 as a second engine                      |
+| `iconSetClasses(iconSet)` | The `i-*` classes contained in an icon set (what the safelist step walks) |
+| `QuasarStyleEntry` (type) | The style-entry shape, re-exported for convenience                        |

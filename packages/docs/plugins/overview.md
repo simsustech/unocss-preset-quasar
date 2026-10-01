@@ -1,10 +1,6 @@
 # Plugins Overview
 
-Quasar plugins generate UI programmatically at runtime — dialogs, notifications, loading bars, bottom sheets. Since these elements don't appear in Vue templates, UnoCSS's scanner can't detect their classes. The preset solves this with a **safelist**.
-
-## How Plugin Safelisting Works
-
-When you pass a `plugins` array to `QuasarPreset()`, the preset generates a safelist of all CSS classes those plugins might use at runtime:
+Quasar plugins that generate UI do it at runtime — `$q.dialog()` injects markup no template mentions, so UnoCSS's scanner never sees its classes. The preset closes that gap with per-plugin safelist entries, gated by the same rule as everything else: declare what you use.
 
 ```ts
 QuasarPreset({
@@ -13,22 +9,40 @@ QuasarPreset({
 })
 ```
 
-Each plugin has a predefined map of component classes that must always be included in the CSS output. For example, `Dialog` safelists `q-dialog__*`, `q-card__*`, `q-btn__*`, `q-field__*`, `q-radio__*` — everything a dialog plugin might render.
+## What actually happens
 
-## Important: Match Both Arrays
+Only five plugins affect CSS. Each contributes the **root classes its rules key on**; the rule then yields the family (`q-dialog__inner`, `q-notification__message`, …) itself:
 
-The plugins array must match in **two places**:
+| Plugin        | Safelisted roots                                                           | Why it cannot be scanned         |
+| ------------- | -------------------------------------------------------------------------- | -------------------------------- |
+| `Dialog`      | `q-dialog`                                                                 | Created by `$q.dialog()`         |
+| `Notify`      | `q-notification`, `q-notifications`                                        | Created by `$q.notify()`         |
+| `Loading`     | `q-loading`                                                                | Created by `$q.loading()`        |
+| `LoadingBar`  | `q-loading-bar` + `--top/--bottom/--left/--right`                          | Mounted by the LoadingBar plugin |
+| `BottomSheet` | `q-bottom-sheet`, `__avatar`, `__item`, `__empty-icon`, `--list`, `--grid` | Created by `$q.bottomSheet()`    |
+
+Everything else Quasar calls a plugin (`Dark`, `Platform`, `Screen`, `LocalStorage`, …) manipulates no DOM of its own. Listing or omitting them changes nothing in the CSS output.
+
+## Match both arrays
+
+A plugin used through its API must appear in **both** places, or it works with missing styles:
 
 ```ts
-// 1. In the preset (for CSS safelisting)
-QuasarPreset({
-  plugins: ['Dark', 'Dialog', 'Notify', 'LoadingBar'],
-})
+// 1. CSS side — safelist
+QuasarPreset({ styles: QuasarStyleEntries, plugins })
 
-// 2. In the Quasar framework config (for JS functionality)
+// 2. JS side — functionality
 framework: {
-  plugins: ['Dark', 'Dialog', 'Notify', 'LoadingBar'],
+  plugins
 }
 ```
 
-If a plugin is in `framework.plugins` but NOT in `QuasarPreset({ plugins })`, the plugin will work but its UI will have missing styles.
+::: tip One shared array
+Define `const plugins = [...]` once and pass it to both. The two lists drifting apart is the classic failure mode, and it fails silently — the dialog opens, unstyled.
+:::
+
+## Why safelist only the roots
+
+Safelist entries are unconditional CSS — every entry ships whether or not the app renders it. Component markup, by contrast, is _derived_: the component extractor gives `<QCard>` its full vocabulary the moment the template mentions it, and rules yield their own sub-selectors. The safelist carries only what has no signal at all: the root class of a plugin-opened element.
+
+Full mechanism: [Extraction & Safelisting](/architecture/extraction).

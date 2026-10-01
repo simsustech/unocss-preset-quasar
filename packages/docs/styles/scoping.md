@@ -1,75 +1,78 @@
-# Runtime Style Switching
+# Runtime Switching
 
-One `QuasarPreset` registers the shared component tree. Each style entry (`styles` option) emits a `body.quasar-style-{name}` CSS-variable block, so switching styles at runtime is just a body-class swap — no multiple presets, no duplicate CSS, no reload.
+Switching styles is a body-class swap. No second preset, no duplicated component CSS, no reload — one rule tree, N variable blocks, and `setStyle()` flipping which block is live.
 
-## Why a Single Preset?
-
-The old approach registered one preset per style and scoped each style's CSS to its own body class. That tripled CSS output and risked shortcut collisions. Because the component tree is now **shared** and styles are pure token values, a single preset can emit all style blocks cheaply:
+## The mechanism
 
 ```css
-/* One shared tree, N variable blocks */
-body.quasar-style-md3 {
-  --q-btn-radius: var(--q-radius-xl);
-}
-body.quasar-style-md2 {
-  --q-btn-radius: var(--q-radius-sm);
-}
-body.quasar-style-unstyled {
-  --q-btn-radius: 0;
-}
+/* one shared rule tree … */
+.q-btn { border-radius: var(--q-btn-radius); background: var(--q-btn-bg); }
 
-.q-btn {
-  border-radius: var(--q-btn-radius);
-}
+/* … N value blocks, one per listed entry */
+body                    { --q-btn-radius: 28px; --q-btn-bg: var(--q-primary); } /* baseline (md3) */
+body.quasar-style-md2   { --q-btn-radius: 4px; }
+body.quasar-style-unstyled { --q-btn-radius: 0; --q-btn-bg: transparent; }
+
+/* dark is the same diff, stacked */
+body.body--dark.quasar-style-md2 { … }
 ```
 
-## Enabling All Styles
+`setStyle(name)` removes any `quasar-style-*` class from `<body>` and adds `quasar-style-{name}`. The cascade resolves the new values; nothing is regenerated.
 
 ```ts
-import UnoCSS from 'unocss/vite'
-import { QuasarPreset } from 'unocss-preset-quasar'
-import { QuasarStyleEntries } from 'unocss-preset-quasar/styles'
-
-UnoCSS({
-  presets: [QuasarPreset({ styles: QuasarStyleEntries })]
-})
-```
-
-## Switching Styles at Runtime
-
-Use the `setStyle` helper:
-
-```ts
-import { setStyle } from 'unocss-preset-quasar/styles'
+import { setStyle, getActiveStyle } from 'unocss-preset-quasar/styles'
 
 setStyle('md3') // Material You
 setStyle('md2') // classic Material
-setStyle('unstyled') // structural only
+setStyle('unstyled') // structure only
+getActiveStyle() // 'unstyled'
 ```
 
-Or toggle the body class directly:
+Both helpers are no-ops on the server (`typeof document === 'undefined'`), so they are safe to import in shared code.
+
+## What has to be true
+
+| Requirement                                   | Why                                                                                                                                                                                              |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| The entry was in the build-time `styles` list | An unlisted style ships no token block and no rules; `setStyle()` on it adds a class nothing matches — and silently stays on the baseline. A runtime helper cannot see build-time configuration. |
+| You know the `name`                           | The class suffix is the entry's `name` field: `md3`, `md2`, `unstyled`, or your own                                                                                                              |
+| Only one `quasar-style-*` class at a time     | `setStyle()` removes the others; if you manipulate `classList` yourself, keep the invariant                                                                                                      |
+
+Built-in names:
+
+| Entry             | Body class              | `setStyle()` argument |
+| ----------------- | ----------------------- | --------------------- |
+| `MaterialDesign3` | `quasar-style-md3`      | `'md3'`               |
+| `MaterialDesign2` | `quasar-style-md2`      | `'md2'`               |
+| `Unstyled`        | `quasar-style-unstyled` | `'unstyled'`          |
+
+## Manual control
+
+The class _is_ the API — anything that sets it works:
 
 ```html
-<body class="quasar-style-md3">
-  <!-- MD3 active -->
-</body>
+<body class="quasar-style-md2"></body>
 ```
 
 ```ts
-// Switch to MD2
-document.body.className = 'quasar-style-md2'
+document.body.classList.replace('quasar-style-md3', 'quasar-style-md2')
 ```
 
-## How It Works
+`getActiveStyle()` reads it back (`null` when no style class is present — i.e. the baseline runs unnamed).
 
-1. **Shared shortcuts** reference `var(--q-*)` tokens, e.g. `border-radius: var(--q-btn-radius)`.
-2. **Token preflight** reads `theme.quasar.tokens` (injected by the preset's `extendTheme`) and emits one CSS-variable block per entry under `body.quasar-style-{name}`.
-3. **Dark mode** blocks (`body.body--dark.quasar-style-{name}`) swap `--light-*` refs to `--dark-*` automatically.
+## Interaction with dark mode
 
-## Body Class Names
+Style and scheme are independent axes. `setStyle()` never touches `body--dark`; Quasar's Dark plugin never touches `quasar-style-*`. The preflight emits the intersection — `body.body--dark.quasar-style-md2` — so both combinations are always correct.
 
-| Entry             | Body Class              |
-| ----------------- | ----------------------- |
-| `MaterialDesign3` | `quasar-style-md3`      |
-| `MaterialDesign2` | `quasar-style-md2`      |
-| `Unstyled`        | `quasar-style-unstyled` |
+## Persistence across reloads
+
+`setStyle()` is deliberately not persistence. Read the choice yourself and reapply it in your app's boot file:
+
+```ts
+const saved = localStorage.getItem('style') // 'md2' | 'md3' | 'unstyled'
+if (saved) setStyle(saved)
+```
+
+Because the baseline (first entry) applies with _no_ class, an app that wants MD2 as the default should put it first in `styles` rather than relying on a boot-time `setStyle()` — there is one flash-free path and it is the baseline.
+
+Related: [Styles & Scoping](/architecture/style-configuration) · [`/styles` API](/api/styles)

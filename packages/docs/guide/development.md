@@ -1,212 +1,98 @@
 # Development
 
-This guide covers the development workflow for the preset itself, and HMR setup for consumers.
+The contributor's map of the preset: repository layout, how to add or change CSS, and the commands that verify it.
 
-## Project Structure
+## Project structure
 
-```
+```text
 packages/preset/
 ├── src/
-│   ├── index.ts              # QuasarPreset factory + extractor
-│   ├── theme.ts              # QuasarTheme interface + color generation
-│   ├── safelist.ts           # Component & plugin safelist maps
-│   ├── vite-aliases.ts       # quasarPresetAliases() helper
-│   ├── core/                 # Core utilities (colors, elevation, typography...)
-│   │   ├── colors.unocss.ts
-│   │   ├── elevation.unocss.ts
-│   │   ├── typography.unocss.ts
-│   │   ├── transitions.unocss.ts
-│   │   ├── flex.unocss.ts
-│   │   ├── position.unocss.ts
-│   │   ├── size.unocss.ts
-│   │   └── ...
-│   └── styles/               # Component tree + style entries
-│       ├── index.ts          # QuasarStyle + QuasarStyleEntry + setStyle
-│       ├── shared/           # THE shared component tree (~70 components)
-│       │   ├── index.ts      # Base tree assembly
-│       │   ├── components/   # Component shortcuts (var-driven via --q-*)
-│       │   ├── plugins/      # Plugin-specific styles
-│       │   ├── directives/   # Directive styles
-│       │   └── composables/  # Shared composable styles
-│       └── _helpers.ts       # qe(), componentClass(), staticClass()
-└── dist/                     # Compiled output (tsc)
+│   ├── index.ts               # QuasarPreset factory — layers, safelist, extractors, preflights
+│   ├── extractor.ts           # component + value extractors
+│   ├── safelist.ts            # base safelist + pluginSafelistMap
+│   ├── components/            # ONE folder per Quasar component
+│   │   └── btn/
+│   │       ├── index.ts       # re-exports btnRules / btnShortcuts
+│   │       ├── rules.ts       # the CSS: selectors yielded from /^q-btn$/
+│   │       └── shortcuts.ts   # UnoCSS shortcuts (usually empty — rules do the work)
+│   ├── core/                  # utility modules (spacing, typography, grid, …)
+│   │   └── <module>/{rules.ts, shortcuts.ts, …}
+│   ├── styles/                # the style entries
+│   │   ├── index.ts           # QuasarStyleEntry, setStyle, QuasarStyleEntries
+│   │   ├── md3/  md2/  unstyled/
+│   │       └── index.ts       # entry (+ rules for unstyled)
+│   ├── theme/                 # token types, color generation, preflight, public theme
+│   ├── rules/                 # assembly machinery: merge.ts, scope.ts
+│   ├── app-extensions/        # opt-in ports: qcalendar, qmarkdown, qmediaplayer
+│   └── generated/             # quasar-classes.ts — scraped class vocabulary (generated)
+├── scripts/                   # generators and audit gates
+├── test/                      # vitest suites
+└── dist/                      # tsc output (gitignored)
 ```
 
-## Vite Aliases for HMR
+Read [How It Works](/architecture/overview) first if the layering is unfamiliar — most conventions below exist because of the constraints listed there.
 
-When developing the preset alongside a Quasar app (e.g., in the `quasar-testing-harness` playground), you can map imports to the TypeScript source files so changes are picked up without rebuilding:
+## How collections are discovered
 
-```ts
-// vitrify.config.ts (or vite.config.ts)
-import { quasarPresetAliases } from 'unocss-preset-quasar/vite-aliases'
+`src/index.ts` never imports individual components. It imports the barrels (`components/index.ts`, `core/index.ts`) and picks exports **by suffix**: anything ending in `Rules`, `Shortcuts`, or `Preflights` joins the preset. That is why a module's `index.ts` re-exports with those exact names — a typo silently drops the module from the output.
 
-export default defineConfig({
-  vitrify: {
-    dev: {
-      alias: quasarPresetAliases()
-    }
-  }
-})
-```
+## Adding a component
 
-`quasarPresetAliases()` returns alias records that map:
+1. Create the folder:
 
-- `unocss-preset-quasar` → `src/index.ts`
-- `unocss-preset-quasar/styles` → `src/styles/index.ts`
-- `unocss-preset-quasar/theme` → `src/theme.ts`
-- `unocss-preset-quasar/vite-aliases` → `src/vite-aliases.ts`
+   ```text
+   src/components/my-component/
+   ├── index.ts      # export { myComponentRules } from './rules.js'
+   ├── rules.ts      # export const myComponentRules: Rule[] = [ [/^q-my-component$/, function* …] ]
+   └── shortcuts.ts  # export const myComponentShortcuts: Shortcut[] = []
+   ```
 
-The package source directory is auto-detected by walking up from this module to find `unocss-preset-quasar/package.json`. Set `UNOCSS_PRESET_QUASAR_SRC` to override.
+2. Export it from `src/components/index.ts`.
+3. Write the rule state structure and read values from tokens (`var(--q-btn-radius)`, `var(--q-surface-container)`); a literal is only for what no token can express. If the literal belongs to one style only, it goes in that style's `rules` instead (`src/styles/<name>/`), not here.
+4. Regenerate the class vocabulary if the component's classes are new upstream: `node scripts/generate-quasar-classes.mjs`.
+5. Add a safelist entry only if the base class has **no signal in markup** (applied purely at runtime). If any template mentions the component, the extractor derives its whole family.
 
-::: warning
-Only use these aliases in **dev mode**. In production, consumers should use the compiled `dist/` output.
-:::
+Rules that yield additional selectors use the `symbols.selector` channel — see any `rules.ts` for the pattern (`.q-btn:before`, `.q-btn__content`, …).
 
-## Adding a New Component
-
-To add style shortcuts for a new Quasar component:
-
-1. **Create the shortcut file**: `packages/preset/src/styles/shared/components/QComponentName.unocss.ts`
-
-2. **Define shortcuts** using the helper utilities:
-
-```ts
-import type { Shortcut } from '@unocss/core'
-import type { QuasarTheme } from '../../../theme.js'
-
-export const shortcuts: Shortcut<QuasarTheme>[] = [
-  // Static class: always emit this class list
-  [/^q-component$/, 'relative flex items-center'],
-
-  // Theme override support: consumers can override via theme.quasar.components
-  [
-    /^q-component__child$/,
-    componentClass('q-component__child', 'text-sm px-2')
-  ],
-
-  // Context-dependent: fallback needs theme access
-  [
-    /^q-component--dark$/,
-    componentCtxClass(
-      'q-component--dark',
-      ({ theme }) => `bg-${theme.colors.dark.surface}`
-    )
-  ]
-]
-```
-
-1. **Register the shortcuts** in the style's index.ts:
-
-```ts
-// packages/preset/src/styles/shared/index.ts
-import { shortcuts as QComponentNameShortcuts } from './components/QComponentName.unocss.js'
-
-export default {
-  shortcuts: [
-    ...QComponentNameShortcuts
-    // ... other components
-  ]
-} satisfies QuasarStyle
-```
-
-1. **Add the safelist** in `packages/preset/src/safelist.ts`:
-
-```ts
-export const componentsSafelistMap = {
-  QComponentName: ['q-component', 'q-component__child', 'q-component--dark']
-  // ...
-}
-```
-
-## Helpers Reference
-
-### `qe()` — Escape BEM Underscores
-
-UnoCSS treats `_` as a space separator and `__` as a literal underscore. Quasar uses BEM double-underscores in class names like `q-btn__content`. Use `qe()` to escape them:
-
-```ts
-// Without qe:
-;`[&.q-btn\\_\\_content]:(flex items-center)`
-
-// With qe:
-qe`[&.${'q-btn__content'}]:(flex items-center)`
-```
-
-### `componentClass(name, fallback)`
-
-Shortcut handler that returns a theme override if configured, otherwise the fallback string:
-
-```ts
-;[
-  /^q-avatar$/,
-  componentClass('q-avatar', 'relative inline-block rounded-full')
-]
-```
-
-### `staticClass(classes)`
-
-Shortcut handler that always returns the same classes (no theme override):
-
-```ts
-;[/^q-card__section$/, staticClass('relative')]
-```
-
-### `componentCtxClass(name, fallbackFn)`
-
-Like `componentClass` but the fallback is a function that receives the theme context:
-
-```ts
-;[
-  /^q-fab$/,
-  componentCtxClass('q-fab', ({ theme }) => `z-${theme.quasar.z.fab}`)
-]
-```
-
-## Building
+## Commands
 
 ```bash
-# From monorepo root
-pnpm run build
-
-# Or directly
-cd packages/preset
-pnpm run build
+# from packages/preset
+pnpm build          # tsc: src/ → dist/
+pnpm build:watch    # incremental, for local development
+pnpm lint           # oxlint src
+pnpm lint:fix
+pnpm test           # vitest test/
 ```
 
-The build runs `tsc` to compile TypeScript from `src/` to `dist/`. The package's `exports` map in `package.json` points to the compiled output for consumers.
+From the repository root: `pnpm run build`, `pnpm run lint`, `pnpm run test`, `pnpm run format:check`.
 
-## Linting
+The suites assert emitted CSS, not snapshots of intent: no duplicate regex survives ([`no-duplicate-rules`](https://github.com/simsustech/unocss-preset-quasar/blob/main/packages/preset/test)), cascade order holds, the engine namespace reads are guarded, app-extension opt-in is byte-identical in both directions, and the palette resolves the same on mini and wind4.
+
+## Audit scripts
+
+| Script                                | Question it answers                                                                                                 |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `scripts/generate-quasar-classes.mjs` | Rebuild the class vocabulary from installed Quasar + app-extension sources; `--check` fails when dependencies moved |
+| `scripts/compose-safelist.mjs`        | Re-derive the safelist from arbiters (source, dist, rendered pages)                                                 |
+| `scripts/audit-vocabulary.mjs`        | Does any matcher name a class Quasar never emits? Gate: zero unknown tokens                                         |
+| `scripts/parity-report.mjs`           | Per-class parity against `quasar/dist/quasar.css`                                                                   |
+| `specs/audit/coverage-sweep.mjs`      | Which dist classes does this sheet never emit? Gate: every flag has a disposition row                               |
+
+Run them after a build — a stale `dist/` makes a real fix look broken.
+
+## Testing changes end to end
+
+Component behavior is verified in the external Playwright harness (`quasar-testing-harness`), not with new spec files in this repository. Each Quasar component has its own spec file there; screenshots and CSS-variable dumps are the evidence. Vitest here covers the emitted sheet; the harness covers what the browser does with it.
+
+## Release
+
+The project versions through [Changesets](https://github.com/changesets/changesets):
 
 ```bash
-# Lint the preset
-pnpm run lint:preset
-
-# Fix auto-fixable issues
-pnpm run lint:preset:fix
+pnpm run changeset   # record the change
+pnpm run version     # apply versions
+pnpm run publish     # publish
 ```
 
-Uses [oxlint](https://oxc.rs) for fast TypeScript linting.
-
-## Testing
-
-```bash
-# Run tests
-pnpm run test:preset
-```
-
-Tests use [Vitest](https://vitest.dev).
-
-## Release Process
-
-The project uses [Changesets](https://github.com/changesets/changesets) for versioning:
-
-```bash
-# Create a changeset
-pnpm run changeset
-
-# Version packages
-pnpm run version
-
-# Publish
-pnpm run publish
-```
+Commit messages are enforced by commitlint (conventional commits); the pre-commit hook runs lint and format checks.

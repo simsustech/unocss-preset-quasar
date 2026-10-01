@@ -44,5 +44,5 @@ Sets CSS custom properties on `document.body.style`:
 
 ## Related
 
-- [`generateTheme()`](/api/quasar-theme) — generates a full `QuasarTheme` from a source color
-- [`QuasarTheme`](/api/quasar-theme) — the theme interface
+- [`generateTheme()`](/api/theme) — generates a full `QuasarTheme` from a source color
+- [`QuasarTheme`](/api/theme) — the theme interface

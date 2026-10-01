@@ -1,138 +1,122 @@
 # Getting Started
 
-## Installation
+Replace Quasar's Sass bundle with generated-on-demand UnoCSS in three steps: install, strip the Sass import, register the preset with the styles you want.
 
-Install the preset alongside UnoCSS and the Material Design Icons icon set:
+## Installation
 
 ```bash
 pnpm add unocss unocss-preset-quasar @iconify-json/mdi
 ```
 
-Required peer dependencies:
+| Package                | Role                                                          |
+| ---------------------- | ------------------------------------------------------------- |
+| `unocss`               | The UnoCSS engine and Vite plugin                             |
+| `unocss-preset-quasar` | Quasar component CSS, tokens, and utilities                   |
+| `@iconify-json/mdi`    | Material Design Icons, consumed by the built-in `presetIcons` |
 
-- `quasar` ^2.19.3
-- `unocss` ^66.7.0
+Peer dependencies: `quasar` ^2.34.0, `@unocss/core` ^66.10.5.
 
-## Prerequisites
+No Quasar project yet? `pnpm create quasar` and choose **Quasar CLI with Vite**.
 
-You need an existing Quasar project (Quasar CLI with Vite). If you don't have one:
+## 1. Strip the Sass import
 
-```bash
-pnpm create quasar
-# Choose: Quasar CLI with Vite
-```
+Quasar's CLI imports `quasar/dist/quasar.sass` once at build time (~200 KB, untree-shakeable). A `enforce: 'pre'` Vite plugin swaps it for UnoCSS's virtual CSS:
 
-## Stripping Quasar's Sass
-
-The preset replaces Quasar's Sass bundle entirely. Add a Vite plugin to strip the Sass import and replace it with UnoCSS's virtual CSS:
-
-```ts
+```js
 // quasar.config.js
-{
-  name: 'quasar-strip-sass',
-  enforce: 'pre',
-  transform(code, id) {
-    if (code.includes(`import 'quasar/dist/quasar.sass'`)) {
-      return code.replaceAll(
-        `import 'quasar/dist/quasar.sass'`,
-        `import 'virtual:uno.css'`
-      )
+vitePlugins: [
+  {
+    name: 'quasar-strip-sass',
+    enforce: 'pre',
+    transform(code) {
+      if (code.includes(`import 'quasar/dist/quasar.sass'`)) {
+        return code.replaceAll(
+          `import 'quasar/dist/quasar.sass'`,
+          `import 'virtual:uno.css'`
+        )
+      }
     }
-  },
-}
+  }
+]
 ```
 
-This plugin must run **before** Vite processes the import, hence `enforce: 'pre'`.
+`enforce: 'pre'` matters: the swap must happen before Vite resolves the import.
 
-## Registering the Preset
+## 2. Register the preset
 
-Import and register the preset with UnoCSS inside `extendViteConf`:
-
-```ts
+```js
 // quasar.config.js
 import { QuasarPreset } from 'unocss-preset-quasar'
 import { QuasarStyleEntries } from 'unocss-preset-quasar/styles'
 import UnoCSS from 'unocss/vite'
 
-export default defineConfig((ctx) => ({
-  extendViteConf(viteConf, { isClient }) {
+const plugins = [
+  'Dark',
+  'Dialog',
+  'Notify',
+  'Loading',
+  'LoadingBar',
+  'BottomSheet'
+]
+
+export default defineConfig(() => ({
+  vitePlugins: [/* the strip-sass plugin from step 1 */],
+
+  extendViteConf(viteConf) {
     viteConf.plugins.push(
       UnoCSS({
         enforce: 'pre',
-        presets: [
-          QuasarPreset({
-            styles: QuasarStyleEntries, // one preset, all styles switchable at runtime
-            plugins: [
-              'Dark',
-              'Dialog',
-              'Notify',
-              'LoadingBar',
-              'Loading',
-              'BottomSheet'
-            ]
-          })
-        ]
+        presets: [QuasarPreset({ styles: QuasarStyleEntries, plugins })]
       })
     )
-  }
+  },
+
+  framework: { plugins }
 }))
 ```
 
-The preset ships one shared component tree; styles are just token entries. The built-in entries are `MaterialDesign3`, `MaterialDesign2`, `Unstyled`, all bundled in `QuasarStyleEntries`. Each entry emits a `body.quasar-style-{name}` CSS-variable block, so you switch styles at runtime by swapping the body class:
+Two things are deliberately explicit:
 
-```ts
-import { setStyle } from 'unocss-preset-quasar/styles'
+- **`styles` is required.** `QuasarPreset()` throws without it — the first entry becomes the baseline, the rest are runtime-switchable. Pass `QuasarStyleEntries` for all three built-ins, or a subset (`[MaterialDesign3]`) to ship less. See [Styles & Scoping](/architecture/style-configuration).
+- **The `plugins` array must match `framework.plugins`.** The preset safelists CSS for plugin-generated UI; a plugin present in `framework` but missing from the preset works but renders unstyled. See [Plugins](/plugins/overview).
 
-setStyle('md2') // swaps the active CSS-variable block, no reload
+## 3. Verify
+
+```bash
+quasar dev
 ```
 
-Custom token overrides:
+- Inspect any Quasar component: styles come from utility rules and `--q-*` variables, not Sass classes.
+- The network tab shows no `quasar.sass` request.
+- Toggle dark mode (`$q.dark.toggle()`): the whole page flips via `body.body--dark`, no reload.
 
-````ts
-import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
+## Switching styles at runtime
 
-const myStyle = {
-  name: 'md3',
-  tokens: {
-    ...MaterialDesign3.tokens,
-    shape: { ...MaterialDesign3.tokens.shape, radiusXl: '8px' } // square buttons
-  }
-}
-
-QuasarPreset({ styles: [myStyle] })
-
-::: warning Plugin List
-You **must** list every Quasar plugin your app uses. The preset generates a safelist of CSS classes for plugin-generated UI (dialogs, notifications, loading bars). Missing plugins → missing styles for those components at runtime.
-:::
-
-## Enabling Transforms
-
-The preset includes two UnoCSS transformers. Enable them in your `uno.config.ts` if you want to use them separately:
+With all three entries listed, switching is one class swap:
 
 ```ts
-// uno.config.ts (optional — the preset includes these)
-import { transformerDirectives, transformerVariantGroup } from 'unocss'
+import { setStyle, getActiveStyle } from 'unocss-preset-quasar/styles'
 
-export default {
-  transformers: [
-    transformerVariantGroup(), // group variants: hover:(bg-red text-white)
-    transformerDirectives() // @apply directive
-  ]
-}
-````
+setStyle('md2') // instant CSS-variable swap — no reload, no re-import
+getActiveStyle() // 'md2'
+```
 
-These are **already included** in the preset, so you only need this if you want them in a separate UnoCSS config file.
+Only listed entries are switchable; `setStyle()` on an unlisted name silently keeps the baseline.
 
-## Verifying the Setup
+## Customizing the palette
 
-1. Start the dev server: `quasar dev`
-2. Open your app in the browser
-3. Inspect any Quasar component — it should have utility-based styles instead of Sass-generated classes
+```js
+QuasarPreset({
+  styles: QuasarStyleEntries,
+  sourceColor: '#6750A4' // MD3 tonal palette derives from this one color
+})
+```
 
-To verify the Sass was stripped, check that no `quasar.sass` requests appear in the network tab.
+For runtime changes see [`applySourceColor()`](/api/runtime).
 
-## Next Steps
+## Next steps
 
-- [Configuration](/guide/configuration) — all preset options explained
-- [Quasar Integration](/guide/quasar-integration) — full quasar.config.js setup
-- [Theming](/core/theming) — source color, dark mode, CSS variables
+- [Configuration](/guide/configuration) — every preset option with defaults
+- [Quasar Integration](/guide/quasar-integration) — complete `quasar.config.js` and troubleshooting
+- [Theming & Tokens](/core/theming) — the variable system your own CSS can read
+- [Component Catalogue](/components/catalogue) — what is styled out of the box

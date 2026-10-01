@@ -1,68 +1,53 @@
 # Spacing
 
-The preset provides Quasar-compatible margin and padding shortcut classes.
+Quasar-compatible margin and padding classes, resolved through `--spacing` so the scale follows the root font size instead of freezing pixels into the stylesheet.
 
-## Margin
-
-```html
-<div class="q-ma-none">No margin</div>
-<div class="q-ma-xs">Extra small margin (4px)</div>
-<div class="q-ma-sm">Small margin (8px)</div>
-<div class="q-ma-md">Medium margin (16px)</div>
-<div class="q-ma-lg">Large margin (24px)</div>
-<div class="q-ma-xl">Extra large margin (48px)</div>
-```
-
-Directional margins:
+## Classes
 
 ```html
-<div class="q-mt-md">Margin top medium</div>
-<div class="q-mb-md">Margin bottom medium</div>
-<div class="q-ml-md">Margin left medium</div>
-<div class="q-mr-md">Margin right medium</div>
-<div class="q-mx-md">Margin horizontal medium</div>
-<div class="q-my-md">Margin vertical medium</div>
+<div class="q-ma-md">16px margin all around</div>
+<div class="q-pt-sm">8px padding top</div>
+<div class="q-mx-auto">centered block</div>
 ```
 
-## Padding
+Pattern: `q-{p|m}{side}-{size}` where side is `a` (all), `t`, `b`, `l`, `r`, `x` (inline), `y` (block) and size is one of `none`, `xs`, `sm`, `md`, `lg`, `xl`.
+
+Logical properties: `x` maps to `-inline` and `y` to `-block`, so RTL layouts mirror correctly.
+
+## The scale
+
+Each step computes to `calc(var(--spacing) * N)` with `--spacing: 0.25rem` (4px at the default root size):
+
+| Size   | Multiplier | At 16px root |
+| ------ | ---------- | ------------ |
+| `none` | 0          | 0            |
+| `xs`   | ×1         | 4px          |
+| `sm`   | ×2         | 8px          |
+| `md`   | ×4         | 16px         |
+| `lg`   | ×6         | 24px         |
+| `xl`   | ×8         | 32px         |
+
+Because the value is a `calc()`, changing `--spacing` (or the root font size) rescales every `q-*` spacing utility at once.
+
+## Auto margins and sizing
+
+| Class                                              | Effect                                            |
+| -------------------------------------------------- | ------------------------------------------------- |
+| `q-ml-auto`, `q-mr-auto`, `q-mt-auto`, `q-mb-auto` | single-side auto margin                           |
+| `q-mx-auto`, `q-my-auto`                           | inline/block auto margin                          |
+| `fit`                                              | `width: 100%; height: 100%`                       |
+| `full-width`                                       | `width: 100%` + zero inline margin                |
+| `full-height`                                      | `height: 100%`                                    |
+| `window-width`, `window-height`                    | `100vw` / `100vh` with the matching margin zeroed |
+
+## Engine spacing still works
+
+The nested engine's own spacing utilities (`p-4`, `mt-2`, `gap-3`, arbitrary `m-[6px]`) come from `preset-mini` and coexist — the `q-*` family is Quasar's vocabulary, the bare numbers are the engine's:
 
 ```html
-<div class="q-pa-none">No padding</div>
-<div class="q-pa-xs">Extra small padding (4px)</div>
-<div class="q-pa-sm">Small padding (8px)</div>
-<div class="q-pa-md">Medium padding (16px)</div>
-<div class="q-pa-lg">Large padding (24px)</div>
-<div class="q-pa-xl">Extra large padding (48px)</div>
+<div class="q-pa-lg gap-2 flex">both scales</div>
 ```
 
-Directional padding:
+Note the scale difference: `q-pa-md` is 16px (`calc(var(--spacing) * 4)`), while the engine's `p-4` is its own `1rem`. Prefer one family per surface.
 
-```html
-<div class="q-pt-md">Padding top medium</div>
-<div class="q-pb-md">Padding bottom medium</div>
-<div class="q-pl-md">Padding left medium</div>
-<div class="q-pr-md">Padding right medium</div>
-<div class="q-px-md">Padding horizontal medium</div>
-<div class="q-py-md">Padding vertical medium</div>
-```
-
-## Spacing Scale
-
-| Size   | Value |
-| ------ | ----- |
-| `none` | 0     |
-| `xs`   | 4px   |
-| `sm`   | 8px   |
-| `md`   | 16px  |
-| `lg`   | 24px  |
-| `xl`   | 48px  |
-
-## UnoCSS Fallback
-
-All standard UnoCSS spacing utilities work as well:
-
-```html
-<div class="m-4 p-2">Tailwind-style</div>
-<div class="mt-8 mb-2 mx-auto">Directional</div>
-<div class="p-[12px] m-[6px]">Arbitrary values</div>
-```
+Related: [Flex & Grid](/core/flex) · [Theming & Tokens](/core/theming)

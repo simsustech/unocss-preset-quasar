@@ -1,8 +1,6 @@
 # Configuration
 
-The `QuasarPreset()` function accepts a single options object of type `QuasarPresetOptions`.
-
-## `QuasarPresetOptions`
+Every option `QuasarPreset()` accepts, what it changes, and its default. Full type definitions: [`QuasarPresetOptions`](/api/quasar-preset-options).
 
 ```ts
 import { QuasarPreset } from 'unocss-preset-quasar'
@@ -12,208 +10,125 @@ import { mdiSet } from 'quasar/icon-set'
 QuasarPreset({
   styles: QuasarStyleEntries,
   sourceColor: '#1976d2',
-  plugins: ['Dark', 'Dialog', 'Notify'],
+  plugins: ['Dialog', 'Notify'],
   iconSet: mdiSet,
-  presetWebFonts: {
-    provider: 'bunny',
-    fonts: { roboto: 'Roboto' }
-  }
+  appExtensions: ['qmarkdown']
 })
 ```
 
-### `styles`
+## `styles` / `style` — required
 
-Style entries — one named token spec per style. The preset registers **one** shared component tree; each entry emits a `body.quasar-style-{name}` CSS-variable block, so styles switch at runtime by swapping the body class (see `setStyle`).
+The styles that ship, as token entries. **The first entry is the baseline**; the rest become runtime-switchable `body.quasar-style-{name}` blocks.
 
 ```ts
 import {
-  MaterialDesign3, // MD3 (Material You)
-  MaterialDesign2, // MD2 (classic Material)
-  Unstyled, // structural only, no visual styling
-  QuasarStyleEntries // all three, bundled
+  MaterialDesign3,
+  MaterialDesign2,
+  Unstyled,
+  QuasarStyleEntries // [md3, md2, unstyled]
 } from 'unocss-preset-quasar/styles'
 ```
 
-Each entry is `{ name, tokens }`. Custom styles override individual tokens of a built-in entry.
+| Value            | Meaning                                                                 |
+| ---------------- | ----------------------------------------------------------------------- |
+| `styles: [A, B]` | A is baseline; B ships as a switch block                                |
+| `style: A`       | Shorthand for `styles: [A]` (ignored if `styles` is given)              |
+| neither          | **throws** — a default would ship dead CSS or make `setStyle()` a no-op |
 
-### `sourceColor`
+Each entry is `{ name, tokens, rules? }`. Custom entries override individual tokens of a built-in — see [Styles & Scoping](/architecture/style-configuration).
 
-A hex color string that drives Material Design 3's dynamic color system. Changing this value regenerates the entire MD3 tonal palette — primary, secondary, tertiary, error, and all surface/container colors for both light and dark themes.
+## `sourceColor`
 
-```ts
-QuasarPreset({
-  styles: QuasarStyleEntries,
-  sourceColor: '#6750A4' // Purple-based theme
-})
-```
+Hex color that drives the Material 3 tonal palette — primary, secondary, tertiary, error, surfaces, containers — for both light and dark schemes.
 
-The color is fed through [@poupe/material-color-utilities](https://github.com/material-foundation/material-color-utilities) which computes the full Material 3 tonal palette.
-
-**Default:** `'#1976d2'` (Material Blue)
-
-### `plugins`
-
-An array of Quasar plugin names. The preset uses this to generate a **safelist** — CSS classes that must always be included even if the scanner doesn't detect them in templates (because plugins generate UI programmatically at runtime).
+**Default:** `'#1976d2'`
 
 ```ts
-const plugins = [
-  'AddressbarColor',
-  'AppFullscreen',
-  'AppVisibility',
-  'BottomSheet',
-  'Cookies',
-  'Dark',
-  'Dialog',
-  'Loading',
-  'LoadingBar',
-  'LocalStorage',
-  'Meta',
-  'Notify',
-  'Platform',
-  'Screen',
-  'SessionStorage'
-]
+QuasarPreset({ styles: QuasarStyleEntries, sourceColor: '#6750A4' })
 ```
 
-Supported plugins and their safelisted components:
+To change it after build, use [`applySourceColor()`](/api/runtime).
 
-| Plugin        | Safelisted Classes                                                                                                 |
-| ------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `BottomSheet` | `q-bottom-sheet`, `q-bottom-sheet__avatar`, `q-bottom-sheet--list`, `q-bottom-sheet--grid`, `q-bottom-sheet__item` |
-| `Dialog`      | `q-dialog-plugin`, `q-dialog__*`, `q-card__*`, `q-btn__*`, `q-field__*`, `q-radio__*`                              |
-| `LoadingBar`  | `q-loading-bar`, `q-loading-bar--top`, `q-loading-bar--bottom`, `q-loading-bar--right`, `q-loading-bar--left`      |
-| `Loading`     | `q-loading`, `q-loading__backdrop`, `q-loading__box`, `q-loading__message`                                         |
-| `Notify`      | `q-notifications__*`, `q-notification__*`, `q-avatar__*`, `q-btn__*`, `q-icon`, `q-spinner`                        |
+## `plugins`
 
-### `iconSet`
+Quasar plugin names whose runtime-generated UI must be safelisted. Keep this list in sync with `framework.plugins` — only the UI-generating five affect CSS:
 
-A Quasar icon set object (e.g., `mdiSet` from `quasar/icon-set`). The preset extracts icon names from the set and adds them to the safelist.
+| Plugin        | Safelisted roots                          |
+| ------------- | ----------------------------------------- |
+| `Dialog`      | `q-dialog`                                |
+| `Loading`     | `q-loading`                               |
+| `LoadingBar`  | `q-loading-bar` + four position variants  |
+| `Notify`      | `q-notification`, `q-notifications`       |
+| `BottomSheet` | `q-bottom-sheet` + list/grid/avatar parts |
+
+All other Quasar plugins (`Dark`, `Platform`, `Screen`, …) generate no DOM and cost nothing whether listed or not. Details: [Plugins](/plugins/overview).
+
+**Default:** `[]`
+
+## `iconSet`
+
+Quasar's icon set object (`framework.iconSet`, e.g. `mdiSet` from `quasar/icon-set`). Every `i-*` class in the set joins the safelist — Quasar's internal components (a table's expand chevron, a select's arrow) request icons that no markup mentions.
+
+**Default:** omitted — icons then appear only where markup or literal values name them.
+
+## `appExtensions`
+
+Third-party Quasar libraries whose CSS the preset ports. Declared libraries ship their CSS; undeclared ones ship nothing.
 
 ```ts
-import { mdiSet } from 'quasar/icon-set'
-
-QuasarPreset({
-  styles: QuasarStyleEntries,
-  iconSet: mdiSet
-})
+appExtensions: ['qcalendar', 'qmarkdown', 'qmediaplayer']
 ```
 
-### `presetWebFonts`
+**Default:** `[]` — output is byte-identical to a preset without the ports. See [App Extensions](/app-extensions/overview).
 
-Configuration for `@unocss/preset-web-fonts`, which loads web fonts. Override the default Roboto font or change the provider.
+## `presetIcons`
 
-```ts
-QuasarPreset({
-  presetWebFonts: {
-    provider: 'google', // or 'bunny' (default), 'fontshare', 'none'
-    fonts: {
-      roboto: 'Roboto:400,500,700',
-      mono: 'Fira Code'
-    }
-  }
-})
-```
+Options forwarded to `@unocss/preset-icons`. The preset always registers the plugin (Quasar's runtime-composed icon classes depend on it); pass options to customize behavior.
+
+**Default:** `{}`
+
+## `presetWebFonts`
+
+Options forwarded to `@unocss/preset-web-fonts`.
 
 **Default:**
 
 ```ts
-{
-  provider: 'bunny',
-  fonts: {
-    roboto: 'Roboto',
-  },
-}
+{ provider: 'bunny', fonts: { roboto: 'Roboto' } }
 ```
 
-### Runtime style switching
+```ts
+QuasarPreset({
+  presetWebFonts: {
+    provider: 'google',
+    fonts: { roboto: 'Roboto:400,500,700' }
+  }
+})
+```
 
-Every style entry emits a `body.quasar-style-{name}` CSS-variable block. Because the component tree is shared, you register **one** `QuasarPreset` and switch styles at runtime by swapping the body class — no multiple presets, no duplicate CSS.
+## Using wind4 as well
+
+The nested engine is `preset-mini`. To add wind4's vocabulary:
+
+```ts
+import { QuasarPreset, quasarWind4Options } from 'unocss-preset-quasar'
+import presetWind4 from '@unocss/preset-wind4'
+
+presets: [
+  presetWind4({ ...quasarWind4Options }),
+  QuasarPreset({ styles: QuasarStyleEntries })
+]
+```
+
+`quasarWind4Options` disables wind4's base reset and points its `dark:` variant at Quasar's `.body--dark` class. Keep `QuasarPreset()` in the array in any position — it carries `enforce: 'post'`, so Quasar-owned class names stay its own. Full rationale: [Rule Assembly](/architecture/rule-assembly).
+
+## Runtime style switching
 
 ```ts
 import { setStyle } from 'unocss-preset-quasar/styles'
 
-// One preset with all entries
-QuasarPreset({ styles: QuasarStyleEntries })
-
-// Later, at runtime
-setStyle('md3') // Material You
-setStyle('md2') // classic Material
-setStyle('unstyled') // structural only
+QuasarPreset({ styles: QuasarStyleEntries }) // build time
+setStyle('unstyled') // runtime — one class swap
 ```
 
-Or toggle the body class directly:
-
-```html
-<body class="quasar-style-md3">
-  <!-- MD3 active -->
-</body>
-```
-
-```ts
-// Switch to MD2 at runtime
-document.body.classList.toggle('quasar-style-md2')
-```
-
-Both approaches switch the active CSS-variable block instantly — no reload. The body class is the single runtime switch.
-
-See [Runtime Style Switching](/styles/scoping) for the full explanation of the body-class mechanism.
-
-## Full Example
-
-```ts
-// quasar.config.js
-import { QuasarPreset } from 'unocss-preset-quasar'
-import { QuasarStyleEntries } from 'unocss-preset-quasar/styles'
-import UnoCSS from 'unocss/vite'
-
-const plugins = [
-  'AddressbarColor',
-  'AppFullscreen',
-  'AppVisibility',
-  'BottomSheet',
-  'Cookies',
-  'Dark',
-  'Dialog',
-  'Loading',
-  'LoadingBar',
-  'LocalStorage',
-  'Meta',
-  'Notify',
-  'Platform',
-  'Screen',
-  'SessionStorage'
-]
-
-export default defineConfig(async (ctx) => ({
-  vitePlugins: [
-    {
-      name: 'quasar-strip-sass',
-      enforce: 'pre',
-      transform(code, id) {
-        if (code.includes(`import 'quasar/dist/quasar.sass'`)) {
-          code = code.replaceAll(
-            `import 'quasar/dist/quasar.sass'`,
-            `import 'virtual:uno.css'`
-          )
-        }
-        return code
-      }
-    }
-  ],
-  extendViteConf(viteConf, { isClient }) {
-    viteConf.plugins.push(
-      UnoCSS({
-        enforce: 'pre',
-        presets: [
-          QuasarPreset({
-            styles: QuasarStyleEntries,
-            plugins,
-            iconSet: mdiSet
-          })
-        ]
-      })
-    )
-  },
-  framework: { plugins }
-}))
-```
+Details and edge cases: [Runtime Switching](/styles/scoping).

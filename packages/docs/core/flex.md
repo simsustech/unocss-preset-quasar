@@ -1,90 +1,75 @@
 # Flex & Grid
 
-The preset provides Quasar-compatible flex and grid utility classes. These are shortcuts that map to standard UnoCSS/Wind flex utilities.
+Quasar's layout vocabulary — `row`, `column`, `col-*`, gutters — as flex utilities, plus responsive column variants. These rules sit in their own cascade band _ahead of_ component rules, because the reference puts the utility first and lets component layout win on cascade order.
 
-## Flex Container
-
-```html
-<div class="flex">Flex container</div>
-<div class="row">Flex row (direction: row)</div>
-<div class="column">Flex column (direction: column)</div>
-<div class="inline">Inline flex</div>
-```
-
-## Flex Alignment (Container)
+## Containers
 
 ```html
-<div class="flex-center">Centered content</div>
-<div class="items-center">Center items vertically</div>
-<div class="items-start">Align items start</div>
-<div class="items-end">Align items end</div>
-<div class="items-stretch">Stretch items</div>
-<div class="items-between">Space between items</div>
-<div class="justify-center">Center content horizontally</div>
-<div class="justify-between">Space between</div>
-<div class="justify-end">Justify end</div>
-<div class="justify-start">Justify start</div>
-<div class="content-center">Align content center</div>
+<div class="row q-gutter-md">…</div>
+<div class="column">…</div>
+<div class="flex flex-center">…</div>
 ```
 
-## Flex Children
+| Class                             | Effect                                           |
+| --------------------------------- | ------------------------------------------------ |
+| `row` / `row-reverse`             | flex container, row direction, `flex-wrap: wrap` |
+| `column` / `column-reverse`       | flex container, column direction, wrap           |
+| `flex`                            | bare flex container                              |
+| `wrap`, `no-wrap`, `reverse-wrap` | `flex-wrap` overrides                            |
+| `flex-center`                     | centered on both axes                            |
+
+Containers deliberately do **not** set `flex: 1 1 auto` — growth belongs to the column classes. (A growing `.row` stretched every consumer's drawer content to full height; that was measured, not guessed.)
+
+## Columns
+
+| Class                                       | Effect                                    |
+| ------------------------------------------- | ----------------------------------------- |
+| `col`                                       | `flex: 1 1 0%` + `max-width: 100%`        |
+| `col-auto`                                  | sized by content                          |
+| `col-grow` / `col-shrink`                   | grow and/or shrink only                   |
+| `col-1` … `col-12`                          | `flex: 0 0 <N/12*100>%`, `max-width` same |
+| `offset-1` … `offset-11`                    | `margin-inline-start: <N/12*100>%`        |
+| `shrink`                                    | shrink factor                             |
+| `order-first` / `order-last` / `order-none` | `order: -1` / `9999` / `0`                |
+
+## Responsive columns
+
+The breakpoint travels _inside the class name_ — `col-md-6`, not `md:col-6` — and the media wrapper comes from a variant:
+
+| Class form                          | Wraps in                                     |
+| ----------------------------------- | -------------------------------------------- |
+| `col-sm`, `col-sm-6`, `col-sm-auto` | `@media (min-width: 600px)`                  |
+| `col-md-…`                          | `@media (min-width: 1024px)`                 |
+| `col-lg-…`                          | `@media (min-width: 1440px)`                 |
+| `col-xl-…`                          | `@media (min-width: 1920px)`                 |
+| `col-xs-…`                          | no wrapper — xs is the base breakpoint (0px) |
+| `offset-md-6` etc.                  | same wrappers                                |
 
 ```html
-<div class="self-center">Center self</div>
-<div class="self-start">Start self</div>
-<div class="self-end">End self</div>
-<div class="self-stretch">Stretch self</div>
+<div class="col-12 col-md-6 col-lg-4">
+  third on large, half on tablet, full on phone
+</div>
 ```
 
-## Flex Grow
-
-```html
-<div class="col">Grow column (flex: 1)</div>
-<div class="col-grow">Grow (flex-grow: 1)</div>
-```
-
-## Wrapping
-
-```html
-<div class="wrap">Wrap items</div>
-<div class="no-wrap">No wrap</div>
-```
-
-## Full Width
-
-```html
-<div class="full-width">width: 100%</div>
-```
+The wrapper is load-bearing: without an at-rule frame, `.col-12` and `.col-sm` are equal specificity and source order decides — the base span would win at every viewport, stacking cells that should be rows.
 
 ## Gutters
 
 ```html
-<div class="q-gutter-xs">Extra small gutter</div>
-<div class="q-gutter-sm">Small gutter</div>
-<div class="q-gutter-md">Medium gutter</div>
-<div class="q-gutter-lg">Large gutter</div>
-<div class="q-gutter-xl">Extra large gutter</div>
-<div class="q-gutter-x-sm">Horizontal small gutter</div>
-<div class="q-gutter-y-md">Vertical medium gutter</div>
+<div class="row q-gutter-md">column gap 16px</div>
+<div class="row q-gutter-x-sm">gap along the inline axis</div>
+<div class="row q-gutter-y-lg">gap along the block axis</div>
 ```
 
-Gutter spacing values from the theme:
+| Form                                    | Emits                                  |
+| --------------------------------------- | -------------------------------------- |
+| `q-gutter-{size}` / `q-gutter-x-{size}` | `column-gap: calc(var(--spacing) * N)` |
+| `q-gutter-y-{size}`                     | `row-gap: calc(var(--spacing) * N)`    |
 
-| Gutter        | Value |
-| ------------- | ----- |
-| `xs` / `none` | 4px   |
-| `sm`          | 8px   |
-| `md`          | 16px  |
-| `lg`          | 24px  |
-| `xl`          | 48px  |
+Same steps as [Spacing](/core/spacing): `none 0, xs 1, sm 2, md 4, lg 6, xl 8`. The plain `q-gutter-*` emits only the column gap, as the reference does.
 
-## UnoCSS Fallback
+## Engine flex still applies
 
-All standard UnoCSS/Wind flex utilities work:
+`items-center`, `justify-between`, `gap-*`, `grid` come from the nested engine and layer after these bands. Quasar's `row`/`col` vocabulary stays the preset's regardless of array order (`enforce: 'post'`).
 
-```html
-<div class="flex flex-col gap-4 items-center justify-between">
-  <div class="flex-1">Item</div>
-  <div class="shrink-0">Item</div>
-</div>
-```
+Related: [Positioning](/core/positioning) · [Rule Assembly](/architecture/rule-assembly)

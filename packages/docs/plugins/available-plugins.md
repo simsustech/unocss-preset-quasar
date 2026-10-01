@@ -1,87 +1,79 @@
 # Available Plugins
 
-All Quasar plugins that generate UI are supported. Here's the full list with safelist details.
+Every Quasar plugin, and whether it affects CSS. The list is short on purpose: five plugins generate DOM, and those are the only ones the safelist knows.
 
-## UI-Generating Plugins
+## UI-generating plugins (safelisted)
 
-These plugins create DOM elements and need CSS safelisting:
-
-### Dialog
+### `Dialog`
 
 ```ts
 plugins: ['Dialog']
 ```
 
-Safelist includes: `q-dialog`, `q-dialog__title`, `q-dialog__progress`, `q-dialog__inner`, `q-dialog__inner--square`, `q-dialog__inner--minimized`, `q-dialog__inner--maximized`, `q-dialog__backdrop`, `q-card`, `q-card--bordered`, `q-card__section`, `q-card__actions`, `q-btn`, `q-btn--flat`, `q-btn--unelevated`, `q-separator`, `q-field`, `q-field__*`, `q-option-group`, `q-radio__*`, `q-spinner`, and more.
+Safelists `q-dialog`. The dialog rule yields the rest itself — `__backdrop`, `__inner` and its maximized/bottom variants, nested `.q-card` adjustments. Covers `$q.dialog()` and `$q.bottomSheet()`-style card dialogs.
 
-### Notify
+### `Notify`
 
 ```ts
 plugins: ['Notify']
 ```
 
-Safelist includes: `q-notifications__list`, `q-notification`, `q-notification__icon`, `q-notification__avatar`, `q-notification__spinner`, `q-notification__message`, `q-notification__caption`, `q-notification__actions`, `q-notification__badge`, `q-notification__progress`, all position variants (`--top`, `--bottom`, `--left`, `--right`, `--center`), enter/leave animation classes, `q-avatar`, `q-btn__*`, `q-icon`, `q-spinner`.
+Safelists `q-notification` and `q-notifications`. The notification rule yields `__message`, `__caption`, `__icon`, `__avatar`, `__spinner`, `__actions`, `__badge`, `__progress`, position variants, and the enter/leave animation classes.
 
-### LoadingBar
-
-```ts
-plugins: ['LoadingBar']
-```
-
-Safelist includes: `q-loading-bar`, `q-loading-bar--top`, `q-loading-bar--bottom`, `q-loading-bar--right`, `q-loading-bar--left`.
-
-### Loading
+### `Loading`
 
 ```ts
 plugins: ['Loading']
 ```
 
-Safelist includes: `q-loading`, `q-loading__backdrop`, `q-loading__box`, `q-loading__message`.
+Safelists `q-loading` — the backdrop, box and message follow from the rule. Sits in the 9500 z-index tier.
 
-### BottomSheet
+### `LoadingBar`
+
+```ts
+plugins: ['LoadingBar']
+```
+
+Safelists `q-loading-bar` with `--top`, `--bottom`, `--left`, `--right`. This is the QAjaxBar sheet, driven by the LoadingBar plugin (band 9998).
+
+### `BottomSheet`
 
 ```ts
 plugins: ['BottomSheet']
 ```
 
-Safelist includes: `q-bottom-sheet`, `q-bottom-sheet__avatar`, `q-bottom-sheet--list`, `q-bottom-sheet--grid`, `q-bottom-sheet__item`.
+Safelists `q-bottom-sheet`, `__avatar`, `__item`, `__empty-icon`, `--list`, `--grid` — the list/grid modes render from the plugin API with no template hint.
 
-## Non-UI Plugins
+## Non-UI plugins (no CSS effect)
 
-These plugins don't generate DOM elements, so they don't need safelisting. They can be listed or omitted — it doesn't affect CSS output:
+These create no DOM, so listing them is harmless and omitting them is equally fine — the safelist lookup simply finds nothing:
 
-- `AddressbarColor` — manipulates the address bar color
-- `AppFullscreen` — fullscreen API wrapper
-- `AppVisibility` — document visibility API
-- `Cookies` — cookie management
-- `Dark` — dark mode toggle (handled via CSS variables)
-- `LocalStorage` — localStorage wrapper
-- `Meta` — meta tag management
-- `Platform` — platform detection
-- `Screen` — screen size detection
-- `SessionStorage` — sessionStorage wrapper
+`AddressbarColor`, `AppFullscreen`, `AppVisibility`, `Cookies`, `Dark`, `LocalStorage`, `Meta`, `Platform`, `Screen`, `SessionStorage`
 
-## Full Plugin List Example
+Two of them deserve a note despite being CSS-inert:
 
-```ts
+- **`Dark`** — its visual effect is entirely the `body--dark` class, which the token preflight and the engine's `dark:` variant already respond to.
+- **`Platform` / `Screen`** — they _set_ body classes (`desktop`, `mobile`, `touch`, `platform-ios`, …) that the [Input & Platform](/core/input-platform) utilities and the `--q-size-*` breakpoints read. The classes are safelisted as part of the base list, not per plugin.
+
+## Recommended configuration
+
+```js
 const plugins = [
-  // UI-generating (CSS safelisted)
+  // UI-generating — keep in sync with QuasarPreset({ plugins })
   'BottomSheet',
   'Dialog',
   'Loading',
   'LoadingBar',
   'Notify',
 
-  // Non-UI (no CSS needed, but list for completeness)
-  'AddressbarColor',
-  'AppFullscreen',
-  'AppVisibility',
-  'Cookies',
+  // harmless either way
   'Dark',
-  'LocalStorage',
-  'Meta',
   'Platform',
-  'Screen',
-  'SessionStorage'
+  'Screen'
 ]
+
+QuasarPreset({ styles: QuasarStyleEntries, plugins })
+// framework: { plugins }
 ```
+
+See [Plugins Overview](/plugins/overview) for the mechanism and the sync rule.

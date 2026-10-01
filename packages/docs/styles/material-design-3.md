@@ -1,95 +1,64 @@
 # Material Design 3
 
-The Material Design 3 style implements Google's latest Material You design specification. It's the **default and recommended** style.
-
-## Key Characteristics
-
-### Dynamic Color
-
-MD3 generates a full tonal palette from a single `sourceColor`. The palette includes light and dark variants of primary, secondary, tertiary, error, and surface colors with multiple container levels.
+Material You: one source color generates the palette, surfaces carry elevation through tone rather than shadow, and controls take pill shapes. MD3 is the recommended entry and the usual baseline.
 
 ```ts
 import { MaterialDesign3 } from 'unocss-preset-quasar/styles'
 
-QuasarPreset({
-  styles: [MaterialDesign3],
-  sourceColor: '#6750A4' // Purple theme
-})
+QuasarPreset({ styles: [MaterialDesign3], sourceColor: '#6750A4' })
 ```
 
-### Surface Elevation
+## Dynamic color
 
-Instead of box shadows, MD3 uses **tonal surface elevation** — higher surfaces are tinted lighter (in light mode) or darker (in dark mode):
+`sourceColor` expands into the full tonal palette — light and dark schemes, primary/secondary/tertiary/error families, the surface container rungs, and Quasar's alias set (`--q-primary`, `--q-positive`, …). The same palette serves every style; MD3 simply uses more of it.
 
-```
-surface-container-lowest  → dimmest (background)
-surface-container-low     → slightly elevated
-surface-container         → default card surface
-surface-container-high    → elevated cards/dialogs
-surface-container-highest → highest elevation
-```
+## Surfaces instead of shadows
 
-### Shape System
+Elevation is expressed through the surface container scale — higher surfaces shift tone, not shadow:
 
-MD3 uses rounded corners with Material's shape scale:
+| Token                       | Typical use           |
+| --------------------------- | --------------------- |
+| `surface-container-lowest`  | deepest background    |
+| `surface-container-low`     | default card          |
+| `surface-container`         | sheets, menus         |
+| `surface-container-high`    | dialogs, raised cards |
+| `surface-container-highest` | the highest layer     |
 
-- Extra small: 4px (chips, small inputs)
-- Small: 8px (cards)
-- Medium: 12px (dialogs)
-- Large: 16px (sheets)
-- Extra large: 28px (FAB, buttons — pill shape)
+Box shadows still exist as five levels ([Elevation](/core/elevation)) — but MD3's primary elevation language is tonal.
 
-### State Layers
+## Shape
 
-Interactive components apply state layers on hover, focus, and press:
+MD3 radii (the entry's `shape` tokens):
 
-- Hover: 8% overlay
-- Focus: 12% overlay
-- Press: 12% overlay
+| Step          | Value        |
+| ------------- | ------------ |
+| extra small   | 4px          |
+| small         | 8px          |
+| medium        | 12px         |
+| large         | 16px         |
+| extra large   | 28px         |
+| full / circle | 9999px / 50% |
 
-### Typography
+Component tokens alias these steps — cards read `--q-radius-lg` (16px), buttons `--q-radius-xl` (28px), round buttons `50%`.
 
-MD3 type scale with 5 font weights (Roboto 300–700):
+## Buttons
 
-- Display: 6rem light (text-h1)
-- Headline: 3.75rem light (text-h2) to 1.25rem medium (text-h6)
-- Title: 1rem normal (text-subtitle1) to 0.875rem medium (text-subtitle2)
-- Body: 1rem normal (text-body1) to 0.875rem normal (text-body2)
-- Label: 0.75rem medium (text-overline) to 0.75rem normal (text-caption)
+| Variant | Background                                                                         | Text             | Border            |
+| ------- | ---------------------------------------------------------------------------------- | ---------------- | ----------------- |
+| filled  | `--q-primary`                                                                      | `--q-on-primary` | none              |
+| flat    | transparent                                                                        | `--q-primary`    | none              |
+| outline | transparent                                                                        | `--q-primary`    | 1px `--q-outline` |
+| push    | `--q-primary`                                                                      | `--q-on-primary` | 3px bottom lip    |
+| round   | `--q-primary`, circle — width takes the 48 dp floor so it cannot render as an oval | `--q-on-primary` | none              |
 
-## Component Details
+Button geometry comes from tokens: `btn-padding-x` 24px, `btn-font-size` 14px, `control-height` 48px (the shared accessibility floor).
 
-### QBtn
+## Typography
 
-MD3 buttons use pill-shaped corners (28px border-radius). Variants:
+The MD3 type scale rides the shared `text-h1…text-caption` classes ([Typography](/core/typography)); the entry supplies the `--q-type-*` values (e.g. label small `500 11px/16px Roboto`). State-layer opacities: hover 8 %, focus 12 %, press 12 %, drag 16 %.
 
-| Variant          | Background                | Border  | Text                 |
-| ---------------- | ------------------------- | ------- | -------------------- |
-| Default (filled) | Primary container         | None    | On primary container |
-| Flat             | Transparent               | None    | Primary              |
-| Outline          | Transparent               | Outline | Primary              |
-| Push             | Primary                   | None    | White                |
-| Unelevated       | Surface container highest | None    | On surface           |
+## Where the values live
 
-### QCard
+The MD3 entry is `MaterialDesign3` in `src/styles/md3/index.ts`; its token block is `md3Style` in `src/theme/index.ts` (`shape`, `typography`, `elevation`, `sizing`, `motion`, `component`). It carries **no rules of its own** — every value MD3 states is expressible as a token, which is why MD3 can serve as the baseline that ships unscoped.
 
-MD3 cards use surface containers. Variants:
-
-- Default: surface container
-- Filled: surface container highest
-- Outlined: outline variant border
-
-### QDialog
-
-MD3 dialogs use surface container high with 28px corner radius and a scrim overlay at 32% opacity.
-
-### QField
-
-MD3 fields support four styles:
-
-- Filled: surface variant background, underline indicator
-- Outlined: outline border, no background
-- Standard: bottom border only
-- Standout: elevated surface
-
-MD3 component tokens live in the StyleSpec — `packages/preset/src/spec/md3.spec.ts` (`tokens.component`), and the runtime `--q-*` tokens are derived from it in `packages/preset/src/core/_tokenDerive.ts`. Component shortcuts live in the shared tree under `packages/preset/src/styles/shared/components/`.
+Related: [Theming & Tokens](/core/theming) · [Runtime Switching](/styles/scoping)

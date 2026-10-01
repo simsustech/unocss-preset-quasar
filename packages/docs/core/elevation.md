@@ -1,83 +1,51 @@
-# Elevation & Shadows
+# Elevation & Z-index
 
-The preset provides Material Design elevation shortcuts (levels 1–24) and standard shadow utilities.
+Elevation has two expressions — box shadows for MD2-era depth, tonal surfaces for MD3 — plus one z-index scale that every overlay in the preset obeys.
 
-## Elevation Levels
-
-```html
-<div class="elevation-1">Level 1 — subtle</div>
-<div class="elevation-4">Level 4 — card</div>
-<div class="elevation-8">Level 8 — dialog</div>
-<div class="elevation-12">Level 12 — menu</div>
-<div class="elevation-16">Level 16 — nav drawer</div>
-<div class="elevation-24">Level 24 — maximum</div>
-```
-
-Each elevation level combines three `box-shadow` layers (ambient, penumbra, umbra) with Material Design's exact specifications:
-
-```
-elevation-1 →
-  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2),
-              0px 1px 1px 0px rgba(0,0,0,0.14),
-              0px 2px 1px -1px rgba(0,0,0,0.12)
-```
-
-Levels 1–24 are available. Higher levels indicate higher z-axis position relative to the surface.
-
-## Shadow Utilities
+## Shadow levels
 
 ```html
-<div class="shadow-none">No shadow</div>
-<div class="no-shadow">Also no shadow</div>
-<div class="shadow-sm">Small shadow (~elevation 1–3)</div>
-<div class="shadow">Default shadow (~elevation 4–8)</div>
-<div class="shadow-md">Medium shadow (~elevation 9–12)</div>
-<div class="shadow-lg">Large shadow (~elevation 13–18)</div>
-<div class="shadow-xl">Extra large shadow (~elevation 19–24)</div>
+<div class="elevation-2">raised</div>
+<!-- also: q-elevation-2 -->
+<div class="shadow-none">flat</div>
+<!-- alias: no-shadow -->
 ```
 
-The `shadow-{N}` shortcut maps to approximate Tailwind/Wind shadow sizes:
+| Utility                       | Token                    | MD3 value                                        | MD2 value                                 |
+| ----------------------------- | ------------------------ | ------------------------------------------------ | ----------------------------------------- |
+| `elevation-0`                 | `--q-elevation-level0`   | `none`                                           | `none`                                    |
+| `elevation-1` … `elevation-5` | `--q-elevation-level1…5` | spec vectors: blur 3/6/10/14/20, ambient 20–30 % | Quasar's `$shadow-1…5` three-layer tables |
 
-| Shortcut                   | Elevation range | Maps to     |
-| -------------------------- | --------------- | ----------- |
-| `shadow-1` to `shadow-3`   | 1–3             | `shadow-sm` |
-| `shadow-4` to `shadow-8`   | 4–8             | `shadow`    |
-| `shadow-9` to `shadow-12`  | 9–12            | `shadow-md` |
-| `shadow-13` to `shadow-18` | 13–18           | `shadow-lg` |
-| `shadow-19` to `shadow-24` | 19–24           | `shadow-xl` |
+Five levels, not twenty-four: the preset's scale is Quasar's `$shadow-N` and the MD3 spec's five rungs. Component rules reference the same tokens under the `--q-elevation-<n>` alias, so components and utilities always agree.
 
-## Z-Index Layers
+The shadow **color** is a token too (`--q-shadow-color` light, `--q-dark-shadow-color` dark) — dark mode shadows stay light-tinted instead of shadowing black on black.
 
-The preset includes z-index shortcuts for Quasar's layer system:
+## The z-index scale
+
+One scale, stated once ([Decisions](/architecture/decisions) ADR-0007), from lowest to highest:
+
+| Tier                | z                    | Members / utility                                     |
+| ------------------- | -------------------- | ----------------------------------------------------- |
+| Floating content    | 1400                 | `.q-page-sticky`                                      |
+| Side panel, in flow | 1000                 | `.q-drawer`                                           |
+| Side panel, overlay | 1500 (backdrop 1499) | `.q-drawer--on-top`, `.q-drawer__backdrop`            |
+| Marginals           | 2000                 | `z-marginals` — header, footer, bar, drawer opener    |
+| Menus & dialogs     | 6000                 | `z-fullscreen` — menu, dialog, table head, carousel   |
+| Top utility         | 7000                 | `z-top`                                               |
+| Tooltip             | 9000                 | `.q-tooltip`                                          |
+| Notify / loading    | 9499 / 9500          | `z-notify` (9500)                                     |
+| Maximum             | 9998                 | `z-max` — ajax bar                                    |
+| Inherit / fab       | —                    | `z-inherit` (`z-index: inherit`), `z-fab` (FAB layer) |
 
 ```html
-<div class="z-fab">FAB — 990</div>
-<div class="z-side">Side panel — 1000</div>
-<div class="z-marginals">Header/Footer — 2000</div>
-<div class="z-fullscreen">Fullscreen — 6000</div>
-<div class="z-notify">Notifications — 9500</div>
-<div class="z-top">Top — 7000</div>
-<div class="z-max">Maximum — 9998</div>
-<div class="z-inherit">Inherit</div>
+<div class="z-top">above dialogs</div>
+<div class="z-max">almost nothing beats this</div>
 ```
 
-Layer values (from Quasar's z-index system):
+The contract in edges: **overlay drawer < marginals** (the app bar stays clickable over an open drawer) and **menus/dialogs < tooltip < notify < loading**. If you override z-index in app CSS, override against the tier, not a raw number.
 
-| Class          | Value | Usage                  |
-| -------------- | ----- | ---------------------- |
-| `z-fab`        | 990   | Floating action button |
-| `z-side`       | 1000  | Side panels            |
-| `z-marginals`  | 2000  | Header, footer         |
-| `z-fullscreen` | 6000  | Fullscreen overlay     |
-| `z-top`        | 7000  | Top-level overlays     |
-| `z-notify`     | 9500  | Notification system    |
-| `z-max`        | 9998  | Maximum stacking       |
+## Tonal elevation (MD3)
 
-## UnoCSS Fallback
+MD3 expresses most elevation through the surface container scale instead of shadows — see [MD3 surfaces](/styles/material-design-3#surfaces-instead-of-shadows). The shadow levels remain available and are what MD2 components use.
 
-All standard UnoCSS shadow utilities work:
-
-```html
-<div class="shadow shadow-gray-500/50">Tinted shadow</div>
-<div class="shadow-[0_4px_20px_rgba(0,0,0,0.3)]">Arbitrary shadow</div>
-```
+Related: [Positioning](/core/positioning) · [Theming & Tokens](/core/theming)

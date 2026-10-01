@@ -1,161 +1,67 @@
-# Transitions
+# Transitions & Motion
 
-The preset provides CSS transition classes for Quasar's built-in transition system. These map to Quasar's `transition-show` / `transition-hide` component props.
+Vue transitions Quasar's markup asks for by name, plus the animate.css-style helper family. Transition classes cannot be scanned — their names come from prop _values_ — so they are derived by the [value extractor](/architecture/extraction#value-extractor) and emitted unconditionally where no rule can reach them.
 
-## Transition CSS Variables
+## Quasar transitions
 
-Two CSS custom properties control all transitions:
-
-```css
-:root {
-  --q-transition-duration: 0.3s;
-  --q-transition-easing: cubic-bezier(0.215, 0.61, 0.355, 1);
-}
-```
-
-These can be overridden:
-
-```css
-:root {
-  --q-transition-duration: 0.5s;
-  --q-transition-easing: ease-in-out;
-}
-```
-
-## Available Transitions
-
-Each transition comprises up to 6 classes: `enter-from`, `enter-active`, `enter-to`, `leave-from`, `leave-active`, `leave-to`. The preset provides shortcuts for all of them.
-
-### Slide Transitions
+`transition-show="fade"` (or a `transition` prop) makes Quasar emit `q-transition--<name>-*` classes. Each family provides the four Vue phases:
 
 ```html
-<q-dialog transition-show="slide-up" transition-hide="slide-down"></q-dialog>
+<QDialog transition-show="slide-right" transition-hide="fade"></QDialog>
 ```
 
-| Transition    | Direction  | Properties                    |
-| ------------- | ---------- | ----------------------------- |
-| `slide-right` | Horizontal | `transform: translate3d(...)` |
-| `slide-left`  | Horizontal | `transform: translate3d(...)` |
-| `slide-up`    | Vertical   | `transform: translate3d(...)` |
-| `slide-down`  | Vertical   | `transform: translate3d(...)` |
+| Family | Names                                                 |
+| ------ | ----------------------------------------------------- |
+| slide  | `slide-right`, `slide-left`, `slide-up`, `slide-down` |
+| jump   | `jump-right`, `jump-left`, `jump-up`, `jump-down`     |
+| fade   | `fade`                                                |
+| scale  | `scale`                                               |
+| rotate | `rotate`                                              |
+| flip   | `flip-right`, `flip-left`, `flip-up`, `flip-down`     |
 
-### Jump Transitions
+Phases per family: `…-enter-active`, `…-leave-active`, `…-enter-from`, `…-leave-to` (flip also ships `enter-to` / `leave-from`).
+
+The class names are derived from the prop **value**: `transition-show="scale"` in a template produces `q-transition--scale-*` candidates. A bound expression (`:transition-show="x"`) names nothing — write literals where you can.
+
+## Animation helper family
 
 ```html
-<q-menu transition-show="jump-down" transition-hide="jump-up"></q-menu>
+<div class="animated faster">…</div>
+<div class="animated delay-2s">…</div>
 ```
 
-| Transition   | Direction            | Properties              |
-| ------------ | -------------------- | ----------------------- |
-| `jump-right` | Horizontal + opacity | `transform` + `opacity` |
-| `jump-left`  | Horizontal + opacity | `transform` + `opacity` |
-| `jump-up`    | Vertical + opacity   | `transform` + `opacity` |
-| `jump-down`  | Vertical + opacity   | `transform` + `opacity` |
+- `.animated` sets the animation/transition durations that the `animated-*` / `une-*` classes (from the composed `animated-unocss` preset) rely on, plus the entrance `opacity: 0` state for `…Out` names.
+- Bare modifiers (`faster`, `slower`, `delay-2s`, `duration-500ms`, …) resolve to `.animated.<modifier>` — the combined form dist states — so you never need to hand-compose two classes.
+- `--animate-duration`, `--animate-delay`, `--animate-repeat` are stated at animate.css defaults on `:root`, so the declarations resolve even though a Quasar app does not import animate.css.
 
-### Fade Transition
+### Reduced motion
 
-```html
-<q-dialog transition-show="fade" transition-hide="fade"></q-dialog>
-```
+`@media print, (prefers-reduced-motion: reduce)` forces `.animated` durations to `1ms` and hides `…Out` entrance states — dist's own override, emitted through the preflight's CSS-text channel because a rule body cannot carry the at-rule.
 
-Simple opacity transition. `enter-from` and `leave-to` set `opacity: 0`.
+## Quasar's own animations
 
-### Scale Transition
+| Class              | Effect                       |
+| ------------------ | ---------------------------- |
+| `q-animate--fade`  | `q-fade 0.2s` keyframed fade |
+| `q-animate--scale` | scale entrance               |
 
-```html
-<q-dialog transition-show="scale" transition-hide="scale"></q-dialog>
-```
+The `q-fade` / `q-scale` keyframes ship in the preflight's static CSS, alongside the `une*` keyframes the animated-unocss preset provides for its own classes.
 
-Combines opacity and scale3d. `enter-from` starts at `scale3d(0,0,1)` with `opacity: 0`.
+## Motion tokens
 
-### Rotate Transition
+Durations and easings are style tokens, so components animate differently per style without different rules:
 
-```html
-<q-dialog transition-show="rotate" transition-hide="rotate"></q-dialog>
-```
+| Token             | md3                          | md2                            |
+| ----------------- | ---------------------------- | ------------------------------ |
+| `duration-short`  | 100ms                        | 100ms                          |
+| `duration-medium` | 300ms                        | 300ms (toggle: 200ms)          |
+| `duration-long`   | 500ms                        | 500ms                          |
+| `easing-standard` | `cubic-bezier(0.2, 0, 0, 1)` | `cubic-bezier(0.4, 0, 0.2, 1)` |
 
-Combines opacity, scale3d, and rotate3d with `preserve-3d` transform style.
+Component transitions (button press, tab indicator, field label) read `var(--q-motion-*)`; `setStyle()` changes their timing with everything else. Unstyled sets durations to `0s`.
 
-### Flip Transitions
+## Engine transitions
 
-```html
-<q-carousel
-  transition-show="flip-right"
-  transition-hide="flip-left"
-></q-carousel>
-```
+The nested engine's own `transition-*` utilities work as usual — the `q-transition--*` family is Quasar's naming for Vue hooks, `transition-colors` etc. is the engine's utility vocabulary.
 
-| Transition   | Axis                     |
-| ------------ | ------------------------ |
-| `flip-right` | Y-axis rotate            |
-| `flip-left`  | Y-axis rotate (opposite) |
-| `flip-up`    | X-axis rotate            |
-| `flip-down`  | X-axis rotate (opposite) |
-
-Flip transitions use `perspective(400px)` and `backface-visibility: hidden`.
-
-## Transition Classes Format
-
-Each transition generates classes with this pattern:
-
-```
-q-transition--{name}-enter-active
-q-transition--{name}-enter-from
-q-transition--{name}-enter-to
-q-transition--{name}-leave-active
-q-transition--{name}-leave-from
-q-transition--{name}-leave-to
-```
-
-For example, `slide-up` generates:
-
-- `q-transition--slide-up-enter-active`
-- `q-transition--slide-up-enter-from`
-- `q-transition--slide-up-leave-active`
-- `q-transition--slide-up-leave-to`
-
-## Using Transitions
-
-These classes are applied automatically by Quasar components when you set `transition-show` / `transition-hide` props. You don't need to add them manually:
-
-```html
-<!-- Quasar handles class toggling automatically -->
-<q-dialog transition-show="scale" transition-hide="fade">
-  Dialog content
-</q-dialog>
-
-<q-menu transition-show="jump-down" transition-hide="jump-up">
-  Menu content
-</q-menu>
-```
-
-## Transition Detection
-
-The preset's extractor automatically detects transition props in your templates and safelists the corresponding classes:
-
-```html
-<!-- These are auto-detected -->
-transition-show="scale" transition-hide="fade" transition="slide-up"
-transition-prev="flip-right" transition-next="flip-left"
-```
-
-## Custom Transitions
-
-You can define custom transition timing:
-
-```css
-:root {
-  --q-transition-duration: 0.2s;
-  --q-transition-easing: ease;
-}
-```
-
-Or override per-element:
-
-```html
-<q-dialog
-  transition-show="scale"
-  transition-hide="fade"
-  transition-duration="500"
-></q-dialog>
-```
+Related: [Extraction & Safelisting](/architecture/extraction) · [Theming & Tokens](/core/theming)

@@ -1,81 +1,75 @@
 # Unstyled
 
-The Unstyled style provides **structural-only** component styles. No colors, no typography, no borders — just the positioning, flex, and box-model properties needed for components to render correctly.
-
-## How It Works
-
-When the `quasar-style-unstyled` body class is active, all design tokens resolve to neutral values:
-
-```css
-body.quasar-style-unstyled {
-  --q-primary: transparent;
-  --q-on-primary: inherit;
-  --q-radius-xl: 0;
-  --q-font-md: inherit;
-  --q-surface: transparent;
-  /* ...all tokens set to transparent/0/inherit/none */
-}
-```
-
-Component shortcuts reference these tokens (`var(--q-primary)`, `var(--q-radius-xl)`, etc.), so when the unstyled body class is active, every color becomes transparent, every radius becomes zero, and every font size inherits from the parent. No theme values leak through — components render with their structural CSS only.
-
-## What's Included
-
-Unstyled provides the **minimum CSS** for Quasar components to function:
-
-- `position: relative/absolute/fixed` where needed
-- `display: flex/inline-flex/block` for layout
-- `overflow: hidden` for scroll containers
-- `width: 100%` for full-width components
-- `z-index` for overlay components (dialog, menu, tooltip)
-- `cursor: pointer` for interactive elements
-
-## What's NOT Included
-
-- No colors (backgrounds, text colors, borders)
-- No typography (font-size, font-weight, line-height)
-- No spacing (padding, margin)
-- No elevation (box-shadow)
-- No shape (border-radius)
-- No state layers (hover, focus, press)
-
-## Usage
+Structure without paint: geometry, layout, and behavior kept; color, radius, typography, elevation, spacing and state layers removed. Unstyled is the foundation for building your own design system on top of Quasar's markup.
 
 ```ts
 import { Unstyled } from 'unocss-preset-quasar/styles'
 
-QuasarPreset({
-  styles: [Unstyled]
-})
+QuasarPreset({ styles: [Unstyled] }) // Unstyled is the baseline — nothing else ships
 ```
 
-## When to Use Unstyled
+## How it removes paint
 
-- **Building a custom design system**: Use Unstyled as a clean foundation and layer your own styles on top
-- **CSS-in-JS or Tailwind**: You style everything yourself and only need the structural CSS
-- **Design system prototyping**: Get components rendering quickly, then apply styling iteratively
-- **Multiple themes**: Combine Unstyled with runtime theme application via `setThemeColors()`
+Two halves work together:
 
-## Example: Custom Styling on Unstyled
+1. **Tokens resolve to neutral.** Every token in the entry becomes `0`, `transparent`, `inherit`, `none`, or `linear` — so `var(--q-btn-radius)` computes to `0`, `var(--q-primary)` to `transparent`, durations to `0s`. No theme value can leak through, because the block simply has no color in it.
+
+   ```css
+   body.quasar-style-unstyled {
+     --q-btn-radius: 0;
+     --q-btn-bg: transparent;
+     --q-elevation-level1: none;
+     /* …every token neutralised */
+   }
+   ```
+
+2. **Literals get resets.** A ported rule that states a literal (`background: rgba(…)`, a literal shadow) cannot be neutralised by a token flip — so those declarations are reset by **rules the Unstyled entry owns** (`src/styles/unstyled/rules/`). They ship if and only if `Unstyled` is listed, and non-baseline entries are scoped to `body.quasar-style-unstyled`.
+
+## What survives
+
+- `position`, `display`, flex/grid layout
+- `overflow`, sizing, z-index (overlays still stack correctly)
+- `cursor`, pointer behavior, transitions' _structure_ (durations zero out)
+- Native geometry — controls keep their boxes (an unstyled toggle still tracks and slides; it just paints nothing)
+
+## What goes
+
+| Removed                              | Resolves to               |
+| ------------------------------------ | ------------------------- |
+| Backgrounds, text/border colors      | `transparent` / `inherit` |
+| Radii                                | `0`                       |
+| Font sizes/weights (component-level) | `inherit`                 |
+| Box shadows                          | `none`                    |
+| Spacing tokens                       | `0`                       |
+| State-layer opacities                | `0`                       |
+| Motion durations                     | `0s`                      |
+
+## Usage patterns
+
+**As the whole style** — Unstyled alone, baseline first, your utilities do the painting:
 
 ```ts
-// uno.config.ts
-export default defineConfig({
-  shortcuts: {
-    // Override QBtn with your own style
-    'q-btn': 'px-6 py-2 bg-blue-500 text-white rounded-lg font-medium',
-    'q-card': 'bg-white rounded-xl shadow-lg p-6',
-    'q-dialog__inner': 'bg-white rounded-2xl shadow-2xl max-w-md w-full'
-  }
-})
+QuasarPreset({ styles: [Unstyled] })
+// first entry = baseline: its resets apply unconditionally, no body class needed
 ```
 
-## Covered Components
+```ts
+// your shortcuts
+shortcuts: {
+  'q-btn': 'px-6 py-2 bg-blue-500 text-white rounded-lg font-medium',
+  'q-card': 'bg-white rounded-xl shadow-lg p-6'
+}
+```
 
-Unstyled covers fewer components than MD2/MD3 — it focuses on the most commonly used ones:
+**As a runtime escape hatch** — listed after your baseline, so users can opt in:
 
-QAvatar, QBadge, QBtn, QBtnDropdown, QBtnToggle, QCard, QChip, QDate, QDrawer, QFooter, QHeader, QIcon, QImg, QInput, QItem, QMenu, QPage, QPageSticky, QSeparator, QTabs, QToolbar, QTooltip
+```ts
+QuasarPreset({ styles: [MaterialDesign3, Unstyled] })
+// setStyle('unstyled') at runtime
+```
 
-## Files
+## Coverage
 
-Unstyled component tokens live in the StyleSpec — `packages/preset/src/spec/unstyled.spec.ts` (`tokens.component`); the runtime `--q-*` tokens are derived from it in `packages/preset/src/core/_tokenDerive.ts`.
+Every component — Unstyled is not a reduced component set. The shared rule tree is identical; only the values differ. Components whose _literal_ declarations exist solely for visual effect get their resets from the entry's `rules`, which is also why an unlisted `Unstyled` leaves those literals untouched: inclusion is the switch.
+
+Related: [Styles & Scoping](/architecture/style-configuration) · [Component Catalogue](/components/catalogue)

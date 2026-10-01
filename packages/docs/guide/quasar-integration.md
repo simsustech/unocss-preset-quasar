@@ -1,84 +1,67 @@
 # Quasar Integration
 
-This guide covers a complete Quasar CLI with Vite integration.
+A complete Quasar CLI with Vite integration: the three changes to `quasar.config.js`, the variables you can then use in your own CSS, and the failure modes worth knowing.
 
 ## Prerequisites
 
 - Quasar project using **Quasar CLI with Vite** (not Webpack)
-- Node.js ≥ 20.0.0
-- pnpm (recommended)
-
-## Package Installation
+- Node.js ≥ 20, pnpm recommended
 
 ```bash
 pnpm add unocss unocss-preset-quasar @iconify-json/mdi
 ```
 
-- `unocss` — the UnoCSS engine and Vite plugin
-- `unocss-preset-quasar` — the Quasar component shortcuts and theme
-- `@iconify-json/mdi` — Material Design Icons (used via `presetIcons`)
+## The three changes
 
-## quasar.config.js
+### 1. Strip the Sass import
 
-The full integration involves three changes to your `quasar.config.js`:
-
-### 1. Strip the Sass Import
-
-Quasar automatically imports `quasar/dist/quasar.sass`. Replace it with UnoCSS:
-
-```ts
+```js
 vitePlugins: [
   {
     name: 'quasar-strip-sass',
     enforce: 'pre',
-    transform(code, id) {
+    transform(code) {
       if (code.includes(`import 'quasar/dist/quasar.sass'`)) {
         return code.replaceAll(
           `import 'quasar/dist/quasar.sass'`,
           `import 'virtual:uno.css'`
         )
       }
-    },
-  },
-],
+    }
+  }
+]
 ```
 
-### 2. Register the UnoCSS Plugin
+### 2. Register UnoCSS with the preset
 
-Add `UnoCSS` to Vite's plugin array with the preset:
-
-```ts
-extendViteConf(viteConf, { isClient }) {
+```js
+extendViteConf(viteConf) {
   viteConf.plugins.push(
     UnoCSS({
       enforce: 'pre',
-      presets: [
-        QuasarPreset({
-          styles: QuasarStyleEntries,
-          plugins: ['Dark', 'Dialog', 'Notify', /* ... */],
-        }),
-      ],
+      presets: [QuasarPreset({ styles: QuasarStyleEntries, plugins, iconSet: mdiSet })]
     })
   )
-},
+}
 ```
 
-### 3. Keep the Framework Plugins Array
+### 3. Keep `framework.plugins`
 
-Quasar's `framework.plugins` array must still list your plugins — the preset only replaces the **styles**, not the JavaScript functionality:
+The preset replaces **styles**, not JavaScript functionality — `framework.plugins` stays exactly as it was:
 
-```ts
+```js
 framework: {
-  plugins: ['Dark', 'Dialog', /* ... */],
-},
+  plugins
+}
 ```
 
-## Complete quasar.config.js
+## Complete `quasar.config.js`
 
-```ts
+```js
 import { defineConfig } from 'quasar'
 import { QuasarPreset } from 'unocss-preset-quasar'
 import { QuasarStyleEntries } from 'unocss-preset-quasar/styles'
+import { mdiSet } from 'quasar/icon-set'
 import UnoCSS from 'unocss/vite'
 
 const plugins = [
@@ -92,31 +75,22 @@ const plugins = [
   'Screen'
 ]
 
-export default defineConfig(async (ctx) => ({
-  supportTS: true,
-
+export default defineConfig(() => ({
   boot: [
     // your boot files
   ],
 
   css: [
-    'app.scss' // your custom styles
-    // Note: do NOT include 'quasar/dist/quasar.sass'
+    'app.scss' // your own styles; NOT quasar/dist/quasar.sass
   ],
 
   extras: ['roboto-font', 'material-icons'],
-
-  build: {
-    target: {
-      browser: ['es2022', 'firefox115', 'chrome115', 'safari16']
-    }
-  },
 
   vitePlugins: [
     {
       name: 'quasar-strip-sass',
       enforce: 'pre',
-      transform(code, id) {
+      transform(code) {
         if (code.includes(`import 'quasar/dist/quasar.sass'`)) {
           return code.replaceAll(
             `import 'quasar/dist/quasar.sass'`,
@@ -127,15 +101,12 @@ export default defineConfig(async (ctx) => ({
     }
   ],
 
-  extendViteConf(viteConf, { isClient }) {
+  extendViteConf(viteConf) {
     viteConf.plugins.push(
       UnoCSS({
         enforce: 'pre',
         presets: [
-          QuasarPreset({
-            styles: QuasarStyleEntries,
-            plugins
-          })
+          QuasarPreset({ styles: QuasarStyleEntries, plugins, iconSet: mdiSet })
         ]
       })
     )
@@ -145,63 +116,47 @@ export default defineConfig(async (ctx) => ({
 }))
 ```
 
-## CSS Custom Properties
+## CSS custom properties
 
-The preset emits CSS custom properties on `:root` for the full MD3 color system. These are available globally:
+The token preflight exposes the whole color system as variables. In your own CSS:
 
 ```css
-/* Use in your own CSS */
-.my-custom-element {
+.my-widget {
   background: var(--light-surface-container);
   color: var(--light-on-surface);
 }
 
-body.body--dark .my-custom-element {
+.body--dark .my-widget {
   background: var(--dark-surface-container);
   color: var(--dark-on-surface);
 }
 ```
 
-Available variables include (for both `--light-*` and `--dark-*`):
+| Namespace                           | Contents                                                                                                                                    |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--light-*`, `--dark-*`             | Material scheme roles: `primary`, `on-primary`, `surface-container-*`, `outline`, `inverse-*`, … — both schemes emitted, flip by body class |
+| `--q-primary`, `--q-positive`, …    | Quasar's alias set, harmonized to `sourceColor` (dark variants re-emitted under `body.body--dark`)                                          |
+| `--q-btn-radius`, `--q-space-md`, … | Active style's tokens — change with `setStyle()`                                                                                            |
+| `--q-size-{xs,sm,md,lg,xl}`         | Quasar's screen breakpoints, parsed at runtime by the Screen plugin                                                                         |
+| `--q-elevation-level1..5`           | Elevation per active style                                                                                                                  |
 
-- `--*-primary`, `--*-on-primary`, `--*-primary-container`, `--*-on-primary-container`
-- `--*-secondary`, `--*-on-secondary`, `--*-secondary-container`, `--*-on-secondary-container`
-- `--*-tertiary`, `--*-on-tertiary`, `--*-tertiary-container`, `--*-on-tertiary-container`
-- `--*-error`, `--*-on-error`, `--*-error-container`, `--*-on-error-container`
-- `--*-background`, `--*-on-background`
-- `--*-surface`, `--*-on-surface`, `--*-surface-variant`, `--*-on-surface-variant`
-- `--*-outline`, `--*-outline-variant`
-- `--*-shadow`, `--*-scrim`
-- `--*-inverse-surface`, `--*-inverse-on-surface`, `--*-inverse-primary`
-- `--*-surface-dim`, `--*-surface-bright`
-- `--*-surface-container-lowest`, `--*-surface-container-low`
-- `--*-surface-container`, `--*-surface-container-high`, `--*-surface-container-highest`
+Full map: [Theming & Tokens](/core/theming).
 
-Plus Quasar-specific:
+## Dark mode
 
-- `--q-primary`, `--q-secondary`, `--q-accent`
-- `--q-positive`, `--q-negative`, `--q-info`, `--q-warning`
-- `--q-dark`, `--q-dark-page`
+Quasar's Dark plugin sets `body--dark` / `body--light`. Two mechanisms respond:
 
-## Dark Mode
-
-The preset works with Quasar's Dark plugin. When the user toggles dark mode:
-
-1. Quasar adds `body--light` or `body--dark` class to the body
-2. The preset's shortcuts use `dark:` variant internally
-3. CSS custom properties already include both light and dark values
+1. The token preflight emits the dark values of every `--q-*` token under `body.body--dark` — components restyle with no per-rule dark logic.
+2. The nested engine's `dark:` variant is mapped to `.body--dark` / `.body--light`, so `dark:*` utilities follow the same class.
 
 ```ts
-// In your app
-import { useQuasar } from 'quasar'
-
 const $q = useQuasar()
-$q.dark.toggle() // Toggle dark mode
+$q.dark.toggle()
 ```
 
-## Using with a Custom uno.config.ts
+## Custom `uno.config.ts`
 
-If you have a separate `uno.config.ts` for custom utilities, the preset integrates seamlessly:
+The preset's rules, shortcuts and preflights live in the `presets` array you pass to the Vite plugin. A separate `uno.config.ts` for your own utilities merges normally:
 
 ```ts
 // uno.config.ts
@@ -210,27 +165,19 @@ import { defineConfig } from 'unocss'
 export default defineConfig({
   shortcuts: {
     'my-btn': 'px-4 py-2 rounded bg-primary text-white'
-    // ... your custom shortcuts
   }
 })
 ```
 
-The preset's shortcuts, rules, and preflights are all set via the `presets` array in the Vite plugin config. Your `uno.config.ts` shortcuts and rules are merged with the preset's.
+The transformers the preset enables — `transformerVariantGroup` (`hover:(bg-red text-white)`) and `transformerDirectives` (`@apply`) — apply to the preset's own output. You only configure them in a standalone config file if you run a second UnoCSS instance.
 
 ## Troubleshooting
 
-### "Some component styles are missing"
-
-Check that:
-
-1. The **plugin list** in `QuasarPreset({ plugins })` matches `framework.plugins`
-2. You haven't forgotten any plugin (Dialog, Notify, LoadingBar are common omissions)
-3. The `quasar-strip-sass` plugin is `enforce: 'pre'` and runs before Vite
-
-### "Dark mode colors are wrong"
-
-Ensure you're using `QuasarPreset({ sourceColor: '...' })` with a valid hex color. The `sourceColor` drives the entire MD3 palette generation.
-
-### "HMR is slow when editing shortcut files"
-
-See the [Development](/guide/development) guide for setting up vite-aliases for instant HMR.
+| Symptom                                  | Cause                                                                       | Fix                                                                                              |
+| ---------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Plugin UI unstyled (dialog, notify, …)   | Plugin listed in `framework.plugins` but not in `QuasarPreset({ plugins })` | Add it to the preset's `plugins`                                                                 |
+| Icons render as empty boxes              | `iconSet` not passed, and icon classes come from internal Quasar markup     | Pass `iconSet: mdiSet` (or your set)                                                             |
+| Styles missing everywhere                | Sass strip plugin not running first                                         | Ensure `enforce: 'pre'` on `quasar-strip-sass`                                                   |
+| `QuasarPreset: no style configured`      | `styles`/`style` omitted — this is intentional                              | Pass `styles: QuasarStyleEntries` or your entries                                                |
+| `setStyle('md2')` has no effect          | md2 not in the build-time `styles` list                                     | Add it; runtime cannot add styles the build excluded                                             |
+| Dark colors wrong after a palette change | `sourceColor` invalid                                                       | Pass a valid hex to `QuasarPreset({ sourceColor })` or call [`applySourceColor()`](/api/runtime) |

@@ -1,77 +1,41 @@
 # Positioning
 
-The preset provides Quasar-compatible positioning utility classes for absolute, fixed, and relative layouts.
+Absolute, fixed, and fullscreen placement helpers — Quasar's own vocabulary, with logical properties where the reference uses them so RTL mirrors correctly.
 
-## Position Types
+## Absolute / fixed
 
-```html
-<div class="relative-position">position: relative</div>
-<div class="fixed">position: fixed</div>
-<div class="absolute">position: absolute</div>
-<div class="sticky">position: sticky (via UnoCSS)</div>
-```
+Every family exists in two forms: bare (`absolute`) and edge-pinned:
 
-## Fixed Positioning
-
-```html
-<div class="fixed-center">Centered fixed</div>
-<div class="fixed-full">Full fixed overlay</div>
-<div class="fixed-bottom">Fixed to bottom</div>
-<div class="fixed-left">Fixed to left</div>
-<div class="fixed-right">Fixed to right</div>
-<div class="fixed-top">Fixed to top</div>
-<div class="fixed-top-left">Fixed top left</div>
-<div class="fixed-top-right">Fixed top right</div>
-<div class="fixed-bottom-left">Fixed bottom left</div>
-<div class="fixed-bottom-right">Fixed bottom right</div>
-```
-
-## Absolute Positioning
+| Base       | Edges                                                                                                    |
+| ---------- | -------------------------------------------------------------------------------------------------------- |
+| `absolute` | `absolute-top`, `-bottom`, `-left`, `-right`, `-top-left`, `-top-right`, `-bottom-left`, `-bottom-right` |
+| `fixed`    | `fixed-top`, `-bottom`, `-left`, `-right`, `-top-left`, `-top-right`, `-bottom-left`, `-bottom-right`    |
+| centered   | `absolute-center`, `fixed-center`                                                                        |
 
 ```html
-<div class="absolute-center">Centered absolute</div>
-<div class="absolute-full">Full absolute overlay</div>
-<div class="absolute-bottom">Absolute bottom</div>
-<div class="absolute-left">Absolute left</div>
-<div class="absolute-right">Absolute right</div>
-<div class="absolute-top">Absolute top</div>
-<div class="absolute-top-left">Absolute top left</div>
-<div class="absolute-top-right">Absolute top right</div>
-<div class="absolute-bottom-left">Absolute bottom left</div>
-<div class="absolute-bottom-right">Absolute bottom right</div>
+<div class="absolute-full">covers the positioned parent</div>
+<div class="fixed-bottom-right q-ma-md">floating action area</div>
 ```
 
-## Vertical Alignment
+| Related class                                          | Effect                                                                                                            |
+| ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| `absolute-full` / `fixed-full`                         | pinned to all four edges of the containing block                                                                  |
+| `fullscreen`                                           | fixed to the viewport, full size                                                                                  |
+| `relative-position`                                    | creates a positioning context (`position: relative`) — Quasar's idiom for making an ancestor the containing block |
+| `vertical-top` / `vertical-middle` / `vertical-bottom` | `vertical-align`                                                                                                  |
+| `on-left` / `on-right`                                 | Quasar's inline spacing (12px logical margin) for toolbar items                                                   |
+| `q-position-engine`                                    | the anchor-positioning hook Quasar's popup engine requires                                                        |
 
-```html
-<div class="vertical-top">vertical-align: top</div>
-<div class="vertical-middle">vertical-align: middle</div>
-<div class="vertical-bottom">vertical-align: bottom</div>
-```
+::: tip Prefer `relative-position` over `relative`
+Both work, but `relative-position` is the name Quasar's own CSS and templates use; keeping one vocabulary keeps greps honest.
+:::
 
-## Fullscreen
+## Stacking
 
-```html
-<div class="fullscreen">
-  <!-- position: fixed; inset: 0 -->
-</div>
-```
+Positioning and z-index are separate concerns — the tier values live in [Elevation & Z-index](/core/elevation#the-z-index-scale). `fixed` alone doesn't decide who wins; the overlay scale does.
 
-## On-Left / On-Right
+## Fullscreen and scroll interplay
 
-```html
-<div class="on-left">Float/margin left</div>
-<div class="on-right">Float/margin right</div>
-```
+Components combine these with the behavioral helpers: `hide-scrollbar`, `scroll` / `scroll-x` / `scroll-y` / `no-scroll` (from [Input & Platform](/core/input-platform#scroll-and-cursor)), and Quasar's own `q-body--prevent-scroll` / `q-document--clip-scroll` classes, which the preset styles so full-screen dialogs and drawers behave without the Sass sheet.
 
-## UnoCSS Fallback
-
-All standard UnoCSS positioning utilities work:
-
-```html
-<div class="relative">
-  <div class="absolute top-0 left-0">Corner</div>
-  <div class="absolute inset-0">Full</div>
-  <div class="absolute right-2 bottom-2">Bottom right with offset</div>
-</div>
-```
+Related: [Flex & Grid](/core/flex) · [Visibility & Responsiveness](/core/visibility)

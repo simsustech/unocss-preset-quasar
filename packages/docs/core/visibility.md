@@ -1,87 +1,62 @@
-# Visibility
+# Visibility & Responsiveness
 
-The preset provides visibility-related utility classes for showing, hiding, and controlling element rendering.
+Show, hide, truncate — plus the breakpoint classes Quasar injects into markup and its responsive helpers emit at runtime. Everything that needs `@media` is emitted as CSS text from the preset's preflight, because a rule body cannot carry an at-rule.
 
-## Display
+## Breakpoint ranges
 
-```html
-<div class="block">display: block</div>
-<div class="hidden">display: none</div>
-<div class="invisible">visibility: hidden</div>
-```
+Quasar's own five steps, stated exactly as the reference does (each upper bound is the next step minus 0.02px so ranges never overlap):
 
-## Overflow
+| Name | Range            |
+| ---- | ---------------- |
+| `xs` | 0 – 599.98px     |
+| `sm` | 600 – 1023.98px  |
+| `md` | 1024 – 1439.98px |
+| `lg` | 1440 – 1919.98px |
+| `xl` | 1920px+          |
 
-```html
-<div class="overflow-auto">overflow: auto</div>
-<div class="overflow-hidden">overflow: hidden</div>
-<div class="scroll">overflow: scroll</div>
-<div class="scroll-x">overflow-x: scroll</div>
-<div class="scroll-y">overflow-y: scroll</div>
-```
+Media queries reject `var()`, so these numbers cannot be tokens — they are literals in the emitted stylesheet, the same values the `--q-size-*` variables expose to Quasar's Screen plugin.
 
-## Cursor
+## Responsive visibility classes
 
-```html
-<div class="cursor-pointer">pointer cursor</div>
-```
+Applied to an element, each class hides it _outside_ its condition:
 
-## Text Overflow
-
-```html
-<div class="ellipsis">Text ellipsis overflow</div>
-```
-
-## Scrollbar
+| Class family                       | Meaning                             |
+| ---------------------------------- | ----------------------------------- |
+| `xs` `sm` `md` `lg` `xl`           | visible **only** at that breakpoint |
+| `lt-sm`, `lt-md`, `lt-lg`, `lt-xl` | visible **below** that breakpoint   |
+| `gt-xs`, `gt-sm`, `gt-md`, `gt-lg` | visible **above** that breakpoint   |
+| `xs-hide`, `sm-hide`, …            | hidden at that breakpoint           |
 
 ```html
-<div class="hide-scrollbar">Hide scrollbar</div>
+<div class="gt-sm">wide screens only</div>
+<div class="lt-md md-hide">…</div>
 ```
 
-## Pointer Events
+`lt-xs` and `gt-xl` do not exist (nothing is below xs, nothing above xl). Inside each range, the emitted rule hides every non-active breakpoint class, the active breakpoint's `-hide`, the `lt-*` classes at or below it and the `gt-*` classes at or above it — one media block per range.
+
+## Resets and truncation
+
+| Class                                                                                     | Effect                                                                        |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `hidden`                                                                                  | `display: none` (Quasar applies this to native inputs)                        |
+| `invisible`                                                                               | `visibility: hidden`                                                          |
+| `no-margin`, `no-padding`, `no-border`, `no-border-radius`, `no-box-shadow`, `no-outline` | zero the property (`!important` where the reference uses it)                  |
+| `ellipsis`                                                                                | single-line truncation (`text-overflow` + `nowrap` + `overflow`)              |
+| `ellipsis-2-lines`, `ellipsis-3-lines`                                                    | line-clamp 2 / 3                                                              |
+| `overflow-hidden-y`                                                                       | clip one axis                                                                 |
+| `transparent`                                                                             | transparent background                                                        |
+| `disabled`, `readonly`                                                                    | presentational states — `cursor: not-allowed`, `opacity: .6`, outline removal |
 
 ```html
-<div class="no-pointer-events">No pointer events</div>
-<div class="no-pointer-events--children">No pointer events on children</div>
+<span class="ellipsis block q-px-sm">long label that truncates</span>
 ```
 
-## Selection
+## Layout padding helper
 
-```html
-<div class="non-selectable">Prevent text selection</div>
-```
+`q-layout-padding` adjusts with the viewport: 8px below 600px, 16px to 1439.98px, 24px from 1440px — Quasar's default page padding, emitted as a media family.
 
-## Border & Outline
+## Platform-scoped hiding
 
-```html
-<div class="no-border">Remove border</div>
-<div class="no-border-radius">Remove border radius</div>
-<div class="border-radius-inherit">Inherit border radius</div>
-<div class="no-outline">Remove outline</div>
-<div class="rounded-borders">Rounded borders</div>
-```
+`desktop-hide`, `mobile-only`, `platform-ios-hide`, … live with the platform classes in [Input & Platform](/core/input-platform).
 
-## Miscellaneous
-
-```html
-<div class="disabled">Disabled appearance (opacity)</div>
-<div class="readonly">Readonly appearance (opacity)</div>
-<div class="transparent">Fully transparent</div>
-<div class="glossy">Glossy effect</div>
-<div class="rotate-180">Rotate 180 degrees</div>
-<div class="no-transition">Disable transitions</div>
-<div class="no-shadow">Remove box shadow</div>
-<div class="fit">width: 100%; height: 100%</div>
-```
-
-## UnoCSS Fallback
-
-All standard UnoCSS visibility utilities work:
-
-```html
-<div class="opacity-50">Half opacity</div>
-<div class="cursor-not-allowed">Not allowed cursor</div>
-<div class="pointer-events-none">No pointer events</div>
-<div class="select-none">No text selection</div>
-<div class="overflow-x-hidden">Hidden horizontal overflow</div>
-```
+Related: [Flex & Grid](/core/flex) (responsive columns) · [Transitions & Motion](/core/transitions)

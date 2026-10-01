@@ -14,8 +14,17 @@ export default defineConfig({
 
     nav: [
       { text: 'Guide', link: '/guide/getting-started' },
-      { text: 'Core', link: '/core/theming' },
       { text: 'Styles', link: '/styles/overview' },
+      { text: 'Core', link: '/core/theming' },
+      { text: 'Components', link: '/components/catalogue' },
+      {
+        text: 'More',
+        items: [
+          { text: 'Plugins', link: '/plugins/overview' },
+          { text: 'App Extensions', link: '/app-extensions/overview' },
+          { text: 'Architecture', link: '/architecture/overview' }
+        ]
+      },
       { text: 'API', link: '/api/quasar-preset' },
       { text: 'Changelog', link: '/changelog' }
     ],
@@ -32,19 +41,12 @@ export default defineConfig({
           ]
         }
       ],
-      '/core/': [
+      '/plugins/': [
         {
-          text: 'Core Utilities',
+          text: 'Plugins',
           items: [
-            { text: 'Theming', link: '/core/theming' },
-            { text: 'Colors', link: '/core/colors' },
-            { text: 'Typography', link: '/core/typography' },
-            { text: 'Elevation & Shadows', link: '/core/elevation' },
-            { text: 'Transitions', link: '/core/transitions' },
-            { text: 'Flex & Grid', link: '/core/flex' },
-            { text: 'Positioning', link: '/core/positioning' },
-            { text: 'Spacing', link: '/core/spacing' },
-            { text: 'Visibility', link: '/core/visibility' }
+            { text: 'Overview', link: '/plugins/overview' },
+            { text: 'Available Plugins', link: '/plugins/available-plugins' }
           ]
         }
       ],
@@ -56,16 +58,57 @@ export default defineConfig({
             { text: 'Material Design 3', link: '/styles/material-design-3' },
             { text: 'Material Design 2', link: '/styles/material-design-2' },
             { text: 'Unstyled', link: '/styles/unstyled' },
-            { text: 'Scoped Mode', link: '/styles/scoping' }
+            { text: 'Runtime Switching', link: '/styles/scoping' }
           ]
         }
       ],
-      '/plugins/': [
+      '/core/': [
         {
-          text: 'Plugins',
+          text: 'Core Utilities',
           items: [
-            { text: 'Overview', link: '/plugins/overview' },
-            { text: 'Available Plugins', link: '/plugins/available-plugins' }
+            { text: 'Theming & Tokens', link: '/core/theming' },
+            { text: 'Colors', link: '/core/colors' },
+            { text: 'Typography', link: '/core/typography' },
+            { text: 'Elevation & Z-index', link: '/core/elevation' },
+            { text: 'Spacing', link: '/core/spacing' },
+            { text: 'Flex & Grid', link: '/core/flex' },
+            { text: 'Positioning', link: '/core/positioning' },
+            { text: 'Visibility & Responsiveness', link: '/core/visibility' },
+            { text: 'Transitions & Motion', link: '/core/transitions' },
+            { text: 'Input & Platform', link: '/core/input-platform' }
+          ]
+        }
+      ],
+      '/components/': [
+        {
+          text: 'Components',
+          items: [{ text: 'Catalogue', link: '/components/catalogue' }]
+        }
+      ],
+      '/app-extensions/': [
+        {
+          text: 'App Extensions',
+          items: [
+            { text: 'Overview', link: '/app-extensions/overview' },
+            { text: 'Supported Libraries', link: '/app-extensions/supported' }
+          ]
+        }
+      ],
+      '/architecture/': [
+        {
+          text: 'Architecture',
+          items: [
+            { text: 'How It Works', link: '/architecture/overview' },
+            {
+              text: 'Styles & Scoping',
+              link: '/architecture/style-configuration'
+            },
+            {
+              text: 'Extraction & Safelisting',
+              link: '/architecture/extraction'
+            },
+            { text: 'Rule Assembly', link: '/architecture/rule-assembly' },
+            { text: 'Decisions', link: '/architecture/decisions' }
           ]
         }
       ],
@@ -75,11 +118,10 @@ export default defineConfig({
           items: [
             { text: 'QuasarPreset()', link: '/api/quasar-preset' },
             { text: 'QuasarPresetOptions', link: '/api/quasar-preset-options' },
-            { text: 'QuasarStyle', link: '/api/quasar-style' },
-            { text: 'QuasarTheme', link: '/api/quasar-theme' },
-            { text: 'quasarPresetAliases()', link: '/api/vite-aliases' },
-            { text: 'setThemeColors()', link: '/api/set-theme-colors' },
-            { text: 'Helpers', link: '/api/helpers' }
+            { text: 'Styles (/styles)', link: '/api/styles' },
+            { text: 'Theme (/theme)', link: '/api/theme' },
+            { text: 'Runtime (/runtime)', link: '/api/runtime' },
+            { text: 'setThemeColors()', link: '/api/set-theme-colors' }
           ]
         }
       ]

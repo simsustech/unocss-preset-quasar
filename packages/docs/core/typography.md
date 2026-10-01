@@ -1,112 +1,48 @@
 # Typography
 
-The preset includes a complete Material Design typography scale. All text utilities are responsive and respect the theme's font family.
+Quasar's type classes are rules with fixed, Quasar-authored values — `text-h1` does not read the active style's type tokens, because these numbers are Quasar's own across every style. Style-varying type lives in the token system (`--q-type-*`), which component rules read.
 
-## Font Family
+## Headings and text
 
-The default font is **Roboto** (loaded via Bunny CDN). The body preflight sets:
-
-```css
-body {
-  font-family:
-    'Roboto', '-apple-system', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
-}
-```
-
-Override via `presetWebFonts`:
-
-```ts
-QuasarPreset({
-  presetWebFonts: {
-    provider: 'google',
-    fonts: {
-      roboto: 'Roboto:300,400,500,700'
-    }
-  }
-})
-```
-
-## Heading Scale
-
-```html
-<h1>Default heading 1</h1>
-<span class="text-h1">Heading 1 style</span>
-<span class="text-h2">Heading 2 style</span>
-<span class="text-h3">Heading 3 style</span>
-<span class="text-h4">Heading 4 style</span>
-<span class="text-h5">Heading 5 style</span>
-<span class="text-h6">Heading 6 style</span>
-```
-
-| Class     | Size     | Weight       | Line Height | Letter Spacing |
-| --------- | -------- | ------------ | ----------- | -------------- |
-| `text-h1` | 6rem     | 300 (light)  | 6rem        | -0.01562em     |
-| `text-h2` | 3.75rem  | 300 (light)  | 3.75rem     | -0.00833em     |
-| `text-h3` | 3rem     | 400 (normal) | 3.125rem    | normal         |
-| `text-h4` | 2.125rem | 400 (normal) | 2.5rem      | 0.00735em      |
-| `text-h5` | 1.5rem   | 400 (normal) | 2rem        | normal         |
-| `text-h6` | 1.25rem  | 500 (medium) | 2rem        | 0.0125em       |
-
-## Body & Label Scale
-
-```html
-<span class="text-subtitle1">Subtitle 1</span>
-<span class="text-subtitle2">Subtitle 2</span>
-<span class="text-body1">Body 1</span>
-<span class="text-body2">Body 2</span>
-<span class="text-overline">OVERLINE</span>
-<span class="text-caption">Caption text</span>
-```
-
-| Class            | Size     | Weight | Line Height | Letter Spacing |
+| Class            | Size     | Weight | Line-height | Letter-spacing |
 | ---------------- | -------- | ------ | ----------- | -------------- |
+| `text-h1`        | 6rem     | 300    | 6rem        | −0.01562em     |
+| `text-h2`        | 3.75rem  | 300    | 3.75rem     | −0.00833em     |
+| `text-h3`        | 3rem     | 400    | 3.125rem    | normal         |
+| `text-h4`        | 2.125rem | 400    | 2.5rem      | 0.00735em      |
+| `text-h5`        | 1.5rem   | 400    | 2rem        | normal         |
+| `text-h6`        | 1.25rem  | 500    | 2rem        | 0.0125em       |
 | `text-subtitle1` | 1rem     | 400    | 1.75rem     | 0.00937em      |
 | `text-subtitle2` | 0.875rem | 500    | 1.375rem    | 0.00714em      |
 | `text-body1`     | 1rem     | 400    | 1.5rem      | 0.03125em      |
-| `text-body2`     | 0.875rem | 400    | 1.25rem     | 0.01786em      |
+| `text-body2`     | 0.875rem | 400    | 1.4rem      | 0.01786em      |
 | `text-overline`  | 0.75rem  | 500    | 2rem        | 0.16667em      |
 | `text-caption`   | 0.75rem  | 400    | 1.25rem     | 0.03333em      |
 
-## Text Modifiers
-
 ```html
-<span class="text-uppercase">uppercase</span>
-<span class="text-lowercase">lowercase</span>
-<span class="text-capitalize">capitalize</span>
-<span class="text-center">centered text</span>
-<span class="text-left">left aligned</span>
-<span class="text-right">right aligned</span>
-<span class="text-justify">justified</span>
-<span class="text-italic">italic</span>
-<span class="text-bold">bold</span>
-<span class="text-no-wrap">no wrap</span>
-<span class="text-strike">strikethrough</span>
+<h1 class="text-h1">Title</h1>
+<p class="text-body2 text-grey-8">Secondary copy</p>
 ```
 
-## Font Weights
+`q-body` sets the base document text (14px, line-height 1.5, antialiased, margin 0) and, through the same rule, states `*, ::before, ::after { box-sizing: border-box }` — the universal box-sizing the old reset preflight used to ship.
 
-```html
-<span class="text-weight-thin">Thin (100)</span>
-<span class="text-weight-light">Light (300)</span>
-<span class="text-weight-regular">Regular (400)</span>
-<span class="text-weight-medium">Medium (500)</span>
-<span class="text-weight-bold">Bold (700)</span>
-<span class="text-weight-bolder">Bolder (900)</span>
-```
+## Modifiers
 
-## HTML Elements
+| Family    | Classes                                                                                                     |
+| --------- | ----------------------------------------------------------------------------------------------------------- |
+| Transform | `text-uppercase`, `text-lowercase`, `text-capitalize`                                                       |
+| Alignment | `text-center`, `text-left`, `text-right`, `text-justify`                                                    |
+| Style     | `text-italic`, `text-bold`, `text-strike`, `text-no-wrap`                                                   |
+| Weight    | `text-weight-thin` (100), `-light` (300), `-regular` (400), `-medium` (500), `-bold` (700), `-bolder` (900) |
 
-The preflight styles HTML heading elements (`h1` through `h6`) with the matching MD3 styles. `<p>` gets 16px bottom margin, `<small>` is 80% size, and `<big>` is 170%.
+These compose: `class="text-h6 text-uppercase text-grey-7"`.
 
-## UnoCSS Fallback
+## Fonts
 
-All standard UnoCSS/Wind typography utilities work as well:
+Web fonts come from the nested `presetWebFonts` — Roboto from Bunny by default, which the MD3/MD2 type tokens assume (`fontFamily: 'Roboto, sans-serif'`). Override via [`presetWebFonts`](/guide/configuration#presetwebfonts) or load your own and override the `typography` tokens.
 
-```html
-<span class="text-sm font-bold leading-tight tracking-wide"
-  >Wind utilities</span
->
-<span class="text-[14px] font-[500]">Arbitrary values</span>
-```
+## Style-varying type
+
+The _component_ type scale is a token: each style entry carries `displayLarge…labelLarge`, tracking and state-layer opacities (`typography.hoverOpacity` — 8 % md3, 4 % md2; `pressedOpacity` — 12 % md3, 16 % md2). Those reach components through `var(--q-type-*)` references, so `setStyle()` changes them with everything else. The table above — the element-level `text-*` classes — stays constant by design.
+
+Related: [Theming & Tokens](/core/theming) · [Typography tokens in MD3](/styles/material-design-3#typography)
