@@ -38,7 +38,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build Packages
         run: pnpm run build
@@ -75,3 +75,22 @@ jobs:
           # Kept for compatibility; the auth that actually reaches pnpm is the
           # .npmrc written by "Configure npm auth" above.
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # changesets/action returns success even when the tag push (and therefore
+      # the GitHub release) silently fails, so verify the tag actually landed on
+      # origin before the run is considered green.
+      - name: Fail if a published package was not tagged
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.published-packages }}
+        run: |
+          set -euo pipefail
+          missing=0
+          while IFS= read -r tag; do
+            if ! git ls-remote --tags origin "refs/tags/$tag" | grep -q .; then
+              echo "::error::Published but not tagged on origin: $tag"
+              missing=1
+            fi
+          done < <(jq -r '.[] | "\(.name)@\(.version)"' \
+            <<<"$PUBLISHED_PACKAGES")
+          exit "$missing"
