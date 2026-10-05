@@ -431,7 +431,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--outlined .q-field__control`,
-        'padding-inline': 'var(--q-space-md)',
+        'padding-inline': 'var(--q-field-padding-x)',
         'padding-block': '0',
         'border-radius': 'var(--q-corner-extra-small)'
       }
@@ -511,7 +511,7 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--standard .q-field__control`,
-        'padding-inline': 'var(--q-space-md)',
+        'padding-inline': 'var(--q-field-padding-x)',
         'background-color': 'var(--q-surface-container-highest)',
         'border-top-left-radius': 'inherit',
         'border-top-right-radius': 'inherit'
