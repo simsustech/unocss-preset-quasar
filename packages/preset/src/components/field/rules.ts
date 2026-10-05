@@ -19,6 +19,19 @@ export const fieldRules = [
         position: 'relative'
       }
       yield { 'font-size': '14px' }
+      // Reference restore: placeholders take the input's own color at 0.7
+      // (q-placeholder::placeholder). Keyed on the q-field base and scoped
+      // under it — `q-placeholder` sits on natives inside a `.q-field` root,
+      // so `${selector} .q-placeholder::placeholder` tracks the rule's own
+      // token (scoped-selector convention). A bare `q-placeholder::placeholder`
+      // candidate is never generated (verify: grep safelist/generated classes
+      // for `::`), so a matcher for it could never fire.
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector} .q-placeholder::placeholder`,
+        color: 'inherit',
+        opacity: 0.7
+      }
       // Reference: `.q-field ::-ms-clear, .q-field ::-ms-reveal { display: none }`.
       // Deliberately NOT emitted. `::-ms-clear`/`::-ms-reveal` are invalid
       // selectors outside IE/legacy Edge, and one invalid selector discards the
@@ -157,10 +170,6 @@ export const fieldRules = [
           `${selector}__native:-webkit-autofill`,
         'margin-top': '1px',
         'margin-bottom': '1px'
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__native::placeholder`,
-        color: 'transparent'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__native:focus-visible`,
@@ -1439,10 +1448,6 @@ export const fieldRules = [
         [symbols.selector]: (selector) => `${selector}__input:-webkit-autofill`,
         'margin-top': '1px',
         'margin-bottom': '1px'
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__input::placeholder`,
-        color: 'transparent'
       }
       yield {
         [symbols.selector]: (selector) =>

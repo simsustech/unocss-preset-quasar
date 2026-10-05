@@ -114,11 +114,9 @@ export const helpersRules: ComponentRule[] = [
       'linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12) 51%, rgba(0, 0, 0, 0.04)) !important'
   })),
 
-  // --- Placeholder ---
-  rule(/^q-placeholder::placeholder$/, () => ({
-    color: 'inherit',
-    opacity: 0.7
-  })),
+  // Placeholder restore lives in components/field/rules.ts, keyed on the
+  // q-field base: no extractor/safelist entry generates a literal
+  // `q-placeholder::placeholder` candidate, so a matcher here never fired.
 
   // --- Body mixins ---
   rule(/^q-body--fullscreen-mixin$/, () => ({
