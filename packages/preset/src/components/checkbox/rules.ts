@@ -59,10 +59,9 @@ export const checkboxRules = [
           `${selector}:not(.disabled):hover .q-checkbox__inner:before`,
         content: '""',
         position: 'absolute',
-        top: '0',
-        left: '0',
-        right: '0',
-        bottom: '0',
+        // quasar: dist re-declares the insets here, but the base yield already
+        // centers the 40dp layer (`top/left: 50%` + `translate: -50% -50%`).
+        // With them the hover circle anchored on the inner's top-left corner.
         // quasar: this value is Quasar's own, not a forked token
         'border-radius': '12.5rem',
         'background-color': 'currentColor',
@@ -122,11 +121,14 @@ export const checkboxRules = [
         // The glyph box fills the 18dp square. Quasar's dist insets it to the
         // middle 50% with its own 2px border, which is the tiny framed square
         // that showed through as the "glyph".
+        // That inset's own `margin: -2px` is reset as well: left in place it
+        // shifted the box 2px up-left and clipped the strokes into the border.
         [symbols.selector]: (selector) => `${selector} .q-checkbox__bg`,
         top: '0',
         left: '0',
         width: '100%',
         height: '100%',
+        margin: '0',
         border: 'none'
       }
       yield {
@@ -151,11 +153,23 @@ export const checkboxRules = [
           `${selector}__inner--indet .q-checkbox__bg`,
         'background-color': 'currentColor'
       }
+      // Two yields for the icon's size. The reference's single-class rule stays:
+      // the parity ratchet keys on it (`checkbox missing: .q-checkbox__icon`).
+      // The scoped twin carries the declaration that actually wins — `.q-icon`'s
+      // tokenised `font-size: var(--q-comp-icon)` is emitted after both at the
+      // same (0,1,0) specificity and blew the glyph up to 24px inside the 18px
+      // box. quasar.css gets away with the single class because it orders
+      // `.q-icon` first. Same pattern as `__bg` above.
       yield {
         [symbols.selector]: (selector) => `${selector}__icon`,
         // quasar: this value is Quasar's own, not a forked token
         'font-size': '0.5em',
         color: 'currentColor'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector} .q-checkbox__icon`,
+        // quasar: this value is Quasar's own, not a forked token
+        'font-size': '0.5em'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__label`,
@@ -261,11 +275,16 @@ export const checkboxRules = [
         'stroke-dasharray': '29.78334',
         stroke: 'currentColor'
       }
-      // AUD-024 fold: `__indet`'s `transform: rotate(...) scale(0)` copy is gone; the reference states the `rotate`/`scale` longhands the other yield declares.
+      // AUD-024 fold: `__indet`'s single `transform: rotate(-280deg) scale(0)`
+      // copy is gone — the longhands below state the same rotation. `scale(0)`
+      // stays: it is the dash's hidden default, and the `--indet` state yield
+      // cancels it with `transform: scale(1)`. Without it the dash paints over
+      // the check in the truthy and the falsy state alike.
       yield {
         [symbols.selector]: (selector) => `${selector}__indet`,
         'transform-origin': '50% 50%',
         rotate: '-280deg',
+        transform: 'scale(0)',
         fill: 'currentColor'
       }
     }
