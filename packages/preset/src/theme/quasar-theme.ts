@@ -5,7 +5,7 @@
  * published API: consumers import them from `unocss-preset-quasar/theme`
  * (e.g. `@modular-api/fastify-oidc` types its `themeColors` option as
  * `QuasarTheme['colors']`, and applies `setThemeColors(...)` at runtime), and
- * the `--light-*` / `--dark-*` / `--*` custom properties it writes are what
+ * the `--light-*` / `--dark-*` / `--q-*` custom properties it writes are what
  * consumer CSS reads.
  *
  * The rewritten preset derives and emits its own `--q-*` tokens, so
@@ -1721,7 +1721,24 @@ const kebabize = (str: string) =>
 /**
  * Do not use on server.
  * @param theme unocss-preset-quasar theme
+ *
+ * Writes the `--light-*` / `--dark-*` primitives onto `document.body` (kept for
+ * consumers that read them) and restates the semantic `--q-*` tokens the
+ * preset's CSS actually consumes. The preflight states `--q-*` as literals, so
+ * without this second tier a runtime theme never reaches a component; and
+ * `--q-*` cannot ride an inline style, because the dark values have to be
+ * scoped to `body.body--dark` — so they go into one injected stylesheet, light
+ * roles under `:root` and dark roles under `body.body--dark`. Appending it last
+ * makes it win the cascade at equal specificity.
  */
+const THEME_STYLE_ID = 'quasar-theme-colors'
+
+const themeColorVars = (colors: MaterialColorScheme) =>
+  Object.entries(colors)
+    .filter(([, value]) => typeof value === 'string')
+    .map(([name, value]) => `--q-${kebabize(name)}: ${value};`)
+    .join('')
+
 const setThemeColors = (themeColors: QuasarTheme['colors']) => {
   for (const [name, value] of Object.entries(themeColors.light)) {
     setCssVar('light-' + kebabize(name), value)
@@ -1734,5 +1751,28 @@ const setThemeColors = (themeColors: QuasarTheme['colors']) => {
     if (typeof value !== 'string') continue
     setCssVar(kebabize(name), value)
   }
+
+  if (typeof document === 'undefined') return
+
+  // The Quasar aliases (`primary`, `secondary`, …) are light-scheme by contract,
+  // and the palette entries (`red-1`, …) are inert as `--q-*` — matching how
+  // the preflight splits roles from the Quasar block.
+  const aliases = Object.entries(themeColors)
+    .filter(
+      ([name, value]) =>
+        name !== 'light' && name !== 'dark' && typeof value === 'string'
+    )
+    .map(([name, value]) => `--q-${kebabize(name)}: ${value};`)
+    .join('')
+
+  let style = document.getElementById(THEME_STYLE_ID) as HTMLStyleElement | null
+  if (!style) {
+    style = document.createElement('style')
+    style.id = THEME_STYLE_ID
+    document.head.appendChild(style)
+  }
+  style.textContent =
+    `:root { ${themeColorVars(themeColors.light)}${aliases} }\n` +
+    `body.body--dark { ${themeColorVars(themeColors.dark)} }`
 }
 export { defaultTheme, generateTheme, setThemeColors }

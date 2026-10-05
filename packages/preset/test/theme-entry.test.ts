@@ -77,8 +77,9 @@ describe('generateTheme', () => {
 })
 
 /**
- * `setThemeColors` writes onto `document.body` and validates its element with
- * `instanceof Element`, so the test supplies both globals.
+ * `setThemeColors` writes the primitives onto `document.body` (validated with
+ * `instanceof Element`) and the semantic `--q-*` tier into a stylesheet injected
+ * onto `document.head`, so the test supplies both globals.
  */
 class FakeElement {
   props = new Map<string, string>()
@@ -87,6 +88,11 @@ class FakeElement {
       this.props.set(name, value)
     }
   }
+}
+
+class FakeStyle {
+  id = ''
+  textContent = ''
 }
 
 const globals = globalThis as unknown as {
@@ -102,14 +108,27 @@ afterEach(() => {
 describe('setThemeColors', () => {
   const applied = () => {
     const el = new FakeElement()
+    const styles: FakeStyle[] = []
     globals.Element = FakeElement
-    globals.document = { body: el }
-    setThemeColors(generateTheme('#FF6F00').colors)
-    return el.props
+    globals.document = {
+      body: el,
+      head: {
+        appendChild: (child: FakeStyle) => {
+          styles.push(child)
+          return child
+        }
+      },
+      createElement: () => new FakeStyle(),
+      getElementById: (id: string) =>
+        styles.find((style) => style.id === id) ?? null
+    }
+    const colors = generateTheme('#FF6F00').colors
+    setThemeColors(colors)
+    return { props: el.props, styles, colors }
   }
 
-  it('writes the light and dark schemes as kebab-case variables', () => {
-    const props = applied()
+  it('writes the light and dark schemes as kebab-case primitives', () => {
+    const { props } = applied()
 
     expect(props.get('--light-primary')).toBeTypeOf('string')
     expect(props.get('--light-on-primary-container')).toBeTypeOf('string')
@@ -122,7 +141,7 @@ describe('setThemeColors', () => {
   })
 
   it('writes the scalar colors and leaves the palette alone', () => {
-    const props = applied()
+    const { props } = applied()
 
     expect(props.get('--primary')).toBe(
       generateColorTokens('#FF6F00').quasar.primary
@@ -132,5 +151,52 @@ describe('setThemeColors', () => {
     )
     // Quasar palette entries go through the scalar loop too (historic behaviour)
     expect(props.get('--blue-8')).toBe('#1976d2')
+  })
+
+  it('restates the semantic --q-* tokens the components read', () => {
+    const { styles, colors } = applied()
+
+    // One injected stylesheet, light roles on :root and dark roles scoped to the
+    // dark body — an inline value could not be conditional on `body.body--dark`.
+    expect(styles).toHaveLength(1)
+    const css = styles[0]!.textContent
+    expect(css).toContain(`:root { `)
+    expect(css).toContain(`body.body--dark { `)
+
+    // Light scheme reaches the semantic tokens without a reload
+    expect(css).toContain(`--q-primary: ${colors.light.primary};`)
+    expect(css).toContain(
+      `--q-surface-container-highest: ${colors.light.surfaceContainerHighest};`
+    )
+    // Dark scheme reaches them under body--dark
+    expect(css).toContain(`--q-primary: ${colors.dark.primary};`)
+    // The Quasar aliases ride the same sheet (light-scheme by contract)
+    expect(css).toContain(`--q-secondary: ${colors.secondary};`)
+  })
+
+  it('reuses one stylesheet across calls', () => {
+    const el = new FakeElement()
+    const styles: FakeStyle[] = []
+    globals.Element = FakeElement
+    globals.document = {
+      body: el,
+      head: {
+        appendChild: (child: FakeStyle) => {
+          styles.push(child)
+          return child
+        }
+      },
+      createElement: () => new FakeStyle(),
+      getElementById: (id: string) =>
+        styles.find((style) => style.id === id) ?? null
+    }
+
+    setThemeColors(generateTheme('#FF6F00').colors)
+    setThemeColors(generateTheme('#1976d2').colors)
+
+    expect(styles).toHaveLength(1)
+    expect(styles[0]!.textContent).toContain(
+      `--q-primary: ${generateTheme('#1976d2').colors.light.primary};`
+    )
   })
 })
