@@ -13,12 +13,7 @@ export const selectRules = [
         cursor: 'pointer'
       }
       yield {
-        [symbols.selector]: (selector) => `${selector} .q-field__native`,
-        'padding-right': '48px'
-      }
-      yield {
         [symbols.selector]: (selector) => `${selector} .q-field__input`,
-        'padding-right': '48px',
         'min-width': '50px !important',
         cursor: 'text'
       }
@@ -26,17 +21,6 @@ export const selectRules = [
         [symbols.selector]: (selector) =>
           `${selector} .q-field__input--padding`,
         'padding-left': '4px'
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}__dropdown-icon`,
-        position: 'absolute',
-        right: '12px',
-        top: '50%',
-        // Individual `translate`, not `transform:` — `.rotate-180` owns the
-        // transform shorthand in a later cascade band and would clobber the
-        // centering when Quasar opens the menu. See ADR 0009.
-        translate: '0 -50%'
-        // transition comes from the yield below: the reference's `transform 0.28s`
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__dropdown-icon`,

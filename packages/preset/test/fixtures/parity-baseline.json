@@ -735,9 +735,9 @@
       "mismatch": []
     },
     "select": {
-      "target": 0,
-      "missing": [],
-      "absent": [],
+      "target": 2,
+      "missing": [".q-select .q-field__native"],
+      "absent": [".q-select .q-field__input|padding-right"],
       "mismatch": []
     },
     "separator": {

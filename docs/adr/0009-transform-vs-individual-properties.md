@@ -47,10 +47,16 @@ site converts under this ADR.
 ## Consequences
 
 - `packages/preset/src/components/select/rules.ts` centred with
-  `translate: 0 -50%`; `test/select-dropdown-icon.test.ts` pins the emitted
+  `translate: 0 -50%`; `test/select-dropdown-icon.test.ts` pinned the emitted
   sheet (the positioning block must carry `translate` and must not carry
-  `transform:`), and `quasar-testing-harness/tests/preset-fixes.spec.ts` pins
+  `transform:`), and `quasar-testing-harness/tests/preset-fixes.spec.ts` pinned
   the rendered geometry across the menu's open/close/re-close cycle.
+- **Superseded for the select (2026-10-05, ADR 0012).** The arrow no longer
+  carries a centering declaration at all: it went back into upstream's in-flow
+  append row, where `.rotate-180` rotates it in its own box, and the rule above
+  now has no live instance. It stays in force for the next utility-toggled
+  element — the select was never a counter-example to it, just a site that
+  stopped needing it.
 - A future explorer who reaches for `transform: translateY(-50%)` for
   consistency with the untouched sites should read this ADR first; the
   inconsistency with fab/range/slider is the scope boundary, not drift.

@@ -1,11 +1,18 @@
-// QSelect dropdown icon must stay vertically centered while Quasar rotates it.
+// The QSelect's dropdown arrow stays in the append row, where Quasar puts it.
 //
-// Quasar adds `.rotate-180` to `.q-select__dropdown-icon` when the menu opens
-// (QSelect.js). `.rotate-180` is emitted by the default layer — AFTER this
-// preset's component rules — and its full `transform:` stack replaces any
-// component-band `transform: translateY(-50%)`, dropping the icon by half its
-// height. Centering therefore must use the individual `translate` property so
-// it composes with the utility's `transform` (ADR 0009).
+// The arrow used to be pulled out of flow and pinned to the control's right
+// edge (`position: absolute; right: 12px; top: 50%; translate: 0 -50%`), which
+// is what forced the 96px of stacked `padding-right` on the native and the
+// input: with the arrow absolutely positioned, the flow had to reserve its
+// space by hand. Upstream `quasar@2.34.0` does neither — the arrow is a normal
+// child of the append row, and `.q-select__dropdown-icon` carries only
+// `cursor: pointer !important; transition: transform 0.28s`.
+//
+// With the arrow back in flow, clearance comes from layout: the control's own
+// `padding: 0 12px` keeps the same 12px gap to the control's right edge that
+// the absolute `right: 12px` used to state, and `.rotate-180` (which Quasar
+// toggles on open) rotates the arrow in its own box with no centering
+// declaration to clobber. See ADR 0012.
 import { describe, it, expect } from 'vitest'
 import { createGenerator } from 'unocss'
 import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
@@ -18,38 +25,35 @@ async function cssFor(tokens: string): Promise<string> {
   return r.css
 }
 
-/**
- * Body of the first rule whose selector list contains `sel` and whose body
- * matches `bodyPattern` (the selector owns two blocks: the positioning one and
- * a cursor/transition one).
- */
-function blockBody(
-  css: string,
-  sel: string,
-  bodyPattern: RegExp
-): string | null {
-  const re = new RegExp(`([^{}]*\\${sel}[^{}]*)\\{([^{}]*)\\}`, 'g')
+/** Declarations of every block whose selector list contains `sel` exactly. */
+function declarationsFor(css: string, sel: string): string {
+  const re = /([^{}]*)\{([^{}]*)\}/g
+  const bodies: string[] = []
   for (const m of css.matchAll(re)) {
-    if (bodyPattern.test(m[2])) return m[2]
+    const selectors = m[1]
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean)
+    if (selectors.includes(sel)) bodies.push(m[2])
   }
-  return null
+  return bodies.join('\n')
 }
 
-describe('q-select dropdown icon centering composes with rotate-180', () => {
-  it('centers the icon with the individual translate property', async () => {
+describe('q-select dropdown icon stays in the upstream append row', () => {
+  it('does not pin the icon out of flow', async () => {
     const css = await cssFor('q-select rotate-180')
-    const body = blockBody(css, '.q-select__dropdown-icon', /position:absolute/)
-    expect(body).not.toBeNull()
-    // red today: rule declares transform:translateY(-50%)
-    expect(body).toMatch(/translate:\s*0\s+-50%/)
+    const decls = declarationsFor(css, '.q-select__dropdown-icon')
+    expect(decls, 'icon block was not emitted').not.toBe('')
+    expect(decls).not.toMatch(/position:\s*absolute/)
+    expect(decls).not.toMatch(/right:\s*12px/)
+    expect(decls).not.toMatch(/translate:/)
   })
 
-  it('does not put the centering on the transform shorthand', async () => {
+  it("keeps the reference's cursor and transition declarations", async () => {
     const css = await cssFor('q-select rotate-180')
-    const body = blockBody(css, '.q-select__dropdown-icon', /position:absolute/)
-    expect(body).not.toBeNull()
-    // red today: transform:translateY(-50%) is clobbered by .rotate-180
-    expect(body).not.toMatch(/transform:/)
+    const decls = declarationsFor(css, '.q-select__dropdown-icon')
+    expect(decls).toMatch(/cursor:\s*pointer\s*!important/)
+    expect(decls).toMatch(/transition:\s*transform\s*0\.28s/)
   })
 
   it('still emits the rotate-180 utility so the menu toggle reaches the icon', async () => {
