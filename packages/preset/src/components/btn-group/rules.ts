@@ -270,6 +270,107 @@ export const btnGroupRules = [
         'min-width': '0',
         'max-width': '100%'
       }
+      // Quasar 2.34 moved the group's corner collapse onto the explicit
+      // `--horizontal` / `--vertical` classes (QBtnGroup puts one of them on
+      // every group). The unprefixed selectors above stay for the 2.31
+      // reference set the parity fixture records; these mirror the 2.34 shape so
+      // the runtime classes resolve and a vertical group gets its own corners.
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal > ${selector}:first-child > .q-btn:first-child`,
+        'border-top-left-radius': 'inherit',
+        'border-bottom-left-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal > ${selector}:last-child > .q-btn:last-child`,
+        'border-top-right-radius': 'inherit',
+        'border-bottom-right-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal > ${selector}:not(:first-child) > .q-btn:first-child`,
+        'border-top-left-radius': '0',
+        'border-bottom-left-radius': '0'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal > ${selector}:not(:first-child) > .q-btn:first-child:before`,
+        'border-left': '0'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal > ${selector}:not(:last-child) > .q-btn:last-child:before`,
+        'border-right': '0'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal > .q-btn-item:not(:first-child)`,
+        'border-top-left-radius': 'var(--radius-none)',
+        'border-bottom-left-radius': 'var(--radius-none)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal > .q-btn-item:not(:last-child)`,
+        'border-top-right-radius': 'var(--radius-none)',
+        'border-bottom-right-radius': 'var(--radius-none)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal > .q-btn-item:first-child`,
+        'border-top-left-radius': 'inherit',
+        'border-bottom-left-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--horizontal > .q-btn-item:last-child`,
+        'border-top-right-radius': 'inherit',
+        'border-bottom-right-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical > ${selector}:first-child > .q-btn:first-child`,
+        'border-top-left-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical > ${selector}:first-child > .q-btn:last-child`,
+        'border-top-right-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical > ${selector}:last-child > .q-btn:first-child`,
+        'border-bottom-left-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical > ${selector}:last-child > .q-btn:last-child`,
+        'border-bottom-right-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical > .q-btn-item:not(:last-child)`,
+        'border-bottom-left-radius': 'var(--radius-none)',
+        'border-bottom-right-radius': 'var(--radius-none)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical > .q-btn-item:not(:first-child)`,
+        'border-top-left-radius': 'var(--radius-none)',
+        'border-top-right-radius': 'var(--radius-none)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical > .q-btn-item:first-child`,
+        'border-top-left-radius': 'inherit',
+        'border-top-right-radius': 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--vertical > .q-btn-item:last-child`,
+        'border-bottom-left-radius': 'inherit',
+        'border-bottom-right-radius': 'inherit'
+      }
     }
   ]
 ] as Rule[]

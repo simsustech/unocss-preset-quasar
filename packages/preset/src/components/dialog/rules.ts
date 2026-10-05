@@ -69,7 +69,14 @@ export const dialogRules = [
         [symbols.selector]: (selector) => `${selector}__inner`,
         position: 'relative',
         display: 'flex',
-        'flex-direction': 'column',
+        // Row direction, as stock Quasar renders it: the runtime class list is
+        // `… fixed-full flex-center` (QDialog.js) and `flex-center` sets
+        // `justify-content/align-items: center` on the default row axis. That
+        // row axis is load-bearing — `flex-shrink` acts on the MAIN axis, so a
+        // child wider than this box (the Dialog plugin's `.q-dialog-plugin` is a
+        // fixed `width: 400px`) shrinks to fit a phone viewport. A `column`
+        // direction here moved the shrink to the vertical axis and let the card
+        // spill off a 375px screen by 31px (`(90vw - 400px) / 2`).
         'max-width': '90vw',
         'max-height': '90vh',
         'border-radius': 'var(--q-radius-lg)',

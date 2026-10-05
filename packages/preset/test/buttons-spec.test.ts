@@ -25,9 +25,23 @@ async function cssFor(tokens: string, style?: any): Promise<string> {
   return r.css
 }
 
+/**
+ * The declaration block(s) whose selector *is* `sel` — either alone or as one
+ * member of a comma-joined selector list. UnoCSS folds yields with identical
+ * bodies into a single rule with a combined selector (the group's `--horizontal`
+ * selectors merge with their unprefixed twins), so a bare `sel{` match misses
+ * them and a substring match would catch unrelated neighbours.
+ */
 function block(css: string, sel: string): string {
-  const m = css.match(new RegExp(`\\${sel}\\{[^}]*\\}`, 'g'))
-  return m ? m.join('\n') : ''
+  // Strip comments first: a `/* layer: … */` banner sits between the previous
+  // rule's `}` and the selector, and would otherwise become part of it.
+  const sheet = css.replace(/\/\*[\s\S]*?\*\//g, '')
+  const out: string[] = []
+  for (const m of sheet.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const selectors = m[1].split(',').map((s) => s.trim())
+    if (selectors.includes(sel)) out.push(m[0])
+  }
+  return out.join('\n')
 }
 
 describe('QBtn corner spec conformance', () => {
