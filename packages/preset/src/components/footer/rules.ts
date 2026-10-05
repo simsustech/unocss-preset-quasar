@@ -7,6 +7,12 @@ import type { Rule } from '@unocss/core'
  * z-index: 2000`), with the inner `.q-toolbar` owning the box model. The
  * surface comes from `.q-layout__section--marginal`. Previously this class was
  * split across two entries in two files, so last-wins dropped the base.
+ *
+ * It stays on the marginal tier with the header — no split. The bar did once
+ * paint over the drawer's last nav item (both sat at 2000 / 1500), but the fix
+ * is the overlay drawer's own tier, 3000 in `components/drawer/rules.ts`: an
+ * open drawer covers this bar wherever the bar sits, so dropping the footer to
+ * 1450 changed no observable behaviour. Recorded in ADR 0007.
  */
 export const footerRules = [
   [

@@ -128,12 +128,23 @@ export const drawerRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--on-top`,
-        // ADR 0007 (overlay layering scale): an overlay/mobile drawer sits under
-        // the marginals (2000) and the dialog/menu tier (6000), so the app bar
-        // stays visible and hittable while the drawer is open. The reference says
-        // 7000 — drawer above the app bar and above dialogs — which consumers had
-        // to patch out with `!important` and then patch the dialogs out again.
-        'z-index': '1500'
+        // ADR 0007 (overlay layering scale): the overlay/mobile drawer sits
+        // above the marginals (2000, opener 2001) and below the dialog/menu
+        // tier (6000). 3000 is quasar.css's own value, so the ordering now
+        // matches upstream.
+        //
+        // It has to clear the marginals: the drawer's box spans the full
+        // viewport height — Md3Layout lays the shell out as `view="lHh …"`, so
+        // Quasar skips the `top` offset it applies when the drawer is *not* in
+        // the header row — and at 1500 both marginals painted over it. The app
+        // bar covered the drawer's close button and the fixed bottom nav
+        // covered its last nav item, neither of them reachable
+        // (`tests/md3-layout.spec.ts` in the harness).
+        //
+        // It still has to stay under dialogs: the reference bundle's 7000 is
+        // what consumers had to patch out with `!important`, because an open
+        // drawer then covered their modals.
+        'z-index': '3000'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -199,7 +210,8 @@ export const drawerRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__backdrop`,
-        // ADR 0007: one step below the overlay drawer itself (reference: 6999).
+        // ADR 0007: one step below the overlay drawer itself — quasar.css's
+        // 2999 against its 3000 (the reference bundle says 6999 / 7000).
         //
         // `!important` is the reference's, not decoration. Quasar renders this
         // element with the `fullscreen` class as well (`.fullscreen` carries
@@ -207,9 +219,9 @@ export const drawerRules = [
         // selectors are one class, so without the flag the later `.fullscreen`
         // wins and the backdrop lands at 6000 — above the app bar at 2000 —
         // covering the header's controls whenever the drawer is open at mobile
-        // width. Dropping the flag was the port gap; the reference is
+        // width. Dropping the flag was the port gap; quasar.css is
         // `.q-drawer__backdrop { z-index: 2999 !important }`.
-        'z-index': '1499 !important',
+        'z-index': '2999 !important',
         'will-change': 'background-color'
       }
       yield {

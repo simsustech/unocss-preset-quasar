@@ -26,10 +26,10 @@ One scale, stated once ([Decisions](/architecture/decisions) ADR-0007), from low
 
 | Tier                | z                    | Members / utility                                     |
 | ------------------- | -------------------- | ----------------------------------------------------- |
-| Floating content    | 1400                 | `.q-page-sticky`                                      |
 | Side panel, in flow | 1000                 | `.q-drawer`                                           |
-| Side panel, overlay | 1500 (backdrop 1499) | `.q-drawer--on-top`, `.q-drawer__backdrop`            |
-| Marginals           | 2000                 | `z-marginals` — header, footer, bar, drawer opener    |
+| Floating content    | 1400                 | `.q-page-sticky`                                      |
+| Marginals           | 2000 / opener 2001   | `z-marginals` — header, footer, bar, drawer opener    |
+| Side panel, overlay | 3000 (backdrop 2999) | `.q-drawer--on-top`, `.q-drawer__backdrop`            |
 | Menus & dialogs     | 6000                 | `z-fullscreen` — menu, dialog, table head, carousel   |
 | Top utility         | 7000                 | `z-top`                                               |
 | Tooltip             | 9000                 | `.q-tooltip`                                          |
@@ -42,7 +42,7 @@ One scale, stated once ([Decisions](/architecture/decisions) ADR-0007), from low
 <div class="z-max">almost nothing beats this</div>
 ```
 
-The contract in edges: **overlay drawer < marginals** (the app bar stays clickable over an open drawer) and **menus/dialogs < tooltip < notify < loading**. If you override z-index in app CSS, override against the tier, not a raw number.
+The contract in edges: **overlay drawer > the app bar and the bottom nav** (the drawer spans the full viewport, so at 1500 the marginals covered its own close button and last nav item), **overlay drawer < menus/dialogs** (an open drawer never covers a modal — the reference's 7000 did), and **menus/dialogs < tooltip < notify < loading**. If you override z-index in app CSS, override against the tier, not a raw number.
 
 ## Tonal elevation (MD3)
 
