@@ -247,7 +247,13 @@ export const dateRules = [
         [symbols.selector]: (selector) => `${selector}__calendar-item button`,
         'border-radius': '50%',
         width: '30px',
-        height: '30px'
+        height: '30px',
+        // quasar: Quasar sizes the date cell 30x30 itself (a date, not an
+        // action button). The preset's 48dp button floor (`.q-btn` /
+        // `.q-btn--dense` min-height) and md2's 64px `.q-btn` min-width would
+        // otherwise win over width/height and stretch the cell into an oval.
+        'min-width': '30px',
+        'min-height': '30px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__calendar-item--out`,
@@ -707,7 +713,12 @@ export const dateRules = [
         'background-color':
           'color-mix(in oklab, var(--q-primary) var(--q-bg-opacity), transparent)',
         height: '30px',
-        width: '60px'
+        width: '60px',
+        // quasar: reference/Quasar size the year button 60x30; it sheds the
+        // same button floors (48dp min-height, md2's 64px min-width) as the day
+        // cell above.
+        'min-width': '60px',
+        'min-height': '30px'
       }
       yield {
         [symbols.selector]: (selector) =>
@@ -715,7 +726,10 @@ export const dateRules = [
         color:
           'color-mix(in oklab, var(--q-on-surface) var(--q-text-opacity), transparent)',
         height: '30px',
-        width: '60px'
+        width: '60px',
+        // quasar: same shed as the year .q-btn above.
+        'min-width': '60px',
+        'min-height': '30px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__months-item`,
