@@ -4,10 +4,15 @@ export const cardRules = [
   [
     /^q-card$/,
     function* (_, { symbols }) {
-      // .q-card
+      // .q-card — deliberately no `display`: stock Quasar 2.34's .q-card
+      // declares none (node_modules/quasar/dist/quasar.css, `.q-card` block)
+      // and neither does the reference bundle
+      // (specs/reference/raw/reference-bundle.css.txt, `.q-card{padding:16px;…}`).
+      // A flex card made q-card__section a flex item, resolving descendants'
+      // percentage heights instead of deferring them to content height — it
+      // turned petboarding's PetChip (inline height:100% so long names wrap)
+      // into a full-container filler (see docs/adr/0009-q-card-stays-block.md).
       yield {
-        display: 'flex',
-        'flex-direction': 'column',
         'vertical-align': 'top',
         padding: 'var(--q-space-lg)',
         'border-radius': 'var(--q-card-radius)',
