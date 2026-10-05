@@ -1,5 +1,179 @@
 # unocss-preset-quasar
 
+## 0.6.1
+
+### Patch Changes
+
+- a271681: fix(preset): render QCheckbox's check, state layer and icon mode correctly
+
+  Four defects in `components/checkbox/rules.ts`, found by screenshot and
+  computed-style probes against `/q-checkbox` in the harness:
+
+  - **The indeterminate dash painted over the check.** The AUD-024 fold dropped
+    the reference's `transform: rotate(-280deg) scale(0)` down to `rotate`, so the
+    dash stayed visible at its intrinsic 3.9×9.6px in the truthy _and_ the falsy
+    state. `scale(0)` is restored as the hidden default; the `--indet` state yield
+    cancels it with `transform: scale(1)`.
+  - **The glyph box sat 2px up-left**, clipping the strokes into the border: the
+    full-cover rule reset `top/left/width/height/border` but not the reference
+    inset's own `margin: -2px`.
+  - **The hover/focus state layer anchored on the control's top-left corner**
+    instead of its centre: the hover yield re-declared the reference's
+    `top/left/right/bottom: 0`, which combined with the base 40dp width and
+    `translate: -50% -50%` threw the 48px circle off the inner. Hover now only
+    scales the base layer, as `:focus`/`:focus-visible` already did.
+  - **Icon mode (`checkedIcon`/`uncheckedIcon`) rendered a 24px glyph** inside the
+    18px box, over the label: `.q-checkbox__icon`'s 0.5em lost to
+    `.q-icon { font-size: var(--q-comp-icon) }`, emitted later at the same (0,1,0)
+    specificity. The size now also ships component-scoped
+    (`.q-checkbox .q-checkbox__icon`); the reference's single-class rule stays for
+    the parity ratchet.
+
+  Why a component icon needs the scoped selector, and why both yields exist, is
+  recorded in ADR 0013.
+
+  Guarded in the harness by `tests/rewrite-comprehensive.spec.ts` (indeterminate
+  dash, glyph centring, hover centring, icon size, plus the screenshot baseline
+  `q-checkbox-md3.png`) and by `tests/spec-conformance.spec.ts` (AUD-029).
+
+- e6cb045: fix(preset): let the overlay drawer win the stack against both marginals
+
+  `.q-drawer--on-top` moves from `z-index: 1500` to **3000** and
+  `.q-drawer__backdrop` from `1499` to **2999** (`!important` kept) — the values
+  `quasar.css` already uses, below the dialog tier (6000).
+
+  The drawer's box spans the full viewport height (`Md3Layout` lays its shell out
+  as `view="lHh Lpr lFf"`, so Quasar skips the `top` offset it gives a drawer
+  outside the header row), so at 1500 both marginals painted over it: the app bar
+  covered the drawer's own close button and the fixed bottom nav covered its last
+  nav item — neither visible to the pointer nor tappable on a phone.
+
+  What is deliberately _not_ taken from the reference bundle is its 7000, which
+  sits above `.q-dialog`; that is the half consumers had to patch out.
+
+  Recorded in ADR 0007 (amended) and guarded by
+  `drawer-backdrop.test.ts` ("outranks the app bar and the bottom nav, and stays
+  under dialogs") plus `tests/md3-layout.spec.ts` in the harness.
+
+- 143a2ee: fix(preset): stop hiding placeholders unconditionally, emit the q-placeholder restore
+
+  `field/rules.ts` emitted `.q-field__native::placeholder` and
+  `.q-field__input::placeholder { color: transparent }` with no condition — both
+  `.q-field--labeled:not(.q-field--float)`. Probed on the harness fixture on
+  2026-10-05: a `DateInput` segment input and a stock `q-input`'s native both
+  computed `rgba(0, 0, 0, 0)` for `::placeholder` — the two extras matched them
+  unconditionally (petboarding's `PetForm` is where it was first reported).
+
+  The restore that was meant to balance them, `.q-placeholder::placeholder {
+color: inherit; opacity: 0.7 }`, sat in `core/helpers/rules.ts` behind a
+  `/^q-placeholder::placeholder$/` matcher that can never fire — no extractor
+  output or safelist entry produces a literal `::` candidate (the same defect
+  family as `dead-matchers.test.ts`, which scans bare regex literals and misses
+  matchers wrapped in `rule(…)`).
+
+  Both unconditional extras are deleted and the restore is re-emitted from the
+  `q-field` rule family via `symbols.selector`, keyed on the producible base.
+  Recorded in ADR 0010; guarded by
+  `quasar-testing-harness/tests/date-input-placeholder.spec.ts`.
+
+- e328394: fix(preset): drop the invented `display: flex` from `.q-card`
+
+  Stock Quasar 2.34 states no `display` for `.q-card`
+  (`quasar/dist/quasar.css`, `.q-card` block) and neither does the reference
+  bundle. The flex made every `q-card__section` a flex item, whose used size is
+  definite — so descendants' percentage heights resolved instead of deferring to
+  content height. petboarding's PetChip carries an inline `height: 100%` (so long
+  names wrap) and filled its container instead of sizing to its content: the
+  "PetChips expand to full height" regression on the KennelLayout page.
+
+  `.q-card--horizontal` and `.q-card__actions` keep their flex declarations —
+  only the base rule's `display`/`flex-direction` were removed.
+
+  Recorded in ADR 0014; guarded by `tests/q-card-percentage-height.spec.ts` in
+  quasar-testing-harness (md3/md2/unstyled) and the chip-height assertion in
+  petboarding's `kennelLayout` e2e.
+
+- d9d78ae: QSelect's text input no longer reserves the dropdown arrow's clearance twice.
+
+  `select/rules.ts` emitted `padding-right: 48px` on `.q-select .q-field__native`
+  **and** on `.q-select .q-field__input`. The input sits inside the native's
+  content box, so the two stacked: 96px of dead space on the right of the input.
+  Measured on a phone-sized viewport (320px, value selected), the field box was
+  200px → native 138px → input 90px → **42px of usable text area**, so typing
+  scrolled after about two characters. At 375px the text area was 87–123px.
+
+  Both paddings are gone. The arrow also went back into upstream's in-flow append
+  row (`.q-select__dropdown-icon` no longer carries `position: absolute;
+right: 12px; top: 50%; translate: 0 -50%`), which is what had forced the flow to
+  reserve the arrow's space by hand — `quasar@2.34.0` ships neither the paddings
+  nor the positioning, and the control's own `padding: 0 12px` already holds the
+  arrow 12px off the control's right edge. The input keeps upstream's
+  `min-width: 50px !important` and `cursor: text`; the icon keeps the reference's
+  `cursor: pointer !important` + `transition: transform 0.28s`. Typing now spans
+  the native's whole content box instead of a 42px slot.
+
+  The parity ratchet records the divergence from the reference bundle (which does
+  carry both paddings) as select `target: 2`; guarded by `select-text-area.test.ts`
+  (no `padding-right` on either selector, upstream's declarations still emitted)
+  and the rewritten `select-dropdown-icon.test.ts` (no positioning, cursor and
+  transition preserved, `rotate-180` still reaches the icon). Recorded in ADR 0012,
+  which also supersedes ADR 0009's select instance.
+
+  Supersedes the pending `.changeset/select-dropdown-icon-position.md`, which
+  documented the arrow-centering behaviour this change removes; that behaviour
+  never shipped in a release, so the file is deleted rather than left to contradict
+  these notes.
+
+- 540d6dd: fix(preset): give the standard field the underline container's corners
+
+  The base `.q-field__control` carried `border-radius: var(--q-radius-sm)`, while
+  `.q-field--standard .q-field__control` overrides only its two top corners — with
+  the reference's `inherit`. The variant classes are mutually exclusive
+  (`use-field.js`), so no other variant ever read the base value: only `standard`
+  did, and only through the two corners it leaves unset. A default field therefore
+  rendered `border-top-left-radius: 0px` with `border-bottom-left-radius: 8px`
+  under md3 — "bottom rounded, top square" (petboarding, md3, the login form).
+
+  Material's underline container is top-only extra-small with a flat bottom edge:
+  Flutter's `UnderlineInputBorder` documents "the top left and right corners have a
+  circular radius of 4.0" and zero bottom radii, and md3's text-field bottom edge
+  is `md.sys.shape.corner.none`. So the base radius is deleted, and
+  `.q-field__inner` — the control's _direct parent_, and the element the
+  reference-pinned `inherit` actually reads — now carries the top radii as
+  `var(--q-corner-extra-small)` (md3 4px, md2 4px, unstyled 0). Recorded in
+  ADR 0011.
+
+  Two further deviations the same probe turned up:
+
+  - md2's shape scale stated `cornerExtraSmall: '3px'` where its own spec (filled
+    `4px 4px 0px 0px`, outlined `4`) and `quasar.css` both say 4px — every md2
+    outlined and standout field drew 3px corners. Fixed at the token, which both
+    emitted families read (`--q-corner-*` and `--shape-corner-*`); `radiusXs`
+    keeps its own 3px as the skeleton/checkbox alias.
+  - the `.q-field--rounded` **root** rule was inert — `inherit` reads the direct
+    parent (`.q-field__inner`), never the root, so no control could ever resolve
+    it — and is removed. The variants that read the prop keep rounding the control
+    themselves.
+
+  Guarded by `field-corner-shape.test.ts` and, in the consumer's configuration,
+  `quasar-testing-harness/tests/field-corners.spec.ts` (standard, filled, standout
+  and standard+rounded in md3; standard and outlined in md2).
+
+- 3af72d1: fix(preset): pad the standard and outlined field controls 12px in every style
+
+  `components/field/rules.ts` derived the control's inline padding from the general
+  spacing scale (`var(--q-space-md)`), which is 12px in md3 but 8px in md2 — so a
+  standard or outlined field lost 4px of inline padding in md2, pulling a trailing
+  marginal (the q-select dropdown arrow) 8px from the edge instead of 12px.
+
+  The reference is 12px in every style: its `quasar-style-md2` block carries no
+  field rule, so md2 inherits the base
+  `.q-field--standard .q-field__control { padding-inline: 12px }` and
+  `.q-field--outlined .q-field__control { padding-inline: 12px }`. The field's own
+  token `--q-field-padding-x` is 12px in md2 and md3 (0 unstyled); both variants now
+  use it. Filled keeps `--q-space-lg` (16px), which already matches the reference's
+  `.q-field--filled > .q-field__inner > .q-field__control { padding-inline: 16px }`.
+
 ## 0.6.0
 
 ### Minor Changes
