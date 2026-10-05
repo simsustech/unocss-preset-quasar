@@ -35,7 +35,6 @@ export const fieldRules = [
         display: 'flex',
         'align-items': 'center',
         position: 'relative',
-        'border-radius': 'var(--q-radius-sm)',
         'min-height': 'var(--q-control-height)'
       }
       yield {
@@ -965,10 +964,11 @@ export const fieldRules = [
         'padding-left': '0',
         'padding-right': '0'
       }
-      yield {
-        [symbols.selector]: (selector) => `${selector}--rounded`,
-        'border-radius': 'var(--q-radius-xl)'
-      }
+      // No `.q-field--rounded` root rule: the variants that read the prop round
+      // the control themselves, and a radius on the root could never reach it —
+      // the control's only radius that reads its parent is `inherit`, and that
+      // parent is `.q-field__inner`. The rule was a parity-extra that painted
+      // nothing.
       yield {
         [symbols.selector]: (selector) => `${selector}--square`,
         'border-radius': '0'
@@ -1224,6 +1224,16 @@ export const fieldRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__inner`,
+        // The standard field keeps the reference's `border-top-*-radius:
+        // inherit` on the control, and `inherit` reads the direct parent only
+        // — this element — never the field root. Material's underline
+        // container is top-only extra-small with a flat bottom edge (Flutter
+        // `UnderlineInputBorder`: top radii 4.0, bottom zero; md3's text-field
+        // bottom edge is `md.sys.shape.corner.none`). A base radius on the
+        // control instead leaked 8px into the standard field's *bottom*
+        // corners, which no variant overrides.
+        'border-top-left-radius': 'var(--q-corner-extra-small)',
+        'border-top-right-radius': 'var(--q-corner-extra-small)',
         'text-align': 'left'
       }
       yield {

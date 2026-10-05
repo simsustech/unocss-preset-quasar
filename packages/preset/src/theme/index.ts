@@ -214,7 +214,14 @@ export const md2Style: StyleEntry = {
   name: 'md2',
   tokens: {
     shape: {
-      cornerExtraSmall: '3px',
+      // md2's own spec states extra-small as 4px — filled `4px 4px 0px 0px`,
+      // outlined `4` — and `quasar.css` renders every extra-small consumer at
+      // 4px too. This is the one key both emitted families read (`--q-corner-*
+      // via the token block, `--shape-corner-*` via the shape roles), so a 3px
+      // here drew 3px corners on every md2 outlined and standout field.
+      // `radiusXs` below keeps its own 3px: it is the skeleton/checkbox alias,
+      // a different consumer set that this scale does not speak for.
+      cornerExtraSmall: '4px',
       cornerSmall: '4px',
       cornerMedium: '7px',
       cornerLarge: '16px',
