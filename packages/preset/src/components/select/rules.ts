@@ -32,7 +32,10 @@ export const selectRules = [
         position: 'absolute',
         right: '12px',
         top: '50%',
-        transform: 'translateY(-50%)'
+        // Individual `translate`, not `transform:` — `.rotate-180` owns the
+        // transform shorthand in a later cascade band and would clobber the
+        // centering when Quasar opens the menu. See ADR 0009.
+        translate: '0 -50%'
         // transition comes from the yield below: the reference's `transform 0.28s`
       }
       yield {
