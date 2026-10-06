@@ -5,6 +5,17 @@ import { mouseRules } from '../src/core/mouse/rules.js'
 import { typographyRules } from '../src/core/typography/rules.js'
 import { transitionsRules } from '../src/core/transitions/rules.js'
 import { helpersRules } from '../src/core/helpers/rules.js'
+import { createGenerator } from 'unocss'
+import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
+
+const sheet = async (token: string): Promise<string> =>
+  (
+    await (
+      await createGenerator({
+        presets: [QuasarPreset({ styles: QuasarStyleEntries })]
+      })
+    ).generate(token, { preflights: false })
+  ).css
 
 /** Helper: find a rule by its regex test and invoke the matcher */
 function matchRule(
@@ -110,18 +121,28 @@ describe('helpersRules', () => {
   it('no-transition disables transition', () => {
     expect(matchRule(helpersRules, 'no-transition')!.transition).toBe('none')
   })
-  it('q-link removes underline', () => {
-    expect(matchRule(helpersRules, 'q-link')!['text-decoration']).toBe('none')
+  it('q-link removes underline', async () => {
+    const css = await sheet('q-link')
+    expect(css).toMatch(/\.q-link\{[^}]*text-decoration:none/)
   })
 
-  it('q-link carries the interactive colour as well as the reset', () => {
+  it('q-link carries the interactive colour on links, not on list items', async () => {
     // The reference leaves the colour to the consumer (its reset says
     // `a { color: inherit }`), so a bare anchor fell through to the browser's
     // `rgb(0, 0, 238)` on six petboarding content links (audit 2026-10-06).
     // `--q-primary` is the interactive role and flips per scheme, so one
-    // declaration covers both.
-    const qLink = matchRule(helpersRules, 'q-link')!
-    expect(qLink.color).toBe('var(--q-primary)')
-    expect(qLink['text-decoration']).toBe('none')
+    // declaration covers both. It is scoped because Quasar reuses `q-link` on
+    // clickable q-items and breadcrumb elements, which the list spec keeps
+    // on-surface (`ListTokens.ItemLabelTextColor`).
+    const css = await sheet('q-link')
+    expect(css).not.toMatch(/\.q-link\{[^}]*color:/)
+    // UnoCSS merges rules that share a declaration body, so the scoped
+    // selector may share a block with `.text-primary`; locate its own block.
+    const at = css.indexOf('.q-link:not(.q-item):not(.q-breadcrumbs__el)')
+    expect(at).toBeGreaterThan(-1)
+    const open = css.indexOf('{', at)
+    expect(css.slice(open + 1, css.indexOf('}', open))).toContain(
+      'color:var(--q-primary)'
+    )
   })
 })

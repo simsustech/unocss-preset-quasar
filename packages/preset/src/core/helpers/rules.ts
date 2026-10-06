@@ -209,12 +209,31 @@ export const helpersRules: ComponentRule[] = [
   // petboarding content links (2026-10-06: `/information`, `/availability`,
   // `/account/{pets,bookings,daycare,contactpeople}`) that each hand-paired
   // `text-$light-primary dark:text-$dark-primary` to work around it.
-  rule(/^q-link$/, () => ({
-    color: 'var(--q-primary)',
-    'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
-    'outline-width': '0px',
-    'text-decoration': 'none'
-  })),
+  //
+  // The colour is scoped to real links: Quasar reuses `q-link` on clickable
+  // `q-item`s (`QItem.js`: `isClickable` -> `q-item--clickable q-link`) and on
+  // breadcrumb elements (`QBreadcrumbsEl.js`), neither of which is a link. Left
+  // unscoped, every drawer, dashboard and menu row drew primary where the list
+  // spec wants `on-surface` (`ListTokens.ItemLabelTextColor`; Quasar's own
+  // `.q-link` carries no colour) and non-last breadcrumbs lost their role too.
+  // Those surfaces keep their own colours: `.q-item` inherits and
+  // `.q-item--active` states primary.
+  [
+    /^q-link$/,
+    function* (_, { symbols }) {
+      yield {
+        [symbols.selector]: (selector) => selector,
+        'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
+        'outline-width': '0px',
+        'text-decoration': 'none'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}:not(.q-item):not(.q-breadcrumbs__el)`,
+        color: 'var(--q-primary)'
+      }
+    }
+  ],
   // AUD-014 repair: `:focus-visible` cannot be part of a candidate either — the
   // matcher is on the bare token the class line produces, and the state rides in
   // the emitted selector. dist states the underline there
