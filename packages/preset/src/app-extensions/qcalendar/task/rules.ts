@@ -15,7 +15,6 @@ export const qcalendarTaskRules = [
   [
     /^q-calendar-task$/u,
     function* (_, { symbols }) {
-      // .q-calendar-task
       yield {
         display: 'flex',
         flex: '1',

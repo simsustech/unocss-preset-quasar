@@ -4,7 +4,6 @@ export const btnGroupRules = [
   [
     /^q-btn-group$/,
     function* (_, { symbols }) {
-      // .q-btn-group
       yield {
         display: 'inline-flex',
         // Reference `.q-btn-group`: middle-aligned, `flex: 0 1 auto`, 28px corner

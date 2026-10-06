@@ -4,7 +4,6 @@ export const markupTableRules: Rule[] = [
   [
     /^q-markup-table$/,
     function* (_, { symbols }) {
-      // .q-markup-table
       yield {
         'border-collapse': 'collapse',
         'border-spacing': '0',

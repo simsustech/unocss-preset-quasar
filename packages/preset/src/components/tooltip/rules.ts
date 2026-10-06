@@ -4,7 +4,6 @@ export const tooltipRules = [
   [
     /^q-tooltip$/,
     function* (_, { symbols }) {
-      // .q-tooltip
       yield {
         // Reference `.q-tooltip`: fixed and scrollable, with the tooltip's own
         // padding only up to 40rem — the smaller `padding-inline`/`padding-block`
@@ -32,7 +31,6 @@ export const tooltipRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dark`
-        // Dark mode
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--style`,

@@ -4,12 +4,9 @@ packages:
 minimumReleaseAge: 1440
 
 minimumReleaseAgeExclude:
-  - vue-router
   - '@quasar/*'
-  - '@fastify/middie@9.3.3'
   - '@types/node@26.1.0'
   - quasar@2.20.2 || 2.21.1 || 2.25.1 || 2.31.0
-  - toml@4.1.2
   - vite@8.1.2 || 8.2.2
   - '@vitest/expect@4.1.10'
   - '@vitest/mocker@4.1.10 || 5.0.3'
@@ -50,9 +47,7 @@ minimumReleaseAgeExclude:
   - '@unocss/transformer-directives@66.8.0 || 66.10.1'
   - '@unocss/transformer-variant-group@66.8.0 || 66.10.1'
   - '@unocss/vite@66.8.0 || 66.10.1'
-  - fastify@5.12.1
   - unocss@66.8.0 || 66.10.1
-  - vitrify@0.27.1
   - '@unocss/rollup@66.10.1'
 allowBuilds:
   '@parcel/watcher': true

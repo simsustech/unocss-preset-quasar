@@ -41,7 +41,6 @@ export const dialogRules = [
   [
     /^q-dialog$/,
     function* (_, { symbols }) {
-      // .q-dialog
       yield {
         position: 'fixed',
         inset: '0',
@@ -199,15 +198,12 @@ export const dialogRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--modal`
-        // Modal dialog
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--seamless`
-        // Seamless dialog
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--inner`
-        // Inner dialog
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__title`,
@@ -250,7 +246,6 @@ export const dialogRules = [
   [
     /^q-dialog-plugin$/,
     function* (_, { symbols }) {
-      // .q-dialog-plugin
       yield {
         width: '400px',
         // Reference `.q-dialog-plugin { min-width: 280px }`: below that the

@@ -4,7 +4,6 @@ export const avatarRules = [
   [
     /^q-avatar$/,
     function* (_, { symbols }) {
-      // .q-avatar
       yield {
         display: 'inline-flex',
         'align-items': 'center',

@@ -4,7 +4,6 @@ export const infiniteScrollRules = [
   [
     /^q-infinite-scroll$/,
     function* (_, { symbols }) {
-      // .q-infinite-scroll
       yield {
         [symbols.selector]: (selector) => `${selector}__sentinel`,
         height: '1px',

@@ -4,7 +4,6 @@ export const parallaxRules = [
   [
     /^q-parallax$/,
     function* (_, { symbols }) {
-      // .q-parallax
       yield {
         position: 'relative',
         overflow: 'hidden'

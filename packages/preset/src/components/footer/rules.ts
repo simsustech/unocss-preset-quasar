@@ -18,7 +18,6 @@ export const footerRules = [
   [
     /^q-footer$/,
     function* (_, { symbols }) {
-      // .q-footer
       yield {
         position: 'relative',
         'z-index': 2000
@@ -51,7 +50,6 @@ export const footerRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--reveal`
-        // Reveal
       }
     }
   ]

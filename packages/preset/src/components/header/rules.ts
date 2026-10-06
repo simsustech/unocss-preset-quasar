@@ -17,7 +17,6 @@ export const headerRules = [
   [
     /^q-header$/,
     function* (_, { symbols }) {
-      // .q-header
       yield {
         position: 'relative',
         'z-index': 2000
@@ -52,7 +51,6 @@ export const headerRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--reveal`
-        // Reveal
       }
     }
   ]

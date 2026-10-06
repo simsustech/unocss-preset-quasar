@@ -4,7 +4,6 @@ export const spaceRules = [
   [
     /^q-space$/,
     function* () {
-      // .q-space
       yield { flex: '1', 'flex-grow': 1 }
     }
   ]

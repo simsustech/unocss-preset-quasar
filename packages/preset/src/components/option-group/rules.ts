@@ -8,7 +8,6 @@ export const optionGroupRules = [
   [
     /^q-option-group$/,
     function* (_, { symbols }) {
-      // .q-option-group
       yield {
         [symbols.selector]: (selector) => `${selector}--inline > div`,
         display: 'inline-block'

@@ -4,7 +4,6 @@ export const radioRules = [
   [
     /^q-radio$/,
     function* (_, { symbols }) {
-      // .q-radio
       yield {
         display: 'inline-flex',
         'align-items': 'center',
@@ -96,7 +95,6 @@ export const radioRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__inner--falsy`
-        // Falsy state
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__label`,

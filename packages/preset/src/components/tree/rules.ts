@@ -29,7 +29,6 @@ export const treeRules = [
   [
     /^q-tree$/,
     function* (_, { symbols }) {
-      // .q-tree
       yield {
         display: 'flex',
         'flex-direction': 'column',
@@ -241,7 +240,6 @@ export const treeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__node--child`
-        // Child node
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__node--selected`,
@@ -289,7 +287,6 @@ export const treeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__node-header--toggle`
-        // Toggle state
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__node-header-content`,

@@ -15,7 +15,6 @@ export const qcalendarAgendaRules = [
   [
     /^q-calendar-agenda$/u,
     function* (_, { symbols }) {
-      // .q-calendar-agenda
       yield {
         display: 'flex',
         flex: '1',

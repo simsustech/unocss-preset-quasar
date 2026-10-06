@@ -15,7 +15,6 @@ export const qcalendarMonthRules = [
   [
     /^q-calendar-month$/u,
     function* (_, { symbols }) {
-      // .q-calendar-month
       yield {
         display: 'flex',
         flex: '1 0 100%',

@@ -4,7 +4,6 @@ export const popupEditRules = [
   [
     /^q-popup-edit$/,
     function* (_, { symbols }) {
-      // .q-popup-edit
       yield { 'padding-inline': '16px', 'padding-block': '8px' }
       yield {
         [symbols.selector]: (selector) => `${selector}__buttons`,

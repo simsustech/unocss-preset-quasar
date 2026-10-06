@@ -16,7 +16,6 @@ export const listRules = [
   [
     /^q-list$/,
     function* (_, { symbols }) {
-      // .q-list
       yield {
         'padding-inline': '0',
         'padding-block': '0',

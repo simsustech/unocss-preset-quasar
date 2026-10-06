@@ -4,7 +4,6 @@ export const badgeRules = [
   [
     /^q-badge$/,
     function* (_, { symbols }) {
-      // .q-badge
       yield {
         display: 'inline-flex',
         'align-items': 'center',
@@ -92,7 +91,6 @@ export const badgeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dark`
-        // Dark mode
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dot`,

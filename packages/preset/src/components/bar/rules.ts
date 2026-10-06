@@ -4,7 +4,6 @@ export const barRules = [
   [
     /^q-bar$/,
     function* (_, { symbols }) {
-      // .q-bar
       yield {
         display: 'flex',
         'align-items': 'center',

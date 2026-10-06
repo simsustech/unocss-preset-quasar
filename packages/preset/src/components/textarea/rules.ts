@@ -12,7 +12,6 @@ export const textareaRules = [
   [
     /^q-textarea$/,
     function* (_, { symbols }) {
-      // .q-textarea
       yield {
         [symbols.selector]: (selector) => `${selector} .q-field__control`,
         'min-height': 'var(--q-comp-lg)',

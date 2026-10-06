@@ -4,7 +4,6 @@ export const separatorRules = [
   [
     /^q-separator$/,
     function* (_, { symbols }) {
-      // .q-separator
       yield {
         'background-color': 'var(--q-separator-color)',
         // Reference states the reset as longhands (`border-width: 0px`), not the
@@ -36,7 +35,6 @@ export const separatorRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--inset`
-        // Inset
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--spaced`,
@@ -73,7 +71,6 @@ export const separatorRules = [
   [
     /^q-list$/,
     function* (_, { symbols }) {
-      // .q-list
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--padding .q-item__label--header`,

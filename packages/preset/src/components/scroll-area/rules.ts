@@ -14,7 +14,6 @@ export const scrollAreaRules = [
   [
     /^q-scrollarea$/,
     function* (_, { symbols }) {
-      // .q-scrollarea
       yield {
         contain: 'strict',
         position: 'relative'
@@ -78,10 +77,5 @@ export const scrollAreaRules = [
       }
     }
   ],
-  [
-    /^q-scroll-area$/,
-    function* () {
-      // .q-scroll-area
-    }
-  ]
+  [/^q-scroll-area$/, function* () {}]
 ] as Rule[]

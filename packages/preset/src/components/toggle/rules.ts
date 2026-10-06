@@ -24,7 +24,6 @@ export const toggleRules = [
   [
     /^q-toggle$/,
     function* (_, { symbols }) {
-      // .q-toggle
       yield { 'vertical-align': 'middle' }
       yield {
         [symbols.selector]: (selector) =>

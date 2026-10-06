@@ -15,7 +15,6 @@ export const qcalendarDayRules = [
   [
     /^q-calendar-day$/u,
     function* (_, { symbols }) {
-      // .q-calendar-day
       yield {
         display: 'flex',
         flex: '1',

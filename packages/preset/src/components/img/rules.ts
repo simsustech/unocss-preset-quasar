@@ -4,7 +4,6 @@ export const imgRules = [
   [
     /^q-img$/,
     function* (_, { symbols }) {
-      // .q-img
       yield {
         display: 'inline-block',
         // Reference `.q-img { vertical-align: middle; width: 100%; display:

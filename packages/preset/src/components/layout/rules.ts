@@ -4,7 +4,6 @@ export const layoutRules = [
   [
     /^q-layout$/,
     function* (_, { symbols }) {
-      // .q-layout
       yield {
         display: 'flex',
         'flex-direction': 'column',
@@ -24,7 +23,6 @@ export const layoutRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--view`
-        // View
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__section`,
@@ -39,7 +37,6 @@ export const layoutRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__content`
-        // Content
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__shadow`,
@@ -117,7 +114,6 @@ export const layoutRules = [
   [
     /^q-layout-container$/,
     function* (_, { symbols }) {
-      // .q-layout-container
       yield {
         position: 'relative',
         width: '100%',
@@ -141,14 +137,12 @@ export const layoutRules = [
   [
     /^q-page$/,
     function* (_, { symbols }) {
-      // .q-page
       yield { position: 'relative' }
     }
   ],
   [
     /^q-body$/,
     function* (_, { symbols }) {
-      // .q-body
       yield {
         [symbols.selector]: (selector) => `${selector}--dialog`,
         overflow: 'hidden'

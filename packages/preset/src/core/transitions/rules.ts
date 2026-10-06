@@ -29,10 +29,6 @@ const jumpTransition =
 const flipTransition = 'transform var(--q-transition-duration)'
 
 export const transitionsRules: ComponentRule[] = [
-  // ============================================================
-  // SLIDE TRANSITIONS
-  // ============================================================
-  // --- Slide Right ---
   rule(/^q-transition--slide-right-enter-active$/, () => ({
     transition: `transform ${transition}`
   })),
@@ -47,7 +43,6 @@ export const transitionsRules: ComponentRule[] = [
     transform: 'translate3d(100%, 0, 0)'
   })),
 
-  // --- Slide Left ---
   rule(/^q-transition--slide-left-enter-active$/, () => ({
     transition: `transform ${transition}`
   })),
@@ -62,7 +57,6 @@ export const transitionsRules: ComponentRule[] = [
     transform: 'translate3d(-100%, 0, 0)'
   })),
 
-  // --- Slide Up ---
   rule(/^q-transition--slide-up-enter-active$/, () => ({
     transition: `transform ${transition}`
   })),
@@ -77,7 +71,6 @@ export const transitionsRules: ComponentRule[] = [
     transform: 'translate3d(0, -100%, 0)'
   })),
 
-  // --- Slide Down ---
   rule(/^q-transition--slide-down-enter-active$/, () => ({
     transition: `transform ${transition}`
   })),
@@ -92,11 +85,6 @@ export const transitionsRules: ComponentRule[] = [
     transform: 'translate3d(0, 100%, 0)'
   })),
 
-  // ============================================================
-  // JUMP TRANSITIONS
-  // ============================================================
-
-  // --- Jump Right ---
   rule(/^q-transition--jump-right-enter-active$/, () => ({
     transition: jumpTransition
   })),
@@ -113,7 +101,6 @@ export const transitionsRules: ComponentRule[] = [
     transform: 'translate3d(15px, 0, 0)'
   })),
 
-  // --- Jump Left ---
   rule(/^q-transition--jump-left-enter-active$/, () => ({
     transition: jumpTransition
   })),
@@ -130,7 +117,6 @@ export const transitionsRules: ComponentRule[] = [
     transform: 'translate3d(-15px, 0, 0)'
   })),
 
-  // --- Jump Up ---
   rule(/^q-transition--jump-up-enter-active$/, () => ({
     transition: jumpTransition
   })),
@@ -147,7 +133,6 @@ export const transitionsRules: ComponentRule[] = [
     transform: 'translate3d(0, -15px, 0)'
   })),
 
-  // --- Jump Down ---
   rule(/^q-transition--jump-down-enter-active$/, () => ({
     transition: jumpTransition
   })),
@@ -164,9 +149,6 @@ export const transitionsRules: ComponentRule[] = [
     transform: 'translate3d(0, 15px, 0)'
   })),
 
-  // ============================================================
-  // FADE TRANSITION
-  // ============================================================
   rule(/^q-transition--fade-enter-active$/, () => ({
     transition: `opacity var(--q-transition-duration) ease-out`
   })),
@@ -177,9 +159,6 @@ export const transitionsRules: ComponentRule[] = [
   rule(/^q-transition--fade-enter-from$/, () => ({ opacity: 0 })),
   rule(/^q-transition--fade-leave-to$/, () => ({ opacity: 0 })),
 
-  // ============================================================
-  // SCALE TRANSITION
-  // ============================================================
   rule(/^q-transition--scale-enter-active$/, () => ({
     transition: `opacity var(--q-transition-duration), transform var(--q-transition-duration) var(--q-transition-easing)`
   })),
@@ -196,9 +175,6 @@ export const transitionsRules: ComponentRule[] = [
     transform: 'scale3d(0, 0, 1)'
   })),
 
-  // ============================================================
-  // ROTATE TRANSITION
-  // ============================================================
   rule(/^q-transition--rotate-enter-active$/, () => ({
     transition: `opacity var(--q-transition-duration), transform var(--q-transition-duration) var(--q-transition-easing)`,
     'transform-style': 'preserve-3d'
@@ -217,11 +193,6 @@ export const transitionsRules: ComponentRule[] = [
     transform: 'scale3d(0, 0, 1) rotate3d(0, 0, 1, 90deg)'
   })),
 
-  // ============================================================
-  // FLIP TRANSITIONS
-  // ============================================================
-
-  // --- Flip Right ---
   rule(/^q-transition--flip-right-enter-active$/, () => ({
     transition: flipTransition,
     'backface-visibility': 'hidden'
@@ -244,7 +215,6 @@ export const transitionsRules: ComponentRule[] = [
     transform: 'perspective(400px) rotate3d(1, 1, 0, 0deg)'
   })),
 
-  // --- Flip Left ---
   rule(/^q-transition--flip-left-enter-active$/, () => ({
     transition: flipTransition,
     'backface-visibility': 'hidden'
@@ -267,7 +237,6 @@ export const transitionsRules: ComponentRule[] = [
     transform: 'perspective(400px) rotate3d(1, 1, 0, 0deg)'
   })),
 
-  // --- Flip Up ---
   rule(/^q-transition--flip-up-enter-active$/, () => ({
     transition: flipTransition,
     'backface-visibility': 'hidden'
@@ -290,7 +259,6 @@ export const transitionsRules: ComponentRule[] = [
     transform: 'perspective(400px) rotate3d(1, 1, 0, 0deg)'
   })),
 
-  // --- Flip Down ---
   rule(/^q-transition--flip-down-enter-active$/, () => ({
     transition: flipTransition,
     'backface-visibility': 'hidden'

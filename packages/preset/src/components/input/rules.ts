@@ -4,7 +4,6 @@ export const inputRules = [
   [
     /^q-input$/,
     function* (_, { symbols }) {
-      // .q-input
       yield {
         display: 'flex',
         'flex-direction': 'column'

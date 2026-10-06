@@ -4,7 +4,6 @@ export const timelineRules = [
   [
     /^q-timeline$/,
     function* (_, { symbols }) {
-      // .q-timeline
       yield {
         [symbols.selector]: (selector) => `${selector} h6`,
         'line-height': 'inherit'
@@ -30,15 +29,12 @@ export const timelineRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense`
-        // Dense
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--responsive`
-        // Responsive
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--reverse`
-        // Reverse
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__entry`,

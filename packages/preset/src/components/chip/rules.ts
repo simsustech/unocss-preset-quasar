@@ -4,7 +4,6 @@ export const chipRules = [
   [
     /^q-chip$/,
     function* (_, { symbols }) {
-      // .q-chip
       yield {
         display: 'inline-flex',
         'align-items': 'center',
@@ -161,7 +160,6 @@ export const chipRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__label`
-        // Label
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--colored .q-chip__icon`,

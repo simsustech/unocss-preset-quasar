@@ -4,7 +4,6 @@ export const pullToRefreshRules = [
   [
     /^q-pull-to-refresh$/,
     function* (_, { symbols }) {
-      // .q-pull-to-refresh
       yield { position: 'relative' }
       yield {
         [symbols.selector]: (selector) => `${selector}__sentinel`,

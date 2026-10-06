@@ -4,7 +4,6 @@ export const toolbarRules = [
   [
     /^q-toolbar$/,
     function* (_, { symbols }) {
-      // .q-toolbar
       yield {
         display: 'flex',
         'align-items': 'center',

@@ -4,7 +4,6 @@ export const videoRules = [
   [
     /^q-video$/,
     function* (_, { symbols }) {
-      // .q-video
       yield {
         // Reference `.q-video { border-radius: inherit; position: relative;
         // overflow: hidden }` — the video inherits the corner of whatever hosts
@@ -30,7 +29,6 @@ export const videoRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--ratio`
-        // Ratio
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--responsive`,

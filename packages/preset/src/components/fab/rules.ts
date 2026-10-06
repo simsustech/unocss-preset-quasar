@@ -4,7 +4,6 @@ export const fabRules = [
   [
     /^q-fab$/,
     function* (_, { symbols }) {
-      // .q-fab
       yield {
         display: 'inline-flex',
         'align-items': 'center',

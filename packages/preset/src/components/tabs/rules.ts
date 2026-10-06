@@ -4,7 +4,6 @@ export const tabsRules = [
   [
     /^q-tabs$/,
     function* (_, { symbols }) {
-      // .q-tabs
       yield {
         display: 'flex',
         'align-items': 'center',
@@ -210,7 +209,6 @@ export const tabsRules = [
   [
     /^q-tab$/,
     function* (_, { symbols }) {
-      // .q-tab
       // AUD-024 fold: two yields targeted `.q-tab`, one now. The port's layout and
       // cursor declarations stay; dist's literal box and transition win where the
       // two overlapped (the token pair was losing that cascade already).

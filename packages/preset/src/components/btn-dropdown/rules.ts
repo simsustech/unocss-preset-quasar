@@ -4,7 +4,6 @@ export const btnDropdownRules = [
   [
     /^q-btn-dropdown$/,
     function* (_, { symbols }) {
-      // .q-btn-dropdown
       yield {
         display: 'inline-flex'
       }

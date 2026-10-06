@@ -4,7 +4,6 @@ export const circularProgressRules = [
   [
     /^q-circular-progress$/,
     function* (_, { symbols }) {
-      // .q-circular-progress
       yield {
         display: 'inline-block',
         position: 'relative',

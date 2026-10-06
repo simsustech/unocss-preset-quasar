@@ -8,14 +8,12 @@ export const tabPanelsRules = [
   [
     /^q-tab-panels$/,
     function* () {
-      // .q-tab-panels
       yield { 'background-color': 'inherit' }
     }
   ],
   [
     /^q-tab-panel$/,
     function* () {
-      // .q-tab-panel
       yield { padding: '16px' }
       yield { padding: '16px' }
     }

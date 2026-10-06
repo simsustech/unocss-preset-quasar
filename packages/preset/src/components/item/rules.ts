@@ -4,7 +4,6 @@ export const itemRules = [
   [
     /^q-item$/,
     function* (_, { symbols }) {
-      // .q-item
       yield {
         display: 'flex',
         'flex-wrap': 'nowrap',
@@ -135,11 +134,9 @@ export const itemRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--section`
-        // Section item
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--tag`
-        // Tag item
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__section`,
@@ -300,7 +297,6 @@ export const itemRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__label--inset`
-        // Inset label
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__section--nowrap`,

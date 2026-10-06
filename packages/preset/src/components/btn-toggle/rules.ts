@@ -4,7 +4,6 @@ export const btnToggleRules = [
   [
     /^q-btn-toggle$/,
     function* () {
-      // .q-btn-toggle
       yield {
         display: 'inline-flex',
         // Reference `.q-btn-toggle { position: relative }` — the pressed-state

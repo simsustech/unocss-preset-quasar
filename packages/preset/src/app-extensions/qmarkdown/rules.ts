@@ -85,7 +85,6 @@ export const qmarkdownRules = [
           `${selector} .token.tab:not(:empty):before, ${selector} .token.cr:before, ${selector} .token.lf:before`,
         color: '#e0d7d1'
       }
-      // .q-markdown
       yield {
         '--q-markdown-link-color':
           'var(--qpress-color-primary, var(--q-primary, #1976d2))',

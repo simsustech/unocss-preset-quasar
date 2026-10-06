@@ -4,7 +4,6 @@ export const knobRules = [
   [
     /^q-knob$/,
     function* (_, { symbols }) {
-      // .q-knob
       yield {
         position: 'relative',
         display: 'inline-flex',

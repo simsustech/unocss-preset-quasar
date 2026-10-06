@@ -4,7 +4,6 @@ export const rangeRules = [
   [
     /^q-range$/,
     function* (_, { symbols }) {
-      // .q-range
       yield {
         position: 'relative',
         height: '1.5em',
@@ -12,11 +11,9 @@ export const rangeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dark`
-        // Dark mode
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dense`
-        // Dense variant
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__track`,
@@ -68,19 +65,15 @@ export const rangeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__hint-value`
-        // Hint value
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__inner`
-        // Inner
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__inner--active`
-        // Active state
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__inner--inactive`
-        // Inactive state
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__marker-label-container`,
@@ -94,7 +87,6 @@ export const rangeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__active`
-        // Active
       }
     }
   ]

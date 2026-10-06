@@ -4,7 +4,6 @@ export const paginationRules = [
   [
     /^q-pagination$/,
     function* (_, { symbols }) {
-      // .q-pagination
       yield {
         display: 'inline-flex',
         'align-items': 'center',
@@ -53,15 +52,12 @@ export const paginationRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__drop`
-        // Drop zone
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__ellipsis`
-        // Ellipsis
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__goto`
-        // Go to page
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__input`,
@@ -70,7 +66,6 @@ export const paginationRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__range`
-        // Range
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__middle > .q-btn`,

@@ -4,7 +4,6 @@ export const dateRules = [
   [
     /^q-date$/,
     function* (_, { symbols }) {
-      // .q-date
       yield {
         // The reference's own values are in the yields below — `display:
         // inline-flex`, `max-width: 100%` and the `surface-container-high` mix.

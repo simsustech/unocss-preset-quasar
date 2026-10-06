@@ -4,7 +4,6 @@ export const colorRules = [
   [
     /^q-color$/,
     function* (_, { symbols }) {
-      // .q-color
       yield {
         display: 'flex',
         'flex-direction': 'column',
@@ -19,11 +18,9 @@ export const colorRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header-content`
-        // Header content
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header-bg`
-        // Header background
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__spectrum`,
@@ -35,15 +32,12 @@ export const colorRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__spectrum-tab`
-        // Spectrum tab
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__spectrum-white`
-        // White gradient
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__spectrum-black`
-        // Black gradient
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__hue`,
@@ -66,35 +60,27 @@ export const colorRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__buttons`
-        // Buttons
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__field`
-        // Field
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__field-tab`
-        // Field tab
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__field-hex`
-        // Hex field
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__field-rgb`
-        // RGB field
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__field-hsl`
-        // HSL field
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__field-hsv`
-        // HSV field
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__field-cmyk`
-        // CMYK field
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__field-input`,
@@ -107,18 +93,15 @@ export const colorRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__field-prefix`
-        // Prefix
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__field-suffix`
-        // Suffix
       }
     }
   ],
   [
     /^q-color-picker$/,
     function* (_, { symbols }) {
-      // .q-color-picker
       yield {
         [symbols.selector]: (selector) => `${selector}__header-content--dark`,
         // Reference states the label colour on the container itself.

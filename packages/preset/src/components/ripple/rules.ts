@@ -17,7 +17,6 @@ export const rippleRules = [
   [
     /^q-ripple$/,
     function* () {
-      // .q-ripple
       yield {
         position: 'absolute',
         top: '0',

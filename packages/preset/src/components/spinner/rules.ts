@@ -4,7 +4,6 @@ export const spinnerRules = [
   [
     /^q-spinner$/,
     function* (_, { symbols }) {
-      // .q-spinner
       yield {
         display: 'inline-flex',
         'align-items': 'center',
@@ -14,26 +13,21 @@ export const spinnerRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--gears`
-        // Gears spinner
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--oval`
-        // Oval spinner
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--radio`
-        // Radio spinner
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--tail`
-        // Tail spinner
       }
     }
   ],
   [
     /^q-spinner-mat$/,
     function* (_, { symbols }) {
-      // .q-spinner-mat
       yield {
         'transform-origin': 'center center',
         animation: 'q-spin 2s linear infinite'
@@ -47,7 +41,6 @@ export const spinnerRules = [
   [
     /^q-spinner-comment$/,
     function* (_, { symbols }) {
-      // .q-spinner-comment
       yield {
         [symbols.selector]: (selector) => `${selector} circle:nth-of-type(1)`,
         animation: 'q-comment-typing1 1s linear infinite'
@@ -65,7 +58,6 @@ export const spinnerRules = [
   [
     /^q-spinner-dots$/,
     function* (_, { symbols }) {
-      // .q-spinner-dots
       yield {
         [symbols.selector]: (selector) => `${selector} circle`,
         animation: 'q-dots-pulse 0.8s linear infinite'
@@ -75,7 +67,6 @@ export const spinnerRules = [
   [
     /^q-spinner-grid$/,
     function* (_, { symbols }) {
-      // .q-spinner-grid
       yield {
         [symbols.selector]: (selector) => `${selector} circle`,
         animation: 'q-grid-fade 1s linear infinite'
@@ -85,7 +76,6 @@ export const spinnerRules = [
   [
     /^q-spinner-hearts$/,
     function* (_, { symbols }) {
-      // .q-spinner-hearts
       yield {
         [symbols.selector]: (selector) => `${selector} path[fill-opacity]`,
         animation: 'q-hearts-pulse 1.4s linear infinite'
@@ -95,7 +85,6 @@ export const spinnerRules = [
   [
     /^q-spinner-infinity$/,
     function* (_, { symbols }) {
-      // .q-spinner-infinity
       yield {
         [symbols.selector]: (selector) => `${selector} path`,
         animation: 'q-infinity-dash 2s linear infinite'
@@ -105,7 +94,6 @@ export const spinnerRules = [
   [
     /^q-spinner-ios$/,
     function* (_, { symbols }) {
-      // .q-spinner-ios
       yield {
         [symbols.selector]: (selector) => `${selector} line`,
         animation: 'q-ios-fade 750ms linear infinite'
@@ -115,7 +103,6 @@ export const spinnerRules = [
   [
     /^q-spinner-puff$/,
     function* (_, { symbols }) {
-      // .q-spinner-puff
       yield {
         [symbols.selector]: (selector) => `${selector} circle`,
         animation:
@@ -126,7 +113,6 @@ export const spinnerRules = [
   [
     /^q-spinner-radio$/,
     function* (_, { symbols }) {
-      // .q-spinner-radio
       yield {
         [symbols.selector]: (selector) => `${selector} g > *`,
         animation: 'q-radio-fade 1s linear infinite'
@@ -136,7 +122,6 @@ export const spinnerRules = [
   [
     /^q-spinner-rings$/,
     function* (_, { symbols }) {
-      // .q-spinner-rings
       yield {
         [symbols.selector]: (selector) => `${selector} circle`,
         animation: 'q-rings-expand 3s linear infinite'

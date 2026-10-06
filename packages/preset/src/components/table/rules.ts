@@ -26,7 +26,6 @@ export const tableRules = [
   [
     /^q-table$/,
     function* (_, { symbols }) {
-      // .q-table
       yield {
         width: '100%',
         'max-width': '100%',
@@ -454,11 +453,9 @@ export const tableRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--loading`
-        // Loading state
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--no-hover`
-        // No hover effect
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--no-wrap td`,
@@ -470,7 +467,6 @@ export const tableRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--separator`
-        // Auto separator
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--square`,

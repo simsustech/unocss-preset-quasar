@@ -13,14 +13,12 @@ export const panelParentRules = [
   [
     /^q-panel-parent$/,
     function* (_, { symbols }) {
-      // .q-panel-parent
       yield { position: 'relative', overflow: 'hidden' }
     }
   ],
   [
     /^q-panel$/,
     function* (_, { symbols }) {
-      // .q-panel
       yield { height: '100%', width: '100%' }
       yield {
         [symbols.selector]: (selector) => `${selector}>div`,

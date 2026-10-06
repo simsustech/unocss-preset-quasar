@@ -4,7 +4,6 @@ export const sliderRules = [
   [
     /^q-slider$/,
     function* (_, { symbols }) {
-      // .q-slider
       yield {
         position: 'relative',
         height: '1.5em',
@@ -120,7 +119,6 @@ export const sliderRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__hint-value`
-        // Hint value
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__inner`,
@@ -150,11 +148,9 @@ export const sliderRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__inner--active`
-        // Active state
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__inner--inactive`
-        // Inactive state
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__marker-label-container`,
@@ -167,7 +163,6 @@ export const sliderRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__active`
-        // Active
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__markers:after`,

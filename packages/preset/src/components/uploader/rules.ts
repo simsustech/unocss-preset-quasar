@@ -23,7 +23,6 @@ export const uploaderRules = [
   [
     /^q-uploader$/,
     function* (_, { symbols }) {
-      // .q-uploader
       yield {
         display: 'flex',
         'flex-direction': 'column',
@@ -63,7 +62,6 @@ export const uploaderRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--readonly`
-        // Readonly
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--square`,
@@ -143,19 +141,15 @@ export const uploaderRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__add`
-        // Add
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__badge`
-        // Badge
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__btn`
-        // Button
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__clear`
-        // Clear
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__dnd`,
@@ -171,15 +165,12 @@ export const uploaderRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__drop-zone`
-        // Drop zone
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__progress`
-        // Progress
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__status`
-        // Status
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__file--img`,

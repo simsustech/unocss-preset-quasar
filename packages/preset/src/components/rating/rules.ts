@@ -4,7 +4,6 @@ export const ratingRules = [
   [
     /^q-rating$/,
     function* (_, { symbols }) {
-      // .q-rating
       yield {
         display: 'inline-flex',
         'align-items': 'center'
@@ -16,7 +15,6 @@ export const ratingRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dark`
-        // Dark mode
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--editable`,
@@ -24,7 +22,6 @@ export const ratingRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--no-reset`
-        // No reset
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__icon`,

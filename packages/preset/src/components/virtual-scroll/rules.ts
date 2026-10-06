@@ -4,7 +4,6 @@ export const virtualScrollRules = [
   [
     /^q-virtual-scroll$/,
     function* (_, { symbols }) {
-      // .q-virtual-scroll
       yield {
         [symbols.selector]: (selector) => `${selector}:focus`,
         outline: '0'

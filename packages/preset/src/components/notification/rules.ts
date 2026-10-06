@@ -37,7 +37,6 @@ export const notificationRules: Rule[] = [
   [
     /^q-notification$/,
     function* (_, { symbols }) {
-      // .q-notification
       yield {
         // `!important` so the notification stays clickable even when an
         // ancestor disables pointer events, as Quasar's own
@@ -209,7 +208,6 @@ export const notificationRules: Rule[] = [
           `.q-notification--multi-line ${selector}__progress`,
         bottom: '-8px'
       }
-      // .q-notification--standard
       yield {
         [symbols.selector]: (selector) => `${selector}--standard`,
         // quasar: this value is Quasar's own, not a forked token
@@ -226,7 +224,6 @@ export const notificationRules: Rule[] = [
         'padding-left': '8px',
         'padding-right': '0'
       }
-      // .q-notification--multi-line
       yield {
         [symbols.selector]: (selector) => `${selector}--multi-line`,
         // quasar: this value is Quasar's own, not a forked token

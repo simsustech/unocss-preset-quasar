@@ -4,7 +4,6 @@ export const fieldRules = [
   [
     /^q-field$/,
     function* (_, { symbols }) {
-      // .q-field
       // Quasar's own sheet gives the root no flex-direction at all — the root
       // carries `row no-wrap items-start`, so `.row` resolves it — and the
       // root's children are `__before`, `__inner`, `__after`: siblings, side by

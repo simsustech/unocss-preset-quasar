@@ -4,7 +4,6 @@ export const formRules = [
   [
     /^q-form$/,
     function* () {
-      // .q-form
       yield {
         display: 'flex',
         'flex-direction': 'column'

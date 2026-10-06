@@ -27,7 +27,6 @@ export const stepperRules = [
   [
     /^q-stepper$/,
     function* (_, { symbols }) {
-      // .q-stepper
       yield {
         display: 'flex',
         'flex-direction': 'column',
@@ -189,7 +188,6 @@ export const stepperRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__step--done`
-        // Done state
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__dot`,
@@ -243,19 +241,15 @@ export const stepperRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__step-content`
-        // Step content
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__step-inner`
-        // Step inner
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__step-icon`
-        // Step icon
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__step-label`
-        // Step label
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__step-title`,

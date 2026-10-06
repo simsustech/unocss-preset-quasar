@@ -4,7 +4,6 @@ export const timeRules = [
   [
     /^q-time$/,
     function* (_, { symbols }) {
-      // .q-time
       yield {
         display: 'flex',
         'flex-direction': 'column',
@@ -145,7 +144,6 @@ export const timeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dark`
-        // Dark mode
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--disabled`,
@@ -153,7 +151,6 @@ export const timeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--readonly`
-        // Readonly
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--square`,
@@ -161,7 +158,6 @@ export const timeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--with-seconds`
-        // With seconds
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header`,
@@ -190,7 +186,6 @@ export const timeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header-content`
-        // Header content
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__header-label`,
@@ -254,27 +249,21 @@ export const timeRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__container`
-        // Container
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__main`
-        // Main
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__now`
-        // Now
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__progress`
-        // Progress
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__text`
-        // Text
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__input`
-        // Input
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__actions`,

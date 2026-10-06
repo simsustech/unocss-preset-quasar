@@ -4,7 +4,6 @@ export const responsiveRules = [
   [
     /^q-responsive$/,
     function* (_, { symbols }) {
-      // .q-responsive
       yield {
         // Reference: `max-width: 100%; max-height: 100%; position: relative` (no
         // `overflow: hidden` — that was the rewrite's own addition).
@@ -14,7 +13,6 @@ export const responsiveRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--ratio`
-        // Ratio
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__filler`,

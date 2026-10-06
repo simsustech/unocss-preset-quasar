@@ -15,7 +15,6 @@ export const qmediaplayerRules = [
   [
     /^q-media$/u,
     function* (_, { symbols }) {
-      // .q-media
       yield {
         position: 'relative',
         'min-width': '230px !important',

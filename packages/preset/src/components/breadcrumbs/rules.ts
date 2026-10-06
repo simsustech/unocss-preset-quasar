@@ -4,7 +4,6 @@ export const breadcrumbsRules = [
   [
     /^q-breadcrumbs$/,
     function* (_, { symbols }) {
-      // .q-breadcrumbs
       yield {
         display: 'flex',
         'align-items': 'center',
@@ -29,7 +28,6 @@ export const breadcrumbsRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__el-label`
-        // Label
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__separator`,

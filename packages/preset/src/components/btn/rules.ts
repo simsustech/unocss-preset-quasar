@@ -4,7 +4,6 @@ export const btnRules = [
   [
     /^q-btn$/,
     function* (_, { symbols }) {
-      // .q-btn
       yield {
         display: 'inline-flex',
         'flex-direction': 'column',

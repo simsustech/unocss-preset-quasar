@@ -4,7 +4,6 @@ export const splitterRules = [
   [
     /^q-splitter$/,
     function* (_, { symbols }) {
-      // .q-splitter
       yield {
         display: 'flex',
         width: '100%',
@@ -78,7 +77,6 @@ export const splitterRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--limits`
-        // Limits
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__before`,

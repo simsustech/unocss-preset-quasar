@@ -4,7 +4,6 @@ export const menuRules = [
   [
     /^q-menu$/,
     function* (_, { symbols }) {
-      // .q-menu
       yield {
         // Reference `.q-menu`: a fixed, scrollable popup surface. The preset used
         // to leave it `absolute` at z-index 9500, which pushed menus under

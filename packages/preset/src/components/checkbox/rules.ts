@@ -4,7 +4,6 @@ export const checkboxRules = [
   [
     /^q-checkbox$/,
     function* (_, { symbols }) {
-      // .q-checkbox
       yield {
         display: 'inline-flex',
         'align-items': 'center',

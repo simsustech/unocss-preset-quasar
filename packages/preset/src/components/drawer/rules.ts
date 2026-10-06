@@ -4,7 +4,6 @@ export const drawerRules = [
   [
     /^q-drawer$/,
     function* (_, { symbols }) {
-      // .q-drawer
       yield {
         // Reference: `border-start-end-radius: var(--shape-corner-large);
         // border-end-end-radius: …; background-color: …surface-container-low;
@@ -237,7 +236,6 @@ export const drawerRules = [
   [
     /^q-drawer-container$/,
     function* (_, { symbols }) {
-      // .q-drawer-container
       yield {
         [symbols.selector]: (selector) =>
           `${selector}:not(.q-drawer--mini-animate) .q-drawer--mini`,

@@ -15,7 +15,6 @@ export const qcalendarResourceRules = [
   [
     /^q-calendar-resource$/u,
     function* (_, { symbols }) {
-      // .q-calendar-resource
       yield {
         display: 'flex',
         flex: '1',

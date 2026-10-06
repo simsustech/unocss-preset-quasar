@@ -4,7 +4,6 @@ export const skeletonRules = [
   [
     /^q-skeleton$/,
     function* (_, { symbols }) {
-      // .q-skeleton
       yield {
         background: 'var(--q-surface-container-highest)',
         'border-radius': 'var(--q-radius-sm)'
@@ -58,7 +57,6 @@ export const skeletonRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--type`
-        // Type
       }
       yield {
         [symbols.selector]: (selector) =>

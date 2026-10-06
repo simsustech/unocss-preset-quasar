@@ -30,13 +30,6 @@ export const QuasarStyleEntries: QuasarStyleEntry[] = [
   Unstyled
 ]
 
-/** @deprecated use MaterialDesign3 */
-export const Md3StyleEntry = MaterialDesign3
-/** @deprecated use MaterialDesign2 */
-export const Md2StyleEntry = MaterialDesign2
-/** @deprecated use Unstyled */
-export const UnstyledStyleEntry = Unstyled
-
 export function setStyle(name: string): void {
   if (typeof document === 'undefined') return
   for (const cls of Array.from(document.body.classList))

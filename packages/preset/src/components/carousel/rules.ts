@@ -4,7 +4,6 @@ export const carouselRules = [
   [
     /^q-carousel$/,
     function* (_, { symbols }) {
-      // .q-carousel
       yield {
         position: 'relative',
         overflow: 'hidden',
@@ -46,15 +45,12 @@ export const carouselRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--dark`
-        // Dark mode
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--arrows`
-        // Show arrows
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--navigation`
-        // Show navigation
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--padding`,
@@ -62,7 +58,6 @@ export const carouselRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--vertical`
-        // Vertical layout
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--fullscreen`,

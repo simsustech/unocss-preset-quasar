@@ -4,7 +4,6 @@ export const linearProgressRules = [
   [
     /^q-linear-progress$/,
     function* (_, { symbols }) {
-      // .q-linear-progress
       yield {
         // Reference `.q-linear-progress { font-size: 4px; … height: 1em }`: the
         // bar's thickness is em-based so a taller bar only needs `font-size`.
@@ -44,15 +43,12 @@ export const linearProgressRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--rounded`
-        // Rounded
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--stripe`
-        // Stripe
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--striped`
-        // Striped
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__track`,

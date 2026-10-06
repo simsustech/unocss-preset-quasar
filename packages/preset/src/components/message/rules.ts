@@ -16,7 +16,6 @@ export const messageRules: Rule[] = [
   [
     /^q-message$/,
     function* (_, { symbols }) {
-      // .q-message
       yield {
         position: 'relative',
         'margin-bottom': '8px'
@@ -31,7 +30,6 @@ export const messageRules: Rule[] = [
   [
     /^q-message-name$/,
     function* (_, { symbols }) {
-      // .q-message-name
       yield {
         'font-weight': 'var(--fontWeight-medium)',
         'font-size': 'var(--q-label-large-size)',
@@ -46,7 +44,6 @@ export const messageRules: Rule[] = [
   [
     /^q-message-label$/,
     function* (_, { symbols }) {
-      // .q-message-label
       yield {
         color: 'var(--q-on-surface-variant)',
         'font-size': 'var(--q-body-small-size)',
@@ -59,7 +56,6 @@ export const messageRules: Rule[] = [
   [
     /^q-message-stamp$/,
     function* (_, { symbols }) {
-      // .q-message-stamp
       yield {
         color: 'inherit',
         'font-size': 'var(--q-label-small-size)',
@@ -72,7 +68,6 @@ export const messageRules: Rule[] = [
   [
     /^q-message-text$/,
     function* (_, { symbols }) {
-      // .q-message-text
       yield {
         position: 'relative',
         // quasar: this value is Quasar's own, not a forked token
@@ -140,7 +135,6 @@ export const messageRules: Rule[] = [
   [
     /^q-message-text-content$/,
     function* (_, { symbols }) {
-      // .q-message-text-content
       yield {
         [symbols.selector]: (selector) => `${selector}--sent`,
         color: 'var(--q-on-primary)'
@@ -154,7 +148,6 @@ export const messageRules: Rule[] = [
   [
     /^q-message-avatar$/,
     function* (_, { symbols }) {
-      // .q-message-avatar
       yield {
         'border-radius': '50%',
         width: '48px',
@@ -174,7 +167,6 @@ export const messageRules: Rule[] = [
   [
     /^q-message-container$/,
     function* (_, { symbols }) {
-      // .q-message-container
       yield {
         [symbols.selector]: (selector) => `${selector}--sent`,
         'flex-direction': 'row-reverse'

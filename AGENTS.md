@@ -55,7 +55,7 @@ If a dev server appears to already be running, check ports
 Do NOT create spec/test files inside the unocss-preset-quasar repo.
 The quasar-testing-harness workspace at `~/Projects/quasar-testing-harness` is the testing
 harness. Add component test scenarios to the existing Playwright spec
-files under `~/Projects/quasar-testing-harness/tests/components/`. Each Quasar
+files under `~/Projects/quasar-testing-harness/tests/`. Each Quasar
 component gets its own `.spec.ts` — use `shot()` to capture screenshots
 and `dumpDiagnostics()` for CSS variable dumps alongside them. Tests
 use URL query parameters to configure component props (e.g.
@@ -69,24 +69,20 @@ the diagnostics JSON dump before touching CSS. Guessing wastes time on phantom f
 
 ## MD2/MD3 spec verification
 
-The authoritative specifications are `material_design_3_machine_spec.json` and
-`material_design_2_machine_spec.json` — Quasar SASS is reference only. Each spec has
-been split into per-category files under `specs/` (MD3) and `specs/md2/` (MD2) for
-efficient targeted reads.
-
-The authoritative specification is `material_design_3_machine_spec.json` — Quasar SASS
-is reference only. The spec has been split into per-category files under `specs/` for
-efficient targeted reads.
+Reference data lives split per category under `specs/reference/normalized/`
+(`md3-*.json`, `md2-*.json`) with raw upstream bundles under `specs/reference/raw/`;
+the audit gates and their disposition ledger live under `specs/audit/`. Quasar SASS is
+reference only.
 
 ### Verification procedure
 
-1. **Read the spec** — open the relevant `specs/<category>.json` for the component
-   you're validating.
+1. **Read the spec** — open the relevant `specs/reference/normalized/<style>-<category>.json`
+   for the component you're validating.
 2. **Map shape tokens** to pixel values:
    - `none`: 0, `extra-small`: 4px, `small`: 8px, `medium`: 12px, `large`: 16px,
      `extra-large`: 28px, `full`: Infinity
-3. **Compare spec values against the UnoCSS file** at
-   `packages/preset/src/styles/md3/components/<Component>.unocss.ts`.
+3. **Compare spec values against the UnoCSS rule file** at
+   `packages/preset/src/components/<component>/rules.ts`.
 4. **For Quasar's em-based components** (QToggle, QCheckbox), the `font-size` on
    the inner element is the scaling base: `height: 1em` means the rendered height
    equals `font-size`, `width: 1.625em` means width = `font-size × 1.625`. Derive
@@ -95,7 +91,7 @@ efficient targeted reads.
    `~/Projects/quasar-testing-harness`:
 
    ```bash
-   npx playwright test tests/components/<Component>.spec.ts --reporter=list
+   npx playwright test tests/<Component>.spec.ts --reporter=list
    ```
 
    Tests use `dumpDiagnostics()` to capture CSS computed values and verify them
@@ -114,42 +110,6 @@ efficient targeted reads.
 | `md.sys.shape.corner.large`       | `$shape-corner-large`       | 16px     |
 | `md.sys.shape.corner.extra-large` | `$shape-corner-extra-large` | 28px     |
 | `md.sys.shape.corner.full`        | —                           | Infinity |
-
-## SigMap context
-
-SigMap generates a compact signature map of the codebase for AI
-context. The output is written to `CLAUDE.md` (and
-`.github/copilot-instructions.md`) in each project root.
-
-**For the AI agent (self-instruction):**
-
-1. **Read before acting** — At the start of every session, read
-   `CLAUDE.md` in the relevant project root to understand the
-   codebase structure without scanning every file.
-2. **Ask for context** — When you need to find relevant files for a
-   task, run `sigmap ask "<question>"` from the project root to get
-   a ranked, miniaturized context. Use `--followup` for iterative
-   questions.
-3. **Regenerate on change** — After significant code changes, run
-   `sigmap --diff` (for changed files only) or plain `sigmap` to
-   refresh the context.
-4. **Verify AI output** — Use `sigmap verify-ai-output <file>` to
-   catch hallucinations (fake files, imports, symbols) before
-   committing AI-generated code.
-5. **sigmap ask, not grep/glob** — For finding relevant files, always
-   use `sigmap ask` from the project root. Do NOT use grep, glob, or
-   read_directory to scan for files across the codebase — that wastes
-   tokens on directory listings and text searches that sigmap already
-   indexes efficiently. Only use direct file reads when you already
-   know the exact path.
-
-**SigMap config is in `gen-context.config.json`** — only `packages/preset`
-is scanned in this repo (per taste: `packages/dev` is outdated). If
-you add new source directories, update `srcDirs` and regenerate.
-
-For the quasar-testing-harness playground, SigMap runs in **monorepo mode** —
-each package (`app/`, `api/`, `tools/`) gets its own `CLAUDE.md`.
-The root `CLAUDE.md` has the creation-workflow block from `--init`.
 
 ## Learned patterns (CSS/preset architecture)
 

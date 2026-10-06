@@ -25,14 +25,6 @@ import {
 | `getActiveStyle()`   | `() => string \| null`   | current style name, or `null`                                      |
 | `QuasarStyleEntry`   | type                     | the entry shape                                                    |
 
-Deprecated aliases — thin re-exports, same values, prefer the names above:
-
-```ts
-Md3StyleEntry // → MaterialDesign3
-Md2StyleEntry // → MaterialDesign2
-UnstyledStyleEntry // → Unstyled
-```
-
 ## The `QuasarStyleEntry` type
 
 ```ts

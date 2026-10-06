@@ -4,7 +4,6 @@ export const fileRules = [
   [
     /^q-file$/,
     function* (_, { symbols }) {
-      // .q-file
       yield {
         display: 'flex',
         'flex-direction': 'column'

@@ -116,7 +116,6 @@ export const iconRules = [
   [
     /^q-icon$/,
     function* (_, { symbols }) {
-      // .q-icon
       yield {
         display: 'inline-flex',
         'align-items': 'center',

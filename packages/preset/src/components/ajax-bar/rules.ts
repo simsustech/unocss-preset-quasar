@@ -12,7 +12,6 @@ export const ajaxBarRules = [
   [
     /^q-loading-bar$/,
     function* () {
-      // .q-loading-bar
       yield {
         position: 'fixed',
         'z-index': '9998',

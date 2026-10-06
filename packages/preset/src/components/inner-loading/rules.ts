@@ -4,7 +4,6 @@ export const innerLoadingRules = [
   [
     /^q-inner-loading$/,
     function* (_, { symbols }) {
-      // .q-inner-loading
       yield {
         background: 'rgba(255, 255, 255, 0.6)',
         'border-radius': 'inherit'

@@ -4,7 +4,6 @@ export const editorRules = [
   [
     /^q-editor$/,
     function* (_, { symbols }) {
-      // .q-editor
       yield {
         display: 'flex',
         'flex-direction': 'column',
@@ -61,7 +60,6 @@ export const editorRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__toolbars`
-        // Toolbars
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__content`,
@@ -107,7 +105,6 @@ export const editorRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__btn`
-        // Button
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__btn-group`,
@@ -125,15 +122,12 @@ export const editorRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__btn--readonly`
-        // Readonly
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__btn--selected`
-        // Selected
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__btn--unselected`
-        // Unselected
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__toolbar-group`,

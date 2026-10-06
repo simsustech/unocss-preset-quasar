@@ -4,7 +4,6 @@ export const expansionItemRules = [
   [
     /^q-expansion-item$/,
     function* (_, { symbols }) {
-      // .q-expansion-item
       yield {
         [symbols.selector]: (selector) => `${selector}__border`,
         opacity: '0'

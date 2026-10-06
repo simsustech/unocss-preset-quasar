@@ -4,7 +4,6 @@ export const bannerRules = [
   [
     /^q-banner$/,
     function* (_, { symbols }) {
-      // .q-banner
       // AUD-024 fold: two yields targeted `.q-banner`. They are ONE now: the
       // declarations the literal yield does not carry (layout, colour) stay, and
       // where the two overlapped dist's literal values win, so nothing renders
