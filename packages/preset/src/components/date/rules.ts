@@ -18,11 +18,14 @@ export const dateRules = [
         [symbols.selector]: (selector) => `.body--dark ${selector}`,
         'background-color': 'var(--q-surface-container-high)'
       }
-      yield {
-        [symbols.selector]: (selector) =>
-          `.body--dark ${selector}__calendar-item--in .q-btn--flat`,
-        color: 'var(--q-on-surface)'
-      }
+      // The `--flat` (on-surface) yield must come AFTER the plain one, exactly as
+      // it does in the light pass below: both selectors weigh (0,3,0), so the
+      // later one wins. Emitted the other way round, the plain rule won and left
+      // the day numbers in `--q-on-primary` (a dark teal in dark mode) while the
+      // `background-color: var(--q-primary)` that was supposed to fill the cell
+      // lost to Quasar's own `.q-btn--flat { background: transparent }` — measured
+      // 1.31:1 on the dark surface, i.e. an invisible calendar (audit:
+      // contrast-probe 2026-10-06, /availability).
       yield {
         [symbols.selector]: (selector) =>
           `.body--dark ${selector}__calendar-item--in .q-btn`,
@@ -31,7 +34,7 @@ export const dateRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
-          `.body--dark ${selector}__months-item .q-btn--flat`,
+          `.body--dark ${selector}__calendar-item--in .q-btn--flat`,
         color: 'var(--q-on-surface)'
       }
       yield {
@@ -42,7 +45,7 @@ export const dateRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
-          `.body--dark ${selector}__years-item .q-btn--flat`,
+          `.body--dark ${selector}__months-item .q-btn--flat`,
         color: 'var(--q-on-surface)'
       }
       yield {
@@ -50,6 +53,11 @@ export const dateRules = [
           `.body--dark ${selector}__years-item .q-btn`,
         color: 'var(--q-on-primary)',
         'background-color': 'var(--q-primary)'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `.body--dark ${selector}__years-item .q-btn--flat`,
+        color: 'var(--q-on-surface)'
       }
       yield {
         [symbols.selector]: (selector) =>
