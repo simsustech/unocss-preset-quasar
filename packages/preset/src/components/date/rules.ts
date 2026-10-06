@@ -76,10 +76,10 @@ export const dateRules = [
           `.body--dark ${selector}__edit-range-from-to:after`,
         'border-color': 'var(--q-primary)'
       }
-      yield {
-        [symbols.selector]: (selector) => `.body--dark ${selector}__event`,
-        'background-color': 'var(--q-primary)'
-      }
+      // `.body--dark .q-date__event` deliberately absent: the event dot's base
+      // rule below already reads `var(--q-primary)`, which the dark token block
+      // redefines — a dark-scoped twin only adds a specificity level over any
+      // `bg-*` the caller sets (the q-badge dark collapse, fixed there).
       yield {
         // quasar: this rule reproduces Quasar's own 4px corner
         'border-radius': '4px',
@@ -677,11 +677,6 @@ export const dateRules = [
         bottom: '2px',
         left: '50%',
         position: 'absolute'
-      }
-      yield {
-        [symbols.selector]: (selector) => `.body--dark ${selector}__event`,
-        'background-color':
-          'color-mix(in oklab, var(--q-primary) var(--q-bg-opacity), transparent)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__today`,

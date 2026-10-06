@@ -112,3 +112,31 @@ describe('component modifier cascade', () => {
     expect(css).toMatch(/\.q-rating--no-dimming \.q-rating__icon\{opacity:1;\}/)
   })
 })
+
+// The dark twin of a component rule is only safe when the BASE reads a token
+// that does not flip (`var(--light-primary)` in the reference). Ours reads
+// `var(--q-primary)`, which the dark token block redefines, so the twin was a
+// no-op for an uncolored badge — and at (0,2,0) it outranked every `bg-*`
+// utility (0,1,0), collapsing each status badge to primary in dark: all five
+// dots of a status legend rendered #4cd9df in petboarding's dark sweep.
+// The reference still carries the selector; the accepted divergence is recorded
+// in fixtures/parity-baseline.json (date target 1, badge missing entry).
+describe('dark component twins vs utilities', () => {
+  it('emits no `.body--dark .q-badge` twin', async () => {
+    const css = await cssFor('q-badge')
+    expect(css).toContain('.q-badge{')
+    expect(css).not.toMatch(/\.body--dark \.q-badge/)
+  })
+
+  it('leaves a coloured badge its colour in dark (utility is the only fill)', async () => {
+    const css = await cssFor('q-badge bg-green')
+    expect(css).toMatch(/\.bg-green[^{}]*\{[^}]*background-color/)
+    // Nothing may re-assert a background on the badge under `.body--dark`.
+    expect(css).not.toMatch(/\.body--dark[^{}]*q-badge[^{}]*\{/)
+  })
+
+  it('emits no `.body--dark .q-date__event` twin', async () => {
+    const css = await cssFor('q-date')
+    expect(css).not.toMatch(/\.body--dark \.q-date__event/)
+  })
+})

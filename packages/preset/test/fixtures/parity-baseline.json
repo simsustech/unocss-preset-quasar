@@ -15,7 +15,7 @@
     },
     "badge": {
       "target": null,
-      "missing": [],
+      "missing": [".body--dark .q-badge"],
       "absent": [],
       "mismatch": [
         ".q-badge|border-radius",
@@ -129,8 +129,8 @@
       "mismatch": []
     },
     "date": {
-      "target": 0,
-      "missing": [],
+      "target": 1,
+      "missing": [".body--dark .q-date__event"],
       "absent": [],
       "mismatch": []
     },

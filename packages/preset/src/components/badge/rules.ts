@@ -33,10 +33,14 @@ export const badgeRules = [
         'vertical-align': 'baseline',
         'text-align': 'center'
       }
-      yield {
-        [symbols.selector]: (selector) => `.body--dark ${selector}`,
-        'background-color': 'var(--q-primary)'
-      }
+      // No `.body--dark .q-badge` companion: `--q-primary` already flips through
+      // the dark token block, so an unstyled badge lands on the dark primary by
+      // itself. The dark-scoped twin only restated that value — and at (0,2,0)
+      // it outranked every `bg-*` utility, so in dark mode each status badge
+      // (green/orange/grey/red/yellow) collapsed to primary: all five dots of a
+      // status legend came out #4cd9df in petboarding's dark sweep (2026-10-06).
+      // Utilities keep winning the way they do in light — equal specificity,
+      // later in the sheet (see test/cascade-order.test.ts).
       yield {
         [symbols.selector]: (selector) => `${selector}--outline`,
         'border-color': 'currentColor',
