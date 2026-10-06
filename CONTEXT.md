@@ -5,3 +5,5 @@
   `md.sys.shape.corner.extra-small` top-only with a `none` bottom edge, outlined and standout
   take extra-small on all four vertices. _Avoid:_ "border" (the bottom edge is the state
   line/underline), "standard box", "default border".
+
+- **dialog inner vs card** — `.q-dialog__inner` is the transparent full-viewport positioning box (no size clamp, no surface); the dialog's surface is its card. _Avoid:_ "dialog panel", "inner dialog".

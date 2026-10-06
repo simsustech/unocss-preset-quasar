@@ -77,15 +77,22 @@ export const dialogRules = [
         // fixed `width: 400px`) shrinks to fit a phone viewport. A `column`
         // direction here moved the shrink to the vertical axis and let the card
         // spill off a 375px screen by 31px (`(90vw - 400px) / 2`).
-        'max-width': '90vw',
-        'max-height': '90vh',
+        // No size clamp here — and never re-add one for "fit". Under Quasar's
+        // runtime `fixed-full` (`position: fixed; inset: 0`) a max-* clamp makes
+        // this box over-constrained: left/top win, so the centering box pinned to
+        // (0, 0) at 90vw × 90vh and `flex-center` centred cards inside that
+        // off-centre box — drift of exactly 5vw/5vh (measured left 45.7 vs right
+        // 100.3 at 546×1146; ResponsiveDialog 32 vs 160 at 1280). Neither the
+        // reference bundle nor stock Quasar sizes this inner: fitting belongs to
+        // `__inner>div` (`max-width: 560px`), `--minimized>div`
+        // (`max-height: calc(100vh - 48px)`) and the row-flex shrink above.
         'border-radius': 'var(--q-radius-lg)',
         // No surface here. Quasar renders this box as `… standard fixed-full
         // flex-center` (QDialog.js), i.e. inset 0 — the whole viewport — and stock
         // Quasar gives it no background: the card below is the dialog's surface.
-        // Painting `var(--q-surface)` on a box clamped by the max-* declarations
-        // above (90vw x 90vh) put a giant white rounded panel behind every dialog;
-        // its ambient shadow belongs with that surface, so it lives on the card.
+        // Painting `var(--q-surface)` on this full-viewport box put a giant white
+        // rounded panel behind every dialog; its ambient shadow belongs with that
+        // surface, so it lives on the card.
         'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
         'outline-width': '0px'
       }

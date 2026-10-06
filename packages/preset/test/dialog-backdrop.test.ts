@@ -43,11 +43,17 @@ function block(css: string, needle: string): string {
  * - **The inner** (`.q-dialog__inner`) is rendered by Quasar as
  *   `… standard fixed-full flex-center` (QDialog.js `standard:`) — i.e. *inset 0*,
  *   the whole viewport, where stock Quasar gives it no background and the card is
- *   the only surface. Adding `var(--q-surface)` plus this file's own
- *   `max-width: 90vw` / `max-height: 90vh` painted a visible white 90vw × 90vh
- *   panel behind every dialog. Measured on the add-payment dialog: inner
- *   `1296×810` (= 90vw × 90vh) at (0,0) with `rgb(252, 252, 255)` and radius 16,
- *   while the real card was `400×418` centred inside it.
+ *   the only surface. The surface-era design added `var(--q-surface)` **and** a
+ *   `max-width: 90vw` / `max-height: 90vh` clamp to this box: the background
+ *   painted a visible white 90vw × 90vh panel behind every dialog (measured on
+ *   the add-payment dialog: inner `1296×810` at (0,0) with `rgb(252, 252, 255)`
+ *   and radius 16, while the real card was `400×418` centred inside it), and the
+ *   clamp outlived the surface move — under `fixed-full` a clamped box is
+ *   over-constrained, so it pinned to (0, 0) at 90vw × 90vh and `flex-center`
+ *   centred every card inside that off-centre box (5vw/5vh drift, measured
+ *   45.7 vs 100.3 left/right at 546×1146). Both are gone now: the background
+ *   lives on the card, and the clamp was removed by this fix (ADR 0015 and the
+ *   comment in `dialog/rules.ts`).
  *
  * Elevation therefore travels with the surface: the MD3 dialog carries
  * `level_3` ambient shadow on the card — which is where this file already puts
@@ -71,9 +77,13 @@ describe('dialog surfaces', () => {
     const css = await cssFor('q-dialog')
     const inner = block(css, '.q-dialog__inner')
 
-    // Still the positioning box Quasar's `fixed-full flex-center` needs.
+    // The positioning box Quasar's `fixed-full flex-center` needs — and nothing
+    // that sizes it: a max-* clamp on a fixed inset:0 box is over-constrained
+    // (left/top win), pins the box top-left and drifts every dialog off-centre
+    // by 5vw/5vh. Fit belongs to `.q-dialog__inner > div`, not to this box.
     expect(inner).toContain('display:flex')
-    expect(inner).toContain('max-width:90vw')
+    expect(inner).not.toContain('max-width')
+    expect(inner).not.toContain('max-height')
     // A transparent positioning box must not carry a surface or its elevation.
     expect(inner).not.toContain('background-color')
     expect(inner).not.toContain('box-shadow')
