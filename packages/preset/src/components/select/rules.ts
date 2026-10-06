@@ -116,6 +116,18 @@ export const selectRules = [
         'text-decoration': 'none',
         cursor: 'pointer'
       }
+      // A select can render its selected value as a q-item (the `is-item`
+      // convention in @simsustech/quasar-components' LocaleSelect). The item
+      // then sits inside `.q-field__control`, whose inline padding and standard
+      // surface push its icon out of the list rhythm — 12 + 16px where a plain
+      // q-item's icon sits at 16px — and paint a filled field behind the row.
+      // Cancel both so an item-style select keeps the list's icon column.
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector} .q-field__control:has(> .q-field__control-container > .q-field__native > .q-item)`,
+        'padding-inline': '0',
+        'background-color': 'transparent'
+      }
     }
   ]
 ] as Rule[]
