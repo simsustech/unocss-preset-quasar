@@ -12,8 +12,6 @@
  *      A class is only "coverable" if it is a candidate in the first place.
  *   3. Flag every dist class the sheet never emits.
  *   4. Classify each flag:
- *        - `wind4-covered`  — wind4 alone emits it, so the delegation rule
- *          applies and duplicating it here would be the defect.
  *        - `allowlisted`    — the vocabulary script carries it with a rationale
  *          (scraper vocabulary gaps, runtime-applied modifiers).
  *        - `static-channel` — emitted through the preflight CSS text rather than
@@ -117,7 +115,6 @@ function dispositions() {
 
 const VALID = new Set([
   'fix',
-  'wind4-covered',
   'allowlisted',
   'static-channel',
   'equivalent',
@@ -148,7 +145,6 @@ async function allowlistMatchers() {
 
 async function main() {
   const { createGenerator } = await load('unocss')
-  const presetWind4 = await load('@unocss/preset-wind4')
   const { QuasarPreset, QuasarStyleEntries } = await import(
     join(PRESET_DIR, 'dist', 'index.js')
   )
@@ -161,9 +157,6 @@ async function main() {
       }),
       dist
     )
-  )
-  const wind = emittedFoo(
-    await emit(await createGenerator({ presets: [presetWind4()] }), dist)
   )
   const allowlist = await allowlistMatchers()
 
@@ -180,12 +173,8 @@ async function main() {
     let disposition = row?.disposition
     let rationale = row?.rationale ?? ''
     if (!disposition) {
-      const covered = wind(cls)
       const allowed = allowlist.find((entry) => entry.re.test(cls))
-      if (covered) {
-        disposition = 'wind4-covered'
-        rationale = 'wind4 emits this class (delegation rule)'
-      } else if (allowed) {
+      if (allowed) {
         disposition = 'allowlisted'
         rationale = allowed.why
       } else {

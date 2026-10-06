@@ -85,25 +85,25 @@ const ALLOWLIST = [
     re: /^(row|column|flex|inline-flex|wrap|no-wrap|reverse-wrap|grow|shrink)$/,
     why: '.row/.column flex-grid utilities (plan (b); parity-report FLEX_GRID)'
   },
-  // wind4 utility families the gate classifies as `flex-grid`/`responsive`/
-  // `platform`/`animated`/`color-utilities`/`spacing` — app-level utilities
-  // emitted on demand, not component vocabulary (parity-report
+  // App-level utility families the gate classifies as `flex-grid`/`responsive`/
+  // `platform`/`animated`/`color-utilities`/`spacing` — utilities the consumer's
+  // own engine emits on demand, not component vocabulary (parity-report
   // classifySelector + REPORTED_REASON.utilities).
   {
     re: /^(col(-(xs|sm|md|lg|xl))?(-\d+|-auto|-grow|-shrink)?|offset(-\d+|-xs-\d+|-sm-\d+|-md-\d+|-lg-\d+|-xl-\d+))$/,
-    why: 'wind4 grid columns and Quasar row offsets (parity-report flex-grid; offsets are dist-nested under .row)'
+    why: 'Quasar flex-grid columns and row offsets, emitted by the engine from a content scan (parity-report flex-grid; offsets are dist-nested under .row)'
   },
   {
     re: /^(items|justify|self|content|place|order)-/,
-    why: 'wind4 flex alignment utilities (parity-report flex-grid)'
+    why: 'flex alignment utilities emitted by the engine from a content scan (parity-report flex-grid)'
   },
   {
     re: /^(lt|gt)-(xs|sm|md|lg|xl)(-|$)/,
-    why: 'wind4 responsive visibility (parity-report responsive)'
+    why: 'responsive visibility utilities emitted by the engine (parity-report responsive)'
   },
   {
     re: /^(xs|sm|md|lg|xl)(-|$)/,
-    why: 'wind4 breakpoints (parity-report responsive)'
+    why: 'breakpoint utilities emitted by the engine (parity-report responsive)'
   },
   {
     re: /^(desktop|mobile|touch|electron|platform-[\w-]+|q-ios-padding)(-|$)/,
@@ -113,14 +113,17 @@ const ALLOWLIST = [
     re: /^(print|orientation)(-|$)/,
     why: 'media-hint platform classes (parity-report platform)'
   },
-  { re: /^animated-/, why: 'wind4 animation classes (parity-report animated)' },
+  {
+    re: /^animated-/,
+    why: 'animation classes emitted by the engine (parity-report animated)'
+  },
   {
     re: /^une[A-Z]/,
-    why: 'wind4 une-* entrance/exit animations (parity-report animated)'
+    why: 'une-* entrance/exit animations from animated-unocss (parity-report animated)'
   },
   {
     re: /^(bg|text|border|fill|stroke|decoration|shadow|outline|ring|divide|accent|caret)-/,
-    why: 'wind4 colour/text utility families, emitted on demand by content scanning (parity-report color-utilities/utilities)'
+    why: 'colour/text utility families, emitted by the engine on demand from a content scan (parity-report color-utilities/utilities)'
   },
   {
     re: /^q-(p|m)[a-z]?(-|$)/,
@@ -164,7 +167,7 @@ const ALLOWLIST = [
   },
   {
     re: /^pointer-events-all$/,
-    why: 'standard UnoCSS/wind4 pointer-events utility, provenance documented in core/mouse/rules.ts header (ported from core/mouse.unocss.ts)'
+    why: 'standard UnoCSS pointer-events utility, provenance documented in core/mouse/rules.ts header (ported from core/mouse.unocss.ts)'
   },
   {
     re: /^(?:q-chat-message|row-reverse|column-reverse)$/,

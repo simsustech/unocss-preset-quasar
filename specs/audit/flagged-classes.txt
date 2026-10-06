@@ -1,9 +1,12 @@
+col-0
 col-lg-0
 col-md-0
 col-sm-0
 col-xl-0
 col-xs-0
 q-dialog__inner--keyboard
+q-drop-zone--over
+q-field--standout-custom
 q-notifications__list
 q-notifications__list--bottom
 q-notifications__list--center
@@ -14,6 +17,8 @@ q-stepper__step-inner--horizontal
 q-stepper__step-inner--vertical
 q-stepper__tab--horizontal
 q-stepper__tab--vertical
+q-tr--collapsed
+q-tr--expandable
 shadow-0
 shadow-1
 shadow-10
