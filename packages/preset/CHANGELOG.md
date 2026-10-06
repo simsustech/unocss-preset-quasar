@@ -1,5 +1,102 @@
 # unocss-preset-quasar
 
+## 0.6.5
+
+### Patch Changes
+
+- 4f65656: fix(preset): stop the dark badge/date twins from collapsing coloured badges to primary
+
+  `.q-badge` and `.q-date__event` each carried a `.body--dark` twin restating the base
+  `background-color`. The twin exists in the reference bundle because the reference's base reads
+  `var(--light-primary)` — a token that does **not** flip — so only the twin puts the badge on the
+  dark primary. Ours reads `var(--q-primary)`, which the dark token block redefines, so the twin
+  changed nothing for an uncoloured badge and cost the cascade everything for a coloured one: at
+  (0,2,0) it outranked every `bg-*` utility (0,1,0), so in dark mode each status badge rendered
+  primary. Measured in petboarding's dark sweep (2026-10-06): all five dots of the daycare status
+  legend — approved green, canceled orange, pending grey, rejected red, standby yellow — came out
+  `#4cd9df`, and the same collapse hit the pet chips, vaccination badges and agenda chips (13
+  coloured QBadges across the app).
+
+  Both twins are gone; the utilities win in dark exactly as they do in light (equal specificity,
+  later in the sheet — `test/cascade-order.test.ts` guards it). The reference still carries the two
+  selectors, so the divergence is recorded rather than hidden: `fixtures/parity-baseline.json` now
+  lists `.body--dark .q-badge` under `badge.missing` and `.body--dark .q-date__event` under
+  `date` with `target: 1`.
+
+- 8c8b3f9: Pair a dark `bg-primary`/`bg-secondary`/`bg-accent` with its on-colour when the
+  label asks for white.
+
+  Quasar's `color="primary"` prop paints `bg-primary text-white` in one go. The
+  brand tokens flip to light tints in dark mode, so that white label measured
+  **1.71:1** on the fill (`#ffffff` on `#4cd9df`) — the 404 CTA and the pagination
+  buttons in the 2026-10-06 layout audit. The preset now emits
+
+  ```css
+  .body--dark .bg-primary.text-white {
+    color: var(--q-on-primary);
+  }
+  ```
+
+  and the same for `secondary` (`--q-on-secondary`) and `accent`
+  (`--q-on-tertiary`) — the pairing `.q-badge`, `.q-btn-toggle > .q-btn-item` and
+  `.q-btn` (through `--q-btn-color`) already state, measured at 7.66:1. Light mode
+  is untouched: white on `#00696d` is 6.48:1.
+
+  Guarded by `packages/preset/test/colors.test.ts`.
+
+- fc4892b: Emit the dark date-picker day colour after the rule it must beat.
+
+  `.q-date__calendar-item--in .q-btn--flat` (day numbers → `--q-on-surface`) sat
+  _before_ `.q-date__calendar-item--in .q-btn` (→ `--q-on-primary` + primary
+  background) in the dark pass, while the light pass has them the other way round.
+  Both selectors weigh (0,3,0), so the plain rule won: day numbers rendered in
+  `--q-on-primary` — a dark teal in dark mode — and the primary background that was
+  meant to fill the cell lost to Quasar's own unlayered
+  `.q-btn--flat { background: transparent }`. Measured on `/availability` at
+  1440×900: `#003739` text on the `#191c1c` surface, contrast 1.31:1, i.e. a
+  calendar whose days are invisible in dark mode.
+
+  The dark pass now mirrors the light pass for the day, month and year cells.
+  Guarded by `packages/preset/test/date-time-dark.test.ts`.
+
+- cc911f6: fix(preset): center dialogs in the viewport instead of a top-left 90vw box
+
+  `.q-dialog__inner` carried `max-width: 90vw; max-height: 90vh` — a leftover from when the
+  inner painted the dialog surface. Under Quasar's runtime `fixed-full` (`position: fixed;
+inset: 0`) the clamp is over-constrained: left/top win, so the centering box lands at
+  (0, 0) at 90vw × 90vh and `flex-center` centres every card inside it. Measured on the
+  plugin dialog at 546 × 1146: left gap 46px vs right gap 100px, top 401px vs bottom 515px
+  (5vw / 5vh of drift); the ResponsiveDialog fixture measured 32px vs 160px at 1280. The
+  reference bundle and stock Quasar state no size clamp on the inner — fitting belongs to
+  the child (`max-width: 560px`, `max-height: calc(100vh - 48px)`) and the row-flex shrink.
+  Dialogs now centre symmetrically (harness: plugin at 320/375/546, ResponsiveDialog at 1280) with the phone-fit guards still green.
+
+- d56786e: fix(preset): give the plain gutter class its second axis back
+
+  `q-gutter-md` / `q-col-gutter-md` emitted `column-gap` only. Quasar states the plain class on
+  both axes (`.q-col-gutter-md` → `margin-left: -16px; margin-top: -16px` on the container plus
+  `padding-left: 16px; padding-top: 16px` on every child), so the vertical half was missing: in a
+  wrapping grid the items got a 16px channel sideways and **0px between rows** — pet cards in
+  petboarding's pets grid touched vertically while sitting 16px apart horizontally (measured
+  2026-10-06). The plain matcher now yields `column-gap` and `row-gap` together; `-x-`/`-y-` keep
+  their single axis. The gap pair rather than the negative-margin pair because it preserves the
+  current edge alignment: margins would bleed card backgrounds 16px outside the page padding.
+
+- 8c8b3f9: Give `.q-link` the interactive colour, not just the outline reset.
+
+  The reference leaves the colour to the consumer — its reset states
+  `a { color: inherit }` — so a bare anchor with no classes fell through to the
+  browser's `rgb(0, 0, 238)`. Six petboarding content links each hand-paired
+  `text-$light-primary dark:text-$dark-primary` to work around it (2026-10-06
+  audit: `/information`, `/availability`, `/account/{pets,bookings,daycare,contactpeople}`).
+
+  `.q-link` now states `color: var(--q-primary)`. That role already flips per
+  scheme, so one declaration covers both (6.5:1 in light, ~10:1 on the dark
+  surface) and no `.body--dark` twin is needed. Pages can drop the token pairing
+  and mark the anchor with the semantic class instead.
+
+- 9297117: Remove the deprecated `Md3StyleEntry` / `Md2StyleEntry` / `UnstyledStyleEntry` aliases (use `MaterialDesign3` / `MaterialDesign2` / `Unstyled`), drop dead tooling and dev-only dependencies, and trim restating inline comments.
+
 ## 0.6.4
 
 ### Patch Changes
