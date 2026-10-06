@@ -201,10 +201,17 @@ export const gridRules = [
   [
     /^q-(col-)?gutter-([a-z]+)$/,
     function* ([, , size]: string[]) {
-      // The reference emits only the column gap for the plain gutter class.
-      yield {
-        'column-gap': `calc(var(--spacing) * ${GUTTER_STEPS[size] ?? 0})`
-      }
+      // quasar.css states the plain class on BOTH axes: `.q-col-gutter-md` is
+      // `margin-left/margin-top: -16px` on the container plus
+      // `padding-left/padding-top: 16px` on every child — a two-axis gutter.
+      // Emitting only `column-gap` here dropped the vertical half, so wrapped
+      // rows touched: pet cards in petboarding's grid got a 16px channel
+      // sideways and 0px between rows (measured 2026-10-06). The gap pair is
+      // this preset's form of the same relationship — and unlike the negative
+      // margin pair it keeps card backgrounds flush with the page padding
+      // instead of bleeding them 16px outside it. `-x-`/`-y-` keep one axis.
+      const gap = `calc(var(--spacing) * ${GUTTER_STEPS[size] ?? 0})`
+      yield { 'column-gap': gap, 'row-gap': gap }
     }
   ],
   [

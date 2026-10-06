@@ -98,6 +98,11 @@ describe('gridRules', () => {
     const css = matchRule('q-gutter-md')
     expect(css).toBeDefined()
     expect(css!['column-gap']).toBe('calc(var(--spacing) * 4)')
+    // quasar.css states the plain gutter class on BOTH axes
+    // (`.q-col-gutter-md` → margin/padding-left AND -top), so column-gap alone
+    // dropped the vertical half and wrapped rows touched — pet cards in a grid
+    // got a 16px channel sideways and 0px between rows (petboarding, 2026-10-06).
+    expect(css!['row-gap']).toBe('calc(var(--spacing) * 4)')
   })
 
   it('q-gutter-x-sm uses the wind4 spacing step for sm for column-gap', () => {
