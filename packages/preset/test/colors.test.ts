@@ -76,4 +76,29 @@ describe('colorRules', () => {
   it('returns undefined for unknown selectors', () => {
     expect(matchRule('not-a-real-class')).toBeUndefined()
   })
+
+  it('pairs a dark `bg-primary` with on-primary for a white label', () => {
+    // Quasar's `color="primary"` prop paints `bg-primary text-white`; in dark
+    // mode the primary is a light tint, so white measured 1.71:1 on the fill
+    // (audit 2026-10-06: the 404 CTA and the pagination button).
+    const yields: Record<string, unknown>[] = []
+    for (const entry of colorRules) {
+      if (!(entry[0] instanceof RegExp) || !entry[0].test('bg-primary'))
+        continue
+      const result = (entry[1] as any)(['bg-primary'], {
+        symbols: { selector: (s: string) => s }
+      })
+      if (result && typeof result.next === 'function') yields.push(...result)
+    }
+    // The symbol-keyed yield carries the selector as its key, not a `selector`
+    // property — read it off the values.
+    const pairing = yields.find((y) => y.color === 'var(--q-on-primary)')
+    expect(pairing, 'an on-primary pairing yield exists').toBeDefined()
+    const selectorFor = Object.values(pairing!).find(
+      (value) => typeof value === 'function'
+    ) as (s: string) => string
+    expect(selectorFor('.bg-primary')).toBe(
+      '.body--dark .bg-primary.text-white'
+    )
+  })
 })

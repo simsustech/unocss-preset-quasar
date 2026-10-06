@@ -113,4 +113,15 @@ describe('helpersRules', () => {
   it('q-link removes underline', () => {
     expect(matchRule(helpersRules, 'q-link')!['text-decoration']).toBe('none')
   })
+
+  it('q-link carries the interactive colour as well as the reset', () => {
+    // The reference leaves the colour to the consumer (its reset says
+    // `a { color: inherit }`), so a bare anchor fell through to the browser's
+    // `rgb(0, 0, 238)` on six petboarding content links (audit 2026-10-06).
+    // `--q-primary` is the interactive role and flips per scheme, so one
+    // declaration covers both.
+    const qLink = matchRule(helpersRules, 'q-link')!
+    expect(qLink.color).toBe('var(--q-primary)')
+    expect(qLink['text-decoration']).toBe('none')
+  })
 })

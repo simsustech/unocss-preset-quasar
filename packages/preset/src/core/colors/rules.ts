@@ -82,6 +82,19 @@ const md3Tokens = [
  */
 const darkScopedColorTokens = ['primary', 'secondary', 'accent'] as const
 
+/**
+ * The on-colour that pairs with each dark-scoped brand token. Quasar's
+ * `color="<name>"` prop hard-codes `text-white` alongside the fill, which is
+ * only correct in light mode — these are the tokens the dark scheme answers
+ * with instead.
+ */
+const DARK_ON_TOKEN: Record<string, string> = {
+  primary: 'on-primary',
+  secondary: 'on-secondary',
+  // `accent` is Quasar's alias for the MD3 tertiary role.
+  accent: 'on-tertiary'
+}
+
 /** Generate text-{color} and bg-{color} rules for a list of token names */
 function generateColorRules(
   tokens: readonly string[],
@@ -112,6 +125,21 @@ function generateColorRules(
           yield {
             [symbols.selector]: (sel: string) => `.body--dark ${sel}`,
             [property]: `var(--q-${name})`
+          }
+          // Quasar's `color="primary"` prop paints `bg-primary text-white`.
+          // The brand tokens flip to light tints in dark mode, so that white
+          // label measured 1.71:1 on the primary fill (audit 2026-10-06, the
+          // 404 CTA and the pagination button). Pair the surface with the
+          // on-colour the way `.q-badge` and a `.q-btn-toggle > .q-btn-item`
+          // already do — and the way `.q-btn` itself declares it through
+          // `--q-btn-color: var(--q-on-primary)`.
+          const on = DARK_ON_TOKEN[name]
+          if (property === 'background-color' && on) {
+            yield {
+              [symbols.selector]: (sel: string) =>
+                `.body--dark ${sel}.text-white`,
+              color: `var(--q-${on})`
+            }
           }
         })
       )

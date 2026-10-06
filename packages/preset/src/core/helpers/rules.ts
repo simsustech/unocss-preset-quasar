@@ -199,7 +199,18 @@ export const helpersRules: ComponentRule[] = [
   // Reference `.q-link { outline-style: var(--un-outline-style, var(--q-outline-style)); outline-width: 0px;
   // text-decoration: none }` — the longhands, not the `outline` shorthand, so the
   // reset lines up with every other focusable surface.
+  //
+  // Plus the colour, which the reference leaves to the consumer (its reset states
+  // `a { color: inherit }`, so a bare anchor falls through to the browser's blue
+  // `rgb(0, 0, 238)`). Colour is the link affordance in this design system, so the
+  // class carries it: `--q-primary` is the interactive role and already flips per
+  // scheme (6.5:1 in light, 10:1 on the dark surface), which is why one
+  // declaration covers both — no `.body--dark` twin needed. Measured on six
+  // petboarding content links (2026-10-06: `/information`, `/availability`,
+  // `/account/{pets,bookings,daycare,contactpeople}`) that each hand-paired
+  // `text-$light-primary dark:text-$dark-primary` to work around it.
   rule(/^q-link$/, () => ({
+    color: 'var(--q-primary)',
     'outline-style': 'var(--un-outline-style, var(--q-outline-style))',
     'outline-width': '0px',
     'text-decoration': 'none'
