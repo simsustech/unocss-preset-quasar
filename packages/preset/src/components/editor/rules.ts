@@ -55,6 +55,21 @@ export const editorRules = [
         'min-height': '32px'
       }
       yield {
+        [symbols.selector]: (selector) => `${selector}__toolbar .q-btn`,
+        // Reference `.q-btn--dense` states `min-height: 2em` and `.q-btn` keeps
+        // `min-width: auto`. The preset's global 48dp floor (`.q-btn` /
+        // `.q-btn--dense` `min-height: var(--q-control-height)`) and md2's 64px
+        // `.q-btn` min-width otherwise make every toolbar icon button 20.6x48
+        // (md3) / 64x48 (md2); the button font-size is 10px, so the reference
+        // dense metric is 20px. Ten of those wrap the toolbar to 73px desktop and
+        // 305px on a 390px phone. Scoped to the toolbar so the 48dp touch-target
+        // floor stays intact everywhere else.
+        // quasar: 2em is the reference's own dense metric, not a forked role —
+        // it scales with the button's font-size rather than freezing 20px.
+        'min-height': '2em',
+        'min-width': 'auto'
+      }
+      yield {
         [symbols.selector]: (selector) => `.body--dark ${selector}__toolbar`,
         'border-color': 'rgba(255, 255, 255, 0.12)'
       }

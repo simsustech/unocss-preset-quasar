@@ -17,7 +17,7 @@
  * list, and the harness's `tests/class-coverage.spec.ts` is what verifies it.
  */
 export const quasarSafelist: string[] = [
-  /** 266 base entries. */
+  /** 272 base entries. */
   'absolute',
   'absolute-bottom',
   'absolute-bottom-left',
@@ -42,6 +42,7 @@ export const quasarSafelist: string[] = [
   'bg-deep-purple',
   'bg-green',
   'bg-green-1',
+  'bg-grey',
   'bg-grey-1',
   'bg-grey-3',
   'bg-grey-5',
@@ -234,6 +235,7 @@ export const quasarSafelist: string[] = [
   'text-deep-purple',
   'text-green',
   'text-green-1',
+  'text-grey',
   'text-grey-1',
   'text-grey-3',
   'text-grey-5',

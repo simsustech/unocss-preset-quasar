@@ -155,6 +155,19 @@ describe('emission integrity', () => {
     expect(list, `classes nothing supplies: ${list.join(', ')}`).toEqual([])
   })
 
+  it('safelists the bare grey palette utilities Quasar composes', () => {
+    // Quasar's `color="grey"` prop composes `text-grey` / `bg-grey` at runtime,
+    // so no source UnoCSS scans names the class and only the safelist makes the
+    // engine emit it. `grey-1` … `grey-14` were listed; the bare name was not,
+    // and the harness's class-coverage gate found `<i class="text-grey">` with
+    // no matching rule (QPopupEditPage's `<q-icon color="grey">`).
+    const preset = QuasarPreset({ styles: QuasarStyleEntries }) as {
+      safelist?: string[]
+    }
+    expect(preset.safelist).toContain('text-grey')
+    expect(preset.safelist).toContain('bg-grey')
+  })
+
   it('safelists the resolved classes when iconSet names a quasar library', () => {
     // The fix (step 3): a library string resolves to the provider's icon set,
     // whose classes are app configuration and must reach the safelist — a
