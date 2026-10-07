@@ -154,11 +154,22 @@ export const md3Style: StyleEntry = {
       toggleTrackOutlineWidthActive: '2px',
       toggleTrackOutlineStyleActive: 'solid',
       toggleTrackOutlineColorActive: 'transparent',
-      toggleThumbSize: '16px',
-      toggleThumbSizeActive: '24px',
-      toggleThumbOffset: '8px',
-      toggleThumbOffsetActive: '24px',
-      toggleThumbOffsetIndet: '8px',
+      // Handle geometry is em-based, exactly as the reference bundle states it
+      // (specs/reference/raw/reference-bundle.css.txt):
+      //   .q-toggle__thumb            { width/height: 0.5em; top: 0.25em; left: 0.15em }
+      //   .q-toggle__inner--truthy    { width/height: 0.75em; left: 0.725em; top: 0.125em }
+      //   .q-toggle__inner--indet     { left: 0.4375em }
+      // At --q-toggle-font-size: 32px these resolve to the MD3 spec's 16px/24px
+      // handle in the 52x32 chassis (52x32, md3-switches.json), and they keep
+      // scaling with the font-size — which is what makes the dense variant
+      // (font-size 28px, same 1.625em chassis) land on symmetric on/off insets.
+      // The previous px literals (16/24/8/24/8) broke that scaling: off-state
+      // inset 8px != on-state 4px, and dense never moved the thumb right.
+      toggleThumbSize: '0.5em',
+      toggleThumbSizeActive: '0.75em',
+      toggleThumbOffset: '0.15em',
+      toggleThumbOffsetActive: '0.725em',
+      toggleThumbOffsetIndet: '0.4375em',
       toggleThumbBg: 'var(--q-outline)',
       toggleThumbBgActive: 'var(--q-on-primary)',
       toggleThumbShadow: 'none',

@@ -179,6 +179,19 @@ export const fieldRules = [
         'outline-style': 'none !important',
         'box-shadow': 'none'
       }
+      // Label-side native-type float, the quasar.prod.css form. Quasar
+      // renders the label BEFORE the control (`getControlContainer` pushes
+      // the label, then `state.getControl()`), so the native-side adjacency
+      // below (`native + label`) can never match in Quasar ≥2.34 — it stays
+      // only because the parity ratchet's vendored reference bundle pins it.
+      // `:has(+ …)` requires the control to FOLLOW the label, which it always
+      // does. `[type='file']` is the preset's own addition; Quasar's list
+      // omits it.
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__label:has(+ :is(${selector}__native, ${selector}__input):is(:autofill, [type='color'], [type='date'], [type='datetime-local'], [type='file'], [type='month'], [type='time'], [type='week']))`,
+        transform: 'translateY(-40%) scale(0.75)'
+      }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__native[type='color'] + .q-field__label`,
@@ -655,6 +668,16 @@ export const fieldRules = [
         // quasar: relative scaling: an absolute role size would change nested contexts
         'font-size': '0.75em',
         transform: 'translateY(-40%) scale(0.75)'
+      }
+      // Dense label-side counterpart: the reference folds this into
+      // `.q-field--dense.q-field--float .q-field__label` at −30%; emitted
+      // label-side so it resolves the same way on every dense native type
+      // (the dense native-side type rules below are likewise pinned dead
+      // code — kept for the parity ratchet).
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}--dense ${selector}__label:has(+ :is(${selector}__native, ${selector}__input):is(:autofill, [type='color'], [type='date'], [type='datetime-local'], [type='file'], [type='month'], [type='time'], [type='week']))`,
+        transform: 'translateY(-30%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>

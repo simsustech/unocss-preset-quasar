@@ -154,4 +154,24 @@ describe('emission integrity', () => {
     )
     expect(list, `classes nothing supplies: ${list.join(', ')}`).toEqual([])
   })
+
+  it('safelists the resolved classes when iconSet names a quasar library', () => {
+    // The fix (step 3): a library string resolves to the provider's icon set,
+    // whose classes are app configuration and must reach the safelist — a
+    // class Quasar adds at runtime never appears in markup UnoCSS scans.
+    const preset = QuasarPreset({
+      styles: QuasarStyleEntries,
+      iconSet: 'mdi-v7'
+    }) as { safelist?: string[] }
+    expect(preset.safelist).toContain('i-mdi-arrow-up')
+    expect(preset.safelist).toContain('i-mdi-check-circle')
+  })
+
+  it('keeps a supplied nested icon set safelisted unchanged (backwards compat)', () => {
+    const preset = QuasarPreset({
+      styles: QuasarStyleEntries,
+      iconSet: { type: { positive: 'i-mdi-supplied-icon' } }
+    }) as { safelist?: string[] }
+    expect(preset.safelist).toContain('i-mdi-supplied-icon')
+  })
 })

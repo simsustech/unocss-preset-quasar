@@ -853,6 +853,23 @@ export const dateRules = [
         'padding-right': '40px'
       }
       yield {
+        [symbols.selector]: (selector) => `${selector}__arrow .q-btn`,
+        // reference: `.q-btn--dense.q-btn--round` states 2.4em for both
+        // minimums. The arrow's font-size is 10px, so 2.4em is the reference's
+        // 24px; the preset's dense-round floor instead inflates each of the
+        // four nav arrows to 48px (md3) / 64px (md2), which starves the month
+        // column (26px md3, 0px md2) until its label is clipped to `ctob`.
+        // `width`/`height` are stated too: `.q-btn--round` sets a height and a
+        // minimum width of its own at a lower specificity.
+        // quasar: 2.4em is Quasar's own dense-round scale, not a forked role
+        // value (see the reference line above); it only resolves to the
+        // arrow's 24px because that button's font-size is 10px.
+        width: '2.4em',
+        height: '2.4em',
+        'min-width': '2.4em',
+        'min-height': '2.4em'
+      }
+      yield {
         [symbols.selector]: (selector) =>
           `${selector}__calendar-item--in .q-btn`,
         color:

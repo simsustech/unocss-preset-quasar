@@ -64,6 +64,7 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch --preserveWatchOutput",
+    "generate:icon-sets": "node scripts/generate-icon-sets.mjs",
     "lint": "oxlint src",
     "lint:fix": "oxlint src --fix",
     "test": "vitest test/"
@@ -91,10 +92,42 @@
     "vitest": "^5.0.3"
   },
   "peerDependencies": {
+    "@iconify-json/bi": "*",
+    "@iconify-json/eva": "*",
+    "@iconify-json/fa7-solid": "*",
+    "@iconify-json/ic": "*",
+    "@iconify-json/ion": "*",
+    "@iconify-json/la": "*",
+    "@iconify-json/material-symbols": "*",
+    "@iconify-json/mdi": "*",
     "@unocss/core": "^66.10.5",
     "quasar": "^2.34.0"
   },
   "peerDependenciesMeta": {
+    "@iconify-json/bi": {
+      "optional": true
+    },
+    "@iconify-json/eva": {
+      "optional": true
+    },
+    "@iconify-json/fa7-solid": {
+      "optional": true
+    },
+    "@iconify-json/ic": {
+      "optional": true
+    },
+    "@iconify-json/ion": {
+      "optional": true
+    },
+    "@iconify-json/la": {
+      "optional": true
+    },
+    "@iconify-json/mdi": {
+      "optional": true
+    },
+    "@iconify-json/material-symbols": {
+      "optional": true
+    },
     "vite": {
       "optional": true
     }

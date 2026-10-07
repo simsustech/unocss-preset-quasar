@@ -18,6 +18,20 @@ binary that the assistant views directly — never pipe them through
 `read_file`, `cat`, or text-based tools. The `read_file` tool is for
 source code and text files only.
 
+### Contact sheets must stay legible to the vision model
+
+The vision pass reads the contact sheets at `vision-sheets/<slug>/<style>/NN.png`,
+not the per-state PNGs. The model resizes every image to roughly 1300×1300, so the
+sheet must respect the cell budget: `tests/vision-sheets.spec.ts` caps at **12 cells
+per sheet in 4 columns** and draws each cell **1:1** at its captured size
+(`MAX_CELLS`, `SHEET_COLUMNS`, `sizeImg`). At 20 cells × 5 columns a 290px clip
+renders ~114px wide and label text becomes unreadable — a clipped q-date month label
+(`October` → `ctob`) survived an entire review pass that way. If a sheet cell is
+ambiguous, open the full-res unit PNG at
+`audit-artifacts/<slug>/<style>/<state>.png` before recording a verdict. Bump
+`SHEET_RENDER_VERSION` in the spec whenever the sheet layout changes so stale sheets
+rebuild.
+
 ### Identifying the session process
 
 The session process is the only `node` running the `cmd` binary with

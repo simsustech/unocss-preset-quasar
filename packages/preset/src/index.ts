@@ -37,6 +37,7 @@ import {
   appExtensionModules,
   type AppExtensionName
 } from './app-extensions/index.js'
+import { resolveIconSet } from './icons/index.js'
 
 const pickBySuffix = (
   mod: Record<string, unknown>,
@@ -135,13 +136,20 @@ export interface QuasarPresetOptions {
   presetIcons?: IconsOptions
   presetWebFonts?: WebFontsOptions
   /**
-   * Quasar's icon set (`framework.iconSet`): a nested map of icon names to the
-   * class each one renders as. The app owns it, so the preset reads the classes
-   * out of it — Quasar's own components ask for icons nobody writes in markup
-   * (a table's expand chevron, a select's arrow), and a class that only exists
-   * in this map is otherwise never generated.
+   * Quasar's icon set (`framework.iconSet`). Either:
+   *
+   * - a Quasar icon library name (`'mdi-v7'`, …) — the preset derives the
+   *   nested set from `quasar/dist/icon-set`, rewrites every value to its
+   *   iconify class and safelists them (the matching `@iconify-json/<collection>`
+   *   pack emits their CSS), or
+   * - the app's own nested map of icon names to the class each one renders as
+   *   (or a function) — that path is unchanged; the preset reads the classes
+   *   out of it, because Quasar's own components ask for icons nobody writes
+   *   in markup (a table's expand chevron, a select's arrow), and a class that
+   *   only exists in this map is otherwise never generated.
    */
   iconSet?: unknown
+
   /**
    * The Quasar plugins the app drives through their API rather than a tag
    * (`$q.dialog()`, `$q.notify()`, …). Each plugin's safelist classes join the
@@ -159,26 +167,6 @@ export interface QuasarPresetOptions {
    * simply matches no rule.
    */
   appExtensions?: AppExtensionName[]
-}
-
-/** Every `i-*` class value in the icon set, at any depth. */
-export function iconSetClasses(iconSet: unknown): string[] {
-  const found = new Set<string>()
-  const walk = (value: unknown): void => {
-    if (typeof value === 'string') {
-      if (/^i-[a-z0-9-]+$/.test(value)) found.add(value)
-      return
-    }
-    if (Array.isArray(value)) {
-      for (const entry of value) walk(entry)
-      return
-    }
-    if (value !== null && typeof value === 'object') {
-      for (const entry of Object.values(value)) walk(entry)
-    }
-  }
-  walk(iconSet)
-  return [...found]
 }
 
 /**
@@ -235,6 +223,9 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
   // `extendTheme` below), and it is the same generator behind our preflight.
   const theme = generateTheme(sourceColor)
   const entries = resolveStyles(options)
+  // The iconSet option resolves once per preset: a library string derives
+  // its set + classes + iconMapFn; a supplied map/function passes through.
+  const resolvedIconSet = resolveIconSet(options?.iconSet)
   // The baseline owns the unscoped token block and the shape roles; the rest are
   // diffs against it. Both come from the list, so an unlisted style is neither
   // emitted nor switchable.
@@ -369,7 +360,7 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
       ...(options?.plugins ?? []).flatMap(
         (plugin) => pluginSafelistMap[plugin as string] ?? []
       ),
-      ...iconSetClasses(options?.iconSet)
+      ...resolvedIconSet.classes
     ],
     // The Quasar palette has to reach the engine's theme, not just our own
     // token preflight: the engine emits `--colors-<name>` and generates the
@@ -428,3 +419,7 @@ export {
   Unstyled,
   QuasarStyleEntries
 } from './styles/index.js'
+
+export { quasarIconSet, iconSetClasses } from './icons/index.js'
+export { LIBRARY_ICONIFY } from './icons/libraries.js'
+export type { QuasarIconLibrary } from './icons/libraries.js'

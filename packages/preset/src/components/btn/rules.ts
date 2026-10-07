@@ -206,6 +206,17 @@ export const btnRules = [
         'margin-left': '6px'
       }
       yield {
+        [symbols.selector]: (selector) => `${selector}--dense.q-btn--flat`,
+        // The reference emits `.q-btn--flat` (rule 528) before `.q-btn--dense`
+        // (rule 864), so dense's `padding` shorthand beats flat's
+        // `padding-inline` and a flat dense button keeps dense's tight padding.
+        // UnoCSS orders the entries of one rule by selector, and `--dense`
+        // sorts before `--flat`, which inverts exactly that pair — so it is
+        // restated at a specificity the flat rule cannot reach. Left inverted,
+        // the QDate month label is ~20px too wide and its column clips it.
+        padding: 'var(--q-btn-dense-padding)'
+      }
+      yield {
         [symbols.selector]: (selector) => `${selector}--dense.q-btn--round`,
         padding: 'calc(var(--spacing) * 0)',
         // Dense keeps dist's own tighter width (2.4em in md3) but the same square

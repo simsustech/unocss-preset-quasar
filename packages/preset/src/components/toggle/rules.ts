@@ -226,26 +226,14 @@ export const toggleRules = [
         'padding-inline': '0',
         'padding-block': '0'
       }
-      yield {
-        [symbols.selector]: (selector) => `${selector}--dense .q-toggle__thumb`,
-        width: '0.5em',
-        height: '0.5em',
-        top: 'calc(50% - 0.25em)',
-        left: '0'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `${selector}--dense .q-toggle__inner--indet .q-toggle__thumb`,
-        left: '0.15em'
-      }
-      yield {
-        [symbols.selector]: (selector) =>
-          `${selector}--dense .q-toggle__inner--truthy .q-toggle__thumb`,
-        width: '0.5em',
-        height: '0.5em',
-        top: 'calc(50% - 0.25em)',
-        left: '0.3em'
-      }
+      // NOTE: the reference bundle defines NO `.q-toggle--dense` thumb rules.
+      // Dense only changes the inner's font-size (28px) + zeroes the padding,
+      // and every thumb value is em-based — so the handle geometry scales with
+      // the font-size and on/off insets stay symmetric on the narrower chassis.
+      // The old dense thumb overrides (left 0 / 0.15em / 0.3em with a fixed
+      // 0.5em handle, ported from Quasar's upstream .8em dense chassis) sat on
+      // the 1.625em reference chassis and stranded the handle left-of-centre
+      // when on (off inset 0px vs on inset 23.1px at font-size 28px).
       yield {
         [symbols.selector]: (selector) => `${selector}--dense .q-toggle__label`,
         'padding-left': '0.5em'

@@ -39,9 +39,67 @@ function literal(attribute: string, value: string): string | null {
   return EMPTY_VALUES.has(text) ? null : text
 }
 
+/** `star` / `mdi-star` / `i-mdi-star` → the class Quasar will render. */
+const addIconClass = (classes: Set<string>, raw: string): void => {
+  const value = raw.trim()
+  if (value.startsWith('i-mdi-')) classes.add(value)
+  else if (value.startsWith('mdi-')) classes.add(`i-mdi-${value.slice(4)}`)
+  else if (/^[a-z0-9-]+$/.test(value)) classes.add(`i-mdi-${value}`)
+}
+
 /** `QBtn` -> `q-btn`: the markup may name a component either way. */
 const pascalToKebab = (name: string) =>
   name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()
+
+/** The six phases Vue toggles on a transition's classes, in toggle order. */
+const TRANSITION_PHASES = [
+  'enter-from',
+  'enter-active',
+  'enter-to',
+  'leave-from',
+  'leave-active',
+  'leave-to'
+]
+
+/** Directions Quasar concatenates onto a dangling family fragment. */
+const TRANSITION_DIRECTIONS = ['left', 'right']
+
+/** A class that already names a phase, e.g. `q-transition--fade-enter-from`. */
+const PHASED = /-(?:enter|leave)-(?:from|active|to)$/
+
+/**
+ * Complete every transition family into its six phases.
+ *
+ * A transition is usually named by a prop (`transition-show="scale"`), which
+ * `quasarValueExtractor` reads. Some components compose one internally instead
+ * and have no such prop — QDate slides its calendar with `'q-transition--slide-'
+ * + monthDirection` and its label with `'q-transition--jump-' + dir` — so all
+ * the vocabulary can report is the base (`q-transition--fade`) or the dangling
+ * fragment (`q-transition--slide-`). Those phases have to be derived here.
+ *
+ * Without them Vue toggles classes no rule matches: the leaving grid still took
+ * `position: absolute` from `-leave-active`, but never got `-leave-to`, so its
+ * `transform` stayed `none` and it painted on top of the entering grid — every
+ * day number appeared twice for the length of the slide.
+ */
+const withTransitionPhases = (classes: Set<string>): void => {
+  for (const name of [...classes]) {
+    if (!name.startsWith('q-transition--')) continue
+    const family = name.slice('q-transition--'.length)
+    if (family === '' || PHASED.test(name)) continue
+    // A trailing hyphen is Quasar's own concatenation point, so the direction
+    // has to be added before the phase; both occur (`monthDirection.value`
+    // and `dir` are exactly these two literals).
+    const stems = family.endsWith('-')
+      ? TRANSITION_DIRECTIONS.map((direction) => `${family}${direction}`)
+      : [family]
+    for (const stem of stems) {
+      for (const phase of TRANSITION_PHASES) {
+        classes.add(`q-transition--${stem}-${phase}`)
+      }
+    }
+  }
+}
 
 /**
  * Every class a component can apply, once the markup mentions that component.
@@ -51,6 +109,10 @@ const pascalToKebab = (name: string) =>
  * list has to enumerate them and a human has to remember each new one. Quasar's
  * own source enumerates them (`scripts/generate-quasar-classes.mjs`), and the
  * markup says which component is in play.
+ *
+ * A vocabulary entry may also be a transition family rather than a whole class
+ * (`q-transition--slide-`); those are completed into their phases here — see
+ * `withTransitionPhases`.
  */
 export const quasarComponentExtractor: Extractor = {
   name: 'quasar-component-extractor',
@@ -68,6 +130,9 @@ export const quasarComponentExtractor: Extractor = {
         for (const name of vocabulary) classes.add(name)
       }
     }
+    // Families and direction fragments arrive incomplete; complete them before
+    // the kebab guard so the derived phases are checked like every other name.
+    withTransitionPhases(classes)
     // Guard against the mapping drifting out of kebab form.
     for (const name of classes) {
       if (pascalToKebab(name) !== name.toLowerCase()) classes.delete(name)
@@ -90,13 +155,20 @@ export const quasarValueExtractor: Extractor = {
     )) {
       const value = literal(match[0] ?? '', match[1])
       if (value === null) continue
-      if (value.startsWith('i-mdi-')) {
-        classes.add(value)
-      } else if (value.startsWith('mdi-')) {
-        classes.add(`i-mdi-${value.slice(4)}`)
-      } else if (/^[a-z0-9-]+$/.test(value)) {
-        classes.add(`i-mdi-${value}`)
-      }
+      addIconClass(classes, value)
+    }
+
+    // Object literals whose key names an icon prop: `icon: 'star'`,
+    // `'clear-icon': 'close'`, `iconRight: 'star'`. The representative
+    // values a capture matrix pushes through URL query strings live in
+    // exactly this shape (e.g. tests/audit-capture-helpers.ts) — markup
+    // patterns never see them, and the names only exist at runtime.
+    for (const match of code.matchAll(
+      /['"]?[\w-]*icon[\w-]*['"]?\s*:\s*['"`]([^'"`\n]+)['"`]/gi
+    )) {
+      const value = match[1]
+      if (value === undefined || EMPTY_VALUES.has(value.trim())) continue
+      addIconClass(classes, value)
     }
 
     // Icons written as a literal class in markup.
