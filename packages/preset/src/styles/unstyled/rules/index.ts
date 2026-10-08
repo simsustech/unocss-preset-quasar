@@ -552,6 +552,15 @@ export const unstyledRules: Rule[] = [
     }
   ],
   [
+    /^q-uploader__header$/,
+    function* () {
+      yield {
+        background: 'none',
+        color: 'inherit'
+      }
+    }
+  ],
+  [
     /^q-video$/,
     function* () {
       yield {

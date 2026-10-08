@@ -70,6 +70,17 @@ export const quasarSafelist: string[] = [
   'block',
   'border-grey-3',
   'border-radius-inherit',
+  // Quasar applies `col`/`col-all`/`col-auto` inside its own components (QBtn puts
+  // `col` on `.q-btn__content`) and in layout markup, but no extractor signal names
+  // them: the component vocabulary does not carry a component's flexgrid classes and
+  // a plain `class="row col"` names nothing the value extractor keys on. Without a
+  // candidate, on-demand generation emits no `.col` rule at all — which made a
+  // dev-served page disagree with the SSG bundle (whose full-source scan happened to
+  // see `.col` in a page) and shifted every QBtn label 9.6px (`.q-btn__content`
+  // 43.125px -> 24.0156px).
+  'col',
+  'col-all',
+  'col-auto',
   'col-grow',
   'column',
   'content-center',
