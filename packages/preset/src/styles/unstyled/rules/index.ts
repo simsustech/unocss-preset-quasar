@@ -336,6 +336,50 @@ export const unstyledRules: Rule[] = [
     }
   ],
   [
+    /^q-notification$/,
+    function* (_, { symbols }) {
+      yield {
+        background: 'none',
+        color: 'inherit',
+        'box-shadow': 'none'
+      }
+      // The toast paints its surface on the ROOT (`.q-notification`), unlike
+      // most components, so the base rule is what shows through under
+      // `unstyled` — a dark `--q-inverse-surface` slab with a literal drop
+      // shadow. Same gap as BUG-067 (`q-message`): base rules are emitted
+      // unscoped, so every style needs its own neutraliser here.
+      //
+      // The members carry their own fills and need neutralising too, or the
+      // toast is a bare box with a negative badge and an opaque progress bar.
+      yield {
+        [symbols.selector]: (selector) => `${selector}__message`,
+        color: 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions`,
+        color: 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__badge`,
+        'background-color': 'transparent',
+        'box-shadow': 'none'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__progress`,
+        'background-color': 'transparent'
+      }
+    }
+  ],
+  [
+    /^q-notifications$/,
+    function* () {
+      yield {
+        background: 'none',
+        color: 'inherit'
+      }
+    }
+  ],
+  [
     /^q-option-group$/,
     function* () {
       yield {
