@@ -52,6 +52,15 @@ export const toolbarRules = [
           `${selector}__title:last-child`,
         'padding-right': 0
       }
+      yield {
+        [symbols.selector]: (selector) => `${selector} .q-btn--flat`,
+        // The bar's own foreground reaches its actions. Scoped to the toolbar
+        // (same shape as the q-editor__toolbar .q-btn carve-out) so md3's global
+        // flat text-button colour is untouched, and set as the *variable* — not
+        // `color` — so a per-button `text-*` utility still wins by cascade order
+        // (`cascade-order.test.ts`: utilities ship after component rules).
+        '--q-btn-flat-color': 'currentColor'
+      }
     }
   ]
 ] as Rule[]

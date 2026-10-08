@@ -12,6 +12,15 @@ const fileBorder =
 const darkBorder =
   'color-mix(in oklab, rgba(255, 255, 255, 0.28) var(--q-border-opacity), transparent)'
 const whiteText = 'color-mix(in oklab, #fff var(--q-text-opacity), transparent)'
+/**
+ * The header sits on `--q-primary` (upstream QUploader.sass), and that token
+ * flips to a light tint in dark mode — white on it measures 1.71:1
+ * (core/colors/rules.ts) — so the header text follows the scheme through
+ * `--q-on-primary` instead. It stays `#ffffff` in light mode, so a
+ * `color="primary"` uploader is unchanged.
+ */
+const onPrimaryText =
+  'color-mix(in oklab, var(--q-on-primary) var(--q-text-opacity), transparent)'
 const lightBoxShadow =
   '0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)'
 const darkBoxShadow =
@@ -73,7 +82,8 @@ export const uploaderRules = [
         'align-items': 'center',
         'justify-content': 'space-between',
         'margin-bottom': 'var(--q-space-sm)',
-        color: whiteText,
+        'background-color': 'var(--q-primary)',
+        color: onPrimaryText,
         width: '100%',
         'border-top-left-radius': 'inherit',
         'border-top-right-radius': 'inherit',
