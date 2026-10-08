@@ -1,6 +1,6 @@
-=== PARITY: 448/2401 (19%) ===
+=== PARITY: 449/2401 (19%) ===
 (2441 in fixture; 40 env-gated)
-Missing 1953 selectors:
+Missing 1952 selectors:
   ::backdrop
   :root
   :host
@@ -1371,7 +1371,6 @@ Missing 1953 selectors:
   .q-item__section--thumbnail
   .q-pagination
   .q-tabs
-  .col
   .q-btn-dropdown--current
   .q-header .q-toolbar__title
   .q-space
@@ -1956,7 +1955,7 @@ Missing 1953 selectors:
   .animated
 
 --- BREAKDOWN ---
-  other: 286
+  other: 285
   field: 203
   table: 122
   btn: 90
