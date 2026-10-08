@@ -30,7 +30,14 @@ export const menuRules = [
         color: 'var(--q-on-surface)'
       }
       yield {
-        [symbols.selector]: (selector) => `${selector}--square`,
+        // Doubled class for specificity: the merged `border-radius: 0` band is
+        // emitted in `quasar.components`, and the base `.q-menu` rule lives in
+        // the same layer, so equal specificity makes the winner depend on
+        // UnoCSS's intra-layer sort. In the app build the merged square rule
+        // landed BEFORE the base, so the base's
+        // `border-radius: var(--q-corner-extra-small)` won and `square` was a
+        // no-op. (0,2,0) beats the base (0,1,0) regardless of order.
+        [symbols.selector]: (selector) => `${selector}${selector}--square`,
         'border-radius': '0'
       }
       yield {

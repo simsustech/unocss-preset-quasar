@@ -221,7 +221,12 @@ export const btnGroupRules = [
         'border-radius': 'var(--q-corner-extra-large)'
       }
       yield {
-        [symbols.selector]: (selector) => `${selector}--square`,
+        // Doubled class for specificity: the merged `border-radius: 0` band
+        // shares `quasar.components` with the base rule, so on equal
+        // specificity UnoCSS's intra-layer sort decides the winner — and in the
+        // app build the merged square rule lands BEFORE the base, defeating the
+        // carve-out. (0,2,0) beats the base (0,1,0) whatever the order.
+        [symbols.selector]: (selector) => `${selector}${selector}--square`,
         'border-radius': '0'
       }
       yield {

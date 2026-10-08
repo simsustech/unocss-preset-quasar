@@ -66,8 +66,8 @@
       "mismatch": []
     },
     "btn-group": {
-      "target": 0,
-      "missing": [],
+      "target": 1,
+      "missing": [".q-btn-group--square"],
       "absent": [],
       "mismatch": []
     },
@@ -99,8 +99,8 @@
       ]
     },
     "chip": {
-      "target": 0,
-      "missing": [],
+      "target": 1,
+      "missing": [".q-chip--square"],
       "absent": [],
       "mismatch": []
     },
@@ -488,8 +488,8 @@
       "mismatch": []
     },
     "menu": {
-      "target": 0,
-      "missing": [],
+      "target": 1,
+      "missing": [".q-menu--square"],
       "absent": [],
       "mismatch": []
     },
@@ -819,8 +819,8 @@
       "mismatch": []
     },
     "table": {
-      "target": 0,
-      "missing": [],
+      "target": 1,
+      "missing": [".q-table--square"],
       "absent": [],
       "mismatch": []
     },

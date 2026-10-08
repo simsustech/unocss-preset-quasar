@@ -36,6 +36,24 @@ const FIXTURE_SOURCE = 'specs/reference/raw/reference-bundle.css.txt'
 // The reference emits 2,464 split selectors; the old scoped fixture carried 163.
 const MIN_FIXTURE_RULES = 2300
 
+// Recorded divergences. `btn-group`, `chip`, `menu` and `table` carry
+// `target: 1` for exactly one selector each, all of them the `--square`
+// carve-out:
+//
+//   reference: .q-menu--square        { border-radius: 0 }
+//   preset:    .q-menu.q-menu--square { border-radius: 0 }
+//
+// The doubled class is deliberate. `border-radius: 0` is declared by many
+// components' square carve-outs, so UnoCSS MERGES them into one rule —
+// `.q-btn-group--square,.q-field--square,.q-menu--square,…{border-radius:0}` —
+// and places it wherever its own sort decides. In the app build that merged
+// rule landed at offset 151011 while the bases landed at 243361+, so on equal
+// specificity the base's rounded token beat every carve-out and `square` was a
+// no-op for 7 of 8 components. Quasar's own CSS orders the carve-out after the
+// base, so the intent is a squared popup; the preset now guarantees it with
+// (0,2,0) instead of relying on emission order. Documented in
+// `test/square-carve-out.test.ts`.
+
 // `PARITY_UPDATE_BASELINE=1` regenerates the ratchet from the current state;
 // that run records rather than compares, so the ratchet cases stand down.
 const UPDATE_BASELINE = Boolean(process.env.PARITY_UPDATE_BASELINE)
