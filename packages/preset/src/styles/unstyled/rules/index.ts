@@ -183,6 +183,24 @@ export const unstyledRules: Rule[] = [
     }
   ],
   [
+    /^q-fab$/,
+    function* (_, { symbols }) {
+      yield {
+        background: 'none',
+        color: 'inherit',
+        'box-shadow': 'none'
+      }
+      // The FAB's spread actions carry their own raised surface; without this the
+      // list stays fully painted under `unstyled`. Found by the core walk in
+      // `core-unstyled-contract.test.ts` (BUG-075).
+      yield {
+        [symbols.selector]: (selector) => `${selector}__actions`,
+        background: 'none',
+        'box-shadow': 'none'
+      }
+    }
+  ],
+  [
     /^q-field$/,
     function* () {
       yield {
@@ -278,6 +296,24 @@ export const unstyledRules: Rule[] = [
       yield {
         background: 'none',
         color: 'inherit'
+      }
+    }
+  ],
+  [
+    /^q-loading$/,
+    function* (_, { symbols }) {
+      // The overlay states a LITERAL backdrop (`rgba(0, 0, 0, 0.7)`, and a
+      // `#000` mix on the backdrop member) — no token can flip those, so
+      // `unstyled` needs an explicit reset or the cell is a solid dark
+      // rectangle. Found by the core walk (BUG-076).
+      yield {
+        background: 'none',
+        color: 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__backdrop`,
+        'background-color': 'transparent',
+        opacity: '0'
       }
     }
   ],

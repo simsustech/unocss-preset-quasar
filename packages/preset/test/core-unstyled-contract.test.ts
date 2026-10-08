@@ -48,7 +48,6 @@ import type { QuasarStyleEntry } from '../src/index.js'
  * for judgement rather than fixed unilaterally.
  */
 const KNOWN_OPEN = new Set([
-  '.q-loading',
   '.q-dialog__backdrop',
   '.q-uploader__overlay',
   '.q-stepper__header--border',
