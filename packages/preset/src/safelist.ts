@@ -78,6 +78,14 @@ export const quasarSafelist: string[] = [
   // dev-served page disagree with the SSG bundle (whose full-source scan happened to
   // see `.col` in a page) and shifted every QBtn label 9.6px (`.q-btn__content`
   // 43.125px -> 24.0156px).
+  //
+  // `row` (listed below, near `reverse-wrap`) is the same case and was previously
+  // supplied by accident: Quasar's own table test fixture carries
+  // `{{ scope.row.name }}`, which the vocabulary generator's whole-file `.vue` scan
+  // read as the class `row`. De-polluting that scan (see
+  // scripts/generate-quasar-classes.mjs) removed the accidental candidate, so the
+  // flex container is carried here with its `column`/`flex` siblings — the preset's
+  // own `/^row$/` rule emits `.row`, `.row.inline` and `.row.reverse`.
   'col',
   'col-all',
   'col-auto',
@@ -219,6 +227,7 @@ export const quasarSafelist: string[] = [
   'readonly',
   'relative-position',
   'reverse-wrap',
+  'row',
   'rotate-180',
   'rounded-borders',
   'scroll-x',

@@ -51,12 +51,6 @@ if (!fs.existsSync(quasarRoot)) {
  * property name, which is why this reads from selector/string context.
  */
 const SELECTOR_CLASS = /\.(-?[a-zA-Z][\w-]*)/g
-/**
- * Sass nesting: `.q-avatar { &__content { … } }` never spells out
- * `q-avatar__content`, so the literal-name scan misses it. The suffix and the
- * block's root are both in the file; the generated class is their concatenation.
- */
-const NESTED_SUFFIX = /&(__|--)([\w-]+)/g
 const QUOTED_CLASS = /['"`]([a-z][a-z0-9]*(?:__|--)[a-z0-9-]+)['"`]/g
 const QUOTED_QUASAR = /['"`](q-[a-z0-9-]+)['"`]/g
 
@@ -168,32 +162,116 @@ function classesIn(files) {
   for (const file of files) {
     const text = fs.readFileSync(file, 'utf8')
     for (const name of dynamicClasses(text)) found.add(name)
-    const isStyle = /\.(sass|scss|vue)$/.test(file)
-    const patterns = isStyle
-      ? [SELECTOR_CLASS, QUOTED_CLASS, QUOTED_QUASAR]
-      : [QUOTED_CLASS, QUOTED_QUASAR]
-    for (const pattern of patterns) {
-      for (const match of text.matchAll(pattern)) found.add(match[1])
-    }
-    if (isStyle) {
-      // Rebuild nested classes from the file's own roots.
-      const roots = new Set(
-        [...text.matchAll(/\.(q-[a-z0-9-]+)(?![-_])/g)].map((m) => m[1])
-      )
-      for (const match of text.matchAll(NESTED_SUFFIX)) {
-        for (const root of roots) {
-          const name = `${root}${match[1]}${match[2]}`
-          // Same BEM rule as the interpolated names: nesting a modifier inside a
-          // modifier (`.q-btn--round { &--actionable }`) pairs a root with a
-          // suffix that never combines. Literals are exempt — one Quasar wrote
-          // down is evidence, whoever wrote it.
-          if ((name.match(/--/g) ?? []).length > 1) continue
-          found.add(name)
-        }
-      }
-    }
+    for (const name of quotedClasses(text)) found.add(name)
+    const style = styleText(file, text)
+    if (style === undefined) continue
+    for (const match of style.matchAll(SELECTOR_CLASS)) found.add(match[1])
+    for (const name of nestedClasses(style)) found.add(name)
   }
   return [...found].sort()
+}
+
+/**
+ * The CSS a file actually contains, or `undefined` when it carries none.
+ *
+ * A `.sass`/`.scss` file is all style. A `.vue` SFC is not: only its `<style>`
+ * block is CSS, and the `<template>`/`<script>` around it is Vue markup and
+ * JavaScript. Scanning those as CSS is what put `col`, `calories`, `cols`,
+ * `key`, `label`, `name`, `page` into `q-table`'s vocabulary — they are object
+ * keys in the component's own test fixtures
+ * (`{{ scope.row.calories }}`, `scope.col.label`), read as `.class` selectors by
+ * `SELECTOR_CLASS`. Those fake names then made `compose-safelist.mjs` treat the
+ * real `col` flexgrid class as extractor-supplied and drop it from
+ * `src/safelist.ts`.
+ */
+function styleText(file, text) {
+  if (/\.(sass|scss)$/.test(file)) return text
+  if (!/\.vue$/.test(file)) return undefined
+  const blocks = [...text.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)]
+  return blocks.length > 0
+    ? blocks.map((match) => match[1]).join('\n')
+    : undefined
+}
+
+/**
+ * BEM classes in quoted strings: `'q-btn--flat'` and `'q-fab__label--top'`.
+ * Scanning a Sass *selector* is not enough on its own — Quasar composes many
+ * modifiers from prop values at runtime, and its own tests are the one place
+ * that spells the result out (`expect(classes).toContain('q-btn--flat')`).
+ */
+function quotedClasses(text) {
+  const found = new Set()
+  for (const match of text.matchAll(QUOTED_CLASS)) found.add(match[1])
+  for (const match of text.matchAll(QUOTED_QUASAR)) found.add(match[1])
+  return found
+}
+
+/**
+ * Classes a Sass file builds by nesting `&` inside a block.
+ *
+ *   .q-table
+ *     &__card        ->  q-table__card
+ *       &--dark      ->  q-table__card--dark
+ *     .q-field       ->  (its own block; `&` there is q-field)
+ *       &__control   ->  q-field__control
+ *
+ * The expansion target is the NEAREST ENCLOSING selector, tracked on a stack
+ * keyed by indentation — not every `.q-*` the file mentions. Pairing a suffix
+ * with every root in the file is what produced combinatorial garbage: in
+ * `QTable.sass` the roots include `.q-table`, `.q-markup-table`, `.q-separator`,
+ * `.q-field`, `.q-inner-loading`, `.q-linear-progress` and the `--dark`/`--loading`
+ * variants, and each of the file's ~38 suffixes was multiplied against all of
+ * them (`q-separator__sort-icon`, `q-table--dark__card`, `q-field__progress`).
+ * Those fake names then read as "the extractors supply them" in
+ * `compose-safelist.mjs`, which silently dropped the real `col`/`col-all`/
+ * `col-auto` flexgrid entries from `src/safelist.ts`.
+ *
+ * Only the *tail* of the enclosing selector matters: `&` in Sass is the parent
+ * selector, and for a class name the parent's compound resolves to its last
+ * class token (`.a .b` -> `.b`, `&.fullscreen` -> the block root).
+ */
+function nestedClasses(text) {
+  const found = new Set()
+  /** Innermost-first stack of { indent, root, isMember }. */
+  const stack = []
+  for (const rawLine of text.split('\n')) {
+    const line = rawLine.replace(/\/\/.*$/, '')
+    if (line.trim() === '') continue
+    const indent = line.match(/^\s*/)[0].length
+    // A declaration line (`color: red`) never opens or continues a block.
+    if (/^\s*[\w-]+\s*:/.test(line)) continue
+    // Pop blocks this line has left (its indent no longer sits inside them).
+    while (stack.length > 0 && indent <= stack[stack.length - 1].indent) {
+      stack.pop()
+    }
+    const selector = line.trim()
+    const suffixes = [...selector.matchAll(/&(__|--)([\w-]+)/g)]
+    const parent = stack.length > 0 ? stack[stack.length - 1] : undefined
+
+    if (suffixes.length > 0 && parent !== undefined) {
+      for (const [, separator, suffix] of suffixes) {
+        const name = `${parent.root}${separator}${suffix}`
+        // Same BEM rule as the interpolated names: nesting a modifier inside a
+        // modifier (`.q-btn--round { &--actionable }`) pairs a root with a
+        // suffix that never combines. Literals are exempt — one Quasar wrote
+        // down is evidence, whoever wrote it.
+        if ((name.match(/--/g) ?? []).length > 1) continue
+        found.add(name)
+        // The block this line opens continues from the expanded name, so a
+        // deeper `&--x` nests on the member (`&__sort-icon { &--left }`).
+        stack.push({ indent, root: name, isMember: true })
+      }
+      continue
+    }
+
+    // A plain selector line. Only its last class token can be a `&` parent.
+    const roots = [...selector.matchAll(/\.(-?[a-zA-Z_][\w-]*)/g)]
+    const last = roots.length > 0 ? roots[roots.length - 1][1] : undefined
+    if (last !== undefined) {
+      stack.push({ indent, root: last, isMember: false })
+    }
+  }
+  return found
 }
 
 const components = {}
