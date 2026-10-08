@@ -114,8 +114,14 @@ export const messageRules: Rule[] = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--sent`,
+        // Fill comes from `currentColor` (set on the base rule above), so the
+        // colour — and only the colour — is declared here. Quasar's own
+        // `.q-message-text--sent{color:#e0e0e0}` does the same, which is what
+        // lets QChatMessage's `bgColor` prop work: it adds a `text-<color>`
+        // class, the colour changes, and the fill follows. A hard
+        // `background-color` here made `bgColor` a no-op (only the tail
+        // recoloured, since it reads `currentColor`).
         color: 'var(--q-on-primary)',
-        'background-color': 'var(--q-primary)',
         'border-top-left-radius': '4px',
         'border-top-right-radius': '4px',
         'border-bottom-left-radius': '4px',
@@ -123,8 +129,7 @@ export const messageRules: Rule[] = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--received`,
-        color: 'var(--q-on-surface)',
-        'background-color': 'var(--q-surface-container-high)',
+        color: 'var(--q-surface-container-high)',
         'border-top-left-radius': '4px',
         'border-top-right-radius': '4px',
         'border-bottom-left-radius': '0',

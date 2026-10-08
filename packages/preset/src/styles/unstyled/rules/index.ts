@@ -300,6 +300,33 @@ export const unstyledRules: Rule[] = [
     }
   ],
   [
+    /^q-message$/,
+    function* (_, { symbols }) {
+      yield {
+        background: 'none',
+        color: 'inherit'
+      }
+      // The bubble fill is `currentColor` (`.q-message-text` sets it), and the
+      // direction members set the colour that drives it. Both live on members,
+      // not the root, so the root reset alone would leave the bubbles painted
+      // with the md3 surface role — the one component that stayed fully styled
+      // under `unstyled`.
+      yield {
+        [symbols.selector]: (selector) => `${selector} .q-message-text`,
+        'background-color': 'currentColor'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector} .q-message-text--sent`,
+        color: 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector} .q-message-text--received`,
+        color: 'inherit'
+      }
+    }
+  ],
+  [
     /^q-no-ssr$/,
     function* () {
       yield {
