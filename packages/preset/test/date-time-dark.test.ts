@@ -63,6 +63,28 @@ describe('QDate dark mode', () => {
       '.body--dark .q-date__calendar-item--in .q-btn--flat,'
     )
   })
+
+  // BUG-070: the same doubling is needed by EVERY sibling that pairs a plain
+  // on-primary `.q-btn` rule with a `--flat` on-surface override. The fix above
+  // was originally applied to `__calendar-item--in` only, so the month and year
+  // pickers kept painting on-primary on the dark surface (measured 1.30:1:
+  // #381e72 on #1c1b1e) and had to be re-filed. Assert the whole family so a
+  // future rule cannot be added at one selector and forgotten at its siblings.
+  it.each(['calendar-item--in', 'months-item', 'years-item'])(
+    'outranks the plain `.q-btn` rule for %s',
+    async (family) => {
+      const sel = `.body--dark .q-date__${family} .q-btn--flat.q-btn--flat`
+      const css = await cssFor('q-date q-btn q-btn--flat')
+      const flat = indexOfSelector(css, sel)
+      expect(flat, sel).toBeGreaterThan(-1)
+      expect(css.slice(flat)).toContain('var(--q-on-surface)')
+      // A single-class form must not survive anywhere: it would tie the plain
+      // rule and lose to the merged on-surface block that sorts early.
+      expect(css, `${family} single-class form`).not.toContain(
+        `.body--dark .q-date__${family} .q-btn--flat,`
+      )
+    }
+  )
 })
 
 describe('QTime dark mode', () => {
