@@ -33,8 +33,17 @@ export const dateRules = [
         'background-color': 'var(--q-primary)'
       }
       yield {
+        // `.q-btn--flat` must beat the plain `.q-btn` rule above. Both are
+        // `body--dark .q-date__calendar-item--in .q-btn…`, so the extra class is
+        // the only difference in specificity — but UnoCSS merges rules with
+        // identical bodies, and the merged `color:var(--q-on-surface)` rule
+        // (which also carries `.q-date__navigation .q-btn` and ~10 unrelated
+        // selectors) is emitted EARLY, while the plain `.q-btn` on-primary rule
+        // lands later and wins. The flat day button then painted
+        // on-primary-on-primary: 1.10:1, an invisible dark calendar.
+        // Doubling the class makes the flat override win on specificity.
         [symbols.selector]: (selector) =>
-          `.body--dark ${selector}__calendar-item--in .q-btn--flat`,
+          `.body--dark ${selector}__calendar-item--in .q-btn--flat.q-btn--flat`,
         color: 'var(--q-on-surface)'
       }
       yield {
@@ -879,7 +888,10 @@ export const dateRules = [
       }
       yield {
         [symbols.selector]: (selector) =>
-          `${selector}__calendar-item--in .q-btn--flat`,
+          // Doubled class: same UnoCSS identical-body merge as the dark rule
+          // above — `.q-btn--flat` must outrank the plain `.q-btn` on-primary
+          // rule whatever order the merged blocks land in.
+          `${selector}__calendar-item--in .q-btn--flat.q-btn--flat`,
         color:
           'color-mix(in oklab, var(--q-on-surface) var(--q-text-opacity), transparent)'
       }

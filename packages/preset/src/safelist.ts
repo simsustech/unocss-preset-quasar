@@ -90,6 +90,12 @@ export const quasarSafelist: string[] = [
   'col-all',
   'col-auto',
   'col-grow',
+  // `col-shrink` is the same case: QTabs.js:173 and QToolbarTitle.js:19 apply
+  // it at runtime when `shrink` is set, and no extractor signal names it (the
+  // component vocabulary carries a component's own classes, not the flexgrid
+  // utilities). Without a candidate the `/^col-shrink$/` rule never reaches the
+  // sheet, so a shrinking QToolbarTitle stays at its natural width.
+  'col-shrink',
   'column',
   'content-center',
   'cursor-pointer',

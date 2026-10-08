@@ -34,25 +34,34 @@ describe('QDate dark mode', () => {
     expect(css).toContain('color:var(--q-on-surface)')
   })
 
-  it('emits the dark `--flat` day colour after the plain one, mirroring light', async () => {
-    const css = await cssFor('q-date q-date__calendar-item--in')
-    // Both selectors weigh (0,3,0): whichever comes last wins. Emitted the other
-    // way round the plain rule won, leaving the day numbers in `--q-on-primary`
-    // (dark teal in dark mode) while its `background-color: var(--q-primary)`
-    // lost to Quasar's own `.q-btn--flat { background: transparent }` — measured
-    // 1.31:1 on the dark surface (audit: contrast-probe 2026-10-06).
-    const plain = indexOfSelector(
-      css,
-      '.body--dark .q-date__calendar-item--in .q-btn'
+  it('outranks the plain `.q-btn` rule for the dark `--flat` day button', async () => {
+    const css = await cssFor(
+      'q-date q-date__calendar-item--in q-btn q-btn--flat'
     )
+    // The flat day button must keep `--q-on-surface` against the plain
+    // `.q-btn` rule's `--q-on-primary`. Ordering cannot deliver that: UnoCSS
+    // merges rules with identical bodies, and the merged
+    // `color:var(--q-on-surface)` block (which carries
+    // `.q-date__navigation .q-btn` and ~10 unrelated selectors) is emitted
+    // EARLY while the plain on-primary rule lands later and won. Measured in
+    // the app bundle: the flat day button painted 1.10:1 on the dark surface,
+    // i.e. an invisible calendar.
+    //
+    // The override therefore carries a doubled class so it wins on specificity
+    // whatever order the merge produces. This replaces an earlier assertion
+    // that merely checked emission order — which passed here but failed in the
+    // real bundle, exactly the blind spot that hid the bug.
     const flat = indexOfSelector(
       css,
-      '.body--dark .q-date__calendar-item--in .q-btn--flat'
+      '.body--dark .q-date__calendar-item--in .q-btn--flat.q-btn--flat'
     )
-    expect(plain).toBeGreaterThan(-1)
     expect(flat).toBeGreaterThan(-1)
-    expect(flat).toBeGreaterThan(plain)
     expect(css.slice(flat)).toContain('color:var(--q-on-surface)')
+    // The doubled class is what supplies the extra specificity; without it the
+    // override ties the plain rule.
+    expect(css).not.toContain(
+      '.body--dark .q-date__calendar-item--in .q-btn--flat,'
+    )
   })
 })
 

@@ -129,8 +129,12 @@
       "mismatch": []
     },
     "date": {
-      "target": 1,
-      "missing": [".body--dark .q-date__event"],
+      "target": 2,
+      "missing": [
+        ".body--dark .q-date__calendar-item--in .q-btn--flat",
+        ".body--dark .q-date__event",
+        ".q-date__calendar-item--in .q-btn--flat"
+      ],
       "absent": [],
       "mismatch": []
     },
