@@ -1,6 +1,6 @@
-=== PARITY: 451/2401 (19%) ===
+=== PARITY: 449/2401 (19%) ===
 (2441 in fixture; 40 env-gated)
-Missing 1950 selectors:
+Missing 1952 selectors:
   ::backdrop
   :root
   :host
@@ -73,6 +73,7 @@ Missing 1950 selectors:
   body.quasar-style-unstyled .q-carousel
   body.quasar-style-unstyled .q-slide-item
   body.quasar-style-unstyled .q-slider
+  body.quasar-style-unstyled .q-range
   body.quasar-style-unstyled .q-toggle
   body.quasar-style-unstyled .q-checkbox
   body.quasar-style-unstyled .q-radio
@@ -777,6 +778,7 @@ Missing 1950 selectors:
   .q-file__filler
   .q-notification--multi-line .q-notification__actions
   .q-tree > .q-tree__node
+  .q-pa-md
   .q-select__autocomplete-input
   .q-select__focus-target
   .q-table__grid-item
@@ -2021,12 +2023,14 @@ Missing 1950 selectors:
   intersection: 2
   body: 2
   input: 1
+  range: 1
   bottom: 1
   skeleton: 1
   dark: 1
   icon: 1
   ma: 1
   position: 1
+  pa: 1
   focus: 1
   focusable: 1
   manual: 1
