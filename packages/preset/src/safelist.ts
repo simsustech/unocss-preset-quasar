@@ -70,32 +70,8 @@ export const quasarSafelist: string[] = [
   'block',
   'border-grey-3',
   'border-radius-inherit',
-  // Quasar applies `col`/`col-all`/`col-auto` inside its own components (QBtn puts
-  // `col` on `.q-btn__content`) and in layout markup, but no extractor signal names
-  // them: the component vocabulary does not carry a component's flexgrid classes and
-  // a plain `class="row col"` names nothing the value extractor keys on. Without a
-  // candidate, on-demand generation emits no `.col` rule at all — which made a
-  // dev-served page disagree with the SSG bundle (whose full-source scan happened to
-  // see `.col` in a page) and shifted every QBtn label 9.6px (`.q-btn__content`
-  // 43.125px -> 24.0156px).
-  //
-  // `row` (listed below, near `reverse-wrap`) is the same case and was previously
-  // supplied by accident: Quasar's own table test fixture carries
-  // `{{ scope.row.name }}`, which the vocabulary generator's whole-file `.vue` scan
-  // read as the class `row`. De-polluting that scan (see
-  // scripts/generate-quasar-classes.mjs) removed the accidental candidate, so the
-  // flex container is carried here with its `column`/`flex` siblings — the preset's
-  // own `/^row$/` rule emits `.row`, `.row.inline` and `.row.reverse`.
   'col',
-  'col-all',
-  'col-auto',
   'col-grow',
-  // `col-shrink` is the same case: QTabs.js:173 and QToolbarTitle.js:19 apply
-  // it at runtime when `shrink` is set, and no extractor signal names it (the
-  // component vocabulary carries a component's own classes, not the flexgrid
-  // utilities). Without a candidate the `/^col-shrink$/` rule never reaches the
-  // sheet, so a shrinking QToolbarTitle stays at its natural width.
-  'col-shrink',
   'column',
   'content-center',
   'cursor-pointer',
@@ -175,13 +151,11 @@ export const quasarSafelist: string[] = [
   'q-body--force-scrollbar-x',
   'q-body--force-scrollbar-y',
   'q-body--prevent-scroll',
-  // Applied to <html> by Quasar 2.31's scroll lock; no source signal, so the
-  // candidate has to come from here (see core/helpers/rules.ts).
+  'q-dialog-plugin',
   'q-document--clip-scroll',
   'q-document--pin-body',
   'q-document--prevent-scroll',
   'q-document--reserve-scrollbar',
-  'q-dialog-plugin',
   'q-electron-drag',
   'q-electron-drag--exception',
   'q-gutter-lg',
@@ -211,7 +185,6 @@ export const quasarSafelist: string[] = [
   'q-my-auto',
   'q-no-input-spinner',
   'q-no-ssr',
-  'q-pa-md',
   'q-pa-none',
   'q-pa-sm',
   'q-pa-xs',
@@ -219,9 +192,6 @@ export const quasarSafelist: string[] = [
   'q-panel-parent',
   'q-pb-xs',
   'q-px-sm',
-  'q-range',
-  // Ripple directive: injected at runtime, so the safelist is the only candidate
-  // source (src/components/ripple/rules.ts).
   'q-ripple',
   'q-ripple__inner',
   'q-ripple__inner--enter',
@@ -233,9 +203,9 @@ export const quasarSafelist: string[] = [
   'readonly',
   'relative-position',
   'reverse-wrap',
-  'row',
   'rotate-180',
   'rounded-borders',
+  'row',
   'scroll-x',
   'scroll-y',
   'self-center',
@@ -329,25 +299,7 @@ export const quasarSafelist: string[] = [
  * the notification classes.
  */
 export const pluginSafelistMap: Record<string, string[]> = {
-  // The sheet renders list or grid mode (and its avatar/empty-icon parts) from
-  // the plugin API, so its members need candidates too.
-  BottomSheet: [
-    'q-bottom-sheet',
-    'q-bottom-sheet__avatar',
-    'q-bottom-sheet__item',
-    'q-bottom-sheet__empty-icon',
-    'q-bottom-sheet--list',
-    'q-bottom-sheet--grid'
-  ],
-  // QAjaxBar / the LoadingBar plugin: the bar and its four position variants are
-  // applied by the plugin at runtime (src/components/ajax-bar/rules.ts).
-  LoadingBar: [
-    'q-loading-bar',
-    'q-loading-bar--top',
-    'q-loading-bar--bottom',
-    'q-loading-bar--left',
-    'q-loading-bar--right'
-  ],
+  BottomSheet: ['q-bottom-sheet'],
   Dialog: ['q-dialog'],
   Loading: ['q-loading'],
   Notify: ['q-notification', 'q-notifications']

@@ -53,8 +53,15 @@ export const dateRules = [
         'background-color': 'var(--q-primary)'
       }
       yield {
+        // Same cascade as the `__calendar-item--in` override above: the plain
+        // `.q-btn` on-primary rule below lands after the merged
+        // `color:var(--q-on-surface)` body, so a single-class flat override loses
+        // and every unselected month paints on-primary on the dark surface —
+        // measured 1.30:1 against `--q-surface` (#381e72 on #1c1b1e), i.e. an
+        // invisible month picker while the nav above it reads fine. Doubling the
+        // class makes it win on specificity (13.29:1 with --q-on-surface).
         [symbols.selector]: (selector) =>
-          `.body--dark ${selector}__months-item .q-btn--flat`,
+          `.body--dark ${selector}__months-item .q-btn--flat.q-btn--flat`,
         color: 'var(--q-on-surface)'
       }
       yield {
@@ -64,8 +71,12 @@ export const dateRules = [
         'background-color': 'var(--q-primary)'
       }
       yield {
+        // Identical cascade to the `__months-item` override above (and the
+        // `__calendar-item--in` one before it): without the doubled class the
+        // merged on-surface body sorts early and the plain on-primary rule wins,
+        // painting every unselected year on-primary on the dark surface.
         [symbols.selector]: (selector) =>
-          `.body--dark ${selector}__years-item .q-btn--flat`,
+          `.body--dark ${selector}__years-item .q-btn--flat.q-btn--flat`,
         color: 'var(--q-on-surface)'
       }
       yield {
