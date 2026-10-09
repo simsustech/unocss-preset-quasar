@@ -67,7 +67,8 @@
     "generate:icon-sets": "node scripts/generate-icon-sets.mjs",
     "lint": "oxlint src",
     "lint:fix": "oxlint src --fix",
-    "test": "vitest test/"
+    "test": "vitest test/",
+    "check:unstyled-roots": "node scripts/check-unstyled-roots.mjs"
   },
   "dependencies": {
     "@poupe/material-color-utilities": "^0.4.1",

@@ -44,6 +44,10 @@ export const carouselRules = [
         opacity: '100%'
       }
       yield {
+        [symbols.selector]: (selector) => `${selector}.fullscreen`,
+        height: '100%'
+      }
+      yield {
         [symbols.selector]: (selector) => `${selector}--dark`
       }
       yield {
@@ -58,12 +62,6 @@ export const carouselRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--vertical`
-      }
-      yield {
-        [symbols.selector]: (selector) => `${selector}--fullscreen`,
-        position: 'fixed',
-        inset: 0,
-        'z-index': 6000
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__slide`,

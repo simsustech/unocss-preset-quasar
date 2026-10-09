@@ -104,6 +104,17 @@ describe('component modifier cascade', () => {
     expect(css).toContain('.q-rating__icon--active{opacity:100%;}')
   })
 
+  it('lets QCarousel fullscreen height override its 400px base', async () => {
+    const css = await cssFor('q-carousel fullscreen')
+    const base = indexOfBlock(css, '.q-carousel')
+    const fullscreen = indexOfBlock(css, '.q-carousel.fullscreen')
+    expect(base).toBeGreaterThan(-1)
+    expect(fullscreen).toBeGreaterThan(-1)
+    expect(css.slice(fullscreen, css.indexOf('}', fullscreen) + 1)).toContain(
+      'height:100%'
+    )
+  })
+
   it('ships the no-dimming override at opacity 1', async () => {
     // The other side of the fold: `--no-dimming` still has to win over the
     // base `opacity:40%` — it does on specificity ((0,2,0) vs (0,1,0)),

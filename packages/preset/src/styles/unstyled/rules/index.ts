@@ -561,11 +561,28 @@ export const unstyledRules: Rule[] = [
   ],
   [
     /^q-stepper$/,
-    function* () {
+    function* (_, { symbols }) {
       yield {
         background: 'none',
         color: 'inherit'
       }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__header--border`,
+        'border-bottom-color': 'transparent'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__tab--disabled .q-stepper__dot`,
+        background: 'transparent'
+      }
+      yield {
+        [symbols.selector]: (selector) =>
+          `${selector}__tab--disabled .q-stepper__label`,
+        color: 'inherit'
+      }
+      // Quasar's horizontal connector and vertical dot pseudo-elements are
+      // structural separators. Their themed fills remain intentional; do not
+      // neutralize these, unlike the disabled/header paint above.
     }
   ],
   [
@@ -651,8 +668,13 @@ export const unstyledRules: Rule[] = [
   ],
   [
     /^q-uploader$/,
-    function* () {
+    function* (_, { symbols }) {
       yield {
+        background: 'none',
+        color: 'inherit'
+      }
+      yield {
+        [symbols.selector]: (selector) => `${selector}__overlay`,
         background: 'none',
         color: 'inherit'
       }

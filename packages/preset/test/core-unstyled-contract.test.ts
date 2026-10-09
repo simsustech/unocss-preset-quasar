@@ -36,28 +36,25 @@ import type { QuasarStyleEntry } from '../src/index.js'
 /**
  * Known-open gaps, each already filed as a harness bug. Recorded rather than
  * ignored: the guard fails if a NEW selector appears, so the family cannot grow
- * silently. Remove entries here as the corresponding bug is fixed — a shrinking
- * list is the point.
+ * silently. Each remaining selector below has an explicit intentional exception.
+ * Confirmed gaps should be fixed and removed rather than added to this set.
  *
- *   BUG-075 q-fab      - root paints a surface with no reset
- *   BUG-076 q-loading  - root paints background-color with no reset
+ *   BUG-075 q-fab      - fixed, root and action surface resets now exist
+ *   BUG-076 q-loading  - fixed, root and backdrop resets now exist
  *
- * The rest were found by this walk and are NOT yet filed; several may be
- * intended (a dialog backdrop arguably should paint, and a disabled-state colour
- * may be structural rather than theming), which is why they are recorded here
- * for judgement rather than fixed unilaterally.
+ * Unstyled neutralizers for uploader and stepper paint are now covered by
+ * emitted-sheet tests. Remaining exceptions are Quasar's dialog scrim, drawer
+ * side borders, chip keyboard-focus elevation, and stepper connector/dot marks.
+ * These are overlay, modifier, and progress-state visuals rather than leaked
+ * root surfaces.
  */
 const KNOWN_OPEN = new Set([
   '.q-dialog__backdrop',
-  '.q-uploader__overlay',
-  '.q-stepper__header--border',
-  '.q-stepper__tab--disabled .q-stepper__dot',
-  '.q-stepper__tab--disabled .q-stepper__label',
   '.q-drawer--left.q-drawer--bordered',
   '.q-drawer--right.q-drawer--bordered',
   '.q-chip--clickable:focus-visible',
-  // q-stepper draws its connector lines and dots as pseudo-elements on
-  // --horizontal/--vertical variants; the family is listed by prefix below
+  // Horizontal connector lines and vertical dot pseudo-elements are
+  // structural marks, not component surface theming.
   '.q-stepper__line',
   '.q-stepper__dot'
 ])
