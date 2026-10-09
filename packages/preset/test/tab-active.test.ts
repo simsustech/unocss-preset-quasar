@@ -67,6 +67,15 @@ describe('active tab', () => {
     expect(block(css, '.q-tab')).toContain('color:inherit')
   })
 
+  it('lets QColor inherit its header-owned active label colour', async () => {
+    const css = await cssFor('q-color-picker q-tabs q-tab')
+    const reset = block(css, '.q-color-picker .q-tab.q-tab--active')
+    expect(
+      reset,
+      'QColor active tabs must keep the header-content light/dark colour'
+    ).toContain('color:inherit')
+  })
+
   it('keeps the indicator pill and its dark value (the (e) condition)', async () => {
     const css = await cssFor('q-tabs q-tab')
 

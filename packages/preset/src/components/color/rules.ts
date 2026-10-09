@@ -173,6 +173,17 @@ export const colorRules = [
         display: 'none'
       }
       yield {
+        // QColor owns its header label colour via the ancestor's
+        // `.q-color-picker__header-content--light/--dark` rule (`#000` / `#fff`).
+        // The generic `.q-tab.q-tab--active { color: var(--q-primary) }` rule
+        // sets an explicit child colour and overrides that inherited value,
+        // making the active HEX/HEXA label primary-on-primary (invisible) in
+        // light styles. This scoped reset preserves QColor's own contract
+        // without changing other QTabs.
+        [symbols.selector]: (selector) => `${selector} .q-tab.q-tab--active`,
+        color: 'inherit'
+      }
+      yield {
         [symbols.selector]: (selector) => `${selector} .q-tab__indicator`,
         display: 'none'
       }
