@@ -98,9 +98,13 @@ describe('a square carve-out beats its component base', () => {
           .filter((part) => part.includes(`.${name}`))
         const safe = entries.every(
           (part) =>
-            part === `.${name}.${name}--square` ||
-            part.startsWith(`.${name}.${name}--square`) ||
-            block.declarations.includes('!important')
+            // Doubled class, optionally on a BEM element when the component's
+            // base rule lives there: `selector` is `.q-table`, but the card is
+            // `.q-table__card`, so q-table's carve-out is
+            // `.q-table__card.q-table--square` (BUG-064).
+            new RegExp(`^\\.${name}(__[a-z0-9-]+)?\\.${name}--square`).test(
+              part
+            ) || block.declarations.includes('!important')
         )
         if (!safe) unscoped.push(`${name} -> ${entries.join(' | ')}`)
       }

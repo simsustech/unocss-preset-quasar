@@ -270,7 +270,13 @@ export const tableRules = [
         'border-bottom-width': '1px'
       }
       yield {
-        [symbols.selector]: (selector) => `${selector}--flat`,
+        // Doubled onto the element that actually carries the class: the card is
+        // `.q-table__card.q-table--flat` (there is no bare `.q-table` element), and
+        // the bare `.q-table--flat` (0,1,0) only TIES with `.q-table__card` — it
+        // lost on intra-layer emission order, so the base shadow won (BUG-083).
+        // (0,2,0) beats the base (0,1,0) whatever the order.
+        [symbols.selector]: (selector) =>
+          `${selector}--flat,${selector}__card${selector}--flat`,
         'box-shadow': 'none'
       }
       yield {
@@ -469,12 +475,13 @@ export const tableRules = [
         [symbols.selector]: (selector) => `${selector}--separator`
       }
       yield {
-        // Doubled class for specificity: the merged `border-radius: 0` band
-        // shares `quasar.components` with the base rule, so on equal
-        // specificity UnoCSS's intra-layer sort decides the winner — and in the
-        // app build the merged square rule lands BEFORE the base, defeating the
-        // carve-out. (0,2,0) beats the base (0,1,0) whatever the order.
-        [symbols.selector]: (selector) => `${selector}${selector}--square`,
+        // Doubled for specificity AND matched to the element that carries the
+        // class. The old `${selector}${selector}--square` expanded to
+        // `.q-table.q-table--square`, which never matched: the card element is
+        // `.q-table__container … .q-table__card .q-table--square` with no bare
+        // `.q-table`. So the base `.q-table__card{border-radius}` won (BUG-064).
+        [symbols.selector]: (selector) =>
+          `${selector}__card${selector}--square`,
         'border-radius': '0'
       }
       yield {
