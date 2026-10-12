@@ -532,18 +532,24 @@ export const qmarkdownRules = [
         right: '15px'
       }
       // Dark-only in upstream: .q-markdown
+      // Upstream states literal greys here ($grey-2 text, $grey-9 surfaces);
+      // each is mapped to the role that carries that MEANING, so a token flip
+      // keeps the contrast: text -> --q-on-surface, surfaces ->
+      // --q-surface-container-high. Using a surface role as the text colour
+      // resolves to the page colour in dark and erases every heading, paragraph
+      // and list item (BUG-085).
       yield {
         [symbols.selector]: (selector) => `body.body--dark ${selector}`,
         '--q-markdown-link-color': 'var(--qpress-color-primary, #4fc3f7)',
         '--q-markdown-link-hover-color':
           'color-mix( in srgb, var(--q-markdown-link-color) 76%, var(--qpress-text-primary, #f5f5f5) )',
-        color: 'var(--q-surface-container-low)'
+        color: 'var(--q-on-surface)'
       }
       // Dark-only in upstream: .q-markdown code
       yield {
         [symbols.selector]: (selector) => `body.body--dark ${selector} code`,
-        background: 'var(--q-on-surface-variant)',
-        color: 'var(--q-surface-container-low)'
+        background: 'var(--q-surface-container-high)',
+        color: 'var(--q-on-surface)'
       }
       // Dark-only in upstream: .q-markdown blockquote.q-markdown--note
       yield {
@@ -551,7 +557,7 @@ export const qmarkdownRules = [
           `body.body--dark ${selector} blockquote.q-markdown--note`,
         'border-color': '#9e9e9e #9e9e9e',
         background: '#1d1d1d',
-        color: 'var(--q-surface-container-low)'
+        color: 'var(--q-on-surface)'
       }
       // Dark-only in upstream: .q-markdown pre
       yield {
@@ -569,7 +575,7 @@ export const qmarkdownRules = [
         [symbols.selector]: (selector) =>
           `body.body--dark ${selector} .q-markdown--line-numbers-wrapper`,
         background: '#1d1d1d',
-        color: 'var(--q-surface-container-low)'
+        color: 'var(--q-on-surface)'
       }
       // Dark-only in upstream: .q-markdown .q-markdown--token
       yield {
@@ -641,7 +647,7 @@ export const qmarkdownRules = [
       yield {
         [symbols.selector]: (selector) =>
           `body.body--dark ${selector} .q-markdown--table tbody tr:nth-child(2n+1)`,
-        'background-color': 'var(--q-on-surface-variant)'
+        'background-color': 'var(--q-surface-container-high)'
       }
     }
   ]
