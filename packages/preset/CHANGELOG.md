@@ -1,5 +1,181 @@
 # unocss-preset-quasar
 
+## 0.7.0
+
+### Minor Changes
+
+- bb365df: Provide a library-parameterised Quasar icon set so iconify icons resolve
+  without the Material Icons font.
+
+### Patch Changes
+
+- 7075670: Keep the dark calendar's day numerals readable, and safelist `col-shrink`.
+
+  The dark date calendar painted its in-month day buttons
+  `--q-on-primary` on `--q-primary` — 1.10:1, i.e. invisible — instead of the
+  intended `--q-on-surface`. The override was written as
+  `.body--dark .q-date__calendar-item--in .q-btn--flat`, which merely _ties_ the
+  plain `.body--dark .q-date__calendar-item--in .q-btn` rule and relied on being
+  emitted last. UnoCSS merges rules with identical bodies, and the merged
+  `color: var(--q-on-surface)` block — which also carries
+  `.q-date__navigation .q-btn` and roughly ten unrelated selectors — lands early,
+  while the plain on-primary rule lands later and wins. An existing test asserted
+  the emission order, so it passed in isolation while the shipped bundle was
+  broken. The override now carries a doubled class (`… .q-btn--flat.q-btn--flat`)
+  and wins on specificity whatever order the merge produces; the test asserts that
+  instead of the order.
+
+  `col-shrink` joins the safelist beside `col`, `col-all`, `col-auto` and
+  `col-grow`. `QTabs.js:173` and `QToolbarTitle.js:19` apply it at runtime when
+  `shrink` is set, and no extractor signal names it, so its
+  `/^col-shrink$/` rule never reached the sheet and a shrinking toolbar title kept
+  its natural width. Same class of gap as the earlier `col` regression.
+
+  `date` records two single-selector parity divergences for the doubled class.
+
+- 0e85ae4: Stop the class-vocabulary generator inventing class names. Two scans fabricated
+  vocabulary that Quasar never emits, and because `compose-safelist.mjs` treats
+  every component-vocabulary entry as "the extractors supply it", each fake name
+  silently deleted a real `src/safelist.ts` entry:
+
+  - Sass nesting was expanded against every `.q-*` root a file mentions rather than
+    the block each `&` sits in. `QTable.sass` mentions `.q-table`, `.q-markup-table`,
+    `.q-separator`, `.q-field`, `.q-inner-loading`, `.q-linear-progress` and the
+    `--dark`/`--loading` variants, so each of its ~38 `&__`/`&--` suffixes was
+    multiplied against all of them — `q-separator__sort-icon`,
+    `q-table--dark__card`, `q-field__progress`. The generator now tracks the
+    enclosing block by indentation and expands `&` against the nearest selector.
+  - Selector scanning read `.vue` SFCs whole, so Vue expressions parsed as CSS:
+    `{{ scope.row.calories }}` and `scope.col.label` in Quasar's own table fixtures
+    became the classes `calories`, `col`, `cols`, `key`, `label`, `name`, `page`.
+    Only a `.vue` file's `<style>` blocks are scanned now.
+
+  The fabricated names made `col` look extractor-supplied, so re-running the
+  safelist composer dropped it and every QBtn label sat 9.6px high
+  (`.q-btn__content` 43.125px → 24.0156px). The same accident had been supplying
+  the flexgrid container `row`, which is now carried in the safelist with its
+  `column`/`flex` siblings. The vocabulary shrank by ~3,000 fabricated entries,
+  and `test/vocabulary-shape.test.ts` guards both scans against re-fabricating.
+
+- bb365df: Make `quasarIconSet`'s `iconMapFn` idempotent: a value that is already an
+  iconify class (`i-mdi-star` — Quasar hands back the rewritten set values and an
+  explicit `i-mdi-*` prop through the same mapping) is returned unchanged instead
+  of being double-prefixed to `i-mdi-i-mdi-star`. Preserve the icon set's own
+  `name` identifier through the leaf rewrite too: QMediaPlayer resolves
+  `$q.iconSet.name` against its `iconSetLoaders` table, which knows `mdi-v7`, not
+  `i-mdi-v7`.
+- 1d04d6e: Let QChatMessage's `bgColor` prop actually recolour the bubble, and reset
+  q-message under `unstyled`.
+
+  `QChatMessage` documents `bgColor`, which adds a `text-<color>` class; the bubble
+  is meant to be filled from `currentColor`, so changing the colour changes the
+  fill. The preset broke that chain: `.q-message-text` did set
+  `background-color: currentColor`, but `--sent`/`--received` then overrode it with
+  a hard `background-color` role token, so only the tail (which still reads
+  `currentColor`) recoloured and `bgColor` was a no-op. Quasar's own
+  `.q-message-text--sent { color: #e0e0e0 }` declares the colour and nothing else;
+  the preset now matches, using the scheme tokens (`var(--q-on-primary)`,
+  `var(--q-surface-container-high)`).
+
+  `q-message` was also missing from the `unstyled` resets — with 63 other
+  components present it was the one that stayed fully painted. The reset now
+  neutralises the root and the `--sent`/`--received` members that carry the colour.
+
+- bb365df: Float the label for native types (color, date, datetime-local, month, time,
+  week, autofill — and file, which Quasar's own list omits) from the label side
+  (`.q-field__label:has(+ …)`), the quasar.prod.css form. The previous
+  native-side adjacency (`native + label`) could never match: Quasar renders the
+  label before the control, so date/time/file labels stayed unfloated in the
+  harness captures.
+- b09b551: Safelist the bare `grey` palette utilities (`text-grey`, `bg-grey`). Quasar's
+  `color="grey"` prop composes `text-grey` at runtime, and a palette class reaches
+  the sheet only through the safelist: `grey-1` … `grey-14` were listed, the bare
+  name was not, so `color="grey"` on a component rendered unstyled. `grey` is the
+  only bare palette name that was missing — every other material name is listed,
+  and `dark-page` is emitted by the preset's own colour rule.
+- bb365df: Fix the clipped QDate month label: the nav arrows take the reference's 2.4em
+  (24px) instead of the preset's 48dp dense-round floor, which had starved the
+  month column (26px md3 / 0px md2 → `ctob`), and a `flat dense` button now takes
+  `--dense`'s padding — UnoCSS emits the entries of one rule in selector order, so
+  `--dense` sorted before `--flat` and inverted the reference's flat-before-dense
+  order. Also emit the six transition phases for a transition family in a
+  component's vocabulary, so QDate's runtime-composed month slide and label jump
+  stop doubling the day numbers: the leaving grid took `-leave-active` but never
+  `-leave-to`, so its `transform` stayed `none` and it painted on top of the
+  entering grid.
+- b09b551: Fix the oversized QEditor toolbar buttons: the toolbar's dense flat icon buttons
+  took the preset's global 48dp button floor (and md2's 64px `.q-btn` min-width),
+  so each rendered 20.6x48 (md3) / 64x48 (md2) and the wrapping toolbar grew to
+  73px on desktop and 305px on a 390px phone. A component-scoped
+  `.q-editor__toolbar .q-btn` carve-out restores the reference's `.q-btn--dense`
+  metric (`min-height: 2em`, `min-width: auto`), leaving the 48dp floor intact
+  everywhere else.
+- 7440866: Make the `--square` prop actually square the component.
+
+  `border-radius: 0` is declared by several components' square carve-outs, so
+  UnoCSS merges them into one rule —
+  `.q-btn-group--square,.q-field--square,.q-menu--square,…{border-radius:0}` —
+  and places it wherever its own sort decides. In the app build that merged rule
+  landed at offset 151011 while the base rules landed at 243361 and beyond. The
+  carve-outs and their bases sit in the same layer at equal specificity, so the
+  base's rounded token won: `square` rendered identical to `rounded` for
+  `q-menu` (`border-radius` stayed `var(--q-corner-extra-small)`), `q-field`,
+  `q-table`, `q-time`, `q-uploader`, `q-skeleton` and `q-btn-group`. Quasar's own
+  CSS orders each carve-out after its base, so the intended result is a squared
+  surface.
+
+  The carve-outs now carry a doubled class (`.q-menu.q-menu--square`, 0-2-0) and
+  therefore win wherever the merge lands, instead of depending on emission order.
+  `test/square-carve-out.test.ts` asserts the property directly and fails if a
+  carve-out is written in the unscoped form again. Four single-selector
+  divergences (`.q-btn-group--square`, `.q-chip--square`, `.q-menu--square`,
+  `.q-table--square`) are recorded in the parity baseline; `q-chip` keeps its
+  reference root radius on purpose and squares its avatar instead.
+
+- 2e7366e: Fix the QTable `square` and `flat` carve-outs (BUG-064, BUG-083). Both named a
+  class the card element does not carry. The `square` carve-out expanded to
+  `.q-table.q-table--square`, but the element is
+  `.q-table__container … .q-table__card .q-table--square` with no bare `.q-table`,
+  so the rule never matched anything. And `.q-table--flat` (0,1,0) only tied with
+  `.q-table__card` (0,1,0), so the base won on UnoCSS's intra-layer emission
+  order.
+
+  Measured live on the SSG build: `.q-table__card` kept `border-radius: 4px` with
+  `square=true`, and its default `box-shadow` with `flat=true` — `square` and
+  `flat` rendered identical to defaults.
+
+  The carve-outs now name the card — `.q-table__card.q-table--square`, and
+  `.q-table--flat,.q-table__card.q-table--flat` (the bare selector is kept so the
+  reference-parity ratchet still sees it) — so they match the real element and win
+  on specificity rather than emission order. Verified live: `border-radius: 0px`
+  with `square=true`, `box-shadow: none` with `flat=true`.
+
+- 16bfc04: Take the test suite off the network, which removes its long-standing flake.
+
+  The preset enables `@unocss/preset-web-fonts` by default, and that preset
+  resolves its `@import` by fetching the font stylesheet while the generator is
+  built. Every `createGenerator`/`QuasarPreset` call in the suite therefore made a
+  real request to `fonts.bunny.net`, with a 3-attempt retry. Idle, the request
+  landed quickly; under load (a build, a Playwright run, dev servers) it was
+  starved and the surrounding spec hit `Test timed out in 30000ms`. The failing
+  file differed every run, which made it read like parallel-worker isolation.
+
+  `test/setup-network.ts` (registered via `setupFiles`) stubs font requests only.
+  Measured at identical load — two busy cores — the pre-fix suite flaked in 2 of 4
+  full runs; the stubbed suite passed 3 of 3 and 411/411 on an idle run.
+
+- e82cf03: Fix three confirmed preset defects. The QUploader header painted white text on a
+  transparent surface, so the header was invisible until a `color` prop was set;
+  it now carries the primary surface (`background-color: var(--q-primary)`, the
+  upstream QUploader rule) with the scheme-aware `--q-on-primary` text, and the
+  unstyled entry neutralises it. Inline QOptionGroups laid their options out
+  edge-to-edge, so a wrapped row's radio ring touched the previous label; the
+  inline container now carries `column-gap`/`row-gap` from `--q-space-sm`. And
+  md3's `--q-btn-flat-color: var(--q-primary)` made toolbar action icons invisible
+  on a `bg-primary` bar; a `.q-toolbar .q-btn--flat` carve-out sets the flat
+  colour to `currentColor` so the bar's foreground reaches its actions, leaving
+  the global md3 text-button colour intact.
+
 ## 0.6.6
 
 ### Patch Changes
