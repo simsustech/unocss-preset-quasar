@@ -74,17 +74,19 @@ describe('icon set provider — library table', () => {
 describe('icon set provider — quasarIconSet (step 3)', () => {
   it('maps bare names to iconify classes instead of a Material ligature', () => {
     const provider = quasarIconSet('mdi-v7')
-    expect(provider.iconMapFn('star')).toBe('i-mdi-star')
+    expect(provider.iconMapFn('star')).toEqual({ icon: 'i-mdi-star' })
     // An unknown name must still resolve to a class — `undefined` would fall
     // back to the ligature and render the name as text (BUG-003). The
     // collection simply has no CSS for the class, so it renders empty.
-    expect(provider.iconMapFn('AUDIT')).toBe('i-mdi-AUDIT')
+    expect(provider.iconMapFn('AUDIT')).toEqual({ icon: 'i-mdi-AUDIT' })
     // Set values carry the library prefix; normalize strips it exactly once.
-    expect(provider.iconMapFn('mdi-arrow-up')).toBe('i-mdi-arrow-up')
+    expect(provider.iconMapFn('mdi-arrow-up')).toEqual({
+      icon: 'i-mdi-arrow-up'
+    })
     // Quasar calls iconMapFn on the value it renders — including set values that
     // are already iconify classes (BUG-A: `i-mdi-i-mdi-*`). A value that already
     // starts with `i-` is an iconify class and must pass through unchanged.
-    expect(provider.iconMapFn('i-mdi-star')).toBe('i-mdi-star')
+    expect(provider.iconMapFn('i-mdi-star')).toEqual({ icon: 'i-mdi-star' })
   })
 
   it('rewrites every set leaf to its iconify class and collects the classes', () => {
@@ -154,6 +156,6 @@ describe('icon set provider — quasarIconSet (step 3)', () => {
     const themify = quasarIconSet('themify')
     const set = themify.iconSet as { arrow: { up: string } }
     expect(set.arrow.up).toBe('ti-arrow-up')
-    expect(themify.iconMapFn('anything')).toBe('none')
+    expect(themify.iconMapFn('anything')).toEqual({ icon: 'none' })
   })
 })

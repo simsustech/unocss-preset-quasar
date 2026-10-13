@@ -47,8 +47,15 @@ export function iconSetClasses(iconSet: unknown): string[] {
 export interface QuasarIconSetResolution {
   iconSet: unknown
   classes: string[]
-  /** Present for library resolutions; see `quasarIconSet`. */
-  iconMapFn?: (name: string) => string
+  /**
+   * Present for library resolutions; see `quasarIconSet`.
+   *
+   * The return shape is Quasar's, not ours: `QIcon` reads `res.icon` (or
+   * `res.cls`) off the result, and a plain string leaves both undefined — the
+   * icon then renders as a bare `<i class="q-icon">` with no class at all. Every
+   * icon drawn through this function disappeared until it returned `{ icon }`.
+   */
+  iconMapFn?: (name: string) => { icon: string } | undefined
 }
 
 const providers = new Map<string, QuasarIconSetResolution>()
@@ -147,19 +154,34 @@ export function quasarIconSet(
     const resolution: QuasarIconSetResolution = {
       iconSet: raw,
       classes: [],
-      iconMapFn: () => 'none'
+      iconMapFn: () => ({ icon: 'none' })
     }
     providers.set(library, resolution)
     return resolution
   }
 
   const normalize = mapping.normalize ?? ((name: string) => name)
-  // Idempotent: Quasar calls `iconMapFn` on the value it renders, and that value
-  // may already be an iconify class — a bare name maps to one, and the rewritten
-  // set values are ones. Re-prefixing an `i-…` value produced `i-mdi-i-mdi-*`
-  // classes with no CSS (BUG-A), so an already-iconify name passes through.
-  const iconMapFn = (name: string): string =>
+  // Idempotent: Quasar calls the mapped function on the value it renders, and
+  // that value may already be an iconify class — a bare name maps to one, and
+  // the rewritten set values are ones. Re-prefixing an `i-…` value produced
+  // `i-mdi-i-mdi-*` classes with no CSS (BUG-A), so an already-iconify name
+  // passes through.
+  const toClass = (name: string): string =>
     name.startsWith('i-') ? name : `i-${collection}-${normalize(name)}`
+
+  /**
+   * Quasar's `framework.iconMapFn`, in the shape it reads.
+   *
+   * `getMappedType` in `QIcon` resolves the function's result as
+   * `undefined` (parse the name), `{ icon }` (use that icon) or
+   * `{ cls, content }` (use those verbatim). It does not accept a bare string:
+   * `cls` and `content` both come out undefined and the icon renders as an empty
+   * `<i class="q-icon">`. Returning the string here — which this did — silently
+   * deleted every icon Quasar draws itself, the dropdown arrow first among them.
+   */
+  const iconMapFn = (name: string): { icon: string } => ({
+    icon: toClass(name)
+  })
 
   warnMissingPack(library, collection)
 
@@ -168,7 +190,7 @@ export function quasarIconSet(
   const iconSet = library.startsWith('svg-')
     ? raw
     : (function rewrite(value: QuasarIconSetShape): QuasarIconSetShape {
-        if (typeof value === 'string') return iconMapFn(value)
+        if (typeof value === 'string') return toClass(value)
         return Object.fromEntries(
           Object.entries(value).map(([key, child]) => [
             key,
