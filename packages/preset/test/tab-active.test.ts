@@ -83,7 +83,12 @@ describe('active tab', () => {
     expect(pill, 'the pill keeps its fill').toContain(
       'var(--q-secondary-container)'
     )
-    expect(pill, 'the pill geometry is untouched').toContain('width:56px')
+    expect(pill, 'the pill tracks the label width, not a fixed 56px').toContain(
+      'width:auto'
+    )
+    expect(pill, 'the pill is inset to the label').toContain(
+      'left:var(--q-space-sm)'
+    )
     expect(pill).toContain('height:32px')
 
     const darkPill = block(css, '.body--dark .q-tab__indicator')

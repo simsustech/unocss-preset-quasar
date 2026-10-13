@@ -807,10 +807,10 @@
       "mismatch": []
     },
     "tab": {
-      "target": 0,
+      "target": 2,
       "missing": [],
       "absent": [],
-      "mismatch": []
+      "mismatch": [".q-tab__indicator|left", ".q-tab__indicator|width"]
     },
     "tab-panel": {
       "target": 0,

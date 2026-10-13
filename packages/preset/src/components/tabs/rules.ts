@@ -325,11 +325,16 @@ export const tabsRules = [
         'background-color':
           'color-mix(in oklab, var(--q-secondary-container) var(--q-bg-opacity), transparent)',
         opacity: '0%',
-        width: '56px',
+        // The indicator is a pill *around* the label: track the label's width
+        // instead of a fixed 56px, which clipped longer labels ("Payments",
+        // "Suggestions") so the text spilled past the pill. `left`/`width` stay
+        // declared so the parity ratchet keeps covering them.
+        left: 'var(--q-space-sm)',
+        right: 'var(--q-space-sm)',
+        width: 'auto',
         height: '32px',
         // quasar: this value is Quasar's own, not a forked token
         'min-height': 'unset',
-        left: 'calc(50% - 28px)',
         top: '0.5em',
         position: 'absolute'
       }
