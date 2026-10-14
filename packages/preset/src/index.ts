@@ -17,7 +17,11 @@ import { generateColorTokens } from './theme/colors.js'
 import { createTokenPreflight } from './theme/preflight.js'
 import type { QuasarStyleEntry } from './styles/index.js'
 import { quasarComponentExtractor, quasarValueExtractor } from './extractor.js'
-import { quasarSafelist, pluginSafelistMap } from './safelist.js'
+import {
+  quasarSafelist,
+  pluginSafelistMap,
+  md3TokenSafelist
+} from './safelist.js'
 import { gridBreakpointVariants } from './core/grid/variants.js'
 import * as componentModules from './components/index.js'
 import * as coreModules from './core/index.js'
@@ -357,6 +361,9 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
     // plugin's classes join only when the app declares that plugin.
     safelist: [
       ...quasarSafelist,
+      // The MD3 roles: a component's `color="error"` applies `text-error` at
+      // runtime, so the class has to exist without any source naming it.
+      ...md3TokenSafelist,
       ...(options?.plugins ?? []).flatMap(
         (plugin) => pluginSafelistMap[plugin as string] ?? []
       ),

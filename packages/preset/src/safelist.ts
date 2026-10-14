@@ -16,6 +16,8 @@
  * page, not the reference bundle. `scripts/compose-safelist.mjs` re-derives the
  * list, and the harness's `tests/class-coverage.spec.ts` is what verifies it.
  */
+import { md3Tokens } from './core/colors/md3-tokens.js'
+
 export const quasarSafelist: string[] = [
   /** 272 base entries. */
   'absolute',
@@ -304,3 +306,45 @@ export const pluginSafelistMap: Record<string, string[]> = {
   Loading: ['q-loading'],
   Notify: ['q-notification', 'q-notifications']
 }
+
+/**
+ * The MD3 role family, in the same `text-`/`bg-` shape as the palette block
+ * above and derived from the rule list so the two cannot drift.
+ *
+ * Quasar components take a colour *name* and apply the matching class at
+ * runtime: `color="error"` puts `text-error` on the element with no mention of
+ * it anywhere in the consuming source, which is exactly the case this file
+ * exists for. The palette block covers Quasar's own names; without the roles,
+ * the class the DOM asks for had no rule, so the declaration fell back to the
+ * component's own variable — a flat button asked for `color="error"` painted
+ * `--q-primary` (measured in petboarding, 2026-10-14).
+ *
+ * The family is semantic, not cartesian: a role joins as `text-` unless it is a
+ * pure fill, and as `bg-` unless it is an ink. Emitting both for every role
+ * painted text with a surface role and put a light ink behind text, which is
+ * what `markdown-dark.test.ts` refuses by name.
+ *
+ * The utility wins the cascade once it exists: `.text-error` is emitted after
+ * `.q-btn--flat`, so the component rule does not out-specify it (ADR 0019, and
+ * the companion test pins the order).
+ */
+
+/** Roles that are only ever a fill: a surface and its ramp, the page background,
+ *  the inverse surface, and the two shades. Never a text colour. */
+const fillOnlyRoles = [
+  'surface',
+  'background',
+  'inverse-surface',
+  'shadow',
+  'scrim'
+]
+const isFillOnly = (token: string) =>
+  fillOnlyRoles.includes(token) || token.startsWith('surface-')
+
+/** Ink roles (`on-*`) are the pair of a fill, never a background. */
+const isInk = (token: string) => token.startsWith('on-')
+
+export const md3TokenSafelist: string[] = md3Tokens.flatMap((token) => [
+  ...(isFillOnly(token) ? [] : [`text-${token}`]),
+  ...(isInk(token) ? [] : [`bg-${token}`])
+])

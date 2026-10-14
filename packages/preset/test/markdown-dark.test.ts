@@ -41,8 +41,11 @@ describe('QMarkdown dark mode', () => {
   it('never paints markdown text with a surface role', async () => {
     const css = await cssFor('q-markdown')
     expect(css).toContain('body.body--dark .q-markdown')
-    // surface-container-low is a BACKGROUND role (#1c1b1e in dark)
-    expect(css).not.toContain('color:var(--q-surface-container-low)')
+    // surface-container-low is a BACKGROUND role (#1c1b1e in dark). Anchor on
+    // the declaration, not the substring: `background-color:var(…)` contains
+    // `color:var(…)`, and `bg-surface-container-low` is a legitimate utility the
+    // safelist carries (a surface role as a *fill* is the card's own recipe).
+    expect(css).not.toMatch(/(?:[;{])color:var\(--q-surface-container-low\)/)
     expect(css).toContain('color:var(--q-on-surface)')
   })
 

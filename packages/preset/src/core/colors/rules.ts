@@ -36,43 +36,8 @@ const colorTokens = [
   // ships working utilities for these via its own `--colors-*` palette.
 ] as const
 
-/** MD3 color role tokens (from @poupe/material-color-utilities) */
-const md3Tokens = [
-  'on-primary',
-  'primary-container',
-  'on-primary-container',
-  'on-secondary',
-  'secondary-container',
-  'on-secondary-container',
-  'tertiary',
-  'on-tertiary',
-  'tertiary-container',
-  'on-tertiary-container',
-  'error',
-  'on-error',
-  'error-container',
-  'on-error-container',
-  'background',
-  'on-background',
-  'surface',
-  'on-surface',
-  'surface-variant',
-  'on-surface-variant',
-  'surface-dim',
-  'surface-bright',
-  'surface-container-lowest',
-  'surface-container-low',
-  'surface-container',
-  'surface-container-high',
-  'surface-container-highest',
-  'outline',
-  'outline-variant',
-  'inverse-surface',
-  'inverse-on-surface',
-  'inverse-primary',
-  'shadow',
-  'scrim'
-] as const
+/** MD3 color role tokens — see `md3-tokens.ts` for why they live outside the barrel. */
+import { md3Tokens } from './md3-tokens.js'
 
 /**
  * Brand colours whose utility the reference also scopes to dark mode
