@@ -59,14 +59,17 @@ export const timelineRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__dot`,
+        // Reference `.q-timeline__dot { position: absolute; top: 0; bottom: 0;
+        // width: 15px }`: the dot is a transparent, full-height column and the
+        // `::before` painted below is the visible circle. Painting the dot too
+        // draws a second, mis-sized shape over that circle (a flat ellipse),
+        // and the fixed height collapsed the `::after` connector to 0 — so the
+        // timeline lost its line as well.
         position: 'absolute',
         left: '-24px',
         top: 0,
         bottom: 0,
-        width: '15px',
-        height: '12px',
-        'border-radius': '50%',
-        'background-color': 'var(--q-primary)'
+        width: '15px'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__dot .q-icon`,
