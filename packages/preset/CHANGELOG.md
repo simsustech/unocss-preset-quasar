@@ -1,5 +1,48 @@
 # unocss-preset-quasar
 
+## 0.7.1
+
+### Patch Changes
+
+- ee13e20: Return the shape Quasar's `iconMapFn` actually reads.
+
+  `QIcon` resolves the function's result through `getMappedType`, which accepts
+  `undefined` (parse the name), `{ icon }` (use that icon) or `{ cls, content }`.
+  It does not accept a bare string: both `cls` and `content` come out `undefined`
+  and the icon renders as an empty `<i class="q-icon">` with no class at all.
+
+  `iconMapFn` returned a string, so **every icon drawn through it disappeared** —
+  including the ones Quasar draws for its own components, starting with the
+  `q-btn-dropdown` arrow. It now returns `{ icon }`; the internal mapping used to
+  rewrite the icon set keeps the string form, where the string is what is wanted.
+
+- 86006d8: fix(preset): paint QMarkdown dark-mode text with an on-surface role
+
+  The ported `.body--dark .q-markdown` block mapped upstream's literal greys onto
+  `--q-surface-container-low` (a **surface** role) for BODY TEXT, so in dark mode
+  every heading, paragraph and list item resolved to `#1c1b1e` — the same colour
+  as the page — and disappeared. The mirrored mistake put
+  `--q-on-surface-variant` (`#cac4cf`, a light **text** role) behind inline code
+  and the striped table rows. Text now uses `--q-on-surface` and the surfaces use
+  `--q-surface-container-high`, so contrast survives a token flip. Guarded by
+  `test/markdown-dark.test.ts`.
+
+  Fixes BUG-085 (harness vision audit).
+
+- e30d6e9: Stop painting the timeline dot, which drew a second shape over the marker and
+  collapsed the connector line.
+
+  `.q-timeline__dot` was given `height: 12px`, `border-radius: 50%` and
+  `background-color: var(--q-primary)`. Reference Quasar's rule is only
+  `position: absolute; top: 0; bottom: 0; width: 15px` — the dot is a transparent,
+  full-height column, and the `::before` painted by the next rule is the visible
+  marker.
+
+  The extra background therefore rendered a flat ellipse on top of the marker
+  (an entry with an icon showed a blob instead of a dot), and the fixed height
+  became the containing block for `::after`, whose `top: 41px; bottom: 0`
+  resolved to zero height — so the timeline lost its connecting line as well.
+
 ## 0.7.0
 
 ### Minor Changes
