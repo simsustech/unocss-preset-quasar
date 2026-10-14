@@ -19,3 +19,10 @@
 
 - **internal transition** — a transition Quasar composes itself, with no `transition-*` prop in the
   consumer's markup (QDate's month slide and label jump). _Avoid:_ "hardcoded transition".
+
+- **class icon** — a glyph drawn by the `.q-icon` element _itself_: `presetIcons` masks the icon
+  SVG into the element's box (`mask-size: 100% 100%`, `background-color: currentColor`), so the
+  element is the glyph. Distinct from a **font glyph**, which the icon font paints through
+  `.q-icon`'s `::before` inside a box that may be larger than the glyph. _Avoid:_ "mask icon"
+  (only one of the two mechanisms this preset can emit), "iconify icon" (names the source, not the
+  rendering).

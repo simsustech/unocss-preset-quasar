@@ -95,6 +95,30 @@ export const timelineRules = [
         height: '1em'
       }
       yield {
+        // ADR 0013: the reference's single-class yield above stays byte-identical —
+        // the parity ratchet owns it, and a change to its declarations reads as a
+        // mismatch in a target-0 module. A class icon needs the extra selector to
+        // win on specificity (ADR 0019), never on sheet order.
+        //
+        // The reference sizes the glyph through the icon font: `font-size: 16px`
+        // with `line-height: 38px` centres a 1em glyph on the 30px circle. A class
+        // icon draws the glyph as the element's own mask at `mask-size: 100% 100%`
+        // (presetIcons, instantiated in src/index.ts), so the 31x38 slot stretched
+        // it into a blob that covered the circle. Size the element to the
+        // reference's own 1em and centre it in the same slot: the circle's centre is
+        // 4px + 30px/2 = 19px below the dot's top edge, so the glyph's top edge is
+        // (38px - 1em) / 2 = 11px.
+        [symbols.selector]: (selector) =>
+          `${selector}__dot .q-icon[class^="i-"], ${selector}__dot .q-icon[class*=" i-"]`,
+        // quasar: this value is Quasar's own, not a forked token
+        width: '1em',
+        height: '1em',
+        'margin-top': 'calc((38px - 1em) / 2)',
+        'margin-inline': 'auto',
+        top: '0',
+        bottom: 'auto'
+      }
+      yield {
         [symbols.selector]: (selector) =>
           `${selector}__dot:before, ${selector}__dot:after`,
         '--q-content': "''",
@@ -165,7 +189,15 @@ export const timelineRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__title`,
         'margin-top': '0',
-        'margin-bottom': '16px'
+        'margin-bottom': '16px',
+        // The reference's 20px/500 title comes from the global bare-`h6` block,
+        // which this preset declines to emit (an accepted divergence, recorded in
+        // test/fixtures/parity-baseline.json -> resets.missing). Without it the h6
+        // falls back to the UA 0.67em (9.38px), smaller than the 12px uppercase
+        // subtitle. Restating an MD3 role here is the mechanism the subtitle above
+        // already uses for `--q-body-small-size`.
+        'font-size': 'var(--q-title-small-size)',
+        'font-weight': 'var(--q-title-small-weight)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__dot-img`,
