@@ -72,26 +72,26 @@
   },
   "dependencies": {
     "@poupe/material-color-utilities": "^0.4.1",
-    "@unocss/preset-icons": "^66.10.5",
-    "@unocss/preset-mini": "^66.10.5",
-    "@unocss/preset-web-fonts": "^66.10.5",
-    "@unocss/transformer-directives": "^66.10.5",
-    "@unocss/transformer-variant-group": "^66.10.5",
+    "@unocss/preset-icons": "^66.11.0",
+    "@unocss/preset-mini": "^66.11.0",
+    "@unocss/preset-web-fonts": "^66.11.0",
+    "@unocss/transformer-directives": "^66.11.0",
+    "@unocss/transformer-variant-group": "^66.11.0",
     "animated-unocss": "^0.0.6"
   },
   "devDependencies": {
     "@quasar/quasar-ui-qcalendar": "^5.3.1",
     "@quasar/quasar-ui-qmarkdown": "^4.2.1",
     "@quasar/quasar-ui-qmediaplayer": "^3.0.2",
-    "@types/node": "^26.6.3",
-    "@unocss/core": "^66.10.5",
-    "@unocss/preset-wind4": "^66.10.5",
+    "@types/node": "^26.6.5",
+    "@unocss/core": "^66.11.0",
+    "@unocss/preset-wind4": "^66.11.0",
     "lightningcss": "1.33.0",
-    "quasar": "^2.34.0",
+    "quasar": "^2.35.1",
     "sass": "^1.105.1",
     "typescript": "^7.0.2",
-    "unocss": "^66.10.5",
-    "vitest": "^5.0.3"
+    "unocss": "^66.11.0",
+    "vitest": "^5.0.4"
   },
   "peerDependencies": {
     "@iconify-json/bi": "*",
