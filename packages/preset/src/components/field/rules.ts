@@ -187,6 +187,15 @@ export const fieldRules = [
       // `:has(+ …)` requires the control to FOLLOW the label, which it always
       // does. `[type='file']` is the preset's own addition; Quasar's list
       // omits it.
+      //
+      // The native-side duplicates below (and their `--dense` twins) exist only
+      // because the parity ratchet's pre-port reference bundle pins their
+      // selectors; they carry the same float. It is stated as ONE `transform`,
+      // as dist and the `:has` rule do: a `scale` next to a `transform` is
+      // dropped by Lightning CSS in a production build (the label then floats
+      // at full size) and, when it survives, applies *before* the transform
+      // list — which scales the -40% translate down with it, so the two builds
+      // disagree by 10% of the label height as well.
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__label:has(+ :is(${selector}__native, ${selector}__input):is(:autofill, [type='color'], [type='date'], [type='datetime-local'], [type='file'], [type='month'], [type='time'], [type='week']))`,
@@ -195,44 +204,37 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__native[type='color'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__native[type='date'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__native[type='datetime-local'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__native[type='month'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__native[type='time'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__native[type='week'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__native:-webkit-autofill + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__bottom`,
@@ -682,86 +684,72 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__native[type='color'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__input[type='color'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__native[type='date'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__input[type='date'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__native[type='datetime-local'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__input[type='datetime-local'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__native[type='month'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__input[type='month'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__native[type='time'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__input[type='time'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__native[type='week'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__input[type='week'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__native:-webkit-autofill + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--dense .q-field__input:-webkit-autofill + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector: string) =>
@@ -1479,44 +1467,37 @@ export const fieldRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__input[type='color'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__input[type='date'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__input[type='datetime-local'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__input[type='month'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__input[type='time'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__input[type='week'] + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__input:-webkit-autofill + .q-field__label`,
-        scale: '0.75',
-        transform: 'translateY(-40%)'
+        transform: 'translateY(-40%) scale(0.75)'
       }
       yield {
         [symbols.selector]: (selector) =>

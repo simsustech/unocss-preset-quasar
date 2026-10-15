@@ -53,6 +53,29 @@ const MIN_FIXTURE_RULES = 2300
 // base, so the intent is a squared popup; the preset now guarantees it with
 // (0,2,0) instead of relying on emission order. Documented in
 // `test/square-carve-out.test.ts`.
+//
+// Recorded 2026-10-15 — the individual transform properties. The fixture is a
+// wind4 build, and an individual `rotate`/`scale`/`translate` sitting next to a
+// `transform` is exactly what Lightning CSS (the CSS minifier in Vite 8
+// production builds) folds in source order, dropping the earlier declaration.
+// The preset now states one `transform` where the reference states an
+// individual property, because the individual form is wrong in *both* builds:
+// unminified the two compose (the fab's `rotate: 180deg` + `transform:
+// rotate(180deg)` summed to 360deg and the icon never turned), minified the
+// individual declaration is dropped (the checkbox state layer landed (20,20)px
+// off the box; the floating field label lost its 0.75 scale). The gate compares
+// declarations, not the cascade Lightning CSS collapses, so these read here as
+// `absent`/`mismatch` and are recorded rather than fixed:
+//
+//   .q-checkbox__indet                       | rotate    (now in `transform`)
+//   .q-expansion-item__toggle-icon--rotated  | rotate    (dist states `transform`)
+//   .q-fab__icon, .q-fab__active-icon and
+//   both `--opened` states                   | rotate    (dist states `transform`)
+//   .q-field__{native,input}[…] + .q-field__label | transform (now `translateY(-40%) scale(.75)`,
+//                                                              as dist's own `:has` rule states it)
+//
+// `target` was relaxed to the recorded gap count for the two modules that had
+// none (`expansion-item` 0 -> 1, `fab` 0 -> 4) and for `checkbox` (3 -> 4).
 
 // `PARITY_UPDATE_BASELINE=1` regenerates the ratchet from the current state;
 // that run records rather than compares, so the ratchet cases stand down.

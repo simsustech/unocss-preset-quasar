@@ -90,9 +90,9 @@
       "mismatch": []
     },
     "checkbox": {
-      "target": 3,
+      "target": 4,
       "missing": [".q-checkbox__inner--truthy .q-checkbox__bg"],
-      "absent": [],
+      "absent": [".q-checkbox__indet|rotate"],
       "mismatch": [
         ".q-checkbox__inner|border-radius",
         ".q-checkbox__inner|font-size"
@@ -177,15 +177,20 @@
       "mismatch": []
     },
     "expansion-item": {
-      "target": 0,
+      "target": 1,
       "missing": [],
-      "absent": [],
+      "absent": [".q-expansion-item__toggle-icon--rotated|rotate"],
       "mismatch": []
     },
     "fab": {
-      "target": 0,
+      "target": 4,
       "missing": [],
-      "absent": [],
+      "absent": [
+        ".q-fab__active-icon|rotate",
+        ".q-fab__icon-holder--opened .q-fab__active-icon|rotate",
+        ".q-fab__icon-holder--opened .q-fab__icon|rotate",
+        ".q-fab__icon|rotate"
+      ],
       "mismatch": []
     },
     "field": {
@@ -195,6 +200,20 @@
       "mismatch": [
         ".q-field--auto-height.q-field--dense .q-field__control|min-height",
         ".q-field--auto-height.q-field--dense .q-field__native|min-height",
+        ".q-field--dense .q-field__input:-webkit-autofill + .q-field__label|transform",
+        ".q-field--dense .q-field__input[type='color'] + .q-field__label|transform",
+        ".q-field--dense .q-field__input[type='date'] + .q-field__label|transform",
+        ".q-field--dense .q-field__input[type='datetime-local'] + .q-field__label|transform",
+        ".q-field--dense .q-field__input[type='month'] + .q-field__label|transform",
+        ".q-field--dense .q-field__input[type='time'] + .q-field__label|transform",
+        ".q-field--dense .q-field__input[type='week'] + .q-field__label|transform",
+        ".q-field--dense .q-field__native:-webkit-autofill + .q-field__label|transform",
+        ".q-field--dense .q-field__native[type='color'] + .q-field__label|transform",
+        ".q-field--dense .q-field__native[type='date'] + .q-field__label|transform",
+        ".q-field--dense .q-field__native[type='datetime-local'] + .q-field__label|transform",
+        ".q-field--dense .q-field__native[type='month'] + .q-field__label|transform",
+        ".q-field--dense .q-field__native[type='time'] + .q-field__label|transform",
+        ".q-field--dense .q-field__native[type='week'] + .q-field__label|transform",
         ".q-field--filled .q-field__control:after|transition",
         ".q-field--filled .q-field__control:before|transition",
         ".q-field--float .q-field__label|transition",
@@ -204,7 +223,21 @@
         ".q-field--standard .q-field__control:before|transition",
         ".q-field--standout .q-field__control:before|transition",
         ".q-field--standout .q-field__control|transition",
+        ".q-field__input:-webkit-autofill + .q-field__label|transform",
+        ".q-field__input[type='color'] + .q-field__label|transform",
+        ".q-field__input[type='date'] + .q-field__label|transform",
+        ".q-field__input[type='datetime-local'] + .q-field__label|transform",
+        ".q-field__input[type='month'] + .q-field__label|transform",
+        ".q-field__input[type='time'] + .q-field__label|transform",
+        ".q-field__input[type='week'] + .q-field__label|transform",
         ".q-field__label|transition",
+        ".q-field__native:-webkit-autofill + .q-field__label|transform",
+        ".q-field__native[type='color'] + .q-field__label|transform",
+        ".q-field__native[type='date'] + .q-field__label|transform",
+        ".q-field__native[type='datetime-local'] + .q-field__label|transform",
+        ".q-field__native[type='month'] + .q-field__label|transform",
+        ".q-field__native[type='time'] + .q-field__label|transform",
+        ".q-field__native[type='week'] + .q-field__label|transform",
         ".q-field__prefix|transition",
         ".q-field__shadow + .q-field__native::placeholder|transition",
         ".q-field__shadow|transition",

@@ -42,15 +42,13 @@ export const fabRules = [
       yield {
         [symbols.selector]: (selector) => `${selector}__icon`,
         opacity: '100%',
-        rotate: '0deg',
         transition: 'opacity 0.4s, transform 0.4s',
         position: 'relative !important'
       }
       yield {
         [symbols.selector]: (selector) =>
           `.q-fab__icon-holder--opened ${selector}__icon`,
-        opacity: '0%',
-        rotate: '180deg'
+        opacity: '0%'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__active-icon`,
@@ -62,7 +60,6 @@ export const fabRules = [
         [symbols.selector]: (selector) => `${selector}__active-icon`,
         'margin-right': '-20px !important',
         opacity: '0%',
-        rotate: '-180deg',
         transition: 'opacity 0.4s, transform 0.4s',
         left: '-20px !important',
         position: 'relative !important'
@@ -70,8 +67,7 @@ export const fabRules = [
       yield {
         [symbols.selector]: (selector) =>
           `.q-fab__icon-holder--opened ${selector}__active-icon`,
-        opacity: '100%',
-        rotate: '0deg'
+        opacity: '100%'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__label--external`,

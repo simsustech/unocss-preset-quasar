@@ -20,7 +20,15 @@ export const checkboxRules = [
         height: '40px',
         top: '50%',
         left: '50%',
-        translate: '-50% -50%',
+        // Centred with half-size negative margins, never with `translate`:
+        // (a) Lightning CSS — the CSS minifier in Vite 8 production builds —
+        //     folds individual transforms in declaration order and drops the
+        //     earlier one, so `translate` next to `transform` in one block
+        //     loses the `translate` (measured: the circle lands (20,20)px off);
+        // (b) engines without individual transform properties drop it outright.
+        // `transform` below stays free to animate the state change, because it
+        // scales about the box centre and cannot move it.
+        margin: '-20px 0 0 -20px',
         'border-radius': '50%',
         background: 'currentColor',
         opacity: '0.12',
@@ -59,7 +67,7 @@ export const checkboxRules = [
         content: '""',
         position: 'absolute',
         // quasar: dist re-declares the insets here, but the base yield already
-        // centers the 40dp layer (`top/left: 50%` + `translate: -50% -50%`).
+        // centers the 40dp layer (`top/left: 50%` + the `-20px` margins).
         // With them the hover circle anchored on the inner's top-left corner.
         // quasar: this value is Quasar's own, not a forked token
         'border-radius': '12.5rem',
@@ -143,7 +151,6 @@ export const checkboxRules = [
       yield {
         [symbols.selector]: (selector) =>
           `${selector}__inner--indet .q-checkbox__indet`,
-        rotate: '0',
         transform: 'scale(1)',
         transition: 'transform 0.22s cubic-bezier(0, 0, 0.2, 1) 0ms'
       }
@@ -274,16 +281,17 @@ export const checkboxRules = [
         'stroke-dasharray': '29.78334',
         stroke: 'currentColor'
       }
-      // AUD-024 fold: `__indet`'s single `transform: rotate(-280deg) scale(0)`
-      // copy is gone — the longhands below state the same rotation. `scale(0)`
-      // stays: it is the dash's hidden default, and the `--indet` state yield
-      // cancels it with `transform: scale(1)`. Without it the dash paints over
-      // the check in the truthy and the falsy state alike.
+      // quasar: one `transform` states both the rotation and the hidden
+      // default — `rotate(-280deg) scale(0)` — and the `--indet` state yield
+      // below swaps it for `scale(1)`, so the transition above animates the
+      // spin. Rotating through the individual `rotate` property instead (what
+      // the parity ratchet's pre-port reference bundle states) composes twice
+      // in an unminified build and is dropped by Lightning CSS in a minified
+      // one, because the two properties end up in the same block.
       yield {
         [symbols.selector]: (selector) => `${selector}__indet`,
         'transform-origin': '50% 50%',
-        rotate: '-280deg',
-        transform: 'scale(0)',
+        transform: 'rotate(-280deg) scale(0)',
         fill: 'currentColor'
       }
     }

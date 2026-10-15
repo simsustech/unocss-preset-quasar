@@ -145,6 +145,17 @@ export const positionRules: ComponentRule[] = [
   rule(/^q-position-engine$/, () => ({
     'margin-top': 'var(--q-pe-top, 0px)',
     'margin-left': 'var(--q-pe-left, 0px)',
-    'will-change': 'auto'
+    'will-change': 'auto',
+    // quasar: the class exists only on the JS engine — the one every engine
+    // without CSS anchor positioning gets — and that engine reveals the popup
+    // by writing `visibility: visible` inline together with its insets, then
+    // re-schedules itself with a 10ms timer while the popup still measures
+    // 0x0 (engine/fallback-engine.js `applyPosition`/`updatePosition`). Until
+    // that write this declaration is the only thing keeping the popup off
+    // screen, and an unplaced popup sits at its *static* position: inside a
+    // dialog the portal node lands in `.q-dialog.fixed-full.flex-center`, so
+    // it paints in the middle of the screen before snapping under the field.
+    // Never `!important` — the engine's inline reveal has to win.
+    visibility: 'hidden'
   }))
 ]

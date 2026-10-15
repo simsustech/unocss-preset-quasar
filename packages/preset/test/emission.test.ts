@@ -19,16 +19,22 @@
 // The safelist check keeps the third class of gap visible: classes the reference
 // emits for a family the preset owns must be safelisted, because they are added
 // at runtime and never appear in source for UnoCSS to scan.
-import { describe, it, expect } from 'vitest'
+//
+// The `declarations survive the production CSS minifier` describe below closes
+// a fourth: a declaration that reaches the sheet but not the build, because
+// Lightning CSS (the minifier in Vite 8 production builds) rewrites it away.
+import { beforeAll, describe, it, expect } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 import { createGenerator } from 'unocss'
+import { transform } from 'lightningcss'
 import { QuasarPreset, QuasarStyleEntries } from '../src/index.js'
-import { quasarSafelist } from '../src/safelist.js'
+import { quasarSafelist, pluginSafelistMap } from '../src/safelist.js'
 import { isSupplied, suppliedBy } from './supplied.js'
 import * as componentModules from '../src/components/index.js'
 import * as coreModules from '../src/core/index.js'
+import { componentClasses } from '../src/generated/quasar-classes.js'
 // @ts-expect-error -- plain-JS helper; `tsc` only covers src/, vitest resolves it
 import { classifySelector, colorNames } from '../scripts/parity-report.mjs'
 
@@ -186,5 +192,148 @@ describe('emission integrity', () => {
       iconSet: { type: { positive: 'i-mdi-supplied-icon' } }
     }) as { safelist?: string[] }
     expect(preset.safelist).toContain('i-mdi-supplied-icon')
+  })
+})
+
+describe('declarations survive the production CSS minifier', () => {
+  /**
+   * The declarations above reach the sheet; these reach the *build*.
+   *
+   * Vite 8 minifies CSS with Lightning CSS, which folds the individual
+   * transform properties (`translate`, `rotate`, `scale`) into a `transform`
+   * that follows them in source order and **drops the earlier declaration** —
+   * in one block, or across two blocks UnoCSS emitted for the same selector.
+   * A rule that states an individual transform next to a `transform` therefore
+   * renders two ways: unminified both apply (the fab's `rotate: 180deg` +
+   * `transform: rotate(180deg)` composed to 360deg, so the icon never turned),
+   * minified only the `transform` survives (the checkbox state layer landed
+   * (20,20)px off the box; the floating field label lost its 0.75 scale).
+   *
+   * The harness cannot see that difference — its `vitrify.config.ts` sets
+   * `build: { cssMinify: false }` — so nothing else in the suite can catch it.
+   */
+  const INDIVIDUAL = ['translate', 'rotate', 'scale'] as const
+
+  /** The sheet a real app build minifies: every component and plugin. */
+  const buildSheet = async (): Promise<string> => {
+    const gen = await createGenerator({
+      presets: [
+        QuasarPreset({
+          styles: QuasarStyleEntries,
+          plugins: Object.keys(pluginSafelistMap)
+        })
+      ]
+    })
+    // The same input the parity gate uses: the safelist plus a mention of every
+    // component, which is the signal a build gets from markup.
+    const markers = Object.keys(componentClasses).map((root) =>
+      root
+        .split('-')
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join('')
+    )
+    const { css } = await gen.generate(
+      [
+        ...quasarSafelist,
+        ...Object.values(pluginSafelistMap).flat(),
+        ...Object.keys(componentClasses),
+        ...markers
+      ].join(' '),
+      { preflights: true }
+    )
+    return css
+  }
+
+  const minify = (css: string): string =>
+    transform({
+      filename: 'unocss.css',
+      code: Buffer.from(css),
+      minify: true
+    }).code.toString()
+
+  const declarationsIn = (body: string): Map<string, string> => {
+    const out = new Map<string, string>()
+    for (const declaration of body.split(';')) {
+      const colon = declaration.indexOf(':')
+      if (colon === -1) continue
+      out.set(
+        declaration.slice(0, colon).trim(),
+        declaration.slice(colon + 1).trim()
+      )
+    }
+    return out
+  }
+
+  let css = ''
+
+  beforeAll(async () => {
+    css = await buildSheet()
+  })
+
+  it('never states an individual transform next to a transform', () => {
+    const rules = sheetRules(css)
+    expect(rules.length).toBeGreaterThan(500)
+    const offenders: string[] = []
+    for (const { selector, body } of rules) {
+      const declarations = declarationsIn(body)
+      const individual = INDIVIDUAL.filter((property) =>
+        declarations.has(property)
+      )
+      if (individual.length === 0 || !declarations.has('transform')) continue
+      offenders.push(
+        `${selector} { ${[...individual, 'transform'].join(', ')} }`
+      )
+    }
+    expect(
+      offenders,
+      `an individual transform shares a block with a transform, and Lightning ` +
+        `CSS drops the earlier declaration:\n${offenders.join('\n')}`
+    ).toEqual([])
+  })
+
+  it('keeps the individual transforms that are left through the minifier', () => {
+    // What survives is deliberate: a centring `translate` with no `transform`
+    // near it (the q-select dropdown icon), which is the composition the
+    // `.rotate-180` utility needs. Minify each such block on its own — the
+    // sheet-wide pass rewrites selector text (quoting, merging), so a rule
+    // cannot be looked up in its output by selector.
+    const checked: string[] = []
+    for (const { selector, body } of sheetRules(css)) {
+      const individual = INDIVIDUAL.filter((property) =>
+        declarationsIn(body).has(property)
+      )
+      if (individual.length === 0) continue
+      const minified = minify(`.probe{${body}}`)
+      for (const property of individual) {
+        expect(
+          minified,
+          `${selector} loses \`${property}\` in a production build: ${minified}`
+        ).toMatch(new RegExp(`(?:^|[;{])${property}:`))
+      }
+      checked.push(selector)
+    }
+    // A guard that checked nothing would pass; the message names the sites.
+    expect(
+      checked.length,
+      `individual transform declarations left in the sheet: ${checked.join(', ')}`
+    ).toBeGreaterThan(0)
+  })
+
+  it('keeps the positioning-engine guard, un-important, through the minifier', () => {
+    const guard = sheetRules(css).find(
+      (rule) => rule.selector === '.q-position-engine'
+    )
+    expect(guard, '.q-position-engine is emitted').toBeDefined()
+    expect(guard!.body, 'the popup guard is stated').toMatch(
+      /visibility:\s*hidden/
+    )
+    // `!important` would beat the engine's inline `visibility: visible`, which
+    // is what reveals a placed popup.
+    expect(guard!.body, 'the guard must not be important').not.toMatch(
+      /visibility:\s*hidden\s*!important/
+    )
+    expect(minify(`.probe{${guard!.body}}`)).toMatch(
+      /(?:^|[;{])visibility:hidden/
+    )
   })
 })

@@ -91,6 +91,21 @@ describe('positionRules', () => {
     expect(css!['will-change']).toBe('auto')
   })
 
+  it('q-position-engine hides the popup until the JS engine places it', () => {
+    const css = matchRule('q-position-engine')
+    expect(css).toBeDefined()
+    // Reference parity — quasar.css's own `.q-position-engine` block. The class
+    // only exists on the JS engine (the one every engine without CSS anchor
+    // positioning gets), and that engine reveals the popup by writing
+    // `visibility: visible` *inline* together with its insets, then retrying on
+    // a 10ms timer while the popup still measures 0x0. Until that write this is
+    // the only declaration keeping the popup off screen, and an unplaced popup
+    // paints at its static position — inside a dialog, the middle of the
+    // screen. The value must stay un-`important`ed for the inline reveal to
+    // win; `emission.test.ts` pins the emitted form.
+    expect(css!.visibility).toBe('hidden')
+  })
+
   it('returns undefined for unknown selectors', () => {
     expect(matchRule('not-a-real-class')).toBeUndefined()
   })

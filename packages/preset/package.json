@@ -86,6 +86,7 @@
     "@types/node": "^26.6.3",
     "@unocss/core": "^66.10.5",
     "@unocss/preset-wind4": "^66.10.5",
+    "lightningcss": "1.33.0",
     "quasar": "^2.34.0",
     "sass": "^1.105.1",
     "typescript": "^7.0.2",

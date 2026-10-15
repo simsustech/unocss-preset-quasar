@@ -147,17 +147,23 @@ export const btnRules = [
         [symbols.selector]: (selector) => `${selector}--push.q-btn--actionable`,
         transition: 'transform 0.3s cubic-bezier(0.25, 0.8, 0.5, 1)'
       }
+      // The press translation goes through `transform`, not the individual
+      // `translate` property: `transition: transform` above only animates
+      // `transform`, and Lightning CSS drops an individual transform that sits
+      // next to one in the same (or same-selector) block — the pressed state
+      // then never moves. The engine-first read keeps a consumer's own
+      // `translate-*` utility composing into the declaration.
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--push.q-btn--actionable:active`,
-        translate:
-          'var(--un-translate-x, var(--q-translate-x)) var(--un-translate-y, var(--q-translate-y))'
+        transform:
+          'translate(var(--un-translate-x, var(--q-translate-x)), var(--un-translate-y, var(--q-translate-y)))'
       }
       yield {
         [symbols.selector]: (selector) =>
           `${selector}--push.q-btn--actionable.q-btn--active`,
-        translate:
-          'var(--un-translate-x, var(--q-translate-x)) var(--un-translate-y, var(--q-translate-y))'
+        transform:
+          'translate(var(--un-translate-x, var(--q-translate-x)), var(--un-translate-y, var(--q-translate-y)))'
       }
       yield {
         [symbols.selector]: (selector) => `${selector}--rounded`,

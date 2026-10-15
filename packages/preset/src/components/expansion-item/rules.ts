@@ -15,7 +15,11 @@ export const expansionItemRules = [
       }
       yield {
         [symbols.selector]: (selector) => `${selector}__toggle-icon--rotated`,
-        rotate: '180deg',
+        // quasar: dist states the rotation once, on `transform` — which is what
+        // the base rule's `transition: transform 0.3s` animates. A second copy
+        // on the individual `rotate` property composes to 360deg (no turn at
+        // all) in an unminified build, and is dropped as the earlier
+        // declaration of the pair in a minified one.
         transform: 'rotate(180deg)'
       }
       yield {

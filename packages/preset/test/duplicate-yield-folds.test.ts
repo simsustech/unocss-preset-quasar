@@ -155,7 +155,7 @@ const SITES: [token: string, selector: string, properties: string[]][] = [
   ['q-tabs', '.q-tab', ['padding-inline', 'padding-block', 'min-height']],
   ['q-tabs', '.q-badge--multi-line', ['word-break', 'word-wrap']],
   ['q-tabs', '.q-badge--transparent', ['opacity']],
-  ['q-checkbox', '.q-checkbox__indet', ['rotate', 'transform-origin']]
+  ['q-checkbox', '.q-checkbox__indet', ['transform', 'transform-origin']]
 ]
 
 /**
@@ -197,11 +197,12 @@ async function blocksFor(token: string, selector: string): Promise<string[]> {
 const PENDING_MERGE: Record<string, number> = {}
 
 /**
- * Sites where MD3's spec deliberately overrides the reference, with the value
- * the preset states instead and the reason. Each entry is a decision, not a
- * convenience: without one the site is asserted against dist value for value.
+ * Sites where the preset deliberately states a value the reference bundle does
+ * not: MD3's spec overriding dist, or a rewrite a CSS minifier would otherwise
+ * undo. Each entry is a decision, not a convenience: without one the site is
+ * asserted against the reference value for value.
  */
-const MD3_DEVIATIONS: Record<
+const RECORDED_DEVIATIONS: Record<
   string,
   { reason: string; values: Record<string, string> }
 > = {
@@ -211,6 +212,16 @@ const MD3_DEVIATIONS: Record<
       "50% radius — the radio's shape at double the icon size — which rendered as " +
       'a circle, and the app needs a checkbox.',
     values: { 'font-size': '18px', 'border-radius': '2px' }
+  },
+  '.q-checkbox__indet': {
+    reason:
+      'dist states the dash rotation on the individual `rotate` property, next to ' +
+      'a `transform` in the same block. Lightning CSS (the CSS minifier in Vite 8 ' +
+      'production builds) folds the pair in source order and drops the earlier ' +
+      'declaration, so a minified build lost the rotation; unminified the two ' +
+      'composed instead. The preset states rotation and scale in one `transform`, ' +
+      'as quasar.css does.',
+    values: { transform: 'rotate(-280deg) scale(0)' }
   }
 }
 
@@ -231,7 +242,7 @@ describe('duplicate-yield folds keep the reference value (AUD-024)', () => {
     it(`${selector} renders the reference declaration`, async () => {
       const ours = await effectiveDecls(token, selector)
       const reference = referenceDecls(selector)
-      const deviation = MD3_DEVIATIONS[selector]
+      const deviation = RECORDED_DEVIATIONS[selector]
       for (const property of properties) {
         const md3 = deviation?.values[property]
         if (md3 !== undefined) {

@@ -102,6 +102,9 @@ importers:
       '@unocss/preset-wind4':
         specifier: ^66.10.5
         version: 66.10.5
+      lightningcss:
+        specifier: 1.33.0
+        version: 1.33.0
       quasar:
         specifier: ^2.34.0
         version: 2.34.0
