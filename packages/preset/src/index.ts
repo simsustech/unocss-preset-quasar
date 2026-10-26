@@ -35,6 +35,7 @@ import {
 } from './core/index.js'
 import { layoutMediaCss } from './components/layout/rules.js'
 import { tooltipMediaCss } from './components/tooltip/rules.js'
+import { itemMediaCss } from './components/item/rules.js'
 import { notificationMediaCss } from './components/notification/rules.js'
 import { dialogMediaCss, dialogPlatformCss } from './components/dialog/rules.js'
 import {
@@ -294,14 +295,17 @@ const quasarPreset = definePreset<QuasarPresetOptions>((options) => {
       ...corePreflights,
       ...componentPreflights,
       createTokenPreflight({ colors, defaultStyle, styles: entries }),
-      // Media-query families: responsive visibility (`lt-md`, `xs`, …) and the
-      // orientation/print platform classes. A UnoCSS rule body cannot carry an
-      // at-rule (a nested `'@media …'` key is stringified as `[object Object]`),
-      // and these classes are added by Quasar or by markup with no source hint,
-      // so the reference emits them unconditionally — here, once, as text.
+      // Media-query families: responsive visibility (`lt-md`, `xs`, …), the
+      // orientation/print platform classes, and the per-component breakpoints
+      // (an item row with a control in its side slot stacks on phones; the
+      // dialog's edge-anchored variants span the viewport). A UnoCSS rule body
+      // cannot carry an at-rule (a nested `'@media …'` key is stringified as
+      // `[object Object]`), and these classes are added by Quasar or by markup
+      // with no source hint, so the reference emits them unconditionally —
+      // here, once, as text.
       {
         getCSS: () =>
-          `${responsiveVisibilityCss}\n${platformMediaCss}\n${layoutMediaCss}\n${tooltipMediaCss}\n${notificationMediaCss}\n${dialogMediaCss}\n${dialogPlatformCss}\n${quasarKeyframesCss}\n${animationHelperMediaCss}\n${mouseHelperCss}\n${animationHelperStaticCss}\n${animationHelperTokenCss}`
+          `${responsiveVisibilityCss}\n${platformMediaCss}\n${layoutMediaCss}\n${itemMediaCss}\n${tooltipMediaCss}\n${notificationMediaCss}\n${dialogMediaCss}\n${dialogPlatformCss}\n${quasarKeyframesCss}\n${animationHelperMediaCss}\n${mouseHelperCss}\n${animationHelperStaticCss}\n${animationHelperTokenCss}`
       },
       // App-extension tokens last: they reference `--q-*` and the style tokens
       // the blocks above state, and they are present only when declared.

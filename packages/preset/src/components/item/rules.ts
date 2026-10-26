@@ -315,3 +315,41 @@ export const itemRules = [
 // declarations for both edges (`.q-item > .q-item__section--thumbnail:first-child`
 // and the focus-helper sibling at -16px), so the combinator matcher was a
 // duplicate leftover whose only effect was to fight that cascade.
+/**
+ * A phone-width row whose trailing slot holds a control must stack.
+ *
+ * The anatomy above gives the side section `flex: 0 1 auto` and its content no
+ * shrink, so a wide control takes its full intrinsic width out of the row and
+ * the main section — `min-width: 0`, `q-item__label` clipped to one line — gets
+ * whatever is left. A `q-rating` at `size="2em"` measures 218px on a 360px
+ * phone, which leaves the label 76px of the 207px its text needs: the value a
+ * row exists to name is ellipsized to `name1 las…` while five stars sit beside
+ * it. Shrinking the control cannot fix it (Quasar sets its size inline) and the
+ * label cannot wrap (it is `nowrap` by design), so below the phone breakpoint
+ * the row stacks instead: the label takes the row's full width and the control
+ * sits under it, left-aligned.
+ *
+ * Scoped to the state controls — a rating, a toggle, a checkbox, a radio — not
+ * to every control. Those are the ones whose intrinsic width can exceed the
+ * row's spare space; a trailing button is one control wide (~72px with its
+ * label) and leaves the label 240 of 272px, so it stays one line. Measured on
+ * petboarding's pet card at 360px: including `button` in the list below turned
+ * each of its three section-header rows from 65px into 145px for no gain in
+ * legibility, which is the regression this boundary prevents. A plain label row,
+ * and a row whose side is a badge or an avatar, are untouched for the same
+ * reason: they were never squeezed. A UnoCSS rule body cannot carry an at-rule
+ * (a nested `'@media …'` key is stringified as `[object Object]`), so this ships
+ * as text through the media family in `src/index.ts`, like the dialog's
+ * breakpoints.
+ */
+const ITEM_SIDE_CONTROL =
+  '.q-item:has(> .q-item__section--side :is(.q-rating,.q-toggle,.q-checkbox,.q-radio))'
+
+export const itemMediaCss =
+  '@media (max-width: 599.98px){' +
+  `${ITEM_SIDE_CONTROL}{flex-direction:column;align-items:stretch;row-gap:4px}` +
+  // `padding: 0` cancels the 16px start padding `main ~ side` sets, so the
+  // control's first icon lines up with the label above it.
+  `${ITEM_SIDE_CONTROL} > .q-item__section--side{padding:0;min-width:0;align-items:flex-start;justify-content:flex-start}` +
+  `${ITEM_SIDE_CONTROL} .q-item__label{white-space:normal;overflow:visible}` +
+  '}'
